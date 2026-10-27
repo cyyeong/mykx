@@ -4,6 +4,9 @@
 !.env.example
 *.pem
 
+# raw source skills: real children's details and school-paper questions (never commit)
+content-private/
+
 # raw / unoptimised art (commit optimised files in public/art + manifest only)
 art-src/
 generated_images/

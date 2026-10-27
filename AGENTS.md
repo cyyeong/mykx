@@ -8,7 +8,7 @@ myKx gives every Singapore student an AI sidekick, **Kix**: learning loops that 
 
 - **Deadline:** 5 Nov 2026 10:00 SGT (4 Nov 21:00 EST). Target submit 4 Nov 22:00 SGT. Feature freeze 2 Nov 22:00 SGT.
 - **Priority order:** (1) visually stunning demo path → (2) the core loop works honestly (learn → mastery → Treasure → parent summary) → (3) breadth. Features can be thin. Visuals cannot be.
-- **Scope:** `docs/prd/PRD_REVIEW.md` §4 overrides `docs/prd/myKx_PRD.md` wherever they differ.
+- **Scope:** `docs/prd/PRD_REVIEW.md` §4 overrides `docs/prd/myKx_PRD.md` wherever they differ. The Skill Engine and skills admin are specified in `docs/prd/SKILL_ENGINE.md`. MVP levels: P3, P6 and Sec 2.
 - **Schedule and what to build next:** `docs/plan/IMPLEMENTATION_PLAN.md` (day-by-day tracks, checkpoints, cut order). If it disagrees with the PRD review, the plan wins.
 
 ## Single source of truth
@@ -38,12 +38,14 @@ myKx gives every Singapore student an AI sidekick, **Kix**: learning loops that 
 7. **Demo path never depends on live generation.** Cached fallback for every generated surface.
 8. **Honest labels:** synthetic data, cached art and "limited evidence" are labelled in the UI and the video.
 9. **Voice is child data.** Push-to-talk only, never always listening; clips ≤ 30 s; audio is never stored or logged (keep the transcript only, like typed text); a parent can turn voice off per child. Meta has no TTS: Kix speaks with the browser's `speechSynthesis`, and the UI says so.
-10. Don't commit or push unless the user asks.
+10. **Skill packs are child-agnostic and original.** Never put a child's name, traits, diagnoses or progress in `content/skills/`; those live in the learner record (database) and Kix's Notebook. Raw source skills stay in git-ignored `content-private/`. Questions from school or exam papers are never committed or served to children; only derived archetypes and statistics are. The app never executes scripts that come inside a skill.
+11. **Progress is in the database; memory is in the Notebook.** Kix's Notebook (an LLM wiki per child) holds personality, asking patterns, language slips, events and memorable moments. It may quote mastery with a date but never stores or changes it. The Memory Keeper writes patch operations only, never labels or diagnoses a child, and every change is a revision the parent can edit or wipe. No RAG: agents read skill references and Notebook pages by id through tools.
+12. Don't commit or push unless the user asks.
 
 ## Division of work (one agent, two streams)
 
 - **Claude Code does all the code and the art** (art through `gen-image.mjs`).
-- Work splits into **stream A, UI** (`app/(kid)`, `app/(parent)`, `components/`, theme, motion) and **stream B, platform** (`lib/meta`, `app/api`, `supabase/`, `lib/domain`, `fixtures/`, art). Independent A and B tasks may run in parallel as a subagent in a separate git worktree. Settle `lib/types.ts` before splitting, and merge after each task.
+- Work splits into **stream A, UI** (`app/(kid)`, `app/(parent)`, `components/`, theme, motion), **stream B, platform** (`lib/meta`, `app/api`, `supabase/`, `lib/domain`, `fixtures/`, art) and **stream C, skills** (`lib/skills/`, `content/skills/`, `scripts/import-skill.ts`, `supabase/skills.sql`, `app/(admin)/`, `/api/kix/tutor`, `/api/admin/*`; spec in `docs/prd/SKILL_ENGINE.md`). B and C may run in parallel as subagents in separate git worktrees. Settle `lib/types.ts` before splitting, and merge after each task (A, then B, then C).
 - **Muse Code is optional**, for art exploration only. Its art-direction round on 27 Oct is in `docs/design/explorations/`.
 
 ## Stack

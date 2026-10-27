@@ -53,7 +53,7 @@ Fonts are a starting point. Confirm pairings with `python3 .agents/skills/ui-ux-
 
 ## 3. Age bands
 
-| | **Junior** (P4, ~9–10) | **Teen** (Sec 1–3, ~12–15) |
+| | **Junior** (P1–P4, ~7–10; MVP: P3) | **Teen** (P5–Sec 4, ~11–16; MVP: P6 and Sec 2) |
 |---|---|---|
 | Layout | one task per screen; quest map | denser "study deck" dashboard |
 | Type | body 18–20px, display 40–56px | body 16px, display 32–44px |

@@ -8,6 +8,7 @@ One index for humans and agents. If a reference isn't linked here, it isn't cano
 |---|---|
 | [prd/PRD_REVIEW.md](prd/PRD_REVIEW.md) | **Current scope and plan.** Gaps, enhancements, re-scope, day plan, video, budget. Overrides the PRD where they differ. |
 | [plan/IMPLEMENTATION_PLAN.md](plan/IMPLEMENTATION_PLAN.md) | **The build schedule.** Hour budget, demo-path scope, architecture, workstreams, day-by-day exits, video plan, cut order. |
+| [prd/SKILL_ENGINE.md](prd/SKILL_ENGINE.md) | **Skill Engine and skills admin.** Skill pack format, unified item schema, agents that load and unload skills via `tool_search`, upload → review → publish, privacy and copyright rules. |
 | [prd/myKx_PRD.md](prd/myKx_PRD.md) | Original PRD (26 Oct). Still canonical for the mastery maths (§6), reward ethics (FR10), parent summary rules (FR07) and data model (§9). |
 
 ## Design
