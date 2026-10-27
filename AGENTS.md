@@ -45,10 +45,22 @@ myKx gives every Singapore student an AI sidekick, **Kix**: learning loops that 
 - Work splits into **stream A, UI** (`app/(kid)`, `app/(parent)`, `components/`, theme, motion) and **stream B, platform** (`lib/meta`, `app/api`, `supabase/`, `lib/domain`, `fixtures/`, art). Independent A and B tasks may run in parallel as a subagent in a separate git worktree. Settle `lib/types.ts` before splitting, and merge after each task.
 - **Muse Code is optional**, for art exploration only. Its art-direction round on 27 Oct is in `docs/design/explorations/`.
 
-## Stack (planned, not yet scaffolded)
+## Stack
 
-Next.js (App Router, TypeScript) · Tailwind CSS v4 + CSS custom-property themes · `motion` · Supabase (Auth, Postgres + RLS, Storage) · OpenAI SDK pointed at `https://api.meta.ai/v1` · Vercel (pending decision).
+Next.js 16.4 (App Router, TypeScript, Cache Components on) · Tailwind CSS v4 + CSS custom-property themes · `motion` · Supabase (Auth, Postgres + RLS, Storage) · OpenAI SDK pointed at `https://api.meta.ai/v1` · Vercel.
 
 ## Commands
 
-Not scaffolded yet. Add build/test/dev commands here as soon as they exist.
+- `npm run dev` · `npm run build` · `npm run lint` · `npm run typecheck` · `npm test` (Vitest)
+- Scripts that need keys: `node --env-file=.env.local scripts/<name>.ts` (Node 24 runs TypeScript directly).
+- Dependencies are pinned to exact versions: install with `npm install --save-exact`.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+## This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
