@@ -1,0 +1,44 @@
+{
+  "pack": "toon-pop",
+  "title": "Bouncy Toy Parade",
+  "composer": "Muse Code",
+  "key": "C major",
+  "bpm": { "calm": 76, "dreamy": 64, "bright": 100, "driving": 120 },
+  "bars": 4,
+  "chords": [
+    ["C4", "E4", "G4"],
+    ["F3", "A3", "C4"],
+    ["G3", "B3", "D4"],
+    ["C4", "E4", "G4", "C5"]
+  ],
+  "bass": ["C3", "F2", "G2", "C3"],
+  "motifs": {
+    "a": [
+      { "tone": 0, "len": 0.5 },
+      { "tone": 0, "len": 0.5 },
+      { "tone": 1, "len": 0.5 },
+      { "tone": 2, "len": 0.5 },
+      { "tone": 2, "len": 0.5 },
+      { "tone": 1, "len": 0.5 },
+      { "tone": 0, "len": 0.5 },
+      { "tone": 1, "len": 0.5 }
+    ],
+    "b": [
+      { "tone": 2, "len": 0.5 },
+      { "tone": 2, "len": 0.5 },
+      { "tone": 1, "len": 0.5 },
+      { "tone": 1, "len": 0.5 },
+      { "tone": 0, "len": 1 },
+      { "tone": 1, "len": 1 }
+    ]
+  },
+  "form": ["a", "a", "b", "a"],
+  "layers": {
+    "pad": ["calm", "bright"],
+    "melody": ["calm", "dreamy", "bright", "driving"],
+    "bass": ["calm", "bright", "driving"],
+    "pulse": ["bright", "driving"],
+    "sparkle": ["bright"],
+    "drums": ["driving"]
+  }
+}
