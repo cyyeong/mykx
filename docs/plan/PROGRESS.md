@@ -40,7 +40,7 @@ Dates are SGT. "Agent" is who did the work; "Tools" are the models and services 
 | 28 Oct | Printable practice papers with answer guide (PDF) | Claude Code | — | `6f66a24` | Print a mock paper |
 | 28 Oct | On-device focus camera (counts only; parent note) | Claude Code | Face landmarks in the browser (MediaPipe) | `6f66a24` | Kix suggests a break |
 | 28 Oct | Navigation fixes: sign-in checks, not-found and error pages, admin sidebar, kid avatar menu | Claude Code | — | `6f66a24` | |
-| 28 Oct | Handover to Muse Code: all canvas boards and game-board sources in the repo (canvas v41), private material outside the repo, `.museignore`, this trail, music brief | Claude Code | Claude Design | (this commit) | How myKx was built |
+| 28 Oct | Handover to Muse Code: all canvas boards and game-board sources in the repo (canvas v41), private material outside the repo, `.museignore`, this trail, music brief | Claude Code | Claude Design | `ac1d1eb` | How myKx was built |
 
 ## How to add a row
 
