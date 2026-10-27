@@ -65,6 +65,42 @@ Fonts are a starting point. Confirm pairings with `python3 .agents/skills/ui-ux-
 
 Teens reject anything that looks childish. Junior screens must still feel premium, never clip-art.
 
+## 3a. Form factors: mobile, foldable, tablet, desktop (added 27 Oct)
+
+Every screen works on all four. Design at the native frame, then reflow; never scale a fixed canvas down.
+
+| Class | Viewport width | Devices | Canvas frame |
+|---|---|---|---|
+| **Compact** | < 600 px | phones; foldable cover screens (≈ 344–430) | Phone 390 × 844 |
+| **Medium** | 600–1023 | foldables open (≈ 690–884, near-square); tablet portrait (768–834) | Foldable 720 × 840 · Tablet portrait 820 × 1180 |
+| **Expanded** | 1024–1599 | tablet landscape (1024–1366); laptops | native boards: 1280 × 800 (kids), 1440 × 900 (admin) |
+| **Desktop** | ≥ 1600 | monitors | Desktop 1600 × 1000 |
+
+CSS: `@media (max-width: 599px)` compact, `@media (min-width: 600px) and (max-width: 1023px)` medium, expanded is the default, `@media (min-width: 1600px)` desktop. Minimum supported width 320 px (no horizontal scroll at 344).
+
+**Layout rules**
+- Content sits in a centred container, `max-width: 1440px`; on desktop, ambient art and glows fill the margins instead of stretching cards.
+- Two-pane screens (stage + task: Studio, Question, Vibe Zone, Talk to Kix, Add knowledge): side by side on expanded and desktop; stacked on medium with the stage shortened; on compact the task comes first and the stage becomes a header.
+- Card collections use `repeat(auto-fill, minmax(…, 1fr))`: 2 columns compact, 3 medium, 4–5 expanded.
+- Maps and rows that rely on horizontal space (Quest map, Squadron, pack tiles) become a vertical trail or a horizontal snap carousel on compact.
+- Dialogs, hints and the reward reveal become bottom sheets on compact; primary actions sit in a sticky bottom bar above the safe area (`env(safe-area-inset-bottom)`).
+- Admin tables become card lists on compact; anything still wide scrolls inside an `overflow-x: auto` box, never the page.
+
+**Navigation and Kix**
+- Kids: bottom tab bar on compact (Home, Learn, Treasure, Vibe, Me; 64 px + safe area); a left rail with icons and labels from medium up. Admin: sidebar on expanded; icon rail on medium; top bar with a menu button on compact.
+- Kix: hero 360–440 px on expanded and desktop, 240–280 medium, 160–200 compact; the HUD companion is 56–72 px and docks above the answer bar on compact. Speech bubbles go beside Kix when there's room, otherwise under it.
+
+**Foldables**
+- Cover screen = compact; open = medium, so the near-square shape favours side-by-side panes from 700 px when height allows.
+- Postures (progressive enhancement): spanning in book posture, `@media (horizontal-viewport-segments: 2)`, puts the stage left of the hinge and the task right, with the gap from `env(viewport-segment-left 1 0)`. Tabletop, `@media (vertical-viewport-segments: 2)`, puts Kix, art or video on the top half and controls on the bottom. Never place text or a tap target across the fold.
+
+**Type, touch and motion**
+- Fluid display type with `clamp()` (Junior display `clamp(32px, 6vw, 56px)`; body never below 18 px for Junior, 16 px for Teen). Targets stay ≥ 56 px Junior and ≥ 44 px Teen at every size.
+- Hover is never the only affordance; desktop gets keyboard focus and shortcuts. Art uses the `-800` variants below 1024 px.
+- On compact, particles are capped at 60 and parallax is off by default.
+
+**In the canvas:** every screen board is a fluid PAGE (`"expand": "fill"`); layout properties that change between classes live in prefixed `<helmet>` classes with these media queries (inline styles would override them), visual styling stays inline. The **Devices** page shows each screen at the four frames through small wrapper boards that `<dc-import>` the screen.
+
 ## 4. Surfaces and their signature moment
 
 Each surface gets **one** memorable moment. Keep everything around it calm.

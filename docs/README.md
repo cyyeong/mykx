@@ -16,6 +16,7 @@ One index for humans and agents. If a reference isn't linked here, it isn't cano
 | Doc | What it is |
 |---|---|
 | [../.agents/skills/mykx-design-system/SKILL.md](../.agents/skills/mykx-design-system/SKILL.md) | Theme engine (band × pack), style packs, Treasure Realm spec, motion, a11y and perf gates |
+| [design/responsive-screens.md](design/responsive-screens.md) | How every screen adapts to phone, foldable, tablet and desktop (rules in the design skill §3a) |
 | [design/explorations/](design/explorations/) | Muse Image art-direction samples (27 Oct) and their prompts |
 
 ## Claude Design (claude.ai)

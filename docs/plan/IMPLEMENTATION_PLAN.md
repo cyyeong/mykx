@@ -1,6 +1,6 @@
 # myKx implementation plan
 
-**Written:** Tue 27 Oct 2026, 10:30 SGT (Day 1). **Replaces** the day plan in `docs/prd/PRD_REVIEW.md` §5 and tightens its scope table (§4). **Updated** 27 Oct, 11:45: Claude Code is the only coding agent (was Claude Code + Muse Code). 27 Oct, 12:00: voice and sound added to the core, Study Song added as the first stretch (PRD_REVIEW E5, E6, E10). 27 Oct, 12:30: Skill Engine, Kix's Notebook (learner memory) and skills admin added as a third stream, C; no RAG; MVP levels are P3, P6 and Sec 2 (PRD_REVIEW E11, `docs/prd/SKILL_ENGINE.md`). Designs: [myKx Screens](https://claude.ai/artifact/8crEyKVQm9QxCHLDqPXioP) · [myKx design system](https://claude.ai/artifact/Jyr5pven8EDiRRfqAZDYuX).
+**Written:** Tue 27 Oct 2026, 10:30 SGT (Day 1). **Replaces** the day plan in `docs/prd/PRD_REVIEW.md` §5 and tightens its scope table (§4). **Updated** 27 Oct, 11:45: Claude Code is the only coding agent (was Claude Code + Muse Code). 27 Oct, 12:00: voice and sound added to the core, Study Song added as the first stretch (PRD_REVIEW E5, E6, E10). 27 Oct, 12:30: Skill Engine, Kix's Notebook (learner memory) and skills admin added as a third stream, C; no RAG; MVP levels are P3, P6 and Sec 2 (PRD_REVIEW E11, `docs/prd/SKILL_ENGINE.md`). 27 Oct, 13:15: every screen designed for mobile, foldable, tablet and desktop (design skill §3a, `docs/design/responsive-screens.md`). Designs: [myKx Screens](https://claude.ai/artifact/8crEyKVQm9QxCHLDqPXioP) · [myKx design system](https://claude.ai/artifact/Jyr5pven8EDiRRfqAZDYuX).
 
 ## 0. The budget
 
@@ -18,6 +18,8 @@
 **Voice and sound (added 27 Oct)** are about 7 hours of agent work. They fit without moving the freeze: Day 1's head start (the Studio picker was done by midday) takes the sound engine, the teen deck becomes a static port (saves 1.5h), and the rest goes into spare stream capacity on Days 2, 5 and 6. Your hours don't change; the mic check joins the Day 2 tablet check.
 
 **Skill Engine, Kix's Notebook and skills admin (added 27 Oct)** are about 25 hours of agent work. They run as a third stream, **C**, from Day 2 to Day 6 (4–5h a day) as a background subagent in its own worktree, and they replace two existing tasks: hand-written fixtures (Day 2, 2h) and the plain hint route (Day 4, 2h). Your added time is about 2 hours across the week (checking the scrub, approving the demo items instead of reviewing fixtures, testing the admin flow). The freeze, hardening and video hours don't move. The price is risk: three streams mean more merging, so the checkpoints now check C too, and C has its own cut line (§6).
+
+**All form factors (added 27 Oct).** The canvas boards are now fluid pages with phone, foldable, tablet-portrait and desktop previews, so the port script carries the responsive rules into the app. The added build work is the app shell (bottom tab bar on phones, side rail from foldable width up, bottom sheets) at about 1h on Day 3, plus a device pass during hardening on Day 7 (2h, inside the existing hours). Each daily 30-minute test now includes one phone-width check.
 
 ## 1. What we ship: the video is the spec
 
@@ -39,7 +41,7 @@ If a feature isn't in the 3-minute video, it isn't in this build. Screens come s
 | Skills admin (laptop): catalogue, skill detail, add knowledge, agents × skills | upload → extract → review → publish a version that Kix uses next session; load/unload trace | Muse Spark vision + JSON schema (Content Curator) | JSON and Markdown parse without a model; see C's cut line |
 | Sky Squadron | flip cards; unlocks from the ledger | — | — |
 
-**Not in this build, and not in the video:** snap-homework ingestion (dropped from PRD_REVIEW §4: it isn't on the demo path, and the Studio already shows multimodal Meta use), PDF papers, a general RAG wiki, a full skills CMS (in-app SKILL.md editor, rollback, diffs), scheduler or worker, phone layouts for the kids' screens (tablet and laptop only), the planner template. Also out: realtime voice streaming (needs a WebSocket the browser can't open without exposing the key) and any Meta voice or music output (none exists; see the `meta-model-api` skill). **Stretch only, in this order:** Study Song (PRD_REVIEW E10), then Baseten Muse Spark Open tagging.
+**Not in this build, and not in the video:** snap-homework ingestion (dropped from PRD_REVIEW §4: it isn't on the demo path, and the Studio already shows multimodal Meta use), PDF papers, a general RAG wiki, a full skills CMS (in-app SKILL.md editor, rollback, diffs), scheduler or worker, the planner template. (Phone and foldable layouts are now in: every screen works from 320 px to desktop.) Also out: realtime voice streaming (needs a WebSocket the browser can't open without exposing the key) and any Meta voice or music output (none exists; see the `meta-model-api` skill). **Stretch only, in this order:** Study Song (PRD_REVIEW E10), then Baseten Muse Spark Open tagging.
 
 ## 2. Architecture: the smallest thing that works
 
@@ -114,7 +116,7 @@ Every day ends with something you can show on the production URL.
 - **Exit:** a signed-in parent switches to Ari and browses five themed screens in production; the transform route returns a cutout or the fallback within 25 s; seven scrubbed packs are in `content/skills/`.
 
 ### Day 3 · Thu 29 Oct · Checkpoint A
-- **A (7h):** Studio transform and reveal wired to the real route (progress steps, re-skin, keep or try again, pack and Kix saved) 4h; question player wired to the attempts route 3h.
+- **A (8h):** Studio transform and reveal wired to the real route (progress steps, re-skin, keep or try again, pack and Kix saved) 4h; question player wired to the attempts route 3h; responsive app shell (bottom tab bar under 600 px, side rail from 600 px, bottom sheets, safe areas) 1h.
 - **B (7h):** domain code with Vitest tests: marking, mastery, reward rules and cap, companion stage, squadron unlocks 5h; attempts and ledger routes 2h.
 - **C (5h):** skill and Notebook tables, row-level security (admins write skills; households read published versions; only the child's own household reads its Notebook) and the seed from the packs, with synthetic Notebook pages for the three demo learners 2h; `lib/skills`: registry, agent policy check, skill namespaces and tools (`read_reference`, `find_items`, `check_answer`), reference sections, Vitest tests 3h.
 - **Exit:** the Studio flow is live end to end; answering writes an attempt and a ledger entry; the question player's items come from the published P3 Science skill.
@@ -145,7 +147,7 @@ Every day ends with something you can show on the production URL.
 
 ### Day 7 · Mon 2 Nov · feature freeze at 22:00
 - **Morning:** bug bash from the rough capture; fixes only.
-- **Afternoon:** keyboard path, contrast and reduced-motion checks; security checks (cross-household access refused, admin routes refuse non-admins, keys only on the server, no contributor model at runtime, no real names or school-paper questions in `content/` or the bundle); rehearse the demo path three times.
+- **Afternoon:** device pass on the demo path at 344, 390, 720 (foldable, with Chrome's posture emulation), 820, 1280 and 1600 px wide, plus a real phone and tablet (2h); keyboard path, contrast and reduced-motion checks; security checks (cross-household access refused, admin routes refuse non-admins, keys only on the server, no contributor model at runtime, no real names or school-paper questions in `content/` or the bundle); rehearse the demo path three times.
 - **Exit:** freeze; three clean runs in production; tag `v1.0-freeze`.
 
 ### Day 8 · Tue 3 Nov · capture day
@@ -168,7 +170,7 @@ Script target: about 360 words of voice-over (130 a minute), finished by Day 5.
 |---|---|---|---|
 | 0:00–0:12 | "My kids have always been my sidekicks…" | Treasure flythrough | the hook |
 | 0:12–0:40 | A P3 child picks Terrarium and bugs and critters; Kix transforms; the app re-skins; Pip is adopted | Studio | Muse Image + SAM 3.1, live |
-| 0:40–0:50 | Home: today's quest, Pip, the squadron | Home | personalisation |
+| 0:40–0:50 | Home: today's quest, Pip, the squadron; a 2-second cut to the same Home on a phone and an open foldable | Home | personalisation; every device |
 | 0:50–1:25 | Quest map → a "P3 Science skill loaded" chip → Kix reads the question aloud → the child asks "why?" by voice → streamed hint → correct → Kix cheers → card flies; "57, limited evidence" | Quest map, Question | Kix Tutor agent; Voice Transcribe; honest mastery |
 | 1:25–1:42 | Treasure, a Sky Squadron card flip, Pip grows | Treasure, Critter Lab | earned, never random |
 | 1:42–2:05 | The child *says* "I keep forgetting the frog life cycle" → flashcards → harder version (or, if built, a few seconds of the Study Song) → save → share with Mum | Vibe Zone | voice in; structured output; no AI code runs |
@@ -204,6 +206,7 @@ Script target: about 360 words of voice-over (130 a minute), finished by Day 5.
 | Mic or audio quirks on the tablet (permissions, Safari) | Day 2 tablet check | The typed box is always visible; Tone.js starts on the first tap (browsers block audio before one); record the voice beats on laptop Chrome if the tablet misbehaves. |
 | Read-aloud voice sounds robotic | Day 2 tablet check | Pick the best installed voice per device from a preference list; captions always on; keep read-aloud lines short. |
 | Voice transcription slow or wrong | smoke log latency over 3 s, or misheard demo lines | The transcript is always shown for the child to confirm or retype; rehearse the demo lines. |
+| Responsive layouts break on small or folding screens | the daily phone-width check | Port the boards' responsive classes as they are; fix at 344 px first; the foldable posture rules and desktop margin art are the first to cut. |
 | A third stream adds merge risk | C misses a day's exit | C owns separate folders and merges after A and B; C's cut line applies first. |
 | Real names, notes or school-paper questions leak into the public repo | Day 2 scrub check | The importer writes only scrubbed, original content; a test scans `content/` for the real names and source-paper codes; raw skills stay in `content-private/`. |
 | The Memory Keeper writes something unkind, wrong or sensitive | Day 6 test transcripts | Patch operations only (no free rewrite); a check rejects labels and diagnoses; every change is a revision the parent can see, edit or undo. |
@@ -219,14 +222,14 @@ Script target: about 360 words of voice-over (130 a minute), finished by Day 5.
 4. Add knowledge accepts JSON and Markdown only (no PDF extraction).
 5. Vibe Zone keeps make and save only.
 6. Pip's growth is shown as a fixed stage.
-7. Treasure particles and parallax; the ambience bed.
+7. Treasure particles and parallax; the ambience bed; foldable posture rules (book and tabletop) and desktop margin art.
 8. Voice in the question player (keep it in Vibe Zone, where the video needs it).
 
 **Never cut:** the Studio transform (cached fallback is fine), the learning loop with honest mastery, the tutor loading skills (fallback mode is fine), upload → review → publish, progress computed deterministically in the database (the Notebook never replaces it), the parent summary, household isolation, or video time.
 
 ## 7. Definition of done
 
-- [ ] The production URL works in a fresh browser on a tablet and a laptop; "Reset demo" works.
+- [ ] The production URL works in a fresh browser on a phone, a foldable (or its emulation), a tablet and a desktop: no horizontal scroll from 320 px up, tap targets meet the band minimum; "Reset demo" works.
 - [ ] Public GitHub repo with a README: problem, live link, video, Meta models and where they're used, the Muse Code art-direction round, what was built 27 Oct–4 Nov, synthetic data, the asset manifest, licences.
 - [ ] No secrets in the repo or client bundle; keys live only in Vercel environment variables.
 - [ ] The cross-household access test passes; admin routes refuse non-admins.
