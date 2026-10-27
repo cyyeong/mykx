@@ -827,7 +827,7 @@
       "note": "Topic weights and archetypes are statistics and patterns derived from school papers kept as private reference; no question text, school names or paper codes are included."
     }
   ],
-  "licence": "Content CC-BY 4.0 (myKx).",
+  "licence": "Content CC BY-NC 4.0 (myKx).",
   "excluded": [
     "references/question_bank.json",
     "assets/<learner>_profile.json",

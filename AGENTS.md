@@ -16,6 +16,7 @@ myKx gives every Singapore student an AI sidekick, **Kix**: learning loops that 
 - `docs/README.md`: index of every reference doc. Start there.
 - `.agents/skills/`: all project skills (Muse loads this natively; `.claude/skills` is a symlink to it). Add new skills here only.
 - `docs/design/explorations/`: approved art-direction samples.
+- `LICENSE` (code, MIT) and `LICENSE-ASSETS.md` (art, Kix and content: CC BY-NC 4.0; third-party files). Never add a third-party file without its licence.
 
 ## Skills, and when to load them
 

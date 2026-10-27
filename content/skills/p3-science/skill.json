@@ -547,7 +547,7 @@
       "note": "Demo items (items/demo.json) drafted fresh by Claude Code following this pack's question-generation rules; pending founder review."
     }
   ],
-  "licence": "Content CC-BY 4.0 (myKx); items original.",
+  "licence": "Content CC BY-NC 4.0 (myKx); items original.",
   "excluded": [
     "references/past-papers-verified.md",
     "PORTABLE.md"
