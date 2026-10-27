@@ -68,19 +68,28 @@ function masteredFamilies(attempts: readonly AttemptEvent[]): Set<string> {
 }
 
 /**
- * One stop per quest item: mastered with fresh evidence, current where the
- * child is now, next after that, locked beyond. Deterministic and honest:
- * a stop is mastered only on an independent success, never on a retry.
+ * One stop per quest item, agreeing with today's session: the highlighted
+ * stop, Kix's line and the first question are all the session's first open
+ * pick, and a session never starts on a locked stop. Mastered needs an
+ * independent success, never a retry; `next` is the session's second open
+ * pick; anything outside today's session stays locked until its turn.
  */
-export function questStops(itemIds: readonly string[], attempts: readonly AttemptEvent[]): QuestStop[] {
+export function questStops(
+  itemIds: readonly string[],
+  attempts: readonly AttemptEvent[],
+  sessionIds: readonly string[] = [],
+): QuestStop[] {
   const mastered = masteredFamilies(attempts);
   const labels = new Map<string, string>(FROG_QUEST.stops.map((s) => [s.itemId, s.label]));
-  const currentIdx = itemIds.findIndex((id) => !mastered.has(familyOf({ id })));
-  return itemIds.map((itemId, i) => {
+  const open = sessionIds.filter((id) => !mastered.has(familyOf({ id })));
+  const fallback = itemIds.find((id) => !mastered.has(familyOf({ id })));
+  const current = open[0] ?? fallback ?? null;
+  const next = open[1] ?? null;
+  return itemIds.map((itemId) => {
     let state: QuestStopState;
     if (mastered.has(familyOf({ id: itemId }))) state = "mastered";
-    else if (i === currentIdx) state = "current";
-    else if (i === currentIdx + 1) state = "next";
+    else if (itemId === current) state = "current";
+    else if (itemId === next) state = "next";
     else state = "locked";
     return { itemId, label: labels.get(itemId) ?? itemId, state };
   });

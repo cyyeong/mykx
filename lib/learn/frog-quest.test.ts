@@ -23,20 +23,35 @@ describe("frog quest items", () => {
 describe("questStops", () => {
   const ids = FROG_QUEST.stops.map((s) => s.itemId);
 
-  it("starts current, next, locked with no attempts", () => {
-    expect(questStops(ids, []).map((s) => s.state)).toEqual(["current", "next", "locked", "locked", "locked"]);
+  it("highlights the session's first open pick, never a locked stop", () => {
+    const session = [ids[3], ids[0], ids[4]];
+    expect(questStops(ids, [], session).map((s) => s.state)).toEqual(["next", "locked", "locked", "current", "locked"]);
+    const current = questStops(ids, [], session).find((s) => s.state === "current");
+    expect(current?.itemId).toBe(session[0]);
+  });
+
+  it("advances current through the session as evidence lands", () => {
+    const session = [ids[3], ids[0], ids[4]];
+    const done = [attempt({ itemId: ids[3], family: ids[3], at: NOW })];
+    expect(questStops(ids, done, session).map((s) => s.state)).toEqual(["current", "locked", "locked", "mastered", "next"]);
+  });
+
+  it("falls back to stop order without a session", () => {
+    expect(questStops(ids, []).map((s) => s.state)).toEqual(["current", "locked", "locked", "locked", "locked"]);
   });
 
   it("masters only on independent success, never on a wrong try", () => {
+    const session = [ids[0], ids[1], ids[2]];
     const wrong = [attempt({ itemId: ids[0], family: ids[0], marks: 0, at: NOW })];
-    expect(questStops(ids, wrong).map((s) => s.state)).toEqual(["current", "next", "locked", "locked", "locked"]);
+    expect(questStops(ids, wrong, session).map((s) => s.state)).toEqual(["current", "next", "locked", "locked", "locked"]);
     const right = [attempt({ itemId: ids[0], family: ids[0], at: NOW })];
-    expect(questStops(ids, right).map((s) => s.state)).toEqual(["mastered", "current", "next", "locked", "locked"]);
+    expect(questStops(ids, right, session).map((s) => s.state)).toEqual(["mastered", "current", "next", "locked", "locked"]);
   });
 
   it("a hinted success leaves the stop current: only independent success masters", () => {
+    const session = [ids[0], ids[1], ids[2]];
     const assisted = [attempt({ itemId: ids[0], family: ids[0], hintsBeforeSubmit: 1, at: NOW })];
-    expect(questStops(ids, assisted).map((s) => s.state)).toEqual(["current", "next", "locked", "locked", "locked"]);
+    expect(questStops(ids, assisted, session).map((s) => s.state)).toEqual(["current", "next", "locked", "locked", "locked"]);
   });
 });
 

@@ -21,6 +21,7 @@ import {
 } from "./demo-family.ts";
 import type { AttemptEvent } from "../domain/attempts.ts";
 import type { LedgerEntry } from "../domain/rewards.ts";
+import { sgDate } from "../domain/time.ts";
 import type { CookieJar } from "./http.ts";
 import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt } from "./store.ts";
 import { NicknameTakenError } from "./store.ts";
@@ -28,7 +29,7 @@ import { sessionSecret, signToken, verifyToken } from "./tokens.ts";
 
 export const DEMO_PARENT_COOKIE = "mykx_demo_parent";
 /** Bump when the store's shape changes: a running dev server then rebuilds it on the next request (see demoStore). */
-const DEMO_STORE_SHAPE = 3; // 3: learning record (attempts, ledger)
+const DEMO_STORE_SHAPE = 4; // 4: Ari's synthetic earlier history (attempts, ledger)
 const DEMO_TTL_SEC = 7 * 24 * 60 * 60;
 const LABEL = "demo-parent";
 
@@ -293,7 +294,8 @@ export class DemoStore implements AuthStore {
         .filter((r) => r.householdId === householdId && r.kidId === kidId)
         .sort((a, b) => Date.parse(a.at) - Date.parse(b.at))
         .map((r) => ({
-          key: r.key,
+          // Storage keys are namespaced per kid; readers see the award key.
+          key: stripKidPrefix(r.key, kidId),
           kind: r.kind,
           rule: r.rule,
           amount: r.amount,
@@ -307,8 +309,9 @@ export class DemoStore implements AuthStore {
     saveLedgerEntries: async (householdId: string, kidId: string, entries: readonly LedgerEntry[]): Promise<void> => {
       if (!this.ownsKid(householdId, kidId)) return;
       for (const e of entries) {
-        if (this.ledgerRows.has(e.key)) continue; // replay: never pays twice
-        this.ledgerRows.set(e.key, { ...e, householdId, kidId });
+        const storageKey = `${kidId}:${e.key}`;
+        if (this.ledgerRows.has(storageKey)) continue; // replay: never pays twice
+        this.ledgerRows.set(storageKey, { ...e, key: storageKey, householdId, kidId });
       }
     },
   };
@@ -385,6 +388,11 @@ function publicNote({ id, kidId, from, to, evidence, confidence, synthetic }: St
   return { id, kidId, from, to, evidence, confidence, synthetic };
 }
 
+/** Strips one `${kidId}:` storage prefix back to the award key. */
+function stripKidPrefix(storageKey: string, kidId: string): string {
+  return storageKey.startsWith(`${kidId}:`) ? storageKey.slice(kidId.length + 1) : storageKey;
+}
+
 /** Drops the storage envelope (household, key, raw answer, pack version). */
 function toAttemptEvent(r: StoredLearnAttempt): AttemptEvent {
   return {
@@ -416,7 +424,11 @@ const g = globalThis as typeof globalThis & { __mykxDemoStore?: DemoStore };
  */
 export function demoStore(): DemoStore {
   assertNotProduction();
-  if (g.__mykxDemoStore?.shape !== DEMO_STORE_SHAPE) g.__mykxDemoStore = new DemoStore();
+  if (g.__mykxDemoStore?.shape !== DEMO_STORE_SHAPE) {
+    const fresh = new DemoStore();
+    seedDemoHistory(fresh);
+    g.__mykxDemoStore = fresh;
+  }
   return g.__mykxDemoStore;
 }
 
@@ -424,4 +436,86 @@ export function demoStore(): DemoStore {
 export function resetDemoStore(): DemoStore {
   g.__mykxDemoStore = new DemoStore();
   return g.__mykxDemoStore;
+}
+
+/**
+ * Ari's synthetic earlier history (yesterday afternoon, SG): two answered frog
+ * stops, so Treasure opens earned, not empty. Same rows as supabase/seed.sql.
+ * Dev only — tests use resetDemoStore (unseeded) — called by demoStore().
+ */
+export function seedDemoHistory(store: DemoStore): void {
+  const t0 = yesterdayAfternoonSg();
+  const at = (min: number) => new Date(t0 - 8 * 60_000 + min * 60_000).toISOString();
+  const day = sgDate(at(0));
+  const base = {
+    skill: "p3-science",
+    topic: "cycles.animal",
+    confirmed: true,
+    skillVersion: "1.0.0",
+  } as const;
+  const rows: StoredLearnAttempt[] = [
+    {
+      ...base,
+      id: "00000000-0000-4000-8000-00000000a101",
+      householdId: DEMO_HOUSEHOLD_ID,
+      kidId: ARI_ID,
+      itemId: "p3sci-demo-01",
+      family: "p3sci-demo-01",
+      subskill: "three_stage",
+      at: at(0),
+      marks: 2,
+      maxMarks: 2,
+      firstTry: true,
+      hintsBeforeSubmit: 0,
+      revealed: false,
+      explanation: true,
+      idempotencyKey: "seed:ari:p3sci-demo-01",
+      answer: 2,
+      explanationText: "The egg comes first, then the tadpole.",
+    },
+    {
+      ...base,
+      id: "00000000-0000-4000-8000-00000000a102",
+      householdId: DEMO_HOUSEHOLD_ID,
+      kidId: ARI_ID,
+      itemId: "p3sci-demo-02",
+      family: "p3sci-demo-02",
+      subskill: "stage_features",
+      at: at(2),
+      marks: 0,
+      maxMarks: 2,
+      firstTry: true,
+      hintsBeforeSubmit: 0,
+      revealed: false,
+      idempotencyKey: "seed:ari:p3sci-demo-02-try1",
+      answer: 1,
+      explanationText: null,
+    },
+    {
+      ...base,
+      id: "00000000-0000-4000-8000-00000000a103",
+      householdId: DEMO_HOUSEHOLD_ID,
+      kidId: ARI_ID,
+      itemId: "p3sci-demo-02",
+      family: "p3sci-demo-02",
+      subskill: "stage_features",
+      at: at(4),
+      marks: 2,
+      maxMarks: 2,
+      firstTry: false,
+      hintsBeforeSubmit: 0,
+      revealed: false,
+      explanation: true,
+      explanationRevised: true,
+      idempotencyKey: "seed:ari:p3sci-demo-02-try2",
+      answer: 2,
+      explanationText: "Tadpoles swim with their tails; legs come later.",
+    },
+  ];
+  for (const r of rows) store.attemptRows.set(r.idempotencyKey, r);
+  const entries: StoredLedgerEntry[] = [
+    { key: `${ARI_ID}:first_attempt:p3sci-demo-01`, kind: "stars", rule: "first_attempt", amount: 2, ref: "p3sci-demo-01", at: at(0), day, householdId: DEMO_HOUSEHOLD_ID, kidId: ARI_ID },
+    { key: `${ARI_ID}:retry_revised:p3sci-demo-02`, kind: "stars", rule: "retry_revised", amount: 3, ref: "p3sci-demo-02", at: at(4), day, householdId: DEMO_HOUSEHOLD_ID, kidId: ARI_ID },
+  ];
+  for (const e of entries) store.ledgerRows.set(e.key, e);
 }

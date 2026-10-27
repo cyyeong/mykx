@@ -123,10 +123,11 @@ function toAttemptEvent(r: Row): AttemptEvent {
   };
 }
 
-function toLedgerEntry(r: Row): LedgerEntry {
+function toLedgerEntry(r: Row, kidId: string): LedgerEntry {
   const at = new Date(r.created_at as string).toISOString();
+  const storageKey = r.idempotency_key as string;
   return {
-    key: r.idempotency_key as string,
+    key: storageKey.startsWith(`${kidId}:`) ? storageKey.slice(kidId.length + 1) : storageKey,
     kind: r.kind as LedgerEntry["kind"],
     rule: r.rule as LedgerEntry["rule"],
     amount: Number(r.amount),
@@ -342,7 +343,7 @@ export class SupabaseStore implements AuthStore {
         .order("created_at")
         .limit(5000);
       check(error);
-      return (data ?? []).map(toLedgerEntry);
+      return (data ?? []).map((r) => toLedgerEntry(r, kidId));
     },
     saveLedgerEntries: async (householdId: string, kidId: string, entries: readonly LedgerEntry[]): Promise<void> => {
       if (!entries.length || !(await this.ownsKid(householdId, kidId))) return;
@@ -356,7 +357,8 @@ export class SupabaseStore implements AuthStore {
             ref: e.ref ?? null,
             amount: e.amount,
             rule: e.rule,
-            idempotency_key: e.key,
+            // idempotency_key is unique table-wide; award keys repeat per kid.
+            idempotency_key: `${kidId}:${e.key}`,
             created_at: e.at,
           })),
           { onConflict: "idempotency_key", ignoreDuplicates: true },

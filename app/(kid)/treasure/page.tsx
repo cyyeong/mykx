@@ -4,7 +4,7 @@ import { KidGate } from "@/components/auth/KidGate";
 import { TreasureScreen, cardsFromLedger } from "@/components/screens/treasure/TreasureScreen";
 import { totalPoints, pointsOnDay } from "@/lib/domain/rewards";
 import { sgDate } from "@/lib/domain/time";
-import { FROG_QUEST, questEvidence, questStops } from "@/lib/learn/frog-quest";
+import { FROG_QUEST, questEvidence, questStops, sessionPicks } from "@/lib/learn/frog-quest";
 import { learnContext, questData } from "@/lib/learn/server";
 
 export const metadata: Metadata = { title: "Treasure Realm · myKx" };
@@ -13,9 +13,14 @@ export const metadata: Metadata = { title: "Treasure Realm · myKx" };
 async function Treasure() {
   const ctx = await learnContext();
   if (!ctx) redirect("/doors");
-  const { attempts, ledger } = await questData(ctx);
+  const { items, attempts, ledger } = await questData(ctx);
   const now = new Date().toISOString();
-  const stops = questStops(FROG_QUEST.stops.map((s) => s.itemId), attempts);
+  const picks = sessionPicks(items, attempts, now, `${ctx.kidId}:${sgDate(now)}`);
+  const stops = questStops(
+    FROG_QUEST.stops.map((s) => s.itemId),
+    attempts,
+    picks.map((p) => p.items[0]?.id).filter((id): id is string => Boolean(id)),
+  );
   const labels = Object.fromEntries(FROG_QUEST.stops.map((s) => [s.itemId, s.label]));
   return (
     <TreasureScreen

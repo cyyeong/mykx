@@ -1,8 +1,8 @@
 // The learning record in the demo store (synthetic data only).
 import { beforeEach, describe, expect, it } from "vitest";
 import { attempt } from "../domain/test-helpers.ts";
-import { ARI_ID, DEMO_HOUSEHOLD_ID, KAI_ID, OTHER_HOUSEHOLD_ID } from "./demo-family.ts";
-import { resetDemoStore, type DemoStore } from "./store-demo.ts";
+import { ARI_ID, DEMO_HOUSEHOLD_ID, KAI_ID, OTHER_HOUSEHOLD_ID, ZARA_ID } from "./demo-family.ts";
+import { resetDemoStore, seedDemoHistory, DemoStore } from "./store-demo.ts";
 import type { StoredAttempt } from "./store.ts";
 
 const AT = "2026-10-28T19:00:00.000Z";
@@ -70,6 +70,25 @@ describe("ledger", () => {
   it("is scoped to the household", async () => {
     await store.learn.saveLedgerEntries(DEMO_HOUSEHOLD_ID, ARI_ID, [entry]);
     expect(await store.learn.ledger(OTHER_HOUSEHOLD_ID, KAI_ID)).toEqual([]);
+  });
+
+  it("pays the same award to two kids (storage keys are namespaced)", async () => {
+    await store.learn.saveLedgerEntries(DEMO_HOUSEHOLD_ID, ARI_ID, [entry]);
+    await store.learn.saveLedgerEntries(DEMO_HOUSEHOLD_ID, ZARA_ID, [entry]);
+    expect((await store.learn.ledger(DEMO_HOUSEHOLD_ID, ARI_ID)).map((e) => e.key)).toEqual(["first_attempt:x"]);
+    expect((await store.learn.ledger(DEMO_HOUSEHOLD_ID, ZARA_ID)).map((e) => e.key)).toEqual(["first_attempt:x"]);
+  });
+});
+
+describe("seedDemoHistory", () => {
+  it("gives Ari two answered stops, two cards and a tadpole Pip", async () => {
+    const seeded = new DemoStore();
+    seedDemoHistory(seeded);
+    expect(await seeded.learn.attempts(DEMO_HOUSEHOLD_ID, ARI_ID)).toHaveLength(3);
+    expect((await seeded.learn.ledger(DEMO_HOUSEHOLD_ID, ARI_ID)).map((e) => [e.key, e.amount])).toEqual([
+      ["first_attempt:p3sci-demo-01", 2],
+      ["retry_revised:p3sci-demo-02", 3],
+    ]);
   });
 });
 

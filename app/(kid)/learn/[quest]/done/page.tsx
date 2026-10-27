@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
 import { QuestDoneScreen, type DoneLine } from "@/components/screens/quest-done/QuestDoneScreen";
+import { cardsFromLedger } from "@/components/screens/treasure/TreasureScreen";
 import { stageFromMilestones, milestonesFrom, STAGES } from "@/lib/domain/companion";
 import { subskillKey } from "@/lib/domain/attempts";
 import { describeMastery, recompute } from "@/lib/domain/mastery";
 import { DAILY_CAP, pointsOnDay } from "@/lib/domain/rewards";
 import { sgDate } from "@/lib/domain/time";
-import { FROG_QUEST, questEvidence, questSummary } from "@/lib/learn/frog-quest";
+import { FROG_QUEST, questEvidence, questStops, questSummary, sessionPicks } from "@/lib/learn/frog-quest";
 import { learnContext, questData } from "@/lib/learn/server";
 
 export const metadata: Metadata = { title: "Quest complete · myKx" };
@@ -29,6 +30,15 @@ async function Done({ params }: { params: Promise<{ quest: string }> }) {
     items.map((i) => i.id),
     attempts,
   );
+  const sessionIds = sessionPicks(items, attempts, now, `${ctx.kidId}:${today}`)
+    .map((p) => p.items[0]?.id)
+    .filter((id): id is string => Boolean(id));
+  const stops = questStops(FROG_QUEST.stops.map((s) => s.itemId), attempts, sessionIds);
+  const complete = stops.every((s) => s.state === "mastered");
+  const paidToday = ledger.filter((e) => e.amount > 0 && e.day === today);
+  const lastPaid = paidToday[paidToday.length - 1] ?? null;
+  const labels = Object.fromEntries(FROG_QUEST.stops.map((s) => [s.itemId, s.label]));
+  const card = lastPaid ? (cardsFromLedger([lastPaid], labels)[0] ?? null) : null;
   // Mastery before today vs now, per subskill touched in this quest.
   const subs = [...new Set(items.map((i) => subskillKey(i)))];
   const labelOf = (sub: string) => FROG_QUEST.stops.find((s) => items.find((i) => i.id === s.itemId && subskillKey(i) === sub))?.label ?? sub;
@@ -47,6 +57,8 @@ async function Done({ params }: { params: Promise<{ quest: string }> }) {
     <QuestDoneScreen
       questTitle={FROG_QUEST.title}
       questSlug={FROG_QUEST.slug}
+      complete={complete}
+      card={card}
       attempted={summary.attempted}
       total={summary.total}
       correct={summary.correct}

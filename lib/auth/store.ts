@@ -141,6 +141,8 @@ export interface AuthStore {
 
   // Learning record (the `attempts` and `ledger` tables), household-scoped like everything above.
   // Written by tested server code only, never by a model (supabase/schema.sql).
+  // Ledger keys are per award (`rule:ref`); the stores namespace them per kid
+  // (`${kidId}:${key}`) because `ledger.idempotency_key` is unique table-wide.
   learn: {
     /** The kid's attempts, oldest first. */
     attempts(householdId: string, kidId: string): Promise<AttemptEvent[]>;
@@ -148,7 +150,7 @@ export interface AuthStore {
     attemptByKey(householdId: string, kidId: string, key: string): Promise<AttemptEvent | null>;
     /** Stores one attempt; a resubmitted idempotency key (J17 offline retry) is ignored. */
     saveAttempt(householdId: string, kidId: string, attempt: StoredAttempt): Promise<void>;
-    /** The kid's ledger entries, oldest first. */
+    /** The kid's ledger entries, oldest first (storage keys stripped back to award keys). */
     ledger(householdId: string, kidId: string): Promise<LedgerEntry[]>;
     /** Appends entries, skipping keys already in the ledger (a replay never pays twice). */
     saveLedgerEntries(householdId: string, kidId: string, entries: readonly LedgerEntry[]): Promise<void>;
