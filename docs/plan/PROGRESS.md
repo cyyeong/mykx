@@ -41,7 +41,8 @@ Dates are SGT. "Agent" is who did the work; "Tools" are the models and services 
 | 28 Oct | On-device focus camera (counts only; parent note) | Claude Code | Face landmarks in the browser (MediaPipe) | `6f66a24` | Kix suggests a break |
 | 28 Oct | Navigation fixes: sign-in checks, not-found and error pages, admin sidebar, kid avatar menu | Claude Code | — | `6f66a24` | |
 | 28 Oct | Handover to Muse Code: all canvas boards and game-board sources in the repo (canvas v41), private material outside the repo, `.museignore`, this trail, music brief | Claude Code | Claude Design | `ac1d1eb` | How myKx was built |
-| 28 Oct | Licences: code MIT; art, Kix and skill packs CC BY-NC 4.0; font and icon notices | Claude Code | — | (this commit) | |
+| 28 Oct | Licences: code MIT; art, Kix and skill packs CC BY-NC 4.0; font and icon notices | Claude Code | — | 85ead93 | |
+| 28 Oct | The learning loop: Ari's quest is the reviewed P3 frog life cycle through selection; attempts route marks deterministically and pays the ledger under the daily cap; question player with next question, quest-complete page, leave confirm and card flight; map and Treasure read real mastery with evidence labels | Muse Code | Muse Spark | 33b6158 | |
 
 ## How to add a row
 

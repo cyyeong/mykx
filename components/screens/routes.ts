@@ -1,6 +1,7 @@
-// Fixture routes for the Day 2 static ports. Day 3–4 replace the ids with the child's real quest and items.
-export const DEMO_QUEST = "shadows";
-export const DEMO_QUESTION = "shadows-2";
+// Ari's quest from task 2: the reviewed P3 frog life cycle. Task 2e builds the
+// /learn quest list; until then Learn opens this quest's map.
+export const DEMO_QUEST = "frog-life-cycle";
+export const DEMO_QUESTION = "p3sci-demo-01";
 
 export const ROUTES = {
   home: "/home",
