@@ -54,6 +54,18 @@ class Browser {
   kidSignIn(kidId: string, secret: unknown, setup?: boolean) {
     return this.call(kidRoute.POST, "/api/auth/kid", { body: { kidId, secret, ...(setup ? { setup } : {}) } });
   }
+
+  kidSignOut() {
+    return this.call(kidRoute.DELETE, "/api/auth/kid", { method: "DELETE" });
+  }
+
+  pinSetup(pin: string) {
+    return this.call(pinRoute.POST, "/api/auth/pin", { body: { action: "setup", pin } });
+  }
+
+  pinVerify(pin: string) {
+    return this.call(pinRoute.POST, "/api/auth/pin", { body: { action: "verify", pin } });
+  }
 }
 
 let browser: Browser;
@@ -206,6 +218,9 @@ describe("picture code setup at the door", () => {
     expect(await browser.kidSignIn(id, code, true)).toMatchObject({ status: 200, body: { kid: { id, nickname: "Juno" } } });
     expect(await browser.kidSignIn(id, code, true)).toMatchObject({ status: 409, body: { reason: "already-set" } });
     expect((await browser.kidSignIn(id, code)).status).toBe(200);
+    // Grown-up reads wait until the kid signs out (fix 8); the unlock would also do.
+    expect((await browser.call(family.GET, "/api/family/kids")).status).toBe(403);
+    await browser.kidSignOut();
     const kid = (await browser.call(family.GET, "/api/family/kids")).body.kids.find((k: { id: string }) => k.id === id);
     expect(kid).toMatchObject({ needsSetup: false, secretEvent: "set" });
   });
@@ -247,6 +262,9 @@ describe("Your family", () => {
     expect((await browser.kidSignIn(MEI_ID, { kind: "password", password: "frogs123" })).status).toBe(401);
     expect((await browser.kidSignIn(MEI_ID, { kind: "password", password: "temporary1" })).status).toBe(200);
 
+    // The gate fires before the household check; after sign-out the 404 shows through.
+    expect((await browser.call(familyKid.PATCH, `/api/family/kids/${KAI_ID}`, { method: "PATCH", id: KAI_ID, body: { voiceEnabled: false } })).status).toBe(403);
+    await browser.kidSignOut();
     expect((await browser.call(familyKid.PATCH, `/api/family/kids/${KAI_ID}`, { method: "PATCH", id: KAI_ID, body: { voiceEnabled: false } })).status).toBe(404);
     expect((await browser.call(familyKid.DELETE, `/api/family/kids/${MEI_ID}`, { method: "DELETE", id: MEI_ID, body: { confirm: "mei" } })).body.reason).toBe("confirm");
     expect((await browser.call(familyKid.DELETE, `/api/family/kids/${MEI_ID}`, { method: "DELETE", id: MEI_ID, body: { confirm: "Mei" } })).body).toEqual({ ok: true });
@@ -350,9 +368,13 @@ describe("focus camera (AGENTS.md rule 12)", () => {
 
   it("stops the camera when the grown-up switches it off mid-session", async () => {
     await browser.signIn();
+    expect((await browser.pinSetup("4821")).status).toBe(200);
     await cameraOn(true);
     await browser.kidSignIn(ARI_ID, { kind: "pictures", code: ARI_CODE });
     expect((await post({ minutes: [calm(0)] })).status).toBe(200);
+    // The switch-off needs the PIN unlock while Ari is signed in.
+    expect((await cameraOn(false)).status).toBe(403);
+    expect((await browser.pinVerify("4821")).status).toBe(200);
     await cameraOn(false);
     expect((await post({ minutes: [calm(1)] })).status).toBe(403);
   });

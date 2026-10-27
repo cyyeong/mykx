@@ -2,6 +2,7 @@
 // one stops working and the parent sets (or the kid chooses) a new one; a parent reset sends the
 // Supabase reset email. Admins can't lock, disable or demote themselves.
 import { requireAdmin, toPerson } from "@/lib/auth/admin";
+import { pinLockedResponse } from "@/lib/auth/pin";
 import { withAuth } from "@/lib/auth/context";
 import { nowIso } from "@/lib/auth/flows";
 import { fail, ok, readBody } from "@/lib/auth/http";
@@ -38,6 +39,8 @@ function patchFor(action: AdminAction): ProfilePatch | null {
 export async function POST(request: Request, { params }: Ctx) {
   const { id } = await params;
   return withAuth(request, async ({ store, jar }) => {
+    const locked = await pinLockedResponse(store, jar);
+    if (locked) return locked;
     const admin = await requireAdmin(store, jar);
     if (!admin) return fail(403, "not-allowed");
     const body = await readBody(request, adminActionBody);

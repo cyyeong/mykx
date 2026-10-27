@@ -2,8 +2,10 @@
 // once in Your family, asked on grown-up pages while a kid session is active
 // on the device. Verified server-side; a correct entry mints a short-lived
 // signed unlock cookie bound to the grown-up signed in right now.
-import type { CookieOptions } from "./http.ts";
-import { mac, signToken, verifyToken } from "./tokens.ts";
+import { currentKid, currentParent } from "./context.ts";
+import { fail, type CookieJar, type CookieOptions } from "./http.ts";
+import type { AuthStore } from "./store.ts";
+import { mac, sessionSecret, signToken, verifyToken } from "./tokens.ts";
 
 export const PIN_UNLOCK_COOKIE = "mykx_pinunlock";
 export const PIN_UNLOCK_TTL_SEC = 15 * 60;
@@ -61,4 +63,26 @@ export function verifyPinUnlock(
 
 export function pinUnlockCookieOptions(): CookieOptions {
   return { httpOnly: true, sameSite: "lax", secure: process.env.NODE_ENV === "production", path: "/", maxAge: PIN_UNLOCK_TTL_SEC };
+}
+
+/**
+ * The data-route half of the gate: with a kid session active and no valid
+ * unlock cookie, grown-up reads and writes are refused — a kid past the page
+ * shell still can't reach the family's data. Null means open (routes answer
+ * 401 themselves when nobody's grown-up is here at all).
+ */
+export async function pinLockedResponse(store: AuthStore, jar: CookieJar): Promise<Response | null> {
+  const parent = await currentParent(store, jar);
+  if (!parent) return null;
+  const kid = await currentKid(store, jar, parent);
+  if (!kid) return null;
+  const secret = sessionSecret();
+  const unlocked =
+    !!secret &&
+    verifyPinUnlock(jar.get(PIN_UNLOCK_COOKIE), {
+      householdId: parent.householdId,
+      parentUserId: parent.user.userId,
+      secret,
+    }).ok;
+  return unlocked ? null : fail(403, "not-allowed");
 }
