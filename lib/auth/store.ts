@@ -26,6 +26,8 @@ export interface Profile {
   synthetic: boolean;
   secretKind: SecretKind | null;
   secretHash: string | null;
+  /** The 4-digit parent PIN (scrypt hash, server only like secretHash). Null until set in Your family. */
+  pinHash: string | null;
   secretSetAt: string | null;
   secretEvent: SecretEvent | null;
   failedAttempts: number;
@@ -46,6 +48,7 @@ export type ProfilePatch = Partial<
     | "dailyLimitMin"
     | "secretKind"
     | "secretHash"
+    | "pinHash"
     | "secretSetAt"
     | "secretEvent"
     | "failedAttempts"

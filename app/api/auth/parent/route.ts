@@ -5,6 +5,7 @@ import { nowIso } from "@/lib/auth/flows";
 import { clientIp, fail, ok, readBody } from "@/lib/auth/http";
 import { KID_COOKIE } from "@/lib/auth/kid-session";
 import { lockRemainingSec, retryAfter, takeToken } from "@/lib/auth/lockout";
+import { safeNext } from "@/lib/auth/pin";
 import { parentSignInBody } from "@/lib/auth/schemas";
 
 export async function POST(request: Request) {
@@ -27,6 +28,9 @@ export async function POST(request: Request) {
     jar.delete(KID_COOKIE); // a new grown-up on this device: no kid carries over
     await store.update(profile.householdId, profile.id, { lastSignInAt: nowIso() });
     const role = profile.isAdmin ? "admin" : "parent";
-    return ok({ role, next: role === "admin" ? "/admin/skills" : "/parent" });
+    // Admins land on People until the skills catalogue exists (task 7); a safe
+    // ?next= overrides either landing (USER_STORIES §8.4 fix 6).
+    const landing = role === "admin" ? "/admin/people" : "/parent";
+    return ok({ role, next: safeNext(body.next, landing) });
   });
 }

@@ -394,10 +394,11 @@ export function SignInScreen({
     if (busy) return;
     if (!email.trim() || !password) return explain("Type your email and password first.");
     setPending(true);
-    const { status, data } = await post("/api/auth/parent", { email: email.trim(), password });
+    // A safe ?next= (put there by a grown-up page that needed sign-in) rides along; the server allowlists it.
+    const params = new URLSearchParams(window.location.search);
+    const { status, data } = await post("/api/auth/parent", { email: email.trim(), password, next: params.get("next") ?? undefined });
     setPending(false);
-    // Day 5: parents land on their dashboard and admins on the skills catalogue. Until those exist, the doors.
-    if (data.ok) open("/doors");
+    if (data.ok) open(data.next ?? "/doors");
     else if (status === 401) fail(WRONG_GROWN_UP);
     else if (status === 429) fail(SLOW_DOWN);
     else explain(UNAVAILABLE);

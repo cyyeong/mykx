@@ -60,6 +60,7 @@ function profile(p: Partial<Profile> & Pick<Profile, "id" | "householdId" | "rol
     synthetic: true,
     secretKind: null,
     secretHash: null,
+    pinHash: null,
     secretSetAt: null,
     secretEvent: null,
     failedAttempts: 0,

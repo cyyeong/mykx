@@ -19,7 +19,7 @@ export interface SupabaseEnv {
 }
 
 const COLUMNS =
-  "id, household_id, user_id, role, is_admin, nickname, band, level, pack, voice_enabled, camera_enabled, daily_limit_min, synthetic, secret_kind, secret_hash, secret_set_at, secret_event, failed_attempts, locked_until, disabled_at, last_sign_in_at, created_at";
+  "id, household_id, user_id, role, is_admin, nickname, band, level, pack, voice_enabled, camera_enabled, daily_limit_min, synthetic, secret_kind, secret_hash, pin_hash, secret_set_at, secret_event, failed_attempts, locked_until, disabled_at, last_sign_in_at, created_at";
 
 type Row = Record<string, unknown>;
 
@@ -40,6 +40,7 @@ function toProfile(r: Row): Profile {
     synthetic: Boolean(r.synthetic),
     secretKind: (r.secret_kind as Profile["secretKind"]) ?? null,
     secretHash: (r.secret_hash as string | null) ?? null,
+    pinHash: (r.pin_hash as string | null) ?? null,
     secretSetAt: (r.secret_set_at as string | null) ?? null,
     secretEvent: (r.secret_event as Profile["secretEvent"]) ?? null,
     failedAttempts: (r.failed_attempts as number) ?? 0,
@@ -58,6 +59,7 @@ const PATCH_COLUMNS: Record<keyof ProfilePatch, string> = {
   dailyLimitMin: "daily_limit_min",
   secretKind: "secret_kind",
   secretHash: "secret_hash",
+  pinHash: "pin_hash",
   secretSetAt: "secret_set_at",
   secretEvent: "secret_event",
   failedAttempts: "failed_attempts",
