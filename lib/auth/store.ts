@@ -144,6 +144,8 @@ export interface AuthStore {
   learn: {
     /** The kid's attempts, oldest first. */
     attempts(householdId: string, kidId: string): Promise<AttemptEvent[]>;
+    /** The attempt stored under an idempotency key, or null. */
+    attemptByKey(householdId: string, kidId: string, key: string): Promise<AttemptEvent | null>;
     /** Stores one attempt; a resubmitted idempotency key (J17 offline retry) is ignored. */
     saveAttempt(householdId: string, kidId: string, attempt: StoredAttempt): Promise<void>;
     /** The kid's ledger entries, oldest first. */

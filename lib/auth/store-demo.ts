@@ -276,25 +276,12 @@ export class DemoStore implements AuthStore {
       return [...this.attemptRows.values()]
         .filter((r) => r.householdId === householdId && r.kidId === kidId)
         .sort((a, b) => Date.parse(a.at) - Date.parse(b.at) || a.id.localeCompare(b.id))
-        .map((r) => ({
-          id: r.id,
-          itemId: r.itemId,
-          family: r.family,
-          question: r.question,
-          skill: r.skill,
-          topic: r.topic,
-          subskill: r.subskill,
-          at: r.at,
-          marks: r.marks,
-          maxMarks: r.maxMarks,
-          firstTry: r.firstTry,
-          hintsBeforeSubmit: r.hintsBeforeSubmit,
-          revealed: r.revealed,
-          confirmed: r.confirmed,
-          ...(r.revisions ? { revisions: r.revisions } : {}),
-          ...(r.explanation ? { explanation: r.explanation } : {}),
-          ...(r.explanationRevised ? { explanationRevised: r.explanationRevised } : {}),
-        }));
+        .map(toAttemptEvent);
+    },
+    attemptByKey: async (householdId: string, kidId: string, key: string): Promise<AttemptEvent | null> => {
+      const row = this.attemptRows.get(key);
+      if (!row || row.householdId !== householdId || row.kidId !== kidId) return null;
+      return toAttemptEvent(row);
     },
     saveAttempt: async (householdId: string, kidId: string, attempt: StoredAttempt): Promise<void> => {
       if (!this.ownsKid(householdId, kidId)) return;
@@ -396,6 +383,29 @@ export class DemoStore implements AuthStore {
 
 function publicNote({ id, kidId, from, to, evidence, confidence, synthetic }: StoredNote): FocusNote {
   return { id, kidId, from, to, evidence, confidence, synthetic };
+}
+
+/** Drops the storage envelope (household, key, raw answer, pack version). */
+function toAttemptEvent(r: StoredLearnAttempt): AttemptEvent {
+  return {
+    id: r.id,
+    itemId: r.itemId,
+    family: r.family,
+    question: r.question,
+    skill: r.skill,
+    topic: r.topic,
+    subskill: r.subskill,
+    at: r.at,
+    marks: r.marks,
+    maxMarks: r.maxMarks,
+    firstTry: r.firstTry,
+    hintsBeforeSubmit: r.hintsBeforeSubmit,
+    revealed: r.revealed,
+    confirmed: r.confirmed,
+    ...(r.revisions ? { revisions: r.revisions } : {}),
+    ...(r.explanation ? { explanation: r.explanation } : {}),
+    ...(r.explanationRevised ? { explanationRevised: r.explanationRevised } : {}),
+  };
 }
 
 const g = globalThis as typeof globalThis & { __mykxDemoStore?: DemoStore };

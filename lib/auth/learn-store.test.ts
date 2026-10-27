@@ -48,6 +48,14 @@ describe("attempts", () => {
     await store.learn.saveAttempt(OTHER_HOUSEHOLD_ID, ARI_ID, stored());
     expect(await store.learn.attempts(DEMO_HOUSEHOLD_ID, ARI_ID)).toEqual([]);
   });
+
+  it("finds attempts by idempotency key, scoped to the household", async () => {
+    await store.learn.saveAttempt(DEMO_HOUSEHOLD_ID, ARI_ID, stored({ id: "a1", idempotencyKey: "k1" }));
+    expect((await store.learn.attemptByKey(DEMO_HOUSEHOLD_ID, ARI_ID, "k1"))?.id).toBe("a1");
+    expect(await store.learn.attemptByKey(DEMO_HOUSEHOLD_ID, ARI_ID, "missing")).toBeNull();
+    expect(await store.learn.attemptByKey(OTHER_HOUSEHOLD_ID, ARI_ID, "k1")).toBeNull();
+    expect(await store.learn.attemptByKey(DEMO_HOUSEHOLD_ID, KAI_ID, "k1")).toBeNull();
+  });
 });
 
 describe("ledger", () => {

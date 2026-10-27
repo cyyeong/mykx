@@ -10,6 +10,14 @@ describe("frog quest items", () => {
     expect(items.map((i) => i.id)).toEqual(["p3sci-demo-01", "p3sci-demo-02", "p3sci-demo-03", "p3sci-demo-04", "p3sci-demo-05"]);
     expect(items.every((i) => i.status === "reviewed" && i.topic === "cycles.animal")).toBe(true);
   });
+
+  it("stamps the pack version from skill.json", async () => {
+    const { readFile } = await import("node:fs/promises");
+    const manifest = JSON.parse(await readFile(new URL("../../content/skills/p3-science/skill.json", import.meta.url), "utf8")) as {
+      version: string;
+    };
+    expect(FROG_QUEST.version).toBe(manifest.version);
+  });
 });
 
 describe("questStops", () => {

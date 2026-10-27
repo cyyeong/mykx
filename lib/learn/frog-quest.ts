@@ -18,6 +18,8 @@ export const FROG_QUEST = {
   title: "The frog life cycle",
   blurb: "Follow Pip from frogspawn to frog.",
   skill: "p3-science",
+  /** Pack version the items came from (skill.json); stored on every attempt. */
+  version: "1.0.0",
   topics: ["cycles.animal"] as const,
   /** One stop per reviewed frog item, easiest first. Labels are the quest's own. */
   stops: [

@@ -295,6 +295,17 @@ export class SupabaseStore implements AuthStore {
       check(error);
       return (data ?? []).map(toAttemptEvent);
     },
+    attemptByKey: async (householdId: string, kidId: string, key: string): Promise<AttemptEvent | null> => {
+      const { data, error } = await this.db
+        .from("attempts")
+        .select("id, item_id, skill_id, topic, subskill, answer, marks, max_marks, first_try, hints_used, revealed, created_at")
+        .eq("household_id", householdId)
+        .eq("profile_id", kidId)
+        .eq("idempotency_key", key)
+        .maybeSingle();
+      check(error);
+      return data ? toAttemptEvent(data) : null;
+    },
     saveAttempt: async (householdId: string, kidId: string, attempt: StoredAttempt): Promise<void> => {
       if (!(await this.ownsKid(householdId, kidId))) return;
       const { error } = await this.db
