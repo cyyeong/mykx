@@ -1,11 +1,11 @@
 # myKx implementation plan
 
-**Written:** Tue 27 Oct 2026, 10:30 SGT (Day 1). **Replaces** the day plan in `docs/prd/PRD_REVIEW.md` §5 and tightens its scope table (§4). Designs: [myKx Screens](https://claude.ai/artifact/8crEyKVQm9QxCHLDqPXioP) · [myKx design system](https://claude.ai/artifact/Jyr5pven8EDiRRfqAZDYuX).
+**Written:** Tue 27 Oct 2026, 10:30 SGT (Day 1). **Replaces** the day plan in `docs/prd/PRD_REVIEW.md` §5 and tightens its scope table (§4). **Updated** 27 Oct, 11:45: Claude Code is the only coding agent (was Claude Code + Muse Code). Designs: [myKx Screens](https://claude.ai/artifact/8crEyKVQm9QxCHLDqPXioP) · [myKx design system](https://claude.ai/artifact/Jyr5pven8EDiRRfqAZDYuX).
 
 ## 0. The budget
 
 - **Submit by Wed 4 Nov, 22:00 SGT.** The official deadline is Thu 5 Nov 10:00 SGT (4 Nov 21:00 EST); the morning of the 5th is for emergencies only.
-- **8 hours of your time per day.** Claude Code and Muse Code work in parallel inside those hours; your time (deciding, reviewing, merging, testing, filming) is the bottleneck, so the plan is sized to it.
+- **8 hours of your time per day.** Claude Code writes all the code and runs the two workstreams below in parallel inside those hours; your time (deciding, reviewing, testing, filming) is the bottleneck, so the plan is sized to it.
 
 | | Hours | When |
 |---|---|---|
@@ -70,24 +70,24 @@ public/art/   public/brand/
 2. **Fixtures beat CMS.** Twelve reviewed questions (Shadows, Frog life cycle, Forces) cover the whole demo.
 3. **Four live AI touchpoints, everything else deterministic.** Fewer things can break on camera, and every AI call has a fallback.
 4. **Demo mode.** A seeded household and a "Reset demo" route let any take start clean.
-5. **Two agent tracks with clear ownership**, merged once a day:
+5. **One agent, two workstreams.** Claude Code does both. When a day's A and B tasks don't touch the same files, B runs as a background subagent in its own git worktree while A is built in the main checkout; Claude merges, and you review the result instead of merging by hand.
 
-| Track | Agent | Owns |
-|---|---|---|
-| A: UI | Claude Code | `app/(kid)`, `app/(parent)`, `components/`, theme engine, motion |
-| B: Platform | Muse Code | `lib/meta`, `app/api`, `supabase/`, `lib/domain`, `fixtures/`, art rounds |
-| You | — | decisions, answer review, merging, tablet testing, video |
+| Stream | Owns |
+|---|---|
+| A: UI | `app/(kid)`, `app/(parent)`, `components/`, theme engine, motion |
+| B: Platform | `lib/meta`, `app/api`, `supabase/`, `lib/domain`, `fixtures/`, art (`gen-image.mjs`) |
+| You | decisions, answer review, tablet testing, video |
 
-Branches `a/*` and `b/*`; `main` auto-deploys to Vercel. `lib/types.ts` is the contract between tracks; only Track B changes it.
+`main` auto-deploys to Vercel. `lib/types.ts` is the contract between streams: written at the start of a day, before the streams split.
 
-6. **Daily rhythm (8h):** 15 min plan → 3h build → 30 min merge and test → 3.5h build → 30 min deploy, plus a 2-minute screen capture of what works (it becomes video material) → 15 min plan for tomorrow.
+6. **Daily rhythm (8h):** 15 min plan → 3h build → 30 min review and test → 3.5h build → 30 min deploy, plus a 2-minute screen capture of what works (it becomes video material) → 15 min plan for tomorrow.
 
 ## 4. Day by day
 
 Every day ends with something you can show on the production URL.
 
 ### Day 1 · Tue 27 Oct · ≈ 5h
-- **You (1h):** create a Standard Meta Model API key (add a card, set a $100 spend alert); create the Supabase and Vercel projects and a public GitHub repo; `git init` and commit today's PRD review, design system and skills, so judges can see the event history start here.
+- **You (done 11:30):** Standard Meta Model API key, Supabase and Vercel projects, public repo `cyyeong/mykx`, first commit `dc574c0`. Still to do: put the keys in `.env.local` (see `.env.example`).
 - **A (3h):** scaffold; copy tokens, fonts and component CSS; theme provider (`data-theme`, `data-band`, view-transition switch); port the Sidekick Studio picker; deploy.
 - **B (3h):** `lib/meta` client; `scripts/smoke-meta.ts` exercising Spark (chat, JSON schema, streaming), Muse Image edit with `kix-base.png`, SAM 3.1 cutout to PNG; results with request IDs in `docs/plan/smoke-log.md`.
 - **Exit:** the production URL re-skins the Studio picker across all five packs; the smoke log shows three Meta models answering.
@@ -95,7 +95,7 @@ Every day ends with something you can show on the production URL.
 ### Day 2 · Wed 28 Oct
 - **A (6h):** html→JSX port script; static ports of Home, Quest map, Question, Treasure; shared pieces (Button, HoloCard, QuestNode, KixBubble, GlassPanel).
 - **B (7h):** Supabase schema, row-level security and seed (parent; Ari, P4, Terrarium; Mei, Sec 3, Anime Sky) 2h; fixtures for three quests with hints and answers 2h; the transform route (Image → SAM → Storage, with fallback) 3h.
-- **You:** review every fixture answer and hint (1h); merge; check on a tablet.
+- **You:** review every fixture answer and hint (1h); check on a tablet.
 - **Exit:** a signed-in parent switches to Ari and browses five themed screens in production; the transform route returns a cutout or the fallback within 25 s.
 
 ### Day 3 · Thu 29 Oct · Checkpoint A
@@ -123,12 +123,12 @@ Every day ends with something you can show on the production URL.
 - **Exit:** the complete product is in production and a rough capture exists.
 
 ### Day 7 · Mon 2 Nov · feature freeze at 22:00
-- **Morning:** bug bash from the rough capture; both tracks fix only.
+- **Morning:** bug bash from the rough capture; fixes only.
 - **Afternoon:** keyboard path, contrast and reduced-motion checks; security checks (cross-household access refused, keys only on the server, no contributor model at runtime); rehearse the demo path three times.
 - **Exit:** freeze; three clean runs in production; tag `v1.0-freeze`.
 
 ### Day 8 · Tue 3 Nov · capture day
-- **Morning (4h):** fixes only (2.5h); README (1.5h): what it is, the live link, the video, which Meta models are used where, how Muse Code was used, what was built from 27 Oct to 4 Nov, synthetic data, the asset manifest and licences. Confirm the repo is public.
+- **Morning (4h):** fixes only (2.5h); README (1.5h): what it is, the live link, the video, which Meta models are used where, the Muse Code art-direction round, what was built from 27 Oct to 4 Nov, synthetic data, the asset manifest and licences. Confirm the repo is public.
 - **Afternoon (4h):** record every video segment in production, record the voice-over, and capture the "under the hood" shots.
 
 ### Day 9 · Wed 4 Nov · edit and submit
@@ -152,7 +152,7 @@ Script target: about 360 words of voice-over (130 a minute), finished by Day 5.
 | 1:35–1:55 | Treasure, a Sky Squadron card flip, Pip grows | Treasure, Critter Lab | earned, never random |
 | 1:55–2:20 | "I keep forgetting the frog life cycle" → flashcards → harder version → save → share with Mum | Vibe Zone | structured output; no AI code runs |
 | 2:20–2:40 | Tonight's summary on the parent's phone; a flash of the teen deck | Parent, Study deck | evidence and uncertainty |
-| 2:40–3:00 | `model_runs`, Muse Code at work, the asset manifest; built 27 Oct–4 Nov; synthetic data | Under the hood | Meta tooling and honesty |
+| 2:40–3:00 | `model_runs`, the asset manifest and its Muse Image prompts; built 27 Oct–4 Nov; synthetic data | Under the hood | Meta tooling and honesty |
 
 **Rules:** record in production with the seeded demo and "Reset demo" between takes. Show at least one genuinely live transform; if it is slow, speed it up and label it. Burn in captions, since judges may watch muted. Use royalty-free music and credit it. Never show real children's names or photos.
 
@@ -177,8 +177,8 @@ Script target: about 360 words of voice-over (130 a minute), finished by Day 5.
 | Muse Image + SAM slow or flaky | transform over 25 s in the smoke log | Cached pack Kix fallback; pre-generate per pack; keep the disc framing. |
 | Row-level security eats time | over 3h on Day 2 | Simplest policy (household of the signed-in parent). Never ship without it. |
 | Porting is slower than expected | Day 2 exit missed | Static port first, wire later; apply the Day 3 and Day 4 slip rules. |
-| Agents collide | merge conflicts | File ownership above; merge daily; `lib/types.ts` changes by PR only. |
-| Credit burn | Billing page over $60 | Muse Code stays on contributor with synthetic data; runtime uses Standard; spend alert at $100. |
+| Parallel streams collide | merge conflicts between worktrees | Streams own separate folders; `lib/types.ts` is settled before they split; merge after each task. |
+| Credit burn | Billing page over $60 | Art drafts at n ≤ 4 and only keepers re-run; long Spark tests use fixtures; spend alert at $100. |
 | Video overruns | script not done by Day 5 | Day 8 afternoon and Day 9 are protected; scope cuts come from the build, never from the video. |
 | New feature requests | anything new after Day 6 | Goes on the roadmap slide, not into the build. |
 
@@ -195,7 +195,7 @@ Script target: about 360 words of voice-over (130 a minute), finished by Day 5.
 ## 7. Definition of done
 
 - [ ] The production URL works in a fresh browser on a tablet and a laptop; "Reset demo" works.
-- [ ] Public GitHub repo with a README: problem, live link, video, Meta models and where they're used, Muse Code usage, what was built 27 Oct–4 Nov, synthetic data, the asset manifest, licences.
+- [ ] Public GitHub repo with a README: problem, live link, video, Meta models and where they're used, the Muse Code art-direction round, what was built 27 Oct–4 Nov, synthetic data, the asset manifest, licences.
 - [ ] No secrets in the repo or client bundle; keys live only in Vercel environment variables.
 - [ ] The cross-household access test passes.
 - [ ] A 3:00 video with captions, uploaded, and opening for a signed-out viewer.
@@ -203,6 +203,6 @@ Script target: about 360 words of voice-over (130 a minute), finished by Day 5.
 
 ## 8. Next 30 minutes
 
-1. Create the Meta Model API key, the Supabase project, the Vercel project and the GitHub repo; put the keys in `.env.local` (git-ignored).
-2. `git init` and commit today's work.
-3. Start Track A in Claude Code and Track B in Muse Code with the Day 1 tasks above, each pointed at `AGENTS.md` and this plan.
+1. ~~Create the Meta Model API key, Supabase, Vercel and the GitHub repo~~ (done).
+2. ~~`git init` and commit today's work~~ (done, `dc574c0`).
+3. Put the keys in `.env.local` (git-ignored; names in `.env.example`), then Claude Code runs Day 1 streams A and B.

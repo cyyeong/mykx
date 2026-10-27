@@ -1,6 +1,6 @@
 # myKx — agent rules
 
-Shared by **Muse Code** (reads this file) and **Claude Code** (`CLAUDE.md` imports it). Keep it short; details live in skills and `docs/`.
+Read by **Claude Code** (`CLAUDE.md` imports it), the only coding agent, and by **Muse Code** if it's used for an art round. Keep it short; details live in skills and `docs/`.
 
 ## Project
 
@@ -29,7 +29,7 @@ myKx gives every Singapore student an AI sidekick, **Kix**: learning loops that 
 
 ## Hard rules
 
-1. **Child data → Standard models only** (`muse-spark-1.3`, never `-contributor`). Contributor mode lets Meta train on prompts. Muse Code dev sessions run contributor, so use synthetic fixtures only and never real children's work or names.
+1. **Child data → Standard models only** (`muse-spark-1.3`, never `-contributor`). Contributor mode lets Meta train on prompts. Muse Code defaults to contributor, so if it's used, give it synthetic data only and never real children's work or names.
 2. **Original art only.** Never name or imitate real franchises, characters, studios, artists, idols or brands in prompts, art or copy. Never take a child's photo as image input.
 3. **Keys are server-side only** (`MODEL_API_KEY`/`META_API_KEY`, `BASETEN_API_KEY`, Supabase service key). Never in client bundles, logs or git.
 4. **No model-authored code is executed.** Vibe Zone renders a validated JSON spec with trusted React components.
@@ -39,11 +39,11 @@ myKx gives every Singapore student an AI sidekick, **Kix**: learning loops that 
 8. **Honest labels:** synthetic data, cached art and "limited evidence" are labelled in the UI and the video.
 9. Don't commit or push unless the user asks.
 
-## Default division of work (two agents, one repo)
+## Division of work (one agent, two streams)
 
-- **Claude Code:** app UI, theme engine, motion, Treasure Realm, screen polish (screenshot → critique → fix).
-- **Muse Code:** art generation rounds (`image_generation` tool), Meta API adapters and smoke tests, fixtures and content.
-- Work in separate branches or worktrees and merge often. Before editing a file the other agent owns, say so in the commit message.
+- **Claude Code does all the code and the art** (art through `gen-image.mjs`).
+- Work splits into **stream A, UI** (`app/(kid)`, `app/(parent)`, `components/`, theme, motion) and **stream B, platform** (`lib/meta`, `app/api`, `supabase/`, `lib/domain`, `fixtures/`, art). Independent A and B tasks may run in parallel as a subagent in a separate git worktree. Settle `lib/types.ts` before splitting, and merge after each task.
+- **Muse Code is optional**, for art exploration only. Its art-direction round on 27 Oct is in `docs/design/explorations/`.
 
 ## Stack (planned, not yet scaffolded)
 

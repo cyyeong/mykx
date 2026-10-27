@@ -14,7 +14,7 @@ Muse Image costs **$0.01 per image**. Failed or safety-filtered images are not b
 | **A. Muse Code `image_generation` tool** | fast exploration, art-direction rounds | prompt + optional `image_paths` (edit/compose). **No size control:** it returned 1920×1280 JPG for every request on 27 Oct, even when asked for 1024×1024 | `muse exec --reasoning-effort low --prompt-file p.txt` in a trusted workspace; files land in `./generated_images/` |
 | **B. Direct API script** | final production assets, exact sizes, n>1, reference edits | `size` (`"WxH"` sets aspect ratio), `n` 1–10, `output_format` webp/png/jpeg, reference images (≤10) | `node .agents/skills/muse-image-assets/scripts/gen-image.mjs …` (needs `MODEL_API_KEY`) |
 
-Claude Code has no image tool. It uses route B, or asks the user to run route A. Muse Code can use either.
+**Default is route B** (Claude Code is the only coding agent and has no image tool). Route A is optional, for loose exploration only.
 
 Route B request shape (from dev.meta.ai docs):
 - Generate: `POST https://api.meta.ai/v1/images/generations` `{model:"muse-image-1.0", prompt, n, size, response_format:"b64_json", output_format:"webp"}` → `data[].b64_json`

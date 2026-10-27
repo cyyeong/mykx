@@ -1,13 +1,13 @@
 # myKx reference hub
 
-One index for humans, Claude Code and Muse Code. If a reference isn't linked here, it isn't canonical.
+One index for humans and agents. If a reference isn't linked here, it isn't canonical.
 
 ## Product
 
 | Doc | What it is |
 |---|---|
 | [prd/PRD_REVIEW.md](prd/PRD_REVIEW.md) | **Current scope and plan.** Gaps, enhancements, re-scope, day plan, video, budget. Overrides the PRD where they differ. |
-| [plan/IMPLEMENTATION_PLAN.md](plan/IMPLEMENTATION_PLAN.md) | **The build schedule.** Hour budget, demo-path scope, architecture, agent tracks, day-by-day exits, video plan, cut order. |
+| [plan/IMPLEMENTATION_PLAN.md](plan/IMPLEMENTATION_PLAN.md) | **The build schedule.** Hour budget, demo-path scope, architecture, workstreams, day-by-day exits, video plan, cut order. |
 | [prd/myKx_PRD.md](prd/myKx_PRD.md) | Original PRD (26 Oct). Still canonical for the mastery maths (§6), reward ethics (FR10), parent summary rules (FR07) and data model (§9). |
 
 ## Design
@@ -30,7 +30,7 @@ Art source of truth stays in the repo: `public/art/` (optimised WebP) and `publi
 
 | Doc | What it is |
 |---|---|
-| [../AGENTS.md](../AGENTS.md) | Agent rules, priorities, hard rules, division of work (Muse reads it; `CLAUDE.md` imports it) |
+| [../AGENTS.md](../AGENTS.md) | Agent rules, priorities, hard rules, division of work (`CLAUDE.md` imports it) |
 | [../.agents/skills/meta-model-api/SKILL.md](../.agents/skills/meta-model-api/SKILL.md) | Meta Model API: model IDs, Standard vs Contributor, structured output, SAM, Baseten, pricing |
 | [../.agents/skills/muse-image-assets/SKILL.md](../.agents/skills/muse-image-assets/SKILL.md) | Art pipeline: Kix canon, pack prompts, IP/safety rules, SAM cutouts, manifest, budget |
 
