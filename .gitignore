@@ -28,3 +28,9 @@ npm-debug.log*
 
 # agent worktrees
 .claude/worktrees/
+
+# Claude Code session files
+.claude/*.lock
+
+# generated soak-test output (docs/plan/soak-report.md is the summary)
+scripts/soak/out/

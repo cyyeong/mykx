@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Parent: family messages</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+.fc-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.fc-tap{cursor:pointer}
+.fc-tap:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+
+/* Kix stickers: Muse Image stills brought to life with CSS. Each loop moves, then rests, so the thread stays calm. */
+@keyframes fc-bounce{0%,44%,100%{transform:translateY(0) scale(1)}12%{transform:translateY(-14px) scale(1.02)}24%{transform:translateY(0) scale(1.06,.94)}34%{transform:translateY(-5px) scale(1)}}
+@keyframes fc-wiggle{0%,34%,100%{transform:rotate(0)}6%{transform:rotate(-9deg)}13%{transform:rotate(8deg)}20%{transform:rotate(-5deg)}27%{transform:rotate(3deg)}}
+@keyframes fc-pop{0%,40%,100%{transform:scale(1)}12%{transform:scale(1.14)}24%{transform:scale(.95)}32%{transform:scale(1.03)}}
+@keyframes fc-float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-7px) rotate(-2deg)}}
+@keyframes fc-in{0%{opacity:0;scale:.3}60%{opacity:1;scale:1.12}100%{opacity:1;scale:1}}
+@keyframes fc-jig{0%,100%{transform:rotate(0) scale(1)}25%{transform:rotate(-8deg) scale(1.08)}50%{transform:rotate(7deg) scale(1.08)}75%{transform:rotate(-3deg) scale(1.04)}}
+.fc-a-bounce{animation:fc-bounce 3.2s var(--ease-soft) infinite}
+.fc-a-wiggle{animation:fc-wiggle 3.4s ease-in-out infinite;transform-origin:50% 85%}
+.fc-a-pop{animation:fc-pop 3s var(--ease-bounce) infinite}
+.fc-a-float{animation:fc-float 4.2s ease-in-out infinite}
+.fc-d1{animation-delay:.8s}.fc-d2{animation-delay:1.6s}.fc-d3{animation-delay:2.4s}
+.fc-new{animation:fc-in .55s var(--ease-bounce) both}
+.fc-tray-img{transition:transform var(--duration-snappy) var(--ease-soft)}
+.fc-tray-btn:hover .fc-tray-img,.fc-tray-btn:focus-visible .fc-tray-img{animation:fc-jig .6s ease-in-out}
+.fc-tray-btn:active .fc-tray-img{transform:scale(.92)}
+.fc-tray-btn:hover{background:var(--surface)}
+@media (prefers-reduced-motion: reduce){.fc-a-bounce,.fc-a-wiggle,.fc-a-pop,.fc-a-float,.fc-new,.fc-tray-img{animation:none!important;transition:none!important}}
+
+/* Thread pieces */
+.fc-row{display:flex;flex-direction:column}
+.fc-me{align-items:flex-end}
+.fc-kid{align-items:flex-start}
+.fc-gap{margin-top:10px}
+.fc-bubble{max-width:min(78%,520px);margin:0;padding:10px 14px;font-size:16px;line-height:22px;overflow-wrap:anywhere}
+.fc-b-me{background:var(--accent);color:var(--on-accent);border-radius:20px 20px 6px 20px}
+.fc-b-kid{background:var(--surface-raised);color:var(--ink);border-radius:20px 20px 20px 6px;box-shadow:inset 0 0 0 1px var(--line)}
+.fc-stk-wrap{display:block;padding:6px 6px 4px}
+.fc-tilt-me{transform:rotate(4deg)}
+.fc-tilt-kid{transform:rotate(-4deg)}
+.fc-meta{align-self:flex-start;margin-top:-2px;padding:0 4px;font-size:12px;line-height:16px;color:var(--ink-muted)}
+.fc-meta-me{align-self:flex-end}
+.fc-convo{background:transparent}
+.fc-convo:hover{background:var(--surface)}
+.fc-convo-on{background:var(--surface);box-shadow:inset 3px 0 0 var(--accent),inset 0 0 0 1px var(--line)}
+.fc-chip{background:var(--surface);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--border-control)}
+.fc-chip-on{background:var(--accent-2);color:var(--on-accent-2);box-shadow:inset 0 0 0 1.5px var(--accent-2)}
+.fc-iconbtn{display:grid;place-items:center;width:44px;height:44px;flex:none;padding:0;border:0;border-radius:50%;background:transparent;color:var(--ink)}
+.fc-iconbtn-on{background:var(--accent-2);color:var(--on-accent-2)}
+.fc-send{background:var(--accent);color:var(--on-accent);box-shadow:var(--shadow-raised)}
+.fc-send:disabled{background:var(--line);color:var(--ink-muted);box-shadow:none;cursor:not-allowed}
+.fc-field{box-shadow:inset 0 0 0 1.5px var(--border-control)}
+.fc-field:focus-within{box-shadow:inset 0 0 0 2px var(--focus-ring),0 0 0 4px rgba(31,102,193,.16)}
+.fc-input::placeholder{color:var(--ink-muted);opacity:1}
+.fc-chips{scrollbar-width:none}
+.fc-chips::-webkit-scrollbar{display:none}
+
+/* Layout (mykx-design-system §3a). Default = expanded 1024–1599: two panes, conversation list and thread, centred at 1200. */
+.fc-root{position:relative;overflow-x:hidden;overflow-x:clip}
+.fc-amb{position:absolute;inset:0;pointer-events:none;display:block}
+.fc-shell{position:relative;box-sizing:border-box;height:100vh;height:100dvh;min-height:560px;max-width:1200px;margin:0 auto;padding:24px;display:grid;grid-template-columns:320px minmax(0,1fr);gap:20px}
+.fc-list{display:flex;flex-direction:column;min-height:0;overflow-y:auto;padding:20px 12px 16px;border-radius:var(--radius-md);background:var(--surface-raised);box-shadow:inset 0 0 0 1px var(--line),var(--shadow-raised)}
+.fc-thread{display:flex;flex-direction:column;min-width:0;min-height:0;overflow:hidden;border-radius:var(--radius-md);background:var(--surface-raised);box-shadow:inset 0 0 0 1px var(--line),var(--shadow-raised)}
+.fc-back{display:none}
+.fc-head{padding:14px 20px}
+.fc-banner{margin:12px 16px 0}
+.fc-msgs{padding:16px 20px 12px}
+.fc-dock{padding:10px 16px 0}
+.fc-chips{flex-wrap:wrap;overflow:visible}
+.fc-tray-grid{grid-template-columns:repeat(8,minmax(0,1fr))}
+.fc-note{padding:2px 0 14px}
+
+/* Medium 600–1023: the same two panes, list narrower, chips scroll sideways. */
+@media (min-width: 600px) and (max-width: 1023px){
+  .fc-shell{grid-template-columns:minmax(220px,34%) minmax(0,1fr);gap:14px;padding:16px}
+  .fc-list{padding:16px 8px 12px}
+  .fc-head{padding:12px 16px}
+  .fc-banner{margin:10px 12px 0}
+  .fc-msgs{padding:14px 14px 10px}
+  .fc-dock{padding:10px 12px 0}
+  .fc-chips{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;margin:0 -12px;padding:0 12px}
+  .fc-tray-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .fc-note{padding:2px 0 12px}
+}
+
+/* Compact < 600: the phone design. One pane at a time: the thread, or the list after Back. */
+@media (max-width: 599px){
+  .fc-amb{display:none}
+  .fc-shell{display:flex;flex-direction:column;max-width:none;padding:0;gap:0}
+  .fc-list,.fc-thread{flex:1 1 auto;border-radius:0;box-shadow:none}
+  .fc-list{padding:16px 8px calc(16px + env(safe-area-inset-bottom))}
+  .fc-v-thread .fc-list{display:none}
+  .fc-v-list .fc-thread{display:none}
+  .fc-back{display:grid}
+  .fc-head{padding:8px 12px 8px 4px}
+  .fc-banner{margin:10px 10px 0}
+  .fc-msgs{padding:12px 12px 10px}
+  .fc-dock{padding:8px 10px 0}
+  .fc-chips{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;margin:0 -10px;padding:0 10px}
+  .fc-chip{scroll-snap-align:start}
+  .fc-tray-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .fc-note{padding:0 4px calc(10px + env(safe-area-inset-bottom))}
+}
+
+/* Desktop ≥ 1600: same panes, centred 1200, sky glow in the margins. */
+@media (min-width: 1600px){
+  .fc-shell{grid-template-columns:340px minmax(0,1fr);gap:24px;padding:40px 24px}
+}
+</style>
+</helmet>
+<div class="fc-root {{viewClass}}" data-theme="anime-sky" data-band="teen" style="width: 100%; min-height: 100vh; box-sizing: border-box; background: var(--surface); color: var(--ink); font-family: var(--font-text)">
+  <div class="fc-amb" aria-hidden="true" style="background: radial-gradient(55% 45% at 0% 0%, rgba(90, 169, 240, 0.20), rgba(90, 169, 240, 0) 70%), radial-gradient(45% 45% at 100% 100%, rgba(247, 182, 207, 0.28), rgba(247, 182, 207, 0) 70%)"></div>
+
+  <div class="fc-shell">
+    <!-- Conversation list -->
+    <aside class="fc-list" aria-label="Conversations">
+      <div style="display: flex; flex-direction: column; gap: 4px; padding: 0 8px 14px">
+        <img src="/_blob/f52e18857979369421011da66fdb9de3" alt="myKx" style="align-self: flex-start; height: 20px; width: auto">
+        <h1 style="margin: 10px 0 0; font: 800 24px/30px var(--font-display)">Family messages</h1>
+        <span style="font-size: 14px; line-height: 20px; color: var(--ink-muted)">Just your household. No one else can join.</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px">
+        <sc-for list="{{convos}}" as="c" hint-placeholder-count="3">
+          <button class="fc-tap fc-convo {{c.onClass}}" type="button" onClick="{{c.pick}}" aria-current="{{c.current}}" style="width: 100%; display: flex; align-items: center; gap: 12px; min-height: 72px; box-sizing: border-box; padding: 10px 12px; border: 0; border-radius: var(--radius-sm); color: var(--ink); font: inherit; text-align: left">
+            <img src="{{c.avatar}}" alt="" width="48" height="48" style="width: 48px; height: 48px; flex: none; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px var(--surface-raised), 0 0 0 3.5px var(--line)">
+            <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+              <span style="display: flex; align-items: baseline; gap: 8px">
+                <span style="flex: 1; min-width: 0; font-size: 16px; line-height: 22px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{c.name}}</span>
+                <span style="flex: none; font-size: 12px; line-height: 16px; color: var(--ink-muted)">{{c.when}}</span>
+              </span>
+              <span style="font-size: 14px; line-height: 20px; color: var(--ink-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{c.preview}}</span>
+            </span>
+            <sc-if value="{{c.unread}}" hint-placeholder-val="{{false}}">
+              <span aria-hidden="true" style="width: 10px; height: 10px; flex: none; border-radius: 50%; background: var(--accent)"></span>
+              <span class="fc-sr">New message</span>
+            </sc-if>
+          </button>
+        </sc-for>
+      </div>
+    </aside>
+
+    <!-- Thread -->
+    <section class="fc-thread" aria-label="Messages with {{t.first}}">
+      <header class="fc-head" style="display: flex; align-items: center; gap: 10px; box-shadow: 0 1px 0 var(--line)">
+        <button class="fc-tap fc-iconbtn fc-back" type="button" onClick="{{back}}" aria-label="Back to conversations">
+          <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <img src="{{t.avatar}}" alt="" width="44" height="44" style="width: 44px; height: 44px; flex: none; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px var(--surface-raised), 0 0 0 4px var(--accent-2)">
+        <div style="flex: 1; min-width: 0; display: flex; flex-direction: column">
+          <h2 style="margin: 0; font: 600 17px/22px var(--font-text)">{{t.name}}</h2>
+          <span style="font-size: 13px; line-height: 18px; color: var(--ink-muted)">{{t.status}}</span>
+        </div>
+      </header>
+
+      <sc-if value="{{showBanner}}" hint-placeholder-val="{{true}}">
+        <aside class="fc-banner" aria-label="Kix suggests" style="display: flex; flex-direction: column; gap: 10px; padding: 12px 14px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: inset 0 0 0 2px var(--accent-2), var(--shadow-raised)">
+          <div style="display: flex; align-items: flex-start; gap: 12px">
+            <img src="/_blob/f3d67ff062af0a3258ceadda37b9024f" alt="" width="48" height="48" style="width: 48px; height: 48px; flex: none; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px var(--surface-raised), 0 0 0 4px var(--accent-2)">
+            <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+              <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ink-muted)">
+                <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" d="M11 3l1.8 5.2L18 10l-5.2 1.8L11 17l-1.8-5.2L4 10l5.2-1.8zM19 15v5M16.5 17.5h5"/></svg>Kix suggests
+              </span>
+              <p style="margin: 0; font-size: 16px; line-height: 22px; font-weight: 600">Ari found Wednesday tricky. Send a hug?</p>
+              <span style="font-size: 12px; line-height: 16px; color: var(--ink-muted)">From Wednesday's session. Kix never reads your messages.</span>
+            </div>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px">
+            <button class="mk-btn mk-btn--primary" type="button" onClick="{{sendHug}}" style="flex: 1 1 auto; padding: 0 14px 0 8px; font-size: 15px; white-space: normal; text-align: left; line-height: 1.2">
+              <img src="/_blob/02f791d67e720a2bf4fdb268ff6b6b8a" alt="" width="28" height="28" style="width: 28px; height: 28px; flex: none; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px var(--on-accent)">Send a Proud of you sticker
+            </button>
+            <button class="mk-btn fc-tap" type="button" onClick="{{dismiss}}" style="flex: none; padding: 0 14px; background: transparent; color: var(--ink); font-size: 15px; box-shadow: inset 0 0 0 1.5px var(--border-control)">Not now</button>
+          </div>
+        </aside>
+      </sc-if>
+
+      <div role="log" aria-label="Conversation" style="flex: 1 1 auto; min-height: 0; overflow-y: auto; display: flex; flex-direction: column-reverse; overscroll-behavior: contain; background: var(--surface)">
+        <div class="fc-msgs" style="display: flex; flex-direction: column; gap: 6px">
+          <sc-for list="{{msgs}}" as="m" hint-placeholder-count="9">
+            <sc-if value="{{m.isDivider}}" hint-placeholder-val="{{false}}">
+              <div style="display: flex; align-items: center; gap: 10px; margin: 4px 0; font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ink-muted)">
+                <span aria-hidden="true" style="flex: 1; height: 1px; background: var(--line)"></span>
+                <span>{{m.text}}</span>
+                <span aria-hidden="true" style="flex: 1; height: 1px; background: var(--line)"></span>
+              </div>
+            </sc-if>
+            <sc-if value="{{m.isText}}" hint-placeholder-val="{{true}}">
+              <div class="fc-row {{m.sideClass}} {{m.gapClass}}">
+                <span class="fc-sr">{{m.who}}</span>
+                <p class="fc-bubble {{m.bubbleClass}} {{m.newClass}}">{{m.text}}</p>
+              </div>
+            </sc-if>
+            <sc-if value="{{m.isSticker}}" hint-placeholder-val="{{false}}">
+              <div class="fc-row {{m.sideClass}} {{m.gapClass}}">
+                <span class="fc-sr">{{m.stickerWho}}</span>
+                <span class="fc-stk-wrap {{m.tiltClass}} {{m.newClass}}">
+                  <img class="{{m.animClass}}" src="{{m.src}}" alt="{{m.label}}" width="96" height="96" style="display: block; width: 96px; height: 96px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 4px var(--surface-raised), 0 0 0 5px var(--line), 0 8px 18px rgba(27, 35, 80, 0.16)">
+                </span>
+              </div>
+            </sc-if>
+            <sc-if value="{{m.hasMeta}}" hint-placeholder-val="{{false}}">
+              <span class="fc-meta {{m.metaClass}}">{{m.meta}}</span>
+            </sc-if>
+          </sc-for>
+        </div>
+      </div>
+
+      <div class="fc-dock" style="display: flex; flex-direction: column; gap: 8px; background: var(--surface-raised); box-shadow: 0 -1px 0 var(--line)">
+        <sc-if value="{{trayClosed}}" hint-placeholder-val="{{true}}">
+          <div class="fc-chips" role="group" aria-label="Quick encouragement" style="display: flex; gap: 8px">
+            <sc-for list="{{chips}}" as="ch" hint-placeholder-count="5">
+              <button class="fc-tap fc-chip {{ch.onClass}}" type="button" onClick="{{ch.pick}}" aria-pressed="{{ch.pressed}}" style="flex: none; min-height: 44px; padding: 0 14px; border: 0; border-radius: var(--radius-pill); font: 600 14px/1 var(--font-text); white-space: nowrap">{{ch.label}}</button>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{trayOpen}}" hint-placeholder-val="{{false}}">
+          <div id="fc-tray" role="group" aria-label="Kix stickers" style="display: flex; flex-direction: column; gap: 6px">
+            <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 10px; padding: 0 2px">
+              <span style="font-size: 14px; line-height: 20px; font-weight: 600">Kix stickers</span>
+              <span style="font-size: 12px; line-height: 16px; color: var(--ink-muted)">Made for myKx. No outside GIFs.</span>
+            </div>
+            <div class="fc-tray-grid" style="display: grid; gap: 4px">
+              <sc-for list="{{stickers}}" as="s" hint-placeholder-count="8">
+                <button class="fc-tap fc-tray-btn" type="button" onClick="{{s.send}}" aria-label="Send the {{s.label}} sticker" style="display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 0; min-height: 44px; padding: 8px 2px 6px; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--ink); font: 600 12px/15px var(--font-text); text-align: center">
+                  <img class="fc-tray-img" src="{{s.src}}" alt="" width="64" height="64" style="display: block; width: 64px; height: 64px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 3px var(--surface-raised), 0 0 0 4px var(--line), 0 4px 10px rgba(27, 35, 80, 0.12)">
+                  <span aria-hidden="true">{{s.label}}</span>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <div style="display: flex; align-items: center; gap: 8px">
+          <button class="fc-tap fc-iconbtn {{trayBtnClass}}" type="button" onClick="{{toggleTray}}" aria-label="Kix stickers" aria-expanded="{{trayExpanded}}" aria-controls="fc-tray">
+            <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 24px; height: 24px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M20 12.5V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h5.5M20 12.5L12.5 20v-4.5a3 3 0 0 1 3-3zM9 9.5v.01M15 9.5v.01M8.8 13.6a4.2 4.2 0 0 0 4.2.7"/></svg>
+          </button>
+          <div class="fc-field" style="flex: 1 1 auto; min-width: 0; display: flex; align-items: center; height: 44px; box-sizing: border-box; padding: 0 16px; border-radius: var(--radius-pill); background: var(--surface)">
+            <label class="fc-sr" for="fc-msg">Message to {{t.first}}</label>
+            <input class="fc-input" id="fc-msg" type="text" value="{{draft}}" onChange="{{onDraft}}" onKeyDown="{{onDraftKey}}" placeholder="Message {{t.first}}" style="flex: 1; min-width: 0; height: 100%; padding: 0; border: 0; outline: none; background: transparent; color: var(--ink); font: 400 16px/1 var(--font-text)">
+          </div>
+          <button class="fc-tap fc-iconbtn fc-send" type="button" onClick="{{send}}" aria-label="Send" disabled="{{sendDisabled}}">
+            <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M21 3L10.5 13.5M21 3l-6.5 18-4-7.5L3 9.5z"/></svg>
+          </button>
+        </div>
+
+        <p class="fc-note" style="margin: 0; display: flex; align-items: flex-start; justify-content: center; gap: 6px; font-size: 12px; line-height: 16px; color: var(--ink-muted); text-align: center">
+          <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none; margin-top: 1px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 11h10a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2zM8 11V8a4 4 0 0 1 8 0v3"/></svg>
+          <span>Messages stay in your family. Kix and AI models never read them.</span>
+        </p>
+      </div>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"startTray":{"editor":"boolean","default":false},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  state = { kid: 'ari', view: 'thread', draft: '', tray: null, banner: true, seenZara: false, sent: { ari: [], zara: [], mei: [] } };
+
+  renderVals() {
+    // Our own Kix sticker pack: Muse Image stills, animated with CSS. No third-party GIF service.
+    const STICKERS = [
+      { id: 'woohoo', label: 'Woohoo!', src: '/_blob/f506e58a602297834bce49cc9565bca7', anim: 'bounce' },
+      { id: 'thumbs', label: 'Thumbs up', src: '/_blob/f2b604acfbcb01359f6fc041e9c051b4', anim: 'wiggle' },
+      { id: 'great', label: 'Great thinking', src: '/_blob/f3d67ff062af0a3258ceadda37b9024f', anim: 'float' },
+      { id: 'proud', label: 'Proud of you', src: '/_blob/02f791d67e720a2bf4fdb268ff6b6b8a', anim: 'pop' },
+      { id: 'tricky', label: 'Tricky one!', src: '/_blob/322dfed5486a583d4343e28bcb22c301', anim: 'wiggle' },
+      { id: 'adventure', label: 'Adventure time', src: '/_blob/e100a223af29f3653ca9b4ed32a70d4c', anim: 'float' },
+      { id: 'froggy', label: 'Froggy high five', src: '/_blob/0feda1cc09e46cfc79792180352c9177', anim: 'bounce' },
+      { id: 'sleep', label: 'Sleep well', src: '/_blob/1be0285c83fc5de9a8d666fbb5e6c403', anim: 'float' },
+    ];
+    const byId = {};
+    STICKERS.forEach((s) => { byId[s.id] = s; });
+
+    // Synthetic household for the design. [from, kind, text or sticker id, time shown under the group]
+    const THREADS = {
+      ari: {
+        name: 'Ari · P3', first: 'Ari', avatar: '/_blob/e100a223af29f3653ca9b4ed32a70d4c',
+        status: 'Usually replies in the evening', day: 'Wednesday', dayShort: 'Wed',
+        msgs: [
+          ['me', 'text', 'Proud of you for sticking with the frog quest 🐸'],
+          ['me', 'sticker', 'woohoo', '7:42 pm'],
+          ['kid', 'sticker', 'froggy'],
+          ['kid', 'text', 'thanks!! can we do magnets tmr', '7:50 pm'],
+          ['me', 'text', 'Yes! Magnets at 6 tomorrow. Early night tonight 💤', '7:51 pm'],
+          ['kid', 'sticker', 'sleep'],
+          ['kid', 'text', 'ok night night', '7:53 pm'],
+        ],
+      },
+      zara: {
+        name: 'Zara · P6', first: 'Zara', avatar: '/_blob/f2b604acfbcb01359f6fc041e9c051b4',
+        status: 'Usually replies after school', day: 'Tuesday', dayShort: 'Tue',
+        msgs: [
+          ['kid', 'text', 'spelling test tmr 😬', '5:58 pm'],
+          ['me', 'text', "You've got this. Ten minutes after dinner?", '6:12 pm'],
+          ['kid', 'sticker', 'thumbs', '6:20 pm'],
+        ],
+      },
+      mei: {
+        name: 'Mei · Sec 2', first: 'Mei', avatar: '/_blob/1be0285c83fc5de9a8d666fbb5e6c403',
+        status: 'Usually replies at night', day: 'Monday', dayShort: 'Mon',
+        msgs: [
+          ['me', 'text', 'Dinner at 7. Can you bring your maths file down?'],
+          ['kid', 'text', 'ok coming', '6:48 pm'],
+          ['me', 'text', 'Thanks! Nice planning this week 📅', '9:05 pm'],
+          ['kid', 'sticker', 'sleep', '9:30 pm'],
+        ],
+      },
+    };
+
+    const kid = this.state.kid;
+    const t = THREADS[kid];
+    const tray = this.state.tray ?? Boolean(this.props.startTray);
+    const draft = this.state.draft;
+
+    const append = (msg, extra) => {
+      const k = this.state.kid;
+      const sent = this.state.sent;
+      this.setState(Object.assign({ sent: Object.assign({}, sent, { [k]: sent[k].concat([msg]) }) }, extra || {}));
+    };
+    const send = () => {
+      const text = (this.state.draft || '').trim();
+      if (!text) return;
+      append({ from: 'me', kind: 'text', val: text }, { draft: '' });
+    };
+
+    // Thread rows: the day divider, the saved messages, then anything sent in this session under "Today".
+    const mine = this.state.sent[kid];
+    const items = [{ divider: t.day }].concat(t.msgs.map(([from, kind, val, time]) => ({ from, kind, val, time })));
+    if (mine.length) {
+      items.push({ divider: 'Today' });
+      mine.forEach((m, i) => items.push(Object.assign({}, m, { isNew: true, time: i === mine.length - 1 ? `Sent. ${t.first} will see it on Home.` : '' })));
+    }
+    let prev = null;
+    let n = 0;
+    const msgs = items.map((it) => {
+      if (it.divider) {
+        prev = null;
+        return {
+          isDivider: true, isText: false, isSticker: false, hasMeta: false, text: it.divider,
+          who: '', stickerWho: '', sideClass: '', gapClass: '', bubbleClass: '', tiltClass: '', newClass: '',
+          animClass: '', src: '', label: '', meta: '', metaClass: '',
+        };
+      }
+      const me = it.from === 'me';
+      const st = it.kind === 'sticker' ? byId[it.val] : null;
+      const gap = prev && prev !== it.from ? 'fc-gap' : '';
+      prev = it.from;
+      return {
+        isDivider: false,
+        isText: it.kind === 'text',
+        isSticker: Boolean(st),
+        hasMeta: Boolean(it.time),
+        text: it.kind === 'text' ? it.val : '',
+        who: me ? 'You:' : `${t.first}:`,
+        stickerWho: me ? 'You sent a sticker:' : `${t.first} sent a sticker:`,
+        sideClass: me ? 'fc-me' : 'fc-kid',
+        gapClass: gap,
+        bubbleClass: me ? 'fc-b-me' : 'fc-b-kid',
+        tiltClass: me ? 'fc-tilt-me' : 'fc-tilt-kid',
+        newClass: it.isNew ? 'fc-new' : '',
+        animClass: st ? `fc-a-${st.anim} fc-d${n++ % 4}` : '',
+        src: st ? st.src : '',
+        label: st ? st.label : '',
+        meta: it.time || '',
+        metaClass: me ? 'fc-meta-me' : '',
+      };
+    });
+
+    const preview = (id) => {
+      const th = THREADS[id];
+      const extra = this.state.sent[id];
+      const last = extra.length ? extra[extra.length - 1] : (() => { const m = th.msgs[th.msgs.length - 1]; return { from: m[0], kind: m[1], val: m[2] }; })();
+      const body = last.kind === 'sticker' ? `${byId[last.val].label} sticker` : last.val;
+      return { text: (last.from === 'me' ? 'You: ' : '') + body, when: extra.length ? 'Now' : th.dayShort };
+    };
+
+    const CHIPS = ["You've got this", 'So proud of you', 'Take a break', 'Bedtime soon', "Let's do it together"];
+
+    return {
+      viewClass: `fc-v-${this.state.view}`,
+      t,
+      convos: ['ari', 'zara', 'mei'].map((id) => {
+        const p = preview(id);
+        const on = id === kid;
+        return {
+          name: THREADS[id].name,
+          avatar: THREADS[id].avatar,
+          preview: p.text,
+          when: p.when,
+          unread: id === 'zara' && !this.state.seenZara && !on,
+          onClass: on ? 'fc-convo-on' : '',
+          current: on ? 'true' : 'false',
+          pick: () => this.setState({ kid: id, view: 'thread', draft: '', tray: false, seenZara: this.state.seenZara || id === 'zara' }),
+        };
+      }),
+      back: () => this.setState({ view: 'list', tray: false }),
+      showBanner: kid === 'ari' && this.state.banner,
+      sendHug: () => append({ from: 'me', kind: 'sticker', val: 'proud' }, { banner: false }),
+      dismiss: () => this.setState({ banner: false }),
+      msgs,
+      trayOpen: tray,
+      trayClosed: !tray,
+      trayExpanded: tray ? 'true' : 'false',
+      trayBtnClass: tray ? 'fc-iconbtn-on' : '',
+      toggleTray: () => this.setState({ tray: !tray }),
+      stickers: STICKERS.map((s) => Object.assign({}, s, {
+        send: () => append({ from: 'me', kind: 'sticker', val: s.id }, { tray: false }),
+      })),
+      chips: CHIPS.map((label) => ({
+        label,
+        onClass: draft === label ? 'fc-chip-on' : '',
+        pressed: draft === label ? 'true' : 'false',
+        pick: () => this.setState({ draft: label }),
+      })),
+      draft,
+      onDraft: (e) => this.setState({ draft: e && e.target ? e.target.value : '' }),
+      onDraftKey: (e) => {
+        if (e && e.key === 'Enter' && !e.shiftKey && !(e.nativeEvent && e.nativeEvent.isComposing)) {
+          e.preventDefault();
+          send();
+        }
+      },
+      send,
+      sendDisabled: !draft.trim(),
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Skills admin: add knowledge</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+.au-click{cursor:pointer}
+.au-click:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+
+/* Layout (mykx-design-system §3a). Default = expanded 1024–1599: sidebar, source left, questions right, sticky publish bar. */
+.au-shell{display:flex;min-height:100vh}
+.au-nav{width:232px;padding:24px 16px;flex-direction:column;gap:6px;box-shadow:inset -1px 0 0 var(--line)}
+.au-brand{padding:0 8px 18px}
+.au-navlist{display:flex;flex-direction:column;gap:6px}
+.au-navi[aria-current="page"]{box-shadow:inset 3px 0 0 var(--accent)}
+.au-main{padding:24px 32px 0}
+.au-head{flex-wrap:wrap}
+.au-segs{border-radius:var(--radius-pill)}
+.au-seg{min-height:30px;font-size:12px}
+.au-note{flex:1 1 0%;font-size:12px;line-height:16px}
+.au-split{grid-template-columns:min(460px,41%) minmax(0,1fr);gap:20px}
+.au-src{padding:28px 30px}
+.au-srcsum{display:none}
+.au-srcsum::-webkit-details-marker{display:none}
+.au-chev{transition:transform 160ms cubic-bezier(0.22,1,0.36,1)}
+.au-srcbox[open] .au-chev{transform:rotate(180deg)}
+.au-stem{flex:1;font-size:14px;line-height:20px;white-space:nowrap}
+.au-ans{font-size:14px;line-height:21px}
+.au-work{font-size:13px;line-height:19px}
+.au-pub{position:sticky;bottom:0;z-index:1;margin:0 -32px;padding:14px 32px}
+.au-pubtext{font-size:15px;line-height:22px}
+.au-pubbtn{margin-left:auto}
+@media (pointer: coarse){.au-seg{min-height:44px}}
+@media (prefers-reduced-motion: reduce){.au-chev{transition:none}}
+
+/* Medium 600–1023 and foldable book posture: nav becomes a top bar, main spans the width. */
+@media (min-width: 600px) and (max-width: 1023px), (horizontal-viewport-segments: 2){
+  .au-shell{flex-direction:column}
+  .au-nav{width:auto;padding:12px 24px;flex-direction:row;flex-wrap:wrap;align-items:center;gap:8px 16px;box-shadow:inset 0 -1px 0 var(--line)}
+  .au-brand{padding:0}
+  .au-navlist{flex:1 1 auto;flex-direction:row;flex-wrap:wrap;gap:4px}
+  .au-navi[aria-current="page"]{box-shadow:inset 0 -3px 0 var(--accent)}
+  .au-main{padding:24px 24px 0}
+  .au-pub{margin:0 -24px;padding:14px 24px}
+}
+
+/* Medium 600–1023: source on top (shorter, scrolls in its box), questions below. */
+@media (min-width: 600px) and (max-width: 1023px){
+  .au-seg{min-height:44px;font-size:13px}
+  .au-file{flex:1 1 calc(100% - 44px)}
+  .au-note{flex-basis:100%}
+  .au-split{grid-template-columns:minmax(0,1fr)}
+  .au-src{max-height:340px;overflow-y:auto}
+  .au-pub{flex-wrap:wrap}
+}
+
+/* Compact < 600: dots-only stepper, questions first, source in a collapsible box, sticky bar above the safe area. */
+@media (max-width: 599px){
+  .au-shell{flex-direction:column}
+  .au-nav{width:auto;padding:12px 16px;gap:10px;box-shadow:inset 0 -1px 0 var(--line)}
+  .au-brand{padding:0}
+  .au-navlist{flex-direction:row;gap:4px;overflow-x:auto}
+  .au-navi{flex:none;white-space:nowrap}
+  .au-navi[aria-current="page"]{box-shadow:inset 0 -3px 0 var(--accent)}
+  .au-main{padding:20px 16px 0}
+  .au-step:not([aria-current="step"]) .au-steplabel{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+  .au-file{flex:1 1 calc(100% - 44px)}
+  .au-rights{flex:1 1 100%}
+  .au-segs{flex:1 1 100%;flex-wrap:wrap;border-radius:var(--radius-md)}
+  .au-seg{flex:1 1 auto;min-height:44px;font-size:14px}
+  .au-note{flex-basis:100%;font-size:16px;line-height:22px}
+  .au-split{grid-template-columns:minmax(0,1fr)}
+  .au-qs{order:-1}
+  .au-srcsum{display:flex}
+  .au-srcbox[open] > .au-srcsum{margin-bottom:12px}
+  .au-src{padding:20px 18px}
+  .au-hbtn{flex-wrap:wrap}
+  .au-stem{order:3;flex:1 1 100%;font-size:16px;line-height:22px;white-space:normal}
+  .au-status{margin-left:auto}
+  .au-ans{font-size:16px;line-height:24px}
+  .au-work{font-size:16px;line-height:22px}
+  .au-pub{flex-wrap:wrap;margin:0 -16px;padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
+  .au-pubtext{font-size:16px;line-height:22px}
+  [data-band] .au-pubbtn.mk-btn{flex:1 1 auto;white-space:normal;line-height:1.25;padding-top:10px;padding-bottom:10px}
+}
+
+/* Desktop ≥ 1600: centred 1600 container, wider source pane. */
+@media (min-width: 1600px){
+  .au-shell{max-width:1600px;margin:0 auto}
+  .au-split{grid-template-columns:min(560px,41%) minmax(0,1fr)}
+}
+
+/* Foldable book posture: source left of the hinge, questions right; nothing crosses the fold. */
+@media (horizontal-viewport-segments: 2){
+  .au-split{grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:calc(env(viewport-segment-left 1 0, 0px) - env(viewport-segment-right 0 0, 0px) + 48px)}
+  .au-src{max-height:none}
+  .au-navlist,.au-head,.au-bar,.au-pubtext{max-width:calc(env(viewport-segment-right 0 0, 50vw) - 48px)}
+}
+
+/* Fixes after the device check (27 Oct) */
+.au-navlist{scrollbar-width:none}.au-navlist::-webkit-scrollbar{display:none}
+@media (max-width: 599px){
+  .au-pubtext{font-size:14px;line-height:20px}
+  .au-pub{padding-top:10px;gap:8px}
+}
+</style>
+</helmet>
+<div data-theme="anime-sky" data-band="teen" style="width: 100%; min-height: 100vh; box-sizing: border-box; position: relative; overflow-x: clip; background: var(--surface); color: var(--ink); font-family: var(--font-text)">
+ <div class="au-shell">
+
+  <nav class="au-nav" aria-label="Admin" style="flex: none; box-sizing: border-box; display: flex; background: var(--surface-raised)">
+    <div class="au-brand" style="display: flex; align-items: center; gap: 10px">
+      <img src="/_blob/f52e18857979369421011da66fdb9de3" alt="myKx" style="height: 24px; width: auto">
+      <span style="padding: 2px 8px; border-radius: var(--radius-pill); background: var(--ink); color: var(--surface); font-size: 11px; line-height: 18px; font-weight: 700; letter-spacing: .04em">ADMIN</span>
+    </div>
+    <div class="au-navlist">
+      <span class="au-navi" style="display: block; padding: 10px 12px; font-size: 15px; line-height: 20px; font-weight: 600; color: var(--ink-muted)">Skills</span>
+      <span class="au-navi" aria-current="page" style="display: block; padding: 10px 12px; border-radius: var(--radius-sm); font-size: 15px; line-height: 20px; font-weight: 600; background: var(--surface); color: var(--accent)">Add knowledge</span>
+      <span class="au-navi" style="display: block; padding: 10px 12px; font-size: 15px; line-height: 20px; font-weight: 600; color: var(--ink-muted)">Agents and tools</span>
+      <span class="au-navi" style="display: block; padding: 10px 12px; font-size: 15px; line-height: 20px; font-weight: 600; color: var(--ink-muted)">Learners</span>
+      <span class="au-navi" style="display: block; padding: 10px 12px; font-size: 15px; line-height: 20px; font-weight: 600; color: var(--ink-muted)">Activity</span>
+    </div>
+  </nav>
+
+  <main class="au-main" style="flex: 1; min-width: 0; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+    <div class="au-head" style="display: flex; align-items: center; justify-content: space-between; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <span style="font-size: 13px; line-height: 18px; font-weight: 600; color: var(--ink-muted)">Skills / P3 Science</span>
+        <h1 style="margin: 0; font: 800 28px/34px var(--font-display)">Add knowledge to P3 Science</h1>
+      </div>
+      <ol style="margin: 0; padding: 0; list-style: none; display: flex; align-items: center; gap: 8px">
+        <sc-for list="{{steps}}" as="st" hint-placeholder-count="4">
+          <li class="au-step" aria-current="{{st.cur}}" style="{{st.style}}"><span style="{{st.dot}}">{{st.mark}}</span><span class="au-steplabel">{{st.label}}</span></li>
+        </sc-for>
+      </ol>
+    </div>
+
+    <div class="au-bar" style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px; padding: 12px 16px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line)">
+      <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 28px; height: 28px; flex: none; color: var(--accent)"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6 2h9l5 5v15H6zM14 2v6h6"/></svg>
+      <span class="au-file" style="display: flex; flex-direction: column; min-width: 220px">
+        <strong style="font-size: 15px; line-height: 20px">life-cycles-worksheet-2.pdf</strong>
+        <span style="font-size: 13px; line-height: 18px; color: var(--ink-muted)">2 pages · 6 questions found · Content Curator, muse-spark-1.3</span>
+      </span>
+      <span class="au-rights" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px">
+        <span style="font-size: 13px; font-weight: 700; color: var(--ink-muted)">Where is it from?</span>
+        <span class="au-segs" role="group" aria-label="Rights" style="display: flex; padding: 3px; gap: 2px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line)">
+          <sc-for list="{{rights}}" as="r" hint-placeholder-count="3">
+            <button class="au-click au-seg" type="button" onClick="{{r.pick}}" aria-pressed="{{r.pressed}}" style="{{r.style}}">{{r.label}}</button>
+          </sc-for>
+        </span>
+      </span>
+      <span class="au-note" style="color: var(--ink-muted)">{{rightsNote}}</span>
+    </div>
+
+    <div class="au-split" style="flex: 1; min-height: 0; display: grid; align-items: start; align-content: start">
+      <details class="au-srcbox" open="{{srcOpen}}">
+        <summary class="au-click au-srcsum" style="align-items: center; justify-content: space-between; gap: 8px; min-height: 48px; padding: 0 16px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line); font-size: 16px; line-height: 22px; font-weight: 700; list-style: none">Source page<svg class="au-chev" viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px; flex: none; color: var(--ink-muted)"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg></summary>
+        <section class="au-src" aria-label="Source page" style="border-radius: var(--radius-sm); background: #FFFFFF; color: #1B2350; box-shadow: var(--shadow-raised); font: 14px/21px var(--font-text)">
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; font-size: 11px; color: #7680AD; letter-spacing: .04em"><span>P3 SCIENCE · LIFE CYCLES</span><span>WORKSHEET 2 · PAGE 1</span></div>
+          <h2 style="margin: 10px 0 14px; font: 800 18px/24px var(--font-text)">Life cycles of animals</h2>
+          <sc-for list="{{sourceQs}}" as="q" hint-placeholder-count="5">
+            <div style="{{q.style}}">
+              <strong>{{q.n}}.</strong> {{q.text}}
+              <sc-if value="{{q.fig}}" hint-placeholder-val="{{false}}">
+                <img src="/_blob/d950da4db91207a7c4dfc3844601ad5c" alt="Drawing of the stages of a frog's life cycle, one stage labelled P" style="display: block; width: 100%; height: 92px; object-fit: contain; margin-top: 8px; border-radius: 8px; background: #F6F8FF">
+              </sc-if>
+            </div>
+          </sc-for>
+        </section>
+      </details>
+
+      <section class="au-qs" aria-label="Extracted questions" style="min-height: 0; display: flex; flex-direction: column; gap: 10px">
+        <sc-for list="{{items}}" as="it" hint-placeholder-count="6">
+          <div style="{{it.style}}">
+            <button class="au-click au-hbtn" type="button" onClick="{{it.select}}" style="display: flex; align-items: center; gap: 10px; box-sizing: border-box; width: calc(100% + 28px); margin: -12px -14px; padding: 12px 14px; border: 0; background: transparent; color: var(--ink); text-align: left; font-family: var(--font-text)">
+              <span style="font: 700 13px/18px ui-monospace, monospace; color: var(--ink-muted)">Q{{it.n}}</span>
+              <span class="au-stem" style="font-weight: 600; overflow: hidden; text-overflow: ellipsis">{{it.stem}}</span>
+              <span style="{{it.flagStyle}}">{{it.flag}}</span>
+              <span class="au-status" style="{{it.statusStyle}}">{{it.status}}</span>
+            </button>
+            <sc-if value="{{it.open}}" hint-placeholder-val="{{false}}">
+              <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 12px">
+                <div style="display: flex; flex-wrap: wrap; gap: 6px">
+                  <span style="padding: 2px 10px; border-radius: var(--radius-pill); background: var(--accent-2); color: var(--on-accent-2); font-size: 12px; line-height: 20px; font-weight: 700">{{it.type}}</span>
+                  <span style="padding: 2px 10px; border-radius: var(--radius-pill); box-shadow: inset 0 0 0 1px var(--border-control); font: 600 12px/20px ui-monospace, monospace">{{it.tag}}</span>
+                  <span style="padding: 2px 10px; border-radius: var(--radius-pill); box-shadow: inset 0 0 0 1px var(--border-control); font-size: 12px; line-height: 20px; font-weight: 600">difficulty {{it.diff}} · {{it.marks}} marks</span>
+                </div>
+                <span class="au-ans">{{it.answer}}</span>
+                <span class="au-work" style="color: var(--ink-muted)">{{it.working}}</span>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px">
+                  <button class="mk-btn mk-btn--primary au-click" type="button" onClick="{{it.approve}}">Approve</button>
+                  <button class="mk-btn mk-btn--secondary" type="button">Edit</button>
+                  <button class="mk-btn mk-btn--secondary au-click" type="button" onClick="{{it.reject}}">Reject</button>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </section>
+    </div>
+
+    <div class="au-pub" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--surface-raised); box-shadow: 0 -1px 0 var(--line), 0 -8px 24px rgba(27, 35, 80, 0.06)">
+      <sc-if value="{{notPublished}}" hint-placeholder-val="{{true}}">
+        <span class="au-pubtext"><strong>{{counts.approved}} approved</strong> · {{counts.waiting}} waiting · {{counts.rejected}} rejected. Only approved questions reach children, and only they count toward mastery.</span>
+      </sc-if>
+      <sc-if value="{{published}}" hint-placeholder-val="{{false}}">
+        <span class="au-pubtext" style="display: flex; align-items: center; gap: 10px"><span style="display: grid; place-items: center; flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--success); color: var(--on-success)"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 16px; height: 16px"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span><strong>P3 Science v1.1.0 is live.</strong> Kix uses the {{counts.approved}} new questions from each learner's next session.</span></span>
+      </sc-if>
+      <button class="mk-btn mk-btn--primary au-click au-pubbtn" type="button" onClick="{{publish}}" style="{{publishStyle}}">{{publishLabel}}</button>
+    </div>
+  </main>
+ </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  state = { open: 1, rights: 'own', status: { 1: 'approved', 2: 'approved', 3: 'waiting', 4: 'waiting', 5: 'waiting', 6: 'rejected' }, published: false };
+
+  renderVals() {
+    const ITEMS = [
+      { n: 1, type: 'MCQ', tag: 'cycles.animal/stages_order', diff: 1, marks: 1, stem: 'Which shows the stages of a frog\'s life cycle in the correct order?', answer: 'Answer: (2) egg → tadpole → froglet → adult frog', working: 'Distractors swap tadpole and froglet, or start at the adult. Confidence: high.', flag: 'High', tone: 'ok' },
+      { n: 2, type: 'MCQ', tag: 'cycles.animal/metamorphosis', diff: 2, marks: 2, stem: 'Which of these animals has a pupa stage in its life cycle?', answer: 'Answer: (3) butterfly', working: 'Frog, chicken and cockroach have no pupa stage. Confidence: high.', flag: 'High', tone: 'ok' },
+      { n: 3, type: 'Short answer', tag: 'cycles.animal/stage_features', diff: 2, marks: 1, stem: 'Name the stage of the mealworm beetle that does not feed.', answer: 'Answer: pupa', working: 'Accept "pupa stage". Confidence: high.', flag: 'High', tone: 'ok' },
+      { n: 4, type: 'Open (CER)', tag: 'cycles.animal/compare_cycles', diff: 3, marks: 2, stem: 'A tadpole has gills but an adult frog has lungs. Explain why.', answer: 'Model answer: The tadpole lives in water and takes in oxygen from the water with its gills. The adult frog lives mostly on land, so it needs lungs to take in oxygen from the air.', working: 'The key gives only "lives on land". Kept as self-check: it never changes mastery.', flag: 'Key unclear', tone: 'warn' },
+      { n: 5, type: 'MCQ', tag: 'cycles.animal/stages_order', diff: 2, marks: 1, stem: 'Look at the life cycle shown. Which stage is P?', answer: 'Answer: (1) froglet', working: 'Needs the figure. Attach the cropped drawing from page 1 before approving.', flag: 'Needs figure', tone: 'warn' },
+      { n: 6, type: 'MCQ', tag: 'cycles.animal/stages_count', diff: 1, marks: 1, stem: 'How many stages are there in the life cycle of a cockroach?', answer: 'Answer: (2) three', working: 'Possible duplicate of p3sci-lc-011 (same idea, same numbers).', flag: 'Duplicate?', tone: 'warn' },
+    ];
+    const st = this.state.status;
+    const counts = { approved: 0, waiting: 0, rejected: 0 };
+    Object.values(st).forEach((v) => { counts[v] += 1; });
+    const published = this.state.published;
+    // min-height and font-size live in the .au-seg class so the size classes can raise them to 44 px.
+    const segBase = 'padding: 0 12px; border: 0; border-radius: var(--radius-pill); font-weight: 700; line-height: 1; font-family: var(--font-text);';
+    const on = ' background: var(--accent); color: var(--on-accent);';
+    const RIGHTS = [
+      ['own', 'Our own', 'Questions can be served to children after review.'],
+      ['licensed', 'Licensed', 'Served after review; licence saved with the version.'],
+      ['school', 'School paper (private)', 'Only adds question patterns and topic statistics. Its questions are never shown to children.'],
+    ];
+    const rights = RIGHTS.find((r) => r[0] === this.state.rights);
+    const stepNames = ['Upload', 'Extract', 'Review', 'Publish'];
+    const current = published ? 4 : 2;
+    // Compact starts with the source page folded so the questions come first; wider sizes keep it open.
+    let compact = false;
+    try { compact = window.matchMedia('(max-width: 599px)').matches; } catch (e) { compact = false; }
+    return {
+      steps: stepNames.map((label, i) => ({
+        label,
+        mark: i < current ? '✓' : String(i + 1),
+        cur: i === Math.min(current, stepNames.length - 1) ? 'step' : 'false',
+        style: 'display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700;' + (i <= current ? ' color: var(--ink);' : ' color: var(--ink-muted);'),
+        dot: 'display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; font-size: 12px;'
+          + (i < current ? ' background: var(--success); color: var(--on-success);' : i === current ? ' background: var(--accent); color: var(--on-accent);' : ' box-shadow: inset 0 0 0 1.5px var(--border-control);'),
+      })),
+      rights: RIGHTS.map(([id, label]) => ({
+        label,
+        pressed: id === this.state.rights ? 'true' : 'false',
+        style: segBase + (id === this.state.rights ? on : ' background: transparent; color: var(--ink-muted);'),
+        pick: () => this.setState({ rights: id }),
+      })),
+      rightsNote: rights[2],
+      srcOpen: !compact,
+      sourceQs: ITEMS.slice(0, 5).map((it) => ({
+        n: it.n,
+        text: it.stem + (it.type === 'MCQ' ? '  (1) … (2) … (3) … (4) …' : ''),
+        fig: it.n === 5,
+        style: 'margin: 0 -8px 12px; padding: 6px 8px; border-radius: 8px;' + (it.n === this.state.open ? ' background: rgba(31, 102, 193, 0.10); box-shadow: inset 3px 0 0 #1F66C1;' : ''),
+      })),
+      items: ITEMS.map((it) => {
+        const status = st[it.n];
+        const isOpen = it.n === this.state.open;
+        return {
+          ...it,
+          open: isOpen,
+          status: status === 'approved' ? 'Approved' : status === 'rejected' ? 'Rejected' : 'To review',
+          style: 'padding: 12px 14px; border-radius: var(--radius-md); background: var(--surface-raised);'
+            + (isOpen ? ' box-shadow: 0 0 0 2px var(--accent), var(--shadow-raised);' : ' box-shadow: inset 0 0 0 1px var(--line);')
+            + (status === 'rejected' ? ' opacity: .6;' : ''),
+          flagStyle: 'flex: none; padding: 0 8px; border-radius: 6px; font-size: 12px; line-height: 20px; font-weight: 700;'
+            + (it.tone === 'ok' ? ' box-shadow: inset 0 0 0 1px var(--border-control); color: var(--ink-muted);' : ' background: var(--warn); color: var(--on-warn);'),
+          statusStyle: 'flex: none; min-width: 74px; text-align: right; font-size: 12px; line-height: 20px; font-weight: 700;'
+            + (status === 'approved' ? ' color: var(--success);' : status === 'rejected' ? ' color: var(--ink-muted);' : ' color: var(--accent);'),
+          select: () => this.setState({ open: isOpen ? 0 : it.n }),
+          approve: () => this.setState({ status: { ...st, [it.n]: 'approved' }, open: it.n < 6 ? it.n + 1 : 0 }),
+          reject: () => this.setState({ status: { ...st, [it.n]: 'rejected' }, open: it.n < 6 ? it.n + 1 : 0 }),
+        };
+      }),
+      counts,
+      published,
+      notPublished: !published,
+      publishLabel: published ? 'View version 1.1.0' : `Publish P3 Science v1.1.0 (${counts.approved} questions)`,
+      publishStyle: counts.approved === 0 && !published ? 'opacity: .45;' : '',
+      publish: () => { if (counts.approved > 0) this.setState({ published: true }); },
+    };
+  }
+}
+</script>
+</body>
+</html>

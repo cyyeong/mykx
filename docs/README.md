@@ -4,12 +4,16 @@ One index for humans and agents. If a reference isn't linked here, it isn't cano
 
 ## Product
 
+> **Names:** the founder's children appear in this repo only as **Leonard** (Sec 2), **Abby** (P6) and **Jordan** (P3). These are stand-in names, not their real names. The real names stay in the git-ignored `content-private/names.json`; the skill importer swaps them for the stand-ins on read (`lib/skills/private-names.ts`).
+
 | Doc | What it is |
 |---|---|
 | [prd/PRD_REVIEW.md](prd/PRD_REVIEW.md) | **Current scope and plan.** Gaps, enhancements, re-scope, day plan, video, budget. Overrides the PRD where they differ. |
 | [plan/IMPLEMENTATION_PLAN.md](plan/IMPLEMENTATION_PLAN.md) | **The build schedule.** Hour budget, demo-path scope, architecture, workstreams, day-by-day exits, video plan, cut order. |
 | [prd/SKILL_ENGINE.md](prd/SKILL_ENGINE.md) | **Skill Engine and skills admin.** Skill pack format, unified item schema, agents that load and unload skills via `tool_search`, upload → review → publish, privacy and copyright rules. |
 | [prd/PARENT_INSIGHTS.md](prd/PARENT_INSIGHTS.md) | **Parent dashboard, wellbeing signals, flags and family messages.** Signal sources, flag levels and the safety path, Kix stickers, privacy rules. |
+| [prd/ACCOUNTS.md](prd/ACCOUNTS.md) | **Sign-in and accounts.** Parents and admins by email, kids by door with a picture code or password; the living-city door login and time tunnel; Your family, Me, admin People; rules. |
+| [prd/GAMES.md](prd/GAMES.md) | Game Arcade (proposed): learning games that follow each child's syllabus, starting with a touch-typing game with ghost hands; designs in canvas row 10 |
 | [prd/myKx_PRD.md](prd/myKx_PRD.md) | Original PRD (26 Oct). Still canonical for the mastery maths (§6), reward ethics (FR10), parent summary rules (FR07) and data model (§9). |
 
 ## Design
@@ -18,6 +22,7 @@ One index for humans and agents. If a reference isn't linked here, it isn't cano
 |---|---|
 | [../.agents/skills/mykx-design-system/SKILL.md](../.agents/skills/mykx-design-system/SKILL.md) | Theme engine (band × pack), style packs, Treasure Realm spec, motion, a11y and perf gates |
 | [design/responsive-screens.md](design/responsive-screens.md) | How every screen adapts to phone, foldable, tablet and desktop (rules in the design skill §3a) |
+| [design/living-scenes.md](design/living-scenes.md) | Backgrounds kids can poke: lamp, drawer, window, terrarium glass, singing lanterns (rules in the design skill §4a) |
 | [design/explorations/](design/explorations/) | Muse Image art-direction samples (27 Oct) and their prompts |
 
 ## Claude Design (claude.ai)

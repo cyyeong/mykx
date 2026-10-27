@@ -118,6 +118,12 @@ The founder's seven real tutor skills (P3 Maths, Science, English and Chinese; P
 ### E12. Parent insights, wellbeing signals and family messages (added 27 Oct; spec in `PARENT_INSIGHTS.md`)
 A phone-first parent dashboard. **Screen time** against a daily limit, and **learning-plan adherence** (planned vs done, overdue reviews), both computed deterministically. **Wellbeing signals** per session: focus from how answers are given, mood from the child's own words to Kix (Muse Spark, Standard), hesitation, voice pace from transcript timing, and an opt-in **camera signal that runs only on the device** (eyes closed, looking away; no image leaves the device, no facial emotion recognition). **Flags** at three levels: urgent (distress or safety words → Kix's caring reply, helplines Tinkle Friend 1800 274 4788 and SOS 1767, immediate parent alert), watch (signs of a breakdown) and info (plan not followed). Every signal says "possibly", with evidence, against the child's own baseline. **Family messages** run parent ↔ child inside the household, with an original animated Kix sticker pack instead of third-party GIFs; they never reach a model. Built as stream D; Study Song moves to the roadmap to make room.
 
+### E13. Sign-in and accounts (added 27 Oct; spec in `ACCOUNTS.md`)
+A striking sign-in: a **living twilight city** (stars, lanterns, Kix characters flying and walking) with a **grand double door**. On success the doors swing open and a **time tunnel** carries you to your landing page. There's a default look for grown-ups and age-based looks for kids (junior storybook door with a 4-picture code; teen glass portal with a password). Parents and admins sign in with email; kids pick their door on a family device and never need an email. Parents add kids and reset codes; kids change their nickname and code; admins manage everyone through an audited "People" page that never shows children's content.
+
+### E14. Game Arcade, starting with typing (added 27 Oct evening; spec in `GAMES.md`)
+A games section that keeps growing, where every game practises the child's own syllabus. The first game teaches **touch typing** with **ghost hands** over an on-screen keyboard (the right finger glows and reaches for each key). Nine stages run from the home row to spelling words, subject words, **Answer blast** (type the answer to a reviewed question) and **Match it**. Three looks: **Star Typer** (junior shooter: bolts fire only on right keys), **Word Garden** (junior, calm match mode) and **Neon Strike** (teen answer blast with speed and combos). Stars are deterministic (finish, 90 %, 96 %), progress is saved per child, results can be shared with family only, there are no rankings, and games never change mastery. The founder chose to add dev time rather than cut anything (27 Oct).
+
 ---
 
 ## 4. Re-scope: keep, simplify, cut
@@ -131,6 +137,8 @@ A phone-first parent dashboard. **Screen time** against a daily limit, and **lea
 | FR05 personalised home/themes | **Expand (core)** | theme engine, two bands, five packs, Home, Sidekick Studio | 10 |
 | FR06 RAG/wiki/self-improvement | **Replaced (27 Oct)** | no RAG: agents read skill reference sections by id through tools; skills improve through reviewed uploads; per-child long-term memory in Kix's Notebook, an LLM wiki (E11) | see E11 |
 | Parent insights and family messages (E12) | **Add (core)** | dashboard (screen time, plan, signals, flags), safety path, family messages with Kix stickers; camera signals are stretch | 15.5 (stream D) |
+| Sign-in and accounts (E13) | **Add (core)** | door login with living city and time tunnel; kid doors with picture code or password; Your family; Me; admin People with audit log | 12.5 (A + B) |
+| Game Arcade and typing game (E14) | **Add (core)** | Arcade hub and registry; typing engine with ghost-hands keyboard; Star Typer, Word Garden, Neon Strike; typing path, saved progress, share to family | 17.5 (E) |
 | FR07 parent summary | **Keep (core)** | "Generate tonight's summary" button + Spark narration of deterministic aggregates + offline activity; no scheduler/worker | 4 |
 | FR08 skills/PDF/variants/patterns | **Cut** (P1: one print-CSS practice sheet) | — | 0 |
 | FR09 Vibe mini factory | **Simplify** | brief → Spark JSON spec → trusted React flashcards/planner with Muse Image art → revise → save → share/revoke | 5 |

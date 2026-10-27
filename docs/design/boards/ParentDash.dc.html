@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Parent dashboard</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+.pd-click{cursor:pointer}
+.pd-click:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+.pd-root a:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px;border-radius:4px}
+
+/* Chart tooltip: pure CSS, appears on hover over a day column */
+.pd-tip{position:absolute;left:50%;top:-14px;transform:translate(-50%,4px);opacity:0;pointer-events:none;z-index:2;transition:opacity var(--duration-snappy) ease,transform var(--duration-snappy) ease}
+.pd-slot:hover .pd-tip{opacity:1;transform:translate(-50%,0)}
+
+/* Layout (mykx-design-system §3a). Default = expanded 1024–1599: three columns, centred, max 1200.
+   Left: title, child list, flags. Middle: screen time, learning plan. Right: wellbeing, messages, controls. */
+.pd-root{display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr) minmax(0,1fr);grid-template-rows:repeat(3,auto);grid-template-areas:"top top top" "a b c" "foot foot foot";align-content:start;gap:24px 24px;padding:32px max(32px, calc((100% - 1200px) / 2))}
+.pd-top{grid-area:top}
+.pd-colA{grid-area:a}
+.pd-colB{grid-area:b}
+.pd-colC{grid-area:c}
+.pd-foot{grid-area:foot}
+.pd-col{display:flex;flex-direction:column;gap:16px;min-width:0}
+.pd-card{padding:18px}
+.pd-h1{font-size:clamp(28px, 1vw + 20px, 36px);line-height:1.2}
+.pd-kids{grid-template-columns:minmax(0,1fr);border-radius:var(--radius-md)}
+.pd-kid{min-height:56px;padding:6px 14px;align-items:flex-start;text-align:left;border-radius:12px}
+.pd-kid-sub{display:block}
+
+/* Medium 600–1023: header and flags full width, then two columns (screen time + plan | wellbeing + messages + controls). */
+@media (min-width: 600px) and (max-width: 1023px){
+  .pd-root{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(4,auto);grid-template-areas:"top top" "a a" "b c" "foot foot";gap:20px 20px;padding:24px}
+  .pd-kids{grid-template-columns:repeat(3,minmax(0,1fr));border-radius:var(--radius-pill);max-width:480px}
+  .pd-kid{min-height:44px;padding:0 6px;align-items:center;text-align:center;border-radius:var(--radius-pill)}
+  .pd-kid-sub{display:none}
+}
+
+/* Compact < 600: the phone design, one column in reading order. */
+@media (max-width: 599px){
+  .pd-root{display:flex;flex-direction:column;gap:16px;padding:20px 16px}
+  .pd-col{gap:14px}
+  .pd-card{padding:16px}
+  .pd-kids{grid-template-columns:repeat(3,minmax(0,1fr));border-radius:var(--radius-pill)}
+  .pd-kid{min-height:44px;padding:0 6px;align-items:center;text-align:center;border-radius:var(--radius-pill)}
+  .pd-kid-sub{display:none}
+}
+
+/* Desktop ≥ 1600: same three columns, more air, centred 1440. */
+@media (min-width: 1600px){
+  .pd-root{gap:32px 32px;padding:48px max(48px, calc((100% - 1440px) / 2))}
+  .pd-col{gap:20px}
+  .pd-card{padding:22px}
+}
+
+@media (prefers-reduced-motion: reduce){
+  .pd-root *{transition:none !important}
+}
+</style>
+</helmet>
+<div class="pd-root" data-theme="anime-sky" data-band="teen" style="width: 100%; min-height: 100vh; box-sizing: border-box; overflow-x: clip; background: var(--surface); color: var(--ink); font-family: var(--font-text)">
+
+  <div class="pd-top" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 12px">
+    <img src="/_blob/f52e18857979369421011da66fdb9de3" alt="myKx" style="height: 20px; width: auto">
+    <span style="font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink-muted)">This week</span>
+  </div>
+
+  <!-- Left column: title, child switcher, flags -->
+  <div class="pd-col pd-colA">
+    <div style="display: flex; flex-direction: column; gap: 4px">
+      <h1 class="pd-h1" style="margin: 0; font-family: var(--font-display); font-weight: 800">How {{kid}}'s doing</h1>
+      <span style="font-size: 16px; line-height: 22px; color: var(--ink-muted)">Only you can see this page.</span>
+    </div>
+
+    <div class="pd-kids" role="group" aria-label="Child" style="display: grid; gap: 4px; padding: 4px; background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line)">
+      <sc-for list="{{kids}}" as="k" hint-placeholder-count="3">
+        <button class="pd-click pd-kid" type="button" onClick="{{k.pick}}" aria-pressed="{{k.pressed}}" style="{{k.style}}">
+          <span style="display: inline-flex; align-items: center; gap: 5px">
+            <sc-if value="{{k.urgent}}" hint-placeholder-val="{{false}}">
+              <svg viewBox="0 0 24 24" role="img" aria-label="Urgent" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/></svg>
+            </sc-if>
+            {{k.label}}
+          </span>
+          <span class="pd-kid-sub" style="font-size: 13px; line-height: 17px; font-weight: 500">{{k.sub}}</span>
+        </button>
+      </sc-for>
+    </div>
+
+    <section style="display: flex; flex-direction: column; gap: 12px">
+      <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 700">Worth a look</h2>
+
+      <!-- Urgent (data-prop showUrgent): safety words, helplines, shown at once even in quiet hours -->
+      <sc-if value="{{showUrgentCard}}" hint-placeholder-val="{{false}}">
+        <article class="pd-card" style="display: flex; flex-direction: column; gap: 12px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: inset 0 0 0 2px var(--warn), var(--shadow-raised)">
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px">
+            <span style="display: inline-flex; align-items: center; gap: 5px; padding: 2px 10px 2px 8px; border-radius: var(--radius-pill); background: var(--warn); color: var(--on-warn); font-size: 13px; line-height: 20px; font-weight: 700">
+              <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/></svg>Urgent
+            </span>
+            <span style="font-size: 13px; line-height: 18px; color: var(--ink-muted)">Shown at once, even in quiet hours</span>
+          </div>
+          <h3 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 700">Ari wrote something worrying to Kix</h3>
+          <blockquote style="margin: 0; padding: 4px 0 4px 14px; box-shadow: inset 3px 0 0 var(--warn); display: flex; flex-direction: column; gap: 2px">
+            <p style="margin: 0; font-size: 18px; line-height: 26px; font-weight: 600">“I feel like giving up on everything”</p>
+            <span style="font-size: 14px; line-height: 20px; color: var(--ink-muted)">Tonight, 7:42 pm</span>
+          </blockquote>
+          <p style="margin: 0; font-size: 16px; line-height: 23px">Kix answered kindly and suggested talking to you.</p>
+          <div style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border-radius: var(--radius-sm); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line)">
+            <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 18px; height: 18px; flex: none; margin-top: 2px; color: var(--ink)"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+            <p style="margin: 0; font-size: 16px; line-height: 23px"><strong>Tinkle Friend</strong> <span style="white-space: nowrap; font-weight: 700">1800 274 4788</span> (for children) · <strong>SOS</strong> <span style="white-space: nowrap; font-weight: 700">1767</span> (24 hours)</p>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px">
+            <button class="mk-btn mk-btn--primary" type="button">Message Ari</button>
+            <button class="mk-btn mk-btn--secondary" type="button" onClick="{{toggleTalked}}" aria-pressed="{{talked.pressed}}">{{talked.label}}</button>
+          </div>
+        </article>
+      </sc-if>
+
+      <!-- Ari: watch + plan info -->
+      <sc-if value="{{isAri}}" hint-placeholder-val="{{true}}">
+        <article class="pd-card" style="display: flex; flex-direction: column; gap: 12px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: var(--shadow-raised)">
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px">
+            <span style="display: inline-flex; align-items: center; gap: 5px; padding: 2px 10px 2px 8px; border-radius: var(--radius-pill); box-shadow: inset 0 0 0 1.5px var(--warn); color: var(--warn); font-size: 13px; line-height: 20px; font-weight: 700">
+              <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12zM9 12a3 3 0 1 0 6 0a3 3 0 1 0-6 0"/></svg>Watch
+            </span>
+            <span style="font-size: 13px; line-height: 18px; color: var(--ink-muted)">Since Wednesday</span>
+          </div>
+          <h3 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 700">Ari seemed tired in 3 evening sessions</h3>
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <span style="font-size: 13px; line-height: 18px; font-weight: 700; color: var(--ink-muted)">What we saw</span>
+            <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px">
+              <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 16px; line-height: 23px">
+                <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 18px; height: 18px; flex: none; margin-top: 3px; color: var(--ink-muted)"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0M12 7v5l3 2"/></svg>
+                <span>Answers slowed by 40% after 8 pm (Wed, Fri, Sun)</span>
+              </li>
+              <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 16px; line-height: 23px">
+                <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 18px; height: 18px; flex: none; margin-top: 3px; color: var(--ink-muted)"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <span>Told Kix “I’m sleepy” on Wednesday</span>
+              </li>
+              <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 16px; line-height: 23px">
+                <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 18px; height: 18px; flex: none; margin-top: 3px; color: var(--ink-muted)"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2zM8 13a4 4 0 1 0 8 0a4 4 0 1 0-8 0"/></svg>
+                <span>Camera: eyes closed often on Sunday (this device only)</span>
+              </li>
+            </ul>
+          </div>
+          <p style="margin: 0; font-size: 16px; line-height: 23px"><strong>What it may mean:</strong> possibly too close to bedtime for learning.</p>
+          <div style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border-radius: var(--radius-sm); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line)">
+            <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 18px; height: 18px; flex: none; margin-top: 3px; color: var(--ink)"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V16h8v-2.3A7 7 0 0 0 12 2z"/></svg>
+            <p style="margin: 0; font-size: 16px; line-height: 23px"><strong>What may help:</strong> try the 6 pm slot this week.</p>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px">
+            <button class="{{watchMsgClass}}" type="button">Message Ari</button>
+            <button class="mk-btn mk-btn--secondary" type="button" onClick="{{toggleSeen}}" aria-pressed="{{seen.pressed}}">{{seen.label}}</button>
+          </div>
+        </article>
+
+        <article class="pd-card" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line)">
+          <span style="display: inline-flex; align-items: center; gap: 5px; padding: 2px 10px 2px 8px; border-radius: var(--radius-pill); box-shadow: inset 0 0 0 1px var(--border-control); color: var(--ink-muted); font-size: 13px; line-height: 20px; font-weight: 700">
+            <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>Plan
+          </span>
+          <span style="font-size: 16px; line-height: 22px; font-weight: 600">1 planned session missed · Thursday</span>
+        </article>
+      </sc-if>
+
+      <!-- Zara: one limit note -->
+      <sc-if value="{{isZara}}" hint-placeholder-val="{{false}}">
+        <article class="pd-card" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line)">
+          <span style="display: inline-flex; align-items: center; gap: 5px; padding: 2px 10px 2px 8px; border-radius: var(--radius-pill); box-shadow: inset 0 0 0 1px var(--border-control); color: var(--ink-muted); font-size: 13px; line-height: 20px; font-weight: 700">
+            <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0M12 7v5l3 2"/></svg>Limit
+          </span>
+          <span style="font-size: 16px; line-height: 22px; font-weight: 600">Over the daily limit on Saturday · 52 min</span>
+        </article>
+      </sc-if>
+
+      <!-- Mei: nothing flagged -->
+      <sc-if value="{{isMei}}" hint-placeholder-val="{{false}}">
+        <article class="pd-card" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line)">
+          <span style="display: inline-flex; align-items: center; gap: 5px; padding: 2px 10px 2px 8px; border-radius: var(--radius-pill); box-shadow: inset 0 0 0 1.5px var(--success); color: var(--success); font-size: 13px; line-height: 20px; font-weight: 700">
+            <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0M8 12l3 3 5-6"/></svg>All clear
+          </span>
+          <span style="font-size: 16px; line-height: 22px; font-weight: 600">Nothing needs you this week.</span>
+        </article>
+      </sc-if>
+    </section>
+  </div>
+
+  <!-- Middle column: screen time, learning plan -->
+  <div class="pd-col pd-colB">
+    <section class="pd-card" style="display: flex; flex-direction: column; gap: 10px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: var(--shadow-raised)">
+      <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 12px">
+        <h2 style="margin: 0; font-size: 20px; line-height: 26px; font-weight: 600">Screen time</h2>
+        <span style="font-size: 14px; line-height: 20px; color: var(--ink-muted)">Limit {{limit}} min a day</span>
+      </div>
+      <p style="margin: 0; display: flex; align-items: baseline; gap: 8px">
+        <span style="font-family: var(--font-display); font-size: 44px; line-height: 1; font-weight: 800; font-variant-numeric: tabular-nums">{{today}}</span>
+        <span style="font-size: 18px; line-height: 24px; font-weight: 600">min today</span>
+      </p>
+      <span style="font-size: 14px; line-height: 20px; color: var(--ink-muted)">Minutes a day, last 7 days</span>
+
+      <div role="group" aria-label="Minutes a day for the last 7 days, against a {{limit}} minute limit" style="padding-top: 14px">
+        <div style="position: relative; height: 176px; box-shadow: inset 0 -1px 0 var(--border-control)">
+          <div style="position: absolute; inset: 0; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr))">
+            <sc-for list="{{days}}" as="d" hint-placeholder-count="7">
+              <div class="pd-slot" role="img" aria-label="{{d.aria}}" style="position: relative; min-width: 0; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 4px">
+                <span class="pd-tip" aria-hidden="true" style="white-space: nowrap; padding: 3px 8px; border-radius: 8px; background: var(--ink); color: var(--surface-raised); font-size: 13px; line-height: 18px; font-weight: 600; font-variant-numeric: tabular-nums">{{d.tip}}</span>
+                <sc-if value="{{d.over}}" hint-placeholder-val="{{false}}">
+                  <span style="display: flex; flex-direction: column; align-items: center; gap: 1px; color: var(--warn); font-size: 13px; line-height: 16px; font-weight: 700">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 13px; height: 13px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/></svg>over
+                  </span>
+                </sc-if>
+                <sc-if value="{{d.showValue}}" hint-placeholder-val="{{false}}">
+                  <span style="font-size: 13px; line-height: 16px; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums">{{d.v}}</span>
+                </sc-if>
+                <span style="{{d.barStyle}}"></span>
+              </div>
+            </sc-for>
+          </div>
+          <div aria-hidden="true" style="{{limitStyle}}">
+            <span style="position: absolute; left: 0; bottom: 3px; white-space: nowrap; font-size: 13px; line-height: 16px; font-weight: 500; color: var(--ink-muted)">{{limit}} min limit</span>
+          </div>
+        </div>
+        <div aria-hidden="true" style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); margin-top: 6px">
+          <sc-for list="{{days}}" as="d" hint-placeholder-count="7">
+            <span style="{{d.dayStyle}}">{{d.short}}</span>
+          </sc-for>
+        </div>
+      </div>
+
+      <p style="margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-muted)">{{caption}}</p>
+    </section>
+
+    <section class="pd-card" style="display: flex; flex-direction: column; gap: 12px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: var(--shadow-raised)">
+      <h2 style="margin: 0; font-size: 20px; line-height: 26px; font-weight: 600">Learning plan</h2>
+      <div style="display: flex; align-items: center; gap: 16px">
+        <div role="img" aria-label="{{plan.aria}}" style="{{plan.ringStyle}}">
+          <span style="position: absolute; inset: 8px; border-radius: 50%; background: var(--surface-raised); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 18px; line-height: 1; font-weight: 800; color: var(--ink)">{{plan.done}}/{{plan.total}}</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+          <span style="font-size: 20px; line-height: 26px; font-weight: 700">{{plan.done}} of {{plan.total}} sessions</span>
+          <span style="font-size: 14px; line-height: 20px; color: var(--ink-muted)">this week</span>
+        </div>
+      </div>
+      <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px">
+        <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 16px; line-height: 23px">
+          <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 18px; height: 18px; flex: none; margin-top: 3px; color: var(--ink-muted)"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/></svg>
+          <span>{{plan.overdue}}</span>
+        </li>
+        <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 16px; line-height: 23px">
+          <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 18px; height: 18px; flex: none; margin-top: 3px; color: var(--ink-muted)"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0M12 8l4 4-4 4M8 12h8"/></svg>
+          <span style="font-weight: 600">{{plan.next}}</span>
+        </li>
+      </ul>
+      <a href="#" style="align-self: flex-start; display: inline-flex; align-items: center; min-height: 44px; font-size: 14px; line-height: 20px; font-weight: 600; color: var(--accent)">{{plan.edit}}</a>
+    </section>
+  </div>
+
+  <!-- Right column: wellbeing, messages, controls -->
+  <div class="pd-col pd-colC">
+    <section class="pd-card" style="display: flex; flex-direction: column; gap: 8px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: var(--shadow-raised)">
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <h2 style="margin: 0; font-size: 20px; line-height: 26px; font-weight: 600">Wellbeing this week</h2>
+        <span style="font-size: 14px; line-height: 20px; color: var(--ink-muted)">Mood and focus (0–100) per session. Tap one to see why.</span>
+      </div>
+      <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column">
+        <sc-for list="{{rows}}" as="r" hint-placeholder-count="6">
+          <li style="box-shadow: 0 1px 0 var(--line)">
+            <button class="pd-click" type="button" onClick="{{r.toggle}}" aria-expanded="{{r.expanded}}" style="position: relative; display: flex; flex-direction: column; gap: 6px; width: 100%; min-height: 44px; padding: 10px 30px 10px 2px; border: 0; background: transparent; color: var(--ink); text-align: left; font: inherit">
+              <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; width: 100%">
+                <span style="flex: none; min-width: 92px; font-size: 16px; line-height: 22px; font-weight: 600">{{r.when}}</span>
+                <span style="display: inline-flex; align-items: center; gap: 5px; padding: 2px 10px 2px 8px; border-radius: var(--radius-pill); background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line); font-size: 14px; line-height: 20px; font-weight: 600">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="{{r.icon}}"/></svg>{{r.mood}}
+                </span>
+                <sc-if value="{{r.watch}}" hint-placeholder-val="{{false}}">
+                  <span style="display: inline-flex; align-items: center; gap: 4px; color: var(--warn); font-size: 13px; line-height: 18px; font-weight: 700">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12zM9 12a3 3 0 1 0 6 0a3 3 0 1 0-6 0"/></svg>watch
+                  </span>
+                </sc-if>
+                <span aria-hidden="true" style="{{r.chevStyle}}">
+                  <svg viewBox="0 0 24 24" style="width: 18px; height: 18px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg>
+                </span>
+              </span>
+              <span style="display: flex; align-items: center; gap: 8px; width: 100%">
+                <span style="flex: none; width: 44px; font-size: 13px; line-height: 18px; font-weight: 500; color: var(--ink-muted)">Focus</span>
+                <span style="position: relative; flex: 1; min-width: 0; height: 18px; margin-right: 28px">
+                  <span style="{{r.barStyle}}"></span>
+                  <span style="{{r.valStyle}}">{{r.focus}}</span>
+                </span>
+              </span>
+            </button>
+            <sc-if value="{{r.open}}" hint-placeholder-val="{{false}}">
+              <div style="display: flex; flex-direction: column; gap: 4px; margin: 0 0 12px; padding: 10px 12px; border-radius: var(--radius-sm); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line)">
+                <span style="font-size: 14px; line-height: 20px; font-weight: 700">{{r.read}}</span>
+                <span style="font-size: 16px; line-height: 23px; color: var(--ink-muted); white-space: pre-line">{{r.evidence}}</span>
+              </div>
+            </sc-if>
+          </li>
+        </sc-for>
+      </ul>
+      <p style="margin: 4px 0 0; font-size: 13px; line-height: 19px; color: var(--ink-muted)">{{sources}}</p>
+    </section>
+
+    <section class="pd-card" style="display: flex; flex-direction: column; gap: 12px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: var(--shadow-raised)">
+      <h2 style="margin: 0; font-size: 20px; line-height: 26px; font-weight: 600">Messages</h2>
+      <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px">
+        <span style="font-size: 13px; line-height: 18px; font-weight: 600; color: var(--ink-muted)">You</span>
+        <p style="margin: 0; max-width: 85%; padding: 10px 14px; border-radius: 18px 18px 6px 18px; background: var(--accent-2); color: var(--on-accent-2); font-size: 16px; line-height: 22px">{{mine}}</p>
+      </div>
+      <div style="display: flex; align-items: flex-end; gap: 10px">
+        <span style="flex: none; display: block; padding: 6px; border-radius: 18px 18px 18px 6px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line)">
+          <img src="/_blob/f2b604acfbcb01359f6fc041e9c051b4" alt="Kix sticker: Kix in a pilot suit giving a thumbs up" style="display: block; width: 72px; height: 72px; object-fit: contain">
+        </span>
+        <span style="font-size: 14px; line-height: 20px; color: var(--ink-muted)">{{theirs}}</span>
+      </div>
+      <button class="mk-btn mk-btn--secondary" type="button" style="align-self: flex-start">Open messages</button>
+      <span style="font-size: 13px; line-height: 18px; color: var(--ink-muted)">Private to your family. Kix never reads these.</span>
+    </section>
+
+    <section class="pd-card" style="display: flex; flex-direction: column; gap: 4px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: var(--shadow-raised)">
+      <h2 style="margin: 0 0 4px; font-size: 20px; line-height: 26px; font-weight: 600">Controls</h2>
+      <button class="pd-click" type="button" style="display: flex; align-items: center; gap: 12px; width: 100%; min-height: 52px; padding: 6px 0; border: 0; background: transparent; color: var(--ink); text-align: left; font: inherit; box-shadow: 0 1px 0 var(--line)">
+        <span style="flex: 1; min-width: 0; font-size: 16px; line-height: 22px; font-weight: 600">Daily limit</span>
+        <span style="font-size: 16px; line-height: 22px; color: var(--ink-muted); white-space: nowrap">{{limit}} min</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 18px; height: 18px; flex: none; color: var(--ink-muted)"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6"/></svg>
+      </button>
+      <button class="pd-click" type="button" style="display: flex; align-items: center; gap: 12px; width: 100%; min-height: 60px; padding: 6px 0; border: 0; background: transparent; color: var(--ink); text-align: left; font: inherit; box-shadow: 0 1px 0 var(--line)">
+        <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+          <span style="font-size: 16px; line-height: 22px; font-weight: 600">Quiet hours</span>
+          <span style="font-size: 13px; line-height: 18px; color: var(--ink-muted)">Alerts wait till morning, except urgent ones</span>
+        </span>
+        <span style="font-size: 16px; line-height: 22px; color: var(--ink-muted); white-space: nowrap">{{quiet}}</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 18px; height: 18px; flex: none; color: var(--ink-muted)"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6"/></svg>
+      </button>
+      <div style="display: flex; align-items: center; gap: 12px; min-height: 60px; padding: 6px 0; box-shadow: 0 1px 0 var(--line)">
+        <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+          <span style="font-size: 16px; line-height: 22px; font-weight: 600">Camera signals</span>
+          <span style="font-size: 13px; line-height: 18px; color: var(--ink-muted)">{{camSub}}</span>
+        </span>
+        <button class="pd-click" type="button" onClick="{{toggleCam}}" aria-pressed="{{cam.pressed}}" aria-label="Camera signals" style="flex: none; width: 60px; height: 44px; padding: 0; border: 0; border-radius: var(--radius-pill); background: transparent; display: flex; align-items: center; justify-content: center">
+          <span style="{{cam.track}}"><span style="{{cam.knob}}"></span></span>
+        </button>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px; min-height: 60px; padding: 6px 0">
+        <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+          <span style="font-size: 16px; line-height: 22px; font-weight: 600">Voice for {{kid}}</span>
+          <span style="font-size: 13px; line-height: 18px; color: var(--ink-muted)">{{voiceSub}}</span>
+        </span>
+        <button class="pd-click" type="button" onClick="{{toggleVoice}}" aria-pressed="{{voice.pressed}}" aria-label="Voice for {{kid}}" style="flex: none; width: 60px; height: 44px; padding: 0; border: 0; border-radius: var(--radius-pill); background: transparent; display: flex; align-items: center; justify-content: center">
+          <span style="{{voice.track}}"><span style="{{voice.knob}}"></span></span>
+        </button>
+      </div>
+      <a href="#" style="align-self: flex-start; display: inline-flex; align-items: center; min-height: 44px; font-size: 14px; line-height: 20px; font-weight: 600; color: var(--accent)">See or delete {{kid}}'s signals</a>
+    </section>
+  </div>
+
+  <p class="pd-foot" style="margin: 0; font-size: 13px; line-height: 18px; color: var(--ink-muted)">Example data for the design. Not real records.</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"showUrgent":{"editor":"boolean","default":false},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  state = { kid: 'Ari', open: 'Wed', seen: false, talked: false, cam: true, voice: true };
+
+  renderVals() {
+    // Mood icons: one stroke path each (24 grid), drawn with currentColor.
+    const ICON = {
+      calm: 'M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1',
+      curious: 'M4 11a7 7 0 1 0 14 0a7 7 0 1 0-14 0M21 21l-4.3-4.3',
+      tired: 'M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z',
+      unsure: 'M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01',
+      happy: 'M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01',
+    };
+    const DAYS = [['Mon', 'Monday'], ['Tue', 'Tuesday'], ['Wed', 'Wednesday'], ['Thu', 'Thursday'], ['Fri', 'Friday'], ['Sat', 'Saturday'], ['Sun', 'Sunday']];
+
+    // Synthetic example data. Today is Sunday (the last day). Rows: [day, when, mood, word, focus, watch, read, evidence].
+    const KIDS = {
+      Ari: {
+        label: 'Ari · P3', limit: 30, days: [22, 15, 34, 0, 28, 41, 18],
+        caption: 'Most use 8–9 pm. 1 session ran past 9 pm.',
+        plan: { done: 3, total: 4, overdue: '2 reviews overdue: Magnets, Living things', next: 'Next: Life cycles · tomorrow 6:00 pm', edit: 'Edit plan (4 × 15 min a week)' },
+        quiet: '8:30 pm–7:00 am',
+        mine: 'Proud of you for the frog quest!', theirs: 'Ari sent a sticker',
+        rows: [
+          ['Mon', 'Mon 7:10 pm', 'calm', 'Calm', 82, false, 'Seemed calm · high confidence', 'Words to Kix: “ok, next one”\nAnswers: steady, no quick guesses\nVoice: usual pace'],
+          ['Tue', 'Tue 6:05 pm', 'curious', 'Curious', 88, false, 'Seemed curious · high confidence', 'Words to Kix: “why do tadpoles lose their tails?”\nAsked Kix 3 “why” questions\nAnswers: steady'],
+          ['Wed', 'Wed 8:20 pm', 'tired', 'Tired', 54, true, 'Possibly tired · medium confidence', 'Words to Kix: “I’m sleepy”, “this is hard”\nVoice: slower, long pauses\nAnswers: 3 under 3 seconds\nCamera: eyes closed 4 times'],
+          ['Fri', 'Fri 8:35 pm', 'unsure', 'Unsure, then happy', 71, false, 'Possibly unsure at first · medium confidence', 'Words to Kix: “not sure…”, then “I got it!”\nAnswers: 2 changed before sending\nVoice: slower after 9 pm'],
+          ['Sat', 'Sat 2:00 pm', 'happy', 'Happy', 90, false, 'Seemed happy · high confidence', 'Words to Kix: “this is fun”\nFinished the frog quest\nAnswers: 4 of 5 without a hint'],
+          ['Sun', 'Sun 8:15 pm', 'tired', 'Tired', 58, true, 'Possibly tired · medium confidence', 'Words to Kix: “can we stop soon?”\nAnswers: slower after 8:20 pm\nCamera: eyes closed often'],
+        ],
+      },
+      Zara: {
+        label: 'Zara · P6', limit: 45, days: [32, 28, 40, 36, 0, 52, 24],
+        caption: 'Most use 4–5 pm, after school. No late sessions.',
+        plan: { done: 4, total: 4, overdue: '1 review overdue: Ratio', next: 'Next: Speed · tomorrow 5:00 pm', edit: 'Edit plan (4 × 20 min a week)' },
+        quiet: '9:30 pm–7:00 am',
+        mine: 'Good luck for the maths quiz!', theirs: 'Zara sent a sticker',
+        rows: [
+          ['Mon', 'Mon 4:20 pm', 'calm', 'Calm', 80, false, 'Seemed calm · high confidence', 'Words to Kix: “ok, that makes sense”\nAnswers: steady'],
+          ['Tue', 'Tue 4:45 pm', 'curious', 'Curious', 85, false, 'Seemed curious · medium confidence', 'Words to Kix: “is there a faster way?”\nTried 2 methods on one question'],
+          ['Wed', 'Wed 5:10 pm', 'happy', 'Happy', 88, false, 'Seemed happy · high confidence', 'Words to Kix: “yes! finally”\nAnswers: 5 of 6 on the first try'],
+          ['Thu', 'Thu 4:30 pm', 'unsure', 'Unsure', 66, false, 'Possibly unsure · medium confidence', 'Words to Kix: “I don’t get ratio”\nAnswers: 3 changed before sending\nA hint on most questions'],
+          ['Sat', 'Sat 3:15 pm', 'happy', 'Happy', 84, false, 'Seemed happy · medium confidence', 'Words to Kix: “can I do one more?”\nStayed past the planned 20 min'],
+          ['Sun', 'Sun 4:00 pm', 'calm', 'Calm', 79, false, 'Seemed calm · medium confidence', 'Words to Kix: “done, see you tomorrow”\nAnswers: steady'],
+        ],
+      },
+      Mei: {
+        label: 'Mei · Sec 2', limit: 60, days: [44, 38, 52, 30, 48, 58, 26],
+        caption: 'Most use 8–9 pm. No sessions after 10 pm.',
+        plan: { done: 4, total: 4, overdue: 'No reviews overdue', next: 'Next: Chemical changes · tomorrow 7:30 pm', edit: 'Edit plan (4 × 20 min a week)' },
+        quiet: '10:00 pm–7:00 am',
+        mine: 'Dinner at 7, then rest. You’ve worked hard.', theirs: 'Mei sent a sticker',
+        rows: [
+          ['Mon', 'Mon 8:10 pm', 'calm', 'Calm', 78, false, 'Seemed calm · high confidence', 'Words to Kix: “ok”, “next”\nAnswers: steady'],
+          ['Wed', 'Wed 8:30 pm', 'curious', 'Curious', 84, false, 'Seemed curious · medium confidence', 'Words to Kix: “why does rust form faster by the sea?”\nAsked for a harder question'],
+          ['Fri', 'Fri 7:45 pm', 'happy', 'Happy', 86, false, 'Seemed happy · medium confidence', 'Words to Kix: “nice, that clicked”\nAnswers: 6 of 7 on the first try'],
+          ['Sat', 'Sat 4:00 pm', 'calm', 'Calm', 81, false, 'Seemed calm · medium confidence', 'Words to Kix: “one more set”\nAnswers: steady'],
+          ['Sun', 'Sun 8:05 pm', 'unsure', 'Unsure', 72, false, 'Possibly unsure · low confidence', 'Words to Kix: “hmm, not sure”\nAnswers: 2 changed before sending'],
+        ],
+      },
+    };
+
+    const id = this.state.kid;
+    const k = KIDS[id];
+    const urgent = Boolean(this.props.showUrgent ?? false);
+
+    // Column chart: one series, one baseline, 120 px for the value range, room above for labels.
+    const BAR = 120;
+    const peak = Math.max(...k.days);
+    const hi = k.days.indexOf(peak);
+    const yMax = Math.ceil((Math.max(peak, k.limit) * 1.1) / 10) * 10;
+    const px = (v) => Math.round((v / yMax) * BAR);
+    const days = k.days.map((v, i) => {
+      const [short, long] = DAYS[i];
+      const over = v > k.limit;
+      const today = i === DAYS.length - 1;
+      return {
+        short,
+        v,
+        over,
+        showValue: today || i === hi,
+        tip: `${v} min`,
+        aria: `${long}${today ? ', today,' : ''} ${v} minutes${over ? ', over the limit' : ''}`,
+        barStyle: `display: block; flex: none; width: 24px; max-width: 70%; height: ${px(v)}px; border-radius: 4px 4px 0 0; background: var(--accent);`,
+        dayStyle: 'text-align: center; font-size: 13px; line-height: 18px;' + (today ? ' color: var(--ink); font-weight: 700;' : ' color: var(--ink-muted); font-weight: 500;'),
+      };
+    });
+
+    const pct = Math.round((k.plan.done / k.plan.total) * 100);
+    const open = this.state.open;
+    const rows = k.rows.map(([day, when, mood, word, focus, watch, read, evidence]) => {
+      const isOpen = open === day;
+      return {
+        when,
+        mood: word,
+        icon: ICON[mood],
+        focus,
+        watch,
+        read,
+        evidence,
+        open: isOpen,
+        expanded: isOpen ? 'true' : 'false',
+        toggle: () => this.setState({ open: this.state.open === day ? null : day }),
+        barStyle: `position: absolute; left: 0; top: 6px; height: 6px; width: ${focus}%; border-radius: 3px; background: var(--accent);`,
+        valStyle: `position: absolute; top: 0; left: calc(${focus}% + 6px); font-size: 13px; line-height: 18px; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums;`,
+        chevStyle: 'position: absolute; right: 4px; top: 50%; display: inline-flex; color: var(--ink-muted); transition: transform var(--duration-snappy) ease;' + (isOpen ? ' transform: translateY(-50%) rotate(180deg);' : ' transform: translateY(-50%);'),
+      };
+    });
+
+    const toggle = (on) => ({
+      pressed: on ? 'true' : 'false',
+      track: 'position: relative; display: block; width: 48px; height: 28px; border-radius: 999px; transition: background var(--duration-snappy) ease;'
+        + (on ? ' background: var(--accent);' : ' background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--border-control);'),
+      knob: 'position: absolute; top: 4px; left: 4px; width: 20px; height: 20px; border-radius: 50%; transition: transform var(--duration-snappy) var(--ease-soft);'
+        + (on ? ' transform: translateX(20px); background: var(--on-accent);' : ' background: var(--border-control);'),
+    });
+
+    const SUB = {
+      Ari: urgent ? 'Urgent · 1 to watch' : '1 to watch · 1 plan note',
+      Zara: '1 limit note',
+      Mei: 'Nothing flagged',
+    };
+
+    return {
+      kid: id,
+      isAri: id === 'Ari',
+      isZara: id === 'Zara',
+      isMei: id === 'Mei',
+      showUrgentCard: urgent && id === 'Ari',
+      kids: ['Ari', 'Zara', 'Mei'].map((kid) => ({
+        label: KIDS[kid].label,
+        sub: SUB[kid],
+        urgent: urgent && kid === 'Ari',
+        pressed: kid === id ? 'true' : 'false',
+        // Padding, alignment, radius and height live in .pd-kid so the list (expanded) and segmented (compact, medium) layouts can change them.
+        style: 'display: flex; flex-direction: column; justify-content: center; gap: 2px; border: 0; font-family: var(--font-text); font-size: 14px; line-height: 1.2; font-weight: 600;'
+          + (kid === id ? ' background: var(--accent); color: var(--on-accent);' : ' background: transparent; color: var(--ink);'),
+        pick: () => this.setState({ kid, open: kid === 'Ari' ? 'Wed' : null }),
+      })),
+
+      today: k.days[k.days.length - 1],
+      limit: k.limit,
+      caption: k.caption,
+      days,
+      limitStyle: `position: absolute; left: 0; right: 0; bottom: ${px(k.limit)}px; height: 0; border-top: 1px solid var(--ink-muted); pointer-events: none;`,
+
+      plan: {
+        ...k.plan,
+        aria: `${k.plan.done} of ${k.plan.total} planned sessions done this week`,
+        ringStyle: `position: relative; flex: none; width: 72px; height: 72px; border-radius: 50%; background: conic-gradient(var(--accent) 0 ${pct}%, var(--line) ${pct}% 100%);`,
+      },
+
+      rows,
+      sources: this.state.cam
+        ? `From ${id}'s words to Kix, how answers were given, voice pace, and the camera (on, this device only). These are possible signs, not diagnoses.`
+        : `From ${id}'s words to Kix, how answers were given and voice pace. The camera is off. These are possible signs, not diagnoses.`,
+
+      mine: k.mine,
+      theirs: k.theirs,
+
+      quiet: k.quiet,
+      cam: toggle(this.state.cam),
+      voice: toggle(this.state.voice),
+      camSub: this.state.cam ? 'On, this device only. No image or video leaves it.' : 'Off',
+      voiceSub: this.state.voice ? 'On. Speaking pace only; audio is never kept.' : `Off. ${id} types to Kix instead.`,
+      toggleCam: () => this.setState({ cam: !this.state.cam }),
+      toggleVoice: () => this.setState({ voice: !this.state.voice }),
+
+      watchMsgClass: urgent ? 'mk-btn mk-btn--secondary' : 'mk-btn mk-btn--primary',
+      seen: { pressed: this.state.seen ? 'true' : 'false', label: this.state.seen ? 'Seen' : 'Mark as seen' },
+      toggleSeen: () => this.setState({ seen: !this.state.seen }),
+      talked: { pressed: this.state.talked ? 'true' : 'false', label: this.state.talked ? 'Talked with Ari' : 'I’ve talked with Ari' },
+      toggleTalked: () => this.setState({ talked: !this.state.talked }),
+    };
+  }
+}
+</script>
+</body>
+</html>

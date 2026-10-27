@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sky Squadron</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:var(--accent)}a:hover{color:var(--ink)}
+.sq-card{cursor:pointer;transition:transform 240ms cubic-bezier(0.22,1,0.36,1)}
+.sq-card:hover{transform:translateY(-6px) rotate(-1deg)}
+.sq-card:focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px}
+@media (prefers-reduced-motion: reduce){.sq-card{transition:none}.sq-card:hover{transform:none}}
+
+/* Layout: expanded (1024-1599) is the default and matches the 1280 x 800 board */
+.sq-bg{position:absolute;inset:0;width:100%;height:100%}
+.sq-wrap{position:relative;flex:1;width:100%;max-width:1440px;margin:0 auto;box-sizing:border-box;padding:28px 32px;display:flex;flex-direction:column;gap:24px}
+.sq-head{width:100%;max-width:500px;box-sizing:border-box}
+.sq-title{font-size:clamp(32px,6vw,48px);line-height:1.04}
+.sq-lede{font-size:17px;line-height:24px}
+.sq-base{margin-top:auto;display:flex;flex-wrap:wrap;align-items:stretch;gap:36px}
+.sq-jets{flex:none;display:grid;grid-template-columns:repeat(4,200px);gap:18px}
+.sq-jet{width:100%;height:296px;box-sizing:border-box}
+.sq-art{width:100%;height:196px}
+.sq-copy{font-size:15px;line-height:21px}
+.sq-cap{font-size:13px;line-height:18px}
+.sq-kix{flex:1 1 300px;min-width:0}
+.sq-kix-lede{font-size:16px;line-height:23px}
+.sq-kix-note{font-size:14px;line-height:20px}
+
+/* Compact (< 600): scene as a banner on top; jets in a horizontal snap carousel inside their own scroll box */
+@media (max-width: 599px){
+  .sq-bg{height:520px;-webkit-mask-image:linear-gradient(180deg,black 50%,transparent);mask-image:linear-gradient(180deg,black 50%,transparent)}
+  .sq-wrap{padding:150px 16px 28px;gap:20px}
+  .sq-lede{font-size:18px;line-height:25px}
+  .sq-base{gap:20px}
+  .sq-jets{flex:1 1 100%;min-width:0;display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:16px;overscroll-behavior-x:contain;margin:0 -16px;padding:8px 16px 14px;scrollbar-width:thin}
+  .sq-jet{flex:0 0 82%;max-width:300px;height:380px;scroll-snap-align:start}
+  .sq-art{height:280px}
+  .sq-copy{font-size:18px;line-height:24px}
+  .sq-cap{font-size:15px;line-height:20px}
+  .sq-kix-lede{font-size:18px;line-height:25px}
+  .sq-kix-note{font-size:16px;line-height:22px}
+}
+
+/* Medium (600-1023): jets 2 x 2, Pilot Kix below */
+@media (min-width: 600px) and (max-width: 1023px){
+  .sq-wrap{padding:28px 24px}
+  .sq-head{max-width:640px}
+  .sq-lede{font-size:18px;line-height:25px}
+  .sq-base{gap:24px}
+  .sq-jets{flex:1 1 100%;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sq-jet{height:360px}
+  .sq-art{height:260px}
+  .sq-copy{font-size:18px;line-height:24px}
+  .sq-cap{font-size:15px;line-height:20px}
+  .sq-kix-lede{font-size:18px;line-height:25px}
+  .sq-kix-note{font-size:16px;line-height:22px}
+}
+
+/* Desktop (>= 1600): content capped at 1440 and centred; wider banner; jets stay in one row, larger */
+@media (min-width: 1600px){
+  .sq-wrap{padding:40px 32px}
+  .sq-head{max-width:640px}
+  .sq-jets{grid-template-columns:repeat(4,240px);gap:20px}
+  .sq-jet{height:340px}
+  .sq-art{height:236px}
+}
+
+/* Fixes after the device check (27 Oct) */
+.sq-jets{scrollbar-width:none}.sq-jets::-webkit-scrollbar{display:none}
+</style>
+</helmet>
+<div data-theme="dreamlight" data-band="junior" style="width: 100%; min-height: 100vh; box-sizing: border-box; position: relative; overflow: hidden; display: flex; flex-direction: column; background: var(--surface); color: var(--ink); font-family: var(--font-text)">
+  <img class="sq-bg" src="/_blob/0b9cc764ea4441fd9b58b17edcde394e" alt="" style="object-fit: cover">
+  <div aria-hidden="true" style="position: absolute; inset: auto 0 0 0; height: 45%; background: linear-gradient(180deg, rgba(14, 12, 43, 0) 0%, rgba(14, 12, 43, 0.75) 100%)"></div>
+
+  <div class="sq-wrap">
+    <header class="sq-head" style="display: flex; flex-direction: column; gap: 10px; padding: 20px 26px; border-radius: var(--radius-lg); background: var(--surface-glass); backdrop-filter: blur(16px); box-shadow: inset 0 0 0 1px var(--line)">
+      <img src="/_blob/86d2ad40444eabc4ba4c8a0e9f1d4603" alt="myKx" style="height: 22px; width: auto; align-self: flex-start">
+      <h1 class="sq-title" style="margin: 0; font-family: var(--font-display); font-weight: 600">Sky Squadron</h1>
+      <p class="sq-lede" style="margin: 0; font-weight: 600; color: var(--ink-muted)">Four original jets, each inspired by an insect that flies alongside. Solve four fresh questions on your own to earn the next one.</p>
+      <div style="display: flex; align-items: center; gap: 12px">
+        <div style="flex: 1; height: 12px; border-radius: var(--radius-pill); background: var(--line); overflow: hidden"><div style="width: 50%; height: 12px; border-radius: var(--radius-pill); background: var(--reward)"></div></div>
+        <span style="font-size: 16px; line-height: 22px; font-weight: 800">2 of 4 jets</span>
+      </div>
+    </header>
+
+    <div class="sq-base">
+      <div class="sq-jets">
+        <sc-for list="{{jets}}" as="j" hint-placeholder-count="4">
+          <sc-if value="{{j.earned}}" hint-placeholder-val="{{true}}">
+            <button class="sq-card sq-jet" type="button" onClick="{{j.flip}}" aria-pressed="{{j.pressed}}" aria-label="{{j.name}} card, tap to flip" style="padding: 0; border: 0; border-radius: var(--radius-xl); overflow: hidden; position: relative; background: var(--surface-raised); color: var(--ink); text-align: left; font-family: var(--font-text); box-shadow: var(--shadow-raised), var(--shadow-glow)">
+              <sc-if value="{{j.front}}" hint-placeholder-val="{{true}}">
+                <img class="sq-art" src="{{j.art}}" alt="" style="object-fit: cover; display: block">
+                <span style="display: flex; flex-direction: column; gap: 4px; padding: 12px 16px">
+                  <span style="display: flex; align-items: center; justify-content: space-between">
+                    <span style="font-family: var(--font-display); font-size: 22px; line-height: 26px; font-weight: 600">{{j.name}}</span>
+                    <span style="padding: 1px 9px; border-radius: var(--radius-pill); background: var(--reward); color: var(--on-reward); font-size: 12px; line-height: 18px; font-weight: 800">Earned</span>
+                  </span>
+                  <span class="sq-cap" style="font-weight: 600; color: var(--ink-muted)">Tap to flip for its secret</span>
+                </span>
+              </sc-if>
+              <sc-if value="{{j.back}}" hint-placeholder-val="{{false}}">
+                <span style="position: absolute; inset: 0; display: flex; flex-direction: column; gap: 12px; padding: 20px 18px; box-sizing: border-box">
+                  <span style="font-family: var(--font-display); font-size: 24px; line-height: 28px; font-weight: 600">{{j.name}}</span>
+                  <span style="display: flex; flex-direction: column; gap: 4px">
+                    <span style="font-size: 12px; line-height: 16px; font-weight: 800; color: var(--accent-2)">Insect fact</span>
+                    <span class="sq-copy" style="font-weight: 600">{{j.fact}}</span>
+                  </span>
+                  <span style="display: flex; flex-direction: column; gap: 4px">
+                    <span style="font-size: 12px; line-height: 16px; font-weight: 800; color: var(--reward)">Flight idea</span>
+                    <span class="sq-copy" style="font-weight: 600">{{j.flight}}</span>
+                  </span>
+                  <span class="sq-cap" style="margin-top: auto; font-weight: 600; color: var(--ink-muted)">Earned {{j.date}}</span>
+                </span>
+              </sc-if>
+            </button>
+          </sc-if>
+          <sc-if value="{{j.locked}}" hint-placeholder-val="{{false}}">
+            <div class="sq-jet" style="border-radius: var(--radius-xl); overflow: hidden; position: relative; background: var(--surface-raised); box-shadow: inset 0 0 0 2px var(--border-control)">
+              <span class="sq-art" style="position: relative; display: block">
+                <img src="{{j.art}}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(1) brightness(0.45)">
+                <span style="position: absolute; inset: 0; margin: auto; width: 48px; height: 48px; display: grid; place-items: center; border-radius: 50%; background: var(--surface-glass); color: var(--ink)">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px"><path fill="currentColor" d="M7 10V8a5 5 0 0 1 10 0v2h1v11H6V10zm2 0h6V8a3 3 0 0 0-6 0z"/></svg>
+                </span>
+              </span>
+              <span style="display: flex; flex-direction: column; gap: 4px; padding: 12px 16px">
+                <span style="font-family: var(--font-display); font-size: 22px; line-height: 26px; font-weight: 600; color: var(--ink)">{{j.name}}</span>
+                <span class="sq-cap" style="font-weight: 600; color: var(--ink-muted)">{{j.unlock}}</span>
+              </span>
+            </div>
+          </sc-if>
+        </sc-for>
+      </div>
+
+      <section class="sq-kix" aria-label="Pilot Kix" style="box-sizing: border-box; padding: 20px; display: flex; flex-direction: column; gap: 12px; border-radius: var(--radius-xl); background: var(--surface-glass); backdrop-filter: blur(16px); box-shadow: inset 0 0 0 1px var(--line)">
+        <div style="display: flex; gap: 14px; align-items: center">
+          <img src="/_blob/f2b604acfbcb01359f6fc041e9c051b4" alt="Kix in a pilot suit giving a thumbs up" style="width: 112px; height: 112px; border-radius: 50%; object-fit: cover; flex: none; box-shadow: 0 0 0 3px var(--surface-raised), 0 0 0 5px var(--reward)">
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <span style="font-family: var(--font-display); font-size: 24px; line-height: 28px; font-weight: 600">Pilot Kix</span>
+            <span style="align-self: flex-start; padding: 1px 9px; border-radius: var(--radius-pill); box-shadow: inset 0 0 0 1.5px var(--border-control); font-size: 12px; line-height: 18px; font-weight: 800">Outfit</span>
+          </div>
+        </div>
+        <p class="sq-kix-lede" style="margin: 0; font-weight: 600">Finish the squadron and Kix gets a flight suit to wear on every screen.</p>
+        <p class="sq-kix-note" style="margin: 0; font-weight: 600; color: var(--ink-muted)">2 jets to go. Nothing here is random: every jet comes from questions you solved.</p>
+      </section>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  state = { flipped: [] };
+
+  renderVals() {
+    const JETS = [
+      { id: 'dragonfly', name: 'Dragonfly', art: '/_blob/8efcc51c7eaf89154a96f8104103085a', earned: true, date: '22 Oct',
+        fact: 'It moves its four wings one by one, so it can hover and even fly backwards.',
+        flight: 'Wings make lift when air flows over them. More speed, more lift.' },
+      { id: 'bumblebee', name: 'Bumblebee', art: '/_blob/3dffa93b7908d7c2c24f6305ee560b6e', earned: true, date: '26 Oct',
+        fact: 'Its wings beat about 200 times every second.',
+        flight: 'A jet engine pushes air backwards, so the jet moves forwards. That push is called thrust.' },
+      { id: 'firefly', name: 'Firefly', art: '/_blob/3d029a59c18b5b7b3d93e0df504d1710', earned: false, unlock: '3 more fresh questions to unlock' },
+      { id: 'rhino', name: 'Rhino Beetle', art: '/_blob/5f00e60fbc6e767b6f882e6c38b066b7', earned: false, unlock: 'Unlocks after Firefly' },
+    ];
+    const flipped = this.state.flipped;
+    return {
+      jets: JETS.map((j) => {
+        const isFlipped = flipped.includes(j.id);
+        return {
+          ...j,
+          locked: !j.earned,
+          front: j.earned && !isFlipped,
+          back: j.earned && isFlipped,
+          pressed: isFlipped ? 'true' : 'false',
+          flip: () => this.setState({ flipped: isFlipped ? flipped.filter((f) => f !== j.id) : [...flipped, j.id] }),
+        };
+      }),
+    };
+  }
+}
+</script>
+</body>
+</html>

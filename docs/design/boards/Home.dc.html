@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Home</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:var(--accent)}a:hover{color:var(--ink)}
+.hm-sheet{background-image:url(/_blob/d950da4db91207a7c4dfc3844601ad5c);background-repeat:no-repeat;background-size:400% auto;background-color:#FBF5E8}
+.hm-s0{background-position:0% 50%}
+.hm-s1{background-position:33.333% 50%}
+.hm-s2{background-position:66.667% 50%}
+.hm-s3{background-position:100% 50%}
+@keyframes hm-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.hm-kix{animation:hm-bob 5s ease-in-out infinite}
+.hm-tab{cursor:pointer;min-height:56px}
+.hm-tab:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+@media (prefers-reduced-motion: reduce){.hm-kix{animation:none}}
+.hm-root{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:1fr;overflow:hidden;overflow:clip}
+.hm-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hm-wrap{position:relative;width:100%;max-width:1440px;margin:0 auto;box-sizing:border-box;display:flex;flex-direction:column;gap:24px;padding:24px 32px}
+.hm-header{display:flex;align-items:center;gap:12px}
+.hm-chip{padding:0 20px}
+.hm-main{flex:1 0 auto;display:grid;grid-template-columns:minmax(320px,488fr) minmax(0,696fr);grid-template-rows:auto 1fr auto;column-gap:32px;row-gap:20px}
+.hm-greet{grid-column:1;grid-row:1 / 3;min-width:0;display:flex;flex-direction:column;gap:18px}
+.hm-h1{font-size:clamp(32px,6vw,56px);line-height:1.04}
+.hm-hero{width:260px}
+.hm-quest{grid-column:2;grid-row:1;min-width:0;box-sizing:border-box;display:grid;grid-template-columns:minmax(0,1fr) 172px;grid-template-rows:1fr auto;column-gap:20px;row-gap:8px;padding:24px 28px}
+.hm-quest-text{grid-column:1;grid-row:1}
+.hm-quest-cta{grid-column:1;grid-row:2;justify-self:start}
+.hm-quest-ring{grid-column:2;grid-row:1 / 3}
+.hm-ring{width:112px;height:112px}
+.hm-ring-core{width:90px;height:90px;font-size:30px}
+.hm-cards{grid-column:2;grid-row:2;align-self:start;min-width:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(212px,1fr));gap:16px}
+.hm-cap{font-size:15px;line-height:21px}
+.hm-nav{grid-column:1;grid-row:3;align-self:end;height:76px;padding:8px;border-radius:var(--radius-pill)}
+@media (min-width: 1600px){
+  .hm-wrap{padding:32px}
+  .hm-hero{width:300px}
+}
+@media (min-width: 600px) and (max-width: 1023px){
+  .hm-wrap{padding:24px}
+  .hm-main{display:flex;flex-direction:column;gap:20px}
+  .hm-greet{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;column-gap:24px;row-gap:12px}
+  .hm-h1{grid-column:1 / -1}
+  .hm-hero{width:240px}
+  .hm-cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hm-cards > .hm-card:last-child{grid-column:1 / -1}
+  .hm-nav{position:sticky;bottom:calc(16px + env(safe-area-inset-bottom));z-index:3;align-self:center;width:min(488px,100%)}
+}
+@media (max-width: 599px){
+  .hm-wrap{gap:16px;padding:16px 12px 0}
+  .hm-header{gap:8px}
+  .hm-chip{padding:0 14px}
+  .hm-main{display:flex;flex-direction:column;gap:16px}
+  .hm-greet{gap:14px}
+  .hm-hero{width:180px}
+  .hm-quest{grid-template-columns:minmax(0,1fr) 88px;grid-template-rows:auto auto;column-gap:12px;row-gap:16px;padding:20px}
+  .hm-quest-ring{grid-row:1}
+  .hm-quest-cta{grid-column:1 / -1;justify-self:stretch}
+  .hm-ring{width:72px;height:72px}
+  .hm-ring-core{width:58px;height:58px;font-size:22px}
+  .hm-cards{display:flex;gap:12px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:12px;margin:0 -12px;padding:4px 12px 12px}
+  .hm-card{flex:0 0 min(82%,300px);scroll-snap-align:start}
+  .hm-cap{font-size:18px;line-height:25px}
+  .hm-nav{position:sticky;bottom:0;z-index:3;height:auto;margin:0 -12px;padding:4px 8px calc(4px + env(safe-area-inset-bottom));border-radius:var(--radius-lg) var(--radius-lg) 0 0}
+}
+
+/* Fixes after the device check (27 Oct) */
+.hm-cards{scrollbar-width:none}.hm-cards::-webkit-scrollbar{display:none}
+</style>
+</helmet>
+<div class="hm-root" data-theme="terrarium" data-band="junior" style="position: relative; width: 100%; min-height: 100vh; box-sizing: border-box; background: var(--surface); color: var(--ink); font-family: var(--font-text)">
+  <img class="hm-bg" src="/_blob/42a1d142037c7463131ff440b4e5f999" alt="">
+
+  <div class="hm-wrap">
+    <header class="hm-header">
+      <span class="hm-chip" style="display: flex; align-items: center; height: 56px; border-radius: var(--radius-pill); background: var(--surface-glass); backdrop-filter: blur(14px)"><img src="/_blob/f52e18857979369421011da66fdb9de3" alt="myKx" style="height: 24px; width: auto"></span>
+      <span class="hm-chip" style="margin-left: auto; display: flex; align-items: center; gap: 8px; height: 56px; border-radius: var(--radius-pill); background: var(--reward); color: var(--on-reward); font-size: 18px; font-weight: 800; white-space: nowrap; box-shadow: var(--shadow-glow)">
+        <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px; flex: none"><path fill="currentColor" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z"/></svg>91 stars
+      </span>
+      <button type="button" aria-label="Switch profile, Ari" style="width: 56px; height: 56px; flex: none; border: 0; border-radius: var(--radius-pill); background: var(--accent); color: var(--on-accent); font: 800 22px/1 var(--font-display); cursor: pointer">A</button>
+    </header>
+
+    <div class="hm-main">
+      <section class="hm-greet">
+        <h1 class="hm-h1" style="margin: 0; font-family: var(--font-display); font-weight: 800; text-shadow: 0 2px 18px rgba(255, 255, 255, 0.9)">Good afternoon, Ari</h1>
+        <img class="hm-kix hm-hero" src="/_blob/e100a223af29f3653ca9b4ed32a70d4c" alt="Kix the explorer" style="height: auto; aspect-ratio: 1 / 1; border-radius: 50%; object-fit: cover; align-self: center; box-shadow: 0 0 0 8px var(--surface-raised), 0 0 0 11px var(--accent), var(--shadow-raised)">
+        <p style="margin: 0; padding: 16px 20px; border-radius: var(--radius-lg); background: var(--surface-raised); box-shadow: var(--shadow-raised); font-size: 20px; line-height: 28px; font-weight: 700">Pip is ready to grow legs! Solve two fresh questions on your own and Pip becomes a froglet.</p>
+      </section>
+
+      <article class="hm-quest" style="min-height: 216px; border-radius: var(--radius-xl); background: var(--surface-glass); backdrop-filter: blur(18px); box-shadow: inset 0 0 0 2px var(--accent), var(--shadow-raised)">
+        <div class="hm-quest-text" style="display: flex; flex-direction: column; gap: 8px; min-width: 0">
+          <span style="align-self: flex-start; padding: 2px 12px; border-radius: var(--radius-pill); background: var(--accent-2); color: var(--on-accent-2); font-size: 14px; line-height: 22px; font-weight: 800">Today's quest</span>
+          <h2 style="margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 34px; line-height: 38px">Shadows</h2>
+          <span style="font-size: 16px; line-height: 22px; font-weight: 700; color: var(--ink-muted)">3 questions · about 8 minutes · limited evidence so far</span>
+        </div>
+        <button class="mk-btn mk-btn--primary hm-quest-cta" type="button">Start today's quest</button>
+        <div class="hm-quest-ring" style="display: grid; place-items: center; border-radius: var(--radius-lg); background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line)">
+          <div class="hm-ring" style="border-radius: 50%; display: grid; place-items: center; background: conic-gradient(var(--accent) 57%, var(--line) 0)">
+            <span class="hm-ring-core" style="border-radius: 50%; display: grid; place-items: center; background: var(--surface-raised); font-family: var(--font-display); font-weight: 800">57</span>
+          </div>
+        </div>
+      </article>
+
+      <div class="hm-cards">
+        <article class="hm-card" style="min-height: 340px; box-sizing: border-box; padding: 20px; display: flex; flex-direction: column; gap: 10px; border-radius: var(--radius-lg); background: var(--surface-glass); backdrop-filter: blur(16px); box-shadow: inset 0 0 0 1px var(--line)">
+          <h2 style="margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 24px; line-height: 28px">Pip the tadpole</h2>
+          <div aria-label="Frog life cycle: spawn done, tadpole now, froglet next, frog later" role="img" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px">
+            <span class="hm-sheet hm-s0" style="height: 60px; border-radius: var(--radius-sm); opacity: 0.8"></span>
+            <span class="hm-sheet hm-s1" style="height: 60px; border-radius: var(--radius-sm); box-shadow: 0 0 0 3px var(--reward), var(--shadow-glow)"></span>
+            <span class="hm-sheet hm-s2" style="height: 60px; border-radius: var(--radius-sm); box-shadow: inset 0 0 0 2px var(--border-control)"></span>
+            <span class="hm-sheet hm-s3" style="height: 60px; border-radius: var(--radius-sm); opacity: 0.5; filter: saturate(0.5)"></span>
+          </div>
+          <span class="hm-cap" style="font-weight: 700; color: var(--ink-muted)">Now a tadpole. Next: froglet.</span>
+          <div style="margin-top: auto; display: flex; flex-direction: column; gap: 6px">
+            <div style="height: 10px; border-radius: var(--radius-pill); background: var(--line); overflow: hidden"><div style="width: 50%; height: 10px; background: var(--accent)"></div></div>
+            <span style="font-size: 14px; line-height: 20px; font-weight: 700">1 of 2 fresh questions</span>
+          </div>
+        </article>
+
+        <article class="hm-card" style="min-height: 340px; box-sizing: border-box; padding: 20px; display: flex; flex-direction: column; gap: 10px; border-radius: var(--radius-lg); background: var(--surface-glass); backdrop-filter: blur(16px); box-shadow: inset 0 0 0 1px var(--line)">
+          <h2 style="margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 24px; line-height: 28px">Sky Squadron</h2>
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px">
+            <img src="/_blob/8efcc51c7eaf89154a96f8104103085a" alt="Dragonfly jet, earned" style="width: 100%; height: 62px; object-fit: cover; border-radius: var(--radius-sm); display: block">
+            <img src="/_blob/3dffa93b7908d7c2c24f6305ee560b6e" alt="Bumblebee jet, earned" style="width: 100%; height: 62px; object-fit: cover; border-radius: var(--radius-sm); display: block">
+            <img src="/_blob/3d029a59c18b5b7b3d93e0df504d1710" alt="Firefly jet, locked" style="width: 100%; height: 62px; object-fit: cover; border-radius: var(--radius-sm); display: block; filter: grayscale(1) brightness(0.55)">
+            <img src="/_blob/5f00e60fbc6e767b6f882e6c38b066b7" alt="Rhino Beetle jet, locked" style="width: 100%; height: 62px; object-fit: cover; border-radius: var(--radius-sm); display: block; filter: grayscale(1) brightness(0.55)">
+          </div>
+          <span class="hm-cap" style="font-weight: 700; color: var(--ink-muted)">2 of 4 jets. Firefly is 3 fresh questions away.</span>
+          <button class="mk-btn mk-btn--secondary" type="button" style="margin-top: auto; width: 100%">See the squadron</button>
+        </article>
+
+        <article class="hm-card" style="min-height: 340px; box-sizing: border-box; padding: 20px; display: flex; flex-direction: column; gap: 10px; border-radius: var(--radius-lg); background: var(--surface-glass); backdrop-filter: blur(16px); box-shadow: inset 0 0 0 1px var(--line)">
+          <h2 style="margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 24px; line-height: 28px">Vibe Zone</h2>
+          <div aria-hidden="true" style="position: relative; height: 128px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line); overflow: hidden">
+            <span style="position: absolute; left: 22px; top: 22px; width: 92px; height: 64px; border-radius: 10px; background: var(--accent-2); transform: rotate(-8deg); box-shadow: var(--shadow-raised)"></span>
+            <span style="position: absolute; left: 66px; top: 34px; width: 92px; height: 64px; border-radius: 10px; background: var(--surface); transform: rotate(5deg); box-shadow: inset 0 0 0 2px var(--accent), var(--shadow-raised)"></span>
+            <svg viewBox="0 0 24 24" style="position: absolute; right: 18px; top: 16px; width: 30px; height: 30px; color: var(--reward)"><path fill="currentColor" stroke="#1D3324" stroke-width="1" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z"/></svg>
+          </div>
+          <span class="hm-cap" style="font-weight: 700; color: var(--ink-muted)">Make flashcards or a planner with Kix.</span>
+          <button class="mk-btn mk-btn--secondary" type="button" style="margin-top: auto; width: 100%">Make something</button>
+        </article>
+      </div>
+
+      <nav class="hm-nav" aria-label="Main" style="box-sizing: border-box; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; background: var(--surface-glass); backdrop-filter: blur(16px); box-shadow: inset 0 0 0 1px var(--line), var(--shadow-raised)">
+        <sc-for list="{{tabs}}" as="t" hint-placeholder-count="4">
+          <button class="hm-tab" type="button" onClick="{{t.pick}}" aria-current="{{t.current}}" style="{{t.style}}">
+            <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px"><path fill="currentColor" d="{{t.icon}}"/></svg>
+            <span>{{t.label}}</span>
+          </button>
+        </sc-for>
+      </nav>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  state = { tab: 'Home' };
+
+  renderVals() {
+    const TABS = [
+      { label: 'Home', icon: 'M12 3l9 8h-3v9h-5v-6h-2v6H6v-9H3z' },
+      { label: 'Learn', icon: 'M4 5h7a2 2 0 0 1 2 2v13a3 3 0 0 0-3-3H4zm16 0h-5a2 2 0 0 0-2 2v13a3 3 0 0 1 3-3h4z' },
+      { label: 'Treasure', icon: 'M3 9l2-4h14l2 4v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1zm2.3 0h13.4l-1-2H6.3zM5 11v8h14v-8h-5v2h-4v-2z' },
+      { label: 'Vibe Zone', icon: 'M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z' },
+    ];
+    const base = 'display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; border: 0; border-radius: var(--radius-pill); font: 800 13px/16px var(--font-text);';
+    return {
+      tabs: TABS.map((t) => {
+        const on = this.state.tab === t.label;
+        return {
+          ...t,
+          current: on ? 'page' : 'false',
+          style: base + (on ? ' background: var(--accent); color: var(--on-accent);' : ' background: transparent; color: var(--ink);'),
+          pick: () => this.setState({ tab: t.label }),
+        };
+      }),
+    };
+  }
+}
+</script>
+</body>
+</html>

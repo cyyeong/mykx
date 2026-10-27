@@ -44,3 +44,13 @@ Blocked: `.env.local` has no `MODEL_API_KEY` yet. `lib/meta` and this script wer
 | d. Muse Image edit | `muse-image-1.0` | pass | 20,840 ms | – | 1 img (22406/2187) | $0.0100 | `563cbbf2-6d88-408f-b08e-34e744250cf3` | – | 1600x1600 webp, 472 KB; within 25 s alone → art-src/smoke/20261027-1444-d-kix-terrarium.webp |
 | e. SAM 3.1 cutout | `sam-3.1` | pass | 5,141 ms | – | 1 img (0/0) | $0.0025 | `a46f5df5-bdbc-4309-a379-407ab9b3b6e4` | `resp_6ae0486f5716a265a3604005` | from (d); 1 mask(s), covers 21.2%, 955x1043 PNG 1606 KB → art-src/smoke/20261027-1444-e-kix-terrarium-cutout.png |
 
+
+## 27 Oct 2026, 15:26 SGT
+
+`scripts/smoke-meta.ts` · Node v24.22.0 · key from `MODEL_API_KEY` · 2/2 steps passed · est. cost $0.0001 (budget $0.10)
+
+| Step | Model | Result | Latency | TTFT | Tokens in/out | Est. cost | Request ID | Response ID | Notes |
+|---|---|---|---|---|---|---|---|---|---|
+| 0. List models (free) | – | pass | – | – | – | – | – | – | 9 models; muse-spark-1.3 listed, muse-image-1.0 listed, sam-3.1 listed. id-like headers: x-request-id (matched: x-request-id) |
+| f. Voice transcribe | `muse-voice-transcribe-1.0` | pass | 2,139 ms | – | – | $0.0001 | – | `voyager/transcribe/C4F50A4006FB40D68CAA92A51B0CFA98` | said "Kix, why does the tadpole lose its tail?" → heard "Kicks, why does the tadpole lose its tail?." (2400 ms audio, session voyager/transcribe/C4F50A4006FB40D68CAA92A51B0CFA98) |
+

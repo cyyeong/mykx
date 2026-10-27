@@ -10,6 +10,8 @@ Students need understanding; parents need evidence to support them. myKx connect
 
 **Founder story:** “Leonard, Abby and Jordan have always been my sidekicks. I built myKx so each of them could have a sidekick of their own.”
 
+*Leonard, Abby and Jordan are stand-in names, not the founder's children's real names.*
+
 | Brand element | Specification |
 |---|---|
 | Canonical name/accessibility | `myKx` everywhere, including accessible text and code-facing product labels |

@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sidekick Studio</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:var(--accent)}a:hover{color:var(--ink)}
+@keyframes studio-twinkle{0%,100%{opacity:.3;transform:scale(.7)}50%{opacity:1;transform:scale(1)}}
+@keyframes studio-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.studio-sparkle{position:absolute;color:var(--reward);animation:studio-twinkle 3.2s var(--ease-soft) infinite}
+.studio-kix{animation:studio-float 5s var(--ease-soft) infinite}
+.studio-tile{cursor:pointer;transition:transform 120ms cubic-bezier(0.22,1,0.36,1)}
+.studio-tile:hover{transform:translateY(-2px)}
+.studio-tile:focus-visible,.studio-chip:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+.studio-chip{cursor:pointer}
+@media (prefers-reduced-motion: reduce){.studio-sparkle,.studio-kix{animation:none}.studio-tile:hover{transform:none}}
+.st-root{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:1fr;overflow:hidden;overflow:clip}
+.st-wrap{position:relative;width:100%;max-width:1440px;margin:0 auto;box-sizing:border-box;display:grid;grid-template-columns:minmax(0,1fr) clamp(540px,45vw,576px)}
+.st-stage{position:relative;min-width:0;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:24px}
+.st-glow{position:absolute;aspect-ratio:1/1;transform:translate(-50%,-50%);pointer-events:none}
+.st-glow-1{left:50%;top:52.5%;width:min(600px,88%)}
+.st-glow-2{left:70.6%;top:27.5%;width:min(360px,53%)}
+.st-kix{position:relative;width:clamp(360px,31.25vw,400px)}
+.st-panel{min-width:0;box-sizing:border-box;display:flex;flex-direction:column;gap:24px;margin:24px 24px 24px 0;padding:40px;border-radius:var(--radius-xl)}
+.st-h1{font-size:clamp(32px,6vw,56px);line-height:1.08}
+.st-tiles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.st-tile-name{font-size:clamp(13px,1.17vw,15px);line-height:18px}
+.st-cta{margin-top:auto;display:flex;align-items:center;gap:16px}
+.st-note{font-size:14px;line-height:20px}
+@media (min-width: 1600px){
+  .st-kix{width:440px}
+}
+@media (min-width: 600px) and (max-width: 1023px){
+  .st-wrap{display:flex;flex-direction:column}
+  .st-stage{padding:32px 24px 24px;gap:20px}
+  .st-kix{width:260px}
+  .st-panel{flex:1 0 auto;margin:0 24px 24px;padding:32px}
+  .st-tile-name{font-size:15px}
+}
+@media (min-width: 700px) and (max-width: 1023px) and (min-height: 760px) and (min-aspect-ratio: 4/5){
+  .st-wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr)}
+  .st-stage{padding:24px 12px;gap:20px}
+  .st-kix{width:clamp(240px,28vw,280px)}
+  .st-panel{flex:none;margin:16px 16px 16px 0;padding:24px 20px;gap:20px}
+  .st-tiles{gap:4px}
+  .st-tile-name{font-size:13px;line-height:16px}
+}
+@media (max-width: 599px){
+  .st-wrap{display:flex;flex-direction:column}
+  .st-stage{padding:24px 16px 20px;gap:14px}
+  .st-kix{width:180px}
+  .st-panel{flex:1 0 auto;margin:0;padding:24px 16px 0;gap:20px;border-radius:var(--radius-xl) var(--radius-xl) 0 0}
+  .st-tiles{display:flex;gap:10px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:16px;margin:0 -16px;padding:6px 16px 10px}
+  .st-tile{flex:0 0 104px;scroll-snap-align:start}
+  .st-tile-name{font-size:15px}
+  .st-cta{position:sticky;bottom:0;z-index:2;flex-wrap:wrap;gap:8px 12px;margin:auto -16px 0;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:var(--surface-glass);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);box-shadow:0 -1px 0 var(--line)}
+  .st-cta .mk-btn{flex:1 1 auto}
+  .st-note{flex:1 1 100%;font-size:18px;line-height:26px}
+}
+@media (horizontal-viewport-segments: 2){
+  .st-wrap{display:grid;max-width:none;grid-template-columns:env(viewport-segment-width 0 0) env(viewport-segment-width 1 0);column-gap:calc(env(viewport-segment-left 1 0) - env(viewport-segment-right 0 0))}
+  .st-stage{padding:24px 16px;gap:20px}
+  .st-kix{width:240px}
+  .st-panel{flex:none;margin:16px;padding:24px 20px;gap:20px}
+  .st-tiles{gap:4px}
+  .st-tile-name{font-size:13px;line-height:16px}
+}
+
+/* Fixes after the device check (27 Oct) */
+.st-tiles{scrollbar-width:none}.st-tiles::-webkit-scrollbar{display:none}
+@media (min-width: 600px) and (max-width: 1023px){
+  .st-panel{flex:0 0 auto}
+  .st-cta{margin-top:8px}
+}
+@media (min-width: 700px) and (max-width: 1023px) and (min-height: 760px) and (min-aspect-ratio: 4/5){
+  .st-cta{margin-top:auto}
+  .st-tiles{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .st-tile-name{font-size:15px;line-height:18px}
+}
+@media (horizontal-viewport-segments: 2){
+  .st-tiles{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .st-tile-name{font-size:15px;line-height:18px}
+}
+</style>
+</helmet>
+<div class="st-root" data-theme="{{pack.id}}" data-band="junior" style="position: relative; width: 100%; min-height: 100vh; box-sizing: border-box; background: var(--surface); color: var(--ink); font-family: var(--font-text); transition: background-color 600ms">
+  <div class="st-wrap">
+    <div class="st-stage">
+      <div class="st-glow st-glow-1" aria-hidden="true" style="border-radius: 50%; background: radial-gradient(circle, var(--accent) 0%, rgba(0, 0, 0, 0) 68%); opacity: 0.45"></div>
+      <div class="st-glow st-glow-2" aria-hidden="true" style="border-radius: 50%; background: radial-gradient(circle, var(--accent-2) 0%, rgba(0, 0, 0, 0) 70%); opacity: 0.35"></div>
+      <div class="studio-kix st-kix">
+        <img src="{{pack.kix}}" alt="Kix in the {{pack.name}} style" style="width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 50%; display: block; box-shadow: 0 0 0 10px var(--surface-raised), 0 0 0 13px var(--accent), var(--shadow-glow)">
+        <svg class="studio-sparkle" viewBox="0 0 24 24" aria-hidden="true" style="left: -9%; top: 10%; width: 10%; height: auto; aspect-ratio: 1 / 1"><path fill="currentColor" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z"/></svg>
+        <svg class="studio-sparkle" viewBox="0 0 24 24" aria-hidden="true" style="right: -6%; top: -2%; width: 7%; height: auto; aspect-ratio: 1 / 1; animation-delay: 1.1s"><path fill="currentColor" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z"/></svg>
+        <svg class="studio-sparkle" viewBox="0 0 24 24" aria-hidden="true" style="right: -12%; top: 55%; width: 5.5%; height: auto; aspect-ratio: 1 / 1; animation-delay: 2s"><path fill="currentColor" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z"/></svg>
+        <svg class="studio-sparkle" viewBox="0 0 24 24" aria-hidden="true" style="left: 5%; bottom: -5%; width: 4.5%; height: auto; aspect-ratio: 1 / 1; animation-delay: .6s"><path fill="currentColor" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z"/></svg>
+      </div>
+      <div style="position: relative; max-width: 100%; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 14px 28px; border-radius: var(--radius-pill); background: var(--surface-glass); backdrop-filter: blur(16px); box-shadow: inset 0 0 0 1px var(--line); text-align: center">
+        <span style="font-family: var(--font-display); font-size: 28px; line-height: 32px">Kix, {{pack.name}}</span>
+        <span style="font-size: 16px; line-height: 22px; font-weight: 600; color: var(--ink-muted)">{{pack.mood}}</span>
+      </div>
+    </div>
+
+    <section class="st-panel" style="background: var(--surface-glass); backdrop-filter: blur(20px); box-shadow: inset 0 0 0 1px var(--line), var(--shadow-raised)">
+      <img src="{{wordmark}}" alt="myKx" style="height: 34px; width: auto; align-self: flex-start">
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <h1 class="st-h1" style="margin: 0; font-family: var(--font-display); font-weight: 600">Make Kix yours</h1>
+        <p style="margin: 0; font-size: 20px; line-height: 30px; font-weight: 500; color: var(--ink-muted)">Pick a world. Kix changes to match it, and so does your whole app.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 12px; min-width: 0">
+        <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 800">Your world</h2>
+        <div class="st-tiles">
+          <sc-for list="{{packs}}" as="p" hint-placeholder-count="5">
+            <button class="studio-tile st-tile" type="button" data-theme="{{p.id}}" onClick="{{p.pick}}" aria-pressed="{{p.pressed}}" style="{{p.tileStyle}}">
+              <img src="{{p.kix}}" alt="" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; flex: none">
+              <span class="st-tile-name" style="font-family: var(--font-display); color: var(--ink); text-align: center">{{p.name}}</span>
+              <span aria-hidden="true" style="display: flex; gap: 4px">
+                <span style="width: 12px; height: 12px; border-radius: 50%; background: var(--accent)"></span>
+                <span style="width: 12px; height: 12px; border-radius: 50%; background: var(--accent-2)"></span>
+                <span style="width: 12px; height: 12px; border-radius: 50%; background: var(--reward)"></span>
+              </span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 12px">
+        <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 800">Two things you love</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px">
+          <sc-for list="{{chips}}" as="c" hint-placeholder-count="8">
+            <button class="studio-chip" type="button" onClick="{{c.pick}}" aria-pressed="{{c.pressed}}" style="{{c.style}}">{{c.label}}</button>
+          </sc-for>
+        </div>
+      </div>
+
+      <div class="st-cta">
+        <button class="mk-btn mk-btn--reward" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z"/></svg>Transform Kix</button>
+        <span class="st-note" style="font-weight: 600; color: var(--ink-muted)">Muse Image draws your Kix in about 10 seconds.</span>
+      </div>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"startPack":{"editor":"enum","options":["dreamlight","anime-sky","toon-pop","idol-stage","terrarium"],"default":"dreamlight"},"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  state = { pack: null, likes: ['Space', 'Music'] };
+
+  renderVals() {
+    const PACKS = [
+      { id: 'dreamlight', name: 'Dreamlight', mood: 'Twilight magic and drifting lanterns', kix: '/_blob/1be0285c83fc5de9a8d666fbb5e6c403', dark: true },
+      { id: 'anime-sky', name: 'Anime Sky', mood: 'Big skies, light rays and petals', kix: '/_blob/02b5a70e7404562cef8d3aaba98b9e32', dark: false },
+      { id: 'toon-pop', name: 'Toon Pop', mood: 'Chunky, bouncy and toy-box bright', kix: '/_blob/37653891e49ec872cab5610d9f2e71d3', dark: false },
+      { id: 'idol-stage', name: 'Idol Stage', mood: 'Neon stage lights and holo sparkle', kix: '/_blob/89c33c13cd369e58aad9fee004a30b65', dark: true },
+      { id: 'terrarium', name: 'Terrarium', mood: 'Moss, ponds, tadpoles and tiny explorers', kix: '/_blob/e100a223af29f3653ca9b4ed32a70d4c', dark: false },
+    ];
+    const current = this.state.pack ?? this.props.startPack ?? 'dreamlight';
+    const pack = PACKS.find((p) => p.id === current) ?? PACKS[0];
+    const likes = this.state.likes;
+    const tileBase = 'display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 12px 4px; border: 0; border-radius: var(--radius-lg); background: var(--surface-raised); color: var(--ink); font-family: var(--font-text);';
+    const chipBase = 'min-height: 44px; padding: 0 18px; border: 0; border-radius: var(--radius-pill); font: 700 16px/1 var(--font-text);';
+    return {
+      pack,
+      wordmark: pack.dark ? '/_blob/86d2ad40444eabc4ba4c8a0e9f1d4603' : '/_blob/f52e18857979369421011da66fdb9de3',
+      packs: PACKS.map((p) => ({
+        ...p,
+        pressed: p.id === pack.id ? 'true' : 'false',
+        tileStyle: tileBase + (p.id === pack.id
+          ? ' box-shadow: 0 0 0 3px var(--accent), var(--shadow-glow);'
+          : ' box-shadow: inset 0 0 0 2px var(--line);'),
+        pick: () => this.setState({ pack: p.id }),
+      })),
+      chips: ['Bugs and critters', 'Space', 'Animals', 'Music', 'Dance', 'Football', 'Robots', 'Drawing'].map((label) => {
+        const on = likes.includes(label);
+        return {
+          label,
+          pressed: on ? 'true' : 'false',
+          style: chipBase + (on
+            ? ' background: var(--accent); color: var(--on-accent);'
+            : ' background: var(--surface-raised); color: var(--ink); box-shadow: inset 0 0 0 2px var(--border-control);'),
+          pick: () => this.setState({
+            likes: on ? likes.filter((l) => l !== label) : [...likes, label].slice(-2),
+          }),
+        };
+      }),
+    };
+  }
+}
+</script>
+</body>
+</html>

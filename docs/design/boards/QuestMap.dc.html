@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Quest map</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:var(--accent)}a:hover{color:var(--ink)}
+/* Expanded (default, 1024-1599): the map fills the screen, stops sit on the art by percentage */
+.qm-root{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:1fr;min-height:max(100vh,62.5vw)}
+.qm-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.qm-wrap{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto 1fr;grid-template-areas:"head" "panel";width:100%;max-width:1440px;justify-self:center;box-sizing:border-box;padding:32px}
+.qm-header{grid-area:head;justify-self:start;align-self:start;position:relative;padding:24px 28px}
+.qm-h1{font-size:clamp(32px,6vw,44px);line-height:1.1}
+.qm-trail{display:contents}
+.qm-stop{position:absolute}
+.qm-stop--1{left:7.8125%;top:86.625%}
+.qm-stop--2{left:21.09375%;top:70.375%}
+.qm-stop--3{left:32.8125%;top:52.25%}
+.qm-stop--4{left:50%;top:32.5%}
+.qm-stop--5{left:65.625%;top:22.25%}
+.qm-stop--6{left:83.4375%;top:4.5%}
+.qm-stop .qm-node{width:120px}
+.qm-chest{width:80px;height:80px}
+.qm-label{position:absolute;width:max-content}
+.qm-label--1{left:96px;top:9px}
+.qm-label--2{left:96px;top:9px}
+.qm-label--3{left:98px;top:-6px}
+.qm-label--4{left:-40px;top:76px}
+.qm-label--5{left:-28px;top:76px}
+.qm-label--6{left:-84px;top:88px}
+.qm-labtxt{font-size:16px;line-height:22px}
+.qm-panel{grid-area:panel;justify-self:end;align-self:end;position:relative;width:clamp(320px,30.625vw,392px);padding:28px;backdrop-filter:blur(20px)}
+.qm-cta{display:contents}
+/* Compact (<600): map art becomes a banner, stops become a vertical trail, Start sits in a bottom bar */
+@media (max-width: 599px){
+  .qm-root{grid-template-rows:auto 1fr;min-height:100vh;padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+  .qm-art{position:relative;inset:auto;height:clamp(180px,52vw,240px);-webkit-mask-image:linear-gradient(#000 55%,transparent);mask-image:linear-gradient(#000 55%,transparent)}
+  .qm-wrap{grid-template-rows:auto auto auto;grid-template-areas:"head" "trail" "panel";align-content:start;row-gap:24px;padding:0 16px 24px}
+  .qm-header{justify-self:stretch;margin-top:-64px;padding:18px 20px}
+  .qm-trail{grid-area:trail;display:flex;flex-direction:column;gap:16px;position:relative}
+  .qm-trail::before{content:"";position:absolute;left:30px;top:32px;bottom:32px;width:4px;border-radius:2px;background:linear-gradient(to bottom,var(--reward) 0%,var(--reward) 40%,var(--line) 40%,var(--line) 100%)}
+  .qm-stop{position:relative;inset:auto;display:flex;align-items:center;gap:14px}
+  .qm-stop .qm-node{width:64px;flex:none}
+  .qm-chest{width:64px;height:64px;flex:none}
+  .qm-label{position:static;width:auto;min-width:0}
+  .qm-labtxt{font-size:18px;line-height:24px}
+  .qm-panel{justify-self:stretch;align-self:start;width:auto;padding:20px;backdrop-filter:none}
+  .qm-cta{display:flex;flex-direction:column;position:fixed;left:0;right:0;bottom:0;z-index:20;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:var(--surface-raised);border-radius:var(--radius-lg) var(--radius-lg) 0 0;box-shadow:inset 0 1px 0 var(--line),0 -12px 32px rgba(0,0,0,.32)}
+}
+/* Medium (600-1023): taller banner, trail in a wide column, quest panel beside it */
+@media (min-width: 600px) and (max-width: 1023px){
+  .qm-root{grid-template-rows:auto 1fr;min-height:100vh}
+  .qm-art{position:relative;inset:auto;height:clamp(260px,38vw,360px);-webkit-mask-image:linear-gradient(#000 60%,transparent);mask-image:linear-gradient(#000 60%,transparent)}
+  .qm-wrap{grid-template-columns:minmax(0,1fr) clamp(280px,42vw,360px);grid-template-rows:auto auto;grid-template-areas:"head head" "trail panel";align-content:start;column-gap:24px;row-gap:28px;padding:0 24px 32px}
+  .qm-header{margin-top:-88px}
+  .qm-trail{grid-area:trail;display:flex;flex-direction:column;gap:20px;position:relative;align-self:start}
+  .qm-trail::before{content:"";position:absolute;left:30px;top:32px;bottom:32px;width:4px;border-radius:2px;background:linear-gradient(to bottom,var(--reward) 0%,var(--reward) 40%,var(--line) 40%,var(--line) 100%)}
+  .qm-stop{position:relative;inset:auto;display:flex;align-items:center;gap:16px}
+  .qm-stop .qm-node{width:64px;flex:none}
+  .qm-chest{width:64px;height:64px;flex:none}
+  .qm-label{position:static;width:auto;min-width:0}
+  .qm-labtxt{font-size:18px;line-height:24px}
+  .qm-panel{justify-self:stretch;align-self:start;width:auto;padding:24px;position:sticky;top:16px}
+}
+/* Desktop (>=1600): map stays full width, content container 1440 */
+@media (min-width: 1600px){
+  .qm-h1{font-size:clamp(32px,6vw,56px)}
+  .qm-panel{width:420px}
+}
+</style>
+</helmet>
+<div data-theme="dreamlight" data-band="junior" class="qm-root" style="width: 100%; box-sizing: border-box; position: relative; overflow: clip; background: var(--surface); color: var(--ink); font-family: var(--font-text)">
+  <img class="qm-art" src="/_blob/69e55678ceb673bf94acd536ed6023e0" alt="">
+
+  <div class="qm-wrap">
+    <header class="qm-header" style="display: flex; flex-direction: column; gap: 14px; border-radius: var(--radius-lg); background: var(--surface-glass); backdrop-filter: blur(16px); box-shadow: inset 0 0 0 1px var(--line)">
+      <img src="/_blob/86d2ad40444eabc4ba4c8a0e9f1d4603" alt="myKx" style="height: 26px; width: auto; align-self: flex-start">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <span style="align-self: flex-start; padding: 2px 10px; border-radius: var(--radius-pill); background: var(--accent-2); color: var(--on-accent-2); font-size: 14px; line-height: 22px; font-weight: 800">P4 Science</span>
+        <h1 class="qm-h1" style="margin: 0; font-family: var(--font-display); font-weight: 600">Light and shadows</h1>
+        <p style="margin: 0; font-size: 16px; line-height: 22px; font-weight: 600; color: var(--ink-muted)">2 of 6 stops mastered</p>
+      </div>
+    </header>
+
+    <div class="qm-trail">
+      <div class="qm-stop qm-stop--1">
+        <div class="mk-node mk-node--mastered qm-node">
+          <span class="mk-node__dot"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z"/></svg></span>
+        </div>
+        <div class="qm-label qm-label--1" style="padding: 6px 14px; border-radius: var(--radius-pill); background: var(--surface-glass); backdrop-filter: blur(12px)">
+          <span class="qm-labtxt" style="font-weight: 800">Light sources</span>
+        </div>
+      </div>
+
+      <div class="qm-stop qm-stop--2">
+        <div class="mk-node mk-node--mastered qm-node">
+          <span class="mk-node__dot"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z"/></svg></span>
+        </div>
+        <div class="qm-label qm-label--2" style="padding: 6px 14px; border-radius: var(--radius-pill); background: var(--surface-glass); backdrop-filter: blur(12px)">
+          <span class="qm-labtxt" style="font-weight: 800">Light travels in lines</span>
+        </div>
+      </div>
+
+      <div class="qm-stop qm-stop--3">
+        <div class="mk-node mk-node--current qm-node" style="--mastery: 57">
+          <span class="mk-node__dot"><span>57</span></span>
+        </div>
+        <div class="qm-label qm-label--3" style="display: flex; flex-direction: column; gap: 2px; padding: 8px 16px; border-radius: var(--radius-md); background: var(--surface-glass); backdrop-filter: blur(12px); box-shadow: inset 0 0 0 2px var(--accent)">
+          <span style="font-size: 18px; line-height: 24px; font-weight: 800">Shadows</span>
+          <span style="font-size: 14px; line-height: 18px; font-weight: 600; color: var(--ink-muted)">Today's quest · limited evidence</span>
+        </div>
+      </div>
+
+      <div class="qm-stop qm-stop--4">
+        <div class="mk-node mk-node--next qm-node">
+          <span class="mk-node__dot"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5v14l11-7z"/></svg></span>
+        </div>
+        <div class="qm-label qm-label--4" style="padding: 6px 14px; border-radius: var(--radius-pill); background: var(--surface-glass); backdrop-filter: blur(12px)">
+          <span class="qm-labtxt" style="font-weight: 800">See-through or not</span>
+        </div>
+      </div>
+
+      <div class="qm-stop qm-stop--5">
+        <div class="mk-node mk-node--locked qm-node">
+          <span class="mk-node__dot"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 10V8a5 5 0 0 1 10 0v2h1v11H6V10zm2 0h6V8a3 3 0 0 0-6 0z"/></svg></span>
+        </div>
+        <div class="qm-label qm-label--5" style="padding: 6px 14px; border-radius: var(--radius-pill); background: var(--surface-glass); backdrop-filter: blur(12px)">
+          <span class="qm-labtxt" style="font-weight: 800; color: var(--ink-muted)">Shadow size</span>
+        </div>
+      </div>
+
+      <div class="qm-stop qm-stop--6">
+        <div class="qm-chest" style="display: grid; place-items: center; border-radius: var(--radius-pill); background: var(--surface-glass); backdrop-filter: blur(12px); box-shadow: inset 0 0 0 3px var(--reward), var(--shadow-glow); color: var(--reward)">
+          <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 36px; height: 36px"><path fill="currentColor" d="M3 9l2-4h14l2 4v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1zm2.3 0h13.4l-1-2H6.3zM5 11v8h14v-8h-5v2h-4v-2z"/></svg>
+        </div>
+        <div class="qm-label qm-label--6" style="padding: 6px 14px; border-radius: var(--radius-pill); background: var(--surface-glass); backdrop-filter: blur(12px)">
+          <span class="qm-labtxt" style="font-weight: 800">End of quest: a new card</span>
+        </div>
+      </div>
+    </div>
+
+    <section class="qm-panel" aria-label="Today's quest" style="box-sizing: border-box; display: flex; flex-direction: column; gap: 18px; border-radius: var(--radius-xl); background: var(--surface-glass); box-shadow: inset 0 0 0 1px var(--line), var(--shadow-raised)">
+      <div style="display: flex; gap: 14px; align-items: flex-start">
+        <img src="/_blob/1be0285c83fc5de9a8d666fbb5e6c403" alt="Kix" style="width: 72px; height: 72px; border-radius: 50%; object-fit: cover; flex: none; box-shadow: 0 0 0 3px var(--accent)">
+        <p style="margin: 0; padding: 12px 16px; border-radius: 4px var(--radius-lg) var(--radius-lg) var(--radius-lg); background: var(--surface-raised); font-size: 18px; line-height: 26px; font-weight: 600">Ready? We start with one you know, then a brand-new one.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <h2 style="margin: 0; font-family: var(--font-display); font-weight: 600; font-size: 32px; line-height: 38px">Shadows</h2>
+        <p style="margin: 0; font-size: 16px; line-height: 22px; font-weight: 600; color: var(--ink-muted)">3 questions · about 8 minutes</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <div style="display: flex; justify-content: space-between; font-size: 16px; line-height: 22px; font-weight: 800"><span>Mastery</span><span>57 / 100</span></div>
+        <div style="height: 12px; border-radius: var(--radius-pill); background: var(--line); overflow: hidden"><div style="width: 57%; height: 12px; border-radius: var(--radius-pill); background: var(--accent)"></div></div>
+        <p style="margin: 0; font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink-muted)">Limited evidence: two question families so far. Picked because it's in your test scope and you last practised 3 days ago.</p>
+      </div>
+      <div class="qm-cta">
+        <button class="mk-btn mk-btn--primary" type="button" style="width: 100%">Start today's quest</button>
+      </div>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

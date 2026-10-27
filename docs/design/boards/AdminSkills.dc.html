@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Skills admin: catalogue, agents and trace</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+.ad-click{cursor:pointer}
+.ad-click:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+.ad-card{transition:box-shadow 160ms cubic-bezier(0.22,1,0.36,1),transform 160ms cubic-bezier(0.22,1,0.36,1)}
+.ad-card:hover{transform:translateY(-2px)}
+@media (prefers-reduced-motion: reduce){.ad-card{transition:none}.ad-card:hover{transform:none}}
+
+/* Layout (mykx-design-system §3a). Default = expanded 1024–1599: sidebar, cards, 400 px aside. */
+.ad-shell{display:flex;min-height:100vh}
+.ad-nav{width:232px;padding:24px 16px;flex-direction:column;gap:6px;box-shadow:inset -1px 0 0 var(--line)}
+.ad-brand{padding:0 8px 18px}
+.ad-navlist{display:flex;flex-direction:column;gap:6px}
+.ad-navi[aria-current="page"]{box-shadow:inset 3px 0 0 var(--accent)}
+.ad-who{margin-top:auto}
+.ad-main{padding:28px 32px}
+.ad-sub{font-size:15px;line-height:22px}
+.ad-pill{min-height:40px}
+.ad-split{grid-template-columns:minmax(0,1fr) 400px}
+.ad-cards{grid-template-columns:repeat(auto-fill,minmax(max(260px,calc((100% - 14px) / 2)),1fr))}
+.ad-copy{font-size:13px;line-height:18px}
+.ad-agent{align-items:center}
+.ad-aname{font-size:14px;line-height:20px}
+.ad-anote{font-size:12px;line-height:16px}
+.ad-seg{min-height:28px;font-size:12px}
+@media (pointer: coarse){.ad-pill,.ad-seg{min-height:44px}}
+
+/* Medium 600–1023 (foldable open, tablet portrait): nav as a top bar, cards 2 up, aside below. */
+@media (min-width: 600px) and (max-width: 1023px){
+  .ad-shell{flex-direction:column}
+  .ad-nav{width:auto;padding:12px 24px;flex-direction:row;flex-wrap:wrap;align-items:center;gap:8px 16px;box-shadow:inset 0 -1px 0 var(--line)}
+  .ad-brand{padding:0}
+  .ad-who{order:1;margin-top:0;margin-left:auto}
+  .ad-navlist{order:2;flex:1 1 100%;flex-direction:row;flex-wrap:wrap;gap:4px}
+  .ad-navi[aria-current="page"]{box-shadow:inset 0 -3px 0 var(--accent)}
+  .ad-main{padding:24px}
+  .ad-pill{min-height:44px}
+  .ad-split{grid-template-columns:minmax(0,1fr)}
+  .ad-cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ad-seg{min-height:44px;font-size:13px}
+}
+
+/* Compact < 600 (phones, cover screens): top bar, scrolling rows, one column, stacked matrix. */
+@media (max-width: 599px){
+  .ad-shell{flex-direction:column}
+  .ad-nav{width:auto;padding:12px 16px;gap:10px;box-shadow:inset 0 -1px 0 var(--line)}
+  .ad-brand{padding:0}
+  .ad-who{margin-top:0}
+  .ad-navlist{flex-direction:row;gap:4px;overflow-x:auto}
+  .ad-navi{flex:none;white-space:nowrap}
+  .ad-navi[aria-current="page"]{box-shadow:inset 0 -3px 0 var(--accent)}
+  .ad-main{padding:20px 16px 28px}
+  .ad-sub{font-size:16px;line-height:24px}
+  .ad-levels{flex-wrap:nowrap;overflow-x:auto;margin:-4px;padding:4px}
+  .ad-pill{flex:none;min-height:44px}
+  .ad-split{grid-template-columns:minmax(0,1fr)}
+  .ad-cards{grid-template-columns:minmax(0,1fr)}
+  .ad-copy{font-size:16px;line-height:22px}
+  .ad-agent{flex-direction:column;align-items:stretch}
+  .ad-aname{font-size:16px;line-height:22px}
+  .ad-anote{font-size:14px;line-height:20px}
+  .ad-seg{flex:1 1 auto;min-height:44px;font-size:14px}
+  .ad-hrow{flex-wrap:wrap;column-gap:12px}
+}
+
+/* Desktop ≥ 1600: centred 1600 container. */
+@media (min-width: 1600px){
+  .ad-shell{max-width:1600px;margin:0 auto}
+}
+
+/* Fixes after the device check (27 Oct) */
+.ad-navlist,.ad-levels{scrollbar-width:none}.ad-navlist::-webkit-scrollbar,.ad-levels::-webkit-scrollbar{display:none}
+</style>
+</helmet>
+<div data-theme="anime-sky" data-band="teen" style="width: 100%; min-height: 100vh; box-sizing: border-box; position: relative; overflow-x: clip; background: var(--surface); color: var(--ink); font-family: var(--font-text)">
+ <div class="ad-shell">
+
+  <nav class="ad-nav" aria-label="Admin" style="flex: none; box-sizing: border-box; display: flex; background: var(--surface-raised)">
+    <div class="ad-brand" style="display: flex; align-items: center; gap: 10px">
+      <img src="/_blob/f52e18857979369421011da66fdb9de3" alt="myKx" style="height: 24px; width: auto">
+      <span style="padding: 2px 8px; border-radius: var(--radius-pill); background: var(--ink); color: var(--surface); font-size: 11px; line-height: 18px; font-weight: 700; letter-spacing: .04em">ADMIN</span>
+    </div>
+    <div class="ad-navlist">
+      <sc-for list="{{nav}}" as="n" hint-placeholder-count="5">
+        <span class="ad-navi" aria-current="{{n.current}}" style="{{n.style}}">{{n.label}}</span>
+      </sc-for>
+    </div>
+    <div class="ad-who" style="padding: 12px; border-radius: var(--radius-sm); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); font-size: 13px; line-height: 18px; color: var(--ink-muted)">
+      Signed in as <strong style="color: var(--ink)">Demo Parent</strong><br>Role: admin · synthetic data
+    </div>
+  </nav>
+
+  <main class="ad-main" style="flex: 1; min-width: 0; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px">
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 4px">
+        <h1 style="margin: 0; font: 800 32px/38px var(--font-display)">Skills</h1>
+        <span class="ad-sub" style="color: var(--ink-muted)">Seven skill packs for P3, P6 and Sec 2. Kix's agents load them as each lesson needs.</span>
+      </div>
+      <button class="mk-btn mk-btn--primary" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" d="M12 5v14M5 12h14"/></svg>Add knowledge
+      </button>
+    </div>
+
+    <div class="ad-levels" role="group" aria-label="Level" style="display: flex; gap: 8px">
+      <sc-for list="{{levels}}" as="l" hint-placeholder-count="4">
+        <button class="ad-click ad-pill" type="button" onClick="{{l.pick}}" aria-pressed="{{l.pressed}}" style="{{l.style}}">{{l.label}}</button>
+      </sc-for>
+    </div>
+
+    <div class="ad-split" style="flex: 1; min-height: 0; display: grid; gap: 20px">
+      <div class="ad-cards" style="display: grid; gap: 14px; align-content: start">
+        <sc-for list="{{cards}}" as="c" hint-placeholder-count="6">
+          <button class="ad-click ad-card" type="button" onClick="{{c.pick}}" aria-pressed="{{c.pressed}}" style="{{c.style}}">
+            <span style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
+              <span style="padding: 2px 10px; border-radius: var(--radius-pill); background: var(--accent-2); color: var(--on-accent-2); font-size: 12px; line-height: 20px; font-weight: 700">{{c.level}}</span>
+              <span style="font-size: 12px; line-height: 18px; font-weight: 600; color: var(--ink-muted)">v{{c.version}} · {{c.status}}</span>
+            </span>
+            <span style="font: 700 20px/26px var(--font-display); color: var(--ink)">{{c.title}}</span>
+            <span class="ad-copy" style="color: var(--ink-muted)">{{c.topics}}</span>
+            <span style="display: flex; flex-direction: column; gap: 6px">
+              <span style="display: flex; justify-content: space-between; font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ink-muted)"><span>Exam coverage</span><span>{{c.coverage}}%</span></span>
+              <span style="display: block; height: 8px; border-radius: 4px; background: var(--line); overflow: hidden"><span style="{{c.bar}}"></span></span>
+            </span>
+            <span class="ad-copy" style="display: flex; flex-wrap: wrap; gap: 14px; color: var(--ink)">
+              <span><strong>{{c.reviewed}}</strong> reviewed</span>
+              <span style="{{c.draftStyle}}"><strong>{{c.draft}}</strong> to review</span>
+            </span>
+          </button>
+        </sc-for>
+      </div>
+
+      <aside style="display: flex; flex-direction: column; gap: 14px; min-height: 0">
+        <section style="display: flex; flex-direction: column; gap: 12px; padding: 18px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: var(--shadow-raised)">
+          <div class="ad-hrow" style="display: flex; align-items: baseline; justify-content: space-between">
+            <h2 style="margin: 0; font: 700 18px/24px var(--font-display)">{{sel.title}}</h2>
+            <span style="font-size: 12px; font-weight: 600; color: var(--ink-muted)">Which agents may load it</span>
+          </div>
+          <sc-for list="{{agents}}" as="a" hint-placeholder-count="5">
+            <div class="ad-agent" style="display: flex; justify-content: space-between; gap: 10px">
+              <span style="display: flex; flex-direction: column">
+                <span class="ad-aname" style="font-weight: 700">{{a.name}}</span>
+                <span class="ad-anote" style="color: var(--ink-muted)">{{a.note}}</span>
+              </span>
+              <span role="group" aria-label="{{a.name}}" style="display: flex; padding: 3px; gap: 2px; border-radius: var(--radius-pill); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line)">
+                <button class="ad-click ad-seg" type="button" onClick="{{a.o0.pick}}" aria-pressed="{{a.o0.pressed}}" style="{{a.o0.style}}">Auto</button>
+                <button class="ad-click ad-seg" type="button" onClick="{{a.o1.pick}}" aria-pressed="{{a.o1.pressed}}" style="{{a.o1.style}}">On demand</button>
+                <button class="ad-click ad-seg" type="button" onClick="{{a.o2.pick}}" aria-pressed="{{a.o2.pressed}}" style="{{a.o2.style}}">Off</button>
+              </span>
+            </div>
+          </sc-for>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px; padding-top: 4px">
+            <span style="font-size: 12px; line-height: 24px; font-weight: 600; color: var(--ink-muted)">Tools</span>
+            <span style="padding: 2px 10px; border-radius: var(--radius-pill); box-shadow: inset 0 0 0 1px var(--border-control); font: 600 12px/20px ui-monospace, monospace">read_reference</span>
+            <span style="padding: 2px 10px; border-radius: var(--radius-pill); box-shadow: inset 0 0 0 1px var(--border-control); font: 600 12px/20px ui-monospace, monospace">find_items</span>
+            <span style="padding: 2px 10px; border-radius: var(--radius-pill); box-shadow: inset 0 0 0 1px var(--border-control); font: 600 12px/20px ui-monospace, monospace">check_answer</span>
+          </div>
+          <span style="font-size: 12px; line-height: 18px; color: var(--ink-muted)">Up to 2 subject skills at once · muse-spark-1.3 Standard (locked) · tools can't change scores</span>
+        </section>
+
+        <section style="flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 10px; padding: 18px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: var(--shadow-raised)">
+          <div class="ad-hrow" style="display: flex; align-items: baseline; justify-content: space-between">
+            <h2 style="margin: 0; font: 700 18px/24px var(--font-display)">Live skill trace</h2>
+            <span style="font-size: 12px; font-weight: 600; color: var(--ink-muted)">Ari · tonight</span>
+          </div>
+          <sc-for list="{{events}}" as="e" hint-placeholder-count="6">
+            <div class="ad-copy" style="display: grid; grid-template-columns: 44px 1fr; gap: 10px; align-items: start">
+              <span style="font: 600 12px/18px ui-monospace, monospace; color: var(--ink-muted)">{{e.t}}</span>
+              <span style="display: flex; flex-direction: column; gap: 2px">
+                <span><strong>{{e.agent}}</strong> <span style="{{e.kindStyle}}">{{e.kind}}</span></span>
+                <span style="color: var(--ink-muted)">{{e.detail}}</span>
+              </span>
+            </div>
+          </sc-for>
+        </section>
+      </aside>
+    </div>
+  </main>
+ </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"startLevel":{"editor":"enum","options":["all","P3","P6","Sec 2"],"default":"all"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  state = { level: null, sel: 'p3-science', policy: {} };
+
+  renderVals() {
+    const level = this.state.level ?? this.props.startLevel ?? 'all';
+    const SKILLS = [
+      { id: 'p3-science', level: 'P3', title: 'P3 Science', topics: 'Life cycles · magnets · living things · materials', version: '1.0.0', status: 'published', coverage: 82, reviewed: 48, draft: 6 },
+      { id: 'p3-maths', level: 'P3', title: 'P3 Maths', topics: 'Whole numbers · fractions · money · time · model method', version: '1.0.0', status: 'published', coverage: 76, reviewed: 64, draft: 0 },
+      { id: 'p3-english', level: 'P3', title: 'P3 English (Paper 2)', topics: 'Grammar · vocabulary · cloze · comprehension', version: '1.0.0', status: 'published', coverage: 61, reviewed: 40, draft: 12 },
+      { id: 'p3-chinese', level: 'P3', title: 'P3 Chinese 华文', topics: 'Lessons 1–15 words · oral · Paper 2', version: '1.0.0', status: 'published', coverage: 70, reviewed: 210, draft: 0 },
+      { id: 'p6-maths', level: 'P6', title: 'P6 Maths (PSLE)', topics: 'Ratio · fractions · percentage · geometry · heuristics', version: '1.0.0', status: 'published', coverage: 68, reviewed: 52, draft: 9 },
+      { id: 'p6-science', level: 'P6', title: 'P6 Science (PSLE)', topics: 'Energy · systems · interactions · answering technique', version: '1.0.0', status: 'published', coverage: 64, reviewed: 45, draft: 4 },
+      { id: 's2-science', level: 'Sec 2', title: 'Sec 2 G3 Science', topics: 'Electrical systems · chemical changes · ecology', version: '1.0.0', status: 'published', coverage: 41, reviewed: 22, draft: 3 },
+    ];
+    const shown = SKILLS.filter((s) => level === 'all' || s.level === level);
+    const sel = SKILLS.find((s) => s.id === this.state.sel) ?? SKILLS[0];
+    const DEFAULTS = { tutor: 'Auto', vibe: 'On demand', parent: 'On demand', memory: 'Off', curator: 'Auto' };
+    const AGENTS = [
+      ['tutor', 'Kix Tutor', 'Loads with the quest'],
+      ['vibe', 'Kix Vibe Maker', 'Checks facts in flashcards'],
+      ['parent', 'Parent Narrator', 'Reads the exam blueprint'],
+      ['memory', 'Memory Keeper', 'Uses the Notebook, not skills'],
+      ['curator', 'Content Curator', 'Tags uploads to this skill'],
+    ];
+    // min-height and font-size live in the .ad-pill / .ad-seg classes so the size classes can raise them to 44 px.
+    const pill = 'padding: 0 16px; border: 0; border-radius: var(--radius-pill); font: 700 14px/1 var(--font-text);';
+    const seg = 'padding: 0 10px; border: 0; border-radius: var(--radius-pill); font-weight: 700; line-height: 1; font-family: var(--font-text);';
+    const on = ' background: var(--accent); color: var(--on-accent);';
+    return {
+      nav: ['Skills', 'Add knowledge', 'Agents and tools', 'Learners', 'Activity'].map((label, i) => ({
+        label,
+        current: i === 0 ? 'page' : 'false',
+        style: 'display: block; padding: 10px 12px; border-radius: var(--radius-sm); font-size: 15px; line-height: 20px; font-weight: 600;'
+          + (i === 0 ? ' background: var(--surface); color: var(--accent);' : ' color: var(--ink-muted);'),
+      })),
+      levels: [['all', 'All levels'], ['P3', 'P3'], ['P6', 'P6'], ['Sec 2', 'Sec 2']].map(([id, label]) => ({
+        label,
+        pressed: id === level ? 'true' : 'false',
+        style: pill + (id === level ? on : ' background: var(--surface-raised); color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--border-control);'),
+        pick: () => this.setState({ level: id }),
+      })),
+      cards: shown.map((s) => ({
+        ...s,
+        pressed: s.id === sel.id ? 'true' : 'false',
+        style: 'display: flex; flex-direction: column; gap: 10px; padding: 16px; border: 0; border-radius: var(--radius-md); background: var(--surface-raised); text-align: left; font-family: var(--font-text);'
+          + (s.id === sel.id ? ' box-shadow: 0 0 0 2px var(--accent), var(--shadow-raised);' : ' box-shadow: inset 0 0 0 1px var(--line);'),
+        bar: `display: block; height: 100%; width: ${s.coverage}%; border-radius: 4px; background: ${s.coverage >= 60 ? 'var(--accent)' : 'var(--warn)'};`,
+        draftStyle: s.draft > 0 ? 'color: var(--warn);' : 'color: var(--ink-muted);',
+        pick: () => this.setState({ sel: s.id }),
+      })),
+      sel: { title: `${sel.title} · v${sel.version}` },
+      agents: AGENTS.map(([id, name, note]) => {
+        const cur = this.state.policy[`${sel.id}:${id}`] ?? DEFAULTS[id];
+        const [o0, o1, o2] = ['Auto', 'On demand', 'Off'].map((label) => ({
+          pressed: label === cur ? 'true' : 'false',
+          style: seg + (label === cur ? on : ' background: transparent; color: var(--ink-muted);'),
+          pick: () => this.setState({ policy: { ...this.state.policy, [`${sel.id}:${id}`]: label } }),
+        }));
+        return { name, note, o0, o1, o2 };
+      }),
+      events: [
+        ['19:02', 'Kix Tutor', 'loaded', 'p3-science v1.0.0 for the quest "Life cycles"', 'ok'],
+        ['19:04', 'Kix Tutor', 'read', 'content-cycles § Metamorphosis', 'read'],
+        ['19:06', 'Kix Tutor', 'searched', '"fractions homework" → not loaded: not part of this quest', 'warn'],
+        ['19:09', 'Kix Tutor', 'checked', 'p3sci-lc-004: correct, first try', 'read'],
+        ['19:15', 'Kix Tutor', 'unloaded', 'p3-science: quest finished', 'ok'],
+        ['19:16', 'Memory Keeper', 'updated', "Ari's Notebook, revision 14: +2 lines", 'read'],
+      ].map(([t, agent, kind, detail, tone]) => ({
+        t, agent, kind, detail,
+        kindStyle: 'padding: 0 6px; border-radius: 6px; font-weight: 700;'
+          + (tone === 'ok' ? ' background: var(--success); color: var(--on-success);' : tone === 'warn' ? ' background: var(--warn); color: var(--on-warn);' : ' box-shadow: inset 0 0 0 1px var(--border-control);'),
+      })),
+    };
+  }
+}
+</script>
+</body>
+</html>

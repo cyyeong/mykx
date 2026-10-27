@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Vibe Zone</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:var(--accent)}a:hover{color:var(--ink)}
+.vz-sheet{background-image:url(/_blob/d950da4db91207a7c4dfc3844601ad5c);background-repeat:no-repeat;background-size:400% auto;background-color:#FBF5E8}
+.vz-s0{background-position:0% 50%}
+.vz-s1{background-position:33.333% 50%}
+.vz-s2{background-position:66.667% 50%}
+.vz-s3{background-position:100% 50%}
+@keyframes vz-in{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
+.vz-in{animation:vz-in 480ms cubic-bezier(0.34,1.56,0.64,1) both}
+.vz-card{cursor:pointer;transition:transform 120ms cubic-bezier(0.22,1,0.36,1)}
+.vz-card:hover{transform:rotate(-1deg) translateY(-3px)}
+.vz-card:focus-visible,.vz-chip:focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px}
+.vz-chip{cursor:pointer}
+@media (prefers-reduced-motion: reduce){.vz-in{animation:none}.vz-card:hover{transform:none}}
+/* Expanded (default, 1024-1599): brief chat left, flashcard preview right */
+.vz-root{display:grid;grid-template-columns:minmax(0,1fr)}
+.vz-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.vz-wrap{position:relative;display:grid;grid-template-columns:clamp(340px,33vw,420px) minmax(0,1fr);grid-template-areas:"chat preview";column-gap:24px;row-gap:24px;width:100%;max-width:1440px;justify-self:center;box-sizing:border-box;padding:28px 32px}
+.vz-chat{grid-area:chat;min-width:0;padding:22px;backdrop-filter:blur(18px)}
+.vz-preview{grid-area:preview;min-width:0;padding:24px}
+.vz-body{font-size:17px;line-height:24px}
+.vz-list{font-size:16px;line-height:23px}
+.vz-h2{font-size:clamp(24px,1.5vw + 16px,28px);line-height:1.15}
+.vz-empty{min-height:0}
+.vz-deck{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.vz-cardart{width:128px;height:128px}
+.vz-actions{margin-top:auto}
+/* Compact (<600): chat first, deck below as a snap carousel, actions in bottom bars */
+@media (max-width: 599px){
+  .vz-root{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+  .vz-art{position:fixed}
+  .vz-wrap{grid-template-columns:minmax(0,1fr);grid-template-areas:"chat" "preview";align-content:start;row-gap:16px;padding:16px}
+  .vz-chat{padding:16px;backdrop-filter:none}
+  .vz-preview{padding:16px}
+  .vz-body{font-size:18px;line-height:26px}
+  .vz-list{font-size:18px;line-height:26px}
+  .vz-empty{min-height:200px}
+  .vz-deck{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:16px;overscroll-behavior-x:contain;margin:0 -16px;padding:4px 16px 12px}
+  .vz-deck > .vz-card{flex:0 0 88%;scroll-snap-align:start}
+  .vz-cardart{width:96px;height:96px}
+  .vz-make{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:var(--surface-raised);border-radius:var(--radius-lg) var(--radius-lg) 0 0;box-shadow:inset 0 3px 0 var(--border-control),0 -12px 32px rgba(42,30,92,.18)}
+  .vz-make > .mk-btn{flex:1 1 0;min-width:0;white-space:normal;line-height:1.15;padding:0 12px}
+  .vz-actions{flex-wrap:wrap;position:sticky;bottom:0;z-index:5;margin:auto -16px -16px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));border-radius:var(--radius-lg);background:var(--surface-raised);box-shadow:inset 0 0 0 3px var(--border-control),0 -12px 32px rgba(42,30,92,.18)}
+}
+/* Medium (600-1023): chat on top, deck below */
+@media (min-width: 600px) and (max-width: 1023px){
+  .vz-art{position:fixed}
+  .vz-wrap{grid-template-columns:minmax(0,1fr);grid-template-areas:"chat" "preview";align-content:start;padding:24px}
+  .vz-empty{min-height:280px}
+}
+/* Desktop (>=1600): container 1440, art fills the margins */
+@media (min-width: 1600px){
+  .vz-wrap{grid-template-columns:460px minmax(0,1fr)}
+  .vz-cardart{width:160px;height:160px}
+}
+/* Foldable book posture: chat left of the hinge, preview right */
+@media (horizontal-viewport-segments: 2){
+  .vz-root{padding-bottom:0}
+  .vz-art{position:absolute}
+  .vz-wrap{max-width:none;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"chat preview";align-content:normal;column-gap:calc(env(viewport-segment-left 1 0) - env(viewport-segment-right 0 0) + 48px);padding:24px}
+  .vz-chat{padding:22px;backdrop-filter:blur(18px)}
+  .vz-preview{padding:24px}
+  .vz-deck{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;overflow:visible;margin:0;padding:0}
+  .vz-deck > .vz-card{flex:none}
+  .vz-cardart{width:112px;height:112px}
+  .vz-make{position:static;padding:0;background:none;border-radius:0;box-shadow:none}
+  .vz-make > .mk-btn{flex:0 0 auto;white-space:nowrap;padding:0 24px}
+  .vz-actions{position:static;flex-wrap:wrap;margin:auto 0 0;padding:0;border-radius:0;background:none;box-shadow:none}
+}
+
+/* Fixes after the device check (27 Oct) */
+.vz-deck{scrollbar-width:none}.vz-deck::-webkit-scrollbar{display:none}
+</style>
+</helmet>
+<div data-theme="toon-pop" data-band="junior" class="vz-root" style="width: 100%; min-height: 100vh; box-sizing: border-box; position: relative; overflow: clip; background: var(--surface); color: var(--ink); font-family: var(--font-text)">
+  <img class="vz-art" src="/_blob/61b88cdf83fa556204fe28768d1e13ca" alt="">
+
+  <div class="vz-wrap">
+    <section class="vz-chat" aria-label="Chat with Kix" style="box-sizing: border-box; display: flex; flex-direction: column; gap: 14px; border-radius: var(--radius-lg); background: var(--surface-glass); box-shadow: inset 0 0 0 3px var(--border-control), var(--shadow-raised)">
+      <div style="display: flex; align-items: center; gap: 12px">
+        <img src="/_blob/322dfed5486a583d4343e28bcb22c301" alt="Kix thinking" style="width: 64px; height: 64px; border-radius: 50%; object-fit: cover; flex: none; box-shadow: 0 0 0 3px var(--border-control)">
+        <div style="display: flex; flex-direction: column; min-width: 0">
+          <h1 style="margin: 0; font-family: var(--font-display); font-weight: 400; font-size: 34px; line-height: 38px">Vibe Zone</h1>
+          <span style="font-size: 15px; line-height: 20px; font-weight: 700; color: var(--ink-muted)">Make something with Kix</span>
+        </div>
+      </div>
+
+      <p class="vz-body" style="margin: 0; align-self: flex-end; max-width: 300px; padding: 12px 16px; border-radius: var(--radius-lg) var(--radius-lg) 4px var(--radius-lg); background: var(--accent); color: var(--on-accent); font-weight: 700">I keep forgetting the frog life cycle for my test.</p>
+      <p class="vz-body" style="margin: 0; max-width: 320px; padding: 12px 16px; border-radius: 4px var(--radius-lg) var(--radius-lg) var(--radius-lg); background: var(--surface-raised); box-shadow: inset 0 0 0 2px var(--line); font-weight: 700">Let's make something to help. Flashcards or a planner?</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px">
+        <button class="vz-chip" type="button" aria-pressed="true" style="min-height: 44px; padding: 0 18px; border: 0; border-radius: var(--radius-pill); background: var(--accent); color: var(--on-accent); font: 800 16px/1 var(--font-text)">Flashcards</button>
+        <button class="vz-chip" type="button" aria-pressed="false" style="min-height: 44px; padding: 0 18px; border: 0; border-radius: var(--radius-pill); background: var(--surface-raised); color: var(--ink); font: 800 16px/1 var(--font-text); box-shadow: inset 0 0 0 2px var(--border-control)">Planner</button>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: var(--radius-lg); background: var(--surface-raised); box-shadow: inset 0 0 0 3px var(--border-control), var(--shadow-raised)">
+        <span style="font-family: var(--font-display); font-size: 22px; line-height: 26px">Your brief</span>
+        <ul class="vz-list" style="margin: 0; padding: 0 0 0 20px; display: flex; flex-direction: column; gap: 2px; font-weight: 700">
+          <li>4 flashcards on the frog life cycle</li>
+          <li>A picture on the front, the answer on the back</li>
+          <li>{{briefLevel}}</li>
+        </ul>
+        <sc-if value="{{isBrief}}" hint-placeholder-val="{{true}}">
+          <div class="vz-make" style="display: flex; gap: 8px">
+            <button class="mk-btn mk-btn--primary" type="button" onClick="{{make}}">Make it</button>
+            <button class="mk-btn mk-btn--secondary" type="button">Change something</button>
+          </div>
+        </sc-if>
+      </div>
+
+      <sc-if value="{{isPreview}}" hint-placeholder-val="{{false}}">
+        <p class="vz-in vz-body" style="margin: 0; max-width: 320px; padding: 12px 16px; border-radius: 4px var(--radius-lg) var(--radius-lg) var(--radius-lg); background: var(--surface-raised); box-shadow: inset 0 0 0 2px var(--line); font-weight: 700">{{kixSays}}</p>
+        <sc-if value="{{canRevise}}" hint-placeholder-val="{{true}}">
+          <div style="display: flex; flex-wrap: wrap; gap: 8px">
+            <button class="vz-chip" type="button" onClick="{{harder}}" style="min-height: 44px; padding: 0 16px; border: 0; border-radius: var(--radius-pill); background: var(--surface-raised); color: var(--ink); font: 800 15px/1 var(--font-text); box-shadow: inset 0 0 0 2px var(--border-control)">Make them harder</button>
+            <button class="vz-chip" type="button" style="min-height: 44px; padding: 0 16px; border: 0; border-radius: var(--radius-pill); background: var(--surface-raised); color: var(--ink); font: 800 15px/1 var(--font-text); box-shadow: inset 0 0 0 2px var(--border-control)">Add a mealworm card</button>
+          </div>
+        </sc-if>
+      </sc-if>
+    </section>
+
+    <section class="vz-preview" aria-label="Preview" style="box-sizing: border-box; display: flex; flex-direction: column; gap: 16px; border-radius: var(--radius-lg); background: var(--surface-glass); backdrop-filter: blur(18px); box-shadow: inset 0 0 0 3px var(--border-control), var(--shadow-raised)">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px">
+        <h2 class="vz-h2" style="margin: 0; font-family: var(--font-display); font-weight: 400">Frog life cycle flashcards</h2>
+        <sc-if value="{{isPreview}}" hint-placeholder-val="{{false}}">
+          <span style="padding: 2px 12px; border-radius: var(--radius-pill); background: var(--accent-2); color: var(--on-accent-2); font-size: 14px; line-height: 22px; font-weight: 800">Version {{version}}</span>
+        </sc-if>
+        <span style="margin-left: auto; font-size: 13px; line-height: 18px; font-weight: 700; color: var(--ink-muted)">Built from a checked template</span>
+      </div>
+
+      <sc-if value="{{isBrief}}" hint-placeholder-val="{{true}}">
+        <div class="vz-empty" style="flex: 1; display: grid; place-items: center; padding: 16px; border-radius: var(--radius-lg); border: 3px dashed var(--border-control); text-align: center">
+          <div style="display: flex; flex-direction: column; gap: 8px; align-items: center; max-width: 360px">
+            <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 48px; height: 48px; color: var(--accent)"><path fill="currentColor" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z"/></svg>
+            <span style="font-size: 20px; line-height: 28px; font-weight: 800">Your flashcards appear here</span>
+            <span style="font-size: 16px; line-height: 23px; font-weight: 600; color: var(--ink-muted)">Check your brief, then tap Make it.</span>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{isPreview}}" hint-placeholder-val="{{false}}">
+        <div class="vz-deck">
+          <sc-for list="{{cards}}" as="c" hint-placeholder-count="4">
+            <button class="vz-card vz-in" type="button" onClick="{{c.flip}}" aria-label="{{c.aria}}" style="{{c.style}}">
+              <sc-if value="{{c.front}}" hint-placeholder-val="{{true}}">
+                <span class="{{c.cls}}" style="flex: none; border-radius: var(--radius-md); box-shadow: inset 0 0 0 2px var(--line)"></span>
+                <span style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
+                  <span style="font-size: 13px; line-height: 18px; font-weight: 800; color: var(--accent)">Card {{c.n}}</span>
+                  <span style="font-size: 19px; line-height: 26px; font-weight: 800">{{c.q}}</span>
+                  <span style="font-size: 13px; line-height: 18px; font-weight: 700; color: var(--ink-muted)">Tap to see the answer</span>
+                </span>
+              </sc-if>
+              <sc-if value="{{c.back}}" hint-placeholder-val="{{false}}">
+                <span style="display: flex; flex-direction: column; gap: 8px">
+                  <span style="font-size: 13px; line-height: 18px; font-weight: 800; color: var(--ink-muted)">Answer</span>
+                  <span style="font-family: var(--font-display); font-size: 24px; line-height: 30px">{{c.a}}</span>
+                </span>
+              </sc-if>
+            </button>
+          </sc-for>
+        </div>
+        <div class="vz-actions" style="display: flex; align-items: center; gap: 12px">
+          <sc-if value="{{notSaved}}" hint-placeholder-val="{{true}}">
+            <button class="mk-btn mk-btn--reward" type="button" onClick="{{save}}"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z"/></svg>Save to Treasure</button>
+            <span style="font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink-muted)">+5 stars for a saved creation</span>
+          </sc-if>
+          <sc-if value="{{savedNotShared}}" hint-placeholder-val="{{false}}">
+            <span style="font-size: 17px; line-height: 24px; font-weight: 800">Saved as version {{version}}.</span>
+            <button class="mk-btn mk-btn--primary" type="button" onClick="{{share}}">Share with Mum</button>
+          </sc-if>
+          <sc-if value="{{shared}}" hint-placeholder-val="{{false}}">
+            <span style="font-size: 16px; line-height: 23px; font-weight: 700">Mum can open version {{version}}. New versions stay private until you share them.</span>
+            <button class="mk-btn mk-btn--secondary" type="button" onClick="{{unshare}}">Stop sharing</button>
+          </sc-if>
+        </div>
+      </sc-if>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"startStep":{"editor":"enum","options":["brief","preview"],"default":"brief"},"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  state = { step: null, version: 1, flipped: [], saved: false, shared: false };
+
+  renderVals() {
+    const step = this.state.step ?? this.props.startStep ?? 'brief';
+    const v = this.state.version;
+    const DECKS = {
+      1: [
+        { q: 'What hatches from frog spawn?', a: 'A tadpole' },
+        { q: 'What grows first as a tadpole changes?', a: 'Back legs, then front legs' },
+        { q: 'What does a froglet still have to lose?', a: 'Its short tail' },
+        { q: 'Where does a grown frog live?', a: 'On land and in water' },
+      ],
+      2: [
+        { q: 'Put in order: frog, spawn, froglet, tadpole.', a: 'Spawn, tadpole, froglet, frog' },
+        { q: 'How does a tadpole breathe?', a: 'With gills' },
+        { q: 'Name two changes from tadpole to froglet.', a: 'It grows legs and lungs' },
+        { q: 'Why is a frog called an amphibian?', a: 'It lives in water first, then on land too' },
+      ],
+    };
+    const flipped = this.state.flipped;
+    const base = 'display: flex; align-items: center; gap: 14px; min-height: 176px; padding: 16px; border: 0; border-radius: var(--radius-lg); text-align: left; font-family: var(--font-text); color: var(--ink);';
+    return {
+      isBrief: step === 'brief',
+      isPreview: step === 'preview',
+      version: v,
+      briefLevel: v === 1 ? 'Easy to start with' : 'Harder questions',
+      canRevise: v === 1 && !this.state.saved,
+      kixSays: v === 1 ? 'Here is version 1. Tap a card to flip it. Want to change anything?' : 'Version 2 is harder. Your first version is still saved if you want it back.',
+      cards: DECKS[v].map((c, i) => {
+        const isFlipped = flipped.includes(i);
+        return {
+          ...c,
+          n: i + 1,
+          cls: `vz-sheet vz-s${i} vz-cardart`,
+          front: !isFlipped,
+          back: isFlipped,
+          aria: `Card ${i + 1}: ${isFlipped ? c.a : c.q}`,
+          style: base + (isFlipped
+            ? ' background: var(--accent-2); box-shadow: inset 0 0 0 3px var(--border-control), var(--shadow-raised);'
+            : ' background: var(--surface-raised); box-shadow: inset 0 0 0 3px var(--border-control), var(--shadow-raised);'),
+          flip: () => this.setState({ flipped: isFlipped ? flipped.filter((f) => f !== i) : [...flipped, i] }),
+        };
+      }),
+      notSaved: !this.state.saved,
+      savedNotShared: this.state.saved && !this.state.shared,
+      shared: this.state.shared,
+      make: () => this.setState({ step: 'preview' }),
+      harder: () => this.setState({ version: 2, flipped: [] }),
+      save: () => this.setState({ saved: true }),
+      share: () => this.setState({ shared: true }),
+      unshare: () => this.setState({ shared: false }),
+    };
+  }
+}
+</script>
+</body>
+</html>

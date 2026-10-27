@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Talk to Kix, sound and Study Song</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+@keyframes tk-ring{0%{box-shadow:0 0 0 0 rgba(44,122,71,.55),var(--shadow-raised)}100%{box-shadow:0 0 0 26px rgba(44,122,71,0),var(--shadow-raised)}}
+@keyframes tk-bar{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+@keyframes tk-sing{0%{background:var(--reward);color:var(--on-reward);transform:translateY(-4px)}12.5%,100%{background:transparent;color:inherit;transform:none}}
+@keyframes tk-beat{0%{transform:scale(1.4);background:var(--accent)}25%,100%{transform:scale(1);background:var(--line)}}
+@keyframes tk-bob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-10px) rotate(3deg)}}
+@keyframes tk-dots{0%,100%{opacity:.25}50%{opacity:1}}
+.tk-bar{display:block;width:6px;height:28px;border-radius:3px;background:var(--accent);transform-origin:50% 50%;animation:tk-bar .9s var(--ease-soft) infinite}
+.tk-dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--ink-muted);animation:tk-dots 1s infinite}
+.tk-btn:focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px}
+@media (prefers-reduced-motion: reduce){.tk-bar,.tk-dot{animation:none}.tk-anim{animation:none!important}}
+.tk-root{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:1fr;overflow:hidden;overflow:clip}
+.tk-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tk-wrap{position:relative;width:100%;max-width:1440px;margin:0 auto;box-sizing:border-box;display:grid;grid-template-columns:minmax(0,600fr) minmax(0,576fr);grid-template-rows:auto 1fr auto;grid-template-areas:"head head" "talk song" "foot foot";column-gap:24px;row-gap:10px;padding:24px 40px 22px}
+.tk-header{grid-area:head;min-height:56px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.tk-toggles{display:flex;align-items:center;gap:10px;padding:6px;border-radius:var(--radius-pill)}
+.tk-talk{grid-area:talk;min-width:0;padding:32px 32px 132px}
+.tk-h2{font-size:36px;line-height:40px}
+.tk-kixrow{display:flex;align-items:flex-start;gap:16px}
+.tk-kix{width:180px;height:180px}
+.tk-bubble{flex:1 1 0%;min-width:0}
+.tk-tail{left:-10px;top:44px;box-shadow:-2px 2px 0 0 var(--line)}
+.tk-mic{grid-area:talk;align-self:end;position:relative;z-index:1;margin:0 32px 32px;display:flex;align-items:center;gap:16px}
+.tk-type{flex:1 1 0%;font-size:16px}
+.tk-song{grid-area:song;min-width:0;padding:32px}
+.tk-songhead{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.tk-bob{width:120px;height:120px}
+.tk-lyrics{font-size:clamp(22px,2.2vw,28px);line-height:1.43}
+.tk-note{font-size:14px;line-height:20px}
+.tk-footer{grid-area:foot;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
+.tk-modes{display:flex;align-items:center;gap:8px;border-radius:var(--radius-pill)}
+.tk-mode{min-height:32px}
+.tk-credit{border-radius:var(--radius-pill)}
+@media (min-width: 1600px){
+  .tk-wrap{padding:32px 40px 28px}
+}
+@media (min-width: 600px) and (max-width: 1023px){
+  .tk-wrap{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto auto;grid-template-areas:"head" "talk" "song" "foot";row-gap:16px;padding:24px}
+  .tk-header{margin-bottom:0}
+  .tk-lyrics{font-size:28px;line-height:40px}
+}
+@media (max-width: 599px){
+  .tk-wrap{display:flex;flex-direction:column;gap:14px;padding:16px 12px 0}
+  .tk-header{flex-wrap:wrap;gap:10px;margin-bottom:0}
+  .tk-toggles{flex:1 1 100%;gap:6px;padding:4px}
+  .tk-toggle{flex:1 1 0%;min-width:0;justify-content:center}
+  .tk-talk{padding:20px 16px}
+  .tk-h2{font-size:30px;line-height:34px}
+  .tk-kixrow{flex-direction:column;align-items:center;gap:20px}
+  .tk-kix{width:160px;height:160px}
+  .tk-bubble{flex:none;align-self:stretch}
+  .tk-tail{left:calc(50% - 10px);top:-10px;box-shadow:-2px -2px 0 0 var(--line)}
+  .tk-mic{order:1;position:sticky;bottom:0;z-index:3;flex-wrap:wrap;gap:10px 14px;margin:0 -12px;padding:12px 12px calc(12px + env(safe-area-inset-bottom));border-radius:var(--radius-lg) var(--radius-lg) 0 0;background:var(--surface-glass);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);box-shadow:0 -1px 0 var(--line),var(--shadow-raised)}
+  .tk-type{flex:1 1 100%;font-size:18px}
+  .tk-song{padding:20px 16px}
+  .tk-bob{width:88px;height:88px}
+  .tk-lyrics{font-size:22px;line-height:32px}
+  .tk-play .mk-btn{flex:1 1 auto}
+  .tk-note{font-size:18px;line-height:26px}
+  .tk-modes{flex-wrap:wrap;border-radius:var(--radius-lg)}
+  .tk-mode{min-height:44px}
+  .tk-credit{border-radius:var(--radius-lg)}
+}
+@media (horizontal-viewport-segments: 2){
+  .tk-wrap{display:grid;max-width:none;padding:16px 0;grid-template-columns:env(viewport-segment-width 0 0) env(viewport-segment-width 1 0);grid-template-rows:auto 1fr auto;grid-template-areas:"head head" "talk song" "foot foot";column-gap:calc(env(viewport-segment-left 1 0) - env(viewport-segment-right 0 0));row-gap:16px}
+  .tk-header{padding:0 16px;margin-bottom:0}
+  .tk-talk,.tk-song{margin:0 16px}
+  .tk-talk{padding-bottom:198px}
+  .tk-kix{width:140px;height:140px}
+  .tk-mic{flex-wrap:wrap;gap:10px 16px;margin:0 48px 32px}
+  .tk-type{flex:1 1 100%}
+  .tk-footer{display:grid;grid-template-columns:env(viewport-segment-width 0 0) env(viewport-segment-width 1 0);column-gap:calc(env(viewport-segment-left 1 0) - env(viewport-segment-right 0 0));row-gap:8px;justify-items:start}
+  .tk-modes,.tk-credit{margin:0 16px}
+  .tk-modes{flex-wrap:wrap;border-radius:var(--radius-lg)}
+}
+</style>
+</helmet>
+<div class="tk-root" data-theme="terrarium" data-band="junior" style="position: relative; width: 100%; min-height: 100vh; box-sizing: border-box; background: var(--surface); color: var(--ink); font-family: var(--font-text)">
+  <img class="tk-bg" src="/_blob/42a1d142037c7463131ff440b4e5f999" alt="">
+  <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(238, 245, 228, 0.55) 0%, rgba(238, 245, 228, 0.25) 40%, rgba(29, 51, 36, 0.35) 100%)"></div>
+
+  <div class="tk-wrap">
+    <header class="tk-header">
+      <img src="/_blob/f52e18857979369421011da66fdb9de3" alt="myKx" style="height: 30px; width: auto">
+      <div class="tk-toggles" style="background: var(--surface-glass); backdrop-filter: blur(16px); box-shadow: inset 0 0 0 1px var(--line), var(--shadow-raised)">
+        <button class="tk-btn tk-toggle" type="button" onClick="{{toggleSound}}" aria-pressed="{{soundPressed}}" style="{{soundStyle}}">
+          <sc-if value="{{soundOn}}" hint-placeholder-val="{{true}}">
+            <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 9v6h4l5 4V5L8 9H4zM16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>
+          </sc-if>
+          <sc-if value="{{soundOff}}" hint-placeholder-val="{{false}}">
+            <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 9v6h4l5 4V5L8 9H4zM17 9l5 6M22 9l-5 6"/></svg>
+          </sc-if>
+          <span>{{soundLabel}}</span>
+        </button>
+        <button class="tk-btn tk-toggle" type="button" onClick="{{toggleRain}}" aria-pressed="{{rainPressed}}" style="{{rainStyle}}">
+          <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M7 15a4 4 0 0 1 .5-8 5.5 5.5 0 0 1 10.5 1.5A3.5 3.5 0 0 1 17.5 15M8 18l-1 3M12 18l-1 3M16 18l-1 3"/></svg>
+          <span>Rain and crickets</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Talk to Kix -->
+    <section class="tk-talk" style="box-sizing: border-box; display: flex; flex-direction: column; gap: 20px; border-radius: var(--radius-xl); background: var(--surface-glass); backdrop-filter: blur(20px); box-shadow: inset 0 0 0 1px var(--line), var(--shadow-raised)">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <h2 class="tk-h2" style="margin: 0; font-family: var(--font-display); font-weight: 600">Talk to Kix</h2>
+        <p style="margin: 0; font-size: 18px; line-height: 26px; font-weight: 600; color: var(--ink-muted)">Hold the mic and ask. Kix shows what it heard first.</p>
+      </div>
+
+      <div class="tk-kixrow">
+        <img class="tk-kix" src="{{kix.src}}" alt="{{kix.alt}}" style="flex: none; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 6px var(--surface-raised), 0 0 0 9px var(--accent)">
+        <div class="tk-bubble" style="position: relative; min-height: 150px; box-sizing: border-box; padding: 20px 22px; border-radius: var(--radius-lg); background: var(--surface-raised); box-shadow: inset 0 0 0 2px var(--line), var(--shadow-raised); font-size: 22px; line-height: 32px; font-weight: 700">
+          <span class="tk-tail" aria-hidden="true" style="position: absolute; width: 20px; height: 20px; background: var(--surface-raised); transform: rotate(45deg)"></span>
+          <sc-if value="{{modeIdle}}" hint-placeholder-val="{{false}}">
+            <span>Hold the mic and ask me anything about frogs!</span>
+          </sc-if>
+          <sc-if value="{{modeListening}}" hint-placeholder-val="{{true}}">
+            <div style="display: flex; flex-direction: column; gap: 14px">
+              <span style="color: var(--ink-muted)">Listening…</span>
+              <span aria-hidden="true" style="display: flex; align-items: center; gap: 6px; height: 32px">
+                <span class="tk-bar" style="animation-delay: 0s"></span>
+                <span class="tk-bar" style="animation-delay: .15s"></span>
+                <span class="tk-bar" style="animation-delay: .3s"></span>
+                <span class="tk-bar" style="animation-delay: .1s"></span>
+                <span class="tk-bar" style="animation-delay: .25s"></span>
+                <span class="tk-bar" style="animation-delay: .05s"></span>
+                <span class="tk-bar" style="animation-delay: .2s"></span>
+              </span>
+            </div>
+          </sc-if>
+          <sc-if value="{{modeHeard}}" hint-placeholder-val="{{false}}">
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <span style="font-size: 15px; line-height: 20px; font-weight: 800; color: var(--ink-muted)">I heard:</span>
+              <span>“Why does the tadpole lose its tail?”</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{modeSpeaking}}" hint-placeholder-val="{{false}}">
+            <span>
+              <sc-for list="{{spoken}}" as="w" hint-placeholder-count="14"><span style="{{w.style}}">{{w.text}}</span> </sc-for>
+            </span>
+          </sc-if>
+        </div>
+      </div>
+
+      <sc-if value="{{modeHeard}}" hint-placeholder-val="{{false}}">
+        <div style="display: flex; flex-wrap: wrap; gap: 12px">
+          <button class="mk-btn mk-btn--primary" type="button" onClick="{{toSpeaking}}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></svg>That's right
+          </button>
+          <button class="mk-btn mk-btn--secondary" type="button" onClick="{{toListening}}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M4 12a8 8 0 1 0 2.5-5.8M4 4v4h4"/></svg>Say it again
+          </button>
+        </div>
+      </sc-if>
+    </section>
+
+    <div class="tk-mic">
+      <button class="tk-btn tk-anim" type="button" aria-label="Hold to talk to Kix" onClick="{{cycleMic}}" style="{{micStyle}}">
+        <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 34px; height: 34px"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></svg>
+      </button>
+      <div style="display: flex; flex-direction: column; gap: 2px; min-width: 150px">
+        <span style="font-size: 18px; line-height: 24px; font-weight: 800">{{micLabel}}</span>
+        <span style="font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink-muted)">{{micNote}}</span>
+      </div>
+      <div class="tk-type" style="display: flex; align-items: center; gap: 8px; height: 56px; box-sizing: border-box; padding: 0 8px 0 18px; border-radius: var(--radius-pill); background: var(--surface-raised); box-shadow: inset 0 0 0 2px var(--border-control); color: var(--ink-muted); font-weight: 600">
+        <span style="flex: 1; min-width: 0">Or type it here…</span>
+        <span style="display: grid; place-items: center; width: 40px; height: 40px; flex: none; border-radius: 50%; background: var(--accent); color: var(--on-accent)"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 18px; height: 18px"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </div>
+
+    <!-- Study Song -->
+    <section class="tk-song" style="box-sizing: border-box; display: flex; flex-direction: column; gap: 18px; border-radius: var(--radius-xl); background: var(--surface-glass); backdrop-filter: blur(20px); box-shadow: inset 0 0 0 1px var(--line), var(--shadow-raised)">
+      <div class="tk-songhead">
+        <div style="display: flex; flex-direction: column; gap: 8px; min-width: 0">
+          <span style="align-self: flex-start; padding: 4px 12px; border-radius: var(--radius-pill); background: var(--accent-2); color: var(--on-accent-2); font: 800 13px/18px var(--font-text)">Vibe Zone · Study Song</span>
+          <h2 class="tk-h2" style="margin: 0; font-family: var(--font-display); font-weight: 600">The Frog Song</h2>
+          <span style="font-size: 15px; line-height: 20px; font-weight: 700; color: var(--ink-muted)">Bouncy · 96 beats a minute · kalimba, wood blocks, frog croak</span>
+        </div>
+        <img src="/_blob/f506e58a602297834bce49cc9565bca7" alt="Kix dancing to the song" class="tk-anim tk-bob" style="{{bobStyle}}">
+      </div>
+
+      <div class="tk-lyrics" style="display: flex; flex-direction: column; gap: 10px; padding: 20px 22px; border-radius: var(--radius-lg); background: var(--surface-raised); box-shadow: inset 0 0 0 2px var(--line); font-family: var(--font-display); font-weight: 400">
+        <span style="color: var(--ink-muted)">Eggs in jelly, soft and round,</span>
+        <span><sc-for list="{{syllables}}" as="s" hint-placeholder-count="7"><span class="tk-anim" style="{{s.style}}">{{s.text}}</span></sc-for></span>
+        <span style="color: var(--ink-muted)">Legs pop out, the tail shrinks away,</span>
+        <span style="color: var(--ink-muted)">Hop, little frog, lay eggs one day!</span>
+      </div>
+
+      <div aria-hidden="true" style="display: flex; align-items: center; gap: 14px; padding-left: 4px">
+        <sc-for list="{{beats}}" as="b" hint-placeholder-count="4"><span class="tk-anim" style="{{b.style}}"></span></sc-for>
+        <span style="font-size: 14px; font-weight: 700; color: var(--ink-muted)">beat</span>
+      </div>
+
+      <div class="tk-play" style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
+        <button class="mk-btn mk-btn--primary" type="button" onClick="{{togglePlay}}">
+          <sc-if value="{{playing}}" hint-placeholder-val="{{false}}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+          </sc-if>
+          <sc-if value="{{paused}}" hint-placeholder-val="{{true}}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
+          </sc-if>
+          {{playLabel}}
+        </button>
+        <button class="mk-btn mk-btn--secondary" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M17 2l3 3-3 3M4 11V9a4 4 0 0 1 4-4h12M7 22l-3-3 3-3M20 13v2a4 4 0 0 1-4 4H4"/></svg>Loop
+        </button>
+        <button class="mk-btn mk-btn--reward" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z"/></svg>Save
+        </button>
+      </div>
+      <p class="tk-note" style="margin: auto 0 0; font-weight: 600; color: var(--ink-muted)">Muse Spark wrote the words and the notes. Your device plays them with the Terrarium instruments.</p>
+    </section>
+
+    <footer class="tk-footer">
+      <div class="tk-modes" style="padding: 6px 8px; border: 2px dashed var(--border-control); background: var(--surface-glass)">
+        <span style="padding: 0 6px; font: 800 12px/16px var(--font-text); color: var(--ink-muted); text-transform: uppercase; letter-spacing: .06em">Design preview</span>
+        <sc-for list="{{modes}}" as="m" hint-placeholder-count="4">
+          <button class="tk-btn tk-mode" type="button" onClick="{{m.pick}}" aria-pressed="{{m.pressed}}" style="{{m.style}}">{{m.label}}</button>
+        </sc-for>
+      </div>
+      <span class="tk-credit tk-note" style="padding: 6px 14px; background: var(--surface-glass); font-weight: 700; color: var(--ink)">Kix speaks with your device's voice · every sound is made in your browser</span>
+    </footer>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"startMode":{"editor":"enum","options":["idle","listening","heard","speaking"],"default":"listening"},"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  state = { mode: null, sound: true, rain: true, playing: true };
+
+  renderVals() {
+    const mode = this.state.mode ?? this.props.startMode ?? 'listening';
+    const KIX = {
+      idle: ['/_blob/02f791d67e720a2bf4fdb268ff6b6b8a', 'Kix smiling and waiting'],
+      listening: ['/_blob/322dfed5486a583d4343e28bcb22c301', 'Kix leaning in to listen'],
+      heard: ['/_blob/02f791d67e720a2bf4fdb268ff6b6b8a', 'Kix checking what it heard'],
+      speaking: ['/_blob/f3d67ff062af0a3258ceadda37b9024f', 'Kix explaining with a glowing hint'],
+    };
+    const [src, alt] = KIX[mode];
+    const SPOKEN = 'The froglet’s body soaks up the tail and uses it to grow strong legs for land.'.split(' ');
+    const SAID = 5;
+    const SYL = ['Tad', 'poles ', 'wig', 'gle ', 'all ', 'a', 'round,'];
+    const BEAT = 0.625;
+    const playing = this.state.playing;
+    const pill = 'display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border: 0; border-radius: var(--radius-pill); font: 800 15px/1 var(--font-text); cursor: pointer;';
+    const on = ' background: var(--accent); color: var(--on-accent);';
+    const off = ' background: var(--surface-raised); color: var(--ink); box-shadow: inset 0 0 0 2px var(--border-control);';
+    const listening = mode === 'listening';
+    return {
+      kix: { src, alt },
+      modeIdle: mode === 'idle',
+      modeListening: listening,
+      modeHeard: mode === 'heard',
+      modeSpeaking: mode === 'speaking',
+      spoken: SPOKEN.map((text, i) => ({
+        text,
+        style: i < SAID ? '' : i === SAID ? 'padding: 0 4px; margin: 0 -4px; border-radius: 8px; background: var(--reward); color: var(--on-reward);' : 'color: var(--ink-muted);',
+      })),
+      micStyle: 'display: grid; place-items: center; width: 80px; height: 80px; flex: none; border: 0; border-radius: 50%; cursor: pointer; background: var(--accent); color: var(--on-accent);'
+        + (listening ? ' animation: tk-ring 1.2s var(--ease-soft) infinite; transform: scale(1.06);' : ' box-shadow: var(--shadow-raised);'),
+      micLabel: listening ? 'Listening…' : 'Hold to talk',
+      micNote: listening ? 'Let go to send' : 'Up to 30 seconds',
+      toSpeaking: () => this.setState({ mode: 'speaking' }),
+      toListening: () => this.setState({ mode: 'listening' }),
+      cycleMic: () => this.setState({ mode: listening ? 'heard' : 'listening' }),
+      soundOn: this.state.sound,
+      soundOff: !this.state.sound,
+      soundPressed: this.state.sound ? 'true' : 'false',
+      soundLabel: this.state.sound ? 'Sound on' : 'Sound off',
+      soundStyle: pill + (this.state.sound ? on : off),
+      toggleSound: () => this.setState({ sound: !this.state.sound }),
+      rainPressed: this.state.rain ? 'true' : 'false',
+      rainStyle: pill + (this.state.rain ? ' background: var(--accent-2); color: var(--on-accent-2);' : off),
+      toggleRain: () => this.setState({ rain: !this.state.rain }),
+      playing,
+      paused: !playing,
+      playLabel: playing ? 'Pause' : 'Play',
+      togglePlay: () => this.setState({ playing: !playing }),
+      syllables: SYL.map((text, i) => ({
+        text,
+        style: 'display: inline-block; padding: 0 3px; border-radius: 8px;'
+          + (playing
+            ? ` animation: tk-sing ${BEAT * 8}s steps(1, end) infinite; animation-delay: ${(i * BEAT).toFixed(3)}s;`
+            : (i === 2 ? ' background: var(--reward); color: var(--on-reward); transform: translateY(-4px);' : '')),
+      })),
+      beats: [0, 1, 2, 3].map((i) => ({
+        style: 'display: inline-block; width: 18px; height: 18px; border-radius: 50%; background: var(--line);'
+          + (playing ? ` animation: tk-beat ${BEAT * 4}s steps(1, end) infinite; animation-delay: ${(i * BEAT).toFixed(3)}s;` : ''),
+      })),
+      bobStyle: 'flex: none; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 5px var(--surface-raised), 0 0 0 8px var(--accent-2);'
+        + (playing ? ` animation: tk-bob ${BEAT * 2}s var(--ease-soft) infinite;` : ''),
+      modes: [['idle', 'Waiting'], ['listening', 'Listening'], ['heard', 'Heard'], ['speaking', 'Kix speaks']].map(([id, label]) => ({
+        label,
+        pressed: id === mode ? 'true' : 'false',
+        style: 'padding: 0 12px; border: 0; border-radius: var(--radius-pill); font: 800 13px/1 var(--font-text); cursor: pointer;'
+          + (id === mode ? on : ' background: transparent; color: var(--ink);'),
+        pick: () => this.setState({ mode: id }),
+      })),
+    };
+  }
+}
+</script>
+</body>
+</html>

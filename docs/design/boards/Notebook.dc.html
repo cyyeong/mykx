@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Parent: what Kix remembers</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+.nb-click{cursor:pointer}
+.nb-click:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+
+/* Layout (mykx-design-system §3a). Default = expanded 1024–1599: three columns (children, pages, content with changes under it), centred. */
+.nb-root{display:grid;grid-template-columns:200px 200px minmax(0,1fr);grid-template-rows:auto auto auto 1fr auto;grid-template-areas:"top top top" "title title title" "kids pages article" "kids pages changes" "foot foot foot";align-content:start;gap:16px 24px;padding:32px max(32px, calc((100% - 1120px) / 2))}
+.nb-top{grid-area:top}
+.nb-title{grid-area:title}
+.nb-kids{grid-area:kids;align-self:start;grid-template-columns:minmax(0,1fr);border-radius:var(--radius-md)}
+.nb-kid{padding:0 14px;text-align:left}
+.nb-tabs{grid-area:pages;align-self:start;flex-direction:column}
+.nb-tab{text-align:left}
+.nb-article{grid-area:article;align-self:start}
+.nb-changes{grid-area:changes;align-self:start}
+.nb-foot{grid-area:foot;margin-top:auto}
+
+/* Medium 600–1023: child switcher across the top, pages as a left list, content on the right. */
+@media (min-width: 600px) and (max-width: 1023px){
+  .nb-root{grid-template-columns:200px minmax(0,1fr);grid-template-rows:auto auto auto auto 1fr auto;grid-template-areas:"top top" "title title" "kids kids" "pages article" "pages changes" "foot foot";padding:24px 32px}
+  .nb-kids{grid-template-columns:repeat(3,minmax(0,1fr));border-radius:var(--radius-pill)}
+  .nb-kid{padding:0 6px;text-align:center}
+}
+
+/* Compact < 600: the phone design, one column. */
+@media (max-width: 599px){
+  .nb-root{display:flex;flex-direction:column;gap:14px;padding:20px 18px}
+  .nb-kids{align-self:auto;grid-template-columns:repeat(3,minmax(0,1fr));border-radius:var(--radius-pill)}
+  .nb-kid{padding:0 6px;text-align:center}
+  .nb-tabs{align-self:auto;flex-direction:row}
+  .nb-tab{text-align:center}
+  .nb-article,.nb-changes{align-self:auto}
+}
+
+/* Desktop ≥ 1600: four tracks, "What changed" beside the page, centred 1440. */
+@media (min-width: 1600px){
+  .nb-root{grid-template-columns:220px 220px minmax(0,1fr) 320px;grid-template-rows:auto auto 1fr auto;grid-template-areas:"top top top top" "title title title title" "kids pages article changes" "foot foot foot foot";padding:40px max(40px, calc((100% - 1440px) / 2))}
+}
+
+/* Foldable book posture: header, children and page list left of the hinge; page content, changes and actions right. */
+@media (horizontal-viewport-segments: 2){
+  .nb-root{display:block;columns:2;column-gap:calc(env(viewport-segment-left 1 0, 0px) - env(viewport-segment-right 0 0, 0px) + 48px);padding:24px}
+  .nb-root > *{break-inside:avoid}
+  .nb-root > * + *{margin-top:14px}
+  .nb-article{break-before:column}
+  .nb-kids{grid-template-columns:repeat(3,minmax(0,1fr));border-radius:var(--radius-pill)}
+  .nb-kid{padding:0 6px;text-align:center}
+  .nb-tabs{flex-direction:column}
+  .nb-tab{text-align:left}
+}
+
+/* Fixes after the device check (27 Oct): no stretch row, so the footer follows the content on wide layouts */
+.nb-root{grid-template-rows:repeat(5,auto)}
+@media (min-width: 600px) and (max-width: 1023px){ .nb-root{grid-template-rows:repeat(6,auto)} }
+@media (min-width: 1600px){ .nb-root{grid-template-rows:repeat(4,auto)} }
+@media (min-width: 600px){ .nb-root{align-content:start} .nb-foot{margin-top:16px} }
+</style>
+</helmet>
+<div class="nb-root" data-theme="anime-sky" data-band="teen" style="width: 100%; min-height: 100vh; box-sizing: border-box; overflow-x: clip; background: var(--surface); color: var(--ink); font-family: var(--font-text)">
+  <div class="nb-top" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 12px">
+    <img src="/_blob/f52e18857979369421011da66fdb9de3" alt="myKx" style="height: 20px; width: auto">
+    <span style="font-size: 13px; line-height: 18px; font-weight: 500; color: var(--ink-muted)">Updated after Thursday's session</span>
+  </div>
+  <div class="nb-title" style="display: flex; flex-direction: column; gap: 4px">
+    <h1 style="margin: 0; font: 800 28px/34px var(--font-display)">What Kix remembers</h1>
+    <span style="font-size: 16px; line-height: 22px; color: var(--ink-muted)">Kix's notebook about {{kid}}. Progress numbers come from {{kid}}'s records. You can change or delete anything here.</span>
+  </div>
+
+  <div class="nb-kids" role="group" aria-label="Child" style="display: grid; gap: 4px; padding: 4px; background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line)">
+    <sc-for list="{{kids}}" as="k" hint-placeholder-count="3">
+      <button class="nb-click nb-kid" type="button" onClick="{{k.pick}}" aria-pressed="{{k.pressed}}" style="{{k.style}}">{{k.label}}</button>
+    </sc-for>
+  </div>
+
+  <div class="nb-tabs" role="tablist" aria-label="Notebook pages" style="display: flex; gap: 6px; flex-wrap: wrap">
+    <sc-for list="{{pages}}" as="p" hint-placeholder-count="7">
+      <button class="nb-click nb-tab" role="tab" type="button" onClick="{{p.pick}}" aria-selected="{{p.selected}}" style="{{p.style}}">{{p.label}}</button>
+    </sc-for>
+  </div>
+
+  <article class="nb-article" style="display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: var(--shadow-raised)">
+    <span style="font-size: 12px; line-height: 18px; font-weight: 600; color: var(--ink-muted)">{{pageNote}}</span>
+    <sc-for list="{{lines}}" as="l" hint-placeholder-count="4">
+      <div style="display: flex; align-items: flex-start; gap: 8px; padding: 8px 0; box-shadow: 0 1px 0 var(--line)">
+        <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+          <span style="font-size: 16px; line-height: 24px">{{l.text}}</span>
+          <sc-if value="{{l.hasRecord}}" hint-placeholder-val="{{false}}">
+            <span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; border-radius: 6px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); font-size: 12px; line-height: 18px; font-weight: 600; color: var(--ink-muted)">
+              <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 12px; height: 12px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>{{l.record}}
+            </span>
+          </sc-if>
+        </span>
+        <button class="nb-click" type="button" aria-label="Edit or delete this line" style="flex: none; width: 44px; height: 44px; margin: -6px -6px -6px 0; border: 0; border-radius: 50%; background: transparent; color: var(--ink-muted)">
+          <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 18px; height: 18px"><circle cx="5" cy="12" r="1.8" fill="currentColor"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/><circle cx="19" cy="12" r="1.8" fill="currentColor"/></svg>
+        </button>
+      </div>
+    </sc-for>
+  </article>
+
+  <section class="nb-changes" style="display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; border-radius: var(--radius-sm); background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line)">
+    <span style="font-size: 16px; line-height: 22px; font-weight: 700">What changed on Thursday</span>
+    <span style="font-size: 16px; line-height: 22px; color: var(--success)">+ Asks "why" before trying. One nudge, then wait.</span>
+    <span style="font-size: 16px; line-height: 22px; color: var(--success)">+ The tail idea clicked: "the body uses it up".</span>
+    <span style="font-size: 16px; line-height: 22px; color: var(--ink-muted); text-decoration: line-through">− Rushes MCQs without reading all four options.</span>
+    <span style="font-size: 12px; line-height: 16px; color: var(--ink-muted)">Written by Kix's Memory Keeper · revision 14 · undo</span>
+  </section>
+
+  <div class="nb-foot" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px">
+    <a href="#" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 14px; font-weight: 600">See the full history</a>
+    <button class="nb-click" type="button" style="min-height: 44px; padding: 0 14px; border: 0; border-radius: var(--radius-pill); background: transparent; color: var(--warn); font: 700 14px/1 var(--font-text); box-shadow: inset 0 0 0 1.5px var(--warn)">Wipe {{kid}}'s notebook</button>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"startPage":{"editor":"enum","options":["about","asking","language","weak","events","memorable","log"],"default":"weak"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  state = { kid: 'Ari', page: null };
+
+  renderVals() {
+    const page = this.state.page ?? this.props.startPage ?? 'weak';
+    const kid = this.state.kid;
+    const PAGES = [
+      ['about', 'About'], ['asking', 'Asking'], ['language', 'Language'], ['weak', 'Weak spots'],
+      ['events', 'Events'], ['memorable', 'Memorable'], ['log', 'Revision log'],
+    ];
+    const ARI = {
+      about: [['Lights up for anything with frogs, geckos or jets.'], ['Best in short bursts: energy drops after about 15 minutes.'], ['Likes being the one who explains it back to Kix.']],
+      asking: [['Asks "why" before trying. One nudge, then wait.'], ['Says "I don\'t know" when unsure; a picture usually unlocks it.']],
+      language: [['Mixes up "larva" and "pupa".'], ['Writes "more bigger"; practise comparatives.'], ['Reads questions aloud when stuck; read-aloud helps.']],
+      weak: [
+        ['Putting life-cycle stages in order, especially where the froglet goes.', '57% · limited evidence · records, 30 Oct'],
+        ['Explaining why an animal changes how it breathes.', '40% · 3 attempts · records, 29 Oct'],
+        ['Magnets: which materials are attracted. Getting stronger.', '78% · records, 28 Oct'],
+      ],
+      events: [['P3 end-of-year Science: Mon 2 Nov.'], ['School camp next Friday: no session that day.']],
+      memorable: [['First frog card, Thu 29 Oct.'], ['Named the companion Pip after a song in Vibe Zone.']],
+      log: [['Thu 29 Oct · 12 min · life cycles; the tail idea clicked.'], ['Wed 28 Oct · 9 min · magnets; 4 of 5 first try.']],
+    };
+    const NOTES = {
+      about: 'Personality and what motivates', asking: 'How Ari asks for help', language: 'Words and grammar to watch',
+      weak: 'In words, linked to the records. The numbers are never edited here.', events: 'Dates Kix should know',
+      memorable: 'Moments Kix can bring back', log: 'A readable timeline of sessions',
+    };
+    const data = kid === 'Ari' ? ARI : { [page]: [[`${kid}'s notebook is short so far. Kix adds to it after each session.`]] };
+    const rows = data[page] ?? [[`Nothing here yet for ${kid}.`]];
+    // 44 px targets (Teen minimum). Padding and alignment of the child buttons live in .nb-kid so the list layout can change them.
+    const chip = 'min-height: 44px; padding: 0 12px; border: 0; border-radius: var(--radius-pill); font: 600 13px/1 var(--font-text);';
+    return {
+      kid,
+      kids: [['Ari', 'Ari · P3'], ['Zara', 'Zara · P6'], ['Mei', 'Mei · Sec 2']].map(([id, label]) => ({
+        label,
+        pressed: id === kid ? 'true' : 'false',
+        style: 'min-height: 44px; border: 0; border-radius: var(--radius-pill); font: 600 13px/1 var(--font-text);'
+          + (id === kid ? ' background: var(--accent); color: var(--on-accent);' : ' background: transparent; color: var(--ink);'),
+        pick: () => this.setState({ kid: id }),
+      })),
+      pages: PAGES.map(([id, label]) => ({
+        label,
+        selected: id === page ? 'true' : 'false',
+        style: chip + (id === page ? ' background: var(--ink); color: var(--surface);' : ' background: var(--surface-raised); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line);'),
+        pick: () => this.setState({ page: id }),
+      })),
+      pageNote: NOTES[page].replace('Ari', kid),
+      lines: rows.map(([text, record]) => ({ text, record: record ?? '', hasRecord: Boolean(record) })),
+    };
+  }
+}
+</script>
+</body>
+</html>

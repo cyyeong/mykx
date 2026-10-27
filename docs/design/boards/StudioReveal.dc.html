@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sidekick Studio reveal</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:var(--accent)}a:hover{color:var(--ink)}
+.sr-tad{background-image:url(/_blob/d950da4db91207a7c4dfc3844601ad5c);background-repeat:no-repeat;background-size:400% auto;background-position:33.333% 50%;background-color:#FBF5E8}
+@keyframes sr-spin{to{transform:rotate(360deg)}}
+@keyframes sr-pop{0%{opacity:0;transform:scale(.6)}60%{opacity:1;transform:scale(1.06)}100%{transform:scale(1)}}
+@keyframes sr-twinkle{0%,100%{opacity:.2;transform:scale(.6)}50%{opacity:1;transform:scale(1)}}
+.sr-spinner{width:22px;height:22px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--reward);animation:sr-spin 900ms linear infinite}
+.sr-pop{animation:sr-pop 600ms cubic-bezier(0.34,1.56,0.64,1) both}
+.sr-spark{position:absolute;color:var(--reward);animation:sr-twinkle 2.6s ease-in-out infinite}
+.sr-pick{cursor:pointer;transition:transform 120ms cubic-bezier(0.22,1,0.36,1)}
+.sr-pick:hover{transform:translateY(-3px)}
+.sr-pick:focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px}
+@media (prefers-reduced-motion: reduce){.sr-spinner,.sr-pop,.sr-spark{animation:none}.sr-pick:hover{transform:none}}
+.sr-root{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto 1fr;overflow:hidden;overflow:clip}
+.sr-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.sr-tstage{grid-row:2;position:relative;width:100%;max-width:1440px;margin:0 auto;box-sizing:border-box;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding:40px}
+.sr-progress{width:100%;max-width:600px;box-sizing:border-box;padding:28px 32px}
+.sr-h1-t{font-size:clamp(28px,5vw,40px);line-height:1.1}
+.sr-wait{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.sr-wrap{grid-row:2;position:relative;width:100%;max-width:1440px;margin:0 auto;box-sizing:border-box;display:grid;grid-template-columns:minmax(0,1fr) clamp(340px,32.2vw,412px);column-gap:24px;padding:28px 32px}
+.sr-main{position:relative;min-width:0;padding:32px}
+.sr-h1{font-size:clamp(32px,6vw,56px);line-height:1.07}
+.sr-variants{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.sr-vname{font-size:22px;line-height:26px}
+.sr-actions{margin-top:auto;display:flex;align-items:center;gap:14px}
+.sr-side{min-width:0;display:flex;flex-direction:column;gap:24px;align-self:start}
+.sr-copy{font-size:17px;line-height:24px}
+.sr-body{font-size:15px;line-height:22px}
+.sr-note{font-size:14px;line-height:20px}
+.sr-spark-1{right:9%;top:12px;width:40px;height:40px}
+.sr-spark-2{right:3.5%;top:92px;width:24px;height:24px}
+@media (min-width: 1600px){
+  .sr-wrap{column-gap:32px;padding:40px 32px}
+}
+@media (min-width: 600px) and (max-width: 1023px){
+  .sr-tstage{padding:24px}
+  .sr-bg-r{position:relative;inset:auto;display:block;height:auto;aspect-ratio:2/1}
+  .sr-wrap{display:flex;flex-direction:column;gap:16px;padding:0 24px 24px;margin-top:-64px}
+  .sr-side{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start;align-self:stretch}
+}
+@media (max-width: 599px){
+  .sr-bg{position:relative;inset:auto;display:block;height:auto}
+  .sr-bg-t{aspect-ratio:1/1}
+  .sr-bg-r{aspect-ratio:16/10}
+  .sr-tstage{justify-content:flex-start;padding:0 12px 16px;margin-top:-48px}
+  .sr-progress{padding:24px 20px}
+  .sr-wait{flex-wrap:wrap;gap:12px}
+  .sr-wait .mk-btn{flex:1 1 100%}
+  .sr-wrap{display:flex;flex-direction:column;gap:12px;padding:0 12px 24px;margin-top:-40px}
+  .sr-main{padding:24px 16px 0}
+  .sr-variants{gap:12px}
+  .sr-vname{font-size:18px;line-height:22px}
+  .sr-actions{position:sticky;bottom:0;z-index:2;flex-wrap:wrap;gap:8px;margin:auto -16px 0;padding:12px 16px calc(12px + env(safe-area-inset-bottom));border-radius:0 0 var(--radius-xl) var(--radius-xl);background:var(--surface-glass);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);box-shadow:0 -1px 0 var(--line)}
+  .sr-actions .mk-btn{flex:1 1 auto}
+  .sr-side{gap:12px;align-self:stretch}
+  .sr-copy,.sr-body,.sr-note{font-size:18px;line-height:26px}
+  .sr-spark-1{top:-34px;right:14%}
+  .sr-spark-2{top:-18px;right:5%}
+}
+@media (horizontal-viewport-segments: 2){
+  .sr-bg{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto}
+  .sr-tstage{display:grid;max-width:none;margin:0;padding:24px 0;grid-template-columns:env(viewport-segment-width 0 0) env(viewport-segment-width 1 0);column-gap:calc(env(viewport-segment-left 1 0) - env(viewport-segment-right 0 0));align-items:end}
+  .sr-progress{grid-column:2;width:auto;max-width:none;margin:0 16px}
+  .sr-wrap{display:grid;max-width:none;margin:0;padding:16px 0;grid-template-columns:env(viewport-segment-width 0 0) env(viewport-segment-width 1 0);column-gap:calc(env(viewport-segment-left 1 0) - env(viewport-segment-right 0 0))}
+  .sr-main{margin:0 16px}
+  .sr-side{display:flex;flex-direction:column;gap:16px;margin:0 16px;align-self:start}
+}
+</style>
+</helmet>
+<div class="sr-root" data-theme="{{theme}}" data-band="junior" style="position: relative; width: 100%; min-height: 100vh; box-sizing: border-box; background: var(--surface); color: var(--ink); font-family: var(--font-text); transition: background-color 600ms">
+
+  <sc-if value="{{transforming}}" hint-placeholder-val="{{true}}">
+    <img class="sr-bg sr-bg-t" src="/_blob/81d1a692843524016d9310655f15b973" alt="">
+    <div class="sr-tstage">
+      <section class="sr-progress" aria-live="polite" style="display: flex; flex-direction: column; gap: 16px; border-radius: var(--radius-xl); background: var(--surface-glass); backdrop-filter: blur(18px); box-shadow: inset 0 0 0 1px var(--line), var(--shadow-raised)">
+        <h1 class="sr-h1-t" style="margin: 0; font-family: var(--font-display); font-weight: 600; text-align: center">Kix is transforming…</h1>
+        <ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px">
+          <li class="sr-copy" style="display: flex; align-items: center; gap: 12px; font-weight: 700">
+            <span style="width: 26px; height: 26px; flex: none; display: grid; place-items: center; border-radius: 50%; background: var(--success); color: var(--on-success)"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 16px; height: 16px"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M5 12l5 5L19 7"/></svg></span>
+            <span style="flex: 1; min-width: 0">Drawing Kix in the Terrarium style</span><span style="font-size: 13px; font-weight: 600; color: var(--ink-muted)">Muse Image</span>
+          </li>
+          <li class="sr-copy" style="display: flex; align-items: center; gap: 12px; font-weight: 700">
+            <span style="width: 26px; height: 26px; flex: none; display: grid; place-items: center"><span class="sr-spinner"></span></span>
+            <span style="flex: 1; min-width: 0">Cutting out your Kix sticker</span><span style="font-size: 13px; font-weight: 600; color: var(--ink-muted)">SAM 3.1</span>
+          </li>
+          <li class="sr-copy" style="display: flex; align-items: center; gap: 12px; font-weight: 700; color: var(--ink-muted)">
+            <span style="width: 26px; height: 26px; flex: none; box-sizing: border-box; border-radius: 50%; border: 2px dashed var(--border-control)"></span>
+            <span style="flex: 1; min-width: 0">Matching your app's colours</span>
+          </li>
+        </ol>
+        <div style="height: 10px; border-radius: var(--radius-pill); background: var(--line); overflow: hidden"><div style="width: 55%; height: 10px; border-radius: var(--radius-pill); background: var(--reward)"></div></div>
+        <div class="sr-wait">
+          <span class="sr-note" style="font-weight: 600; color: var(--ink-muted)">About 10 seconds. If it takes longer, Kix wears a ready-made Terrarium look.</span>
+          <button class="mk-btn mk-btn--secondary" type="button" onClick="{{showReveal}}">Show me now</button>
+        </div>
+      </section>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{revealed}}" hint-placeholder-val="{{false}}">
+    <img class="sr-bg sr-bg-r" src="/_blob/42a1d142037c7463131ff440b4e5f999" alt="">
+
+    <div class="sr-wrap">
+      <section class="sr-main" style="box-sizing: border-box; display: flex; flex-direction: column; gap: 20px; border-radius: var(--radius-xl); background: var(--surface-glass); backdrop-filter: blur(18px); box-shadow: inset 0 0 0 1px var(--line), var(--shadow-raised)">
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <h1 class="sr-pop sr-h1" style="margin: 0; font-family: var(--font-display); font-weight: 800">Meet your Kix!</h1>
+          <p style="margin: 0; font-size: 19px; line-height: 27px; font-weight: 700; color: var(--ink-muted)">Pick the one that feels most like you. You can change it any time.</p>
+        </div>
+        <div class="sr-variants" role="radiogroup" aria-label="Choose your Kix">
+          <sc-for list="{{variants}}" as="v" hint-placeholder-count="2">
+            <button class="sr-pick sr-pop" type="button" role="radio" aria-checked="{{v.checked}}" onClick="{{v.pick}}" style="{{v.style}}">
+              <img src="{{v.src}}" alt="{{v.alt}}" style="width: 100%; height: auto; aspect-ratio: 11 / 10; object-fit: cover; border-radius: var(--radius-lg); display: block">
+              <span style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 8px; padding: 12px 6px 4px">
+                <span class="sr-vname" style="font-family: var(--font-display); font-weight: 800; color: var(--ink)">{{v.name}}</span>
+                <sc-if value="{{v.selected}}" hint-placeholder-val="{{false}}">
+                  <span style="padding: 2px 10px; border-radius: var(--radius-pill); background: var(--accent); color: var(--on-accent); font-size: 13px; line-height: 20px; font-weight: 800">Chosen</span>
+                </sc-if>
+              </span>
+            </button>
+          </sc-for>
+        </div>
+        <div class="sr-actions">
+          <sc-if value="{{notKept}}" hint-placeholder-val="{{true}}">
+            <button class="mk-btn mk-btn--reward" type="button" onClick="{{keep}}"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z"/></svg>Keep this Kix</button>
+            <button class="mk-btn mk-btn--secondary" type="button" onClick="{{restart}}">Try again (2 left today)</button>
+          </sc-if>
+          <sc-if value="{{kept}}" hint-placeholder-val="{{false}}">
+            <span class="sr-pop sr-copy" style="display: flex; align-items: center; gap: 12px; padding: 10px 18px 10px 10px; border-radius: var(--radius-pill); background: var(--surface-raised); box-shadow: var(--shadow-glow); font-weight: 800">
+              <img src="{{chosen.src}}" alt="" style="width: 44px; height: 44px; flex: none; border-radius: 50%; object-fit: cover">First card added to your Treasure: {{chosen.name}}
+            </span>
+          </sc-if>
+        </div>
+        <svg class="sr-spark sr-spark-1" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" stroke="#1D3324" stroke-width="1" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z"/></svg>
+        <svg class="sr-spark sr-spark-2" viewBox="0 0 24 24" aria-hidden="true" style="animation-delay: .8s"><path fill="currentColor" stroke="#1D3324" stroke-width="1" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z"/></svg>
+      </section>
+
+      <div class="sr-side">
+        <section style="box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; gap: 14px; border-radius: var(--radius-lg); background: var(--surface-glass); backdrop-filter: blur(16px); box-shadow: inset 0 0 0 1px var(--line)">
+          <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 800">Your app is now Terrarium</h2>
+          <div aria-hidden="true" style="display: flex; gap: 8px">
+            <span style="flex: 1; height: 40px; border-radius: var(--radius-sm); background: var(--accent)"></span>
+            <span style="flex: 1; height: 40px; border-radius: var(--radius-sm); background: var(--accent-2)"></span>
+            <span style="flex: 1; height: 40px; border-radius: var(--radius-sm); background: var(--reward)"></span>
+            <span style="flex: 1; height: 40px; border-radius: var(--radius-sm); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line)"></span>
+          </div>
+          <p class="sr-body" style="margin: 0; font-weight: 600; color: var(--ink-muted)">Colours, fonts and backgrounds changed to match your Kix.</p>
+        </section>
+
+        <section style="box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; gap: 14px; border-radius: var(--radius-lg); background: var(--surface-glass); backdrop-filter: blur(16px); box-shadow: inset 0 0 0 2px var(--accent-2), var(--shadow-raised)">
+          <span style="align-self: flex-start; padding: 2px 10px; border-radius: var(--radius-pill); background: var(--accent-2); color: var(--on-accent-2); font-size: 13px; line-height: 20px; font-weight: 800">Because you love bugs and critters</span>
+          <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center">
+            <span class="sr-tad" role="img" aria-label="A tadpole" style="width: 120px; height: 120px; flex: none; border-radius: var(--radius-lg); box-shadow: inset 0 0 0 2px var(--line)"></span>
+            <div style="flex: 1 1 180px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+              <h2 style="margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 26px; line-height: 30px">Adopt Pip?</h2>
+              <p class="sr-body" style="margin: 0; font-weight: 600">Pip the tadpole grows into a frog as you learn. Pip never gets sick or sad if you take a break.</p>
+            </div>
+          </div>
+          <sc-if value="{{notAdopted}}" hint-placeholder-val="{{true}}">
+            <div style="display: flex; flex-wrap: wrap; gap: 10px">
+              <button class="mk-btn mk-btn--primary" type="button" onClick="{{adopt}}">Adopt Pip</button>
+              <button class="mk-btn mk-btn--secondary" type="button">Pick a mealworm</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{adopted}}" hint-placeholder-val="{{false}}">
+            <span class="sr-pop sr-copy" style="font-weight: 800">Pip lives in your Critter Lab now.</span>
+          </sc-if>
+        </section>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"startStep":{"editor":"enum","options":["transforming","reveal"],"default":"transforming"},"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  state = { step: null, choice: 'a', kept: false, adopted: false };
+
+  renderVals() {
+    const step = this.state.step ?? this.props.startStep ?? 'transforming';
+    const VARIANTS = [
+      { id: 'a', name: 'Explorer Kix', src: '/_blob/e100a223af29f3653ca9b4ed32a70d4c', alt: 'Kix with an explorer hat and magnifying glass' },
+      { id: 'b', name: 'Pond Kix', src: '/_blob/0feda1cc09e46cfc79792180352c9177', alt: 'Kix with a leaf crown holding a jar with a tadpole' },
+    ];
+    const chosen = VARIANTS.find((v) => v.id === this.state.choice) ?? VARIANTS[0];
+    const base = 'display: flex; flex-direction: column; padding: 10px; border: 0; border-radius: var(--radius-xl); background: var(--surface-raised); text-align: left; font-family: var(--font-text);';
+    return {
+      theme: step === 'transforming' ? 'dreamlight' : 'terrarium',
+      transforming: step === 'transforming',
+      revealed: step !== 'transforming',
+      chosen,
+      variants: VARIANTS.map((v) => {
+        const on = v.id === chosen.id;
+        return {
+          ...v,
+          selected: on,
+          checked: on ? 'true' : 'false',
+          style: base + (on ? ' box-shadow: 0 0 0 4px var(--accent), var(--shadow-glow);' : ' box-shadow: inset 0 0 0 2px var(--line);'),
+          pick: () => { if (!this.state.kept) this.setState({ choice: v.id }); },
+        };
+      }),
+      kept: this.state.kept,
+      notKept: !this.state.kept,
+      adopted: this.state.adopted,
+      notAdopted: !this.state.adopted,
+      showReveal: () => this.setState({ step: 'reveal' }),
+      restart: () => this.setState({ step: 'transforming', kept: false }),
+      keep: () => this.setState({ kept: true }),
+      adopt: () => this.setState({ adopted: true }),
+    };
+  }
+}
+</script>
+</body>
+</html>

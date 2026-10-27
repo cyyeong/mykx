@@ -116,6 +116,16 @@ Each surface gets **one** memorable moment. Keep everything around it calm.
 | **Critter companion** (Terrarium) | the adopted tadpole or mealworm grows to its next real life-cycle stage, with the growth track showing the whole cycle | stages keyed to reward-ledger milestones; never sick, sad or dying; the growth track doubles as the life-cycle diagram |
 | **Parent view** | calm, editorial evening summary; evidence chips; one offline activity card | Dreamlight palette, low motion, no game chrome |
 
+## 4a. Living scenes (added 27 Oct)
+
+Backgrounds are places, not wallpaper: kids can poke things in the art (the study lamp, a drawer, the window, the terrarium glass, lanterns, fireflies, Kix). Full spec and per-page list: `docs/design/living-scenes.md`; code: `components/scene/`.
+
+- **Cosmetic only.** A poke never earns or changes anything (rule 5). Random variety is allowed only in *how* a prop reacts.
+- **Hidden, then discovered:** invisible hotspots with a rare glint; 2–6 reactions per prop that never repeat back to back; time-of-day and rare variants for a real-life feel; some state is remembered (the lamp).
+- **Real art:** a changed painting (lamp off, drawer open) is a Muse Image edit of the same framing, cross-faded in; CSS/SVG only for light, particles and small creatures.
+- **Calm around tasks:** landing and browsing pages only; the question player stays still except Kix.
+- **Accessible:** art hotspots are labelled buttons after the content in tab order; moving critters are pointer-only extras; reduced motion resolves effects instantly. Layout containers pass clicks through (`pointer-events: none`), panels take them.
+
 ## 5. Treasure Realm spec (magical and dreamy)
 
 - **Backdrop:** full-bleed Muse Image vault scene (`treasure-vault.jpg` direction) with an empty centre for UI. Layers: art → animated aurora gradient (CSS `@property` hue drift, 30–60 s loop) → canvas particles (stars, lanterns rising slowly) → UI.

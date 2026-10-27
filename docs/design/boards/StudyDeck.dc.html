@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Study deck</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:var(--accent)}a:hover{color:var(--ink)}
+.sd-tab{cursor:pointer;flex:none;white-space:nowrap}
+.sd-tab:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+
+/* Layout: expanded (1024-1599) is the default and matches the 1280 x 800 board */
+.sd-bg{position:absolute;inset:0;width:100%;height:100%}
+.sd-wrap{position:relative;flex:1;width:100%;max-width:1440px;margin:0 auto;box-sizing:border-box;padding:32px;display:flex;flex-direction:row;justify-content:flex-end;align-items:stretch}
+.sd-panel{width:688px;flex:none;box-sizing:border-box;padding:32px;display:flex;flex-direction:column;gap:22px}
+.sd-title{font-size:clamp(30px,6vw,40px);line-height:1.15}
+.sd-tabs{display:flex;gap:6px;padding:4px;border-radius:var(--radius-pill);align-self:flex-start;justify-self:start}
+.sd-rings{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.sd-ring{display:flex;flex-direction:column;gap:10px;padding:18px}
+.sd-next-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 12px}
+.sd-actions{display:flex;flex-wrap:wrap;gap:10px}
+.sd-kix{margin-top:auto;display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+.sd-bubble{flex:1 1 200px;min-width:0;font-size:15px;line-height:22px}
+
+/* Compact (< 600): art as a banner on top, then one stacked column of sections */
+@media (max-width: 599px){
+  .sd-bg{height:440px;object-position:22% 50%;-webkit-mask-image:linear-gradient(180deg,black 50%,transparent);mask-image:linear-gradient(180deg,black 50%,transparent)}
+  .sd-wrap{flex-direction:column;justify-content:flex-start;padding:170px 12px 12px}
+  .sd-panel{width:auto;padding:22px 18px;gap:18px}
+  .sd-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-self:stretch;border-radius:var(--radius-lg)}
+  .sd-rings{grid-template-columns:minmax(0,1fr);gap:10px}
+  .sd-ring{display:grid;grid-template-columns:64px minmax(0,1fr);column-gap:14px;row-gap:2px;align-items:center;align-content:center;padding:14px 16px}
+  .sd-ring > :first-child{grid-row:span 2}
+  .sd-ring-label{align-self:end}
+  .sd-ring-cap{align-self:start}
+  .sd-actions > .mk-btn{flex:1 1 auto}
+  .sd-kix{margin-top:0}
+  .sd-bubble{flex-basis:160px;font-size:16px;line-height:24px}
+  .sd-kix > .mk-btn{flex:1 1 100%}
+}
+
+/* Medium (600-1023): art shows above; the deck goes full width in 2 columns (next session beside Kix) */
+@media (min-width: 600px) and (max-width: 1023px){
+  .sd-bg{object-position:22% 50%}
+  .sd-wrap{flex-direction:column;justify-content:flex-end;padding:24px}
+  .sd-panel{width:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:18px;row-gap:20px;padding:28px}
+  .sd-span{grid-column:1 / -1}
+  .sd-kix{margin-top:0;align-self:center}
+  .sd-bubble{flex-basis:180px;font-size:16px;line-height:24px}
+}
+
+/* Desktop (>= 1600): content capped at 1440 and centred; sky art fills the margins */
+@media (min-width: 1600px){
+  .sd-wrap{padding:48px 40px}
+  .sd-panel{width:760px;padding:40px}
+}
+</style>
+</helmet>
+<div data-theme="anime-sky" data-band="teen" style="width: 100%; min-height: 100vh; box-sizing: border-box; position: relative; overflow: hidden; display: flex; flex-direction: column; background: var(--surface); color: var(--ink); font-family: var(--font-text)">
+  <img class="sd-bg" src="/_blob/bbaf62a14eab99eea8cd9cb1c2e4f189" alt="" style="object-fit: cover">
+
+  <div class="sd-wrap">
+    <section class="sd-panel" style="border-radius: var(--radius-lg); background: var(--surface-glass); backdrop-filter: blur(20px); box-shadow: inset 0 0 0 1px var(--line), var(--shadow-raised)">
+      <div class="sd-span" style="display: flex; align-items: center; gap: 12px">
+        <img src="/_blob/f52e18857979369421011da66fdb9de3" alt="myKx" style="height: 22px; width: auto">
+        <span style="margin-left: auto; font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink-muted)">Mei · Sec 3 · Anime Sky</span>
+      </div>
+
+      <div class="sd-span" style="display: flex; flex-direction: column; gap: 6px">
+        <h1 class="sd-title" style="margin: 0; font-family: var(--font-display); font-weight: 800">Forces, week 3</h1>
+        <p style="margin: 0; font-size: 16px; line-height: 24px; color: var(--ink-muted)">Physics test in 18 days. Scope from the school notice, added 24 Oct.</p>
+      </div>
+
+      <div class="sd-tabs sd-span" role="group" aria-label="Subject" style="background: var(--surface); box-shadow: inset 0 0 0 1px var(--line)">
+        <sc-for list="{{tabs}}" as="t" hint-placeholder-count="4">
+          <button class="sd-tab" type="button" onClick="{{t.pick}}" aria-pressed="{{t.pressed}}" style="{{t.style}}">{{t.label}}</button>
+        </sc-for>
+      </div>
+
+      <div class="sd-rings sd-span">
+        <div class="sd-ring" style="border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line)">
+          <div style="width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; background: conic-gradient(var(--accent) 64%, var(--line) 0)">
+            <span style="width: 50px; height: 50px; border-radius: 50%; display: grid; place-items: center; background: var(--surface-raised); font-family: var(--font-display); font-weight: 800; font-size: 18px">64</span>
+          </div>
+          <span class="sd-ring-label" style="font-size: 16px; line-height: 22px; font-weight: 600">Resultant force</span>
+          <span class="sd-ring-cap" style="font-size: 13px; line-height: 18px; font-weight: 500; color: var(--ink-muted)">Developing evidence · 6 families</span>
+        </div>
+        <div class="sd-ring" style="border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line)">
+          <div style="width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; background: conic-gradient(var(--accent) 41%, var(--line) 0)">
+            <span style="width: 50px; height: 50px; border-radius: 50%; display: grid; place-items: center; background: var(--surface-raised); font-family: var(--font-display); font-weight: 800; font-size: 18px">41</span>
+          </div>
+          <span class="sd-ring-label" style="font-size: 16px; line-height: 22px; font-weight: 600">Newton's second law</span>
+          <span class="sd-ring-cap" style="font-size: 13px; line-height: 18px; font-weight: 500; color: var(--ink-muted)">Limited evidence · 2 families</span>
+        </div>
+        <div class="sd-ring" style="border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line)">
+          <div style="width: 64px; height: 64px; box-sizing: border-box; border-radius: 50%; display: grid; place-items: center; border: 2px dashed var(--border-control)">
+            <span style="font-family: var(--font-display); font-weight: 800; font-size: 18px; color: var(--ink-muted)">–</span>
+          </div>
+          <span class="sd-ring-label" style="font-size: 16px; line-height: 22px; font-weight: 600">Free-body diagrams</span>
+          <span class="sd-ring-cap" style="font-size: 13px; line-height: 18px; font-weight: 500; color: var(--ink-muted)">Not yet assessed</span>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 14px; padding: 22px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: inset 0 0 0 2px var(--accent)">
+        <div class="sd-next-head">
+          <h2 style="margin: 0; font-size: 24px; line-height: 30px; font-weight: 600">Next: 3 fresh questions</h2>
+          <span style="font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink-muted)">About 12 min</span>
+        </div>
+        <p style="margin: 0; font-size: 16px; line-height: 24px; color: var(--ink-muted)">Newton's second law first, because it has the least evidence and it's in your test scope. One resultant-force check to see if yesterday's fix stuck.</p>
+        <div class="sd-actions">
+          <button class="mk-btn mk-btn--primary" type="button">Start session</button>
+          <button class="mk-btn mk-btn--secondary" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 9v4l3 2M9 2h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>25 min focus
+          </button>
+        </div>
+      </div>
+
+      <div class="sd-kix">
+        <img src="/_blob/02b5a70e7404562cef8d3aaba98b9e32" alt="Kix" style="width: 72px; height: 72px; border-radius: 50%; object-fit: cover; flex: none; box-shadow: 0 0 0 3px var(--surface-raised), 0 0 0 5px var(--accent)">
+        <p class="sd-bubble" style="margin: 0; padding: 12px 16px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line)">You fixed a sign error on retry yesterday. One fresh question will show if it stuck.</p>
+        <button class="mk-btn mk-btn--secondary" type="button">Ask Kix</button>
+      </div>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  state = { tab: 'Physics' };
+
+  renderVals() {
+    const base = 'min-height: 44px; padding: 0 18px; border: 0; border-radius: var(--radius-pill); font: 600 15px/1 var(--font-text);';
+    return {
+      tabs: ['Physics', 'Chemistry', 'Maths', 'English'].map((label) => {
+        const on = this.state.tab === label;
+        return {
+          label,
+          pressed: on ? 'true' : 'false',
+          style: base + (on ? ' background: var(--accent); color: var(--on-accent);' : ' background: transparent; color: var(--ink);'),
+          pick: () => this.setState({ tab: label }),
+        };
+      }),
+    };
+  }
+}
+</script>
+</body>
+</html>

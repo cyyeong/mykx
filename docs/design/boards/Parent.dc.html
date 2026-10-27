@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tonight's summary</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:var(--accent)}a:hover{color:var(--ink)}
+.pa-seg{cursor:pointer}
+.pa-seg:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+
+/* Layout: expanded (1024-1599) is the default: a centred 3-column dashboard */
+.pa-root{display:grid;grid-template-columns:minmax(0,0.8fr) minmax(0,1.1fr) minmax(0,1fr);grid-template-rows:auto auto 1fr auto;grid-template-areas:"top top top" "title summary together" "seg summary together" "note note note";column-gap:28px;row-gap:18px;padding:40px max(32px, calc(50% - 600px))}
+.pa-top{grid-area:top}
+.pa-title{grid-area:title}
+.pa-seg-group{grid-area:seg;align-self:start}
+.pa-summary{grid-area:summary;align-self:start}
+.pa-together{grid-area:together;align-self:start}
+.pa-note{grid-area:note}
+.pa-h1{font-size:clamp(30px,2.4vw + 18px,44px);line-height:1.2}
+
+/* Compact (< 600): the phone layout as designed, one column */
+@media (max-width: 599px){
+  .pa-root{display:flex;flex-direction:column;gap:14px;padding:20px 18px}
+  .pa-seg-group,.pa-summary,.pa-together{align-self:stretch}
+}
+
+/* Medium (600-1023): header rows full width, the two cards in 2 columns */
+@media (min-width: 600px) and (max-width: 1023px){
+  .pa-root{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:auto auto auto 1fr auto;grid-template-areas:"top top" "title title" "seg seg" "summary together" "note note";column-gap:18px;row-gap:16px;padding:28px 24px}
+  .pa-seg-group{justify-self:start;width:min(100%, 420px)}
+}
+
+/* Desktop (>= 1600): same centred dashboard, a little more air */
+@media (min-width: 1600px){
+  .pa-root{column-gap:32px;row-gap:22px;padding-top:56px;padding-bottom:48px}
+}
+</style>
+</helmet>
+<div class="pa-root" data-theme="anime-sky" data-band="teen" style="width: 100%; min-height: 100vh; box-sizing: border-box; overflow: hidden; background: var(--surface); color: var(--ink); font-family: var(--font-text)">
+  <div class="pa-top" style="display: flex; align-items: center; justify-content: space-between">
+    <img src="/_blob/f52e18857979369421011da66fdb9de3" alt="myKx" style="height: 20px; width: auto">
+    <span style="font-size: 13px; line-height: 18px; font-weight: 500; color: var(--ink-muted)">Sent 8:00 pm</span>
+  </div>
+  <div class="pa-title" style="display: flex; flex-direction: column; gap: 2px">
+    <h1 class="pa-h1" style="margin: 0; font-family: var(--font-display); font-weight: 800">Tonight</h1>
+    <span style="font-size: 15px; line-height: 20px; color: var(--ink-muted)">Tuesday 27 October</span>
+  </div>
+
+  <div class="pa-seg-group" role="group" aria-label="Child" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; padding: 4px; border-radius: var(--radius-pill); background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line)">
+    <sc-for list="{{kids}}" as="k" hint-placeholder-count="2">
+      <button class="pa-seg" type="button" onClick="{{k.pick}}" aria-pressed="{{k.pressed}}" style="{{k.style}}">{{k.label}}</button>
+    </sc-for>
+  </div>
+
+  <article class="pa-summary" style="display: flex; flex-direction: column; gap: 12px; padding: 18px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: var(--shadow-raised)">
+    <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
+      <h2 style="margin: 0; font-size: 20px; line-height: 26px; font-weight: 600">Light and shadows</h2>
+      <span style="padding: 2px 10px; border-radius: var(--radius-pill); background: var(--accent-2); color: var(--on-accent-2); font-size: 12px; line-height: 20px; font-weight: 600">P4 Science</span>
+    </div>
+    <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 4px; font-size: 16px; line-height: 23px">
+      <li>3 first tries, 2 correct without help</li>
+      <li>Yesterday's similar set: 1 of 3</li>
+      <li>2 hints on one explanation question</li>
+    </ul>
+    <div style="display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; border-radius: var(--radius-sm); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line)">
+      <span style="font-size: 13px; line-height: 18px; font-weight: 600; color: var(--ink-muted)">What it may mean</span>
+      <span style="font-size: 16px; line-height: 23px">Ari explains well with a nudge. Getting there alone is still new, so it's too early to call it secure.</span>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 6px">
+      <span style="padding: 2px 10px; border-radius: var(--radius-pill); box-shadow: inset 0 0 0 1px var(--border-control); font-size: 12px; line-height: 20px; font-weight: 600">Limited evidence: 2 question families</span>
+      <span style="padding: 2px 10px; border-radius: var(--radius-pill); box-shadow: inset 0 0 0 1px var(--border-control); font-size: 12px; line-height: 20px; font-weight: 600">14 min today</span>
+    </div>
+    <p style="margin: 0; font-size: 16px; line-height: 23px; font-weight: 600">Tomorrow: one fresh question, about 5 minutes.</p>
+  </article>
+
+  <article class="pa-together" style="display: flex; flex-direction: column; gap: 10px; padding: 18px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: inset 0 0 0 2px var(--reward)">
+    <span style="align-self: flex-start; padding: 2px 10px; border-radius: var(--radius-pill); background: var(--reward); color: var(--on-reward); font-size: 12px; line-height: 20px; font-weight: 600">Together · 12 minutes</span>
+    <h2 style="margin: 0; font-size: 20px; line-height: 26px; font-weight: 600">Torch and shadows</h2>
+    <ol style="margin: 0; padding: 0 0 0 20px; display: flex; flex-direction: column; gap: 4px; font-size: 16px; line-height: 23px">
+      <li>Grab a torch, a sheet of paper and three things from home.</li>
+      <li>Guess which ones will block the light.</li>
+      <li>Test them, then ask Ari to explain one surprise.</li>
+    </ol>
+    <button class="mk-btn mk-btn--secondary" type="button" style="align-self: flex-start">We did this</button>
+  </article>
+
+  <p class="pa-note" style="margin: auto 0 0; font-size: 12px; line-height: 18px; color: var(--ink-muted)">Example data for the design. No real child records.</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  state = { kid: 'Ari · P4' };
+
+  renderVals() {
+    const base = 'min-height: 44px; border: 0; border-radius: var(--radius-pill); font: 600 15px/1 var(--font-text);';
+    return {
+      kids: ['Ari · P4', 'Mei · Sec 3'].map((label) => {
+        const on = this.state.kid === label;
+        return {
+          label,
+          pressed: on ? 'true' : 'false',
+          style: base + (on ? ' background: var(--accent); color: var(--on-accent);' : ' background: transparent; color: var(--ink);'),
+          pick: () => this.setState({ kid: label }),
+        };
+      }),
+    };
+  }
+}
+</script>
+</body>
+</html>

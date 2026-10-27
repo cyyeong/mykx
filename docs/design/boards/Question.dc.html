@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Question and reward</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:var(--accent)}a:hover{color:var(--ink)}
+@keyframes q-burst{0%{opacity:0;transform:scale(.2) rotate(0deg)}40%{opacity:1}100%{opacity:0;transform:scale(1.3) rotate(45deg)}}
+@keyframes q-rise{from{opacity:0;transform:translateY(24px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes q-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.q-burst{position:absolute;color:var(--reward);animation:q-burst 1.4s var(--ease-bounce) infinite}
+.q-rise{animation:q-rise 600ms var(--ease-bounce) both}
+.q-kix{animation:q-bob 4s var(--ease-soft) infinite}
+.q-option{cursor:pointer;transition:transform 120ms cubic-bezier(0.22,1,0.36,1)}
+.q-option:active{transform:scale(.97)}
+.q-option:focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px}
+@media (prefers-reduced-motion: reduce){.q-burst,.q-rise,.q-kix{animation:none}}
+/* Expanded (default, 1024-1599): question card left, Kix right */
+.qp-root{display:grid;grid-template-columns:minmax(0,1fr)}
+.qp-wrap{position:relative;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto 1fr;row-gap:32px;width:100%;max-width:1280px;justify-self:center;box-sizing:border-box;padding:24px 32px}
+.qp-header{display:flex;align-items:center;gap:20px;height:56px}
+.qp-progress{flex:1 1 auto;min-width:0}
+.qp-body{display:grid;grid-template-columns:minmax(0,1fr) clamp(320px,32vw,404px);grid-template-rows:1fr auto auto;grid-template-areas:"main aside" "actions aside" "note aside";column-gap:32px}
+.qp-cardbg{grid-area:1 / 1 / 4 / 2}
+.qp-main{grid-area:main;min-width:0;padding:32px 32px 20px}
+.qp-q{font-size:clamp(28px,2vw + 16px,36px);line-height:1.17}
+.qp-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.qp-option{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:150px;padding:12px}
+.qp-opt-art{width:120px;height:80px;flex:none}
+.qp-note{grid-area:note;padding:0 32px 32px}
+.qp-dock{display:contents}
+.qp-aside{grid-area:aside;display:flex;flex-direction:column;align-items:center;gap:16px;min-width:0}
+.qp-bubble{align-self:stretch;padding:18px 22px}
+.qp-kix{width:clamp(200px,19vw,240px);height:clamp(200px,19vw,240px);flex:none}
+.qp-reward{align-self:stretch}
+.qp-actions{grid-area:actions;display:flex;align-items:center;gap:12px;padding:0 32px 20px}
+/* Compact (<600): question first, stacked 56px+ options, Kix HUD + hint/reward + answer bar in a sticky bottom sheet */
+@media (max-width: 599px){
+  .qp-wrap{padding:16px 16px 0;row-gap:16px}
+  .qp-header{flex-wrap:wrap;height:auto;gap:12px}
+  .qp-progress{order:3;flex:1 1 100%}
+  .qp-body{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto 1fr;grid-template-areas:"main" "note" "dock";column-gap:0}
+  .qp-cardbg{grid-area:main}
+  .qp-main{padding:20px}
+  .qp-options{grid-template-columns:minmax(0,1fr);gap:12px}
+  .qp-option{flex-direction:row;justify-content:flex-start;gap:14px;min-height:72px;padding:8px 16px;text-align:left}
+  .qp-opt-art{width:72px;height:48px}
+  .qp-note{padding:16px 4px 20px}
+  .qp-dock{grid-area:dock;align-self:end;display:flex;flex-direction:column;gap:12px;position:sticky;bottom:0;z-index:5;margin:0 -16px;padding:14px 16px calc(12px + env(safe-area-inset-bottom));background:var(--surface-raised);border-radius:var(--radius-lg) var(--radius-lg) 0 0;box-shadow:inset 0 3px 0 var(--border-control),0 -12px 32px rgba(42,30,92,.18)}
+  .qp-aside{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:12px}
+  .qp-kix{width:64px;height:64px;grid-column:1;grid-row:1}
+  .qp-bubble{grid-column:2;grid-row:1;align-self:center;padding:10px 14px}
+  .qp-reward{grid-column:1 / -1}
+  .qp-reward .mk-btn{white-space:normal;line-height:1.15;padding:0 16px}
+  .qp-actions{padding:0;gap:8px}
+  .qp-actions > *{flex:1 1 0;min-width:0}
+  .qp-actions .mk-btn{white-space:normal;line-height:1.15;padding:0 12px}
+}
+/* Medium (600-1023): Kix small beside its speech bubble above the question; options stay 2 x 2 */
+@media (min-width: 600px) and (max-width: 1023px){
+  .qp-wrap{padding:24px;row-gap:24px}
+  .qp-body{grid-template-columns:minmax(0,1fr);grid-template-rows:auto 1fr auto auto;grid-template-areas:"aside" "main" "actions" "note";column-gap:0}
+  .qp-cardbg{grid-area:2 / 1 / 5 / 2}
+  .qp-main{padding:28px 28px 20px}
+  .qp-actions{padding:0 28px 20px}
+  .qp-note{padding:0 28px 28px}
+  .qp-aside{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:16px 20px;margin-bottom:24px}
+  .qp-kix{width:clamp(128px,18vw,160px);height:clamp(128px,18vw,160px);grid-column:1;grid-row:1}
+  .qp-bubble{grid-column:2;grid-row:1;align-self:center}
+  .qp-reward{grid-column:1 / -1}
+}
+/* Desktop (>=1600): container stays 1280, Kix larger */
+@media (min-width: 1600px){
+  .qp-kix{width:300px;height:300px}
+  .qp-option{min-height:180px}
+}
+/* Foldable book posture: question left of the hinge, Kix right */
+@media (horizontal-viewport-segments: 2){
+  .qp-wrap{max-width:none;padding:24px;row-gap:24px}
+  .qp-header{flex-wrap:nowrap;height:56px;gap:20px;width:calc(env(viewport-segment-width 0 0) - 48px)}
+  .qp-progress{order:0;flex:1 1 auto}
+  .qp-body{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:1fr auto auto;grid-template-areas:"main aside" "actions aside" "note aside";column-gap:calc(env(viewport-segment-left 1 0) - env(viewport-segment-right 0 0) + 48px)}
+  .qp-cardbg{grid-area:1 / 1 / 4 / 2}
+  .qp-main{padding:28px 28px 20px}
+  .qp-options{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .qp-option{flex-direction:column;justify-content:center;gap:8px;min-height:150px;padding:12px;text-align:center}
+  .qp-opt-art{width:120px;height:80px}
+  .qp-note{padding:0 28px 28px}
+  .qp-dock{display:contents}
+  .qp-aside{display:flex;flex-direction:column;align-items:center;gap:16px;margin:0}
+  .qp-kix{width:240px;height:240px}
+  .qp-bubble{align-self:stretch;padding:18px 22px}
+  .qp-reward{align-self:stretch}
+  .qp-actions{flex-wrap:wrap;gap:12px;padding:0 28px 20px}
+  .qp-actions > *{flex:0 0 auto}
+  .qp-actions .mk-btn,.qp-reward .mk-btn{white-space:nowrap;padding:0 24px}
+}
+</style>
+</helmet>
+<div data-theme="toon-pop" data-band="junior" class="qp-root" style="width: 100%; min-height: 100vh; box-sizing: border-box; position: relative; overflow: clip; background: var(--surface); color: var(--ink); font-family: var(--font-text)">
+  <div aria-hidden="true" style="position: absolute; right: -9.375%; top: 0; width: 40.625%; aspect-ratio: 1 / 1; transform: translateY(-30.77%); border-radius: 50%; background: var(--accent-2); opacity: 0.22"></div>
+  <div aria-hidden="true" style="position: absolute; left: -10.9375%; bottom: 0; width: 35.9375%; aspect-ratio: 1 / 1; transform: translateY(43.48%); border-radius: 50%; background: var(--reward); opacity: 0.3"></div>
+
+  <div class="qp-wrap">
+    <header class="qp-header">
+      <button type="button" aria-label="Leave quest" style="width: 56px; height: 56px; flex: none; display: grid; place-items: center; border: 0; border-radius: var(--radius-pill); background: var(--surface-raised); color: var(--ink); box-shadow: inset 0 0 0 3px var(--border-control); cursor: pointer">
+        <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px"><path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div class="qp-progress" style="display: flex; flex-direction: column; gap: 6px">
+        <span style="font-size: 16px; line-height: 22px; font-weight: 800">Shadows · question 2 of 3</span>
+        <div style="display: flex; gap: 8px">
+          <span style="flex: 1; height: 12px; border-radius: var(--radius-pill); background: var(--success)"></span>
+          <span style="flex: 1; height: 12px; border-radius: var(--radius-pill); background: var(--accent)"></span>
+          <span style="flex: 1; height: 12px; border-radius: var(--radius-pill); background: var(--line)"></span>
+        </div>
+      </div>
+      <span style="margin-left: auto; flex: none; display: flex; align-items: center; gap: 8px; height: 56px; padding: 0 20px; border-radius: var(--radius-pill); background: var(--reward); color: var(--on-reward); font-size: 18px; font-weight: 800; box-shadow: inset 0 0 0 3px var(--border-control)">
+        <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px"><path fill="currentColor" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z"/></svg>{{stars}} stars
+      </span>
+    </header>
+
+    <div class="qp-body">
+      <div class="qp-cardbg" aria-hidden="true" style="border-radius: var(--radius-lg); background: var(--surface-raised); box-shadow: inset 0 0 0 3px var(--border-control), var(--shadow-raised)"></div>
+
+      <main class="qp-main" style="box-sizing: border-box; display: flex; flex-direction: column; gap: 20px">
+        <div style="display: flex; flex-wrap: wrap; gap: 8px">
+          <span style="padding: 3px 12px; border-radius: var(--radius-pill); background: var(--accent-2); color: var(--on-accent-2); font-size: 14px; line-height: 22px; font-weight: 800">Shadows</span>
+          <span style="padding: 3px 12px; border-radius: var(--radius-pill); background: var(--surface); color: var(--ink); font-size: 14px; line-height: 22px; font-weight: 800; box-shadow: inset 0 0 0 2px var(--line)">Fresh question</span>
+        </div>
+        <h1 class="qp-q" style="margin: 0; font-family: var(--font-display); font-weight: 400">Kix shines a torch at four blocks. Which block makes no shadow?</h1>
+        <div class="qp-options" role="group" aria-label="Answer options">
+          <sc-for list="{{options}}" as="o" hint-placeholder-count="4">
+            <button class="q-option qp-option" type="button" onClick="{{o.pick}}" aria-pressed="{{o.pressed}}" style="{{o.style}}">
+              <sc-if value="{{o.isWood}}" hint-placeholder-val="{{false}}"><svg class="qp-opt-art" viewBox="0 0 120 80" aria-hidden="true"><rect x="22" y="14" width="76" height="56" rx="6" fill="#B9824A" stroke="#2A1E5C" stroke-width="3"/><path d="M30 30h52M34 44h46M30 58h40" stroke="#8A5A2B" stroke-width="3" stroke-linecap="round"/></svg></sc-if>
+              <sc-if value="{{o.isFrosted}}" hint-placeholder-val="{{false}}"><svg class="qp-opt-art" viewBox="0 0 120 80" aria-hidden="true"><rect x="22" y="14" width="76" height="56" rx="6" fill="#E9E4F7" stroke="#2A1E5C" stroke-width="3"/><circle cx="44" cy="34" r="8" fill="#FFFFFF" opacity=".9"/><circle cx="72" cy="50" r="10" fill="#FFFFFF" opacity=".7"/></svg></sc-if>
+              <sc-if value="{{o.isGlass}}" hint-placeholder-val="{{false}}"><svg class="qp-opt-art" viewBox="0 0 120 80" aria-hidden="true"><rect x="22" y="14" width="76" height="56" rx="6" fill="#DFF3FF" fill-opacity=".35" stroke="#2A1E5C" stroke-width="3"/><path d="M34 24l14 -6M34 36l26 -12" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/></svg></sc-if>
+              <sc-if value="{{o.isCard}}" hint-placeholder-val="{{false}}"><svg class="qp-opt-art" viewBox="0 0 120 80" aria-hidden="true"><rect x="22" y="14" width="76" height="56" rx="4" fill="#D7B47E" stroke="#2A1E5C" stroke-width="3"/><path d="M22 30h76M60 14v16" stroke="#2A1E5C" stroke-width="3"/></svg></sc-if>
+              <span style="font-size: 20px; line-height: 26px; font-weight: 800">{{o.label}}</span>
+            </button>
+          </sc-for>
+        </div>
+      </main>
+
+      <p class="qp-note" style="margin: 0; font-size: 15px; line-height: 20px; font-weight: 600; color: var(--ink-muted)">Your first try counts toward mastery. Hints are fine; Kix notes them for your parent.</p>
+
+      <div class="qp-dock">
+        <aside class="qp-aside">
+          <div class="qp-bubble" style="position: relative; border-radius: var(--radius-lg); background: var(--surface-raised); box-shadow: inset 0 0 0 3px var(--border-control), var(--shadow-raised)">
+            <sc-if value="{{hintUsed}}" hint-placeholder-val="{{false}}">
+              <span style="display: inline-block; margin-bottom: 6px; padding: 2px 10px; border-radius: var(--radius-pill); background: var(--accent); color: var(--on-accent); font-size: 13px; line-height: 20px; font-weight: 800">Hint 1 of 2</span>
+            </sc-if>
+            <p style="margin: 0; font-size: 20px; line-height: 28px; font-weight: 700">{{kixSays}}</p>
+          </div>
+          <div class="q-kix qp-kix" style="position: relative">
+            <img src="{{kixImg}}" alt="{{kixAlt}}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; background: #E6E6E8; box-shadow: 0 0 0 6px var(--surface-raised), 0 0 0 9px var(--border-control)">
+            <sc-if value="{{isCorrect}}" hint-placeholder-val="{{false}}">
+              <svg class="q-burst" viewBox="0 0 24 24" aria-hidden="true" style="left: -12.5%; top: 4.17%; width: 18.33%; height: 18.33%"><path fill="currentColor" stroke="#2A1E5C" stroke-width="1.2" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z"/></svg>
+              <svg class="q-burst" viewBox="0 0 24 24" aria-hidden="true" style="right: -10.83%; top: -4.17%; width: 15%; height: 15%; animation-delay: .3s"><path fill="currentColor" stroke="#2A1E5C" stroke-width="1.2" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z"/></svg>
+              <svg class="q-burst" viewBox="0 0 24 24" aria-hidden="true" style="right: -16.67%; top: 62.5%; width: 12.5%; height: 12.5%; animation-delay: .6s"><path fill="currentColor" stroke="#2A1E5C" stroke-width="1.2" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z"/></svg>
+              <svg class="q-burst" viewBox="0 0 24 24" aria-hidden="true" style="left: -6.67%; bottom: -4.17%; width: 10.83%; height: 10.83%; animation-delay: .9s"><path fill="currentColor" stroke="#2A1E5C" stroke-width="1.2" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z"/></svg>
+            </sc-if>
+          </div>
+          <sc-if value="{{isCorrect}}" hint-placeholder-val="{{false}}">
+            <div class="q-rise qp-reward" style="display: flex; gap: 16px; padding: 14px; border-radius: var(--radius-lg); background: var(--surface-raised); box-shadow: inset 0 0 0 3px var(--border-control), var(--shadow-glow)">
+              <div style="position: relative; width: 108px; height: 140px; flex: none; border-radius: var(--radius-md); overflow: hidden">
+                <img src="/_blob/23bcad5667f5a18b84bad14a06b333ca" alt="New card: Kix making a rabbit shadow" style="width: 108px; height: 140px; object-fit: cover; display: block">
+                <div aria-hidden="true" style="position: absolute; inset: 0; mix-blend-mode: color-dodge; opacity: .35; background: conic-gradient(from 90deg at 30% 20%, var(--kix-lavender), var(--kix-mint), var(--accent-2), var(--star-gold), var(--kix-lavender))"></div>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
+                <span style="align-self: flex-start; padding: 2px 10px; border-radius: var(--radius-pill); background: var(--reward); color: var(--on-reward); font-size: 13px; line-height: 20px; font-weight: 800">New card</span>
+                <span style="font-family: var(--font-display); font-size: 24px; line-height: 28px">Light and shadows</span>
+                <span style="font-size: 15px; line-height: 20px; font-weight: 600; color: var(--ink-muted)">{{earnedNote}}</span>
+                <sc-if value="{{notCollected}}" hint-placeholder-val="{{true}}">
+                  <button class="mk-btn mk-btn--reward" type="button" onClick="{{collect}}" style="margin-top: auto; align-self: flex-start"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z"/></svg>Collect card</button>
+                </sc-if>
+                <sc-if value="{{collected}}" hint-placeholder-val="{{false}}">
+                  <span style="margin-top: auto; font-size: 16px; line-height: 22px; font-weight: 800">Added to your Treasure</span>
+                </sc-if>
+              </div>
+            </div>
+          </sc-if>
+        </aside>
+
+        <div class="qp-actions">
+          <button class="mk-btn mk-btn--secondary" type="button" onClick="{{askHint}}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2zm-2 18h4v2h-4z"/></svg>Ask Kix for a hint
+          </button>
+          <sc-if value="{{showCheck}}" hint-placeholder-val="{{true}}">
+            <button class="mk-btn mk-btn--primary" type="button" onClick="{{check}}" disabled="{{noSelection}}">Check my answer</button>
+          </sc-if>
+          <sc-if value="{{isWrong}}" hint-placeholder-val="{{false}}">
+            <button class="mk-btn mk-btn--primary" type="button" onClick="{{retry}}">Try again</button>
+          </sc-if>
+          <sc-if value="{{isCorrect}}" hint-placeholder-val="{{false}}">
+            <span style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 44px; padding: 0 18px; border-radius: var(--radius-pill); background: var(--success); color: var(--on-success); font-size: 18px; font-weight: 800">
+              <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M5 12l5 5L19 7"/></svg>Correct
+            </span>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  state = { selected: null, result: 'none', hint: false, collected: false };
+
+  renderVals() {
+    const { selected, result, hint, collected } = this.state;
+    const OPTIONS = [
+      { id: 'wood', label: 'Wooden block' },
+      { id: 'frosted', label: 'Frosted plastic' },
+      { id: 'glass', label: 'Clear glass' },
+      { id: 'card', label: 'Cardboard box' },
+    ];
+    // Layout (direction, size, padding) lives in the .qp-option class so the size classes can change it.
+    const base = 'border: 0; border-radius: var(--radius-lg); font-family: var(--font-text); color: var(--ink);';
+    const styleFor = (id) => {
+      if (result === 'correct' && id === 'glass') return base + ' background: var(--success); color: var(--on-success); box-shadow: inset 0 0 0 3px var(--border-control);';
+      if (result === 'wrong' && id === selected) return base + ' background: var(--warn); color: var(--on-warn); box-shadow: inset 0 0 0 3px var(--border-control);';
+      if (id === selected) return base + ' background: var(--surface); box-shadow: inset 0 0 0 4px var(--accent), 4px 4px 0 var(--accent);';
+      return base + ' background: var(--surface); box-shadow: inset 0 0 0 3px var(--line);';
+    };
+    let kixSays = 'Take your time. Think about which blocks light can pass through.';
+    if (hint) kixSays = 'Picture holding each one up to a window. Can you see clearly through it?';
+    if (result === 'wrong') kixSays = selected === 'frosted'
+      ? 'Close! Some light gets through frosted plastic, but it still makes a faint shadow. Try again.'
+      : 'Not quite. Light can’t get through that one, so it makes a dark shadow. Try again.';
+    if (result === 'correct') kixSays = 'Yes! Clear glass lets almost all the light through, so there’s no shadow.';
+    const reward = hint ? 2 : 5;
+    const KIX = {
+      idle: ['/_blob/02f791d67e720a2bf4fdb268ff6b6b8a', 'Kix smiling and waiting'],
+      hint: ['/_blob/f3d67ff062af0a3258ceadda37b9024f', 'Kix holding up a glowing hint'],
+      thinking: ['/_blob/322dfed5486a583d4343e28bcb22c301', 'Kix thinking it over with you'],
+      cheer: ['/_blob/f506e58a602297834bce49cc9565bca7', 'Kix jumping for joy'],
+    };
+    const mood = result === 'correct' ? 'cheer' : result === 'wrong' ? 'thinking' : hint ? 'hint' : 'idle';
+    return {
+      kixImg: KIX[mood][0],
+      kixAlt: KIX[mood][1],
+      options: OPTIONS.map((o) => ({
+        ...o,
+        isWood: o.id === 'wood', isFrosted: o.id === 'frosted', isGlass: o.id === 'glass', isCard: o.id === 'card',
+        pressed: o.id === selected ? 'true' : 'false',
+        style: styleFor(o.id),
+        pick: () => { if (result !== 'correct') this.setState({ selected: o.id, result: 'none' }); },
+      })),
+      kixSays,
+      hintUsed: hint,
+      showCheck: result === 'none',
+      noSelection: selected === null,
+      isWrong: result === 'wrong',
+      isCorrect: result === 'correct',
+      notCollected: !collected,
+      collected,
+      stars: collected ? 86 + reward : 86,
+      earnedNote: hint
+        ? `+${reward} stars: first try, with one hint. Your next fresh question can earn the full card bonus.`
+        : `+${reward} stars: you solved a fresh question on your own.`,
+      askHint: () => this.setState({ hint: true }),
+      check: () => { if (selected) this.setState({ result: selected === 'glass' ? 'correct' : 'wrong' }); },
+      retry: () => this.setState({ selected: null, result: 'none' }),
+      collect: () => this.setState({ collected: true }),
+    };
+  }
+}
+</script>
+</body>
+</html>
