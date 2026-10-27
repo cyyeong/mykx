@@ -15,7 +15,8 @@ export default function KidLayout({ children }: LayoutProps<"/">) {
           <KidNav />
           <div className="kid-shell-main">
             {children}
-            {/* Inside the shell so its position clears the nav bar (see demoLabel.css). */}
+            {/* Inside the shell so it sits right of the rail from 600 px (see demoLabel.css);
+                under 600 px the label rides inside the bar and this pill hides. */}
             <DemoLabel />
           </div>
         </div>

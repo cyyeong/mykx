@@ -1,10 +1,11 @@
 /* A quiet, always-visible honesty label (bottom-left, above the safe area). Never blocks a tap. */
 .demo-label{position:fixed;left:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:60;margin:0;padding:5px 11px;border-radius:999px;background:rgba(20,16,48,.72);color:#F4F1FF;font:700 12px/1.2 var(--font-text,system-ui);letter-spacing:.01em;box-shadow:0 0 0 1px rgba(255,255,255,.18);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);pointer-events:none}
 @media print{.demo-label{display:none}}
-/* On kid pages the shared nav shell sits bottom-left (bar under 600 px, rail from 600 px):
-   keep the label visible and clear of it. Other layouts keep the default bottom-left spot. */
+/* On kid pages the label rides inside the bottom bar under 600 px (see
+   kid-tabs.css), so the standalone pill hides there; from 600 px it sits
+   right of the rail. Other layouts keep the default bottom-left spot. */
 @media (max-width:599px){
-  .kid-shell-main .demo-label{bottom:calc(94px + env(safe-area-inset-bottom))}
+  .kid-shell-main .demo-label{display:none}
 }
 @media (min-width:600px){
   .kid-shell-main .demo-label{left:calc(96px + 12px)}

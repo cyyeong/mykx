@@ -44,8 +44,10 @@ export function KidNav() {
   if (isKidNavHidden(pathname)) return null;
   const current = kidNavCurrent(pathname);
   return (
-    <>
       <nav className="kidnav" aria-label="Main">
+        {/* The honesty label rides inside the bar on phones; on the rail the
+            standalone label sits right of the rail (see demoLabel.css). */}
+        <p className="kidnav-demo">Demo family · synthetic data</p>
         <ul className="kidnav-list">
           {KID_TABS.map((tab) => {
             const active = current === tab.id && !tab.soon;
@@ -95,8 +97,5 @@ export function KidNav() {
           })}
         </ul>
       </nav>
-      {/* Keeps page content clear of the fixed compact bar; hidden with the rail. */}
-      <div className="kidnav-spacer" aria-hidden="true" />
-    </>
   );
 }
