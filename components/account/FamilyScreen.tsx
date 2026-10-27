@@ -23,8 +23,7 @@ const NICK_MAX = 20;
 const PW_MIN = 8;
 /** Daily time choices in minutes; null is no limit. */
 const LIMITS: readonly (number | null)[] = [15, 30, 45, 60, 90, null];
-/** Day 5: the parent dashboard. Until it exists, back goes to "Who's learning?". */
-const BACK = { href: "/doors", label: "Back to the doors" };
+const BACK = { href: "/parent", label: "Back to the dashboard" };
 const TRY_AGAIN = "That didn't work. Try again in a moment.";
 const KIDS_URL = "/api/family/kids";
 const FOCUS_URL = "/api/signals/focus";
@@ -462,10 +461,10 @@ export function FamilyScreen() {
   };
 
   // ---- Your account ----
-  const signOutEverywhere = async () => {
+  const signOut = async (everywhere: boolean) => {
     setBusy("signout");
     setSignoutError("");
-    const r = await api("POST", "/api/auth/signout", { everywhere: true });
+    const r = await api("POST", "/api/auth/signout", everywhere ? { everywhere: true } : {});
     if (r.ok) {
       router.replace("/signin");
       return;
@@ -473,6 +472,7 @@ export function FamilyScreen() {
     setBusy(null);
     setSignoutError("Signing out didn't work. Try again in a moment.");
   };
+  const signOutEverywhere = async () => signOut(true);
   const sendReset = async () => {
     if (!resetEmail.trim() || busy) return setResetMsg({ tone: "warn", text: "Type your email first." });
     setBusy("pwreset");
@@ -1164,7 +1164,7 @@ export function FamilyScreen() {
               style={{ display: "flex", alignItems: "center", gap: 12, width: "100%", minHeight: 56, padding: 0, border: 0, color: "var(--ink)", textAlign: "left", font: "inherit" }}
             >
               <Icon d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" size={20} style={{ color: "var(--ink-muted)" }} />
-              <span style={{ flex: 1, minWidth: 0, fontSize: 16, lineHeight: "22px", fontWeight: 600 }}>Sign out on all devices</span>
+              <span style={{ flex: 1, minWidth: 0, fontSize: 16, lineHeight: "22px", fontWeight: 600 }}>Sign out</span>
               <svg className="fa-chev" viewBox="0 0 24 24" aria-hidden="true" style={{ width: 18, height: 18, flex: "none", color: "var(--ink-muted)" }}>
                 <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6" />
               </svg>
@@ -1174,8 +1174,11 @@ export function FamilyScreen() {
                 <p style={{ margin: 0, fontSize: 16, lineHeight: "23px" }}>Sign out on every device, including this one? Kids&apos; doors stay shut until you sign in again.</p>
                 {signoutError && <Note tone="warn">{signoutError}</Note>}
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                  <button className="mk-btn mk-btn--primary fa-click" type="button" onClick={() => void signOutEverywhere()} disabled={busy !== null}>
-                    {busy === "signout" ? "Signing out…" : "Sign out everywhere"}
+                  <button className="mk-btn mk-btn--primary fa-click" type="button" onClick={() => void signOut(false)} disabled={busy !== null}>
+                    {busy === "signout" ? "Signing out…" : "Sign out here"}
+                  </button>
+                  <button className="mk-btn mk-btn--secondary fa-click" type="button" onClick={() => void signOutEverywhere()} disabled={busy !== null}>
+                    Everywhere
                   </button>
                   <button className="mk-btn mk-btn--secondary fa-click" type="button" onClick={() => setSignoutOpen(false)}>
                     Cancel

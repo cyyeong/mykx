@@ -35,6 +35,9 @@ create table profiles (
   -- needs setup: a picture code is chosen with the kid at their door; a reset clears it.
   secret_kind text check (secret_kind in ('pictures', 'password')),
   secret_hash text check (secret_hash like 'scrypt$%'),
+  -- Parent PIN (fix 8): scrypt hash of 4 digits, set once in Your family, asked on grown-up pages while a kid
+  -- is signed in. Server only, like secret_hash: never granted below, never readable by clients.
+  pin_hash text check (pin_hash like 'scrypt$%'),
   secret_set_at timestamptz,
   secret_event text check (secret_event in ('set', 'changed', 'reset')),
   failed_attempts integer not null default 0 check (failed_attempts >= 0),

@@ -290,3 +290,29 @@ describe("migrations/20261028_focus_camera.sql", () => {
     }
   });
 });
+
+describe("migrations/20261028_parent_pin.sql", () => {
+  it("adds pin_hash (server only), runnable twice, on old and fresh databases", async () => {
+    const old = new PGlite();
+    try {
+      for (const f of ["test-auth-stub.sql", "schema.sql", "rls.sql"]) await old.exec(sql(f));
+      await old.exec(`alter table profiles drop column pin_hash;`);
+      const migration = sql("migrations/20261028_parent_pin.sql");
+      await old.exec(migration);
+      await old.exec(migration);
+      const cols = await old.query<{ column_name: string }>(
+        `select column_name from information_schema.columns where table_name = 'profiles' and column_name = 'pin_hash'`,
+      );
+      expect(cols.rows).toEqual([{ column_name: "pin_hash" }]);
+      // The server (superuser here) writes through the route mapping; clients can't read it.
+      await old.exec(`insert into auth.users (id) values ('${PARENT_A}'); update profiles set user_id = '${PARENT_A}' where id = '00000000-0000-4000-8000-000000000010';`);
+      await old.query(`update profiles set pin_hash = 'scrypt$1$2$3$abc' where id = '00000000-0000-4000-8000-000000000010'`);
+      await old.query(`select set_config('request.jwt.claim.sub', $1, false)`, [PARENT_A]);
+      await old.exec("set role authenticated");
+      await expect(old.query(`select pin_hash from profiles limit 1`)).rejects.toThrow(/permission denied/);
+      await old.exec("reset role");
+    } finally {
+      await old.close();
+    }
+  });
+});

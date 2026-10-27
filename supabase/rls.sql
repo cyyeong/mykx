@@ -65,7 +65,7 @@ create policy shares_all on shares for all to authenticated
 revoke all on households, profiles, attempts, ledger, creations, shares, summaries, model_runs, audit_log, signals from anon, authenticated;
 grant usage on schema public to authenticated;
 grant select on households, attempts, ledger, summaries, model_runs, audit_log to authenticated;
--- Every profile column except secret_hash (kid secrets are checked by the server only).
+-- Every profile column except secret_hash and pin_hash (kid secrets and the parent PIN are checked by the server only).
 grant select (
   id, household_id, user_id, role, is_admin, nickname, band, level, pack, interests, kix_url,
   voice_enabled, camera_enabled, daily_limit_min, synthetic, secret_kind, secret_set_at, secret_event,
