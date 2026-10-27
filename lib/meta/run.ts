@@ -10,6 +10,7 @@ export interface RunFields {
   outputTokens?: number | null;
   cachedInputTokens?: number | null;
   images?: number | null;
+  audioSeconds?: number | null;
 }
 
 export interface RunClock {
@@ -32,6 +33,7 @@ export function startRun(operation: MetaOperation, model: string): RunClock {
       outputTokens: fields.outputTokens ?? null,
       cachedInputTokens: fields.cachedInputTokens ?? null,
       images: fields.images ?? null,
+      audioSeconds: fields.audioSeconds ?? null,
     };
     return {
       provider: "meta",

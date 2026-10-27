@@ -7,7 +7,8 @@
 // Outputs go to art-src/smoke/ (git-ignored). Appends a dated section to docs/plan/smoke-log.md.
 // Exit codes: 0 all passed, 1 a step failed or was skipped, 2 no API key.
 // Budget: stops before any step that could push the estimated total over $0.10; one retry per step.
-import { appendFileSync, existsSync, mkdirSync, writeFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
@@ -29,6 +30,8 @@ import {
   sparkChat,
   sparkStream,
   sparkStructured,
+  transcribe,
+  VOICE_MODEL,
 } from "../lib/meta/index.ts";
 
 const ROOT = fileURLToPath(new URL("..", import.meta.url));
@@ -232,6 +235,23 @@ const steps: Step[] = [
       };
     },
   },
+  {
+    id: "f",
+    label: "Voice transcribe",
+    model: VOICE_MODEL,
+    maxCostUsd: 0.001,
+    async exec() {
+      // A synthetic adult voice from macOS `say`, never a child's recording.
+      const line = "Kix, why does the tadpole lose its tail?";
+      const file = outFile("f-question.wav");
+      execFileSync("say", ["-o", file, "--data-format=LEI16@16000", line]);
+      const res = await transcribe({ wav: readFileSync(file) }, { timeoutMs: 20_000 });
+      const heard = res.text.toLowerCase();
+      const ok = ["tadpole", "tail"].every((w) => heard.includes(w));
+      if (!ok) throw new Error(`heard "${res.text}" for "${line}"`);
+      return { run: res.run, note: `said "${line}" → heard "${res.text}" (${res.audioDurationMs ?? "?"} ms audio, session ${res.sessionId ?? "–"})` };
+    },
+  },
 ];
 
 function isRetryable(err: unknown): boolean {
@@ -360,7 +380,9 @@ async function main(): Promise<number> {
   console.log(`Meta smoke test ${stamp} SGT (budget $${BUDGET_USD.toFixed(2)}), outputs in ${rel(OUT_DIR)}/`);
 
   const rows: Row[] = [];
-  for (const step of steps) rows.push(await runStep(step));
+  // SMOKE_ONLY=f (or a comma list of step ids) runs a subset, e.g. to re-test voice without paying for images.
+  const only = process.env.SMOKE_ONLY?.split(",").map((x) => x.trim()).filter(Boolean);
+  for (const step of steps) if (!only || only.includes(step.id)) rows.push(await runStep(step));
 
   const d = rows.find((r) => r.step.id === "d");
   const e = rows.find((r) => r.step.id === "e");

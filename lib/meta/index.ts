@@ -35,3 +35,5 @@ export type {
   SparkStructuredResult,
 } from "./spark.ts";
 export type { CallOptions, ImageInput, MetaOperation, PixelBox, RunInfo } from "./types.ts";
+export { MAX_CLIP_MS, VOICE_MODEL, checkWav, transcribe } from "./voice.ts";
+export type { TranscribeRequest, TranscribeResult, TranscribeTurn } from "./voice.ts";

@@ -1,6 +1,6 @@
 // Shared types for the Meta Model API client. Type-only module.
 
-export type MetaOperation = "chat" | "chat_stream" | "structured" | "image_edit" | "sam_segment";
+export type MetaOperation = "chat" | "chat_stream" | "structured" | "image_edit" | "sam_segment" | "transcribe";
 
 /**
  * One model call, shaped to become a `model_runs` row.
@@ -25,6 +25,8 @@ export interface RunInfo {
   cachedInputTokens: number | null;
   /** Images returned (Muse Image) or segmented (SAM 3.1). */
   images: number | null;
+  /** Billed audio seconds (Muse Voice Transcribe, whole seconds rounded down). */
+  audioSeconds: number | null;
   /** Estimate from the price table in `pricing.ts`; null when the model is unpriced or usage is missing. */
   costUsd: number | null;
   ok: boolean;

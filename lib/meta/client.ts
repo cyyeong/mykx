@@ -17,6 +17,13 @@ function readKey(): string | undefined {
   return process.env.MODEL_API_KEY?.trim() || process.env.META_API_KEY?.trim() || undefined;
 }
 
+/** The key for hand-built requests (multipart endpoints the SDK doesn't cover). Never log it. */
+export function requireMetaKey(): string {
+  const apiKey = readKey();
+  if (!apiKey) throw new MetaConfigError("No Meta API key: set MODEL_API_KEY (or META_API_KEY) to a Standard-mode key.");
+  return apiKey;
+}
+
 /** True when `MODEL_API_KEY` (or `META_API_KEY`) is set and non-empty. */
 export function hasMetaApiKey(): boolean {
   return readKey() !== undefined;

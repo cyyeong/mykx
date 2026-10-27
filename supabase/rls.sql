@@ -1,0 +1,71 @@
+-- Row-level security: a signed-in parent sees and changes only their own household.
+-- The server's service role bypasses RLS for writes that must be deterministic (attempts, ledger,
+-- model_runs are written by route handlers after validation, not by the browser).
+
+-- The household of the signed-in parent; null for anyone else, or for a disabled account.
+create or replace function public.my_household() returns uuid
+  language sql stable security definer set search_path = public
+as $$
+  select household_id from profiles where user_id = auth.uid() and role = 'parent' and disabled_at is null limit 1
+$$;
+
+create or replace function public.i_am_admin() returns boolean
+  language sql stable security definer set search_path = public
+as $$
+  select coalesce((select is_admin from profiles where user_id = auth.uid() and disabled_at is null limit 1), false)
+$$;
+
+alter table households enable row level security;
+alter table profiles enable row level security;
+alter table attempts enable row level security;
+alter table ledger enable row level security;
+alter table creations enable row level security;
+alter table shares enable row level security;
+alter table summaries enable row level security;
+alter table model_runs enable row level security;
+alter table audit_log enable row level security;
+
+create policy households_own on households for select to authenticated using (id = my_household());
+
+-- Parents read their household's profiles and may update children's settings (pack, interests,
+-- voice, camera, limits). Creating profiles goes through the server.
+create policy profiles_read on profiles for select to authenticated using (household_id = my_household());
+create policy profiles_update on profiles for update to authenticated
+  using (household_id = my_household()) with check (household_id = my_household());
+
+-- Progress tables: read-only to the browser; the server writes them after validation.
+create policy attempts_read on attempts for select to authenticated using (household_id = my_household());
+create policy ledger_read on ledger for select to authenticated using (household_id = my_household());
+create policy summaries_read on summaries for select to authenticated using (household_id = my_household());
+create policy model_runs_read on model_runs for select to authenticated
+  using (household_id = my_household() or i_am_admin());
+
+-- The audit trail: admins read it; only the server (service role) writes it. Kid lockouts and family
+-- changes are in here too, but `detail` never holds child content.
+create policy audit_log_admin_read on audit_log for select to authenticated using (i_am_admin());
+
+-- Creations and shares stay inside the household.
+create policy creations_all on creations for all to authenticated
+  using (household_id = my_household()) with check (household_id = my_household());
+create policy shares_all on shares for all to authenticated
+  using (household_id = my_household()) with check (
+    household_id = my_household()
+    and exists (select 1 from profiles p where p.id = recipient_profile_id and p.household_id = my_household())
+    and exists (select 1 from creations c where c.id = creation_id and c.household_id = my_household())
+  );
+
+-- Supabase grants every role everything on new public tables by default, so start from nothing and
+-- grant exactly what the browser needs. RLS still scopes every row by household.
+revoke all on households, profiles, attempts, ledger, creations, shares, summaries, model_runs, audit_log from anon, authenticated;
+grant usage on schema public to authenticated;
+grant select on households, attempts, ledger, summaries, model_runs, audit_log to authenticated;
+-- Every profile column except secret_hash (kid secrets are checked by the server only).
+grant select (
+  id, household_id, user_id, role, is_admin, nickname, band, level, pack, interests, kix_url,
+  voice_enabled, camera_signals, daily_limit_min, synthetic, secret_kind, secret_set_at, secret_event,
+  failed_attempts, locked_until, disabled_at, last_sign_in_at, created_at
+) on profiles to authenticated;
+-- Settings a parent may change directly. Nicknames, secrets, locks and the admin flag go through
+-- server routes (app/api/family, app/api/me, app/api/admin), which write the audit log.
+grant update (pack, interests, kix_url, voice_enabled, camera_signals, daily_limit_min) on profiles to authenticated;
+grant select, insert, update, delete on creations, shares to authenticated;

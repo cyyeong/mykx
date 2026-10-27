@@ -10,6 +10,8 @@ export interface ModelPrice {
   cachedInputPerM?: number;
   /** Per image returned (Muse Image) or segmented (SAM). */
   perImage?: number;
+  /** Per second of audio processed (Muse Voice Transcribe). */
+  perAudioSecond?: number;
 }
 
 export const PRICES: Readonly<Record<string, ModelPrice>> = {
@@ -18,6 +20,8 @@ export const PRICES: Readonly<Record<string, ModelPrice>> = {
   // Image responses carry token usage "for reference only"; billing is per image.
   "muse-image-1.0": { perImage: 0.01 },
   "sam-3.1": { perImage: 0.0025 },
+  // $0.18 per audio hour, billed on whole seconds (rounded down).
+  "muse-voice-transcribe-1.0": { perAudioSecond: 0.18 / 3600 },
 };
 
 export interface UsageForCost {
@@ -25,6 +29,7 @@ export interface UsageForCost {
   outputTokens?: number | null;
   cachedInputTokens?: number | null;
   images?: number | null;
+  audioSeconds?: number | null;
 }
 
 /**
@@ -34,6 +39,11 @@ export interface UsageForCost {
 export function estimateCostUsd(model: string, usage: UsageForCost): number | null {
   const price = PRICES[model];
   if (!price) return null;
+
+  if (price.perAudioSecond !== undefined) {
+    if (usage.audioSeconds == null) return null;
+    return round6(usage.audioSeconds * price.perAudioSecond);
+  }
 
   if (price.perImage !== undefined) {
     if (usage.images == null) return null;
