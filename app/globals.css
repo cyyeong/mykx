@@ -1,26 +1,47 @@
 @import "tailwindcss";
+@import "./styles/tokens.css";
+@import "./styles/components.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* Tailwind utilities that follow the active pack (bg-surface, text-ink, font-heading, ...). */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-glass: var(--surface-glass);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+  --color-accent-2: var(--accent-2);
+  --color-on-accent-2: var(--on-accent-2);
+  --color-reward: var(--reward);
+  --color-on-reward: var(--on-reward);
+  --color-line: var(--line);
+  --color-success: var(--success);
+  --color-warn: var(--warn);
+  --font-heading: var(--font-display);
+  --font-copy: var(--font-text);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html { background: #1E1C45; }
+body { margin: 0; -webkit-font-smoothing: antialiased; }
+
+.theme-root {
+  min-height: 100dvh;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-text);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Pack re-skin: the new pack grows out of the tapped tile (ThemeRoot sets --reveal-x/y). */
+::view-transition-old(root) { animation: none; }
+::view-transition-new(root) {
+  animation: mk-reveal 700ms var(--ease-soft) both;
+}
+@keyframes mk-reveal {
+  from { clip-path: circle(0 at var(--reveal-x, 50%) var(--reveal-y, 50%)); }
+  to { clip-path: circle(150vmax at var(--reveal-x, 50%) var(--reveal-y, 50%)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-new(root) { animation: none; }
 }
