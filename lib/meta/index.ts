@@ -15,7 +15,7 @@ export { MetaApiError, MetaConfigError, redactSecrets } from "./errors.ts";
 export { ContributorModelError, assertStandardModel } from "./guard.ts";
 export { museImageEdit } from "./image.ts";
 export type { ImageOutputFormat, MuseImageEditRequest, MuseImageResult } from "./image.ts";
-export { alphaBox, alphaCoverage, applyAlpha, maskArea, masksToAlpha, selectMasks } from "./mask.ts";
+export { alphaBox, alphaCoverage, applyAlpha, fillHoles, maskArea, masksToAlpha, selectMasks } from "./mask.ts";
 export type { MaskRaster, Size } from "./mask.ts";
 export { bytesToDataUrl, sniffImageMime, toImageBytes, toImageUrl } from "./media.ts";
 export { PRICES, estimateCostUsd } from "./pricing.ts";

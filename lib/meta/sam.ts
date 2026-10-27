@@ -4,14 +4,14 @@ import sharp from "sharp";
 import { SAM_MODEL, callSignal, createMetaClient, pickRequestId } from "./client.ts";
 import { MetaApiError } from "./errors.ts";
 import { assertStandardModel } from "./guard.ts";
-import { type MaskRaster, type Size, alphaBox, alphaCoverage, applyAlpha, frameSizeFromRawOutput, masksToAlpha, selectMasks } from "./mask.ts";
+import { type MaskRaster, type Size, alphaBox, alphaCoverage, applyAlpha, fillHoles, frameSizeFromRawOutput, masksToAlpha, selectMasks } from "./mask.ts";
 import { toImageBytes, toImageUrl } from "./media.ts";
 import { type RunFields, startRun } from "./run.ts";
 import type { CallOptions, ImageInput, PixelBox, RunInfo } from "./types.ts";
 
 export interface SamSegmentRequest {
   image: ImageInput;
-  /** A short noun phrase naming one concept, e.g. "star-shaped mascot". Not a command or question. */
+  /** A short, common noun phrase naming one concept, e.g. "plush toy". Not a command or question. */
   prompt: string;
   /** Ask for per-mask confidence (`metadata.include_confidence`). Default true. */
   includeConfidence?: boolean;
@@ -39,6 +39,8 @@ export interface CutoutOptions {
   paddingPx?: number;
   /** Crop to the subject. Default true; false keeps the full frame. */
   crop?: boolean;
+  /** Fill holes the subject encloses (e.g. a scarf SAM left out). Default true. */
+  fillHoles?: boolean;
 }
 
 export interface CutoutResult {
@@ -137,7 +139,8 @@ export async function cutoutFromMasks(
   const { data, info } = await sharp(image).rotate().ensureAlpha().raw().toBuffer({ resolveWithObject: true });
   const size = { width: info.width, height: info.height };
   const chosen = selectMasks(masks, options.select ?? "best");
-  const hard = masksToAlpha(chosen, frame ?? size, size);
+  const painted = masksToAlpha(chosen, frame ?? size, size);
+  const hard = options.fillHoles === false ? painted : fillHoles(painted, size);
   const coverage = alphaCoverage(hard);
   const box = options.crop === false ? { left: 0, top: 0, right: size.width, bottom: size.height } : alphaBox(hard, size, options.paddingPx ?? 8);
   if (!box || coverage === 0) throw new RangeError("mask is empty: nothing to cut out");

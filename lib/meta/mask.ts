@@ -108,6 +108,43 @@ export function alphaBox(alpha: Uint8Array, size: Size, padding = 0): PixelBox |
   };
 }
 
+/**
+ * Fills background regions the subject fully encloses (holes), so thin accessories SAM leaves out
+ * (a leaf scarf across the body) don't punch holes through a sticker. Background connected to the
+ * image border stays transparent. Returns a new plane.
+ */
+export function fillHoles(alpha: Uint8Array, size: Size): Uint8Array {
+  const { width, height } = size;
+  if (alpha.length !== width * height) throw new RangeError("alpha must be width * height long");
+  const outside = new Uint8Array(alpha.length);
+  const stack: number[] = [];
+  const push = (i: number) => {
+    if (alpha[i] === 0 && !outside[i]) {
+      outside[i] = 1;
+      stack.push(i);
+    }
+  };
+  for (let x = 0; x < width; x++) {
+    push(x);
+    push((height - 1) * width + x);
+  }
+  for (let y = 0; y < height; y++) {
+    push(y * width);
+    push(y * width + width - 1);
+  }
+  while (stack.length > 0) {
+    const i = stack.pop() as number;
+    const x = i % width;
+    if (x > 0) push(i - 1);
+    if (x < width - 1) push(i + 1);
+    if (i >= width) push(i - width);
+    if (i < alpha.length - width) push(i + width);
+  }
+  const out = new Uint8Array(alpha.length);
+  for (let i = 0; i < alpha.length; i++) out[i] = alpha[i] || outside[i] ? alpha[i] : 255;
+  return out;
+}
+
 /** Fraction of pixels with alpha > 0. */
 export function alphaCoverage(alpha: Uint8Array): number {
   if (alpha.length === 0) return 0;

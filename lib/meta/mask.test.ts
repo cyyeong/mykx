@@ -6,6 +6,7 @@ import {
   alphaBox,
   alphaCoverage,
   applyAlpha,
+  fillHoles,
   frameSizeFromRawOutput,
   masksToAlpha,
   selectMasks,
@@ -160,5 +161,27 @@ describe("SAM output -> cutout", () => {
     expect(softAlpha.some((a) => a > 0 && a < 255)).toBe(true);
 
     await expect(cutoutFromMasks(red, [{ ...L, raster: new Uint8Array(4) }], null)).rejects.toThrow(/empty/);
+  });
+});
+
+describe("fillHoles", () => {
+  // 0 = background, 1 = subject; a ring with a hole in the middle and a notch open to the edge.
+  const grid = (rows: string[]) => Uint8Array.from(rows.join("").split("").map((c) => (c === "1" ? 255 : 0)));
+  const size = { width: 7, height: 5 };
+
+  it("fills a hole the subject encloses and keeps background that touches the border", () => {
+    const alpha = grid(["0000000", "0111110", "0100010", "0111110", "0000000"]);
+    const filled = fillHoles(alpha, size);
+    expect(Array.from(filled)).toEqual(Array.from(grid(["0000000", "0111110", "0111110", "0111110", "0000000"])));
+    expect(alpha[2 * 7 + 2]).toBe(0); // input untouched
+  });
+
+  it("leaves a notch open to the edge transparent", () => {
+    const alpha = grid(["0000000", "0111110", "0100000", "0111110", "0000000"]);
+    expect(Array.from(fillHoles(alpha, size))).toEqual(Array.from(alpha));
+  });
+
+  it("rejects a plane of the wrong length", () => {
+    expect(() => fillHoles(new Uint8Array(3), size)).toThrow(RangeError);
   });
 });

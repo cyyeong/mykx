@@ -48,7 +48,8 @@ const TERRARIUM_SUFFIX =
   "sunlight through glass, soft picture-book 3D illustration";
 const KIX_TERRARIUM_PROMPT =
   "The same character as in the image, identical shape, proportions and face; restyle as a young nature explorer " +
-  "with a tiny leaf scarf, standing on a mossy pebble, full body, centred, clearly separated from the background. " +
+  "with a tiny leaf scarf, standing on a mossy pebble, full body, centred, clearly separated from the background, " +
+  "exactly one character, no other creatures or copies. " +
   `${KIX_CANON} ${TERRARIUM_SUFFIX}. no text, no letters, no logos, no watermark`;
 
 const FlashcardDeck = z.object({
@@ -220,7 +221,7 @@ const steps: Step[] = [
     async exec() {
       const source = editedKix ?? KIX_BASE;
       const res = await samCutout(
-        { image: source, prompt: "star-shaped mascot", featherPx: 1, paddingPx: 8 },
+        { image: source, prompt: "plush toy", select: "best", featherPx: 1, paddingPx: 8 },
         { timeoutMs: 30_000, maxRetries: 0 },
       );
       const file = outFile("e-kix-terrarium-cutout.png");

@@ -120,7 +120,7 @@ export function StudioPicker() {
             <SparkleIcon />
             Transform Kix
           </button>
-          <span className={s.ctaNote}>Muse Image draws your Kix in about 10 seconds.</span>
+          <span className={s.ctaNote}>Muse Image draws your Kix in about 20 seconds.</span>
         </div>
       </section>
     </main>

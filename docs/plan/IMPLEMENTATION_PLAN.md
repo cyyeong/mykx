@@ -63,7 +63,7 @@ If a feature isn't in the 3-minute video, it isn't in this build. Screens come s
 
 | Route | Model | In → out | On timeout or error |
 |---|---|---|---|
-| `POST /api/studio/transform` | `muse-image-1.0` edits + `sam-3.1` | pack + 2 interest chips → transparent PNG in Storage | after 25 s, the cached pack Kix |
+| `POST /api/studio/transform` | `muse-image-1.0` edits + `sam-3.1` (body noun "plush toy" plus one noun per accessory, in parallel, unioned) | pack + 2 interest chips → transparent PNG in Storage | after 35 s, or on "Show me now", the cached pack Kix (live smoke 27 Oct: edit 13–21 s, SAM 4–8 s) |
 | `POST /api/kix/tutor` | `muse-spark-1.3` on the Responses API, streamed; skill namespaces with deferred tools and client `tool_search` | question + child's answer (never the key) → hint; loads and unloads skills under the agent policy; every event to `skill_events` | after 10 s, the item's reviewed hint |
 | `POST /api/vibe/spec` | `muse-spark-1.3`, JSON schema | brief → flashcard deck (stretch: or a song spec), validated with zod | the fixture deck or song |
 | `POST /api/voice/transcribe` | `muse-voice-transcribe-1.0`, `PUSH_TO_TALK` | 16 kHz mono WAV, ≤ 30 s → transcript; audio never stored or logged | the typed box |
@@ -114,7 +114,7 @@ Every day ends with something you can show on the production URL.
 
 ### Day 2 · Wed 28 Oct
 - **A (7.5h):** html→JSX port script; static ports of Home, Quest map, Question, Treasure; shared pieces (Button, HoloCard, QuestNode, KixBubble, GlassPanel) 6h; hold-to-talk button on KixBubble with level ring and a 16 kHz WAV recorder, plus a `useKixVoice` read-aloud hook with captions 1.5h.
-- **B (6h):** Supabase schema, row-level security and seed (a parent who is also admin; synthetic learners Ari, P3, Terrarium; Zara, P6, Idol Stage; Mei, Sec 2, Anime Sky; `voice_enabled` on all) 2h; offline-activity fixtures 0.5h; the transform route (Image → SAM → Storage, with fallback) 3h; add Muse Voice Transcribe to the smoke script with a synthetic clip from macOS `say` 0.5h.
+- **B (6h):** Supabase schema, row-level security and seed (a parent who is also admin; synthetic learners Ari, P3, Terrarium; Zara, P6, Idol Stage; Mei, Sec 2, Anime Sky; `voice_enabled` on all) 2h; offline-activity fixtures 0.5h; the transform route (Image → SAM → Storage, with fallback; each pack's prompt names its accessories, and SAM gets "plush toy" plus one noun per accessory, unioned; pick the main character when the edit adds a duplicate) 3h; add Muse Voice Transcribe to the smoke script with a synthetic clip from macOS `say` 0.5h.
 - **C (4h):** item and manifest types in `lib/types.ts`; `scripts/import-skill.ts` reads the seven archived skills, scrubs names, traits and dates, maps the original practice sets to the unified item schema, derives archetypes from the school-paper banks without their questions, and writes seven packs to `content/skills/`; drafts the 12 demo items with hints; a test fails if `content/` contains the real names or school-paper codes.
 - **You:** approve the 12 demo items and their hints (1h); check the scrub in `content/skills/` (30 min); check on a tablet, including the mic prompt and read-aloud voice.
 - **Exit:** a signed-in parent switches to Ari and browses five themed screens in production; the transform route returns a cutout or the fallback within 25 s; seven scrubbed packs are in `content/skills/`.
@@ -208,7 +208,7 @@ Script target: about 360 words of voice-over (130 a minute), finished by Day 5.
 | Risk | Early warning | Response |
 |---|---|---|
 | No Model API key today | Day 1 smoke script can't run | Get the key first. If billing blocks it, ask in Discord office hours (22:00–23:00 SGT) and build against fixtures meanwhile. |
-| Muse Image + SAM slow or flaky | transform over 25 s in the smoke log | Cached pack Kix fallback; pre-generate per pack; keep the disc framing. |
+| Muse Image + SAM slow or flaky | the 27 Oct smoke runs took 18–29 s end to end | 35 s budget with the progress steps and "Show me now"; cached pack Kix fallback; pre-generate per pack; record the live transform for the video and speed it up, labelled. |
 | Row-level security eats time | over 3h on Day 2 | Simplest policy (household of the signed-in parent). Never ship without it. |
 | Porting is slower than expected | Day 2 exit missed | Static port first, wire later; apply the Day 3 and Day 4 slip rules. |
 | Parallel streams collide | merge conflicts between worktrees | Streams own separate folders; `lib/types.ts` is settled before they split; merge after each task. |
