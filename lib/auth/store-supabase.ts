@@ -6,7 +6,10 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import type { FocusMinute } from "../signals/focus.ts";
 import type { FocusNote } from "../signals/schemas.ts";
 import type { CookieJar } from "./http.ts";
-import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch } from "./store.ts";
+import { familyOf, type AttemptEvent } from "../domain/attempts.ts";
+import { sgDate } from "../domain/time.ts";
+import type { LedgerEntry } from "../domain/rewards.ts";
+import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt } from "./store.ts";
 import { NicknameTakenError } from "./store.ts";
 
 export interface SupabaseEnv {
@@ -93,6 +96,44 @@ function toFocusMinute(r: Row): FocusMinute {
     eyesClosedEvents: n(c.eyesClosedEvents),
     yawns: n(c.yawns),
     facePresentRatio: n(c.facePresentRatio),
+  };
+}
+
+/** The `answer` envelope (store.ts): the raw response plus the child's explanation. */
+function toAttemptEvent(r: Row): AttemptEvent {
+  const a = (r.answer ?? {}) as { explanation?: unknown; revised?: unknown };
+  const explanationText = typeof a.explanation === "string" && a.explanation.trim() ? a.explanation : null;
+  return {
+    id: r.id as string,
+    itemId: r.item_id as string,
+    family: familyOf({ id: r.item_id as string }),
+    skill: r.skill_id as string,
+    topic: r.topic as string,
+    subskill: (r.subskill as string | null) ?? "",
+    at: new Date(r.created_at as string).toISOString(),
+    marks: Number(r.marks),
+    maxMarks: Number(r.max_marks),
+    firstTry: Boolean(r.first_try),
+    hintsBeforeSubmit: Number(r.hints_used ?? 0),
+    revealed: Boolean(r.revealed),
+    // This store only holds deterministically marked attempts (open items need review first).
+    confirmed: true,
+    ...(explanationText ? { explanation: true } : {}),
+    ...(a.revised === true ? { explanationRevised: true } : {}),
+  };
+}
+
+function toLedgerEntry(r: Row, kidId: string): LedgerEntry {
+  const at = new Date(r.created_at as string).toISOString();
+  const storageKey = r.idempotency_key as string;
+  return {
+    key: storageKey.startsWith(`${kidId}:`) ? storageKey.slice(kidId.length + 1) : storageKey,
+    kind: r.kind as LedgerEntry["kind"],
+    rule: r.rule as LedgerEntry["rule"],
+    amount: Number(r.amount),
+    ...(typeof r.ref === "string" && r.ref ? { ref: r.ref } : {}),
+    at,
+    day: sgDate(at),
   };
 }
 
@@ -240,6 +281,91 @@ export class SupabaseStore implements AuthStore {
   private async ownsKid(householdId: string, kidId: string) {
     return (await this.kid(householdId, kidId)) !== null;
   }
+
+  // Learning record (`attempts`, `ledger`). Same household filtering; writes are idempotent by key.
+
+  readonly learn = {
+    attempts: async (householdId: string, kidId: string): Promise<AttemptEvent[]> => {
+      const { data, error } = await this.db
+        .from("attempts")
+        .select("id, item_id, skill_id, topic, subskill, answer, marks, max_marks, first_try, hints_used, revealed, created_at")
+        .eq("household_id", householdId)
+        .eq("profile_id", kidId)
+        .order("created_at")
+        .limit(5000);
+      check(error);
+      return (data ?? []).map(toAttemptEvent);
+    },
+    attemptByKey: async (householdId: string, kidId: string, key: string): Promise<AttemptEvent | null> => {
+      const { data, error } = await this.db
+        .from("attempts")
+        .select("id, item_id, skill_id, topic, subskill, answer, marks, max_marks, first_try, hints_used, revealed, created_at")
+        .eq("household_id", householdId)
+        .eq("profile_id", kidId)
+        .eq("idempotency_key", key)
+        .maybeSingle();
+      check(error);
+      return data ? toAttemptEvent(data) : null;
+    },
+    saveAttempt: async (householdId: string, kidId: string, attempt: StoredAttempt): Promise<void> => {
+      if (!(await this.ownsKid(householdId, kidId))) return;
+      const { error } = await this.db
+        .from("attempts")
+        .upsert(
+          {
+            household_id: householdId,
+            profile_id: kidId,
+            skill_id: attempt.skill,
+            skill_version: attempt.skillVersion,
+            item_id: attempt.itemId,
+            topic: attempt.topic,
+            subskill: attempt.subskill,
+            answer: { response: attempt.answer, explanation: attempt.explanationText, revised: Boolean(attempt.explanationRevised) },
+            marks: attempt.marks,
+            max_marks: attempt.maxMarks,
+            correct: attempt.marks >= attempt.maxMarks,
+            first_try: attempt.firstTry,
+            hints_used: attempt.hintsBeforeSubmit,
+            revealed: attempt.revealed,
+            idempotency_key: attempt.idempotencyKey,
+            created_at: attempt.at,
+          },
+          { onConflict: "idempotency_key", ignoreDuplicates: true },
+        );
+      check(error);
+    },
+    ledger: async (householdId: string, kidId: string): Promise<LedgerEntry[]> => {
+      const { data, error } = await this.db
+        .from("ledger")
+        .select("kind, ref, amount, rule, idempotency_key, created_at")
+        .eq("household_id", householdId)
+        .eq("profile_id", kidId)
+        .order("created_at")
+        .limit(5000);
+      check(error);
+      return (data ?? []).map((r) => toLedgerEntry(r, kidId));
+    },
+    saveLedgerEntries: async (householdId: string, kidId: string, entries: readonly LedgerEntry[]): Promise<void> => {
+      if (!entries.length || !(await this.ownsKid(householdId, kidId))) return;
+      const { error } = await this.db
+        .from("ledger")
+        .upsert(
+          entries.map((e) => ({
+            household_id: householdId,
+            profile_id: kidId,
+            kind: e.kind,
+            ref: e.ref ?? null,
+            amount: e.amount,
+            rule: e.rule,
+            // idempotency_key is unique table-wide; award keys repeat per kid.
+            idempotency_key: `${kidId}:${e.key}`,
+            created_at: e.at,
+          })),
+          { onConflict: "idempotency_key", ignoreDuplicates: true },
+        );
+      check(error);
+    },
+  };
 
   readonly signals = {
     saveFocusMinutes: async (householdId: string, kidId: string, minutes: readonly FocusMinute[]) => {

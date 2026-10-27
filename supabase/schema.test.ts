@@ -52,7 +52,8 @@ describe("household isolation (row-level security)", () => {
     const names = await as(PARENT_A, () => db.query<{ nickname: string }>("select nickname from profiles order by nickname"));
     expect(names.rows.map((r) => r.nickname)).toEqual(["Ari", "Demo Parent", "Mei", "Zara"]);
     const attempts = await as(PARENT_A, () => db.query<{ idempotency_key: string }>("select idempotency_key from attempts"));
-    expect(attempts.rows.map((r) => r.idempotency_key)).toEqual(["a-1"]);
+    // Ari's synthetic seed history (seed.sql) plus the row this file inserts.
+    expect(attempts.rows.map((r) => r.idempotency_key)).toEqual(["seed:ari:p3sci-demo-01", "seed:ari:p3sci-demo-02-try1", "seed:ari:p3sci-demo-02-try2", "a-1"]);
   });
 
   it("can't change another household's child", async () => {
