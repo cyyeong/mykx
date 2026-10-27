@@ -18,6 +18,9 @@ Rules and size classes: `.agents/skills/mykx-design-system/SKILL.md` §3a. Board
 | Talk to Kix and Study Song (`VoiceSound`) | 1280 × 800 | Talk to Kix first, Study Song below; mic button large and sticky at the bottom | stacked panels | container 1440 |
 | Skills catalogue (`AdminSkills`) | 1440 × 900 | top bar with menu; level chips scroll; one-column cards; agents and trace stacked below | icon rail; 2-column cards; aside below | container 1600 |
 | Add knowledge (`AdminUpload`) | 1440 × 900 | compact stepper; questions list first, "View page" opens the source; publish bar sticky | Source / Questions as two tabs | wider source pane |
+| Parent dashboard (`ParentDash`) | 390 × 844 | flags first, then screen time, plan, wellbeing, messages, controls | 2 columns | 3 columns (children and flags · screen time and plan · wellbeing, messages and controls), container 1440 |
+| Family messages, parent (`FamilyChat`) | 390 × 844 | one thread, sticker tray as a sheet | conversation list + thread | container 1200 |
+| Message from Mum, child (`KidMessage`) | 1280 × 800 | full-screen sheet; quick replies stacked; Send pinned | centred sheet over the scene | sheet with Kix beside it, container 1440 |
 | What Kix remembers (`Notebook`) | 390 × 844 | as designed | pages as a left list, content on the right | three columns: children, pages, content with changes |
 
 Foldable book posture (two horizontal viewport segments) puts the first pane left of the hinge and the second right for Studio, Question, Vibe Zone, Talk to Kix, Add knowledge and Notebook.

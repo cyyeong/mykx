@@ -109,11 +109,14 @@ The same child loves fighter jets, especially the ones in big action films. We c
 ### E9. Shareable sidekick card (Viral and Community Vote)
 Export a 1080×1350 card: the child's Kix in their pack plus a first name chosen by the parent (optional) and no school or other personal data. Feeds the X post required for the viral prize.
 
-### E10. Study Song: Kix turns notes into a song (stretch, 27 Oct)
+### E10. Study Song: Kix turns notes into a song (roadmap since 27 Oct)
 A second Vibe Zone template. The child says or types "make the frog life cycle a song" → Muse Spark returns a zod-validated **song spec** (title, tempo, scale, groove, four lyric lines with one note per syllable) → trusted Tone.js code plays it with the child's pack instruments while the lyrics bounce karaoke-style and Kix bobs to the beat. Muse Spark writes the music; the app only plays validated data (hard rule 4). Mnemonic songs are a proven memory aid, and it's a strong "surprise us" and viral beat. Fixture fallback song for the demo. Built only after Checkpoint B is green (implementation plan §6).
 
 ### E11. Skill Engine and skills admin (added 27 Oct; full spec in `SKILL_ENGINE.md`)
 The founder's seven real tutor skills (P3 Maths, Science, English and Chinese; PSLE Maths and Science; Sec 2 G3 Science) become myKx **skill packs**: method, syllabus references, archetypes and reviewed items, versioned and child-agnostic. Kix agents (Tutor, Vibe Maker, Parent Narrator, Content Curator) **load and unload skills on demand** through Muse Spark tool calling with client-executed `tool_search`, under a per-agent policy and with every load logged. Admins manage the catalogue, and **uploading new questions or notes improves a skill** through extract (Spark vision) → review → publish a new version. **MVP levels: P3, P6 and Sec 2**, matching the real material. It also brings back, in a safer form, two things this review had cut: ingestion (FR03) and admin (FR12). Privacy and copyright rules: the source skills contain real children's names and notes and questions from school papers, so only scrubbed, original content enters the repo; school-paper questions are never served (they only feed archetypes). **No RAG:** skills carry the knowledge, and **Kix's Notebook**, a per-child LLM wiki kept by a Memory Keeper agent, holds long-term memory (personality, how the child asks, language slips, weak spots in words, events, memorable moments, revision history). Progress itself stays deterministic in the database; the Notebook may quote it but never changes it. Parents can read, edit and wipe it.
+
+### E12. Parent insights, wellbeing signals and family messages (added 27 Oct; spec in `PARENT_INSIGHTS.md`)
+A phone-first parent dashboard. **Screen time** against a daily limit, and **learning-plan adherence** (planned vs done, overdue reviews), both computed deterministically. **Wellbeing signals** per session: focus from how answers are given, mood from the child's own words to Kix (Muse Spark, Standard), hesitation, voice pace from transcript timing, and an opt-in **camera signal that runs only on the device** (eyes closed, looking away; no image leaves the device, no facial emotion recognition). **Flags** at three levels: urgent (distress or safety words → Kix's caring reply, helplines Tinkle Friend 1800 274 4788 and SOS 1767, immediate parent alert), watch (signs of a breakdown) and info (plan not followed). Every signal says "possibly", with evidence, against the child's own baseline. **Family messages** run parent ↔ child inside the household, with an original animated Kix sticker pack instead of third-party GIFs; they never reach a model. Built as stream D; Study Song moves to the roadmap to make room.
 
 ---
 
@@ -127,6 +130,7 @@ The founder's seven real tutor skills (P3 Maths, Science, English and Chinese; P
 | FR04 Kix tutor + mastery | **Keep (core)** | deterministic marking, the §6 mastery maths, hints via Spark Standard (streamed), fresh-family check | 6 |
 | FR05 personalised home/themes | **Expand (core)** | theme engine, two bands, five packs, Home, Sidekick Studio | 10 |
 | FR06 RAG/wiki/self-improvement | **Replaced (27 Oct)** | no RAG: agents read skill reference sections by id through tools; skills improve through reviewed uploads; per-child long-term memory in Kix's Notebook, an LLM wiki (E11) | see E11 |
+| Parent insights and family messages (E12) | **Add (core)** | dashboard (screen time, plan, signals, flags), safety path, family messages with Kix stickers; camera signals are stretch | 15.5 (stream D) |
 | FR07 parent summary | **Keep (core)** | "Generate tonight's summary" button + Spark narration of deterministic aggregates + offline activity; no scheduler/worker | 4 |
 | FR08 skills/PDF/variants/patterns | **Cut** (P1: one print-CSS practice sheet) | — | 0 |
 | FR09 Vibe mini factory | **Simplify** | brief → Spark JSON spec → trusted React flashcards/planner with Muse Image art → revise → save → share/revoke | 5 |
@@ -138,7 +142,7 @@ The founder's seven real tutor skills (P3 Maths, Science, English and Chinese; P
 | Sound layer (E5) | **Add (core)** | Tone.js SFX per pack, optional ambience, mute; lazy-loaded | 2.5 |
 | Talk to Kix (E6) | **Add (core)** | hold-to-talk → Muse Voice Transcribe; browser read-aloud with captions | 4.5 |
 | Skill Engine, Kix's Notebook and skills admin (E11) | **Add (core)** | importer, skill tables, Kix Tutor with tool_search load/unload, Memory Keeper and Notebook, admin console | 25 (stream C, plus 1h in A) |
-| Study Song (E10) | **Stretch** | Vibe Zone song template: Spark song spec → Tone.js karaoke player | 3.5 |
+| Study Song (E10) | **Roadmap (27 Oct)** | Vibe Zone song template: Spark song spec → Tone.js karaoke player | 3.5 |
 | Sky Squadron (new, E8) | **Add, cuttable** | four insect-inspired jet cards + hero banner + Kix pilot outfit on the Treasure shelf | 2 |
 | Art production (new) | **Add** | ~70 production images, cutouts, optimisation, manifest | 5 |
 | Polish, a11y, perf, deploy (new) | **Add** | screenshots and critique passes; tablet checks | 6 |
