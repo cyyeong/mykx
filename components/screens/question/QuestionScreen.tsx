@@ -416,15 +416,33 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
                   Check my answer
                 </Button>
               )}
+              {/* The key is per submission, not per question: a retry of a failed
+                  send reuses it (J17: sent once on reconnect), while Try again
+                  and Show me how start new submissions. */}
               {phase === "checking" && (
                 <span style={{ display: "inline-flex", alignItems: "center", minHeight: 56, fontSize: 16, fontWeight: 700, color: "var(--ink-muted)" }}>
                   Kix is checking…
                 </span>
               )}
-              {phase === "wrong" && tries < 2 && <Button onClick={() => setPhase("answering")}>Try again</Button>}
+              {phase === "wrong" && tries < 2 && (
+                <Button
+                  onClick={() => {
+                    key.current = crypto.randomUUID();
+                    setPhase("answering");
+                  }}
+                >
+                  Try again
+                </Button>
+              )}
               {phase === "wrong" && tries >= 2 && (
                 <>
-                  <Button variant="secondary" onClick={() => void send(true)}>
+                  <Button
+                    variant="secondary"
+                    onClick={() => {
+                      key.current = crypto.randomUUID();
+                      void send(true);
+                    }}
+                  >
                     Show me how
                   </Button>
                   <ButtonLink href={nextHref}>Next question</ButtonLink>

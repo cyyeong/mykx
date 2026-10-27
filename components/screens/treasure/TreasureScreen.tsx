@@ -44,14 +44,14 @@ const RULE_TITLES: Record<string, string> = {
   fresh_transfer: "Fresh transfer",
 };
 
-/** One card per paid-out ledger entry (cap notes pay 0, so they never show). */
-export function cardsFromLedger(entries: readonly LedgerEntry[]): TreasureCard[] {
+/** One card per paid-out ledger entry (cap notes pay 0, so they never show). Refs render through `labels` so a child never sees an item id. */
+export function cardsFromLedger(entries: readonly LedgerEntry[], labels: Record<string, string> = {}): TreasureCard[] {
   return entries
     .filter((e) => e.amount > 0)
     .map((e) => ({
       id: e.key,
       title: RULE_TITLES[e.rule] ?? e.rule,
-      note: `${e.at.slice(0, 10)} · +${e.amount} stars${e.ref ? ` · ${e.ref}` : ""}`,
+      note: `${e.at.slice(0, 10)} · +${e.amount} stars${e.ref && labels[e.ref] ? ` · ${labels[e.ref]}` : ""}`,
     }));
 }
 

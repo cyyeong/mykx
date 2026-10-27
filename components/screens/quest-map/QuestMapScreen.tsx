@@ -133,7 +133,7 @@ export function QuestMapScreen({ questTitle, levelLabel, blurb, stops, startHref
           <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
             <h2 style={{ margin: 0, fontFamily: "var(--font-display)", fontWeight: 600, fontSize: 32, lineHeight: "38px" }}>{questTitle}</h2>
             <p style={{ margin: 0, fontSize: 16, lineHeight: "22px", fontWeight: 600, color: "var(--ink-muted)" }}>
-              {sessionCount} questions · about {sessionCount * 3} minutes
+              {sessionCount} {sessionCount === 1 ? "question" : "questions"} · about {sessionCount * 3} minutes
             </p>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>

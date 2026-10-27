@@ -16,13 +16,14 @@ async function Treasure() {
   const { attempts, ledger } = await questData(ctx);
   const now = new Date().toISOString();
   const stops = questStops(FROG_QUEST.stops.map((s) => s.itemId), attempts);
+  const labels = Object.fromEntries(FROG_QUEST.stops.map((s) => [s.itemId, s.label]));
   return (
     <TreasureScreen
       nickname={ctx.nickname}
       stars={totalPoints(ledger)}
       starsToday={pointsOnDay(ledger, sgDate(now))}
       evidenceLabel={questEvidence(attempts).label}
-      cards={cardsFromLedger(ledger)}
+      cards={cardsFromLedger(ledger, labels)}
       nodes={stops.map((s) => ({ label: s.label, lit: s.state === "mastered", current: s.state === "current" }))}
       questHref={`/learn/${FROG_QUEST.slug}`}
       questTitle={FROG_QUEST.title}

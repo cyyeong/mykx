@@ -30,6 +30,7 @@ async function Question({ params }: { params: Promise<{ id: string }> }) {
   const position = index >= 0 ? index + 1 : Math.min(doneCount + 1, Math.max(picks.length, 1));
   return (
     <QuestionPlayer
+      key={item.id}
       item={{ id: item.id, stem: item.stem, options: item.options ?? [], hints: item.hints ?? [] }}
       questSlug={FROG_QUEST.slug}
       questTitle={FROG_QUEST.title}
