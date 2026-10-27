@@ -123,7 +123,7 @@ Also: p3eng-placement-quest-q32, a synthesis item, matches only the exact senten
 
 ## Fixed after the run (27 Oct, evening)
 
-- **Answer keys:** all nine items in the table above now have a plain `answer` plus `accept` alternatives (e.g. `16 days` / `16`; `.` / `full stop`; `steel` / nickel, cobalt). The audit shows 0 answer-key problems in reviewed items. A re-import from `content-private/` would bring the old keys back, so fix them at the source, or teach the importer to split marking notes, before re-importing.
+- **Answer keys:** all nine items in the table above now have a plain `answer` plus `accept` alternatives (e.g. `16 days` / `16`; `.` / `full stop`; `steel` / nickel, cobalt). The audit shows 0 answer-key problems in reviewed items. A re-import from the private source skills would bring the old keys back, so fix them at the source, or teach the importer to split marking notes, before re-importing.
 - **Demo items:**
   - demo-01's correct order is now egg → tadpole → froglet → adult frog (the working notes that some books count three stages).
   - demo-03's fourth option is now "Both have adults that live only in water".

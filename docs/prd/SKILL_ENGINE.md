@@ -154,7 +154,7 @@ Roles: `admin` (platform content team; in the demo, the seeded parent account al
 
 - **Skill packs are child-agnostic.** Names, traits, diagnoses and progress never go into a pack. What myKx knows about a child lives in the private learner record (deterministic) and Kix's Notebook (LLM wiki, parent-visible and parent-editable), and only reaches Standard models.
 - **The source skills' child-specific content becomes seed material only for the founder's own private household,** never the demo or the repo. The demo learners get synthetic Notebooks.
-- **The raw source skills are never committed.** They stay in `content-private/` (git-ignored) or the private Supabase bucket; the importer writes only scrubbed, original content to `content/skills/`.
+- **The raw source skills are never committed.** They stay in a private folder outside the repository (`MYKX_PRIVATE_DIR`) or the private Supabase bucket; the importer writes only scrubbed, original content to `content/skills/`.
 - **Third-party exam questions are never served** to children or committed; only derived archetypes and statistics are.
 - **Skill scripts are never executed** by the app (hard rule 4 extends to uploaded code).
 - **Every generated or extracted item is reviewed** before a child sees it, and only reviewed items count toward mastery.

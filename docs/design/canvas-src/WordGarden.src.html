@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Word Garden</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+/*KEYBOARD_CSS*/
+/*AMBIENCE_CSS*/
+.wg-hud,.wg-field,.wg-keys{pointer-events:none}.wg-hud>*,.wg-field>*,.wg-keys>*{pointer-events:auto}
+.wg-root{position:relative;width:100%;min-height:100vh;box-sizing:border-box;overflow:hidden;display:grid;grid-template-rows:auto 1fr auto;background:#EEF5E4;color:#1D3324;font-family:var(--font-text);--kb-key:#FFFFFF;--kb-ink:#1D3324;--kb-hint:#1D3324;--kb-hand:29,51,36}
+.wg-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.05)}
+.wg-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(238,245,228,.15),rgba(238,245,228,0) 40%,rgba(238,245,228,.75) 78%)}
+.wg-hud{position:relative;z-index:2;display:flex;flex-wrap:wrap;align-items:center;gap:10px 12px;padding:18px 24px}
+.wg-pill{display:inline-flex;align-items:center;gap:8px;min-height:48px;box-sizing:border-box;padding:0 18px;border-radius:999px;background:rgba(255,255,255,.86);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 6px 18px rgba(29,51,36,.15);font:800 16px/1 var(--font-text);color:#1D3324;text-decoration:none;border:0}
+.wg-title{margin-right:auto;padding:8px 18px;border-radius:24px;background:rgba(255,255,255,.86);box-shadow:0 6px 18px rgba(29,51,36,.15)}
+.wg-title strong{display:block;font:700 26px/1.1 var(--font-display-terrarium, var(--font-display))}
+.wg-title span{font:700 14px/1.3 var(--font-text);color:#48604D}
+.wg-seg{display:inline-flex;padding:4px;gap:4px;border-radius:999px;background:rgba(255,255,255,.86);box-shadow:0 6px 18px rgba(29,51,36,.15)}
+.wg-seg button{min-height:40px;padding:0 14px;border:0;border-radius:999px;background:transparent;color:#1D3324;font:800 14px/1 var(--font-text);cursor:pointer}
+.wg-seg button[aria-pressed="true"]{background:#2C7A47;color:#FFFFFF}
+.wg-field{position:relative;z-index:1;display:grid;grid-template-columns:auto 1fr;align-items:center;gap:28px;padding:0 40px;min-height:300px}
+.wg-card{display:flex;flex-direction:column;align-items:center;gap:12px;padding:18px;border-radius:28px;background:rgba(255,255,255,.92);box-shadow:0 12px 30px rgba(29,51,36,.2)}
+.wg-pic{width:200px;height:150px;border-radius:20px;background-repeat:no-repeat;background-size:400% auto;background-color:#FBF5E8;box-shadow:inset 0 0 0 2px #D3E3C3}
+.wg-ask{margin:0;font:700 20px/1.3 var(--font-display-terrarium, var(--font-display));text-align:center}
+.wg-letters{display:flex;gap:4px}
+.wg-letters span{display:grid;place-items:center;width:32px;height:40px;border-radius:10px;background:#EEF5E4;box-shadow:inset 0 -3px 0 #D3E3C3;font:700 22px/1 var(--font-display-terrarium, var(--font-display));color:#1D3324}
+.wg-letters span[data-s="done"]{background:#2C7A47;color:#FFFFFF;box-shadow:none}
+.wg-letters span[data-s="now"]{box-shadow:inset 0 0 0 3px #F2A93B}
+.wg-bed{position:relative;display:flex;align-items:flex-end;justify-content:center;gap:clamp(8px,2vw,22px);height:220px}
+.wg-pot{position:relative;width:64px;height:56px;border-radius:6px 6px 18px 18px;background:linear-gradient(#D98A5B,#B4643A);box-shadow:inset 0 6px 0 rgba(255,255,255,.18)}
+.wg-stem{position:absolute;left:50%;bottom:52px;width:6px;height:calc(var(--g) * 110px);margin-left:-3px;border-radius:3px;background:#3F8F4E;transition:height .4s cubic-bezier(.34,1.56,.64,1)}
+.wg-stem::before,.wg-stem::after{content:"";position:absolute;width:22px;height:12px;border-radius:12px 0;background:#5DAA5E;top:40%;opacity:calc(var(--g) * 2)}
+.wg-stem::before{right:4px;transform:rotate(-20deg)}
+.wg-stem::after{left:4px;transform:scaleX(-1) rotate(-20deg)}
+.wg-bloom{position:absolute;left:50%;bottom:calc(52px + var(--g) * 110px);width:46px;height:46px;margin:0 0 -16px -23px;border-radius:50%;background:radial-gradient(circle,#FFD34D 0 22%,transparent 24%),conic-gradient(from 0deg,var(--c) 0 12%,transparent 12% 13%,var(--c) 13% 25%,transparent 25% 26%,var(--c) 26% 38%,transparent 38% 39%,var(--c) 39% 51%,transparent 51% 52%,var(--c) 52% 64%,transparent 64% 65%,var(--c) 65% 77%,transparent 77% 78%,var(--c) 78% 90%,transparent 90% 91%,var(--c) 91%);transform:scale(0);transition:transform .5s cubic-bezier(.34,1.56,.64,1)}
+.wg-pot[data-s="bloom"] .wg-bloom{transform:scale(1)}
+.wg-pot[data-s="now"]{box-shadow:inset 0 6px 0 rgba(255,255,255,.18),0 0 0 4px #F2A93B}
+.wg-drop{position:absolute;left:50%;top:-150px;width:10px;height:14px;margin-left:-5px;border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;background:radial-gradient(circle at 35% 35%,#FFFFFF,#9ED8F0 60%,#4BA3C7);opacity:0;animation:wg-drop .6s ease-in forwards}
+.wg-card[data-w="a"]{animation:wg-wiggle .4s ease-in-out}
+.wg-card[data-w="b"]{animation:wg-wiggle2 .4s ease-in-out}
+.wg-hint{position:absolute;left:50%;top:-6px;transform:translateX(-50%);padding:6px 12px;border-radius:12px;background:#FFFFFF;box-shadow:0 6px 16px rgba(29,51,36,.2);font:800 15px/1.2 var(--font-text);white-space:nowrap}
+.wg-keys{position:relative;z-index:2;width:min(860px,calc(100% - 32px));margin:0 auto;padding:4px 0 14px}
+@keyframes wg-drop{0%{opacity:1;transform:translateY(0)}90%{opacity:1}100%{opacity:0;transform:translateY(118px)}}
+@keyframes wg-drop2{0%{opacity:1;transform:translateY(0)}90%{opacity:1}100%{opacity:0;transform:translateY(118px)}}
+@keyframes wg-wiggle{25%{transform:rotate(-4deg)}75%{transform:rotate(4deg)}}
+@keyframes wg-wiggle2{25%{transform:rotate(-4deg)}75%{transform:rotate(4deg)}}
+@media (max-width: 899px){.wg-field{grid-template-columns:1fr;justify-items:center;gap:12px;padding:0 16px}.wg-bed{height:170px}.wg-pot{width:44px;height:40px}}
+@media (prefers-reduced-motion: reduce){.wg-drop{animation:none}.wg-stem,.wg-bloom{transition:none}}
+</style>
+</helmet>
+<div class="wg-root" data-theme="terrarium" data-band="junior">
+  <img class="wg-bg" src="/_blob/42a1d142037c7463131ff440b4e5f999" alt="">
+  <!--LIVING_ART:terrarium:50%:50%-->
+  <div class="wg-veil"></div>
+  <!--AMBIENCE_HTML:garden-->
+  <header class="wg-hud">
+    <a class="wg-pill" href="Arcade.dc.html">‹ Arcade</a>
+    <div class="wg-title">
+      <strong>Word Garden</strong>
+      <span>Stage 8 · Match it · P3 Science: life cycles</span>
+    </div>
+    <span class="wg-pill">{{bloomLabel}}</span>
+    <div class="wg-seg" role="group" aria-label="Ghost hands">
+      <sc-for list="{{handModes}}" as="m" hint-placeholder-count="3">
+        <button type="button" aria-pressed="{{m.pressed}}" onClick="{{m.pick}}">{{m.label}}</button>
+      </sc-for>
+    </div>
+  </header>
+  <main class="wg-field">
+    <div class="wg-card" data-w="{{wig}}">
+      <div class="wg-pic" role="img" aria-label="{{picLabel}}" style="{{picStyle}}"></div>
+      <p class="wg-ask">{{ask}}</p>
+      <div class="wg-letters" aria-label="{{lettersLabel}}">
+        <sc-for list="{{letters}}" as="l" hint-placeholder-count="7"><span data-s="{{l.s}}">{{l.ch}}</span></sc-for>
+      </div>
+    </div>
+    <div class="wg-bed" aria-label="{{bedLabel}}">
+      <sc-if value="{{showMiss}}" hint-placeholder-val="{{false}}"><span class="wg-hint">Almost! Try {{nextUpper}}.</span></sc-if>
+      <sc-for list="{{pots}}" as="p" hint-placeholder-count="8">
+        <div class="wg-pot" data-s="{{p.s}}" style="{{p.style}}">
+          <span class="wg-stem"></span><span class="wg-bloom"></span>
+          <sc-for list="{{p.drops}}" as="d" hint-placeholder-count="0"><span class="wg-drop" style="{{d.style}}"></span></sc-for>
+        </div>
+      </sc-for>
+    </div>
+  </main>
+  <section class="wg-keys">
+    <!--KEYBOARD_HTML-->
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"hands":{"editor":"enum","options":["on","fade","off"],"default":"on"},"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  // Life-cycle sprite sheets: four frames each, left to right.
+  FROG = '/_blob/d950da4d91207a7c4dfc3844601ad5c4';
+  WORM = '/_blob/f6bac9c63451755bef6836125c76842a';
+  PROMPTS = [
+    [this.FROG, 1, 'tadpole', 'It hatches from frogspawn and swims with its tail.'],
+    [this.WORM, 1, 'larva', 'The mealworm stage that eats and grows.'],
+    [this.FROG, 3, 'frog', 'The adult. It lays eggs to start again.'],
+    [this.WORM, 2, 'pupa', 'It rests and changes inside. It does not eat.'],
+    [this.FROG, 2, 'froglet', 'Legs, lungs and a shrinking tail.'],
+    [this.WORM, 3, 'beetle', 'The adult mealworm, with hard wing cases.'],
+  ];
+  COLOURS = ['#FF8FB8', '#B9A7F5', '#FFB86B', '#7FD3F0', '#FF8FB8', '#B9A7F5'];
+  state = { q: 0, typed: 0, hits: 0, misses: 0, miss: null, wrong: '', seq: 0, hands: null, wiggle: 0 };
+
+  componentDidMount() {
+    this.onKey = (e) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const k = e.key.length === 1 ? e.key.toLowerCase() : '';
+      if (!k) return;
+      e.preventDefault();
+      this.typeKey(k);
+    };
+    window.addEventListener('keydown', this.onKey);
+  }
+
+  componentWillUnmount() { window.removeEventListener('keydown', this.onKey); }
+
+  typeKey(k) {
+    const s = this.state;
+    if (s.q >= this.PROMPTS.length) return;
+    const w = this.PROMPTS[s.q][2];
+    const seq = s.seq + 1;
+    if (w[s.typed] !== k) {
+      this.setState({ seq, misses: s.misses + 1, wrong: k, miss: seq, wiggle: s.wiggle + 1 });
+      setTimeout(() => { if (this.state.miss === seq) this.setState({ wrong: '', miss: null }); }, 1300);
+      return;
+    }
+    const typed = s.typed + 1;
+    if (typed === w.length) this.setState({ seq, hits: s.hits + 1, q: s.q + 1, typed: 0, wrong: '', miss: null });
+    else this.setState({ seq, hits: s.hits + 1, typed, wrong: '', miss: null });
+  }
+
+  renderVals() {
+    const s = this.state;
+    const handsMode = s.hands ?? this.props.hands ?? 'on';
+    const done = s.q >= this.PROMPTS.length;
+    const qi = Math.min(s.q, this.PROMPTS.length - 1);
+    const [sheet, frame, word, clue] = this.PROMPTS[qi];
+    const next = done ? '' : word[s.typed];
+    return {
+      ...this.amModel(Math.min(3, Math.floor(s.q / 2)), s.q ? (s.q % 2 ? 'a' : 'b') : ''),
+      ...this.kbModel(next, s.wrong, handsMode),
+      picStyle: `background-image: url(${sheet}); background-position: ${frame * 33.333}% 50%`,
+      picLabel: `Picture: ${clue}`,
+      ask: done ? 'Your garden is in full bloom!' : `Which stage is this? ${clue}`,
+      letters: done ? [] : word.split('').map((ch, i) => ({ ch: i < s.typed ? ch.toUpperCase() : '', s: i < s.typed ? 'done' : i === s.typed ? 'now' : 'todo' })),
+      lettersLabel: `${s.typed} of ${word.length} letters`,
+      wig: s.wiggle ? (s.wiggle % 2 ? 'a' : 'b') : '',
+      pots: this.PROMPTS.map((_, i) => {
+        const g = i < s.q ? 1 : i === s.q ? 0.15 + (s.typed / word.length) * 0.55 : 0.05;
+        return {
+          s: i < s.q ? 'bloom' : i === s.q ? 'now' : 'wait',
+          style: `--g: ${g.toFixed(2)}; --c: ${this.COLOURS[i]}`,
+          drops: i === s.q && s.typed > 0 ? [{ style: `animation-name: ${s.typed % 2 ? 'wg-drop' : 'wg-drop2'}` }] : [],
+        };
+      }),
+      bloomLabel: `${s.q} of ${this.PROMPTS.length} flowers`,
+      bedLabel: `${s.q} flowers have bloomed`,
+      showMiss: s.miss !== null,
+      nextUpper: (next || '').toUpperCase(),
+      handModes: [['on', 'Hands on'], ['fade', 'Fade'], ['off', 'Off']].map(([id, label]) => ({ label, pressed: handsMode === id ? 'true' : 'false', pick: () => this.setState({ hands: id }) })),
+    };
+  }
+
+/*KEYBOARD_JS*/
+/*AMBIENCE_JS*/
+}
+</script>
+</body>
+</html>

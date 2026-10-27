@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Arcade</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+/*AMBIENCE_CSS*/
+.ar-root>.la{opacity:.75}
+.ar-marquee{position:relative}
+.ar-marquee::before,.ar-marquee::after{content:"";position:absolute;left:12px;right:12px;top:4px;height:5px;background:radial-gradient(circle,#FFE38A 0 1.7px,rgba(255,227,138,0) 2.8px) 0 0/14px 5px repeat-x;filter:drop-shadow(0 0 3px #FFE38A);pointer-events:none;animation:ar-bulbs .7s steps(1) infinite}
+.ar-marquee::after{background-position:7px 0;animation-delay:-.35s}
+@keyframes ar-bulbs{0%{opacity:1}50%{opacity:.2}}
+@media (prefers-reduced-motion: reduce){.ar-marquee::before,.ar-marquee::after{animation:none}}
+.ar-root{position:relative;width:100%;min-height:100vh;box-sizing:border-box;overflow:hidden;background:#1E1C45;color:#F4F1FF;font-family:var(--font-text)}
+.ar-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.75}
+.ar-veil{position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(185,167,245,.25),rgba(30,28,69,0) 70%),linear-gradient(180deg,rgba(30,28,69,.2),rgba(30,28,69,.85))}
+.ar-wrap{position:relative;max-width:1440px;margin:0 auto;box-sizing:border-box;padding:24px 32px 32px;display:flex;flex-direction:column;gap:22px}
+.ar-head{display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+.ar-h1{margin:0;font:600 clamp(36px,5vw,56px)/1 var(--font-display);text-shadow:0 0 30px rgba(255,227,138,.45)}
+.ar-chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;box-sizing:border-box;padding:0 16px;border-radius:999px;background:rgba(43,42,92,.75);box-shadow:inset 0 0 0 1px rgba(185,167,245,.4);font:800 15px/1 var(--font-text);color:#F4F1FF;text-decoration:none}
+.ar-kix{display:flex;align-items:center;gap:12px;margin-left:auto;max-width:440px}
+.ar-kix img{width:72px;height:auto;filter:drop-shadow(0 6px 12px rgba(10,8,40,.5))}
+.ar-kix p{margin:0;padding:10px 14px;border-radius:18px 18px 18px 6px;background:rgba(43,42,92,.85);box-shadow:inset 0 0 0 1px rgba(185,167,245,.35);font:700 15px/1.4 var(--font-text)}
+.ar-tabs{display:inline-flex;align-self:flex-start;padding:4px;gap:4px;border-radius:999px;background:rgba(43,42,92,.75);box-shadow:inset 0 0 0 1px rgba(185,167,245,.4)}
+.ar-tabs button{min-height:40px;padding:0 16px;border:0;border-radius:999px;background:transparent;color:#F4F1FF;font:800 14px/1 var(--font-text);cursor:pointer}
+.ar-tabs button[aria-pressed="true"]{background:#B9A7F5;color:#1E1C45}
+.ar-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+.ar-cab{position:relative;display:flex;flex-direction:column;border-radius:26px 26px 18px 18px;background:linear-gradient(180deg,#3A3580,#25234F);box-shadow:inset 0 0 0 2px rgba(185,167,245,.35),0 18px 40px rgba(8,6,30,.45);color:inherit;text-decoration:none;overflow:hidden;transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s}
+.ar-cab:hover,.ar-cab:focus-visible{transform:translateY(-6px);box-shadow:inset 0 0 0 2px #FFE38A,0 0 34px rgba(255,227,138,.4),0 18px 40px rgba(8,6,30,.45);outline:none}
+.ar-marquee{padding:12px 16px 10px;text-align:center;font:700 22px/1 var(--font-display);letter-spacing:.03em;background:linear-gradient(90deg,rgba(255,61,203,.35),rgba(61,245,255,.35));text-shadow:0 0 12px rgba(255,255,255,.7)}
+.ar-screen{position:relative;margin:0 14px;height:150px;border-radius:14px;overflow:hidden;background:#120C2B;box-shadow:inset 0 0 0 3px #15132F}
+.ar-screen img{width:100%;height:100%;object-fit:cover}
+.ar-screen::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(180deg,rgba(255,255,255,.05) 0 2px,transparent 2px 4px);pointer-events:none}
+.ar-blink{position:absolute;left:0;right:0;bottom:10px;text-align:center;font:800 13px/1 var(--font-text);letter-spacing:.14em;color:#FFE38A;text-shadow:0 0 8px #FFE38A;animation:ar-blink 1.2s steps(2) infinite}
+.ar-word{position:absolute;padding:4px 8px;border-radius:8px;background:rgba(20,16,60,.8);font:600 15px/1 var(--font-display);color:#FFFFFF}
+.ar-body{display:flex;flex-direction:column;gap:8px;padding:14px 16px 16px}
+.ar-tag{align-self:flex-start;padding:4px 10px;border-radius:999px;background:#A8F0D4;color:#1E1C45;font:800 12px/1.2 var(--font-text)}
+.ar-desc{margin:0;font:600 14px/1.4 var(--font-text);color:#C6BFEE}
+.ar-prog{display:flex;align-items:center;justify-content:space-between;gap:8px;font:800 14px/1 var(--font-text)}
+.ar-prog span:last-child{color:#FFE38A}
+.ar-cab[data-soon="yes"]{filter:saturate(.4);opacity:.75}
+.ar-cab[data-soon="yes"] .ar-blink{color:#C6BFEE;text-shadow:none;animation:none}
+.ar-foot{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:14px 18px;border-radius:20px;background:rgba(43,42,92,.7);box-shadow:inset 0 0 0 1px rgba(185,167,245,.3);font:700 14px/1.4 var(--font-text);color:#C6BFEE}
+.ar-foot strong{color:#F4F1FF}
+.ar-root[data-variant="teen"] .ar-cab{border-radius:16px}
+.ar-root[data-variant="teen"] .ar-tag{background:#3DF5FF}
+@keyframes ar-blink{50%{opacity:.2}}
+@media (max-width: 599px){.ar-wrap{padding:16px 12px 20px}.ar-kix{margin-left:0}.ar-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}.ar-screen{height:110px;margin:0 10px}.ar-marquee{font-size:17px}}
+@media (prefers-reduced-motion: reduce){.ar-blink{animation:none}.ar-cab{transition:none}}
+</style>
+</helmet>
+<div class="ar-root" data-theme="dreamlight" data-band="{{band}}" data-variant="{{variant}}">
+  <img class="ar-bg" src="/_blob/a8d707ec8a8d491d808bf2d4cd5b1d6c" alt="">
+  <!--LIVING_ART:space:50%:50%-->
+  <div class="ar-veil"></div>
+  <!--AMBIENCE_HTML:arcade-->
+  <div class="ar-wrap">
+    <header class="ar-head">
+      <a class="ar-chip" href="Home.dc.html">‹ Home</a>
+      <h1 class="ar-h1">Arcade</h1>
+      <span class="ar-chip">{{who}}</span>
+      <span class="ar-chip" title="Games count toward screen time">Today: 18 of 30 min</span>
+      <div class="ar-kix">
+        <img src="{{kixSrc}}" alt="">
+        <p>{{kixLine}}</p>
+      </div>
+    </header>
+    <div class="ar-tabs" role="group" aria-label="Show">
+      <sc-for list="{{filters}}" as="f" hint-placeholder-count="3"><button type="button" aria-pressed="{{f.pressed}}" onClick="{{f.pick}}">{{f.label}}</button></sc-for>
+    </div>
+    <div class="ar-grid">
+      <sc-for list="{{games}}" as="g" hint-placeholder-count="6">
+        <a class="ar-cab" href="{{g.href}}" data-soon="{{g.soon}}" aria-label="{{g.aria}}">
+          <div class="ar-marquee">{{g.name}}</div>
+          <div class="ar-screen">
+            <img src="{{g.art}}" alt="">
+            <sc-for list="{{g.words}}" as="w" hint-placeholder-count="2"><span class="ar-word" style="{{w.style}}">{{w.t}}</span></sc-for>
+            <span class="ar-blink">{{g.blink}}</span>
+          </div>
+          <div class="ar-body">
+            <span class="ar-tag">{{g.tag}}</span>
+            <p class="ar-desc">{{g.desc}}</p>
+            <div class="ar-prog"><span>{{g.stage}}</span><span>{{g.stars}}</span></div>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+    <footer class="ar-foot">
+      <span><strong>Stars come from how you play, never luck.</strong> Your best is only compared with your own best.</span>
+      <a class="mk-btn mk-btn--reward" href="TypingPath.dc.html" style="margin-left: auto; text-decoration: none">My typing path and card</a>
+    </footer>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"variant":{"editor":"enum","options":["junior","teen"],"default":"junior"},"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  state = { filter: 'all' };
+
+/*AMBIENCE_JS*/
+
+  renderVals() {
+    const teen = this.props.variant === 'teen';
+    const SPACE = '/_blob/e53b312451a9a26a537a4ceccd4574f7';
+    const NEON = '/_blob/d753dffc5beda0152688d3693d5fee48';
+    const GARDEN = '/_blob/42a1d142037c7463131ff440b4e5f999';
+    const QUEST = '/_blob/69e55678ceb673bf94acd536ed6023e0';
+    const VAULT = '/_blob/51658a9e815144ebc0da19f028bc2f57';
+    const w = (t, x, y) => ({ t, style: `left: ${x}%; top: ${y}%` });
+    const ALL = [
+      { id: 'star', name: 'Star Typer', href: 'StarTyper.dc.html', art: SPACE, words: [w('frog', 14, 22), w('pond', 58, 40)], tag: 'Typing · P3 English words', desc: 'Kix fires a star-bolt for every right key. Ghost hands show each finger.', stage: 'Stage 4 · Little words', stars: '★ 11 of 27', bands: ['junior', 'teen'], kind: 'typing' },
+      { id: 'garden', name: 'Word Garden', href: 'WordGarden.dc.html', art: GARDEN, words: [w('tadpole', 20, 30)], tag: 'Typing · P3 Science life cycles', desc: 'Type the stage you see. Every right word grows a flower. No timer.', stage: 'Stage 8 · Match it', stars: '★ 4 of 18', bands: ['junior'], kind: 'typing' },
+      { id: 'neon', name: 'Neon Strike', href: 'NeonStrike.dc.html', art: NEON, words: [w('friction', 30, 34)], tag: 'Typing · Sec 2 Science answers', desc: 'Answer the question by typing it. Beams fire only on the right keys. Track your words a minute.', stage: 'Stage 7 · Answer blast', stars: '★ 9 of 21', bands: ['teen'], kind: 'typing' },
+      { id: 'dash', name: 'Number Dash', href: 'Arcade.dc.html', art: QUEST, words: [w('7 × 8', 36, 30)], tag: 'Maths · P3 times tables', desc: 'Race along the sky path by answering facts. Coming soon.', stage: 'Coming soon', stars: '', bands: ['junior'], kind: 'maths', soon: true },
+      { id: 'stroke', name: 'Stroke Quest', href: 'Arcade.dc.html', art: VAULT, words: [w('写', 44, 28)], tag: 'Chinese · P3 stroke order', desc: 'Trace each character stroke by stroke from your word cards. Coming soon.', stage: 'Coming soon', stars: '', bands: ['junior'], kind: 'chinese', soon: true },
+      { id: 'ratio', name: 'Ratio Rescue', href: 'Arcade.dc.html', art: QUEST, words: [w('3 : 5', 38, 30)], tag: 'Maths · P6 ratio', desc: 'Balance the bridges with the right ratios. Coming soon.', stage: 'Coming soon', stars: '', bands: ['teen'], kind: 'maths', soon: true },
+      { id: 'circuit', name: 'Circuit Builder', href: 'Arcade.dc.html', art: NEON, words: [w('R = V / I', 26, 30)], tag: 'Science · Sec 2 electricity', desc: 'Wire the stage lights without blowing a fuse. Coming soon.', stage: 'Coming soon', stars: '', bands: ['teen'], kind: 'science', soon: true },
+    ];
+    const band = teen ? 'teen' : 'junior';
+    const f = this.state.filter;
+    const games = ALL.filter((g) => g.bands.includes(band) && (f === 'all' || (f === 'typing' ? g.kind === 'typing' : g.kind !== 'typing')))
+      .map((g) => ({ ...g, soon: g.soon ? 'yes' : 'no', blink: g.soon ? 'COMING SOON' : 'PRESS START', aria: `${g.name}. ${g.tag}. ${g.stage}` }));
+    return {
+      ...this.amModel(0, ''),
+      band,
+      variant: band,
+      who: teen ? 'Mei · Sec 2' : 'Ari · P3',
+      kixSrc: teen ? '/_blob/b1a0d040fdecae5f59f1b400eef42c34' : '/_blob/bb08e7ec23418f8b39ef9322df1f30f6',
+      kixLine: teen ? 'Every game here uses your own Sec 2 words and questions. Warm up with Neon Strike?' : 'These games use your own spelling and science words. Ready to fly, Ari?',
+      filters: [['all', 'All games'], ['typing', 'Typing'], ['subjects', 'Subjects']].map(([id, label]) => ({ label, pressed: f === id ? 'true' : 'false', pick: () => this.setState({ filter: id }) })),
+      games,
+    };
+  }
+}
+</script>
+</body>
+</html>

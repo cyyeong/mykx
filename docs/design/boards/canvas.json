@@ -68,7 +68,8 @@
       "w": 1280,
       "x": 1360,
       "y": 1220,
-      "expand": "fill"
+      "expand": "fill",
+      "is_interactive": true
     },
     "Treasure.dc.html": {
       "h": 800,
@@ -149,7 +150,7 @@
       "h": 844,
       "page": "devices",
       "is_interactive": true,
-      "title": "Sidekick Studio \u00b7 Phone 390 \u00d7 844"
+      "title": "Sidekick Studio · Phone 390 × 844"
     },
     "Main-fold.dc.html": {
       "x": 470,
@@ -158,7 +159,7 @@
       "h": 840,
       "page": "devices",
       "is_interactive": true,
-      "title": "Sidekick Studio \u00b7 Foldable open 720 \u00d7 840"
+      "title": "Sidekick Studio · Foldable open 720 × 840"
     },
     "Main-tabp.dc.html": {
       "x": 1270,
@@ -167,7 +168,7 @@
       "h": 1180,
       "page": "devices",
       "is_interactive": true,
-      "title": "Sidekick Studio \u00b7 Tablet portrait 820 \u00d7 1180"
+      "title": "Sidekick Studio · Tablet portrait 820 × 1180"
     },
     "Main-desk.dc.html": {
       "x": 2170,
@@ -176,7 +177,7 @@
       "h": 1000,
       "page": "devices",
       "is_interactive": true,
-      "title": "Sidekick Studio \u00b7 Desktop 1600 \u00d7 1000"
+      "title": "Sidekick Studio · Desktop 1600 × 1000"
     },
     "StudioReveal-phone.dc.html": {
       "x": 0,
@@ -185,7 +186,7 @@
       "h": 844,
       "page": "devices",
       "is_interactive": true,
-      "title": "Studio: transform and reveal \u00b7 Phone 390 \u00d7 844"
+      "title": "Studio: transform and reveal · Phone 390 × 844"
     },
     "StudioReveal-fold.dc.html": {
       "x": 470,
@@ -194,7 +195,7 @@
       "h": 840,
       "page": "devices",
       "is_interactive": true,
-      "title": "Studio: transform and reveal \u00b7 Foldable open 720 \u00d7 840"
+      "title": "Studio: transform and reveal · Foldable open 720 × 840"
     },
     "StudioReveal-tabp.dc.html": {
       "x": 1270,
@@ -203,7 +204,7 @@
       "h": 1180,
       "page": "devices",
       "is_interactive": true,
-      "title": "Studio: transform and reveal \u00b7 Tablet portrait 820 \u00d7 1180"
+      "title": "Studio: transform and reveal · Tablet portrait 820 × 1180"
     },
     "StudioReveal-desk.dc.html": {
       "x": 2170,
@@ -212,7 +213,7 @@
       "h": 1000,
       "page": "devices",
       "is_interactive": true,
-      "title": "Studio: transform and reveal \u00b7 Desktop 1600 \u00d7 1000"
+      "title": "Studio: transform and reveal · Desktop 1600 × 1000"
     },
     "Home-phone.dc.html": {
       "x": 0,
@@ -221,7 +222,7 @@
       "h": 844,
       "page": "devices",
       "is_interactive": true,
-      "title": "Home \u00b7 Phone 390 \u00d7 844"
+      "title": "Home · Phone 390 × 844"
     },
     "Home-fold.dc.html": {
       "x": 470,
@@ -230,7 +231,7 @@
       "h": 840,
       "page": "devices",
       "is_interactive": true,
-      "title": "Home \u00b7 Foldable open 720 \u00d7 840"
+      "title": "Home · Foldable open 720 × 840"
     },
     "Home-tabp.dc.html": {
       "x": 1270,
@@ -239,7 +240,7 @@
       "h": 1180,
       "page": "devices",
       "is_interactive": true,
-      "title": "Home \u00b7 Tablet portrait 820 \u00d7 1180"
+      "title": "Home · Tablet portrait 820 × 1180"
     },
     "Home-desk.dc.html": {
       "x": 2170,
@@ -248,7 +249,7 @@
       "h": 1000,
       "page": "devices",
       "is_interactive": true,
-      "title": "Home \u00b7 Desktop 1600 \u00d7 1000"
+      "title": "Home · Desktop 1600 × 1000"
     },
     "QuestMap-phone.dc.html": {
       "x": 0,
@@ -257,7 +258,7 @@
       "h": 844,
       "page": "devices",
       "is_interactive": true,
-      "title": "Quest map \u00b7 Phone 390 \u00d7 844"
+      "title": "Quest map · Phone 390 × 844"
     },
     "QuestMap-fold.dc.html": {
       "x": 470,
@@ -266,7 +267,7 @@
       "h": 840,
       "page": "devices",
       "is_interactive": true,
-      "title": "Quest map \u00b7 Foldable open 720 \u00d7 840"
+      "title": "Quest map · Foldable open 720 × 840"
     },
     "QuestMap-tabp.dc.html": {
       "x": 1270,
@@ -275,7 +276,7 @@
       "h": 1180,
       "page": "devices",
       "is_interactive": true,
-      "title": "Quest map \u00b7 Tablet portrait 820 \u00d7 1180"
+      "title": "Quest map · Tablet portrait 820 × 1180"
     },
     "QuestMap-desk.dc.html": {
       "x": 2170,
@@ -284,7 +285,7 @@
       "h": 1000,
       "page": "devices",
       "is_interactive": true,
-      "title": "Quest map \u00b7 Desktop 1600 \u00d7 1000"
+      "title": "Quest map · Desktop 1600 × 1000"
     },
     "Question-phone.dc.html": {
       "x": 0,
@@ -293,7 +294,7 @@
       "h": 844,
       "page": "devices",
       "is_interactive": true,
-      "title": "Question and reward \u00b7 Phone 390 \u00d7 844"
+      "title": "Question and reward · Phone 390 × 844"
     },
     "Question-fold.dc.html": {
       "x": 470,
@@ -302,7 +303,7 @@
       "h": 840,
       "page": "devices",
       "is_interactive": true,
-      "title": "Question and reward \u00b7 Foldable open 720 \u00d7 840"
+      "title": "Question and reward · Foldable open 720 × 840"
     },
     "Question-tabp.dc.html": {
       "x": 1270,
@@ -311,7 +312,7 @@
       "h": 1180,
       "page": "devices",
       "is_interactive": true,
-      "title": "Question and reward \u00b7 Tablet portrait 820 \u00d7 1180"
+      "title": "Question and reward · Tablet portrait 820 × 1180"
     },
     "Question-desk.dc.html": {
       "x": 2170,
@@ -320,7 +321,7 @@
       "h": 1000,
       "page": "devices",
       "is_interactive": true,
-      "title": "Question and reward \u00b7 Desktop 1600 \u00d7 1000"
+      "title": "Question and reward · Desktop 1600 × 1000"
     },
     "Treasure-phone.dc.html": {
       "x": 0,
@@ -329,7 +330,7 @@
       "h": 844,
       "page": "devices",
       "is_interactive": true,
-      "title": "Treasure Realm \u00b7 Phone 390 \u00d7 844"
+      "title": "Treasure Realm · Phone 390 × 844"
     },
     "Treasure-fold.dc.html": {
       "x": 470,
@@ -338,7 +339,7 @@
       "h": 840,
       "page": "devices",
       "is_interactive": true,
-      "title": "Treasure Realm \u00b7 Foldable open 720 \u00d7 840"
+      "title": "Treasure Realm · Foldable open 720 × 840"
     },
     "Treasure-tabp.dc.html": {
       "x": 1270,
@@ -347,7 +348,7 @@
       "h": 1180,
       "page": "devices",
       "is_interactive": true,
-      "title": "Treasure Realm \u00b7 Tablet portrait 820 \u00d7 1180"
+      "title": "Treasure Realm · Tablet portrait 820 × 1180"
     },
     "Treasure-desk.dc.html": {
       "x": 2170,
@@ -356,7 +357,7 @@
       "h": 1000,
       "page": "devices",
       "is_interactive": true,
-      "title": "Treasure Realm \u00b7 Desktop 1600 \u00d7 1000"
+      "title": "Treasure Realm · Desktop 1600 × 1000"
     },
     "CritterLab-phone.dc.html": {
       "x": 0,
@@ -365,7 +366,7 @@
       "h": 844,
       "page": "devices",
       "is_interactive": true,
-      "title": "Critter Lab \u00b7 Phone 390 \u00d7 844"
+      "title": "Critter Lab · Phone 390 × 844"
     },
     "CritterLab-fold.dc.html": {
       "x": 470,
@@ -374,7 +375,7 @@
       "h": 840,
       "page": "devices",
       "is_interactive": true,
-      "title": "Critter Lab \u00b7 Foldable open 720 \u00d7 840"
+      "title": "Critter Lab · Foldable open 720 × 840"
     },
     "CritterLab-tabp.dc.html": {
       "x": 1270,
@@ -383,7 +384,7 @@
       "h": 1180,
       "page": "devices",
       "is_interactive": true,
-      "title": "Critter Lab \u00b7 Tablet portrait 820 \u00d7 1180"
+      "title": "Critter Lab · Tablet portrait 820 × 1180"
     },
     "CritterLab-desk.dc.html": {
       "x": 2170,
@@ -392,7 +393,7 @@
       "h": 1000,
       "page": "devices",
       "is_interactive": true,
-      "title": "Critter Lab \u00b7 Desktop 1600 \u00d7 1000"
+      "title": "Critter Lab · Desktop 1600 × 1000"
     },
     "SkySquadron-phone.dc.html": {
       "x": 0,
@@ -401,7 +402,7 @@
       "h": 844,
       "page": "devices",
       "is_interactive": true,
-      "title": "Sky Squadron \u00b7 Phone 390 \u00d7 844"
+      "title": "Sky Squadron · Phone 390 × 844"
     },
     "SkySquadron-fold.dc.html": {
       "x": 470,
@@ -410,7 +411,7 @@
       "h": 840,
       "page": "devices",
       "is_interactive": true,
-      "title": "Sky Squadron \u00b7 Foldable open 720 \u00d7 840"
+      "title": "Sky Squadron · Foldable open 720 × 840"
     },
     "SkySquadron-tabp.dc.html": {
       "x": 1270,
@@ -419,7 +420,7 @@
       "h": 1180,
       "page": "devices",
       "is_interactive": true,
-      "title": "Sky Squadron \u00b7 Tablet portrait 820 \u00d7 1180"
+      "title": "Sky Squadron · Tablet portrait 820 × 1180"
     },
     "SkySquadron-desk.dc.html": {
       "x": 2170,
@@ -428,7 +429,7 @@
       "h": 1000,
       "page": "devices",
       "is_interactive": true,
-      "title": "Sky Squadron \u00b7 Desktop 1600 \u00d7 1000"
+      "title": "Sky Squadron · Desktop 1600 × 1000"
     },
     "VibeZone-phone.dc.html": {
       "x": 0,
@@ -437,7 +438,7 @@
       "h": 844,
       "page": "devices",
       "is_interactive": true,
-      "title": "Vibe Zone \u00b7 Phone 390 \u00d7 844"
+      "title": "Vibe Zone · Phone 390 × 844"
     },
     "VibeZone-fold.dc.html": {
       "x": 470,
@@ -446,7 +447,7 @@
       "h": 840,
       "page": "devices",
       "is_interactive": true,
-      "title": "Vibe Zone \u00b7 Foldable open 720 \u00d7 840"
+      "title": "Vibe Zone · Foldable open 720 × 840"
     },
     "VibeZone-tabp.dc.html": {
       "x": 1270,
@@ -455,7 +456,7 @@
       "h": 1180,
       "page": "devices",
       "is_interactive": true,
-      "title": "Vibe Zone \u00b7 Tablet portrait 820 \u00d7 1180"
+      "title": "Vibe Zone · Tablet portrait 820 × 1180"
     },
     "VibeZone-desk.dc.html": {
       "x": 2170,
@@ -464,7 +465,7 @@
       "h": 1000,
       "page": "devices",
       "is_interactive": true,
-      "title": "Vibe Zone \u00b7 Desktop 1600 \u00d7 1000"
+      "title": "Vibe Zone · Desktop 1600 × 1000"
     },
     "VoiceSound-phone.dc.html": {
       "x": 0,
@@ -473,7 +474,7 @@
       "h": 844,
       "page": "devices",
       "is_interactive": true,
-      "title": "Talk to Kix and Study Song \u00b7 Phone 390 \u00d7 844"
+      "title": "Talk to Kix and Study Song · Phone 390 × 844"
     },
     "VoiceSound-fold.dc.html": {
       "x": 470,
@@ -482,7 +483,7 @@
       "h": 840,
       "page": "devices",
       "is_interactive": true,
-      "title": "Talk to Kix and Study Song \u00b7 Foldable open 720 \u00d7 840"
+      "title": "Talk to Kix and Study Song · Foldable open 720 × 840"
     },
     "VoiceSound-tabp.dc.html": {
       "x": 1270,
@@ -491,7 +492,7 @@
       "h": 1180,
       "page": "devices",
       "is_interactive": true,
-      "title": "Talk to Kix and Study Song \u00b7 Tablet portrait 820 \u00d7 1180"
+      "title": "Talk to Kix and Study Song · Tablet portrait 820 × 1180"
     },
     "VoiceSound-desk.dc.html": {
       "x": 2170,
@@ -500,7 +501,7 @@
       "h": 1000,
       "page": "devices",
       "is_interactive": true,
-      "title": "Talk to Kix and Study Song \u00b7 Desktop 1600 \u00d7 1000"
+      "title": "Talk to Kix and Study Song · Desktop 1600 × 1000"
     },
     "StudyDeck-phone.dc.html": {
       "x": 0,
@@ -509,7 +510,7 @@
       "h": 844,
       "page": "devices",
       "is_interactive": true,
-      "title": "Study deck (Teen) \u00b7 Phone 390 \u00d7 844"
+      "title": "Study deck (Teen) · Phone 390 × 844"
     },
     "StudyDeck-fold.dc.html": {
       "x": 470,
@@ -518,7 +519,7 @@
       "h": 840,
       "page": "devices",
       "is_interactive": true,
-      "title": "Study deck (Teen) \u00b7 Foldable open 720 \u00d7 840"
+      "title": "Study deck (Teen) · Foldable open 720 × 840"
     },
     "StudyDeck-tabp.dc.html": {
       "x": 1270,
@@ -527,7 +528,7 @@
       "h": 1180,
       "page": "devices",
       "is_interactive": true,
-      "title": "Study deck (Teen) \u00b7 Tablet portrait 820 \u00d7 1180"
+      "title": "Study deck (Teen) · Tablet portrait 820 × 1180"
     },
     "StudyDeck-desk.dc.html": {
       "x": 2170,
@@ -536,7 +537,7 @@
       "h": 1000,
       "page": "devices",
       "is_interactive": true,
-      "title": "Study deck (Teen) \u00b7 Desktop 1600 \u00d7 1000"
+      "title": "Study deck (Teen) · Desktop 1600 × 1000"
     },
     "Parent-phone.dc.html": {
       "x": 0,
@@ -545,7 +546,7 @@
       "h": 844,
       "page": "devices",
       "is_interactive": true,
-      "title": "Parent: tonight's summary \u00b7 Phone 390 \u00d7 844"
+      "title": "Parent: tonight's summary · Phone 390 × 844"
     },
     "Parent-fold.dc.html": {
       "x": 470,
@@ -554,7 +555,7 @@
       "h": 840,
       "page": "devices",
       "is_interactive": true,
-      "title": "Parent: tonight's summary \u00b7 Foldable open 720 \u00d7 840"
+      "title": "Parent: tonight's summary · Foldable open 720 × 840"
     },
     "Parent-tabp.dc.html": {
       "x": 1270,
@@ -563,7 +564,7 @@
       "h": 1180,
       "page": "devices",
       "is_interactive": true,
-      "title": "Parent: tonight's summary \u00b7 Tablet portrait 820 \u00d7 1180"
+      "title": "Parent: tonight's summary · Tablet portrait 820 × 1180"
     },
     "Parent-desk.dc.html": {
       "x": 2170,
@@ -572,7 +573,7 @@
       "h": 1000,
       "page": "devices",
       "is_interactive": true,
-      "title": "Parent: tonight's summary \u00b7 Desktop 1600 \u00d7 1000"
+      "title": "Parent: tonight's summary · Desktop 1600 × 1000"
     },
     "Notebook-phone.dc.html": {
       "x": 0,
@@ -581,7 +582,7 @@
       "h": 844,
       "page": "devices",
       "is_interactive": true,
-      "title": "Parent: what Kix remembers \u00b7 Phone 390 \u00d7 844"
+      "title": "Parent: what Kix remembers · Phone 390 × 844"
     },
     "Notebook-fold.dc.html": {
       "x": 470,
@@ -590,7 +591,7 @@
       "h": 840,
       "page": "devices",
       "is_interactive": true,
-      "title": "Parent: what Kix remembers \u00b7 Foldable open 720 \u00d7 840"
+      "title": "Parent: what Kix remembers · Foldable open 720 × 840"
     },
     "Notebook-tabp.dc.html": {
       "x": 1270,
@@ -599,7 +600,7 @@
       "h": 1180,
       "page": "devices",
       "is_interactive": true,
-      "title": "Parent: what Kix remembers \u00b7 Tablet portrait 820 \u00d7 1180"
+      "title": "Parent: what Kix remembers · Tablet portrait 820 × 1180"
     },
     "Notebook-desk.dc.html": {
       "x": 2170,
@@ -608,7 +609,7 @@
       "h": 1000,
       "page": "devices",
       "is_interactive": true,
-      "title": "Parent: what Kix remembers \u00b7 Desktop 1600 \u00d7 1000"
+      "title": "Parent: what Kix remembers · Desktop 1600 × 1000"
     },
     "AdminSkills-phone.dc.html": {
       "x": 0,
@@ -617,7 +618,7 @@
       "h": 844,
       "page": "devices",
       "is_interactive": true,
-      "title": "Skills admin: catalogue \u00b7 Phone 390 \u00d7 844"
+      "title": "Skills admin: catalogue · Phone 390 × 844"
     },
     "AdminSkills-fold.dc.html": {
       "x": 470,
@@ -626,7 +627,7 @@
       "h": 840,
       "page": "devices",
       "is_interactive": true,
-      "title": "Skills admin: catalogue \u00b7 Foldable open 720 \u00d7 840"
+      "title": "Skills admin: catalogue · Foldable open 720 × 840"
     },
     "AdminSkills-tabp.dc.html": {
       "x": 1270,
@@ -635,7 +636,7 @@
       "h": 1180,
       "page": "devices",
       "is_interactive": true,
-      "title": "Skills admin: catalogue \u00b7 Tablet portrait 820 \u00d7 1180"
+      "title": "Skills admin: catalogue · Tablet portrait 820 × 1180"
     },
     "AdminSkills-desk.dc.html": {
       "x": 2170,
@@ -644,7 +645,7 @@
       "h": 1000,
       "page": "devices",
       "is_interactive": true,
-      "title": "Skills admin: catalogue \u00b7 Desktop 1600 \u00d7 1000"
+      "title": "Skills admin: catalogue · Desktop 1600 × 1000"
     },
     "AdminUpload-phone.dc.html": {
       "x": 0,
@@ -653,7 +654,7 @@
       "h": 844,
       "page": "devices",
       "is_interactive": true,
-      "title": "Skills admin: add knowledge \u00b7 Phone 390 \u00d7 844"
+      "title": "Skills admin: add knowledge · Phone 390 × 844"
     },
     "AdminUpload-fold.dc.html": {
       "x": 470,
@@ -662,7 +663,7 @@
       "h": 840,
       "page": "devices",
       "is_interactive": true,
-      "title": "Skills admin: add knowledge \u00b7 Foldable open 720 \u00d7 840"
+      "title": "Skills admin: add knowledge · Foldable open 720 × 840"
     },
     "AdminUpload-tabp.dc.html": {
       "x": 1270,
@@ -671,7 +672,7 @@
       "h": 1180,
       "page": "devices",
       "is_interactive": true,
-      "title": "Skills admin: add knowledge \u00b7 Tablet portrait 820 \u00d7 1180"
+      "title": "Skills admin: add knowledge · Tablet portrait 820 × 1180"
     },
     "AdminUpload-desk.dc.html": {
       "x": 2170,
@@ -680,7 +681,7 @@
       "h": 1000,
       "page": "devices",
       "is_interactive": true,
-      "title": "Skills admin: add knowledge \u00b7 Desktop 1600 \u00d7 1000"
+      "title": "Skills admin: add knowledge · Desktop 1600 × 1000"
     },
     "ParentDash.dc.html": {
       "x": 0,
@@ -716,7 +717,7 @@
       "h": 844,
       "page": "devices",
       "is_interactive": true,
-      "title": "Parent dashboard \u00b7 Phone 390 \u00d7 844"
+      "title": "Parent dashboard · Phone 390 × 844"
     },
     "ParentDash-fold.dc.html": {
       "x": 470,
@@ -725,7 +726,7 @@
       "h": 840,
       "page": "devices",
       "is_interactive": true,
-      "title": "Parent dashboard \u00b7 Foldable open 720 \u00d7 840"
+      "title": "Parent dashboard · Foldable open 720 × 840"
     },
     "ParentDash-tabp.dc.html": {
       "x": 1270,
@@ -734,7 +735,7 @@
       "h": 1180,
       "page": "devices",
       "is_interactive": true,
-      "title": "Parent dashboard \u00b7 Tablet portrait 820 \u00d7 1180"
+      "title": "Parent dashboard · Tablet portrait 820 × 1180"
     },
     "ParentDash-desk.dc.html": {
       "x": 2170,
@@ -743,7 +744,7 @@
       "h": 1000,
       "page": "devices",
       "is_interactive": true,
-      "title": "Parent dashboard \u00b7 Desktop 1600 \u00d7 1000"
+      "title": "Parent dashboard · Desktop 1600 × 1000"
     },
     "FamilyChat-phone.dc.html": {
       "x": 0,
@@ -752,7 +753,7 @@
       "h": 844,
       "page": "devices",
       "is_interactive": true,
-      "title": "Family messages (parent) \u00b7 Phone 390 \u00d7 844"
+      "title": "Family messages (parent) · Phone 390 × 844"
     },
     "FamilyChat-fold.dc.html": {
       "x": 470,
@@ -761,7 +762,7 @@
       "h": 840,
       "page": "devices",
       "is_interactive": true,
-      "title": "Family messages (parent) \u00b7 Foldable open 720 \u00d7 840"
+      "title": "Family messages (parent) · Foldable open 720 × 840"
     },
     "FamilyChat-tabp.dc.html": {
       "x": 1270,
@@ -770,7 +771,7 @@
       "h": 1180,
       "page": "devices",
       "is_interactive": true,
-      "title": "Family messages (parent) \u00b7 Tablet portrait 820 \u00d7 1180"
+      "title": "Family messages (parent) · Tablet portrait 820 × 1180"
     },
     "FamilyChat-desk.dc.html": {
       "x": 2170,
@@ -779,7 +780,7 @@
       "h": 1000,
       "page": "devices",
       "is_interactive": true,
-      "title": "Family messages (parent) \u00b7 Desktop 1600 \u00d7 1000"
+      "title": "Family messages (parent) · Desktop 1600 × 1000"
     },
     "KidMessage-phone.dc.html": {
       "x": 0,
@@ -788,7 +789,7 @@
       "h": 844,
       "page": "devices",
       "is_interactive": true,
-      "title": "Message from Mum (child) \u00b7 Phone 390 \u00d7 844"
+      "title": "Message from Mum (child) · Phone 390 × 844"
     },
     "KidMessage-fold.dc.html": {
       "x": 470,
@@ -797,7 +798,7 @@
       "h": 840,
       "page": "devices",
       "is_interactive": true,
-      "title": "Message from Mum (child) \u00b7 Foldable open 720 \u00d7 840"
+      "title": "Message from Mum (child) · Foldable open 720 × 840"
     },
     "KidMessage-tabp.dc.html": {
       "x": 1270,
@@ -806,7 +807,7 @@
       "h": 1180,
       "page": "devices",
       "is_interactive": true,
-      "title": "Message from Mum (child) \u00b7 Tablet portrait 820 \u00d7 1180"
+      "title": "Message from Mum (child) · Tablet portrait 820 × 1180"
     },
     "KidMessage-desk.dc.html": {
       "x": 2170,
@@ -815,7 +816,367 @@
       "h": 1000,
       "page": "devices",
       "is_interactive": true,
-      "title": "Message from Mum (child) \u00b7 Desktop 1600 \u00d7 1000"
+      "title": "Message from Mum (child) · Desktop 1600 × 1000"
+    },
+    "Login.dc.html": {
+      "x": 0,
+      "y": 8728,
+      "w": 1280,
+      "h": 800,
+      "is_interactive": true,
+      "expand": "fill",
+      "title": "Sign in: default (parents and admins)"
+    },
+    "LoginJunior.dc.html": {
+      "x": 1360,
+      "y": 8728,
+      "w": 1280,
+      "h": 800,
+      "is_interactive": true,
+      "expand": "fill",
+      "title": "Sign in: junior (picture code)"
+    },
+    "LoginTeen.dc.html": {
+      "x": 2720,
+      "y": 8728,
+      "w": 1280,
+      "h": 800,
+      "is_interactive": true,
+      "expand": "fill",
+      "title": "Sign in: teen (password)"
+    },
+    "KidDoors.dc.html": {
+      "x": 0,
+      "y": 9948,
+      "w": 1280,
+      "h": 800,
+      "is_interactive": true,
+      "expand": "fill",
+      "title": "Who's learning? (kid doors)"
+    },
+    "KidMe.dc.html": {
+      "x": 1360,
+      "y": 9948,
+      "w": 1280,
+      "h": 800,
+      "is_interactive": true,
+      "expand": "fill",
+      "title": "Me: nickname and picture code"
+    },
+    "FamilyAccounts.dc.html": {
+      "x": 2720,
+      "y": 9948,
+      "w": 390,
+      "h": 844,
+      "is_interactive": true,
+      "expand": "fill",
+      "title": "Your family (parent)"
+    },
+    "AdminPeople.dc.html": {
+      "x": 3190,
+      "y": 9948,
+      "w": 1440,
+      "h": 900,
+      "is_interactive": true,
+      "expand": "fill",
+      "title": "People (admin)"
+    },
+    "Login-phone.dc.html": {
+      "x": 0,
+      "y": 28800,
+      "w": 390,
+      "h": 844,
+      "page": "devices",
+      "is_interactive": true,
+      "title": "Sign in: default (parents and admins) · Phone 390 × 844"
+    },
+    "Login-fold.dc.html": {
+      "x": 470,
+      "y": 28800,
+      "w": 720,
+      "h": 840,
+      "page": "devices",
+      "is_interactive": true,
+      "title": "Sign in: default (parents and admins) · Foldable open 720 × 840"
+    },
+    "Login-tabp.dc.html": {
+      "x": 1270,
+      "y": 28800,
+      "w": 820,
+      "h": 1180,
+      "page": "devices",
+      "is_interactive": true,
+      "title": "Sign in: default (parents and admins) · Tablet portrait 820 × 1180"
+    },
+    "Login-desk.dc.html": {
+      "x": 2170,
+      "y": 28800,
+      "w": 1600,
+      "h": 1000,
+      "page": "devices",
+      "is_interactive": true,
+      "title": "Sign in: default (parents and admins) · Desktop 1600 × 1000"
+    },
+    "LoginJunior-phone.dc.html": {
+      "x": 0,
+      "y": 30400,
+      "w": 390,
+      "h": 844,
+      "page": "devices",
+      "is_interactive": true,
+      "title": "Sign in: junior (picture code) · Phone 390 × 844"
+    },
+    "LoginJunior-fold.dc.html": {
+      "x": 470,
+      "y": 30400,
+      "w": 720,
+      "h": 840,
+      "page": "devices",
+      "is_interactive": true,
+      "title": "Sign in: junior (picture code) · Foldable open 720 × 840"
+    },
+    "LoginJunior-tabp.dc.html": {
+      "x": 1270,
+      "y": 30400,
+      "w": 820,
+      "h": 1180,
+      "page": "devices",
+      "is_interactive": true,
+      "title": "Sign in: junior (picture code) · Tablet portrait 820 × 1180"
+    },
+    "LoginJunior-desk.dc.html": {
+      "x": 2170,
+      "y": 30400,
+      "w": 1600,
+      "h": 1000,
+      "page": "devices",
+      "is_interactive": true,
+      "title": "Sign in: junior (picture code) · Desktop 1600 × 1000"
+    },
+    "LoginTeen-phone.dc.html": {
+      "x": 0,
+      "y": 32000,
+      "w": 390,
+      "h": 844,
+      "page": "devices",
+      "is_interactive": true,
+      "title": "Sign in: teen (password) · Phone 390 × 844"
+    },
+    "LoginTeen-fold.dc.html": {
+      "x": 470,
+      "y": 32000,
+      "w": 720,
+      "h": 840,
+      "page": "devices",
+      "is_interactive": true,
+      "title": "Sign in: teen (password) · Foldable open 720 × 840"
+    },
+    "LoginTeen-tabp.dc.html": {
+      "x": 1270,
+      "y": 32000,
+      "w": 820,
+      "h": 1180,
+      "page": "devices",
+      "is_interactive": true,
+      "title": "Sign in: teen (password) · Tablet portrait 820 × 1180"
+    },
+    "LoginTeen-desk.dc.html": {
+      "x": 2170,
+      "y": 32000,
+      "w": 1600,
+      "h": 1000,
+      "page": "devices",
+      "is_interactive": true,
+      "title": "Sign in: teen (password) · Desktop 1600 × 1000"
+    },
+    "KidDoors-phone.dc.html": {
+      "x": 0,
+      "y": 33600,
+      "w": 390,
+      "h": 844,
+      "page": "devices",
+      "is_interactive": true,
+      "title": "Who's learning? (kid doors) · Phone 390 × 844"
+    },
+    "KidDoors-fold.dc.html": {
+      "x": 470,
+      "y": 33600,
+      "w": 720,
+      "h": 840,
+      "page": "devices",
+      "is_interactive": true,
+      "title": "Who's learning? (kid doors) · Foldable open 720 × 840"
+    },
+    "KidDoors-tabp.dc.html": {
+      "x": 1270,
+      "y": 33600,
+      "w": 820,
+      "h": 1180,
+      "page": "devices",
+      "is_interactive": true,
+      "title": "Who's learning? (kid doors) · Tablet portrait 820 × 1180"
+    },
+    "KidDoors-desk.dc.html": {
+      "x": 2170,
+      "y": 33600,
+      "w": 1600,
+      "h": 1000,
+      "page": "devices",
+      "is_interactive": true,
+      "title": "Who's learning? (kid doors) · Desktop 1600 × 1000"
+    },
+    "KidMe-phone.dc.html": {
+      "x": 0,
+      "y": 35200,
+      "w": 390,
+      "h": 844,
+      "page": "devices",
+      "is_interactive": true,
+      "title": "Me: nickname and picture code · Phone 390 × 844"
+    },
+    "KidMe-fold.dc.html": {
+      "x": 470,
+      "y": 35200,
+      "w": 720,
+      "h": 840,
+      "page": "devices",
+      "is_interactive": true,
+      "title": "Me: nickname and picture code · Foldable open 720 × 840"
+    },
+    "KidMe-tabp.dc.html": {
+      "x": 1270,
+      "y": 35200,
+      "w": 820,
+      "h": 1180,
+      "page": "devices",
+      "is_interactive": true,
+      "title": "Me: nickname and picture code · Tablet portrait 820 × 1180"
+    },
+    "KidMe-desk.dc.html": {
+      "x": 2170,
+      "y": 35200,
+      "w": 1600,
+      "h": 1000,
+      "page": "devices",
+      "is_interactive": true,
+      "title": "Me: nickname and picture code · Desktop 1600 × 1000"
+    },
+    "FamilyAccounts-phone.dc.html": {
+      "x": 0,
+      "y": 36800,
+      "w": 390,
+      "h": 844,
+      "page": "devices",
+      "is_interactive": true,
+      "title": "Your family (parent) · Phone 390 × 844"
+    },
+    "FamilyAccounts-fold.dc.html": {
+      "x": 470,
+      "y": 36800,
+      "w": 720,
+      "h": 840,
+      "page": "devices",
+      "is_interactive": true,
+      "title": "Your family (parent) · Foldable open 720 × 840"
+    },
+    "FamilyAccounts-tabp.dc.html": {
+      "x": 1270,
+      "y": 36800,
+      "w": 820,
+      "h": 1180,
+      "page": "devices",
+      "is_interactive": true,
+      "title": "Your family (parent) · Tablet portrait 820 × 1180"
+    },
+    "FamilyAccounts-desk.dc.html": {
+      "x": 2170,
+      "y": 36800,
+      "w": 1600,
+      "h": 1000,
+      "page": "devices",
+      "is_interactive": true,
+      "title": "Your family (parent) · Desktop 1600 × 1000"
+    },
+    "AdminPeople-phone.dc.html": {
+      "x": 0,
+      "y": 38400,
+      "w": 390,
+      "h": 844,
+      "page": "devices",
+      "is_interactive": true,
+      "title": "People (admin) · Phone 390 × 844"
+    },
+    "AdminPeople-fold.dc.html": {
+      "x": 470,
+      "y": 38400,
+      "w": 720,
+      "h": 840,
+      "page": "devices",
+      "is_interactive": true,
+      "title": "People (admin) · Foldable open 720 × 840"
+    },
+    "AdminPeople-tabp.dc.html": {
+      "x": 1270,
+      "y": 38400,
+      "w": 820,
+      "h": 1180,
+      "page": "devices",
+      "is_interactive": true,
+      "title": "People (admin) · Tablet portrait 820 × 1180"
+    },
+    "AdminPeople-desk.dc.html": {
+      "x": 2170,
+      "y": 38400,
+      "w": 1600,
+      "h": 1000,
+      "page": "devices",
+      "is_interactive": true,
+      "title": "People (admin) · Desktop 1600 × 1000"
+    },
+    "Arcade.dc.html": {
+      "x": 0,
+      "y": 11168,
+      "w": 1280,
+      "h": 800,
+      "is_interactive": true,
+      "expand": "fill",
+      "title": "Arcade hub (Junior; teen look via the variant prop)"
+    },
+    "StarTyper.dc.html": {
+      "x": 1360,
+      "y": 11168,
+      "w": 1280,
+      "h": 800,
+      "is_interactive": true,
+      "expand": "fill",
+      "title": "Star Typer: typing shooter with ghost hands (Junior)"
+    },
+    "WordGarden.dc.html": {
+      "x": 2720,
+      "y": 11168,
+      "w": 1280,
+      "h": 800,
+      "is_interactive": true,
+      "expand": "fill",
+      "title": "Word Garden: calm typing match (Junior)"
+    },
+    "NeonStrike.dc.html": {
+      "x": 4080,
+      "y": 11168,
+      "w": 1280,
+      "h": 800,
+      "is_interactive": true,
+      "expand": "fill",
+      "title": "Neon Strike: answer-blast typing (Teen)"
+    },
+    "TypingPath.dc.html": {
+      "x": 5440,
+      "y": 11168,
+      "w": 1280,
+      "h": 800,
+      "is_interactive": true,
+      "expand": "fill",
+      "title": "Typing path, results and share card"
     }
   },
   "createdOnFiles": {
@@ -887,7 +1248,7 @@
       "kind": "title1",
       "x": 0,
       "y": -300,
-      "text": "Sidekick Studio: phone \u00b7 foldable \u00b7 tablet portrait \u00b7 desktop",
+      "text": "Sidekick Studio: phone · foldable · tablet portrait · desktop",
       "maxW": 3770,
       "page": "devices"
     },
@@ -895,7 +1256,7 @@
       "kind": "title1",
       "x": 0,
       "y": 1300,
-      "text": "Studio: transform and reveal: phone \u00b7 foldable \u00b7 tablet portrait \u00b7 desktop",
+      "text": "Studio: transform and reveal: phone · foldable · tablet portrait · desktop",
       "maxW": 3770,
       "page": "devices"
     },
@@ -903,7 +1264,7 @@
       "kind": "title1",
       "x": 0,
       "y": 2900,
-      "text": "Home: phone \u00b7 foldable \u00b7 tablet portrait \u00b7 desktop",
+      "text": "Home: phone · foldable · tablet portrait · desktop",
       "maxW": 3770,
       "page": "devices"
     },
@@ -911,7 +1272,7 @@
       "kind": "title1",
       "x": 0,
       "y": 4500,
-      "text": "Quest map: phone \u00b7 foldable \u00b7 tablet portrait \u00b7 desktop",
+      "text": "Quest map: phone · foldable · tablet portrait · desktop",
       "maxW": 3770,
       "page": "devices"
     },
@@ -919,7 +1280,7 @@
       "kind": "title1",
       "x": 0,
       "y": 6100,
-      "text": "Question and reward: phone \u00b7 foldable \u00b7 tablet portrait \u00b7 desktop",
+      "text": "Question and reward: phone · foldable · tablet portrait · desktop",
       "maxW": 3770,
       "page": "devices"
     },
@@ -927,7 +1288,7 @@
       "kind": "title1",
       "x": 0,
       "y": 7700,
-      "text": "Treasure Realm: phone \u00b7 foldable \u00b7 tablet portrait \u00b7 desktop",
+      "text": "Treasure Realm: phone · foldable · tablet portrait · desktop",
       "maxW": 3770,
       "page": "devices"
     },
@@ -935,7 +1296,7 @@
       "kind": "title1",
       "x": 0,
       "y": 9300,
-      "text": "Critter Lab: phone \u00b7 foldable \u00b7 tablet portrait \u00b7 desktop",
+      "text": "Critter Lab: phone · foldable · tablet portrait · desktop",
       "maxW": 3770,
       "page": "devices"
     },
@@ -943,7 +1304,7 @@
       "kind": "title1",
       "x": 0,
       "y": 10900,
-      "text": "Sky Squadron: phone \u00b7 foldable \u00b7 tablet portrait \u00b7 desktop",
+      "text": "Sky Squadron: phone · foldable · tablet portrait · desktop",
       "maxW": 3770,
       "page": "devices"
     },
@@ -951,7 +1312,7 @@
       "kind": "title1",
       "x": 0,
       "y": 12500,
-      "text": "Vibe Zone: phone \u00b7 foldable \u00b7 tablet portrait \u00b7 desktop",
+      "text": "Vibe Zone: phone · foldable · tablet portrait · desktop",
       "maxW": 3770,
       "page": "devices"
     },
@@ -959,7 +1320,7 @@
       "kind": "title1",
       "x": 0,
       "y": 14100,
-      "text": "Talk to Kix and Study Song: phone \u00b7 foldable \u00b7 tablet portrait \u00b7 desktop",
+      "text": "Talk to Kix and Study Song: phone · foldable · tablet portrait · desktop",
       "maxW": 3770,
       "page": "devices"
     },
@@ -967,7 +1328,7 @@
       "kind": "title1",
       "x": 0,
       "y": 15700,
-      "text": "Study deck (Teen): phone \u00b7 foldable \u00b7 tablet portrait \u00b7 desktop",
+      "text": "Study deck (Teen): phone · foldable · tablet portrait · desktop",
       "maxW": 3770,
       "page": "devices"
     },
@@ -975,7 +1336,7 @@
       "kind": "title1",
       "x": 0,
       "y": 17300,
-      "text": "Parent: tonight's summary: phone \u00b7 foldable \u00b7 tablet portrait \u00b7 desktop",
+      "text": "Parent: tonight's summary: phone · foldable · tablet portrait · desktop",
       "maxW": 3770,
       "page": "devices"
     },
@@ -983,7 +1344,7 @@
       "kind": "title1",
       "x": 0,
       "y": 18900,
-      "text": "Parent: what Kix remembers: phone \u00b7 foldable \u00b7 tablet portrait \u00b7 desktop",
+      "text": "Parent: what Kix remembers: phone · foldable · tablet portrait · desktop",
       "maxW": 3770,
       "page": "devices"
     },
@@ -991,7 +1352,7 @@
       "kind": "title1",
       "x": 0,
       "y": 20500,
-      "text": "Skills admin: catalogue: phone \u00b7 foldable \u00b7 tablet portrait \u00b7 desktop",
+      "text": "Skills admin: catalogue: phone · foldable · tablet portrait · desktop",
       "maxW": 3770,
       "page": "devices"
     },
@@ -999,7 +1360,7 @@
       "kind": "title1",
       "x": 0,
       "y": 22100,
-      "text": "Skills admin: add knowledge: phone \u00b7 foldable \u00b7 tablet portrait \u00b7 desktop",
+      "text": "Skills admin: add knowledge: phone · foldable · tablet portrait · desktop",
       "maxW": 3770,
       "page": "devices"
     },
@@ -1015,7 +1376,7 @@
       "kind": "title1",
       "x": 0,
       "y": 23700,
-      "text": "Parent dashboard: phone \u00b7 foldable \u00b7 tablet portrait \u00b7 desktop",
+      "text": "Parent dashboard: phone · foldable · tablet portrait · desktop",
       "maxW": 3770,
       "page": "devices"
     },
@@ -1023,7 +1384,7 @@
       "kind": "title1",
       "x": 0,
       "y": 25300,
-      "text": "Family messages (parent): phone \u00b7 foldable \u00b7 tablet portrait \u00b7 desktop",
+      "text": "Family messages (parent): phone · foldable · tablet portrait · desktop",
       "maxW": 3770,
       "page": "devices"
     },
@@ -1031,9 +1392,89 @@
       "kind": "title1",
       "x": 0,
       "y": 26900,
-      "text": "Message from Mum (child): phone \u00b7 foldable \u00b7 tablet portrait \u00b7 desktop",
+      "text": "Message from Mum (child): phone · foldable · tablet portrait · desktop",
       "maxW": 3770,
       "page": "devices"
+    },
+    "row8": {
+      "kind": "title1",
+      "maxW": 4000,
+      "text": "Sign in: a living city and a grand door",
+      "w": 240,
+      "x": 0,
+      "y": 8428
+    },
+    "row9": {
+      "kind": "title1",
+      "maxW": 4700,
+      "text": "Accounts: kid doors, Me, Your family, People",
+      "w": 240,
+      "x": 0,
+      "y": 9648
+    },
+    "dev-Login": {
+      "kind": "title1",
+      "x": 0,
+      "y": 28500,
+      "text": "Sign in: default (parents and admins): phone · foldable · tablet portrait · desktop",
+      "maxW": 3770,
+      "page": "devices"
+    },
+    "dev-LoginJunior": {
+      "kind": "title1",
+      "x": 0,
+      "y": 30100,
+      "text": "Sign in: junior (picture code): phone · foldable · tablet portrait · desktop",
+      "maxW": 3770,
+      "page": "devices"
+    },
+    "dev-LoginTeen": {
+      "kind": "title1",
+      "x": 0,
+      "y": 31700,
+      "text": "Sign in: teen (password): phone · foldable · tablet portrait · desktop",
+      "maxW": 3770,
+      "page": "devices"
+    },
+    "dev-KidDoors": {
+      "kind": "title1",
+      "x": 0,
+      "y": 33300,
+      "text": "Who's learning? (kid doors): phone · foldable · tablet portrait · desktop",
+      "maxW": 3770,
+      "page": "devices"
+    },
+    "dev-KidMe": {
+      "kind": "title1",
+      "x": 0,
+      "y": 34900,
+      "text": "Me: nickname and picture code: phone · foldable · tablet portrait · desktop",
+      "maxW": 3770,
+      "page": "devices"
+    },
+    "dev-FamilyAccounts": {
+      "kind": "title1",
+      "x": 0,
+      "y": 36500,
+      "text": "Your family (parent): phone · foldable · tablet portrait · desktop",
+      "maxW": 3770,
+      "page": "devices"
+    },
+    "dev-AdminPeople": {
+      "kind": "title1",
+      "x": 0,
+      "y": 38100,
+      "text": "People (admin): phone · foldable · tablet portrait · desktop",
+      "maxW": 3770,
+      "page": "devices"
+    },
+    "row10": {
+      "kind": "title1",
+      "maxW": 6800,
+      "text": "Game Arcade (proposed, for review): typing first. Click a game board and type on your keyboard, or tap the on-screen keys",
+      "w": 240,
+      "x": 0,
+      "y": 10868
     }
   },
   "order": [
@@ -1127,7 +1568,47 @@
     "KidMessage-phone.dc.html",
     "KidMessage-fold.dc.html",
     "KidMessage-tabp.dc.html",
-    "KidMessage-desk.dc.html"
+    "KidMessage-desk.dc.html",
+    "Login.dc.html",
+    "LoginJunior.dc.html",
+    "LoginTeen.dc.html",
+    "KidDoors.dc.html",
+    "KidMe.dc.html",
+    "FamilyAccounts.dc.html",
+    "AdminPeople.dc.html",
+    "Login-phone.dc.html",
+    "Login-fold.dc.html",
+    "Login-tabp.dc.html",
+    "Login-desk.dc.html",
+    "LoginJunior-phone.dc.html",
+    "LoginJunior-fold.dc.html",
+    "LoginJunior-tabp.dc.html",
+    "LoginJunior-desk.dc.html",
+    "LoginTeen-phone.dc.html",
+    "LoginTeen-fold.dc.html",
+    "LoginTeen-tabp.dc.html",
+    "LoginTeen-desk.dc.html",
+    "KidDoors-phone.dc.html",
+    "KidDoors-fold.dc.html",
+    "KidDoors-tabp.dc.html",
+    "KidDoors-desk.dc.html",
+    "KidMe-phone.dc.html",
+    "KidMe-fold.dc.html",
+    "KidMe-tabp.dc.html",
+    "KidMe-desk.dc.html",
+    "FamilyAccounts-phone.dc.html",
+    "FamilyAccounts-fold.dc.html",
+    "FamilyAccounts-tabp.dc.html",
+    "FamilyAccounts-desk.dc.html",
+    "AdminPeople-phone.dc.html",
+    "AdminPeople-fold.dc.html",
+    "AdminPeople-tabp.dc.html",
+    "AdminPeople-desk.dc.html",
+    "Arcade.dc.html",
+    "StarTyper.dc.html",
+    "WordGarden.dc.html",
+    "NeonStrike.dc.html",
+    "TypingPath.dc.html"
   ],
   "pages": [
     {

@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Parent: your family</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+.fa-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.fa-click{cursor:pointer}
+.fa-click:focus-visible,.fa-root a:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+
+/* Fields, segmented controls and chips: state lives in aria attributes, so selection is never colour alone */
+.fa-field{box-shadow:inset 0 0 0 1.5px var(--border-control)}
+.fa-field:focus-within{box-shadow:inset 0 0 0 2px var(--focus-ring),0 0 0 4px rgba(31,102,193,.16)}
+.fa-field[data-invalid="true"]{box-shadow:inset 0 0 0 2px var(--warn)}
+.fa-input::placeholder{color:var(--ink-muted);opacity:1}
+.fa-input:focus{outline:none}
+.fa-seg{background:transparent;color:var(--ink)}
+.fa-seg[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
+.fa-chip{background:var(--surface-raised);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--border-control)}
+.fa-chip[aria-pressed="true"]{box-shadow:inset 0 0 0 2.5px var(--accent);color:var(--accent)}
+.fa-tick{display:none}
+.fa-chip[aria-pressed="true"] .fa-tick{display:block}
+.fa-row{background:transparent}
+.fa-row:hover{background:var(--surface)}
+.fa-reset[aria-expanded="true"]{box-shadow:inset 0 0 0 2px var(--accent);color:var(--accent)}
+.fa-rm{background:transparent;color:var(--warn);box-shadow:inset 0 0 0 1.5px var(--warn)}
+.fa-rm[aria-expanded="true"]{background:rgba(180,90,30,.08);box-shadow:inset 0 0 0 2px var(--warn)}
+.fa-chev{transition:transform var(--duration-snappy) var(--ease-soft)}
+[aria-expanded="true"] > .fa-chev{transform:rotate(180deg)}
+.fa-in{animation:fa-in var(--duration-base) var(--ease-soft) both}
+@keyframes fa-in{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.fa-in{animation:none}.fa-chev{transition:none}}
+[data-band] .fa-act.mk-btn{white-space:normal;line-height:1.2;text-align:center;padding-top:8px;padding-bottom:8px}
+
+/* Layout (mykx-design-system §3a). Default = expanded 1024–1599: kids 3 across, a right column (Add a kid, Your account), centred at 1200. */
+.fa-root{position:relative;overflow-x:hidden;overflow-x:clip}
+.fa-amb{position:absolute;inset:0;pointer-events:none;display:block}
+.fa-wrap{position:relative;box-sizing:border-box;max-width:1200px;margin:0 auto;padding:32px;display:grid;grid-template-columns:minmax(0,1fr) 320px;grid-template-rows:repeat(4,auto);grid-template-areas:"top top" "title title" "kids side" "foot foot";align-items:start;gap:20px 24px}
+.fa-top{grid-area:top}
+.fa-title{grid-area:title}
+.fa-kids{grid-area:kids}
+.fa-side{grid-area:side;display:flex;flex-direction:column;gap:20px}
+.fa-foot{grid-area:foot}
+.fa-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
+.fa-kid{display:flex;flex-direction:column}
+.fa-stage{height:160px;border-radius:0}
+.fa-door{left:50%;bottom:0;width:124px;height:146px;transform:translateX(-50%);border-radius:62px 62px 0 0}
+.fa-sprite{height:116px}
+.fa-info{padding:14px 16px 0}
+.fa-acts{flex-direction:column;align-items:stretch;padding:14px 16px 16px}
+.fa-panel{margin:0 16px 16px}
+
+/* Medium 600–1023 (foldable open, tablet portrait): kid cards 2 up, Add a kid and Your account side by side below. */
+@media (min-width: 600px) and (max-width: 1023px){
+  .fa-wrap{grid-template-columns:minmax(0,1fr);grid-template-rows:repeat(5,auto);grid-template-areas:"top" "title" "kids" "side" "foot";padding:24px;gap:20px}
+  .fa-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .fa-stage{height:144px}
+  .fa-door{width:112px;height:128px;border-radius:56px 56px 0 0}
+  .fa-sprite{height:106px}
+  .fa-acts{flex-direction:row;flex-wrap:wrap}
+  .fa-act{flex:1 1 auto}
+  .fa-rm{flex:0 0 auto}
+  .fa-side{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:16px}
+}
+
+/* Compact < 600: the phone design, one column. Each card puts the arched door beside the name. */
+@media (max-width: 599px){
+  .fa-amb{display:none}
+  .fa-wrap{display:flex;flex-direction:column;gap:16px;padding:20px 16px 28px}
+  .fa-grid{grid-template-columns:minmax(0,1fr);gap:14px}
+  .fa-kid{display:grid;grid-template-columns:104px minmax(0,1fr);grid-template-areas:"stage info" "acts acts" "panel panel";align-items:start}
+  .fa-stage{grid-area:stage;height:124px;margin:14px 0 0 14px;border-radius:45px 45px 12px 12px}
+  .fa-door{width:72px;height:100px;border-radius:36px 36px 0 0}
+  .fa-sprite{height:84px}
+  .fa-info{grid-area:info;padding:14px 14px 0}
+  .fa-acts{grid-area:acts;flex-direction:row;flex-wrap:wrap;padding:14px}
+  .fa-act{flex:1 1 auto}
+  .fa-rm{flex:0 0 auto}
+  .fa-panel{grid-area:panel;margin:0 14px 14px}
+  .fa-kid > :not(.fa-stage):not(.fa-info):not(.fa-acts){grid-column:1 / -1}
+  .fa-side{gap:16px}
+}
+
+/* Desktop ≥ 1600: same two areas, more air, centred 1200 with sky glow in the margins. */
+@media (min-width: 1600px){
+  .fa-wrap{padding:48px 32px;gap:24px 28px;grid-template-columns:minmax(0,1fr) 340px}
+  .fa-stage{height:176px}
+  .fa-door{width:132px;height:156px;border-radius:66px 66px 0 0}
+  .fa-sprite{height:124px}
+}
+</style>
+</helmet>
+<div class="fa-root" data-theme="anime-sky" data-band="teen" style="width: 100%; min-height: 100vh; box-sizing: border-box; background: var(--surface); color: var(--ink); font-family: var(--font-text)">
+  <div class="fa-amb" aria-hidden="true" style="background: radial-gradient(50% 40% at 0% 0%, rgba(90, 169, 240, 0.18), rgba(90, 169, 240, 0) 70%), radial-gradient(40% 40% at 100% 100%, rgba(247, 182, 207, 0.26), rgba(247, 182, 207, 0) 70%)"></div>
+
+  <div class="fa-wrap">
+    <div class="fa-top" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 12px">
+      <img src="/_blob/f52e18857979369421011da66fdb9de3" alt="myKx" style="height: 20px; width: auto">
+      <span style="font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink-muted)">Parent account</span>
+    </div>
+
+    <div class="fa-title" style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px">
+      <a href="ParentDash.dc.html" style="display: inline-flex; align-items: center; gap: 4px; min-height: 44px; margin-left: -8px; padding: 0 12px 0 4px; border-radius: var(--radius-pill); color: var(--accent); font-size: 16px; line-height: 22px; font-weight: 600; text-decoration: none">
+        <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6"/></svg>Back to dashboard
+      </a>
+      <h1 style="margin: 0; font-family: var(--font-display); font-size: clamp(28px, 1vw + 20px, 36px); line-height: 1.2; font-weight: 800">Your family</h1>
+      <span style="font-size: 16px; line-height: 22px; color: var(--ink-muted)">{{familyLine}}</span>
+    </div>
+
+    <!-- Kids: one card per child, each with their world behind an open door -->
+    <section class="fa-kids" aria-labelledby="fa-kids-h" style="display: flex; flex-direction: column; gap: 12px; min-width: 0">
+      <h2 id="fa-kids-h" class="fa-sr">Kids</h2>
+      <div class="fa-grid">
+        <sc-for list="{{kids}}" as="k" hint-placeholder-count="3">
+          <article class="fa-kid" aria-labelledby="fa-kid-{{k.id}}" style="position: relative; min-width: 0; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: var(--shadow-raised); overflow: hidden">
+            <div class="fa-stage" aria-hidden="true" style="{{k.stageStyle}}">
+              <span class="fa-door" style="position: absolute; background: radial-gradient(90% 80% at 50% 100%, rgba(255, 248, 222, 0.98) 0%, rgba(255, 236, 190, 0.72) 45%, rgba(255, 255, 255, 0.16) 100%); box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.7), 0 0 28px rgba(255, 236, 190, 0.55)"></span>
+              <img class="fa-sprite" src="{{k.sprite}}" alt="" style="position: absolute; left: 50%; bottom: -2px; transform: translateX(-50%); width: auto; max-width: none; display: block; filter: drop-shadow(0 6px 10px rgba(14, 12, 43, 0.28))">
+            </div>
+
+            <div class="fa-info" style="display: flex; flex-direction: column; gap: 8px; min-width: 0">
+              <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px">
+                <h3 id="fa-kid-{{k.id}}" style="margin: 0; font: 800 24px/30px var(--font-display); color: var(--ink)">{{k.name}}</h3>
+                <span style="font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink-muted)">{{k.look}}</span>
+              </div>
+              <span style="display: flex; align-items: center; gap: 8px; font-size: 16px; line-height: 22px; font-weight: 600">
+                <span aria-hidden="true" style="{{k.swatchStyle}}"></span><span>{{k.level}} · {{k.worldName}}</span>
+              </span>
+              <span style="display: flex; align-items: flex-start; gap: 8px; font-size: 16px; line-height: 22px; color: var(--ink-muted)">
+                <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 18px; height: 18px; flex: none; margin-top: 2px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0M12 7v5l3 2"/></svg>
+                <span>Last here: {{k.last}}</span>
+              </span>
+              <span style="display: flex; align-items: flex-start; gap: 8px; font-size: 16px; line-height: 22px; color: var(--ink-muted)">
+                <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 18px; height: 18px; flex: none; margin-top: 2px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="{{k.signinIcon}}"/></svg>
+                <span><strong style="font-weight: 600; color: var(--ink)">{{k.signinLabel}}</strong> · {{k.since}}</span>
+              </span>
+              <sc-if value="{{k.saved}}" hint-placeholder-val="{{false}}">
+                <span class="fa-in" role="status" style="display: flex; align-items: flex-start; gap: 8px; padding: 8px 10px; border-radius: var(--radius-sm); background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--success); font-size: 14px; line-height: 20px">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 18px; height: 18px; flex: none; margin-top: 1px; color: var(--success)"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0M8 12l3 3 5-6"/></svg>
+                  <span>Temporary password saved. {{k.name}} picks a new one at the next sign-in.</span>
+                </span>
+              </sc-if>
+            </div>
+
+            <div class="fa-acts" style="display: flex; gap: 8px">
+              <button class="mk-btn mk-btn--secondary fa-act fa-reset fa-click" type="button" onClick="{{k.toggleReset}}" aria-expanded="{{k.resetExpanded}}">{{k.resetLabel}}</button>
+              <a class="mk-btn mk-btn--secondary fa-act" href="ParentDash.dc.html" style="text-decoration: none">Limits and voice</a>
+              <button class="fa-act fa-rm fa-click" type="button" onClick="{{k.toggleRemove}}" aria-expanded="{{k.removeExpanded}}" aria-label="Remove {{k.name}}" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 16px; border: 0; border-radius: var(--radius-pill); font: 600 16px/1 var(--font-text)">Remove</button>
+            </div>
+
+            <!-- Reset: picture code (junior) or temporary password (teen). Codes are hashed, so they are never shown. -->
+            <sc-if value="{{k.resetOpen}}" hint-placeholder-val="{{false}}">
+              <div class="fa-panel fa-in" style="display: flex; flex-direction: column; gap: 12px; padding: 14px; border-radius: var(--radius-sm); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line)">
+                <sc-if value="{{k.isPictures}}" hint-placeholder-val="{{true}}">
+                  <h4 style="margin: 0; font-size: 17px; line-height: 24px; font-weight: 700">Pick a new 4-picture code with {{k.name}}</h4>
+                  <p style="margin: 0; font-size: 16px; line-height: 23px; color: var(--ink-muted)">Sit together on this device. {{k.name}} taps 4 pictures, then taps them again to check. The old code stops working once the new one is saved.</p>
+                  <div aria-hidden="true" style="display: flex; gap: 8px">
+                    <span style="display: grid; place-items: center; width: 44px; height: 44px; box-sizing: border-box; border-radius: 12px; border: 2px dashed var(--border-control); background: var(--surface-raised); font-size: 13px; font-weight: 700; color: var(--ink-muted)">1</span>
+                    <span style="display: grid; place-items: center; width: 44px; height: 44px; box-sizing: border-box; border-radius: 12px; border: 2px dashed var(--border-control); background: var(--surface-raised); font-size: 13px; font-weight: 700; color: var(--ink-muted)">2</span>
+                    <span style="display: grid; place-items: center; width: 44px; height: 44px; box-sizing: border-box; border-radius: 12px; border: 2px dashed var(--border-control); background: var(--surface-raised); font-size: 13px; font-weight: 700; color: var(--ink-muted)">3</span>
+                    <span style="display: grid; place-items: center; width: 44px; height: 44px; box-sizing: border-box; border-radius: 12px; border: 2px dashed var(--border-control); background: var(--surface-raised); font-size: 13px; font-weight: 700; color: var(--ink-muted)">4</span>
+                  </div>
+                  <div style="display: flex; flex-wrap: wrap; gap: 8px">
+                    <button class="mk-btn mk-btn--primary" type="button">Start</button>
+                    <button class="mk-btn mk-btn--secondary fa-click" type="button" onClick="{{k.closePanel}}">Cancel</button>
+                  </div>
+                </sc-if>
+                <sc-if value="{{k.isPassword}}" hint-placeholder-val="{{false}}">
+                  <h4 style="margin: 0; font-size: 17px; line-height: 24px; font-weight: 700">Set a temporary password</h4>
+                  <p style="margin: 0; font-size: 16px; line-height: 23px; color: var(--ink-muted)">{{k.name}} changes it the next time they sign in. Tell {{k.name}} in person, not by message.</p>
+                  <div style="display: flex; flex-direction: column; gap: 6px">
+                    <label for="fa-temp-{{k.id}}" style="font-size: 16px; line-height: 22px; font-weight: 700">Temporary password for {{k.name}}</label>
+                    <div class="fa-field" style="display: flex; align-items: center; gap: 2px; min-height: 48px; padding: 0 2px 0 14px; border-radius: var(--radius-sm); background: var(--surface-raised)">
+                      <input class="fa-input" id="fa-temp-{{k.id}}" type="{{k.tempType}}" autocomplete="new-password" value="{{k.tempValue}}" onChange="{{k.onTemp}}" onKeyDown="{{k.onTempKey}}" aria-describedby="fa-temp-hint-{{k.id}}" style="flex: 1; min-width: 0; height: 44px; padding: 0; border: 0; background: transparent; color: var(--ink); font: 400 16px/1 var(--font-text)">
+                      <button class="fa-click" type="button" onClick="{{k.toggleTempShow}}" aria-pressed="{{k.tempShown}}" aria-label="Show password" style="display: grid; place-items: center; width: 44px; height: 44px; flex: none; padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--ink-muted)">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="{{k.tempEye}}"/></svg>
+                      </button>
+                    </div>
+                    <span id="fa-temp-hint-{{k.id}}" style="font-size: 14px; line-height: 20px; color: var(--ink-muted)">{{k.tempHint}}</span>
+                  </div>
+                  <div style="display: flex; flex-wrap: wrap; gap: 8px">
+                    <button class="mk-btn mk-btn--primary fa-click" type="button" onClick="{{k.saveTemp}}" disabled="{{k.tempSaveDisabled}}">Save</button>
+                    <button class="mk-btn mk-btn--secondary fa-click" type="button" onClick="{{k.closePanel}}">Cancel</button>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-if>
+
+            <!-- Remove: confirm inline -->
+            <sc-if value="{{k.removeOpen}}" hint-placeholder-val="{{false}}">
+              <div class="fa-panel fa-in" role="group" aria-labelledby="fa-rm-{{k.id}}" style="display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: var(--radius-sm); background: var(--surface-raised); box-shadow: inset 0 0 0 2px var(--warn)">
+                <p id="fa-rm-{{k.id}}" style="margin: 0; display: flex; align-items: flex-start; gap: 10px; font-size: 16px; line-height: 23px; font-weight: 700">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px; flex: none; margin-top: 2px; color: var(--warn)"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/></svg>
+                  <span>Remove {{k.name}} and all of {{k.name}}'s learning data? This can't be undone.</span>
+                </p>
+                <span style="font-size: 14px; line-height: 20px; color: var(--ink-muted)">That includes Treasure, Kix's notebook, progress and family messages.</span>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px">
+                  <button class="fa-click" type="button" onClick="{{k.confirmRemove}}" style="display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 18px; border: 0; border-radius: var(--radius-pill); background: var(--warn); color: var(--on-warn); font: 600 16px/1 var(--font-text)">Remove</button>
+                  <button class="mk-btn mk-btn--secondary fa-click" type="button" onClick="{{k.closePanel}}">Keep</button>
+                </div>
+              </div>
+            </sc-if>
+          </article>
+        </sc-for>
+      </div>
+
+      <div role="status" style="display: flex; flex-direction: column; gap: 8px">
+        <sc-for list="{{removedNotes}}" as="r" hint-placeholder-count="0">
+          <p class="fa-in" style="margin: 0; display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: var(--radius-sm); background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line); font-size: 16px; line-height: 22px; color: var(--ink-muted)">
+            <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 18px; height: 18px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 11v6M14 11v6"/></svg>
+            <span>{{r.text}}</span>
+          </p>
+        </sc-for>
+      </div>
+    </section>
+
+    <div class="fa-side">
+      <!-- Add a kid: closed → form → success -->
+      <section aria-labelledby="fa-add-h" style="display: flex; flex-direction: column; gap: 16px; padding: 18px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: var(--shadow-raised)">
+        <sc-if value="{{addClosed}}" hint-placeholder-val="{{true}}">
+          <div style="display: flex; align-items: center; gap: 14px">
+            <span aria-hidden="true" style="position: relative; flex: none; width: 64px; height: 76px; border-radius: 32px 32px 10px 10px; overflow: hidden; background: radial-gradient(60% 50% at 72% 18%, rgba(255, 227, 138, 0.55), rgba(255, 227, 138, 0) 70%), linear-gradient(180deg, #2B2A5C 0%, #5B4FA8 62%, #B9A7F5 100%)">
+              <img src="/_blob/edfd9859b1135de333b54095f6c8d1b6" alt="" style="position: absolute; left: 50%; bottom: -2px; transform: translateX(-50%); height: 66px; width: auto; max-width: none">
+            </span>
+            <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+              <h2 id="fa-add-h" style="margin: 0; font: 800 20px/26px var(--font-display)">Add a kid</h2>
+              <span style="font-size: 16px; line-height: 22px; color: var(--ink-muted)">Their own door, world and sign-in. No email needed.</span>
+            </div>
+          </div>
+          <button class="mk-btn mk-btn--primary fa-click" type="button" onClick="{{openAdd}}" aria-expanded="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" d="M12 5v14M5 12h14"/></svg>Add a kid
+          </button>
+        </sc-if>
+
+        <sc-if value="{{addForm}}" hint-placeholder-val="{{false}}">
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+            <h2 id="fa-add-h" style="margin: 0; font: 800 22px/28px var(--font-display)">Add a kid</h2>
+            <button class="fa-click" type="button" onClick="{{closeAdd}}" aria-label="Close" style="display: grid; place-items: center; width: 44px; height: 44px; flex: none; margin: -6px -8px -6px 0; padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--ink-muted)">
+              <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <label for="fa-nick" style="font-size: 16px; line-height: 22px; font-weight: 700">Nickname</label>
+            <div class="fa-field" data-invalid="{{nickInvalid}}" style="display: flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 14px; border-radius: var(--radius-sm); background: var(--surface)">
+              <input class="fa-input" id="fa-nick" type="text" maxlength="20" autocomplete="off" value="{{nick}}" onChange="{{onNick}}" onKeyDown="{{onEnter}}" placeholder="e.g. Jun" aria-invalid="{{nickInvalid}}" aria-describedby="fa-nick-tip" style="flex: 1; min-width: 0; height: 44px; padding: 0; border: 0; background: transparent; color: var(--ink); font: 400 16px/1 var(--font-text)">
+              <span aria-hidden="true" style="flex: none; font-size: 13px; line-height: 18px; font-weight: 600; color: var(--ink-muted); font-variant-numeric: tabular-nums">{{nickCount}}/20</span>
+            </div>
+            <span id="fa-nick-tip" style="{{nickTipStyle}}">{{nickTip}}</span>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <span id="fa-level-l" style="font-size: 16px; line-height: 22px; font-weight: 700">Level</span>
+            <div role="group" aria-labelledby="fa-level-l" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 4px; border-radius: var(--radius-pill); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line)">
+              <sc-for list="{{levels}}" as="l" hint-placeholder-count="3">
+                <button class="fa-click fa-seg" type="button" onClick="{{l.pick}}" aria-pressed="{{l.pressed}}" style="min-height: 44px; padding: 0 8px; border: 0; border-radius: var(--radius-pill); font: 600 16px/1 var(--font-text)">{{l.label}}</button>
+              </sc-for>
+            </div>
+            <span style="display: flex; align-items: flex-start; gap: 8px; font-size: 14px; line-height: 20px; color: var(--ink-muted)">
+              <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 16px; height: 16px; flex: none; margin-top: 2px; color: var(--accent)"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M12 3v4M12 17v4M3 12h4M17 12h4M6.3 6.3l2.5 2.5M15.2 15.2l2.5 2.5M6.3 17.7l2.5-2.5M15.2 8.8l2.5-2.5"/></svg>
+              <span><strong style="font-weight: 700; color: var(--ink)">{{look.name}}</strong> · {{look.note}}</span>
+            </span>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <span id="fa-world-l" style="font-size: 16px; line-height: 22px; font-weight: 700">World</span>
+            <div role="group" aria-labelledby="fa-world-l" style="display: flex; flex-wrap: wrap; gap: 8px">
+              <sc-for list="{{worlds}}" as="w" hint-placeholder-count="5">
+                <button class="fa-click fa-chip" type="button" onClick="{{w.pick}}" aria-pressed="{{w.pressed}}" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px 0 8px; border: 0; border-radius: var(--radius-pill); font: 600 16px/1 var(--font-text)">
+                  <span aria-hidden="true" style="{{w.swatch}}"><svg class="fa-tick" viewBox="0 0 24 24" style="width: 16px; height: 16px; color: #FFFFFF; filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.45))"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>{{w.name}}
+                </button>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <span id="fa-signin-l" style="font-size: 16px; line-height: 22px; font-weight: 700">Sign-in</span>
+            <div role="group" aria-labelledby="fa-signin-l" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; padding: 4px; border-radius: var(--radius-pill); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line)">
+              <sc-for list="{{signins}}" as="g" hint-placeholder-count="2">
+                <button class="fa-click fa-seg" type="button" onClick="{{g.pick}}" aria-pressed="{{g.pressed}}" style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 0 8px; border: 0; border-radius: var(--radius-pill); font: 600 16px/1 var(--font-text)">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 18px; height: 18px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="{{g.icon}}"/></svg>{{g.label}}
+                </button>
+              </sc-for>
+            </div>
+            <sc-if value="{{isPicturesNew}}" hint-placeholder-val="{{true}}">
+              <span style="font-size: 14px; line-height: 20px; color: var(--ink-muted)">{{picturesNote}}</span>
+            </sc-if>
+            <sc-if value="{{isPasswordNew}}" hint-placeholder-val="{{false}}">
+              <div style="display: flex; flex-direction: column; gap: 6px; padding-top: 4px">
+                <label for="fa-pw" style="font-size: 16px; line-height: 22px; font-weight: 700">Starting password</label>
+                <div class="fa-field" data-invalid="{{pwInvalid}}" style="display: flex; align-items: center; gap: 2px; min-height: 48px; padding: 0 2px 0 14px; border-radius: var(--radius-sm); background: var(--surface)">
+                  <input class="fa-input" id="fa-pw" type="{{pwType}}" autocomplete="new-password" value="{{pw}}" onChange="{{onPw}}" onKeyDown="{{onEnter}}" aria-invalid="{{pwInvalid}}" aria-describedby="fa-pw-hint" style="flex: 1; min-width: 0; height: 44px; padding: 0; border: 0; background: transparent; color: var(--ink); font: 400 16px/1 var(--font-text)">
+                  <button class="fa-click" type="button" onClick="{{togglePwShow}}" aria-pressed="{{pwShown}}" aria-label="Show password" style="display: grid; place-items: center; width: 44px; height: 44px; flex: none; padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--ink-muted)">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="{{pwEye}}"/></svg>
+                  </button>
+                </div>
+                <span id="fa-pw-hint" style="{{pwHintStyle}}">{{pwHint}}</span>
+              </div>
+            </sc-if>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 12px; min-height: 60px; padding-top: 6px; box-shadow: inset 0 1px 0 var(--line)">
+            <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+              <span id="fa-voice-l" style="font-size: 16px; line-height: 22px; font-weight: 700">Voice</span>
+              <span style="font-size: 14px; line-height: 20px; color: var(--ink-muted)">{{voiceNote}}</span>
+            </span>
+            <button class="fa-click" type="button" role="switch" aria-checked="{{voice.checked}}" aria-labelledby="fa-voice-l" onClick="{{toggleVoice}}" style="flex: none; width: 60px; height: 44px; padding: 0; border: 0; border-radius: var(--radius-pill); background: transparent; display: flex; align-items: center; justify-content: center">
+              <span style="{{voice.track}}"><span style="{{voice.knob}}"></span></span>
+            </button>
+          </div>
+
+          <button class="mk-btn mk-btn--primary fa-click" type="button" onClick="{{submitAdd}}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" d="M12 5v14M5 12h14"/></svg>Add kid
+          </button>
+          <span style="font-size: 14px; line-height: 20px; color: var(--ink-muted)">Codes and passwords are scrambled as soon as you save. No one can read them back, including you.</span>
+        </sc-if>
+
+        <sc-if value="{{addDone}}" hint-placeholder-val="{{false}}">
+          <div class="fa-in" role="status" style="display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 4px 0; text-align: center">
+            <span aria-hidden="true" style="{{newKid.stageStyle}}">
+              <span style="position: absolute; left: 50%; bottom: 0; width: 96px; height: 124px; transform: translateX(-50%); border-radius: 48px 48px 0 0; background: radial-gradient(90% 80% at 50% 100%, rgba(255, 248, 222, 0.98) 0%, rgba(255, 236, 190, 0.72) 45%, rgba(255, 255, 255, 0.16) 100%); box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.7), 0 0 28px rgba(255, 236, 190, 0.6)"></span>
+              <img src="/_blob/edfd9859b1135de333b54095f6c8d1b6" alt="" style="position: absolute; left: 50%; bottom: -2px; transform: translateX(-50%); height: 100px; width: auto; max-width: none; filter: drop-shadow(0 6px 10px rgba(14, 12, 43, 0.28))">
+            </span>
+            <h2 id="fa-add-h" style="margin: 0; font: 800 22px/28px var(--font-display)">{{newKid.headline}}</h2>
+            <span style="font-size: 16px; line-height: 22px; font-weight: 600">{{newKid.summary}}</span>
+            <span style="font-size: 16px; line-height: 22px; color: var(--ink-muted)">{{newKid.next}}</span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px">
+            <button class="mk-btn mk-btn--primary fa-click" type="button" onClick="{{doneAdd}}" style="flex: 1 1 auto">Done</button>
+            <button class="mk-btn mk-btn--secondary fa-click" type="button" onClick="{{addAnother}}" style="flex: 1 1 auto">Add another kid</button>
+          </div>
+        </sc-if>
+      </section>
+
+      <!-- Your account -->
+      <section aria-labelledby="fa-acct-h" style="display: flex; flex-direction: column; gap: 2px; padding: 18px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: var(--shadow-raised)">
+        <h2 id="fa-acct-h" style="margin: 0 0 6px; font: 800 20px/26px var(--font-display)">Your account</h2>
+        <div style="display: flex; align-items: center; gap: 12px; min-height: 60px; box-shadow: inset 0 -1px 0 var(--line)">
+          <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px; flex: none; color: var(--ink-muted)"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 5h18v14H3zM3 6l9 7 9-7"/></svg>
+          <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+            <span style="font-size: 14px; line-height: 20px; color: var(--ink-muted)">Email</span>
+            <span style="font-size: 16px; line-height: 22px; font-weight: 600; overflow-wrap: anywhere">d•••@example.com</span>
+          </span>
+          <button class="fa-click fa-row" type="button" aria-label="Change email" style="min-height: 44px; padding: 0 12px; border: 0; border-radius: var(--radius-pill); color: var(--accent); font: 600 16px/1 var(--font-text)">Change</button>
+        </div>
+        <button class="fa-click fa-row" type="button" style="display: flex; align-items: center; gap: 12px; width: 100%; min-height: 56px; padding: 0; border: 0; color: var(--ink); text-align: left; font: inherit; box-shadow: inset 0 -1px 0 var(--line)">
+          <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px; flex: none; color: var(--ink-muted)"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 11h14v10H5zM8 11V7a4 4 0 0 1 8 0v4"/></svg>
+          <span style="flex: 1; min-width: 0; font-size: 16px; line-height: 22px; font-weight: 600">Change password</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 18px; height: 18px; flex: none; color: var(--ink-muted)"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6"/></svg>
+        </button>
+        <button class="fa-click fa-row" type="button" onClick="{{toggleSignout}}" aria-expanded="{{signoutExpanded}}" style="display: flex; align-items: center; gap: 12px; width: 100%; min-height: 56px; padding: 0; border: 0; color: var(--ink); text-align: left; font: inherit">
+          <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px; flex: none; color: var(--ink-muted)"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+          <span style="flex: 1; min-width: 0; font-size: 16px; line-height: 22px; font-weight: 600">Sign out on all devices</span>
+          <svg class="fa-chev" viewBox="0 0 24 24" aria-hidden="true" style="width: 18px; height: 18px; flex: none; color: var(--ink-muted)"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <sc-if value="{{signoutOpen}}" hint-placeholder-val="{{false}}">
+          <div class="fa-in" style="display: flex; flex-direction: column; gap: 10px; margin: 2px 0 6px; padding: 14px; border-radius: var(--radius-sm); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line)">
+            <p style="margin: 0; font-size: 16px; line-height: 23px">Sign out on every device, including this one? Kids' doors stay shut until you sign in again.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px">
+              <button class="mk-btn mk-btn--primary" type="button">Sign out everywhere</button>
+              <button class="mk-btn mk-btn--secondary fa-click" type="button" onClick="{{toggleSignout}}">Cancel</button>
+            </div>
+          </div>
+        </sc-if>
+        <p style="margin: 10px 0 0; display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border-radius: var(--radius-sm); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); font-size: 16px; line-height: 23px">
+          <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px; flex: none; margin-top: 2px; color: var(--success)"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 2l8 3v6c0 5-3.5 9.5-8 11-4.5-1.5-8-6-8-11V5zM9 12l2 2 4-4"/></svg>
+          <span>Kids never need an email. Their codes and passwords are scrambled and can't be seen, even by us.</span>
+        </p>
+      </section>
+    </div>
+
+    <div class="fa-foot" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 16px">
+      <p style="margin: 0; font-size: 13px; line-height: 18px; color: var(--ink-muted)">Example data for the design. Not real records.</p>
+      <sc-if value="{{touched}}" hint-placeholder-val="{{false}}">
+        <button class="fa-click fa-row" type="button" onClick="{{resetDemo}}" style="min-height: 44px; padding: 0 12px; border: 0; border-radius: var(--radius-pill); color: var(--accent); font: 600 14px/1 var(--font-text)">Reset the example</button>
+      </sc-if>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"startState":{"editor":"enum","options":["list","reset-junior","reset-teen","remove","add","added"],"default":"list"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  state = { touched: false };
+
+  componentDidUpdate(prevProps, prevState) {
+    // Opening the Add a kid form moves focus to the nickname field.
+    try {
+      const was = prevState && prevState.touched ? prevState.add : null;
+      if (this.state.touched && this.state.add === 'form' && was !== 'form') {
+        const el = document.getElementById('fa-nick');
+        if (el) el.focus();
+      }
+    } catch (e) { /* focus is a nicety */ }
+  }
+
+  renderVals() {
+    const KIX = '/_blob/edfd9859b1135de333b54095f6c8d1b6';
+    const ICON = {
+      pictures: 'M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z',
+      password: 'M4 15a4 4 0 1 0 8 0a4 4 0 1 0-8 0M10.8 12.2 20 3M16.5 6.5l3 3M14 9l2 2',
+      eye: 'M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12zM9 12a3 3 0 1 0 6 0a3 3 0 1 0-6 0',
+      eyeOff: 'M3 3l18 18M10.6 5.1A10 10 0 0 1 12 5c6.5 0 10 7 10 7a17 17 0 0 1-3.2 4.1M6.6 6.6C3.7 8.4 2 12 2 12s3.5 7 10 7c1.8 0 3.4-.5 4.8-1.3M9.9 9.9a3 3 0 0 0 4.2 4.2',
+    };
+    // World identity colours (design system §2), used only behind the door art and in swatches. Never behind text.
+    const WORLDS = [
+      { id: 'dreamlight', name: 'Dreamlight', scene: 'radial-gradient(60% 50% at 72% 18%, rgba(255, 227, 138, 0.55), rgba(255, 227, 138, 0) 70%), linear-gradient(180deg, #2B2A5C 0%, #5B4FA8 62%, #B9A7F5 100%)', swatch: 'linear-gradient(135deg, #2B2A5C, #B9A7F5 60%, #A8F0D4)' },
+      { id: 'anime-sky', name: 'Anime Sky', scene: 'radial-gradient(55% 50% at 80% 14%, rgba(255, 211, 110, 0.75), rgba(255, 211, 110, 0) 70%), linear-gradient(180deg, #3D8EE0 0%, #8EC4F5 58%, #F7B6CF 100%)', swatch: 'linear-gradient(135deg, #1B2350, #5AA9F0 50%, #F7B6CF)' },
+      { id: 'toon-pop', name: 'Toon Pop', scene: 'radial-gradient(55% 50% at 18% 16%, rgba(255, 210, 63, 0.7), rgba(255, 210, 63, 0) 70%), linear-gradient(160deg, #7C5CFF 0%, #B36BE6 55%, #FF7EB6 100%)', swatch: 'linear-gradient(135deg, #7C5CFF, #FF7EB6 60%, #FFD23F)' },
+      { id: 'idol-stage', name: 'Idol Stage', scene: 'radial-gradient(60% 60% at 15% 0%, rgba(255, 61, 203, 0.6), rgba(255, 61, 203, 0) 70%), radial-gradient(60% 60% at 88% 8%, rgba(61, 245, 255, 0.5), rgba(61, 245, 255, 0) 70%), linear-gradient(180deg, #120C2B 0%, #2B1858 100%)', swatch: 'linear-gradient(135deg, #120C2B, #FF3DCB 55%, #3DF5FF)' },
+      { id: 'terrarium', name: 'Terrarium', scene: 'radial-gradient(70% 55% at 50% 100%, rgba(255, 211, 77, 0.55), rgba(255, 211, 77, 0) 70%), linear-gradient(180deg, #1C6C84 0%, #2C7A47 62%, #1D3324 100%)', swatch: 'linear-gradient(135deg, #1C6C84, #2C7A47 50%, #FFD34D)' },
+    ];
+    const W = {};
+    WORLDS.forEach((w) => { W[w.id] = w; });
+
+    // Synthetic example family. Secrets are never stored or shown here: only the kind and when it was set.
+    const KIDS = [
+      { id: 'ari', name: 'Ari', level: 'P3', world: 'terrarium', last: 'today 7:42 pm', signin: 'pictures', since: 'set 3 Oct', sprite: '/_blob/bb08e7ec23418f8b39ef9322df1f30f6' },
+      { id: 'zara', name: 'Zara', level: 'P6', world: 'idol-stage', last: 'today 4:45 pm', signin: 'password', since: 'changed 19 Oct', sprite: '/_blob/f67be0c7944692dec26f38d50d8fbb8c' },
+      { id: 'mei', name: 'Mei', level: 'Sec 2', world: 'anime-sky', last: 'yesterday 8:05 pm', signin: 'password', since: 'reset yesterday', sprite: '/_blob/b1a0d040fdecae5f59f1b400eef42c34' },
+    ];
+    const JUN = { id: 'new-1', name: 'Jun', level: 'P6', world: 'toon-pop', signin: 'password', last: 'not yet', since: 'set just now', sprite: KIX, voice: true };
+
+    const BASE = {
+      panel: null, tempPw: '', tempShown: false, saved: {}, removed: {}, signout: false,
+      add: 'closed', nick: '', level: 'P3', world: 'dreamlight', signin: null, pw: '', pwShown: false, voice: true, tried: false, added: [], lastAdded: null,
+    };
+    const PRESET = {
+      list: {},
+      'reset-junior': { panel: 'ari:reset' },
+      'reset-teen': { panel: 'mei:reset' },
+      remove: { panel: 'mei:remove' },
+      add: { add: 'form', nick: 'Jun', level: 'P3', world: 'toon-pop' },
+      added: { add: 'done', added: [JUN], lastAdded: 'new-1' },
+    };
+    const start = this.props.startState ?? 'list';
+    const s = this.state.touched ? this.state : { ...BASE, ...(PRESET[start] || {}) };
+    const go = (patch) => this.setState({ ...s, ...patch, touched: true });
+
+    const swatch = (id, size) => `display: grid; place-items: center; flex: none; width: ${size}px; height: ${size}px; border-radius: 50%; background: ${W[id].swatch}; box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.55), 0 0 0 1px var(--line);`;
+    const val = (e) => (e && e.target ? String(e.target.value) : '');
+
+    // ---- Kid cards ----
+    const all = KIDS.concat(s.added);
+    const shown = all.filter((k) => !s.removed[k.id]);
+    const tempLen = s.tempPw.length;
+    const tempOk = tempLen >= 8;
+    const kids = shown.map((k) => {
+      const resetOpen = s.panel === `${k.id}:reset`;
+      const removeOpen = s.panel === `${k.id}:remove`;
+      const pics = k.signin === 'pictures';
+      const saved = Boolean(s.saved[k.id]);
+      const save = () => { if (tempOk) go({ panel: null, tempPw: '', tempShown: false, saved: { ...s.saved, [k.id]: true } }); };
+      return {
+        id: k.id,
+        name: k.name,
+        level: k.level,
+        sprite: k.sprite,
+        worldName: W[k.world].name,
+        look: k.level === 'P3' ? 'Junior look' : 'Teen look',
+        last: k.last,
+        signinLabel: pics ? 'Picture code' : 'Password',
+        signinIcon: pics ? ICON.pictures : ICON.password,
+        since: saved ? 'temporary, set just now' : k.since,
+        saved,
+        stageStyle: `position: relative; overflow: hidden; background: ${W[k.world].scene};`,
+        swatchStyle: swatch(k.world, 14),
+        resetLabel: pics ? 'Reset code' : 'Reset password',
+        resetOpen,
+        resetExpanded: resetOpen ? 'true' : 'false',
+        removeOpen,
+        removeExpanded: removeOpen ? 'true' : 'false',
+        isPictures: pics,
+        isPassword: !pics,
+        tempType: s.tempShown ? 'text' : 'password',
+        tempValue: s.tempPw,
+        tempShown: s.tempShown ? 'true' : 'false',
+        tempEye: s.tempShown ? ICON.eyeOff : ICON.eye,
+        tempHint: tempLen === 0 ? 'At least 8 characters.' : tempOk ? 'Long enough. Save when ready.' : `At least 8 characters (${tempLen} so far).`,
+        tempSaveDisabled: !tempOk,
+        onTemp: (e) => go({ tempPw: val(e) }),
+        onTempKey: (e) => { if (e && e.key === 'Enter') save(); },
+        toggleTempShow: () => go({ tempShown: !s.tempShown }),
+        toggleReset: () => go({ panel: resetOpen ? null : `${k.id}:reset`, tempPw: '', tempShown: false }),
+        toggleRemove: () => go({ panel: removeOpen ? null : `${k.id}:remove` }),
+        closePanel: () => go({ panel: null, tempPw: '', tempShown: false }),
+        saveTemp: save,
+        confirmRemove: () => go({ panel: null, removed: { ...s.removed, [k.id]: true } }),
+      };
+    });
+    const removedNotes = all.filter((k) => s.removed[k.id]).map((k) => ({ text: `${k.name} and all of ${k.name}'s learning data were removed.` }));
+    const n = shown.length;
+
+    // ---- Add a kid ----
+    const level = s.level;
+    const signin = s.signin ?? (level === 'P3' ? 'pictures' : 'password');
+    const nickT = s.nick.trim();
+    const nickMissing = nickT.length === 0;
+    const looksFull = /\s/.test(nickT);
+    const pwShort = signin === 'password' && s.pw.length < 8;
+    const nickErr = s.tried && nickMissing;
+    const pwErr = s.tried && pwShort;
+    const submitAdd = () => {
+      if (nickMissing || pwShort) { go({ tried: true }); return; }
+      const id = `new-${s.added.length + 1}`;
+      const kid = { id, name: nickT, level, world: s.world, signin, last: 'not yet', since: 'set just now', sprite: KIX, voice: s.voice };
+      go({ add: 'done', added: s.added.concat([kid]), lastAdded: id, tried: false, pw: '', pwShown: false });
+    };
+    const fresh = { nick: '', level: 'P3', world: 'dreamlight', signin: null, pw: '', pwShown: false, voice: true, tried: false };
+    const nk = all.find((k) => k.id === s.lastAdded) || null;
+    const LOOK = {
+      junior: { name: 'Junior look', note: 'Bigger buttons and words. Kix guides every step.' },
+      teen: { name: 'Teen look', note: 'A sleeker study deck. Kix speaks only when asked.' },
+    };
+    const on = Boolean(s.voice);
+    const toggle = (v) => ({
+      checked: v ? 'true' : 'false',
+      track: 'position: relative; display: block; width: 48px; height: 28px; border-radius: 999px; transition: background var(--duration-snappy) ease;'
+        + (v ? ' background: var(--accent);' : ' background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--border-control);'),
+      knob: 'position: absolute; top: 4px; left: 4px; width: 20px; height: 20px; border-radius: 50%; transition: transform var(--duration-snappy) var(--ease-soft);'
+        + (v ? ' transform: translateX(20px); background: var(--on-accent);' : ' background: var(--border-control);'),
+    });
+    const hint = (warn) => 'font-size: 14px; line-height: 20px;' + (warn ? ' color: var(--warn); font-weight: 600;' : ' color: var(--ink-muted);');
+
+    return {
+      touched: Boolean(this.state.touched),
+      resetDemo: () => this.setState({ ...BASE, touched: false }),
+      familyLine: n === 0 ? 'Demo family · no kids yet' : `Demo family · ${n} ${n === 1 ? 'kid' : 'kids'}`,
+      kids,
+      removedNotes,
+
+      addClosed: s.add === 'closed' || (s.add === 'done' && !nk),
+      addForm: s.add === 'form',
+      addDone: s.add === 'done' && Boolean(nk),
+      openAdd: () => go({ add: 'form', tried: false }),
+      closeAdd: () => go({ add: 'closed', tried: false }),
+      doneAdd: () => go({ ...fresh, add: 'closed' }),
+      addAnother: () => go({ ...fresh, add: 'form' }),
+
+      nick: s.nick,
+      nickCount: s.nick.length,
+      onNick: (e) => go({ nick: val(e).slice(0, 20) }),
+      onEnter: (e) => { if (e && e.key === 'Enter') submitAdd(); },
+      nickInvalid: nickErr ? 'true' : 'false',
+      nickTip: nickErr ? 'Add a nickname to continue.' : looksFull ? 'That looks like a full name. A nickname keeps them private.' : 'Use a nickname, not their full name. Up to 20 characters.',
+      nickTipStyle: hint(nickErr || looksFull),
+
+      levels: ['P3', 'P6', 'Sec 2'].map((id) => ({
+        label: id,
+        pressed: id === level ? 'true' : 'false',
+        pick: () => go({ level: id, signin: null }),
+      })),
+      look: level === 'P3' ? LOOK.junior : LOOK.teen,
+
+      worlds: WORLDS.map((w) => ({
+        name: w.name,
+        pressed: w.id === s.world ? 'true' : 'false',
+        swatch: swatch(w.id, 28),
+        pick: () => go({ world: w.id }),
+      })),
+
+      signins: [['pictures', 'Picture code', ICON.pictures], ['password', 'Password', ICON.password]].map(([id, label, icon]) => ({
+        label,
+        icon,
+        pressed: id === signin ? 'true' : 'false',
+        pick: () => go({ signin: id }),
+      })),
+      isPicturesNew: signin === 'pictures',
+      isPasswordNew: signin === 'password',
+      picturesNote: nickT ? `You'll pick 4 pictures with ${nickT} the first time ${nickT} opens their door.` : "You'll pick 4 pictures together the first time they open their door.",
+      pw: s.pw,
+      pwType: s.pwShown ? 'text' : 'password',
+      pwShown: s.pwShown ? 'true' : 'false',
+      pwEye: s.pwShown ? ICON.eyeOff : ICON.eye,
+      onPw: (e) => go({ pw: val(e) }),
+      togglePwShow: () => go({ pwShown: !s.pwShown }),
+      pwInvalid: pwErr ? 'true' : 'false',
+      pwHint: pwErr ? 'Needs at least 8 characters.' : `At least 8 characters. ${nickT || 'They'} can change it later in Me.`,
+      pwHintStyle: hint(pwErr),
+
+      voice: toggle(on),
+      voiceNote: on ? 'Kix can talk and listen. Audio is never kept.' : 'Kix uses text only.',
+      toggleVoice: () => go({ voice: !s.voice }),
+      submitAdd,
+
+      newKid: nk ? {
+        headline: `${nk.name} can now find their door on this device.`,
+        summary: `${nk.level} · ${W[nk.world].name} · ${nk.signin === 'pictures' ? 'Picture code' : 'Password'} · Voice ${nk.voice === false ? 'off' : 'on'}`,
+        next: nk.signin === 'pictures'
+          ? `Next: pick ${nk.name}'s 4-picture code together when ${nk.name} first opens their door.`
+          : `Tell ${nk.name} the starting password in person. ${nk.name} can change it in Me.`,
+        stageStyle: `position: relative; flex: none; width: 128px; height: 152px; border-radius: 64px 64px 16px 16px; overflow: hidden; background: ${W[nk.world].scene};`,
+      } : { headline: '', summary: '', next: '', stageStyle: '' },
+
+      signoutOpen: Boolean(s.signout),
+      signoutExpanded: s.signout ? 'true' : 'false',
+      toggleSignout: () => go({ signout: !s.signout }),
+    };
+  }
+}
+</script>
+</body>
+</html>

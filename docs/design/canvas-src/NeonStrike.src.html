@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Neon Strike</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+/*KEYBOARD_CSS*/
+/*AMBIENCE_CSS*/
+.ns-root>.la{opacity:.9}
+.ns-hud,.ns-stage,.ns-keys,.ns-kix{pointer-events:none}.ns-hud>*,.ns-stage>*,.ns-keys>*,.ns-kix>*{pointer-events:auto}
+.ns-root{position:relative;width:100%;min-height:100vh;box-sizing:border-box;overflow:hidden;display:grid;grid-template-rows:auto 1fr auto;background:#120C2B;color:#F2F0FA;font-family:var(--font-text);--kb-key:#1E1640;--kb-ink:#F2F0FA;--kb-hint:#3DF5FF}
+.ns-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 60%;opacity:.9}
+.ns-hud{position:relative;z-index:2;display:flex;flex-wrap:wrap;align-items:center;gap:10px 12px;padding:16px 24px}
+.ns-chip{display:inline-flex;align-items:center;gap:8px;min-height:40px;box-sizing:border-box;padding:0 14px;border-radius:10px;background:rgba(18,12,43,.7);box-shadow:inset 0 0 0 1px rgba(61,245,255,.45);font:700 14px/1 var(--font-text);color:#F2F0FA;text-decoration:none;border:0}
+.ns-chip strong{font:700 18px/1 var(--font-display-idol, var(--font-display));color:#3DF5FF}
+.ns-title{margin-right:auto;display:flex;flex-direction:column;gap:3px}
+.ns-title strong{font:700 24px/1.1 var(--font-display-idol, var(--font-display));letter-spacing:.02em;text-shadow:0 0 18px rgba(255,61,203,.7)}
+.ns-title span{font:600 13px/1.2 var(--font-text);color:#B9B2D8}
+.ns-seg{display:inline-flex;padding:3px;gap:3px;border-radius:10px;background:rgba(18,12,43,.7);box-shadow:inset 0 0 0 1px rgba(61,245,255,.45)}
+.ns-seg button{min-height:34px;padding:0 10px;border:0;border-radius:8px;background:transparent;color:#F2F0FA;font:700 13px/1 var(--font-text);cursor:pointer}
+.ns-seg button[aria-pressed="true"]{background:#3DF5FF;color:#120C2B}
+.ns-stage{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:18px;padding:6px 24px 0;min-height:320px}
+.ns-q{width:min(640px,100%);box-sizing:border-box;padding:16px 20px;border-radius:16px;background:rgba(30,22,64,.78);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:inset 0 0 0 1px rgba(255,61,203,.55),0 0 30px rgba(255,61,203,.25)}
+.ns-q small{display:block;margin-bottom:6px;font:700 12px/1 var(--font-text);letter-spacing:.12em;text-transform:uppercase;color:#FF3DCB}
+.ns-q p{margin:0;font:600 20px/1.35 var(--font-text)}
+.ns-drone{position:relative;width:120px;height:120px;display:grid;place-items:center}
+.ns-ring{position:absolute;inset:0;border-radius:50%;background:conic-gradient(#3DF5FF var(--p), rgba(61,245,255,.15) 0);-webkit-mask:radial-gradient(closest-side,transparent 78%,#000 80%);mask:radial-gradient(closest-side,transparent 78%,#000 80%);filter:drop-shadow(0 0 10px #3DF5FF);transition:--p .2s}
+.ns-core{width:54px;height:54px;transform:rotate(45deg);border-radius:10px;background:linear-gradient(135deg,#FF3DCB,#7A5CFF);box-shadow:0 0 28px #FF3DCB,inset 0 0 0 2px rgba(255,255,255,.6);animation:ns-spin 6s linear infinite}
+.ns-drone[data-hit="a"] .ns-core{animation:ns-hit-a .22s ease-out,ns-spin 6s linear infinite}
+.ns-drone[data-hit="b"] .ns-core{animation:ns-hit-b .22s ease-out,ns-spin 6s linear infinite}
+.ns-beam{position:absolute;left:50%;top:55%;width:4px;height:340px;margin-left:-2px;z-index:-1;opacity:0;background:linear-gradient(#FFFFFF,#3DF5FF 30%,rgba(61,245,255,0));box-shadow:0 0 14px #3DF5FF;transform-origin:50% 100%;animation:ns-beam .28s ease-out forwards}
+.ns-slots{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
+.ns-slots span{display:grid;place-items:center;width:34px;height:44px;border-radius:8px;background:rgba(18,12,43,.7);box-shadow:inset 0 -3px 0 rgba(61,245,255,.35);font:700 22px/1 var(--font-display-idol, var(--font-display));color:#F2F0FA}
+.ns-slots span[data-s="done"]{color:#3DF5FF;text-shadow:0 0 10px #3DF5FF;box-shadow:inset 0 -3px 0 #3DF5FF}
+.ns-slots span[data-s="now"]{box-shadow:inset 0 0 0 2px #FF3DCB,0 0 14px rgba(255,61,203,.6)}
+.ns-glitch{font:700 14px/1 var(--font-text);color:#FFB86B;animation:ns-glitch .5s steps(2) 2}
+.ns-kix{position:absolute;right:24px;top:96px;z-index:2;display:flex;align-items:center;gap:10px;max-width:260px}
+.ns-kix img{width:56px;height:56px;border-radius:50%;object-fit:contain;background:#1E1640;box-shadow:0 0 0 2px #3DF5FF}
+.ns-kix p{margin:0;padding:8px 12px;border-radius:12px;background:rgba(30,22,64,.85);font:600 14px/1.35 var(--font-text)}
+.ns-keys{position:relative;z-index:2;width:min(820px,calc(100% - 32px));margin:0 auto;padding:4px 0 14px}
+.ns-clear{position:absolute;inset:0;z-index:5;display:grid;place-items:center;background:rgba(7,4,20,.62);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.ns-card{width:min(460px,calc(100% - 32px));box-sizing:border-box;padding:26px;border-radius:20px;background:rgba(30,22,64,.94);box-shadow:inset 0 0 0 1px #3DF5FF,0 0 50px rgba(61,245,255,.3);display:flex;flex-direction:column;gap:14px}
+.ns-card h2{margin:0;font:700 30px/1.1 var(--font-display-idol, var(--font-display))}
+.ns-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ns-grid div{padding:10px;border-radius:12px;background:rgba(255,255,255,.06);font:600 12px/1.3 var(--font-text);color:#B9B2D8}
+.ns-grid strong{display:block;font:700 24px/1.1 var(--font-display-idol, var(--font-display));color:#F2F0FA}
+.ns-stars{font-size:30px;letter-spacing:6px;color:rgba(255,255,255,.2)}
+.ns-stars b{font-weight:400;color:#8CFFC9;text-shadow:0 0 12px #8CFFC9}
+@property --p{syntax:'<percentage>';inherits:false;initial-value:0%}
+@keyframes ns-spin{to{transform:rotate(405deg)}}
+@keyframes ns-hit-a{50%{transform:rotate(30deg) scale(.8);filter:brightness(1.8)}}
+@keyframes ns-hit-b{50%{transform:rotate(60deg) scale(.8);filter:brightness(1.8)}}
+@keyframes ns-beam{from{transform:scaleY(0);opacity:1}60%{transform:scaleY(1);opacity:1}to{opacity:0}}
+@keyframes ns-beam2{from{transform:scaleY(0);opacity:1}60%{transform:scaleY(1);opacity:1}to{opacity:0}}
+@keyframes ns-glitch{50%{transform:translateX(3px);opacity:.6}}
+@media (max-width: 599px){.ns-hud{padding:12px}.ns-kix{display:none}.ns-q p{font-size:17px}.ns-slots span{width:24px;height:34px;font-size:17px}.ns-keys{width:calc(100% - 16px)}}
+@media (prefers-reduced-motion: reduce){.ns-core,.ns-beam{animation:none}}
+</style>
+</helmet>
+<div class="ns-root" data-theme="idol-stage" data-band="teen">
+  <img class="ns-bg" src="/_blob/2724426a25e01842d1f5b8a7fe890687" alt="">
+  <!--LIVING_ART:neon-arena:50%:60%-->
+  <!--AMBIENCE_HTML:neon-->
+  <header class="ns-hud">
+    <a class="ns-chip" href="Arcade.dc.html">‹ Arcade</a>
+    <div class="ns-title">
+      <strong>NEON STRIKE</strong>
+      <span>Stage 7 · Answer blast · Sec 2 Science: plants, forces, electricity</span>
+    </div>
+    <span class="ns-chip">Combo <strong>x{{combo}}</strong></span>
+    <span class="ns-chip"><strong>{{wpm}}</strong> wpm</span>
+    <span class="ns-chip"><strong>{{accuracy}}</strong> right</span>
+    <div class="ns-seg" role="group" aria-label="Ghost hands">
+      <sc-for list="{{handModes}}" as="m" hint-placeholder-count="3">
+        <button type="button" aria-pressed="{{m.pressed}}" onClick="{{m.pick}}">{{m.label}}</button>
+      </sc-for>
+    </div>
+  </header>
+  <main class="ns-stage">
+    <div class="ns-q">
+      <small>Question {{qNum}} of 5 · type the answer to fire</small>
+      <p>{{prompt}}</p>
+    </div>
+    <div class="ns-drone" style="{{ringStyle}}" data-hit="{{hit}}" aria-hidden="true">
+      <div class="ns-ring"></div>
+      <div class="ns-core"></div>
+      <sc-for list="{{beams}}" as="be" hint-placeholder-count="0"><span class="ns-beam" style="{{be.style}}"></span></sc-for>
+    </div>
+    <div class="ns-slots" aria-label="{{slotsLabel}}">
+      <sc-for list="{{slots}}" as="sl" hint-placeholder-count="14"><span data-s="{{sl.s}}">{{sl.ch}}</span></sc-for>
+    </div>
+    <sc-if value="{{showMiss}}" hint-placeholder-val="{{false}}"><span class="ns-glitch">Glitch. Shot held: {{nextUpper}} is next.</span></sc-if>
+  </main>
+  <aside class="ns-kix">
+    <img src="/_blob/b1a0d040fdecae5f59f1b400eef42c34" alt="">
+    <p>{{kixLine}}</p>
+  </aside>
+  <section class="ns-keys">
+    <!--KEYBOARD_HTML-->
+  </section>
+  <sc-if value="{{clear}}" hint-placeholder-val="{{false}}">
+    <div class="ns-clear" role="dialog" aria-label="Round clear">
+      <div class="ns-card">
+        <h2>Round clear</h2>
+        <div class="ns-stars" aria-label="{{starsLabel}}"><b>{{starsOn}}</b><span>{{starsOff}}</span></div>
+        <div class="ns-grid">
+          <div><strong>{{accuracy}}</strong>right first time</div>
+          <div><strong>{{wpm}}</strong>words a minute</div>
+          <div><strong>x{{bestCombo}}</strong>best combo</div>
+        </div>
+        <p style="margin: 0; font: 600 13px/1.45 var(--font-text); color: #B9B2D8">★★★ needs 96% right and 25 wpm. Game rounds never change your mastery scores; they're practice.</p>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap">
+          <button class="mk-btn mk-btn--secondary" type="button" onClick="{{restart}}">Run it back</button>
+          <a class="mk-btn mk-btn--primary" href="TypingPath.dc.html" style="text-decoration: none">Save and share</a>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"hands":{"editor":"enum","options":["on","fade","off"],"default":"fade"},"startState":{"editor":"enum","options":["play","clear"],"default":"play"},"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  QS = [
+    ['Plants make their own food from light energy, water and carbon dioxide. This process is called…', 'photosynthesis'],
+    ['The green pigment in leaves that absorbs light energy.', 'chlorophyll'],
+    ['The force that slows a box sliding across a rough floor.', 'friction'],
+    ['A liquid slowly turning into a gas at its surface, below its boiling point.', 'evaporation'],
+    ['The SI unit of electrical resistance.', 'ohm'],
+  ];
+  LINES = ['Type it, fire it.', 'Clean. Keep the rhythm.', 'Eyes up. Fingers know the way.', 'Combo rising.', 'One more. You have this.'];
+  state = { q: 0, typed: 0, hits: 0, misses: 0, combo: 0, best: 0, beams: [], hit: '', miss: null, wrong: '', seq: 0, t0: null, chars: 0, hands: null, restarted: false, now: 0 };
+
+  componentDidMount() {
+    this.onKey = (e) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const k = e.key.length === 1 ? e.key.toLowerCase() : '';
+      if (!k) return;
+      e.preventDefault();
+      this.typeKey(k);
+    };
+    window.addEventListener('keydown', this.onKey);
+  }
+
+  componentWillUnmount() { window.removeEventListener('keydown', this.onKey); }
+
+  isClear() { return this.state.q >= this.QS.length || (!this.state.restarted && this.props.startState === 'clear'); }
+
+  typeKey(k) {
+    const s = this.state;
+    if (this.isClear()) return;
+    const ans = this.QS[s.q][1];
+    const seq = s.seq + 1;
+    const now = Date.now();
+    if (ans[s.typed] !== k) {
+      this.setState({ seq, misses: s.misses + 1, combo: 0, wrong: k, miss: seq, t0: s.t0 ?? now, now });
+      setTimeout(() => { if (this.state.miss === seq) this.setState({ wrong: '', miss: null }); }, 1000);
+      return;
+    }
+    const typed = s.typed + 1;
+    const patch = { seq, hits: s.hits + 1, chars: s.chars + 1, beams: s.beams.concat([{ id: s.hits, style: `animation-name: ${s.hits % 2 ? 'ns-beam' : 'ns-beam2'}` }]).slice(-3), hit: s.hits % 2 ? 'a' : 'b', wrong: '', miss: null, t0: s.t0 ?? now, now };
+    if (typed === ans.length) {
+      const combo = s.combo + 1;
+      Object.assign(patch, { q: s.q + 1, typed: 0, combo, best: Math.max(s.best, combo) });
+    } else Object.assign(patch, { typed });
+    this.setState(patch);
+  }
+
+  renderVals() {
+    const s = this.state;
+    const handsMode = s.hands ?? this.props.hands ?? 'fade';
+    const clear = this.isClear();
+    const preview = clear && !s.restarted && this.props.startState === 'clear' && s.hits === 0;
+    const total = s.hits + s.misses;
+    const acc = preview ? 0.97 : total ? s.hits / total : 1;
+    const mins = s.t0 && s.now > s.t0 ? (s.now - s.t0) / 60000 : 0;
+    const wpm = preview ? 27 : mins > 0.05 ? Math.round(s.chars / 5 / mins) : 0;
+    const stars = 1 + (acc >= 0.9 ? 1 : 0) + (acc >= 0.96 && wpm >= 25 ? 1 : 0);
+    const qi = Math.min(s.q, this.QS.length - 1);
+    const [prompt, ans] = this.QS[qi];
+    const next = clear ? '' : ans[s.typed];
+    return {
+      ...this.amModel(s.combo >= 8 ? 3 : s.combo >= 4 ? 2 : s.combo >= 1 ? 1 : 0, s.hit),
+      ...this.kbModel(next, s.wrong, handsMode),
+      qNum: String(qi + 1),
+      prompt,
+      ringStyle: `--p: ${Math.round((s.typed / ans.length) * 100)}%`,
+      hit: s.hit,
+      slots: ans.split('').map((ch, i) => ({ ch: i < s.typed ? ch.toUpperCase() : '', s: i < s.typed ? 'done' : i === s.typed ? 'now' : 'todo' })),
+      slotsLabel: `${s.typed} of ${ans.length} letters`,
+      showMiss: s.miss !== null,
+      nextUpper: (next || '').toUpperCase(),
+      beams: s.beams,
+      combo: String(s.combo),
+      bestCombo: String(preview ? 5 : s.best),
+      wpm: String(wpm),
+      accuracy: `${Math.round(acc * 100)}%`,
+      kixLine: this.LINES[(s.q + s.combo) % this.LINES.length],
+      handModes: [['on', 'Hands'], ['fade', 'Fade'], ['off', 'Off']].map(([id, label]) => ({ label, pressed: handsMode === id ? 'true' : 'false', pick: () => this.setState({ hands: id }) })),
+      clear,
+      starsOn: '★'.repeat(stars),
+      starsOff: '★'.repeat(3 - stars),
+      starsLabel: `${stars} of 3 stars`,
+      restart: () => this.setState({ q: 0, typed: 0, hits: 0, misses: 0, combo: 0, best: 0, beams: [], hit: '', miss: null, wrong: '', t0: null, chars: 0, restarted: true }),
+    };
+  }
+
+/*KEYBOARD_JS*/
+/*AMBIENCE_JS*/
+}
+</script>
+</body>
+</html>

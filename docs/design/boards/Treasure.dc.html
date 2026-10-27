@@ -87,10 +87,105 @@ a{color:var(--accent)}a:hover{color:var(--ink)}
   .tr-wrap{padding:40px 32px}
   .tr-cards{grid-template-columns:repeat(auto-fit,minmax(0,248px));gap:32px;margin-block:auto}
 }
+/* Living art (scripts/living-art.ts): the parts of a background that should move are cut out of the art and move
+   by their kind, right on top of where they are painted. .la covers the art; .la-box is the art's cover box (--ar is
+   its aspect ratio, --ox/--oy its object-position), so every layer sits in percent of the art.
+   Display layers (sway, waver, mist, bob) move a cut-out copy; mask layers (breeze, flow, shimmer, glint, runway,
+   neon) add moving light inside the part's own shape. Only transform and opacity animate; reduced motion stops all. */
+.la{position:absolute;inset:0;overflow:hidden;pointer-events:none;container-type:size;--la-streaks:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2748%27 height=%27240%27%3E%3Crect x=%272.0%27 y=%27221%27 width=%271.3%27 height=%2742%27 rx=%270.7%27 fill=%27white%27 opacity=%270.66%27/%3E%3Crect x=%272.0%27 y=%27-19%27 width=%271.3%27 height=%2742%27 rx=%270.7%27 fill=%27white%27 opacity=%270.66%27/%3E%3Crect x=%2725.4%27 y=%2779%27 width=%272.2%27 height=%2775%27 rx=%271.1%27 fill=%27white%27 opacity=%270.55%27/%3E%3Crect x=%2725.4%27 y=%27-161%27 width=%272.2%27 height=%2775%27 rx=%271.1%27 fill=%27white%27 opacity=%270.55%27/%3E%3Crect x=%2732.1%27 y=%27153%27 width=%271.4%27 height=%2779%27 rx=%270.7%27 fill=%27white%27 opacity=%270.44%27/%3E%3Crect x=%2732.1%27 y=%27-87%27 width=%271.4%27 height=%2779%27 rx=%270.7%27 fill=%27white%27 opacity=%270.44%27/%3E%3Crect x=%2733.1%27 y=%27168%27 width=%272.1%27 height=%2726%27 rx=%271.1%27 fill=%27white%27 opacity=%270.50%27/%3E%3Crect x=%2733.1%27 y=%27-72%27 width=%272.1%27 height=%2726%27 rx=%271.1%27 fill=%27white%27 opacity=%270.50%27/%3E%3Crect x=%2742.6%27 y=%27194%27 width=%271.8%27 height=%2731%27 rx=%270.9%27 fill=%27white%27 opacity=%270.77%27/%3E%3Crect x=%2742.6%27 y=%27-46%27 width=%271.8%27 height=%2731%27 rx=%270.9%27 fill=%27white%27 opacity=%270.77%27/%3E%3Crect x=%2732.3%27 y=%27155%27 width=%272.5%27 height=%2762%27 rx=%271.3%27 fill=%27white%27 opacity=%270.77%27/%3E%3Crect x=%2732.3%27 y=%27-85%27 width=%272.5%27 height=%2762%27 rx=%271.3%27 fill=%27white%27 opacity=%270.77%27/%3E%3Crect x=%2718.4%27 y=%2780%27 width=%271.5%27 height=%2781%27 rx=%270.8%27 fill=%27white%27 opacity=%270.31%27/%3E%3Crect x=%2718.4%27 y=%27-160%27 width=%271.5%27 height=%2781%27 rx=%270.8%27 fill=%27white%27 opacity=%270.31%27/%3E%3Crect x=%2715.1%27 y=%27103%27 width=%272.5%27 height=%2743%27 rx=%271.3%27 fill=%27white%27 opacity=%270.55%27/%3E%3Crect x=%2715.1%27 y=%27-137%27 width=%272.5%27 height=%2743%27 rx=%271.3%27 fill=%27white%27 opacity=%270.55%27/%3E%3Crect x=%2734.1%27 y=%27211%27 width=%271.4%27 height=%2726%27 rx=%270.7%27 fill=%27white%27 opacity=%270.56%27/%3E%3Crect x=%2734.1%27 y=%27-29%27 width=%271.4%27 height=%2726%27 rx=%270.7%27 fill=%27white%27 opacity=%270.56%27/%3E%3Crect x=%2724.4%27 y=%27101%27 width=%272.5%27 height=%2736%27 rx=%271.3%27 fill=%27white%27 opacity=%270.25%27/%3E%3Crect x=%2724.4%27 y=%27-139%27 width=%272.5%27 height=%2736%27 rx=%271.3%27 fill=%27white%27 opacity=%270.25%27/%3E%3Crect x=%2718.1%27 y=%2783%27 width=%272.5%27 height=%2769%27 rx=%271.3%27 fill=%27white%27 opacity=%270.53%27/%3E%3Crect x=%2718.1%27 y=%27-157%27 width=%272.5%27 height=%2769%27 rx=%271.3%27 fill=%27white%27 opacity=%270.53%27/%3E%3Crect x=%279.3%27 y=%2797%27 width=%271.6%27 height=%2742%27 rx=%270.8%27 fill=%27white%27 opacity=%270.47%27/%3E%3Crect x=%279.3%27 y=%27-143%27 width=%271.6%27 height=%2742%27 rx=%270.8%27 fill=%27white%27 opacity=%270.47%27/%3E%3Crect x=%2716.6%27 y=%27128%27 width=%271.4%27 height=%2765%27 rx=%270.7%27 fill=%27white%27 opacity=%270.76%27/%3E%3Crect x=%2716.6%27 y=%27-112%27 width=%271.4%27 height=%2765%27 rx=%270.7%27 fill=%27white%27 opacity=%270.76%27/%3E%3Crect x=%2722.1%27 y=%27207%27 width=%272.0%27 height=%2766%27 rx=%271.0%27 fill=%27white%27 opacity=%270.53%27/%3E%3Crect x=%2722.1%27 y=%27-33%27 width=%272.0%27 height=%2766%27 rx=%271.0%27 fill=%27white%27 opacity=%270.53%27/%3E%3Crect x=%2724.2%27 y=%27165%27 width=%271.6%27 height=%2788%27 rx=%270.8%27 fill=%27white%27 opacity=%270.64%27/%3E%3Crect x=%2724.2%27 y=%27-75%27 width=%271.6%27 height=%2788%27 rx=%270.8%27 fill=%27white%27 opacity=%270.64%27/%3E%3Crect x=%2713.0%27 y=%27141%27 width=%271.5%27 height=%2747%27 rx=%270.8%27 fill=%27white%27 opacity=%270.45%27/%3E%3Crect x=%2713.0%27 y=%27-99%27 width=%271.5%27 height=%2747%27 rx=%270.8%27 fill=%27white%27 opacity=%270.45%27/%3E%3Crect x=%2737.0%27 y=%27211%27 width=%272.3%27 height=%2730%27 rx=%271.1%27 fill=%27white%27 opacity=%270.27%27/%3E%3Crect x=%2737.0%27 y=%27-29%27 width=%272.3%27 height=%2730%27 rx=%271.1%27 fill=%27white%27 opacity=%270.27%27/%3E%3Crect x=%2719.9%27 y=%2737%27 width=%272.6%27 height=%2727%27 rx=%271.3%27 fill=%27white%27 opacity=%270.35%27/%3E%3Crect x=%2719.9%27 y=%27-203%27 width=%272.6%27 height=%2727%27 rx=%271.3%27 fill=%27white%27 opacity=%270.35%27/%3E%3C/svg%3E")}
+.la-box{position:absolute;aspect-ratio:var(--ar);width:max(100cqw,calc(100cqh * var(--ar)));left:var(--ox,50%);top:var(--oy,50%);translate:calc(-1 * var(--ox,50%)) calc(-1 * var(--oy,50%))}
+.la-l{position:absolute;display:block;left:var(--x);top:var(--y);width:var(--w);height:var(--h);max-width:none;animation-delay:var(--dl,0s)}
+.la-mask{overflow:hidden;-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.la-mask::before,.la-mask::after{content:"";position:absolute;pointer-events:none}
+@keyframes la-sweep{0%{transform:translateX(-66.67%)}60%,100%{transform:translateX(0)}}
+
+/* Fronds sway from their base; reeds and tufts waver; clouds and haze drift and breathe; planets bob. */
+.la-sway{transform-origin:50% 100%;animation:la-sway var(--d,5s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes la-sway{from{transform:rotate(calc(-1 * var(--a,1.4deg)))}to{transform:rotate(var(--a,1.4deg))}}
+.la-waver{transform-origin:50% 100%;animation:la-waver var(--d,3s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes la-waver{from{transform:skewX(calc(-1 * var(--a,2.4deg)))}to{transform:skewX(var(--a,2.4deg)) scaleY(1.015)}}
+.la-mist{animation:la-mist var(--d,16s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes la-mist{0%{transform:translateX(calc(-1 * var(--dx,1cqw))) scale(1);opacity:.5}50%{opacity:1}100%{transform:translateX(var(--dx,1cqw)) scale(1.04);opacity:.65}}
+.la-haze{animation:la-haze var(--d,24s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes la-haze{from{transform:translateX(calc(-1 * var(--dx,1.2cqw))) scale(1.01);opacity:.85}to{transform:translateX(var(--dx,1.2cqw)) scale(1.04);opacity:1}}
+.la-bob{animation:la-bob var(--d,7s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes la-bob{from{transform:translateY(-.3cqh) rotate(-1deg)}to{transform:translateY(.3cqh) rotate(1deg)}}
+
+/* Islands float (they sit on a plate with the sky filled in behind them, so no ghost shows); stars orbit a point. */
+.la-float{animation:la-float var(--d,7s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes la-float{from{transform:translateY(calc(-1 * var(--ay,.5cqh))) rotate(-.4deg)}to{transform:translateY(var(--ay,.5cqh)) rotate(.4deg)}}
+.la-orbit{transform-origin:var(--o,50% 50%);animation:la-orbit var(--d,120s) linear infinite}
+@keyframes la-orbit{to{transform:rotate(-360deg)}}
+/* Lanterns and chest glow flicker in four groups, each on its own beat; a core of light breathes. */
+.la-flicker{background:rgba(255,224,150,.9);animation:la-flicker var(--d,2.8s) ease-in-out infinite;animation-delay:var(--dl,0s)}
+@keyframes la-flicker{0%,100%{opacity:.1}30%{opacity:.7}45%{opacity:.35}70%{opacity:.95}}
+.la-pulse{background:radial-gradient(closest-side,#FFFFFF,rgba(255,240,210,.7));animation:la-glow var(--d,3.4s) ease-in-out infinite alternate}
+@keyframes la-glow{from{opacity:.05}to{opacity:.8}}
+
+/* Wind: a band of light sweeps across wide grass, then rests. */
+.la-breeze::before{top:0;bottom:0;left:0;width:300%;background:linear-gradient(100deg,transparent 0 38%,rgba(255,255,235,.42) 46%,rgba(255,255,235,0) 56%);animation:la-sweep var(--d,7s) ease-in-out infinite}
+/* Water: streaks fall inside the waterfall's own shape, foam brightens the foot. */
+.la-flow{background:linear-gradient(rgba(255,255,255,0) 60%,rgba(235,255,255,.4))}
+.la-flow::before,.la-flow::after{left:0;right:0;top:-240px;bottom:0;background:var(--la-streaks) 0 0/48px 240px repeat;animation:la-fall var(--d,1.1s) linear infinite}
+.la-flow::after{background-size:70px 240px;background-position:21px 0;opacity:.55;animation-duration:calc(var(--d,1.1s) * 1.7)}
+@keyframes la-fall{to{transform:translateY(240px)}}
+.la-splash{position:absolute;left:var(--x);top:var(--y);width:var(--w);aspect-ratio:2.2;translate:-50% -55%}
+.la-splash>i{position:absolute;display:block;border-radius:50%}
+.la-puff{inset:0;background:radial-gradient(closest-side,rgba(255,255,255,.8),rgba(230,250,255,0));opacity:0;animation:la-puff var(--d,2.4s) ease-out infinite;animation-delay:var(--dl,0s)}
+@keyframes la-puff{0%{transform:scale(.5);opacity:.9}100%{transform:scale(1.3) translateY(-14%);opacity:0}}
+.la-drop{left:var(--px);bottom:38%;width:5px;height:5px;background:#FFFFFF;box-shadow:0 0 6px rgba(200,255,255,.95);opacity:0;animation:la-drop var(--d,1.4s) ease-out infinite;animation-delay:var(--dl,0s)}
+@keyframes la-drop{0%{transform:translate(0,0);opacity:0}12%{opacity:1}50%{transform:translate(var(--hx,8px),var(--hy,-26px))}100%{transform:translate(calc(var(--hx,8px) * 2),8px);opacity:0}}
+/* Pond: soft ripple lines drift toward you, and a glint crosses now and then. */
+.la-shimmer::before{left:0;right:0;top:-24px;bottom:0;background:repeating-linear-gradient(180deg,rgba(255,255,255,0) 0 12px,rgba(255,255,255,.3) 17px,rgba(255,255,255,0) 22px 24px);animation:la-ripple var(--d,3.6s) linear infinite}
+@keyframes la-ripple{to{transform:translateY(24px)}}
+.la-shimmer::after,.la-glint::after{top:0;bottom:0;left:0;width:300%;background:linear-gradient(110deg,transparent 42%,rgba(255,255,255,.95) 47%,rgba(255,255,255,0) 52%);animation:la-sweep var(--d,5s) ease-in-out infinite}
+.la-shimmer::after{animation-duration:calc(var(--d,3.6s) * 2)}
+/* Stepping stones light up one after another along the path, like runway lights. */
+.la-runway::before{inset:0;background:rgba(255,255,255,.35);animation:la-pulse 3s ease-in-out infinite alternate}
+.la-runway::after{top:0;bottom:0;left:0;width:300%;background:linear-gradient(60deg,transparent 40%,rgba(255,255,255,1) 46%,rgba(255,250,220,0) 52%);animation:la-sweep var(--d,3.6s) linear infinite}
+@keyframes la-pulse{from{opacity:.15}to{opacity:.7}}
+/* Neon: thin bands of light run from the horizon toward you, speeding up as they come, so light travels along
+   every grid line (a pink and a cyan band, half a lap apart). The mask layer is cropped to the floor. */
+.la-neon::before,.la-neon::after{left:0;right:0;top:0;height:200%;background:linear-gradient(180deg,transparent 0 46%,rgba(255,170,240,0) 46%,rgba(255,200,245,.95) 49.2%,rgba(255,255,255,1) 49.6%,transparent 50.4%);animation:la-run var(--d,2.8s) cubic-bezier(.55,0,1,.8) infinite}
+.la-neon::after{background:linear-gradient(180deg,transparent 0 46%,rgba(120,255,240,0) 46%,rgba(150,255,245,.95) 49.2%,rgba(255,255,255,1) 49.6%,transparent 50.4%)}
+@keyframes la-run{from{transform:translateY(-50%)}to{transform:translateY(0)}}
+
+/* Each layer's own phase (--dl) carries into its light; the neon's second ring runs half a lap behind. */
+.la .la-mask::before,.la .la-mask::after{animation-delay:var(--dl,0s)}
+.la .la-neon::after{animation-delay:calc(var(--dl,0s) - var(--d,3.2s) / 2)}
+
+/* A whole art that swirls: sways ±3° and breathes, zoomed 1.12× or more so no corner ever shows (a frame with sides
+   in ratio k needs cos 3° + k sin 3°: 1.09 for 16:9, 1.11 for a 2.17:1 phone). Put it on a wrapper holding the
+   <img> and its .la. */
+.la-swirl-art{position:absolute;inset:0;transform-origin:50% 50%;animation:la-swirl-art 14s ease-in-out infinite alternate}
+@keyframes la-swirl-art{from{transform:scale(1.12) rotate(-3deg)}to{transform:scale(1.16) rotate(3deg)}}
+
+@media (prefers-reduced-motion: reduce){.la-swirl-art{animation:none}.la *,.la *::before,.la *::after{animation:none!important}.la-splash,.la-mask::after{display:none}}
+.tr-bg{overflow:hidden}
+.tr-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 </style>
 </helmet>
 <div data-theme="dreamlight" data-band="junior" style="width: 100%; min-height: 100vh; box-sizing: border-box; position: relative; overflow: hidden; display: flex; flex-direction: column; background: var(--surface); color: var(--ink); font-family: var(--font-text)">
-  <img class="tr-bg" src="/_blob/51658a9e815144ebc0da19f028bc2f57" alt="" style="object-fit: cover">
+  <div class="tr-bg">
+    <img class="tr-bg-img" src="/_blob/51658a9e815144ebc0da19f028bc2f57" alt="">
+      <div class="la" aria-hidden="true"><div class="la-box" style="--ar: 1600 / 1067; --ox: 50%; --oy: 50%">
+        <img class="la-l la-plate" src="/_blob/c1ccd2bddc712e75c7d9a286c9ce2c56" alt="" style="--x: 0%; --y: 0%; --w: 100%; --h: 100%">
+        <img class="la-l la-haze" src="/_blob/07780e0090b18a771a5d9f2967c639af" alt="" style="--x: 0%; --y: 18.28%; --w: 100%; --h: 16.87%; --d: 22s; --dx: 1cqw; --dl: -0s">
+        <img class="la-l la-haze" src="/_blob/0366ce381fb64a27ed7be9c095e8bcc1" alt="" style="--x: 0%; --y: 0%; --w: 100%; --h: 100%; --d: 27s; --dx: 1.4cqw; --dl: -6.1s">
+        <img class="la-l la-float" src="/_blob/bdbb22b018bfd08f38b82ace22b81212" alt="" style="--x: 74.38%; --y: 14.43%; --w: 25.63%; --h: 55.67%; --d: 6.5s; --ay: 0.35cqh; --dl: -0s">
+        <img class="la-l la-float" src="/_blob/163f012a0c12543bbc4f4b8c589b552f" alt="" style="--x: 0%; --y: 22.49%; --w: 25.88%; --h: 53.23%; --d: 7.6s; --ay: 0.5cqh; --dl: -2.7s">
+        <img class="la-l la-float" src="/_blob/6c1d26bfef76bcbac6b6a9d78d595999" alt="" style="--x: 68.06%; --y: 76.01%; --w: 31.94%; --h: 23.99%; --d: 8.7s; --ay: 0.65cqh; --dl: -5.4s">
+        <img class="la-l la-float" src="/_blob/47adbcf992d781a9af8f115828de92b1" alt="" style="--x: 0%; --y: 77.88%; --w: 31%; --h: 22.12%; --d: 9.8s; --ay: 0.35cqh; --dl: -8.1s">
+        <img class="la-l la-float" src="/_blob/5083cecc4cd49ea4af6ae440f35675f9" alt="" style="--x: 6.81%; --y: 3.56%; --w: 13.13%; --h: 25.02%; --d: 6.5s; --ay: 0.5cqh; --dl: -4.3s">
+        <img class="la-l la-float" src="/_blob/97c0c8418f5048926b0135310616d67e" alt="" style="--x: 67.25%; --y: 68.88%; --w: 17.69%; --h: 25.12%; --d: 7.6s; --ay: 0.65cqh; --dl: -5.9s">
+        <img class="la-l la-float" src="/_blob/d44c50e77411941382b39ee4f0f2e01d" alt="" style="--x: 76.63%; --y: 3.47%; --w: 12.25%; --h: 22.21%; --d: 8.7s; --ay: 0.35cqh; --dl: -7.5s">
+        <img class="la-l la-float" src="/_blob/acee72391d787d3090c42b41ee2bea52" alt="" style="--x: 21.56%; --y: 72.07%; --w: 15.88%; --h: 17.62%; --d: 9.8s; --ay: 0.5cqh; --dl: -9.1s">
+        <i class="la-l la-mask la-flicker" style="--x: 0%; --y: 3.94%; --w: 25%; --h: 94.94%; --d: 2.4s; --dl: -0s; -webkit-mask-image: url(/_blob/14272b07315603e61cbca3118b7378d9); mask-image: url(/_blob/14272b07315603e61cbca3118b7378d9)"></i>
+        <i class="la-l la-mask la-flicker" style="--x: 25%; --y: 3.94%; --w: 25%; --h: 94.94%; --d: 3.1s; --dl: -0.9s; -webkit-mask-image: url(/_blob/094c5f93bb545d025a15b70e5058c594); mask-image: url(/_blob/094c5f93bb545d025a15b70e5058c594)"></i>
+        <i class="la-l la-mask la-flicker" style="--x: 50%; --y: 3.94%; --w: 25%; --h: 94.94%; --d: 3.8s; --dl: -1.8s; -webkit-mask-image: url(/_blob/1e23d2345ff35c3a692eb5d362341f69); mask-image: url(/_blob/1e23d2345ff35c3a692eb5d362341f69)"></i>
+        <i class="la-l la-mask la-flicker" style="--x: 75%; --y: 3.94%; --w: 25%; --h: 94.94%; --d: 4.5s; --dl: -2.7s; -webkit-mask-image: url(/_blob/c90648442e05e9c3cb1dc3bc9a1b6b0b); mask-image: url(/_blob/c90648442e05e9c3cb1dc3bc9a1b6b0b)"></i>
+      </div></div>
+  </div>
   <div class="tr-aurora" aria-hidden="true" style="position: absolute; left: -10%; top: -10%; width: 120%; height: 55%; mix-blend-mode: screen; opacity: 0.35; background: linear-gradient(100deg, rgba(0, 0, 0, 0) 10%, var(--kix-mint) 35%, var(--kix-lavender) 55%, rgba(255, 201, 168, 0.8) 70%, rgba(0, 0, 0, 0) 90%); filter: blur(40px)"></div>
   <div aria-hidden="true">
     <span class="tr-lantern" style="left: 10.9%; animation-delay: 0s"></span>

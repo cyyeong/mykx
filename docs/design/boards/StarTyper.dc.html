@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Star Typer</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+/* Ghost-hands keyboard: keys tinted by the finger that owns them; two see-through hands rest on the home row and
+   the right finger reaches for the next key. Fingers are numbered 1–10 left to right (thumbs 5 and 6), and each
+   key carries its finger's number softly in the corner. --u is one key unit (the board is 11 units wide).
+   --kb-hand (set on the board root) is the hands' outline colour (white on dark boards, deep ink on light ones). */
+.kb{position:relative;width:100%;container-type:inline-size;--kb-hand-line:var(--kb-hand,255,255,255)}
+.kb-board{position:relative;width:100%;--u:calc(100cqw / 11);height:calc(var(--u) * 4.95);overflow:hidden}
+.kb-key{position:absolute;box-sizing:border-box;width:calc(var(--u) * .9);height:calc(var(--u) * .9);padding:0;border:0;border-radius:calc(var(--u) * .18);background:linear-gradient(rgba(var(--f),.22),rgba(var(--f),.22)),var(--kb-key,#FFFFFF);color:var(--kb-ink,#2B2A5C);font:800 calc(var(--u) * .34)/1 var(--font-display);box-shadow:inset 0 -3px 0 rgba(var(--f),.75),0 2px 6px rgba(10,8,40,.18);cursor:pointer;transition:transform 90ms ease,box-shadow 160ms ease}
+.kb-key:active{transform:translateY(2px)}
+.kb-key--space{font-size:calc(var(--u) * .24);letter-spacing:.08em;text-transform:uppercase}
+.kb-key--bump::after{content:"";position:absolute;left:35%;right:35%;bottom:16%;height:3px;border-radius:2px;background:currentColor;opacity:.45}
+.kb-key--next{background:rgb(var(--f));color:#1E1C45;box-shadow:0 0 0 3px #FFFFFF,0 0 22px 6px rgba(var(--f),.95);animation:kb-pulse 1.1s ease-in-out infinite}
+.kb-key--wrong{animation:kb-wobble .38s ease-in-out}
+.kb-kn{position:absolute;top:calc(var(--u) * .07);right:calc(var(--u) * .09);font:800 calc(var(--u) * .15)/1 var(--font-display);opacity:.5;transition:opacity .4s}
+.kb[data-hands="off"] .kb-kn{opacity:0}
+@keyframes kb-pulse{50%{transform:translateY(-3px)}}
+@keyframes kb-wobble{20%{transform:translateX(-4px) rotate(-3deg)}50%{transform:translateX(4px) rotate(3deg)}80%{transform:translateX(-2px)}}
+.kb-hands{position:absolute;inset:0;pointer-events:none;transition:opacity .4s}
+.kb-hands[data-mode="fade"]{opacity:.38}
+.kb-hands[data-mode="off"]{opacity:0}
+.kb-palm{position:absolute;top:calc(var(--u) * 3.4);width:calc(var(--u) * 4.2);height:calc(var(--u) * 2);border-radius:calc(var(--u) * 1.5) calc(var(--u) * 1.2) calc(var(--u) * .5) calc(var(--u) * .5)/calc(var(--u) * 1.1) calc(var(--u) * 1) calc(var(--u) * .5) calc(var(--u) * .5);background:linear-gradient(rgba(var(--kb-hand-line),.2),rgba(var(--kb-hand-line),.05));box-shadow:inset 0 0 0 1.5px rgba(var(--kb-hand-line),.5);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);-webkit-mask-image:linear-gradient(#000 20%,transparent 80%);mask-image:linear-gradient(#000 20%,transparent 80%)}
+.kb-palm--r{border-radius:calc(var(--u) * 1.2) calc(var(--u) * 1.5) calc(var(--u) * .5) calc(var(--u) * .5)/calc(var(--u) * 1) calc(var(--u) * 1.1) calc(var(--u) * .5) calc(var(--u) * .5)}
+/* A finger: a soft capsule in its own colour, its number on the fingertip pad (on the lower half of the key it rests on, under the letter), two knuckle creases. The bottom fades into the palm. --rot is the splay; the badge
+  
+   turns back the other way so the number stays upright. */
+.kb-finger,.kb-thumb{position:absolute;box-sizing:border-box;width:calc(var(--u) * .64);height:var(--len);border-radius:calc(var(--u) * .32) calc(var(--u) * .32) calc(var(--u) * .24) calc(var(--u) * .24);background:linear-gradient(rgba(255,255,255,.3),rgba(255,255,255,0) 45%),rgba(var(--f),.26);box-shadow:inset 0 0 0 1.5px rgba(var(--kb-hand-line),.6),0 calc(var(--u) * .06) calc(var(--u) * .16) rgba(12,10,40,.18);-webkit-mask-image:linear-gradient(#000 62%,transparent 98%);mask-image:linear-gradient(#000 62%,transparent 98%);transform-origin:50% 85%;transition:transform 420ms cubic-bezier(.34,1.56,.64,1),background .3s,box-shadow .3s}
+
+.kb-finger::after{content:"";position:absolute;top:calc(var(--u) * 1.1);left:26%;right:26%;height:1.5px;border-radius:1px;background:rgba(var(--kb-hand-line),.38);box-shadow:0 calc(var(--u) * .44) 0 rgba(var(--kb-hand-line),.3)}
+.kb-thumb{--len:calc(var(--u) * 1.5);width:calc(var(--u) * .7);transform-origin:50% 100%}
+.kb-num{position:absolute;top:calc(var(--u) * .05);left:50%;display:grid;place-items:center;width:calc(var(--u) * .36);height:calc(var(--u) * .36);margin-left:calc(var(--u) * -.18);border-radius:50%;background:rgb(var(--f));color:#1E1C45;font:800 calc(var(--u) * .2)/1 var(--font-display);box-shadow:0 0 0 1.5px rgba(255,255,255,.9),0 2px 6px rgba(10,8,40,.22);opacity:.85;transform:rotate(calc(-1 * var(--rot, 0deg)));transition:transform 420ms cubic-bezier(.34,1.56,.64,1),opacity .3s}
+.kb-thumb .kb-num{top:calc(var(--u) * .08)}
+.kb-finger--on{background:linear-gradient(rgba(255,255,255,.35),rgba(255,255,255,0) 55%),rgba(var(--f),.72);box-shadow:inset 0 0 0 2px #FFFFFF,0 0 calc(var(--u) * .3) calc(var(--u) * .06) rgba(var(--f),.9)}
+.kb-finger--on .kb-num{opacity:1;transform:rotate(calc(-1 * var(--rot, 0deg))) scale(1.2)}
+.kb-hint{display:flex;align-items:center;justify-content:center;gap:6px;min-height:28px;margin:0 0 8px;text-align:center;font:800 16px/28px var(--font-text);color:var(--kb-hint,#FFFFFF);text-shadow:0 1px 8px rgba(10,8,40,.6)}
+.kb-hint-n{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:rgb(var(--f));color:#1E1C45;font:800 14px/1 var(--font-display);text-shadow:none;box-shadow:0 0 0 1.5px rgba(255,255,255,.9)}
+.kb-hint-n:last-of-type{margin-right:4px}
+@media (prefers-reduced-motion: reduce){.kb-key--next,.kb-key--wrong{animation:none}.kb-finger,.kb-thumb,.kb-num{transition:none}}
+/* Living game backgrounds (shared by the arcade boards). A scene layer sits between the art and the UI:
+   drifting fog, light and particles that never stop, a "heat" level that brightens as the child plays well
+   (data-heat 0–3: combo, words done or blooms), a soft bloom on every hit (data-pulse a/b), and hidden tap
+   spots whose reaction is different on each tap (data-act cycles). Only transform and opacity animate; fog and
+   stars are 200 % wide with tiles that divide 50 %, so the loop is seamless. Colours come in as --c "r, g, b". */
+.am{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.am i,.am b,.am-spots,.am-floor,.am-lasers,.am-fan,.am-warp,.am-rays,.am-shower{position:absolute;display:block}
+@keyframes am-drift{to{transform:translateX(-50%)}}
+@keyframes am-drift-r{from{transform:translateX(-50%)}to{transform:none}}
+@keyframes am-breathe{from{opacity:var(--o,.5)}to{opacity:calc(var(--o,.5) * .55)}}
+.am-fog{left:0;width:200%;top:var(--y,55%);height:var(--h,50%);background:radial-gradient(closest-side,rgba(var(--c),.6),rgba(var(--c),0)) 0 40%/25% 75% repeat-x,radial-gradient(closest-side,rgba(var(--c),.45),rgba(var(--c),0)) 8% 85%/12.5% 60% repeat-x,radial-gradient(closest-side,rgba(var(--c),.35),rgba(var(--c),0)) 30% 10%/50% 70% repeat-x;opacity:var(--o,.5);animation:am-drift var(--d,60s) linear infinite,am-breathe 9s ease-in-out infinite alternate}
+.am-fog--r{animation:am-drift-r var(--d,60s) linear infinite,am-breathe 11s ease-in-out infinite alternate}
+
+/* Particles: --x across, --s size, --d/--dl timing. "rise" floats bottom to top; "float" wanders in place. */
+.am-mote{left:var(--x);width:var(--s,3px);height:var(--s,3px);border-radius:50%;background:rgb(var(--c));box-shadow:0 0 calc(var(--s,3px) * 2.5) rgba(var(--c),.9);opacity:0}
+.am-mote--rise{bottom:-12px;animation:am-rise var(--d,10s) linear infinite;animation-delay:var(--dl,0s)}
+@keyframes am-rise{0%{transform:translate(0,0);opacity:0}10%{opacity:.9}50%{transform:translate(var(--dx,20px),-55vh)}90%{opacity:.7}100%{transform:translate(0,-110vh);opacity:0}}
+.am-mote--float{top:var(--y);animation:am-wander var(--d,12s) ease-in-out infinite alternate,am-blink calc(var(--d,12s) / 3) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes am-wander{0%{transform:translate(0,0)}33%{transform:translate(var(--dx,24px),-18px)}66%{transform:translate(calc(var(--dx,24px) * -.6),12px)}100%{transform:translate(10px,-30px)}}
+@keyframes am-blink{from{opacity:.15}to{opacity:.95}}
+.am-mote--hot{visibility:hidden}
+.am[data-heat="1"] .am-mote--hot,.am[data-heat="2"] .am-mote--hot,.am[data-heat="3"] .am-mote--hot{visibility:visible}
+
+/* A soft bloom behind the action on every hit. */
+.am-bloom{left:var(--bx,50%);top:var(--by,40%);width:80vmin;height:80vmin;margin:-40vmin 0 0 -40vmin;border-radius:50%;background:radial-gradient(closest-side,rgba(var(--c),.5),rgba(var(--c),0));opacity:0}
+.am[data-pulse="a"] .am-bloom{animation:am-bloom-a .6s ease-out}
+.am[data-pulse="b"] .am-bloom{animation:am-bloom-b .6s ease-out}
+@keyframes am-bloom-a{0%{opacity:.9;transform:scale(.55)}100%{opacity:0;transform:scale(1.1)}}
+@keyframes am-bloom-b{0%{opacity:.9;transform:scale(.55)}100%{opacity:0;transform:scale(1.1)}}
+
+/* Running neon: a dim tube on each edge with two light dashes chasing round it (one lap = --lap). */
+.am-edge{background:rgba(var(--c),.16);box-shadow:0 0 8px rgba(var(--c),.18)}
+.am-edge--t,.am-edge--b{left:10px;right:10px;height:2px}
+.am-edge--l,.am-edge--r{top:10px;bottom:10px;width:2px}
+.am-edge--t{top:10px}.am-edge--b{bottom:10px}.am-edge--l{left:10px}.am-edge--r{right:10px}
+.am-edge>b{border-radius:2px;opacity:0;animation:var(--k) var(--lap,6.4s) linear infinite;animation-delay:var(--at,0s)}
+.am-edge--t>b,.am-edge--b>b{top:-1px;left:0;width:22%;height:4px}
+.am-edge--l>b,.am-edge--r>b{left:-1px;top:0;width:4px;height:22%}
+.am-edge--t>b{--k:am-lap-x;background:linear-gradient(90deg,rgba(var(--c),0),rgb(var(--c)) 75%,#FFFFFF);box-shadow:0 0 14px 3px rgba(var(--c),.75)}
+.am-edge--b>b{--k:am-lap-xr;background:linear-gradient(270deg,rgba(var(--c),0),rgb(var(--c)) 75%,#FFFFFF);box-shadow:0 0 14px 3px rgba(var(--c),.75)}
+.am-edge--r>b{--k:am-lap-y;background:linear-gradient(180deg,rgba(var(--c),0),rgb(var(--c)) 75%,#FFFFFF);box-shadow:0 0 14px 3px rgba(var(--c),.75)}
+.am-edge--l>b{--k:am-lap-yr;background:linear-gradient(0deg,rgba(var(--c),0),rgb(var(--c)) 75%,#FFFFFF);box-shadow:0 0 14px 3px rgba(var(--c),.75)}
+@keyframes am-lap-x{0%{transform:translateX(-100%);opacity:0}2%{opacity:1}23%{opacity:1}25%,100%{transform:translateX(455%);opacity:0}}
+@keyframes am-lap-xr{0%{transform:translateX(455%);opacity:0}2%{opacity:1}23%{opacity:1}25%,100%{transform:translateX(-100%);opacity:0}}
+@keyframes am-lap-y{0%{transform:translateY(-100%);opacity:0}2%{opacity:1}23%{opacity:1}25%,100%{transform:translateY(455%);opacity:0}}
+@keyframes am-lap-yr{0%{transform:translateY(455%);opacity:0}2%{opacity:1}23%{opacity:1}25%,100%{transform:translateY(-100%);opacity:0}}
+.am[data-heat="3"] .am-edge{background:rgba(var(--c),.4);box-shadow:0 0 14px rgba(var(--c),.5)}
+
+/* ---- Neon arena ---- */
+.am-spots{inset:0;opacity:.5;transition:opacity .8s}
+.am-spot{top:-6%;width:56%;height:100%;margin-left:-28%;background:linear-gradient(rgba(var(--c),.55),rgba(var(--c),.16) 50%,rgba(var(--c),0) 88%);-webkit-mask-image:conic-gradient(from 160deg at 50% 0,transparent 0deg,#000 13deg,#000 27deg,transparent 40deg);mask-image:conic-gradient(from 160deg at 50% 0,transparent 0deg,#000 13deg,#000 27deg,transparent 40deg);transform-origin:50% 0;animation:am-sweep var(--d,8s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes am-sweep{from{transform:rotate(-17deg)}to{transform:rotate(17deg)}}
+.am[data-heat="1"] .am-spots{opacity:.65}.am[data-heat="2"] .am-spots{opacity:.82}.am[data-heat="3"] .am-spots{opacity:1}
+.am-floor{left:-30%;right:-30%;bottom:-4%;height:50%;overflow:hidden;opacity:.45;transform:perspective(300px) rotateX(60deg);transform-origin:50% 100%;-webkit-mask-image:linear-gradient(transparent,#000 40%);mask-image:linear-gradient(transparent,#000 40%);transition:opacity .8s}
+.am-floor::before{content:"";position:absolute;left:0;right:0;top:-40px;bottom:0;background:repeating-linear-gradient(180deg,transparent 0 38px,rgba(255,61,203,.55) 38px 40px);animation:am-rush 1.3s linear infinite}
+@keyframes am-rush{to{transform:translateY(40px)}}
+.am[data-heat="2"] .am-floor{opacity:.75}.am[data-heat="3"] .am-floor{opacity:1}
+.am-run{top:0;left:var(--x);width:4px;height:20%;margin-left:-2px;border-radius:2px;background:linear-gradient(rgba(var(--c),0),rgb(var(--c)) 80%,#FFFFFF);box-shadow:0 0 12px 2px rgba(var(--c),.9);opacity:0;animation:am-run var(--d,2.4s) cubic-bezier(.5,0,.9,.6) infinite;animation-delay:var(--dl,0s)}
+@keyframes am-run{0%{transform:translateY(-100%);opacity:0}12%{opacity:1}100%{transform:translateY(520%);opacity:1}}
+.am-horizon{left:0;right:0;top:var(--hz,52%);height:2px;background:linear-gradient(90deg,transparent,rgba(61,245,255,.9) 28%,#FFFFFF 50%,rgba(255,61,203,.9) 72%,transparent);box-shadow:0 0 22px 5px rgba(61,245,255,.35);animation:am-hz 3.4s ease-in-out infinite}
+@keyframes am-hz{50%{opacity:.4;transform:scaleX(.82)}}
+.am-lasers{left:50%;top:var(--hz,52%);width:0;height:0;opacity:0;transition:opacity .8s}
+.am[data-heat="2"] .am-lasers{opacity:.55}.am[data-heat="3"] .am-lasers{opacity:.9}
+.am-fan{left:0;top:0;width:0;height:0;animation:am-fan 3.6s ease-in-out infinite alternate}
+.am-fan>i{left:-1px;top:0;width:2px;height:90vmax;transform-origin:50% 0;transform:rotate(var(--r));background:linear-gradient(rgba(var(--c),.95),rgba(var(--c),0) 60%);box-shadow:0 0 8px rgba(var(--c),.8)}
+@keyframes am-fan{from{transform:rotate(-12deg)}to{transform:rotate(12deg)}}
+/* Light-rig taps: colour swap, strobe, a laser fan, then every spot hunts for the centre. */
+.am[data-show="rig-swap"] .am-spots{animation:am-swap 2.2s ease-in-out}
+@keyframes am-swap{0%,100%{filter:none}50%{filter:hue-rotate(150deg) saturate(1.4)}}
+.am[data-show="rig-strobe"] .am-spots{animation:am-strobe .18s steps(1) 6}
+.am[data-show="rig-strobe"] .am-edge{animation:am-strobe .18s steps(1) 6}
+@keyframes am-strobe{0%{opacity:1}50%{opacity:.08}}
+.am[data-show="rig-fan"] .am-lasers{animation:am-fanburst 2.4s ease-out}
+@keyframes am-fanburst{0%{opacity:0}12%,70%{opacity:1}100%{opacity:0}}
+.am[data-show="rig-search"] .am-spot{animation:am-search 2.4s ease-in-out}
+@keyframes am-search{0%,100%{transform:rotate(0)}40%,60%{transform:rotate(var(--rs,0deg))}}
+
+/* ---- Space ---- */
+.am-stars{left:0;top:0;width:200%;height:100%;animation:am-drift var(--d,200s) linear infinite}
+.am-stars--1{--d:260s;opacity:.7;background:radial-gradient(circle at 12% 18%,#FFFFFF 0 1px,transparent 1.6px),radial-gradient(circle at 46% 64%,#EDE9FF 0 1px,transparent 1.6px),radial-gradient(circle at 78% 30%,#FFFFFF 0 .8px,transparent 1.4px),radial-gradient(circle at 30% 88%,#FFE38A 0 1px,transparent 1.6px),radial-gradient(circle at 88% 82%,#FFFFFF 0 .8px,transparent 1.4px);background-size:12.5% 240px}
+.am-stars--2{--d:150s;opacity:.85;background:radial-gradient(circle at 20% 40%,#FFFFFF 0 1.4px,transparent 2px),radial-gradient(circle at 70% 12%,#C9B8FF 0 1.3px,transparent 2px),radial-gradient(circle at 58% 76%,#FFFFFF 0 1.2px,transparent 1.9px);background-size:25% 330px}
+.am-stars--3{--d:90s;background:radial-gradient(circle at 34% 22%,#FFFFFF 0 1.8px,rgba(255,255,255,.35) 2.4px,transparent 4px),radial-gradient(circle at 82% 60%,#FFE38A 0 1.6px,rgba(255,227,138,.35) 2.3px,transparent 4px);background-size:25% 420px;animation:am-drift var(--d) linear infinite,am-twinkle 3.2s ease-in-out infinite alternate}
+@keyframes am-twinkle{from{opacity:1}to{opacity:.35}}
+.am-shoot{left:var(--x);top:var(--y);width:18%;height:2px;border-radius:2px;background:linear-gradient(90deg,#FFFFFF,rgba(255,255,255,.5) 25%,rgba(185,167,245,0));box-shadow:0 0 8px rgba(255,255,255,.7);transform-origin:0 50%;opacity:0;animation:am-shoot var(--d,9s) linear infinite;animation-delay:var(--dl,0s)}
+@keyframes am-shoot{0%{opacity:0;transform:rotate(-32deg) translateX(0) scaleX(.2)}2%{opacity:1}10%{opacity:0;transform:rotate(-32deg) translateX(-70vmin) scaleX(1)}100%{opacity:0;transform:rotate(-32deg) translateX(-70vmin)}}
+.am-shower{inset:0}
+.am-shower>i{left:var(--x);top:var(--y);width:16%;height:2px;border-radius:2px;background:linear-gradient(90deg,#FFFFFF,rgba(255,227,138,0));box-shadow:0 0 10px #FFFFFF;transform-origin:0 50%;opacity:0}
+.am[data-show="sky-shower"] .am-shower>i{animation:am-shoot 7s linear;animation-delay:var(--dl,0s)}
+.am-warp{inset:0;opacity:0;transition:opacity 1s}
+.am[data-heat="2"] .am-warp{opacity:.45}.am[data-heat="3"] .am-warp{opacity:.8}
+.am-warp>i{left:50%;top:44%;width:150vmax;height:150vmax;margin:-75vmax 0 0 -75vmax;border-radius:50%;background:repeating-conic-gradient(rgba(255,255,255,0) 0 5deg,rgba(237,233,255,.35) 5deg 5.4deg);-webkit-mask-image:radial-gradient(circle,transparent 10%,#000 30%,transparent 62%);mask-image:radial-gradient(circle,transparent 10%,#000 30%,transparent 62%);animation:am-warp 1.8s linear infinite;animation-delay:var(--dl,0s)}
+@keyframes am-warp{0%{transform:scale(.7) rotate(0);opacity:0}30%{opacity:1}100%{transform:scale(1.35) rotate(3deg);opacity:0}}
+
+/* ---- Terrarium ---- */
+.am-rays{inset:0;opacity:.75;transition:opacity 1s}
+.am[data-heat="2"] .am-rays{opacity:.9}.am[data-heat="3"] .am-rays{opacity:1}
+.am-ray{top:-30%;right:var(--x);width:var(--w,8%);height:150%;background:linear-gradient(rgba(255,244,200,.8),rgba(255,236,170,.34) 50%,rgba(255,236,170,0) 85%);-webkit-mask-image:linear-gradient(90deg,transparent,#000 35%,#000 65%,transparent);mask-image:linear-gradient(90deg,transparent,#000 35%,#000 65%,transparent);transform-origin:50% 0;transform:rotate(30deg);animation:am-ray var(--d,11s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes am-ray{0%{transform:rotate(27deg);opacity:.45}50%{opacity:1}100%{transform:rotate(33deg);opacity:.6}}
+.am[data-pulse="a"] .am-rays{animation:am-sun-a .9s ease-out}
+.am[data-pulse="b"] .am-rays{animation:am-sun-b .9s ease-out}
+@keyframes am-sun-a{30%{filter:brightness(1.6)}}
+@keyframes am-sun-b{30%{filter:brightness(1.6)}}
+.am-fly{left:var(--x);top:var(--y);width:18px;height:18px;border-radius:50%;background:radial-gradient(circle,#FFFFFF 0 16%,#F4FF9A 26%,rgba(214,255,90,.7) 42%,rgba(214,255,90,0) 70%);opacity:0;animation:am-wander var(--d,10s) ease-in-out infinite alternate,am-glow 2.4s ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes am-glow{0%,30%{opacity:0}70%,100%{opacity:1}}
+.am-drip{left:var(--x);top:-4%;width:6px;height:8px;border-radius:50% 50% 50% 50%/62% 62% 38% 38%;background:rgba(255,255,255,.55);box-shadow:inset -1px -1px 0 rgba(255,255,255,.95),0 0 3px rgba(255,255,255,.6);opacity:0;animation:am-drip var(--d,16s) ease-in infinite;animation-delay:var(--dl,0s)}
+.am-drip::before{content:"";position:absolute;left:2px;bottom:100%;width:2px;height:60px;border-radius:2px;background:linear-gradient(rgba(255,255,255,0),rgba(255,255,255,.45));transform-origin:50% 100%;transform:scaleY(var(--trail,1))}
+@keyframes am-drip{0%{transform:translateY(0);opacity:0}4%{opacity:.9}36%{transform:translateY(68vh);opacity:.85}44%,100%{transform:translateY(72vh);opacity:0}}
+.am-leaf{left:var(--x);top:-6%;width:16px;height:16px;border-radius:0 80% 0 80%;background:linear-gradient(135deg,#8CCB5E,#2C7A47);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25);opacity:0;animation:am-leaf var(--d,22s) ease-in-out infinite;animation-delay:var(--dl,0s)}
+@keyframes am-leaf{0%{transform:translate(0,0) rotate(0);opacity:0}5%{opacity:.95}25%{transform:translate(60px,26vh) rotate(160deg)}50%{transform:translate(-20px,52vh) rotate(320deg)}70%{transform:translate(40px,74vh) rotate(440deg);opacity:.9}78%,100%{transform:translate(40px,80vh) rotate(470deg);opacity:0}}
+
+/* ---- Hidden tap spots. Each tap plays the next reaction (data-act), so no two taps in a row look the same. ---- */
+.am-poke{position:absolute;pointer-events:auto;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.am-r{position:absolute;left:50%;top:50%;width:44%;aspect-ratio:1;translate:-50% -50%;border-radius:50%;opacity:0;pointer-events:none}
+/* Fog machine: a puff, a smoke ring, a three-puff burst. */
+.am-poke--fog .am-r{width:100%;background:radial-gradient(closest-side,rgba(250,248,255,.95),rgba(220,205,255,.5) 55%,rgba(201,184,255,0))}
+.am-poke--fog[data-act="puff"] .am-r1{animation:am-puff 2.8s ease-out}
+.am-poke--fog[data-act="ring"] .am-r1{background:none;box-shadow:inset 0 0 0 7px rgba(236,232,255,.5),0 0 18px rgba(255,61,203,.45);animation:am-ringout 2.4s ease-out}
+.am-poke--fog[data-act="burst"] .am-r{animation:am-puff 2.2s ease-out}
+.am-poke--fog[data-act="burst"] .am-r2{animation-delay:.25s;left:30%}
+.am-poke--fog[data-act="burst"] .am-r3{animation-delay:.5s;left:70%}
+@keyframes am-puff{0%{opacity:0;transform:scale(.25)}12%{opacity:.95}100%{opacity:0;transform:scale(2.2) translateY(-30%)}}
+@keyframes am-ringout{0%{opacity:.9;transform:scale(.3)}100%{opacity:0;transform:scale(2.4) translateY(-60%)}}
+/* Sky: a constellation draws itself (frog, rocket, crown), or a meteor shower. */
+.am-cons{position:absolute;inset:0;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 0 4px rgba(255,236,170,.9))}
+.am-cons g{opacity:0}
+.am-cons polyline{fill:none;stroke:rgba(255,240,190,.9);stroke-width:1.4;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;vector-effect:non-scaling-stroke}
+.am-cons circle{fill:#FFF8DC}
+.am-poke--sky[data-act="frog"] g[data-k="frog"],.am-poke--sky[data-act="rocket"] g[data-k="rocket"],.am-poke--sky[data-act="crown"] g[data-k="crown"]{animation:am-cons 4.2s ease-out}
+.am-poke--sky[data-act="frog"] g[data-k="frog"] polyline,.am-poke--sky[data-act="rocket"] g[data-k="rocket"] polyline,.am-poke--sky[data-act="crown"] g[data-k="crown"] polyline{animation:am-draw 4.2s ease-out}
+@keyframes am-cons{0%,85%{opacity:1}100%{opacity:0}}
+@keyframes am-draw{0%{stroke-dashoffset:1}45%,100%{stroke-dashoffset:0}}
+/* Planet: a moon swings round, the ring glints, a star sparkle. */
+.am-poke--planet[data-act="moon"] .am-r1{width:9%;background:radial-gradient(circle at 35% 35%,#FFFFFF,#C9B8FF);box-shadow:0 0 10px rgba(255,255,255,.8);animation:am-orbit 3.2s ease-in-out}
+@keyframes am-orbit{0%{opacity:0;transform:rotate(0) translateX(-420%)}12%,85%{opacity:1}100%{opacity:0;transform:rotate(330deg) translateX(-420%)}}
+.am-poke--planet[data-act="ring"] .am-r2{width:80%;aspect-ratio:3;border-radius:50%;box-shadow:0 0 0 2px rgba(255,227,138,.95),0 0 22px 4px rgba(255,227,138,.6);animation:am-glint 1.8s ease-out}
+@keyframes am-glint{0%{opacity:0;transform:rotate(-16deg) scale(.6)}30%{opacity:1}100%{opacity:0;transform:rotate(-16deg) scale(1.15)}}
+.am-poke--planet[data-act="glint"] .am-r3{width:30%;border-radius:0;background:linear-gradient(#FFFFFF,#FFE38A);clip-path:polygon(50% 0,58% 42%,100% 50%,58% 58%,50% 100%,42% 58%,0 50%,42% 42%);animation:am-spark 1.4s ease-out}
+@keyframes am-spark{0%{opacity:0;transform:scale(.2) rotate(0)}35%{opacity:1;transform:scale(1.1) rotate(45deg)}100%{opacity:0;transform:scale(.4) rotate(90deg)}}
+/* Pond: a ripple, a double ripple, bubbles, a plip. */
+.am-poke--pond .am-r{aspect-ratio:3;box-shadow:inset 0 0 0 3px rgba(255,255,255,.95),0 0 10px rgba(255,255,255,.55),inset 0 0 8px rgba(255,255,255,.5)}
+.am-poke--pond[data-act="ripple"] .am-r1,.am-poke--pond[data-act="double"] .am-r1,.am-poke--pond[data-act="double"] .am-r2,.am-poke--pond[data-act="plip"] .am-r1{animation:am-ripple 2s ease-out}
+.am-poke--pond[data-act="double"] .am-r2{animation-delay:.4s}
+@keyframes am-ripple{0%{opacity:.95;transform:scale(.2)}100%{opacity:0;transform:scale(2)}}
+.am-poke--pond[data-act="bubbles"] .am-r{width:7%;aspect-ratio:1;background:rgba(255,255,255,.25);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.9);animation:am-bubble 2.2s ease-out}
+.am-poke--pond[data-act="bubbles"] .am-r2{left:38%;animation-delay:.3s}
+.am-poke--pond[data-act="bubbles"] .am-r3{left:60%;animation-delay:.6s}
+@keyframes am-bubble{0%{opacity:0;transform:translate(0,40%)}20%{opacity:1}100%{opacity:0;transform:translate(10px,-260%) scale(1.3)}}
+.am-poke--pond[data-act="plip"] .am-r3{width:5%;aspect-ratio:1;box-shadow:none;background:rgba(255,255,255,.9);animation:am-plip 1.4s ease-out}
+@keyframes am-plip{0%{opacity:0;transform:translate(0,0)}15%{opacity:1}50%{transform:translate(120%,-420%)}100%{opacity:0;transform:translate(260%,0)}}
+/* Fern: a spore puff, fireflies scatter, dew sparkles. */
+.am-poke--fern .am-r{width:9%;background:#FFFFFF;box-shadow:0 0 6px 2px rgba(var(--c,255, 227, 138),.95),0 0 16px 4px rgba(var(--c,255, 227, 138),.6)}
+.am-poke--fern[data-act="spores"] .am-r{animation:am-fly 2.4s ease-out}
+.am-poke--fern[data-act="fireflies"] .am-r{--c:236, 255, 120;width:8%;animation:am-fly 3s ease-in-out}
+.am-poke--fern[data-act="fireflies"] .am-r2{animation-delay:.2s}
+.am-poke--fern[data-act="fireflies"] .am-r3{animation-delay:.35s}
+@keyframes am-fly{0%{opacity:0;transform:translate(0,0)}15%{opacity:1}100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(.6)}}
+.am-poke--fern[data-act="dew"] .am-r{width:14%;border-radius:0;--c:255, 255, 255;clip-path:polygon(50% 0,58% 42%,100% 50%,58% 58%,50% 100%,42% 58%,0 50%,42% 42%);animation:am-spark 1.3s ease-out}
+.am-poke--fern[data-act="dew"] .am-r1{left:30%;top:30%}
+.am-poke--fern[data-act="dew"] .am-r2{left:62%;top:52%;animation-delay:.25s}
+.am-poke--fern[data-act="dew"] .am-r3{left:40%;top:72%;animation-delay:.5s}
+
+@media (prefers-reduced-motion: reduce){.am,.am *,.am *::before{animation:none!important;transition:none!important}.am-warp,.am-lasers,.am-shoot,.am-run,.am-mote,.am-fly,.am-drip,.am-leaf,.am-edge>b{display:none!important}}
+/* Living art (scripts/living-art.ts): the parts of a background that should move are cut out of the art and move
+   by their kind, right on top of where they are painted. .la covers the art; .la-box is the art's cover box (--ar is
+   its aspect ratio, --ox/--oy its object-position), so every layer sits in percent of the art.
+   Display layers (sway, waver, mist, bob) move a cut-out copy; mask layers (breeze, flow, shimmer, glint, runway,
+   neon) add moving light inside the part's own shape. Only transform and opacity animate; reduced motion stops all. */
+.la{position:absolute;inset:0;overflow:hidden;pointer-events:none;container-type:size;--la-streaks:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2748%27 height=%27240%27%3E%3Crect x=%272.0%27 y=%27221%27 width=%271.3%27 height=%2742%27 rx=%270.7%27 fill=%27white%27 opacity=%270.66%27/%3E%3Crect x=%272.0%27 y=%27-19%27 width=%271.3%27 height=%2742%27 rx=%270.7%27 fill=%27white%27 opacity=%270.66%27/%3E%3Crect x=%2725.4%27 y=%2779%27 width=%272.2%27 height=%2775%27 rx=%271.1%27 fill=%27white%27 opacity=%270.55%27/%3E%3Crect x=%2725.4%27 y=%27-161%27 width=%272.2%27 height=%2775%27 rx=%271.1%27 fill=%27white%27 opacity=%270.55%27/%3E%3Crect x=%2732.1%27 y=%27153%27 width=%271.4%27 height=%2779%27 rx=%270.7%27 fill=%27white%27 opacity=%270.44%27/%3E%3Crect x=%2732.1%27 y=%27-87%27 width=%271.4%27 height=%2779%27 rx=%270.7%27 fill=%27white%27 opacity=%270.44%27/%3E%3Crect x=%2733.1%27 y=%27168%27 width=%272.1%27 height=%2726%27 rx=%271.1%27 fill=%27white%27 opacity=%270.50%27/%3E%3Crect x=%2733.1%27 y=%27-72%27 width=%272.1%27 height=%2726%27 rx=%271.1%27 fill=%27white%27 opacity=%270.50%27/%3E%3Crect x=%2742.6%27 y=%27194%27 width=%271.8%27 height=%2731%27 rx=%270.9%27 fill=%27white%27 opacity=%270.77%27/%3E%3Crect x=%2742.6%27 y=%27-46%27 width=%271.8%27 height=%2731%27 rx=%270.9%27 fill=%27white%27 opacity=%270.77%27/%3E%3Crect x=%2732.3%27 y=%27155%27 width=%272.5%27 height=%2762%27 rx=%271.3%27 fill=%27white%27 opacity=%270.77%27/%3E%3Crect x=%2732.3%27 y=%27-85%27 width=%272.5%27 height=%2762%27 rx=%271.3%27 fill=%27white%27 opacity=%270.77%27/%3E%3Crect x=%2718.4%27 y=%2780%27 width=%271.5%27 height=%2781%27 rx=%270.8%27 fill=%27white%27 opacity=%270.31%27/%3E%3Crect x=%2718.4%27 y=%27-160%27 width=%271.5%27 height=%2781%27 rx=%270.8%27 fill=%27white%27 opacity=%270.31%27/%3E%3Crect x=%2715.1%27 y=%27103%27 width=%272.5%27 height=%2743%27 rx=%271.3%27 fill=%27white%27 opacity=%270.55%27/%3E%3Crect x=%2715.1%27 y=%27-137%27 width=%272.5%27 height=%2743%27 rx=%271.3%27 fill=%27white%27 opacity=%270.55%27/%3E%3Crect x=%2734.1%27 y=%27211%27 width=%271.4%27 height=%2726%27 rx=%270.7%27 fill=%27white%27 opacity=%270.56%27/%3E%3Crect x=%2734.1%27 y=%27-29%27 width=%271.4%27 height=%2726%27 rx=%270.7%27 fill=%27white%27 opacity=%270.56%27/%3E%3Crect x=%2724.4%27 y=%27101%27 width=%272.5%27 height=%2736%27 rx=%271.3%27 fill=%27white%27 opacity=%270.25%27/%3E%3Crect x=%2724.4%27 y=%27-139%27 width=%272.5%27 height=%2736%27 rx=%271.3%27 fill=%27white%27 opacity=%270.25%27/%3E%3Crect x=%2718.1%27 y=%2783%27 width=%272.5%27 height=%2769%27 rx=%271.3%27 fill=%27white%27 opacity=%270.53%27/%3E%3Crect x=%2718.1%27 y=%27-157%27 width=%272.5%27 height=%2769%27 rx=%271.3%27 fill=%27white%27 opacity=%270.53%27/%3E%3Crect x=%279.3%27 y=%2797%27 width=%271.6%27 height=%2742%27 rx=%270.8%27 fill=%27white%27 opacity=%270.47%27/%3E%3Crect x=%279.3%27 y=%27-143%27 width=%271.6%27 height=%2742%27 rx=%270.8%27 fill=%27white%27 opacity=%270.47%27/%3E%3Crect x=%2716.6%27 y=%27128%27 width=%271.4%27 height=%2765%27 rx=%270.7%27 fill=%27white%27 opacity=%270.76%27/%3E%3Crect x=%2716.6%27 y=%27-112%27 width=%271.4%27 height=%2765%27 rx=%270.7%27 fill=%27white%27 opacity=%270.76%27/%3E%3Crect x=%2722.1%27 y=%27207%27 width=%272.0%27 height=%2766%27 rx=%271.0%27 fill=%27white%27 opacity=%270.53%27/%3E%3Crect x=%2722.1%27 y=%27-33%27 width=%272.0%27 height=%2766%27 rx=%271.0%27 fill=%27white%27 opacity=%270.53%27/%3E%3Crect x=%2724.2%27 y=%27165%27 width=%271.6%27 height=%2788%27 rx=%270.8%27 fill=%27white%27 opacity=%270.64%27/%3E%3Crect x=%2724.2%27 y=%27-75%27 width=%271.6%27 height=%2788%27 rx=%270.8%27 fill=%27white%27 opacity=%270.64%27/%3E%3Crect x=%2713.0%27 y=%27141%27 width=%271.5%27 height=%2747%27 rx=%270.8%27 fill=%27white%27 opacity=%270.45%27/%3E%3Crect x=%2713.0%27 y=%27-99%27 width=%271.5%27 height=%2747%27 rx=%270.8%27 fill=%27white%27 opacity=%270.45%27/%3E%3Crect x=%2737.0%27 y=%27211%27 width=%272.3%27 height=%2730%27 rx=%271.1%27 fill=%27white%27 opacity=%270.27%27/%3E%3Crect x=%2737.0%27 y=%27-29%27 width=%272.3%27 height=%2730%27 rx=%271.1%27 fill=%27white%27 opacity=%270.27%27/%3E%3Crect x=%2719.9%27 y=%2737%27 width=%272.6%27 height=%2727%27 rx=%271.3%27 fill=%27white%27 opacity=%270.35%27/%3E%3Crect x=%2719.9%27 y=%27-203%27 width=%272.6%27 height=%2727%27 rx=%271.3%27 fill=%27white%27 opacity=%270.35%27/%3E%3C/svg%3E")}
+.la-box{position:absolute;aspect-ratio:var(--ar);width:max(100cqw,calc(100cqh * var(--ar)));left:var(--ox,50%);top:var(--oy,50%);translate:calc(-1 * var(--ox,50%)) calc(-1 * var(--oy,50%))}
+.la-l{position:absolute;display:block;left:var(--x);top:var(--y);width:var(--w);height:var(--h);max-width:none;animation-delay:var(--dl,0s)}
+.la-mask{overflow:hidden;-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.la-mask::before,.la-mask::after{content:"";position:absolute;pointer-events:none}
+@keyframes la-sweep{0%{transform:translateX(-66.67%)}60%,100%{transform:translateX(0)}}
+
+/* Fronds sway from their base; reeds and tufts waver; clouds and haze drift and breathe; planets bob. */
+.la-sway{transform-origin:50% 100%;animation:la-sway var(--d,5s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes la-sway{from{transform:rotate(calc(-1 * var(--a,1.4deg)))}to{transform:rotate(var(--a,1.4deg))}}
+.la-waver{transform-origin:50% 100%;animation:la-waver var(--d,3s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes la-waver{from{transform:skewX(calc(-1 * var(--a,2.4deg)))}to{transform:skewX(var(--a,2.4deg)) scaleY(1.015)}}
+.la-mist{animation:la-mist var(--d,16s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes la-mist{0%{transform:translateX(calc(-1 * var(--dx,1cqw))) scale(1);opacity:.5}50%{opacity:1}100%{transform:translateX(var(--dx,1cqw)) scale(1.04);opacity:.65}}
+.la-haze{animation:la-haze var(--d,24s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes la-haze{from{transform:translateX(calc(-1 * var(--dx,1.2cqw))) scale(1.01);opacity:.85}to{transform:translateX(var(--dx,1.2cqw)) scale(1.04);opacity:1}}
+.la-bob{animation:la-bob var(--d,7s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes la-bob{from{transform:translateY(-.6cqh) rotate(-1.5deg)}to{transform:translateY(.6cqh) rotate(1.5deg)}}
+
+/* Islands float (they sit on a plate with the sky filled in behind them, so no ghost shows); stars orbit a point. */
+.la-float{animation:la-float var(--d,7s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes la-float{from{transform:translateY(calc(-1 * var(--ay,.5cqh))) rotate(-.4deg)}to{transform:translateY(var(--ay,.5cqh)) rotate(.4deg)}}
+.la-orbit{transform-origin:var(--o,50% 50%);animation:la-orbit var(--d,120s) linear infinite}
+@keyframes la-orbit{to{transform:rotate(-360deg)}}
+/* Spotlight beams swing a few degrees round their source and breathe (on a plate with the sky filled in). */
+.la-sweep{transform-origin:var(--o,50% 0);animation:la-rays var(--d,9s) ease-in-out infinite alternate}
+@keyframes la-rays{0%{transform:rotate(-3.5deg);opacity:.7}50%{opacity:1}100%{transform:rotate(3.5deg);opacity:.8}}
+/* Lanterns and chest glow flicker in four groups, each on its own beat; a core of light breathes. */
+.la-flicker{background:rgba(255,224,150,.9);animation:la-flicker var(--d,2.8s) ease-in-out infinite;animation-delay:var(--dl,0s)}
+@keyframes la-flicker{0%,100%{opacity:.1}30%{opacity:.7}45%{opacity:.35}70%{opacity:.95}}
+.la-pulse{background:radial-gradient(closest-side,#FFFFFF,rgba(255,240,210,.7));animation:la-glow var(--d,3.4s) ease-in-out infinite alternate}
+@keyframes la-glow{from{opacity:.05}to{opacity:.8}}
+
+/* Sky: soft clouds of light drift slowly across the sky's own shape (window bars and edges never move). */
+.la-sky::before{top:0;bottom:0;left:0;width:200%;background:radial-gradient(closest-side,rgba(255,240,250,.38),rgba(255,240,250,0)) 0 30%/25% 60% repeat-x,radial-gradient(closest-side,rgba(255,220,240,.28),rgba(255,220,240,0)) 12% 75%/12.5% 45% repeat-x;animation:la-sky-drift var(--d,90s) linear infinite}
+@keyframes la-sky-drift{to{transform:translateX(-50%)}}
+
+/* Stars twinkle in groups, each on its own beat. */
+.la-twinkle{background:#FFFFFF;animation:la-twinkle var(--d,2.2s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes la-twinkle{0%{opacity:0}60%{opacity:.25}100%{opacity:.95}}
+/* Aurora: soft bands of green, lilac and pink light flow through the aurora's (or a rainbow trail's) own shape. */
+.la-aurora::before{top:0;bottom:0;left:0;width:300%;background:linear-gradient(100deg,rgba(150,255,210,0) 0%,rgba(150,255,210,.75) 12%,rgba(200,170,255,.7) 22%,rgba(255,170,220,.6) 30%,rgba(150,255,210,0) 40%,rgba(150,255,210,0) 50%,rgba(150,255,210,.7) 62%,rgba(200,170,255,.65) 72%,rgba(255,170,220,.55) 80%,rgba(150,255,210,0) 90%);mix-blend-mode:screen;animation:la-aurora var(--d,16s) linear infinite}
+@keyframes la-aurora{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+/* Streams: dashes of light run continuously along light trails. */
+.la-stream::before{top:0;bottom:0;left:0;width:200%;background:repeating-linear-gradient(100deg,transparent 0 9%,rgba(255,255,255,0) 9%,rgba(255,255,255,.95) 11.5%,rgba(255,255,255,0) 13%,transparent 13% 25%);animation:la-stream var(--d,3s) linear infinite}
+@keyframes la-stream{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+
+/* Wind: a band of light sweeps across wide grass, then rests. */
+.la-breeze::before{top:0;bottom:0;left:0;width:300%;background:linear-gradient(100deg,transparent 0 38%,rgba(255,255,235,.42) 46%,rgba(255,255,235,0) 56%);animation:la-sweep var(--d,7s) ease-in-out infinite}
+/* Water: streaks fall inside the waterfall's own shape, foam brightens the foot. */
+.la-flow{background:linear-gradient(rgba(255,255,255,0) 60%,rgba(235,255,255,.4))}
+.la-flow::before,.la-flow::after{left:0;right:0;top:-240px;bottom:0;background:var(--la-streaks) 0 0/48px 240px repeat;animation:la-fall var(--d,1.1s) linear infinite}
+.la-flow::after{background-size:70px 240px;background-position:21px 0;opacity:.55;animation-duration:calc(var(--d,1.1s) * 1.7)}
+@keyframes la-fall{to{transform:translateY(240px)}}
+.la-splash{position:absolute;left:var(--x);top:var(--y);width:var(--w);aspect-ratio:2.2;translate:-50% -55%}
+.la-splash>i{position:absolute;display:block;border-radius:50%}
+.la-puff{inset:0;background:radial-gradient(closest-side,rgba(255,255,255,.8),rgba(230,250,255,0));opacity:0;animation:la-puff var(--d,2.4s) ease-out infinite;animation-delay:var(--dl,0s)}
+@keyframes la-puff{0%{transform:scale(.5);opacity:.9}100%{transform:scale(1.3) translateY(-14%);opacity:0}}
+.la-drop{left:var(--px);bottom:38%;width:5px;height:5px;background:#FFFFFF;box-shadow:0 0 6px rgba(200,255,255,.95);opacity:0;animation:la-drop var(--d,1.4s) ease-out infinite;animation-delay:var(--dl,0s)}
+@keyframes la-drop{0%{transform:translate(0,0);opacity:0}12%{opacity:1}50%{transform:translate(var(--hx,8px),var(--hy,-26px))}100%{transform:translate(calc(var(--hx,8px) * 2),8px);opacity:0}}
+/* Pond: soft ripple lines drift toward you, and a glint crosses now and then. */
+.la-shimmer::before{left:0;right:0;top:-24px;bottom:0;background:repeating-linear-gradient(180deg,rgba(255,255,255,0) 0 12px,rgba(255,255,255,.3) 17px,rgba(255,255,255,0) 22px 24px);animation:la-ripple var(--d,3.6s) linear infinite}
+@keyframes la-ripple{to{transform:translateY(24px)}}
+.la-shimmer::after,.la-glint::after{top:0;bottom:0;left:0;width:300%;background:linear-gradient(110deg,transparent 42%,rgba(255,255,255,.95) 47%,rgba(255,255,255,0) 52%);animation:la-sweep var(--d,5s) ease-in-out infinite}
+.la-shimmer::after{animation-duration:calc(var(--d,3.6s) * 2)}
+/* Stepping stones light up one after another along the path, like runway lights. */
+.la-runway::before{inset:0;background:rgba(255,255,255,.35);animation:la-pulse 3s ease-in-out infinite alternate}
+.la-runway::after{top:0;bottom:0;left:0;width:300%;background:linear-gradient(60deg,transparent 40%,rgba(255,255,255,1) 46%,rgba(255,250,220,0) 52%);animation:la-sweep var(--d,3.6s) linear infinite}
+@keyframes la-pulse{from{opacity:.15}to{opacity:.7}}
+/* Neon: thin bands of light run from the horizon toward you, speeding up as they come, so light travels along
+   every grid line (a pink and a cyan band, half a lap apart). The mask layer is cropped to the floor. */
+.la-neon::before,.la-neon::after{left:0;right:0;top:0;height:200%;background:linear-gradient(180deg,transparent 0 46%,rgba(255,170,240,0) 46%,rgba(255,200,245,.95) 49.2%,rgba(255,255,255,1) 49.6%,transparent 50.4%);animation:la-run var(--d,2.8s) cubic-bezier(.55,0,1,.8) infinite}
+.la-neon::after{background:linear-gradient(180deg,transparent 0 46%,rgba(120,255,240,0) 46%,rgba(150,255,245,.95) 49.2%,rgba(255,255,255,1) 49.6%,transparent 50.4%)}
+@keyframes la-run{from{transform:translateY(-50%)}to{transform:translateY(0)}}
+
+/* Each layer's own phase (--dl) carries into its light; the neon's second ring runs half a lap behind. */
+.la .la-mask::before,.la .la-mask::after{animation-delay:var(--dl,0s)}
+.la .la-neon::after{animation-delay:calc(var(--dl,0s) - var(--d,3.2s) / 2)}
+
+/* A whole art that swirls: sways ±3° and breathes, zoomed 1.12× or more so no corner ever shows (a frame with sides
+   in ratio k needs cos 3° + k sin 3°: 1.09 for 16:9, 1.11 for a 2.17:1 phone). Put it on a wrapper holding the
+   <img> and its .la. */
+.la-swirl-art{position:absolute;inset:0;transform-origin:50% 50%;animation:la-swirl-art 14s ease-in-out infinite alternate}
+@keyframes la-swirl-art{from{transform:scale(1.12) rotate(-3deg)}to{transform:scale(1.16) rotate(3deg)}}
+
+@media (prefers-reduced-motion: reduce){.la-swirl-art{animation:none}.la *,.la *::before,.la *::after{animation:none!important}.la-splash,.la-mask::after{display:none}}
+.st-hud,.st-field,.st-keys{pointer-events:none}.st-hud>*,.st-field>*,.st-keys>*{pointer-events:auto}
+.st-root{position:relative;width:100%;min-height:100vh;box-sizing:border-box;overflow:hidden;display:grid;grid-template-rows:auto 1fr auto;background:#1E1C45;color:#F4F1FF;font-family:var(--font-text);outline:none;--kb-key:#F6F3FF;--kb-ink:#2B2A5C}
+.st-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.st-hud{position:relative;z-index:2;display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding:18px 24px}
+.st-pill{display:inline-flex;align-items:center;gap:8px;min-height:44px;box-sizing:border-box;padding:0 16px;border-radius:999px;background:rgba(43,42,92,.72);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:inset 0 0 0 1px rgba(185,167,245,.4);font:800 15px/1 var(--font-text);color:#F4F1FF;border:0;text-decoration:none}
+.st-title{display:flex;flex-direction:column;gap:2px;margin-right:auto}
+.st-title strong{font:600 26px/1.1 var(--font-display)}
+.st-title span{font:700 14px/1.2 var(--font-text);color:#C6BFEE}
+.st-bar{width:160px;height:10px;border-radius:5px;background:rgba(255,255,255,.18);overflow:hidden}
+.st-bar > i{display:block;height:100%;border-radius:5px;background:#FFE38A;box-shadow:0 0 10px #FFE38A;transition:width .3s}
+.st-seg{display:inline-flex;padding:4px;gap:4px;border-radius:999px;background:rgba(43,42,92,.72);box-shadow:inset 0 0 0 1px rgba(185,167,245,.4)}
+.st-seg button{min-height:36px;padding:0 12px;border:0;border-radius:999px;background:transparent;color:#F4F1FF;font:800 13px/1 var(--font-text);cursor:pointer}
+.st-seg button[aria-pressed="true"]{background:#B9A7F5;color:#1E1C45}
+.st-field{position:relative;z-index:1;min-height:300px}
+.st-meteor{position:absolute;display:flex;flex-direction:column;align-items:center;gap:8px;transform:translate(-50%,-50%);animation:st-drift 7s ease-in-out infinite alternate}
+.st-rock{position:relative;width:86px;height:78px;border-radius:46% 54% 42% 58% / 55% 45% 55% 45%;background:radial-gradient(circle at 34% 30%,#C9C0F2,#7E72C2 55%,#4A3F8C);box-shadow:inset -8px -10px 0 rgba(30,20,80,.35),0 0 26px rgba(185,167,245,.55)}
+.st-rock::before,.st-rock::after{content:"";position:absolute;border-radius:50%;background:rgba(60,48,130,.55)}
+.st-rock::before{width:18px;height:14px;left:22px;top:20px}
+.st-rock::after{width:12px;height:10px;right:20px;bottom:18px}
+.st-meteor[data-locked="yes"] .st-rock{box-shadow:inset -8px -10px 0 rgba(30,20,80,.35),0 0 0 4px #FFE38A,0 0 34px #FFE38A}
+.st-meteor[data-hit="a"] .st-rock{animation:st-hit-a .25s ease-out}
+.st-meteor[data-hit="b"] .st-rock{animation:st-hit-b .25s ease-out}
+.st-word{display:flex;gap:2px;padding:6px 12px;border-radius:14px;background:rgba(20,16,60,.78);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25);font:600 30px/1 var(--font-display);letter-spacing:.04em}
+.st-word b{font-weight:600;color:#FFE38A;text-shadow:0 0 10px #FFE38A}
+.st-word u{text-decoration:none;color:#FFFFFF}
+.st-word em{font-style:normal;color:rgba(244,241,255,.65)}
+.st-kix{position:absolute;left:50%;bottom:6px;width:110px;transform:translateX(-50%);animation:st-bob 2.4s ease-in-out infinite;filter:drop-shadow(0 8px 16px rgba(10,8,40,.5))}
+.st-bolt{position:absolute;left:50%;top:100%;width:16px;height:16px;margin:-8px 0 0 -8px;opacity:0;border-radius:50%;background:radial-gradient(circle,#FFFFFF,#FFE38A 45%,rgba(255,227,138,0) 70%);box-shadow:0 0 16px 6px rgba(255,227,138,.8);animation:st-fly .32s cubic-bezier(.3,0,.6,1) forwards}
+.st-burst{position:absolute;width:0;height:0}
+.st-burst i{position:absolute;width:10px;height:10px;margin:-5px;border-radius:50%;background:#FFE38A;box-shadow:0 0 10px #FFE38A;opacity:0;animation:var(--anim,st-dust) .8s ease-out forwards}
+.st-miss{position:absolute;left:50%;bottom:150px;transform:translateX(-50%);padding:6px 12px;border-radius:12px;background:rgba(20,16,60,.8);font:800 15px/1.2 var(--font-text);color:#FFC9A8;animation:st-fade 1.2s ease-out forwards}
+.st-keys{position:relative;z-index:2;width:min(860px,calc(100% - 32px));margin:0 auto;padding:4px 0 14px}
+.st-tip{position:absolute;left:24px;bottom:24px;z-index:2;max-width:200px;padding:10px 14px;border-radius:16px;background:rgba(43,42,92,.72);box-shadow:inset 0 0 0 1px rgba(185,167,245,.35);font:700 14px/1.35 var(--font-text);color:#C6BFEE}
+.st-clear{position:absolute;inset:0;z-index:5;display:grid;place-items:center;background:rgba(14,12,43,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.st-card{width:min(440px,calc(100% - 32px));box-sizing:border-box;padding:28px;border-radius:32px;background:rgba(43,42,92,.92);box-shadow:inset 0 0 0 1px rgba(255,227,138,.5),0 0 60px rgba(255,227,138,.3);text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center}
+.st-stars{display:flex;gap:10px;font-size:44px;line-height:1}
+.st-stars span{color:rgba(255,255,255,.2)}
+.st-stars span[data-on="yes"]{color:#FFE38A;text-shadow:0 0 16px #FFE38A;animation:st-pop .5s cubic-bezier(.34,1.56,.64,1) both}
+.st-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%}
+.st-stats div{padding:10px 6px;border-radius:16px;background:rgba(255,255,255,.08);font:700 13px/1.3 var(--font-text);color:#C6BFEE}
+.st-stats strong{display:block;font:600 24px/1.1 var(--font-display);color:#FFFFFF}
+.st-actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+@keyframes st-drift{from{margin-top:-6px}to{margin-top:10px}}
+@keyframes st-bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-8px)}}
+@keyframes st-fly{0%{left:50%;top:calc(100% - 80px);transform:scale(.6);opacity:1}85%{opacity:1}100%{left:var(--x);top:var(--y);transform:scale(1.2);opacity:0}}
+@keyframes st-fly2{0%{left:50%;top:calc(100% - 80px);transform:scale(.6);opacity:1}85%{opacity:1}100%{left:var(--x);top:var(--y);transform:scale(1.2);opacity:0}}
+@keyframes st-hit-a{40%{transform:scale(.9) rotate(-6deg);filter:brightness(1.6)}}
+@keyframes st-hit-b{40%{transform:scale(.9) rotate(6deg);filter:brightness(1.6)}}
+@keyframes st-dust{from{opacity:1}to{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
+@keyframes st-dust2{from{opacity:1}to{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
+@keyframes st-fade{0%{opacity:0}15%,70%{opacity:1}100%{opacity:0}}
+@keyframes st-pop{from{transform:scale(0)}to{transform:none}}
+@media (max-width: 599px){
+  .st-hud{padding:12px}
+  .st-title strong{font-size:20px}
+  .st-bar{width:100px}
+  .st-word{font-size:22px}
+  .st-rock{width:64px;height:58px}
+  .st-kix{width:84px}
+  .st-tip{display:none}
+  .st-keys{width:calc(100% - 16px)}
+}
+@media (prefers-reduced-motion: reduce){.st-meteor,.st-kix,.st-bolt,.st-burst i{animation:none}}
+</style>
+</helmet>
+<div class="st-root" data-theme="dreamlight" data-band="junior" tabindex="0">
+  <img class="st-bg" src="/_blob/a8d707ec8a8d491d808bf2d4cd5b1d6c" alt="">
+    <div class="la" aria-hidden="true"><div class="la-box" style="--ar: 1600 / 1067; --ox: 50%; --oy: 30%">
+      <i class="la-l la-mask la-sky" style="--x: 0%; --y: 0%; --w: 100%; --h: 99.16%; --d: 90s; -webkit-mask-image: url(/_blob/ffe0c99c519736eeb2eb6be3903b0492); mask-image: url(/_blob/ffe0c99c519736eeb2eb6be3903b0492)"></i>
+      <img class="la-l la-haze" src="/_blob/75d26adad55f91e5847fe3013cc8de73" alt="" style="--x: 0%; --y: 0%; --w: 100%; --h: 99.16%; --d: 22s; --dx: 1cqw; --dl: -0s">
+      <img class="la-l la-bob" src="/_blob/fcc873d316bd6fdcc259797ca1aa2375" alt="" style="--x: 86.56%; --y: 4.12%; --w: 11.94%; --h: 11.43%; --d: 7s; --dl: -0s">
+      <img class="la-l la-bob" src="/_blob/243469b9f7f3773f5d681773226197cf" alt="" style="--x: 0%; --y: 35.52%; --w: 6.38%; --h: 10.5%; --d: 8s; --dl: -2.2s">
+      <i class="la-l la-mask la-aurora" style="--x: 0%; --y: 0%; --w: 100%; --h: 41.14%; --d: 14s; -webkit-mask-image: url(/_blob/7b47b0277fdb86c136de15239645bafe); mask-image: url(/_blob/7b47b0277fdb86c136de15239645bafe)"></i>
+      <i class="la-l la-mask la-twinkle" style="--x: 0%; --y: 0%; --w: 33.31%; --h: 97.28%; --d: 1.8s; --dl: -0s; -webkit-mask-image: url(/_blob/e42b380efce3de744630ae68bbd0ae45); mask-image: url(/_blob/e42b380efce3de744630ae68bbd0ae45)"></i>
+      <i class="la-l la-mask la-twinkle" style="--x: 33.31%; --y: 0%; --w: 33.38%; --h: 97.28%; --d: 2.4s; --dl: -0.7s; -webkit-mask-image: url(/_blob/47dd72891fef68326e7ebb0e8faa4439); mask-image: url(/_blob/47dd72891fef68326e7ebb0e8faa4439)"></i>
+      <i class="la-l la-mask la-twinkle" style="--x: 66.69%; --y: 0%; --w: 33.31%; --h: 97.28%; --d: 3s; --dl: -1.4s; -webkit-mask-image: url(/_blob/9e84d8742fd90b1e9597ee712c0d592d); mask-image: url(/_blob/9e84d8742fd90b1e9597ee712c0d592d)"></i>
+    </div></div>
+  <div class="am am--space" data-heat="{{amHeat}}" data-pulse="{{amPulse}}" data-show="{{amShow}}" aria-hidden="true">
+    <i class="am-stars am-stars--1"></i><i class="am-stars am-stars--2"></i><i class="am-stars am-stars--3"></i>
+    <i class="am-fog" style="--c: 185, 167, 245; --y: -8%; --h: 62%; --d: 120s; --o: .34"></i>
+    <i class="am-fog am-fog--r" style="--c: 247, 182, 207; --y: 26%; --h: 52%; --d: 150s; --o: .2"></i>
+    <i class="am-fog" style="--c: 168, 240, 212; --y: 64%; --h: 46%; --d: 95s; --o: .16"></i>
+    <i class="am-shoot" style="--x: 82%; --y: 8%; --d: 11s; --dl: 2s"></i>
+    <i class="am-shoot" style="--x: 60%; --y: 3%; --d: 17s; --dl: 8s"></i>
+    <i class="am-shoot" style="--x: 96%; --y: 30%; --d: 23s; --dl: 14s"></i>
+    <i class="am-mote am-mote--float" style="--x: 14%; --y: 30%; --s: 3px; --c: 255, 227, 138; --d: 14s; --dl: -3s; --dx: 30px"></i>
+    <i class="am-mote am-mote--float" style="--x: 34%; --y: 58%; --s: 2px; --c: 237, 233, 255; --d: 11s; --dl: -7s; --dx: -20px"></i>
+    <i class="am-mote am-mote--float" style="--x: 66%; --y: 22%; --s: 3px; --c: 168, 240, 212; --d: 16s; --dl: -1s; --dx: 24px"></i>
+    <i class="am-mote am-mote--float" style="--x: 86%; --y: 48%; --s: 2px; --c: 255, 227, 138; --d: 12s; --dl: -9s; --dx: -28px"></i>
+    <i class="am-mote am-mote--float am-mote--hot" style="--x: 24%; --y: 74%; --s: 3px; --c: 247, 182, 207; --d: 13s; --dl: -4s; --dx: 18px"></i>
+    <i class="am-mote am-mote--float am-mote--hot" style="--x: 74%; --y: 66%; --s: 3px; --c: 255, 227, 138; --d: 15s; --dl: -11s; --dx: -16px"></i>
+    <div class="am-warp"><i></i><i style="--dl: -.9s"></i></div>
+    <div class="am-shower"><i style="--x: 70%; --y: 6%"></i><i style="--x: 84%; --y: 14%; --dl: .35s"></i><i style="--x: 58%; --y: 2%; --dl: .7s"></i><i style="--x: 92%; --y: 26%; --dl: 1s"></i></div>
+    <i class="am-bloom" style="--c: 255, 227, 138; --bx: 50%; --by: 70%"></i>
+    <span class="am-poke am-poke--sky" data-act="{{amActSky}}" onClick="{{amSky}}" style="left: 4%; top: 16%; width: 26%; height: 34%">
+      <svg class="am-cons" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+        <g data-k="frog"><polyline pathLength="1" points="28,40 34,28 44,34 56,34 66,28 72,40 82,60 68,76 32,76 18,60 28,40"/><circle cx="34" cy="28" r="2.2"/><circle cx="66" cy="28" r="2.2"/><circle cx="82" cy="60" r="1.8"/><circle cx="68" cy="76" r="1.8"/><circle cx="32" cy="76" r="1.8"/><circle cx="18" cy="60" r="1.8"/></g>
+        <g data-k="rocket"><polyline pathLength="1" points="50,8 62,32 62,66 74,82 50,74 26,82 38,66 38,32 50,8"/><circle cx="50" cy="8" r="2.4"/><circle cx="62" cy="32" r="1.8"/><circle cx="74" cy="82" r="1.8"/><circle cx="26" cy="82" r="1.8"/><circle cx="38" cy="32" r="1.8"/><circle cx="50" cy="46" r="2"/></g>
+        <g data-k="crown"><polyline pathLength="1" points="12,72 20,34 36,56 50,22 64,56 80,34 88,72 12,72"/><circle cx="20" cy="34" r="2"/><circle cx="50" cy="22" r="2.4"/><circle cx="80" cy="34" r="2"/><circle cx="12" cy="72" r="1.8"/><circle cx="88" cy="72" r="1.8"/></g>
+      </svg>
+    </span>
+    <span class="am-poke am-poke--planet" data-act="{{amActPlanet}}" onClick="{{amPlanet}}" style="right: 0; top: 0; width: 20%; height: 24%"><i class="am-r am-r1"></i><i class="am-r am-r2"></i><i class="am-r am-r3"></i></span>
+  </div>
+  <header class="st-hud">
+    <a class="st-pill" href="Arcade.dc.html">‹ Arcade</a>
+    <div class="st-title">
+      <strong>Star Typer</strong>
+      <span>Stage 4 · Little words · level 2 of 5</span>
+    </div>
+    <span class="st-pill" title="Words done">{{doneLabel}} <span class="st-bar"><i style="{{barStyle}}"></i></span></span>
+    <span class="st-pill">Accuracy {{accuracy}}</span>
+    <div class="st-seg" role="group" aria-label="Ghost hands">
+      <sc-for list="{{handModes}}" as="m" hint-placeholder-count="3">
+        <button type="button" aria-pressed="{{m.pressed}}" onClick="{{m.pick}}">{{m.label}}</button>
+      </sc-for>
+    </div>
+    <span class="st-pill">Calm mode</span>
+  </header>
+  <main class="st-field" aria-label="Type the word on a meteor to fire Kix's star-bolts">
+    <sc-for list="{{meteors}}" as="mt" hint-placeholder-count="3">
+      <div class="st-meteor" style="{{mt.style}}" data-locked="{{mt.locked}}" data-hit="{{mt.hit}}">
+        <div class="st-rock"></div>
+        <div class="st-word"><b>{{mt.done}}</b><u>{{mt.now}}</u><em>{{mt.rest}}</em></div>
+      </div>
+    </sc-for>
+    <sc-for list="{{bolts}}" as="bo" hint-placeholder-count="0">
+      <span class="st-bolt" style="{{bo.style}}"></span>
+    </sc-for>
+    <sc-for list="{{bursts}}" as="bu" hint-placeholder-count="0">
+      <span class="st-burst" style="{{bu.style}}"><i style="--dx: -40px; --dy: -30px"></i><i style="--dx: 44px; --dy: -26px"></i><i style="--dx: -30px; --dy: 38px"></i><i style="--dx: 36px; --dy: 34px"></i><i style="--dx: 0px; --dy: -50px"></i><i style="--dx: 4px; --dy: 48px"></i></span>
+    </sc-for>
+    <sc-if value="{{showMiss}}" hint-placeholder-val="{{false}}">
+      <span class="st-miss">{{missText}}</span>
+    </sc-if>
+    <img class="st-kix" src="/_blob/edfd9859b1135de333b54095f6c8d1b6" alt="Kix, ready to fire">
+  </main>
+  <p class="st-tip">Sit tall, wrists up, eyes on the screen. Feel the bumps on F and J.</p>
+  <section class="st-keys">
+    <div class="kb" data-hands="{{kbHands}}">
+      <p class="kb-hint" aria-live="polite"><sc-for list="{{kbHintNums}}" as="hn" hint-placeholder-count="1"><b class="kb-hint-n" style="{{hn.style}}">{{hn.n}}</b></sc-for>{{kbHint}}</p>
+      <div class="kb-board" role="group" aria-label="Keyboard: tap a key or use your own keyboard">
+        <sc-for list="{{kbKeys}}" as="key" hint-placeholder-count="31">
+          <button class="{{key.cls}}" type="button" style="{{key.style}}" aria-label="{{key.aria}}" onClick="{{key.press}}">{{key.label}}<i class="kb-kn" aria-hidden="true">{{key.n}}</i></button>
+        </sc-for>
+        <div class="kb-hands" data-mode="{{kbHands}}" aria-hidden="true">
+          <span class="kb-palm" style="left: calc(var(--u) * .3)"></span>
+          <span class="kb-palm kb-palm--r" style="left: calc(var(--u) * 6.25)"></span>
+          <sc-for list="{{kbFingers}}" as="fi" hint-placeholder-count="10">
+            <span class="{{fi.cls}}" style="{{fi.style}}"><b class="kb-num">{{fi.n}}</b></span>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+  <sc-if value="{{clear}}" hint-placeholder-val="{{false}}">
+    <div class="st-clear" role="dialog" aria-label="Level clear">
+      <div class="st-card">
+        <img src="/_blob/f506e58a602297834bce49cc9565bca7" alt="" style="width: 110px; height: 110px; border-radius: 50%; object-fit: cover">
+        <h2 style="margin: 0; font: 600 34px/1.1 var(--font-display)">Level clear!</h2>
+        <div class="st-stars" aria-label="{{starsLabel}}">
+          <sc-for list="{{stars}}" as="s" hint-placeholder-count="3"><span data-on="{{s.on}}" style="{{s.style}}">★</span></sc-for>
+        </div>
+        <div class="st-stats">
+          <div><strong>{{accuracy}}</strong>accuracy</div>
+          <div><strong>{{wordsDone}}</strong>words</div>
+          <div><strong>F J R U</strong>keys you used most</div>
+        </div>
+        <p style="margin: 0; font: 600 14px/1.4 var(--font-text); color: #C6BFEE">★ finish · ★★ 90% right · ★★★ 96% right. Same play, same stars.</p>
+        <div class="st-actions">
+          <button class="mk-btn mk-btn--secondary" type="button" onClick="{{restart}}">Play again</button>
+          <a class="mk-btn mk-btn--reward" href="TypingPath.dc.html" style="text-decoration: none">Next level</a>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"hands":{"editor":"enum","options":["on","fade","off"],"default":"on"},"startState":{"editor":"enum","options":["play","clear"],"default":"play"},"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  WORDS = ['frog', 'egg', 'pond', 'leaf', 'bee', 'moth', 'ant', 'sun', 'tail', 'web', 'log', 'bug', 'fern', 'nest'];
+  SPOTS = [[22, 30], [50, 18], [78, 34]];
+  GOAL = 10;
+  state = { slots: [0, 1, 2], nextWord: 3, target: null, typed: 0, done: 0, hits: 0, misses: 0, bolts: [], bursts: [], hit: [null, null, null], miss: null, wrong: '', hands: null, seq: 0, restarted: false };
+
+  componentDidMount() {
+    this.onKey = (e) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const k = e.key.length === 1 ? e.key.toLowerCase() : '';
+      if (!k) return;
+      e.preventDefault();
+      this.typeKey(k);
+    };
+    window.addEventListener('keydown', this.onKey);
+  }
+
+  componentWillUnmount() { window.removeEventListener('keydown', this.onKey); }
+
+  word(slot) { return this.WORDS[this.state.slots[slot] % this.WORDS.length]; }
+
+  typeKey(k) {
+    const s = this.state;
+    if (this.isClear()) return;
+    const seq = s.seq + 1;
+    let target = s.target, typed = s.typed;
+    if (target === null) {
+      target = [0, 1, 2].find((i) => this.word(i)[0] === k);
+      if (target === undefined) return this.miss(k, seq);
+      typed = 0;
+    }
+    const w = this.word(target);
+    if (w[typed] !== k) return this.miss(k, seq);
+    typed += 1;
+    const [x, y] = this.SPOTS[target];
+    const bolt = { id: s.hits, style: `--x: ${x}%; --y: ${y}%; animation-name: ${s.hits % 2 ? 'st-fly' : 'st-fly2'}` };
+    const hit = s.hit.slice(); hit[target] = s.hits % 2 ? 'a' : 'b';
+    const patch = { seq, hits: s.hits + 1, bolts: s.bolts.concat([bolt]).slice(-6), hit, wrong: '', miss: null };
+    if (typed === w.length) {
+      const slots = s.slots.slice(); slots[target] = s.nextWord;
+      Object.assign(patch, { slots, nextWord: s.nextWord + 1, target: null, typed: 0, done: s.done + 1, bursts: s.bursts.concat([{ id: s.done, style: `left: ${x}%; top: ${y}%; --anim: ${s.done % 2 ? 'st-dust' : 'st-dust2'}` }]).slice(-3) });
+    } else Object.assign(patch, { target, typed });
+    this.setState(patch);
+  }
+
+  miss(k, seq) {
+    const s = this.state;
+    this.setState({ seq, misses: s.misses + 1, wrong: k, miss: seq });
+    setTimeout(() => { if (this.state.miss === seq) this.setState({ wrong: '', miss: null }); }, 1200);
+  }
+
+  isClear() { return this.state.done >= this.GOAL || (!this.state.restarted && this.props.startState === 'clear'); }
+
+  renderVals() {
+    const s = this.state;
+    const handsMode = s.hands ?? this.props.hands ?? 'on';
+    const clear = this.isClear();
+    const total = s.hits + s.misses;
+    const acc = total ? s.hits / total : (this.props.startState === 'clear' ? 0.97 : 1);
+    const stars = 1 + (acc >= 0.9 ? 1 : 0) + (acc >= 0.96 ? 1 : 0);
+    const suggest = s.target ?? 0;
+    const nextKey = clear ? '' : this.word(suggest)[s.target === null ? 0 : s.typed];
+    const done = !s.restarted && this.props.startState === 'clear' && s.done === 0 ? this.GOAL : s.done;
+    return {
+      ...this.amModel(Math.min(3, Math.floor(s.done / 3)), s.hits ? (s.hits % 2 ? 'a' : 'b') : ''),
+      ...this.kbModel(nextKey, s.wrong, handsMode),
+      meteors: [0, 1, 2].map((i) => {
+        const w = this.word(i);
+        const n = s.target === i ? s.typed : 0;
+        return { style: `left: ${this.SPOTS[i][0]}%; top: ${this.SPOTS[i][1]}%; animation-delay: ${-i * 2.1}s`, locked: s.target === i ? 'yes' : 'no', hit: s.hit[i] || '', done: w.slice(0, n), now: w.slice(n, n + 1), rest: w.slice(n + 1) };
+      }),
+      bolts: s.bolts,
+      bursts: s.bursts,
+      showMiss: s.miss !== null,
+      missText: `Not quite: try ${nextKey === ' ' ? 'space' : nextKey.toUpperCase()}. No rush.`,
+      doneLabel: `${Math.min(done, this.GOAL)} / ${this.GOAL}`,
+      barStyle: `width: ${Math.min(100, (done / this.GOAL) * 100)}%`,
+      accuracy: `${Math.round(acc * 100)}%`,
+      wordsDone: String(Math.min(done, this.GOAL)),
+      handModes: [['on', 'Hands on'], ['fade', 'Fade'], ['off', 'Off']].map(([id, label]) => ({ label, pressed: handsMode === id ? 'true' : 'false', pick: () => this.setState({ hands: id }) })),
+      clear,
+      stars: [1, 2, 3].map((n) => ({ on: n <= stars ? 'yes' : 'no', style: `animation-delay: ${n * 0.18}s` })),
+      starsLabel: `${stars} of 3 stars`,
+      restart: () => this.setState({ slots: [0, 1, 2], nextWord: 3, target: null, typed: 0, done: 0, hits: 0, misses: 0, bolts: [], bursts: [], hit: [null, null, null], miss: null, wrong: '', restarted: true }),
+    };
+  }
+
+// ---- Ghost-hands keyboard (shared by the three typing looks) ----
+  // Fingers are numbered 1–10 left to right, as a child counts them with both hands flat: left pinky 1 … left
+  // pointer 4, thumbs 5 and 6, right pointer 7 … right pinky 10. Keys show their finger's number softly.
+  kbModel(nextKey, wrongKey, handsMode) {
+    const ROWS = ['qwertyuiop', 'asdfghjkl;', 'zxcvbnm,./'];
+    const OFF = [0, 0.25, 0.75];
+    const FINGER = { q: 'lp', a: 'lp', z: 'lp', w: 'lr', s: 'lr', x: 'lr', e: 'lm', d: 'lm', c: 'lm', r: 'li', f: 'li', v: 'li', t: 'li', g: 'li', b: 'li', y: 'ri', h: 'ri', n: 'ri', u: 'ri', j: 'ri', m: 'ri', i: 'rm', k: 'rm', ',': 'rm', o: 'rr', l: 'rr', '.': 'rr', p: 'rp', ';': 'rp', '/': 'rp', ' ': 'th' };
+    const HOME = { lp: 'a', lr: 's', lm: 'd', li: 'f', ri: 'j', rm: 'k', rr: 'l', rp: ';' };
+    const NUM = { lp: 1, lr: 2, lm: 3, li: 4, ri: 7, rm: 8, rr: 9, rp: 10 };
+    const NAME = { lp: 'Left pinky', lr: 'Left ring', lm: 'Left middle', li: 'Left pointer', ri: 'Right pointer', rm: 'Right middle', rr: 'Right ring', rp: 'Right pinky', th: 'Thumb' };
+    const TINT = { lp: '255, 159, 196', rp: '255, 159, 196', lr: '255, 201, 138', rr: '255, 201, 138', lm: '168, 240, 212', rm: '168, 240, 212', li: '185, 167, 245', ri: '185, 167, 245', th: '255, 227, 138' };
+    const SPLAY = { lp: -9, lr: -4, lm: 0, li: 4, ri: -4, rm: 0, rr: 4, rp: 9 };
+    const LEN = { lp: 2, lr: 2.3, lm: 2.45, li: 2.35, ri: 2.35, rm: 2.45, rr: 2.3, rp: 2 };
+    const at = (k) => {
+      if (k === ' ') return { x: 5.75, y: 3.5 };
+      for (let r = 0; r < 3; r++) { const c = ROWS[r].indexOf(k); if (c > -1) return { x: OFF[r] + c + 0.5, y: r + 0.5 }; }
+      return null;
+    };
+    const u = (n) => `calc(var(--u) * ${n.toFixed(3)})`;
+    const next = nextKey ? nextKey.toLowerCase() : '';
+    const active = FINGER[next] || null;
+    const keys = [];
+    ROWS.forEach((row, r) => row.split('').forEach((k, c) => {
+      const f = FINGER[k];
+      const cls = 'kb-key' + (k === next ? ' kb-key--next' : '') + (k === wrongKey ? ' kb-key--wrong' : '') + (k === 'f' || k === 'j' ? ' kb-key--bump' : '');
+      keys.push({ k, label: k === ';' ? ';' : k.toUpperCase(), n: NUM[f], aria: `${k === ';' ? 'semicolon' : k.toUpperCase()}, finger ${NUM[f]}`, cls, style: `left: ${u(OFF[r] + c + 0.05)}; top: ${u(r + 0.05)}; --f: ${TINT[f]}`, press: () => this.typeKey(k) });
+    }));
+    keys.push({ k: ' ', label: 'space', n: '', aria: 'space, thumb 5 or 6', cls: 'kb-key kb-key--space' + (next === ' ' ? ' kb-key--next' : ''), style: `left: ${u(3)}; top: ${u(3.05)}; width: ${u(5.5)}; --f: ${TINT.th}`, press: () => this.typeKey(' ') });
+    const fingers = Object.keys(HOME).map((f) => {
+      const h = at(HOME[f]);
+      const t = active === f ? at(next) : h;
+      const dx = t.x - h.x, dy = t.y - h.y;
+      return {
+        n: NUM[f],
+        cls: 'kb-finger' + (active === f ? ' kb-finger--on' : ''),
+        style: `left: ${u(h.x - 0.32)}; top: ${u(h.y + 0.1)}; --len: ${u(LEN[f])}; --rot: ${SPLAY[f]}deg; transform: translate(${u(dx)}, ${u(dy)}) rotate(${SPLAY[f]}deg); --f: ${TINT[f]}`,
+      };
+    });
+    const thumbOn = active === 'th' ? ' kb-finger--on' : '';
+    const thumbs = [
+      { n: 5, cls: 'kb-thumb' + thumbOn, style: `left: ${u(3.65)}; top: ${u(3.1)}; --rot: 24deg; transform: rotate(24deg); --f: ${TINT.th}` },
+      { n: 6, cls: 'kb-thumb' + thumbOn, style: `left: ${u(7.15)}; top: ${u(3.1)}; --rot: -24deg; transform: rotate(-24deg); --f: ${TINT.th}` },
+    ];
+    return {
+      kbKeys: keys,
+      kbFingers: fingers.concat(thumbs),
+      kbHands: handsMode,
+      kbHint: active ? `${NAME[active]} → ${next === ' ' ? 'space' : next.toUpperCase()}` : '',
+      kbHintNums: !active ? [] : (active === 'th' ? [5, 6] : [NUM[active]]).map((n) => ({ n, style: `--f: ${TINT[active]}` })),
+    };
+  }
+// ---- Living background (shared by the arcade boards) ----
+  // heat 0–3 brightens the scene as the child plays well; pulse 'a'/'b' flips on every hit so the bloom replays.
+  // Each hidden tap spot plays its next reaction in turn, so taps feel different each time (no randomness).
+  amModel(heat, pulse) {
+    const SPOTS = { rig: ['swap', 'strobe', 'fan', 'search'], fogl: ['puff', 'ring', 'burst'], fogr: ['ring', 'burst', 'puff'], sky: ['frog', 'shower', 'rocket', 'crown'], planet: ['moon', 'ring', 'glint'], pond: ['ripple', 'bubbles', 'double', 'plip'], fern: ['spores', 'dew', 'fireflies'] };
+    const am = this.state.am || { spot: '', act: '', n: {} };
+    const vals = { amHeat: String(heat), amPulse: pulse || '', amShow: am.spot ? `${am.spot}-${am.act}` : '' };
+    for (const [id, acts] of Object.entries(SPOTS)) {
+      const key = id.charAt(0).toUpperCase() + id.slice(1);
+      vals[`amAct${key}`] = am.spot === id ? am.act : '';
+      vals[`am${key}`] = () => {
+        const cur = this.state.am || { n: {} };
+        const n = cur.n[id] || 0;
+        this.setState({ am: { spot: id, act: acts[n % acts.length], n: { ...cur.n, [id]: n + 1 } } });
+      };
+    }
+    return vals;
+  }
+}
+</script>
+</body>
+</html>

@@ -4,7 +4,7 @@ One index for humans and agents. If a reference isn't linked here, it isn't cano
 
 ## Product
 
-> **Names:** the founder's children appear in this repo only as **Leonard** (Sec 2), **Abby** (P6) and **Jordan** (P3). These are stand-in names, not their real names. The real names stay in the git-ignored `content-private/names.json`; the skill importer swaps them for the stand-ins on read (`lib/skills/private-names.ts`).
+> **Names:** the founder's children appear in this repo only as **Leonard** (Sec 2), **Abby** (P6) and **Jordan** (P3). These are stand-in names, not their real names. The real names stay outside the repository, in a private folder only the founder's Claude Code session reads (`MYKX_PRIVATE_DIR` in `.env.local`); the skill importer swaps them for the stand-ins on read (`lib/skills/private-names.ts`).
 
 | Doc | What it is |
 |---|---|

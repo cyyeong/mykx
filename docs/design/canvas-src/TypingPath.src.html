@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Typing path</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+.tp-root{position:relative;width:100%;min-height:100vh;box-sizing:border-box;overflow:hidden;background:#1E1C45;color:#F4F1FF;font-family:var(--font-text)}
+.tp-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.8}
+/*LIVING_CSS*/
+.tp-root>.la{opacity:.8}
+.tp-wrap{position:relative;max-width:1440px;margin:0 auto;box-sizing:border-box;padding:24px 32px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:28px;align-items:start}
+.tp-head{grid-column:1 / -1;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.tp-head h1{margin:0 auto 0 0;font:600 clamp(30px,4vw,44px)/1.05 var(--font-display)}
+.tp-chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;box-sizing:border-box;padding:0 16px;border-radius:999px;background:rgba(43,42,92,.78);box-shadow:inset 0 0 0 1px rgba(185,167,245,.4);font:800 14px/1 var(--font-text);color:#F4F1FF;text-decoration:none}
+.tp-chip--ok{box-shadow:inset 0 0 0 1px #7FE3B8;color:#7FE3B8}
+.tp-path{position:relative;display:flex;flex-direction:column;gap:10px;padding:18px;border-radius:28px;background:rgba(43,42,92,.62);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:inset 0 0 0 1px rgba(185,167,245,.3)}
+.tp-stage{position:relative;display:grid;grid-template-columns:52px 1fr auto;align-items:center;gap:14px;padding:8px 12px;border-radius:18px}
+.tp-stage:nth-child(even){margin-left:28px}
+.tp-stone{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.1);box-shadow:inset 0 0 0 2px rgba(185,167,245,.45);font:600 20px/1 var(--font-display)}
+.tp-stage[data-s="done"] .tp-stone{background:#A8F0D4;color:#1E1C45;box-shadow:none}
+.tp-stage[data-s="now"]{background:rgba(255,227,138,.12);box-shadow:inset 0 0 0 2px #FFE38A}
+.tp-stage[data-s="now"] .tp-stone{background:#FFE38A;color:#1E1C45;box-shadow:0 0 22px rgba(255,227,138,.7);animation:tp-glow 2s ease-in-out infinite}
+.tp-stage[data-s="lock"]{opacity:.55}
+.tp-name{display:flex;flex-direction:column;gap:2px}
+.tp-name strong{font:600 18px/1.2 var(--font-display)}
+.tp-name span{font:600 13px/1.3 var(--font-text);color:#C6BFEE}
+.tp-stars{font-size:18px;letter-spacing:2px;color:rgba(255,255,255,.22)}
+.tp-stars b{font-weight:400;color:#FFE38A}
+.tp-side{display:flex;flex-direction:column;gap:16px}
+.tp-card{display:flex;flex-direction:column;gap:14px;padding:22px;border-radius:28px;background:rgba(43,42,92,.86);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:inset 0 0 0 1px rgba(255,227,138,.45),0 0 40px rgba(255,227,138,.15)}
+.tp-card h2{margin:0;font:600 26px/1.15 var(--font-display)}
+.tp-big{font-size:40px;letter-spacing:6px;color:rgba(255,255,255,.2)}
+.tp-big b{font-weight:400;color:#FFE38A;text-shadow:0 0 16px #FFE38A}
+.tp-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tp-stats div{padding:10px;border-radius:16px;background:rgba(255,255,255,.07);font:700 12px/1.3 var(--font-text);color:#C6BFEE}
+.tp-stats strong{display:block;font:600 24px/1.1 var(--font-display);color:#FFFFFF}
+.tp-keys{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font:700 14px/1.4 var(--font-text);color:#C6BFEE}
+.tp-keys kbd{display:inline-grid;place-items:center;min-width:30px;height:30px;padding:0 6px;border-radius:8px;background:#F6F3FF;color:#2B2A5C;font:800 15px/1 var(--font-display);box-shadow:inset 0 -3px 0 #B9A7F5}
+.tp-share{display:flex;gap:14px;align-items:center;padding:14px;border-radius:22px;background:linear-gradient(135deg,#B9A7F5,#A8F0D4);color:#1E1C45}
+.tp-share img{width:84px;height:84px;object-fit:contain}
+.tp-share strong{display:block;font:600 20px/1.2 var(--font-display)}
+.tp-share span{font:700 14px/1.35 var(--font-text)}
+.tp-row{display:flex;flex-wrap:wrap;gap:10px}
+.tp-opt{display:flex;align-items:center;gap:10px;min-height:48px;padding:0 14px;border-radius:16px;background:rgba(255,255,255,.08);font:700 15px/1.3 var(--font-text);cursor:pointer;border:0;color:inherit;text-align:left}
+.tp-opt[aria-pressed="true"]{box-shadow:inset 0 0 0 2px #A8F0D4;background:rgba(168,240,212,.14)}
+.tp-note{margin:0;font:600 13px/1.45 var(--font-text);color:#C6BFEE}
+.tp-sent{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:16px;background:rgba(127,227,184,.16);box-shadow:inset 0 0 0 1px #7FE3B8;font:800 15px/1.35 var(--font-text);color:#7FE3B8}
+@keyframes tp-glow{50%{box-shadow:0 0 34px rgba(255,227,138,1)}}
+@media (max-width: 1023px){.tp-wrap{grid-template-columns:1fr}.tp-stage:nth-child(even){margin-left:14px}}
+@media (max-width: 599px){.tp-wrap{padding:14px 12px;gap:16px}.tp-stats strong{font-size:20px}}
+@media (prefers-reduced-motion: reduce){.tp-stage[data-s="now"] .tp-stone{animation:none}}
+</style>
+</helmet>
+<div class="tp-root" data-theme="dreamlight" data-band="junior">
+  <img class="tp-bg" src="/_blob/a8d707ec8a8d491d808bf2d4cd5b1d6c" alt="">
+  <!--LIVING_ART:space:50%:50%-->
+  <div class="tp-wrap">
+    <header class="tp-head">
+      <a class="tp-chip" href="Arcade.dc.html">‹ Arcade</a>
+      <h1>Ari's typing path</h1>
+      <span class="tp-chip tp-chip--ok">✓ Progress saved just now</span>
+      <a class="tp-chip" href="StarTyper.dc.html">Play next level</a>
+    </header>
+    <section class="tp-path" aria-label="Typing stages">
+      <sc-for list="{{stages}}" as="st" hint-placeholder-count="9">
+        <div class="tp-stage" data-s="{{st.s}}">
+          <span class="tp-stone">{{st.mark}}</span>
+          <span class="tp-name"><strong>{{st.name}}</strong><span>{{st.what}}</span></span>
+          <span class="tp-stars" aria-label="{{st.aria}}"><b>{{st.on}}</b>{{st.off}}</span>
+        </div>
+      </sc-for>
+    </section>
+    <aside class="tp-side">
+      <div class="tp-card">
+        <h2>Little words · level 2</h2>
+        <div class="tp-big" aria-label="3 of 3 stars"><b>★★★</b></div>
+        <div class="tp-stats">
+          <div><strong>97%</strong>right first time</div>
+          <div><strong>11</strong>words a minute</div>
+          <div><strong>+2</strong>new keys: G H</div>
+        </div>
+        <div class="tp-keys">Slips to practise: <kbd>B</kbd> and <kbd>N</kbd> (they swap places sometimes)</div>
+        <p class="tp-note">Ghost hands fade on this stage from now on. You can switch them back on any time.</p>
+      </div>
+      <sc-if value="{{showShare}}" hint-placeholder-val="{{true}}">
+        <div class="tp-card">
+          <h2>Share with family</h2>
+          <div class="tp-share">
+            <img src="/_blob/bb08e7ec23418f8b39ef9322df1f30f6" alt="">
+            <div><strong>Ari cleared Little words ★★★</strong><span>97% right · 11 words a minute · new keys G and H</span></div>
+          </div>
+          <div class="tp-row" role="group" aria-label="Send to">
+            <sc-for list="{{targets}}" as="t" hint-placeholder-count="2"><button class="tp-opt" type="button" aria-pressed="{{t.pressed}}" onClick="{{t.pick}}">{{t.label}}</button></sc-for>
+          </div>
+          <p class="tp-note">Only your family sees this. No rankings, no strangers. A grown-up can delete it any time.</p>
+          <sc-if value="{{notSent}}" hint-placeholder-val="{{true}}">
+            <button class="mk-btn mk-btn--reward" type="button" onClick="{{send}}">Send my card</button>
+          </sc-if>
+          <sc-if value="{{sent}}" hint-placeholder-val="{{false}}">
+            <div class="tp-sent" role="status">✓ Sent to {{sentTo}}. Mum can reply with a sticker.</div>
+          </sc-if>
+        </div>
+      </sc-if>
+    </aside>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"startState":{"editor":"enum","options":["share","sent"],"default":"share"},"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  state = { family: true, shelf: true, sent: null };
+
+  renderVals() {
+    const STAGES = [
+      ['Home row heroes', 'A S D F, J K L ;', 3],
+      ['Reach up', 'The top row', 3],
+      ['Reach down', 'The bottom row and shift', 2],
+      ['Little words', 'Short words you know', 1, 'now'],
+      ['My spelling words', 'From your P3 English lists', 0],
+      ['Subject words', 'Tadpole, magnet, shadow…', 0],
+      ['Answer blast', 'Type the answer to a question', 0],
+      ['Match it', 'Type the word for the picture', 0],
+      ['Sentence sprint', 'The boss level', 0],
+    ];
+    const sent = this.state.sent ?? (this.props.startState === 'sent');
+    const s = this.state;
+    const to = [s.family && 'family messages', s.shelf && 'your Treasure shelf'].filter(Boolean).join(' and ') || 'nobody yet';
+    return {
+      stages: STAGES.map(([name, what, stars, now], i) => {
+        const st = now ? 'now' : stars > 0 ? 'done' : 'lock';
+        return { name, what, s: st, mark: st === 'done' ? '✓' : String(i + 1), on: '★'.repeat(stars), off: '★'.repeat(3 - stars), aria: `${stars} of 3 stars` };
+      }),
+      showShare: true,
+      targets: [['family', 'Family messages'], ['shelf', 'Pin to my Treasure shelf']].map(([id, label]) => ({ label, pressed: s[id] ? 'true' : 'false', pick: () => this.setState({ [id]: !s[id] }) })),
+      notSent: !sent,
+      sent,
+      sentTo: to,
+      send: () => this.setState({ sent: true }),
+    };
+  }
+}
+</script>
+</body>
+</html>

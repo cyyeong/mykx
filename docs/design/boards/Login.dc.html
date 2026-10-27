@@ -1,0 +1,973 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sign in</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+.lg-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ---------- root, per-variant door shape and light colour ---------- */
+.lg-root{position:relative;width:100%;min-height:100vh;box-sizing:border-box;overflow:hidden;overflow:clip;isolation:isolate;--door-h:clamp(360px,calc(100vh - 128px),720px);--door-ar:592/1100;--door-cy:50%;--walk-b:calc(var(--door-h) * .14);--lg-glow:255,227,138;--lg-glow-2:185,167,245;--lg-fly:255,238,170}
+.lg-root[data-variant="junior"]{--door-ar:584/1100;--lg-glow:255,211,77;--lg-glow-2:168,240,212;--lg-fly:222,255,150}
+.lg-root[data-variant="teen"]{--door-ar:694/1100;--lg-glow:61,245,255;--lg-glow-2:255,61,203;--lg-fly:140,255,240}
+.lg-root a:focus-visible,.lg-root button:focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px}
+.lg-link{color:var(--accent);font-weight:800;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px}
+.lg-link:hover{color:var(--ink)}
+.lg-field:focus-within{outline:3px solid var(--focus-ring);outline-offset:2px}
+.lg-input{outline:none}
+.lg-input::placeholder{color:var(--ink-muted);opacity:1}
+.lg-eye:focus-visible{outline-offset:-3px}
+
+/* ---------- the living city ---------- */
+.lg-scene{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;transform-origin:50% var(--door-cy)}
+.lg-city{position:absolute;left:-3%;top:-3%;width:106%;height:106%;max-width:none;object-fit:cover;object-position:50% 70%;animation:lg-drift 50s ease-in-out infinite alternate}
+.lg-amb{position:absolute;inset:0}
+.lg-star{position:absolute;height:auto;aspect-ratio:1/1;color:#FFF6D8;filter:drop-shadow(0 0 4px rgba(255,236,170,.9));animation:lg-twinkle 3.4s ease-in-out infinite}
+.lg-shoot{position:absolute;width:0;height:0;transform:rotate(-20deg)}
+.lg-shoot-line{position:absolute;left:0;top:-1px;width:150px;height:2px;border-radius:2px;background:linear-gradient(90deg,#FFFFFF,rgba(255,255,255,0));box-shadow:0 0 6px rgba(255,255,255,.8);opacity:0;animation:lg-shoot 11s ease-in infinite}
+.lg-lantern{position:absolute;top:0;border-radius:42% 42% 34% 34%;background:radial-gradient(circle at 50% 62%,#FFF4CC 0%,#FFC27A 45%,#E8804E 100%);box-shadow:0 0 14px 5px rgba(255,184,110,.45);opacity:0;animation:lg-rise 30s linear infinite}
+.lg-mote{position:absolute;top:0;border-radius:50%;opacity:0;animation:lg-mote 18s linear infinite}
+.lg-firefly{position:absolute;animation:lg-wander-a 10s ease-in-out infinite}
+.lg-firefly-b{animation-name:lg-wander-b}
+.lg-blink{display:block;width:100%;height:100%;border-radius:50%;background:rgb(var(--lg-fly));box-shadow:0 0 8px 3px rgba(var(--lg-fly),.75);animation:lg-blink 2.6s ease-in-out infinite}
+.lg-fly{position:absolute;left:0;animation:lg-fly-x 26s linear infinite}
+.lg-arc{animation:lg-arc 26s ease-in-out infinite}
+.lg-flip{position:relative}
+.lg-flutter{display:block;height:auto;animation:lg-flutter 1.8s ease-in-out infinite;filter:drop-shadow(0 6px 10px rgba(10,8,40,.35))}
+.lg-trail{position:absolute;right:62%;top:52%;width:160%;height:3px;margin-top:-1.5px;border-radius:3px;background:linear-gradient(90deg,rgba(var(--lg-glow),0),rgba(var(--lg-glow),.85))}
+.lg-tspark{position:absolute;height:auto;aspect-ratio:1/1;color:rgb(var(--lg-glow));animation:lg-twinkle 1.4s ease-in-out infinite}
+
+/* ---------- stage: door + card ---------- */
+.lg-stage{position:relative;z-index:1;min-height:100vh;box-sizing:border-box;display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"s";align-items:end;justify-items:center;padding:56px 24px 28px;margin:0}
+.lg-doorzone{grid-area:s;align-self:end;position:relative;width:100%;height:var(--door-h);margin-bottom:40px;display:flex;justify-content:center}
+.lg-aura{position:absolute;left:50%;top:44%;z-index:0;width:calc(var(--door-h) * 1.3);height:calc(var(--door-h) * 1.15);transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(var(--lg-glow),.34),rgba(var(--lg-glow-2),.14) 55%,rgba(var(--lg-glow-2),0));animation:lg-aura 5.5s ease-in-out infinite;pointer-events:none}
+.lg-walkers{position:absolute;left:50%;bottom:var(--walk-b);z-index:1;width:100vw;height:0;margin-left:-50vw;pointer-events:none;transition:opacity .3s}
+.lg-walk{position:absolute;left:0;bottom:0;animation:lg-walk-x 48s linear infinite}
+.lg-step{position:relative;animation:lg-step .62s ease-in-out infinite alternate}
+.lg-walker-img{display:block;height:auto;filter:drop-shadow(0 3px 4px rgba(10,8,34,.35))}
+.lg-shadow{position:absolute;left:14%;right:14%;bottom:-4px;height:8px;border-radius:50%;background:rgba(10,8,34,.42);filter:blur(2px)}
+
+.lg-door{position:relative;z-index:2;flex:none;height:100%;aspect-ratio:var(--door-ar);perspective:1800px}
+.lg-doorway{position:absolute;left:4%;right:4%;top:2%;bottom:1%;z-index:0;overflow:hidden;border-radius:50% 50% 0 0/27% 27% 0 0;background:radial-gradient(ellipse at 50% 50%,#2A2266 0%,#0C0A26 72%)}
+.lg-root[data-variant="teen"] .lg-doorway{left:6%;right:6%;top:3%;bottom:3%;border-radius:6px}
+.lg-dw-spin{position:absolute;left:50%;top:50%;width:260%;aspect-ratio:1/1;margin-left:-130%;margin-top:-130%;animation:lg-spin 24s linear infinite}
+.lg-dw-spin img{display:block;width:100%;height:100%;object-fit:cover;opacity:.9}
+.lg-dw-core{position:absolute;left:50%;top:50%;width:140%;aspect-ratio:1/1;margin-left:-70%;margin-top:-70%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,252,240,.95),rgba(var(--lg-glow),.55) 30%,rgba(var(--lg-glow),0) 70%);opacity:.6}
+.lg-rays{position:absolute;left:50%;top:50%;z-index:1;width:420%;aspect-ratio:1/1;margin-left:-210%;margin-top:-210%;opacity:0;background:repeating-conic-gradient(from 0deg,rgba(var(--lg-glow),0) 0deg 6deg,rgba(var(--lg-glow),.42) 8deg 10deg,rgba(var(--lg-glow),0) 12deg 18deg);-webkit-mask-image:radial-gradient(closest-side,#000 8%,transparent 62%);mask-image:radial-gradient(closest-side,#000 8%,transparent 62%);pointer-events:none;transition:opacity .4s}
+.lg-leaf{position:absolute;top:0;z-index:2;width:50%;height:100%;display:block;object-fit:fill;filter:drop-shadow(0 0 18px rgba(var(--lg-glow),.28));transition:opacity .35s ease}
+.lg-leaf--l{left:0;transform-origin:0 50%}
+.lg-leaf--r{right:0;transform-origin:100% 50%}
+.lg-seam{position:absolute;left:50%;top:4%;bottom:3%;z-index:3;width:4px;margin-left:-2px;border-radius:2px;background:linear-gradient(180deg,rgba(var(--lg-glow),0),rgba(var(--lg-glow),.95) 14%,#FFFDF2 50%,rgba(var(--lg-glow),.95) 86%,rgba(var(--lg-glow),0));box-shadow:0 0 10px 2px rgba(var(--lg-glow),.8),0 0 36px 8px rgba(var(--lg-glow),.35);animation:lg-seam 3.6s ease-in-out infinite;pointer-events:none}
+.lg-flood{position:absolute;left:-110%;top:-20%;z-index:4;width:320%;height:140%;border-radius:50%;opacity:0;transform:scale(.12,.5);background:radial-gradient(closest-side,rgba(255,252,238,.92) 0%,rgba(var(--lg-glow),.55) 32%,rgba(var(--lg-glow),.18) 60%,rgba(var(--lg-glow),0) 100%);mix-blend-mode:screen;pointer-events:none}
+
+/* time tunnel, centred on the door */
+.lg-warp{position:absolute;left:50%;top:50%;z-index:1;width:0;height:0;visibility:hidden;opacity:0;pointer-events:none}
+.lg-warp-bg{position:absolute;left:-160vmax;top:-160vmax;width:320vmax;height:320vmax;border-radius:50%;background:radial-gradient(closest-side,#221C5C 0%,#0E0B2E 45%,#06051A 100%)}
+.lg-warp-vortex{position:absolute;left:-95vmax;top:-95vmax;width:190vmax;height:190vmax;transform:scale(1.15)}
+.lg-warp-spin{width:100%;height:100%;animation:lg-spin 9s linear infinite}
+.lg-warp-spin img{display:block;width:100%;height:100%;object-fit:cover;border-radius:50%;-webkit-mask-image:radial-gradient(closest-side,#000 52%,transparent 100%);mask-image:radial-gradient(closest-side,#000 52%,transparent 100%)}
+.lg-ring{position:absolute;left:-100vmax;top:-100vmax;width:200vmax;height:200vmax;border-radius:50%;opacity:0;background:repeating-radial-gradient(circle,rgba(var(--lg-glow),0) 0 34px,rgba(var(--lg-glow),.55) 37px 40px,rgba(255,255,255,0) 44px 88px);-webkit-mask-image:radial-gradient(closest-side,transparent 6%,#000 22%,#000 60%,transparent 100%);mask-image:radial-gradient(closest-side,transparent 6%,#000 22%,#000 60%,transparent 100%);animation:lg-ring 1.3s cubic-bezier(.55,0,.85,.4) infinite}
+.lg-streak{position:absolute;left:0;top:-1px;height:2px;border-radius:2px;transform-origin:0 50%;opacity:0;animation:lg-streak .95s cubic-bezier(.6,0,1,.6) infinite}
+.lg-flash{position:absolute;left:-150vmax;top:-150vmax;width:300vmax;height:300vmax;border-radius:50%;opacity:0;background:radial-gradient(closest-side,#FFFFFF 0%,rgba(255,248,226,.96) 32%,rgba(var(--lg-glow),0) 78%)}
+
+/* ---------- the card ---------- */
+.lg-card{grid-area:s;align-self:end;position:relative;z-index:3;width:min(640px,100%);box-sizing:border-box;padding:28px 30px 26px;border-radius:var(--radius-xl);transform-origin:50% 100%}
+.lg-root[data-variant="junior"] .lg-card{width:min(620px,100%);padding:24px 26px}
+.lg-root[data-variant="teen"] .lg-card{width:min(460px,100%);padding:24px 26px 22px}
+.lg-dgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);grid-template-areas:"brand form" "meta form";grid-template-rows:auto 1fr;column-gap:32px;row-gap:16px}
+.lg-brand{grid-area:brand;display:flex;flex-direction:column;gap:10px;min-width:0}
+.lg-dform{grid-area:form;display:flex;flex-direction:column;gap:14px;min-width:0;margin:0}
+.lg-meta{grid-area:meta;align-self:end;display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-width:0}
+.lg-h1{font-size:30px;line-height:36px}
+.lg-jgrid{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"kix pad" "status pad" "msg pad" "link pad";grid-template-rows:auto auto 1fr auto;column-gap:28px;row-gap:14px;align-items:start}
+.lg-jkix{grid-area:kix;display:flex;align-items:center;gap:12px;min-width:0}
+.lg-jkix-img{width:96px;height:auto;flex:none}
+.lg-jpad{grid-area:pad;align-self:center}
+.lg-pad{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;width:252px}
+.lg-tile{width:76px;height:76px;padding:0;border:0;border-radius:50%;cursor:pointer;justify-self:center;transition:transform 120ms var(--ease-bounce)}
+.lg-tile:active{transform:scale(.9)}
+.lg-tile img{display:block;width:100%;height:100%;border-radius:50%;object-fit:cover}
+.lg-jstatus{grid-area:status;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+.lg-jmsg{grid-area:msg}
+.lg-jlink{grid-area:link;justify-self:start}
+.lg-dot{display:block;width:18px;height:18px;border-radius:50%;box-shadow:inset 0 0 0 2.5px var(--border-control)}
+.lg-dot--on{background:var(--accent);box-shadow:none;animation:lg-pop .3s var(--ease-bounce)}
+.lg-thead{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.lg-th1{font-size:34px;line-height:40px}
+.lg-trow{display:flex;align-items:stretch;gap:10px}
+.lg-tbtn{flex:none}
+
+/* ---------- top bar ---------- */
+.lg-top{position:absolute;top:0;left:0;right:0;z-index:4;display:flex;align-items:center;gap:12px;padding:16px 24px;pointer-events:none;transition:opacity .3s}
+.lg-top > *{pointer-events:auto}
+.lg-mark{display:block;height:30px;width:auto}
+.lg-preview{margin-left:auto;display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:5px 6px 5px 12px;border-radius:var(--radius-pill)}
+.lg-pbtn{min-height:36px;padding:0 14px;border:0;border-radius:var(--radius-pill);cursor:pointer}
+
+/* ---------- arrival ---------- */
+.lg-arrived{position:absolute;inset:0;z-index:6;display:none;align-items:center;justify-content:center;box-sizing:border-box;padding:24px 16px;overflow:hidden}
+.lg-arr-rays{position:absolute;left:50%;top:45%;width:180vmax;height:180vmax;margin:-90vmax 0 0 -90vmax;background:repeating-conic-gradient(rgba(var(--lg-glow),0) 0deg 8deg,rgba(var(--lg-glow),.22) 10deg 12deg,rgba(var(--lg-glow),0) 14deg 22.5deg);-webkit-mask-image:radial-gradient(closest-side,#000 0%,transparent 70%);mask-image:radial-gradient(closest-side,#000 0%,transparent 70%);animation:lg-spin 60s linear infinite;pointer-events:none}
+.lg-arr-card{position:relative;z-index:1;width:min(460px,100%);box-sizing:border-box;padding:32px 32px 28px;border-radius:var(--radius-xl);display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
+.lg-arr-kix{width:140px;height:auto;animation:lg-float 4.5s ease-in-out infinite;filter:drop-shadow(0 10px 18px rgba(10,8,40,.3))}
+.lg-arr-h{font-size:clamp(28px,4.2vw,40px);line-height:1.15}
+.lg-progress{display:block;width:220px;max-width:100%;height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.lg-progress-bar{display:block;width:40%;height:100%;border-radius:3px;background:var(--reward);animation:lg-progress 1.4s ease-in-out infinite}
+.lg-veil{position:absolute;inset:0;z-index:2;background:#FFFCF0;opacity:0;pointer-events:none}
+
+/* ---------- the moment: state machine ---------- */
+/* error: the door rattles (class name alternates so every wrong try replays it) */
+.lg-door.lg-rattle-a{animation:lg-rattle-a .6s cubic-bezier(.36,.07,.19,.97) both}
+.lg-door.lg-rattle-b{animation:lg-rattle-b .6s cubic-bezier(.36,.07,.19,.97) both}
+.lg-rattle-a .lg-leaf--l{animation:lg-jig-la .6s ease-in-out}
+.lg-rattle-a .lg-leaf--r{animation:lg-jig-ra .6s ease-in-out}
+.lg-rattle-b .lg-leaf--l{animation:lg-jig-lb .6s ease-in-out}
+.lg-rattle-b .lg-leaf--r{animation:lg-jig-rb .6s ease-in-out}
+/* opening (held preview: leaves part-open) */
+[data-state="opening"] .lg-card,[data-state="tunnel"] .lg-card,[data-state="arrived"] .lg-card{opacity:0;visibility:hidden;pointer-events:none;transform:perspective(1100px) rotateX(70deg) translateY(30px) scale(.96)}
+[data-state="opening"] .lg-leaf--l{transform:rotateY(-72deg)}
+[data-state="opening"] .lg-leaf--r{transform:rotateY(72deg)}
+[data-state="opening"] .lg-seam{animation:none;opacity:0}
+[data-state="opening"] .lg-flood{opacity:.85;transform:none}
+[data-state="opening"] .lg-rays{opacity:1;animation:lg-spin 30s linear infinite}
+[data-state="opening"] .lg-dw-core{opacity:1}
+[data-state="opening"] .lg-aura{animation:none;opacity:1;transform:translate(-50%,-50%) scale(1.3)}
+/* opening (live) */
+[data-state="opening"][data-live="yes"] .lg-card{visibility:visible;animation:lg-fold .5s cubic-bezier(.55,0,.8,.35) both}
+[data-state="opening"][data-live="yes"] .lg-leaf--l{animation:lg-swing-l 1.05s cubic-bezier(.45,0,.2,1) .18s both}
+[data-state="opening"][data-live="yes"] .lg-leaf--r{animation:lg-swing-r 1.05s cubic-bezier(.45,0,.2,1) .18s both}
+[data-state="opening"][data-live="yes"] .lg-seam{animation:lg-seam-out .5s ease-out both}
+[data-state="opening"][data-live="yes"] .lg-flood{animation:lg-flood 1.1s cubic-bezier(.3,0,.2,1) .15s both}
+[data-state="opening"][data-live="yes"] .lg-rays{animation:lg-fadein .7s ease-out .3s both,lg-spin 30s linear infinite}
+[data-state="opening"][data-live="yes"] .lg-dw-core{animation:lg-core .9s ease-out .2s both}
+/* tunnel */
+[data-state="tunnel"] .lg-scene{opacity:0;transform:scale(1.3)}
+[data-state="tunnel"] .lg-walkers{opacity:0}
+[data-state="tunnel"] .lg-aura{animation:none;opacity:0}
+[data-state="tunnel"] .lg-seam{animation:none;opacity:0}
+[data-state="tunnel"] .lg-leaf--l{transform:rotateY(-105deg);opacity:0}
+[data-state="tunnel"] .lg-leaf--r{transform:rotateY(105deg);opacity:0}
+[data-state="tunnel"] .lg-flood{opacity:0;transform:scale(1.4);transition:opacity .5s,transform .5s}
+[data-state="tunnel"] .lg-warp{visibility:visible;opacity:1}
+[data-state="tunnel"][data-live="yes"] .lg-scene{animation:lg-push 1s cubic-bezier(.55,0,.85,.4) both}
+[data-state="tunnel"][data-live="yes"] .lg-warp{animation:lg-fadein .3s ease-out both}
+[data-state="tunnel"][data-live="yes"] .lg-warp-bg{animation:lg-grow .85s cubic-bezier(.6,0,.3,1) both}
+[data-state="tunnel"][data-live="yes"] .lg-warp-vortex{animation:lg-vortex 1.4s cubic-bezier(.5,0,.25,1) both}
+[data-state="tunnel"][data-live="yes"] .lg-warp-spin{animation-duration:2.6s}
+[data-state="tunnel"][data-live="yes"] .lg-flash{animation:lg-flash 1.4s ease-in both}
+/* top bar fades while the moment plays */
+[data-state="opening"][data-live="yes"] .lg-top,[data-state="tunnel"][data-live="yes"] .lg-top{opacity:0;visibility:hidden;transition:opacity .3s,visibility 0s .3s}
+/* arrived */
+[data-state="arrived"] .lg-scene,[data-state="arrived"] .lg-stage,[data-state="arrived"] .lg-top{visibility:hidden}
+[data-state="arrived"] .lg-arrived{display:flex}
+[data-state="arrived"][data-live="yes"] .lg-veil{animation:lg-veil .8s ease-out both}
+[data-state="arrived"][data-live="yes"] .lg-arr-card{animation:lg-rise-in .6s cubic-bezier(.22,1,.36,1) .25s both}
+
+/* loops behind closed leaves only run when they can be seen */
+.lg-dw-spin,.lg-warp-spin,.lg-ring,.lg-streak{animation-play-state:paused}
+[data-state="opening"] .lg-dw-spin,[data-state="tunnel"] .lg-warp-spin,[data-state="tunnel"] .lg-ring,[data-state="tunnel"] .lg-streak{animation-play-state:running}
+
+/* tab hidden: pause the city */
+.lg-root[data-paused="yes"] .lg-scene *,.lg-root[data-paused="yes"] .lg-walkers *,.lg-root[data-paused="yes"] .lg-aura,.lg-root[data-paused="yes"] .lg-seam{animation-play-state:paused!important}
+
+/* ---------- keyframes ---------- */
+@keyframes lg-drift{from{transform:translate3d(-1.2%,.4%,0) scale(1)}to{transform:translate3d(1.2%,-.6%,0) scale(1.035)}}
+@keyframes lg-twinkle{0%,100%{opacity:.25;transform:scale(.6) rotate(0deg)}50%{opacity:1;transform:scale(1) rotate(20deg)}}
+@keyframes lg-shoot{0%{opacity:0;transform:translateX(0)}1.5%{opacity:1}7%{opacity:0;transform:translateX(-520px)}100%{opacity:0;transform:translateX(-520px)}}
+@keyframes lg-rise{0%{opacity:0;transform:translate3d(0,92vh,0) rotate(-4deg)}8%{opacity:.95}50%{transform:translate3d(calc(var(--sway) * .6),45vh,0) rotate(4deg)}88%{opacity:.85}100%{opacity:0;transform:translate3d(var(--sway),-8vh,0) rotate(-3deg)}}
+@keyframes lg-mote{0%{opacity:0;transform:translate3d(0,96vh,0)}12%{opacity:.9}85%{opacity:.7}100%{opacity:0;transform:translate3d(var(--sway),2vh,0)}}
+@keyframes lg-wander-a{0%,100%{transform:translate(0,0)}25%{transform:translate(26px,-18px)}50%{transform:translate(8px,-34px)}75%{transform:translate(-20px,-12px)}}
+@keyframes lg-wander-b{0%,100%{transform:translate(0,0)}30%{transform:translate(-24px,-14px)}60%{transform:translate(-6px,-30px)}80%{transform:translate(18px,-8px)}}
+@keyframes lg-blink{0%,100%{opacity:.15}45%,60%{opacity:1}}
+@keyframes lg-fly-x{0%{transform:translateX(-240px)}62%,100%{transform:translateX(calc(100vw + 240px))}}
+@keyframes lg-arc{0%{transform:translateY(40px) rotate(9deg)}31%{transform:translateY(-34px) rotate(0deg)}62%,100%{transform:translateY(40px) rotate(-8deg)}}
+@keyframes lg-flutter{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-7px) rotate(3deg)}}
+@keyframes lg-walk-x{0%{transform:translateX(-160px)}80%,100%{transform:translateX(calc(100vw + 160px))}}
+@keyframes lg-step{from{transform:translateY(0) rotate(-4deg)}to{transform:translateY(-5px) rotate(4deg)}}
+@keyframes lg-seam{0%,100%{opacity:.72}50%{opacity:1}}
+@keyframes lg-aura{0%,100%{opacity:.8;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.05)}}
+@keyframes lg-rattle-a{0%,100%{transform:translateX(0) rotate(0deg)}12%{transform:translateX(-7px) rotate(-.5deg)}26%{transform:translateX(6px) rotate(.4deg)}40%{transform:translateX(-5px) rotate(-.3deg)}54%{transform:translateX(4px) rotate(.2deg)}68%{transform:translateX(-2px)}82%{transform:translateX(1px)}}
+@keyframes lg-rattle-b{0%,100%{transform:translateX(0) rotate(0deg)}12%{transform:translateX(-7px) rotate(-.5deg)}26%{transform:translateX(6px) rotate(.4deg)}40%{transform:translateX(-5px) rotate(-.3deg)}54%{transform:translateX(4px) rotate(.2deg)}68%{transform:translateX(-2px)}82%{transform:translateX(1px)}}
+@keyframes lg-jig-la{0%,100%{transform:rotateY(0deg)}20%{transform:rotateY(-5deg)}40%{transform:rotateY(3deg)}60%{transform:rotateY(-2deg)}80%{transform:rotateY(1deg)}}
+@keyframes lg-jig-lb{0%,100%{transform:rotateY(0deg)}20%{transform:rotateY(-5deg)}40%{transform:rotateY(3deg)}60%{transform:rotateY(-2deg)}80%{transform:rotateY(1deg)}}
+@keyframes lg-jig-ra{0%,100%{transform:rotateY(0deg)}20%{transform:rotateY(5deg)}40%{transform:rotateY(-3deg)}60%{transform:rotateY(2deg)}80%{transform:rotateY(-1deg)}}
+@keyframes lg-jig-rb{0%,100%{transform:rotateY(0deg)}20%{transform:rotateY(5deg)}40%{transform:rotateY(-3deg)}60%{transform:rotateY(2deg)}80%{transform:rotateY(-1deg)}}
+@keyframes lg-fold{from{opacity:1;transform:none}to{opacity:0;transform:perspective(1100px) rotateX(70deg) translateY(30px) scale(.96)}}
+@keyframes lg-swing-l{0%{transform:rotateY(0deg)}14%{transform:rotateY(4deg)}100%{transform:rotateY(-105deg)}}
+@keyframes lg-swing-r{0%{transform:rotateY(0deg)}14%{transform:rotateY(-4deg)}100%{transform:rotateY(105deg)}}
+@keyframes lg-seam-out{0%{opacity:1;transform:scaleX(1)}35%{opacity:1;transform:scaleX(3)}100%{opacity:0;transform:scaleX(8)}}
+@keyframes lg-flood{0%{opacity:0;transform:scale(.04,.7)}35%{opacity:1;transform:scale(.35,.95)}100%{opacity:.85;transform:none}}
+@keyframes lg-core{from{opacity:.3;transform:scale(.5)}to{opacity:1;transform:scale(1.1)}}
+@keyframes lg-fadein{from{opacity:0}to{opacity:1}}
+@keyframes lg-push{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(1.3)}}
+@keyframes lg-grow{from{transform:scale(.08)}to{transform:scale(1)}}
+@keyframes lg-vortex{from{transform:scale(.16)}to{transform:scale(1.15)}}
+@keyframes lg-spin{to{transform:rotate(360deg)}}
+@keyframes lg-ring{0%{opacity:0;transform:scale(.12)}25%{opacity:.95}100%{opacity:0;transform:scale(1.5)}}
+@keyframes lg-streak{0%{opacity:0;transform:rotate(var(--a)) translateX(3vmax) scaleX(.2)}25%{opacity:1}100%{opacity:0;transform:rotate(var(--a)) translateX(78vmax) scaleX(1.8)}}
+@keyframes lg-flash{0%,70%{opacity:0}100%{opacity:1}}
+@keyframes lg-veil{from{opacity:1}to{opacity:0}}
+@keyframes lg-rise-in{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes lg-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes lg-pop{0%{transform:scale(.4)}60%{transform:scale(1.25)}100%{transform:scale(1)}}
+@keyframes lg-progress{from{transform:translateX(-100%)}to{transform:translateX(250%)}}
+
+/* ---------- reduced motion: a still city, no swing or tunnel ---------- */
+@media (prefers-reduced-motion: reduce){
+  .lg-scene *,.lg-walkers *,.lg-aura,.lg-seam,.lg-arr-rays{animation-play-state:paused!important}
+  .lg-city{animation:none}
+  .lg-door,.lg-leaf,.lg-card,.lg-flood,.lg-rays,.lg-scene,.lg-dw-spin,.lg-dw-core{animation:none!important;transition:none!important}
+  .lg-warp,.lg-warp *{animation:none!important}
+  .lg-ring,.lg-streak{display:none}
+  [data-state="arrived"][data-live="yes"] .lg-arrived{animation:lg-fadein .2s ease-out both}
+  [data-state="arrived"][data-live="yes"] .lg-veil{animation:none}
+  .lg-arr-card,.lg-arr-kix,.lg-progress-bar,.lg-dot--on{animation:none!important}
+  .lg-progress-bar{width:60%}
+  .lg-tile{transition:none}
+  .lg-tile:active{transform:none}
+}
+
+/* ---------- desktop: more city ---------- */
+@media (min-width: 1600px){
+  .lg-root{--door-h:clamp(360px,calc(100vh - 170px),780px)}
+  .lg-stage{padding:64px 40px 40px}
+  .lg-doorzone{margin-bottom:48px}
+  .lg-top{padding:20px 32px}
+  .lg-card{padding:32px 34px 30px}
+  .lg-pad{width:276px}
+  .lg-tile{width:84px;height:84px}
+}
+
+/* ---------- medium: door centred, card over its lower third ---------- */
+@media (min-width: 600px) and (max-width: 1023px){
+  .lg-root{--door-h:clamp(300px,52vh,660px);--walk-b:calc(var(--door-h) * .03)}
+  .lg-stage{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:72px 24px 28px}
+  .lg-doorzone{flex:none;margin:0}
+  .lg-card{align-self:center;width:min(480px,100%);margin-top:calc(var(--door-h) * -.34)}
+  .lg-dgrid{grid-template-columns:minmax(0,1fr);grid-template-areas:"brand" "form" "meta";grid-template-rows:auto;row-gap:18px}
+}
+
+/* ---------- compact: door above a bottom-sheet card ---------- */
+@media (max-width: 599px){
+  .lg-root{--door-h:clamp(200px,44vh,380px);--walk-b:calc(var(--door-h) * .2);--door-cy:30%}
+  .lg-root[data-variant="junior"]{--door-h:clamp(180px,34vh,320px);--door-cy:28%}
+  .lg-root[data-variant="teen"]{--door-cy:44%}
+  .lg-stage{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-end;padding:64px 0 0}
+  .lg-doorzone{flex:none;margin:0}
+  .lg-root .lg-card,.lg-root[data-variant] .lg-card{position:sticky;bottom:0;align-self:stretch;width:100%;margin-top:calc(var(--door-h) * -.16);padding:22px 16px calc(20px + env(safe-area-inset-bottom));border-radius:var(--radius-xl) var(--radius-xl) 0 0}
+  .lg-dgrid{grid-template-columns:minmax(0,1fr);grid-template-areas:"brand" "form" "meta";grid-template-rows:auto;row-gap:18px}
+  .lg-h1{font-size:28px;line-height:34px}
+  .lg-jgrid{grid-template-columns:minmax(0,1fr);grid-template-areas:"kix" "pad" "status" "msg" "link";grid-template-rows:auto;row-gap:14px}
+  .lg-jpad{justify-self:center}
+  .lg-jkix-img{width:76px}
+  .lg-th1{font-size:30px;line-height:36px}
+  .lg-trow{flex-direction:column}
+  .lg-tbtn{width:100%;justify-content:center}
+  .lg-few{display:none}
+  .lg-top{padding:12px}
+  .lg-mark{height:24px}
+  .lg-preview{padding:4px}
+  .lg-preview-label,.lg-preview-hint{display:none}
+  .lg-arr-card{padding:24px 18px 22px}
+  .lg-arr-kix{width:112px}
+}
+/* Living art (scripts/living-art.ts): the parts of a background that should move are cut out of the art and move
+   by their kind, right on top of where they are painted. .la covers the art; .la-box is the art's cover box (--ar is
+   its aspect ratio, --ox/--oy its object-position), so every layer sits in percent of the art.
+   Display layers (sway, waver, mist, bob) move a cut-out copy; mask layers (breeze, flow, shimmer, glint, runway,
+   neon) add moving light inside the part's own shape. Only transform and opacity animate; reduced motion stops all. */
+.la{position:absolute;inset:0;overflow:hidden;pointer-events:none;container-type:size;--la-streaks:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2748%27 height=%27240%27%3E%3Crect x=%272.0%27 y=%27221%27 width=%271.3%27 height=%2742%27 rx=%270.7%27 fill=%27white%27 opacity=%270.66%27/%3E%3Crect x=%272.0%27 y=%27-19%27 width=%271.3%27 height=%2742%27 rx=%270.7%27 fill=%27white%27 opacity=%270.66%27/%3E%3Crect x=%2725.4%27 y=%2779%27 width=%272.2%27 height=%2775%27 rx=%271.1%27 fill=%27white%27 opacity=%270.55%27/%3E%3Crect x=%2725.4%27 y=%27-161%27 width=%272.2%27 height=%2775%27 rx=%271.1%27 fill=%27white%27 opacity=%270.55%27/%3E%3Crect x=%2732.1%27 y=%27153%27 width=%271.4%27 height=%2779%27 rx=%270.7%27 fill=%27white%27 opacity=%270.44%27/%3E%3Crect x=%2732.1%27 y=%27-87%27 width=%271.4%27 height=%2779%27 rx=%270.7%27 fill=%27white%27 opacity=%270.44%27/%3E%3Crect x=%2733.1%27 y=%27168%27 width=%272.1%27 height=%2726%27 rx=%271.1%27 fill=%27white%27 opacity=%270.50%27/%3E%3Crect x=%2733.1%27 y=%27-72%27 width=%272.1%27 height=%2726%27 rx=%271.1%27 fill=%27white%27 opacity=%270.50%27/%3E%3Crect x=%2742.6%27 y=%27194%27 width=%271.8%27 height=%2731%27 rx=%270.9%27 fill=%27white%27 opacity=%270.77%27/%3E%3Crect x=%2742.6%27 y=%27-46%27 width=%271.8%27 height=%2731%27 rx=%270.9%27 fill=%27white%27 opacity=%270.77%27/%3E%3Crect x=%2732.3%27 y=%27155%27 width=%272.5%27 height=%2762%27 rx=%271.3%27 fill=%27white%27 opacity=%270.77%27/%3E%3Crect x=%2732.3%27 y=%27-85%27 width=%272.5%27 height=%2762%27 rx=%271.3%27 fill=%27white%27 opacity=%270.77%27/%3E%3Crect x=%2718.4%27 y=%2780%27 width=%271.5%27 height=%2781%27 rx=%270.8%27 fill=%27white%27 opacity=%270.31%27/%3E%3Crect x=%2718.4%27 y=%27-160%27 width=%271.5%27 height=%2781%27 rx=%270.8%27 fill=%27white%27 opacity=%270.31%27/%3E%3Crect x=%2715.1%27 y=%27103%27 width=%272.5%27 height=%2743%27 rx=%271.3%27 fill=%27white%27 opacity=%270.55%27/%3E%3Crect x=%2715.1%27 y=%27-137%27 width=%272.5%27 height=%2743%27 rx=%271.3%27 fill=%27white%27 opacity=%270.55%27/%3E%3Crect x=%2734.1%27 y=%27211%27 width=%271.4%27 height=%2726%27 rx=%270.7%27 fill=%27white%27 opacity=%270.56%27/%3E%3Crect x=%2734.1%27 y=%27-29%27 width=%271.4%27 height=%2726%27 rx=%270.7%27 fill=%27white%27 opacity=%270.56%27/%3E%3Crect x=%2724.4%27 y=%27101%27 width=%272.5%27 height=%2736%27 rx=%271.3%27 fill=%27white%27 opacity=%270.25%27/%3E%3Crect x=%2724.4%27 y=%27-139%27 width=%272.5%27 height=%2736%27 rx=%271.3%27 fill=%27white%27 opacity=%270.25%27/%3E%3Crect x=%2718.1%27 y=%2783%27 width=%272.5%27 height=%2769%27 rx=%271.3%27 fill=%27white%27 opacity=%270.53%27/%3E%3Crect x=%2718.1%27 y=%27-157%27 width=%272.5%27 height=%2769%27 rx=%271.3%27 fill=%27white%27 opacity=%270.53%27/%3E%3Crect x=%279.3%27 y=%2797%27 width=%271.6%27 height=%2742%27 rx=%270.8%27 fill=%27white%27 opacity=%270.47%27/%3E%3Crect x=%279.3%27 y=%27-143%27 width=%271.6%27 height=%2742%27 rx=%270.8%27 fill=%27white%27 opacity=%270.47%27/%3E%3Crect x=%2716.6%27 y=%27128%27 width=%271.4%27 height=%2765%27 rx=%270.7%27 fill=%27white%27 opacity=%270.76%27/%3E%3Crect x=%2716.6%27 y=%27-112%27 width=%271.4%27 height=%2765%27 rx=%270.7%27 fill=%27white%27 opacity=%270.76%27/%3E%3Crect x=%2722.1%27 y=%27207%27 width=%272.0%27 height=%2766%27 rx=%271.0%27 fill=%27white%27 opacity=%270.53%27/%3E%3Crect x=%2722.1%27 y=%27-33%27 width=%272.0%27 height=%2766%27 rx=%271.0%27 fill=%27white%27 opacity=%270.53%27/%3E%3Crect x=%2724.2%27 y=%27165%27 width=%271.6%27 height=%2788%27 rx=%270.8%27 fill=%27white%27 opacity=%270.64%27/%3E%3Crect x=%2724.2%27 y=%27-75%27 width=%271.6%27 height=%2788%27 rx=%270.8%27 fill=%27white%27 opacity=%270.64%27/%3E%3Crect x=%2713.0%27 y=%27141%27 width=%271.5%27 height=%2747%27 rx=%270.8%27 fill=%27white%27 opacity=%270.45%27/%3E%3Crect x=%2713.0%27 y=%27-99%27 width=%271.5%27 height=%2747%27 rx=%270.8%27 fill=%27white%27 opacity=%270.45%27/%3E%3Crect x=%2737.0%27 y=%27211%27 width=%272.3%27 height=%2730%27 rx=%271.1%27 fill=%27white%27 opacity=%270.27%27/%3E%3Crect x=%2737.0%27 y=%27-29%27 width=%272.3%27 height=%2730%27 rx=%271.1%27 fill=%27white%27 opacity=%270.27%27/%3E%3Crect x=%2719.9%27 y=%2737%27 width=%272.6%27 height=%2727%27 rx=%271.3%27 fill=%27white%27 opacity=%270.35%27/%3E%3Crect x=%2719.9%27 y=%27-203%27 width=%272.6%27 height=%2727%27 rx=%271.3%27 fill=%27white%27 opacity=%270.35%27/%3E%3C/svg%3E")}
+.la-box{position:absolute;aspect-ratio:var(--ar);width:max(100cqw,calc(100cqh * var(--ar)));left:var(--ox,50%);top:var(--oy,50%);translate:calc(-1 * var(--ox,50%)) calc(-1 * var(--oy,50%))}
+.la-l{position:absolute;display:block;left:var(--x);top:var(--y);width:var(--w);height:var(--h);max-width:none;animation-delay:var(--dl,0s)}
+.la-mask{overflow:hidden;-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.la-mask::before,.la-mask::after{content:"";position:absolute;pointer-events:none}
+@keyframes la-sweep{0%{transform:translateX(-66.67%)}60%,100%{transform:translateX(0)}}
+
+/* Fronds sway from their base; reeds and tufts waver; clouds and haze drift and breathe; planets bob. */
+.la-sway{transform-origin:50% 100%;animation:la-sway var(--d,5s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes la-sway{from{transform:rotate(calc(-1 * var(--a,1.4deg)))}to{transform:rotate(var(--a,1.4deg))}}
+.la-waver{transform-origin:50% 100%;animation:la-waver var(--d,3s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes la-waver{from{transform:skewX(calc(-1 * var(--a,2.4deg)))}to{transform:skewX(var(--a,2.4deg)) scaleY(1.015)}}
+.la-mist{animation:la-mist var(--d,16s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes la-mist{0%{transform:translateX(calc(-1 * var(--dx,1cqw))) scale(1);opacity:.5}50%{opacity:1}100%{transform:translateX(var(--dx,1cqw)) scale(1.04);opacity:.65}}
+.la-haze{animation:la-haze var(--d,24s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes la-haze{from{transform:translateX(calc(-1 * var(--dx,1.2cqw))) scale(1.01);opacity:.85}to{transform:translateX(var(--dx,1.2cqw)) scale(1.04);opacity:1}}
+.la-bob{animation:la-bob var(--d,7s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes la-bob{from{transform:translateY(-.6cqh) rotate(-1.5deg)}to{transform:translateY(.6cqh) rotate(1.5deg)}}
+
+/* Islands float (they sit on a plate with the sky filled in behind them, so no ghost shows); stars orbit a point. */
+.la-float{animation:la-float var(--d,7s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes la-float{from{transform:translateY(calc(-1 * var(--ay,.5cqh))) rotate(-.4deg)}to{transform:translateY(var(--ay,.5cqh)) rotate(.4deg)}}
+.la-orbit{transform-origin:var(--o,50% 50%);animation:la-orbit var(--d,120s) linear infinite}
+@keyframes la-orbit{to{transform:rotate(-360deg)}}
+/* Lanterns and chest glow flicker in four groups, each on its own beat; a core of light breathes. */
+.la-flicker{background:rgba(255,224,150,.9);animation:la-flicker var(--d,2.8s) ease-in-out infinite;animation-delay:var(--dl,0s)}
+@keyframes la-flicker{0%,100%{opacity:.1}30%{opacity:.7}45%{opacity:.35}70%{opacity:.95}}
+.la-pulse{background:radial-gradient(closest-side,#FFFFFF,rgba(255,240,210,.7));animation:la-glow var(--d,3.4s) ease-in-out infinite alternate}
+@keyframes la-glow{from{opacity:.05}to{opacity:.8}}
+
+/* Sky: soft clouds of light drift slowly across the sky's own shape (window bars and edges never move). */
+.la-sky::before{top:0;bottom:0;left:0;width:200%;background:radial-gradient(closest-side,rgba(255,240,250,.38),rgba(255,240,250,0)) 0 30%/25% 60% repeat-x,radial-gradient(closest-side,rgba(255,220,240,.28),rgba(255,220,240,0)) 12% 75%/12.5% 45% repeat-x;animation:la-sky-drift var(--d,90s) linear infinite}
+@keyframes la-sky-drift{to{transform:translateX(-50%)}}
+
+/* Stars twinkle in groups, each on its own beat. */
+.la-twinkle{background:#FFFFFF;animation:la-twinkle var(--d,2.2s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes la-twinkle{0%{opacity:0}60%{opacity:.25}100%{opacity:.95}}
+/* Aurora: soft bands of green, lilac and pink light flow through the aurora's (or a rainbow trail's) own shape. */
+.la-aurora::before{top:0;bottom:0;left:0;width:300%;background:linear-gradient(100deg,rgba(150,255,210,0) 0%,rgba(150,255,210,.75) 12%,rgba(200,170,255,.7) 22%,rgba(255,170,220,.6) 30%,rgba(150,255,210,0) 40%,rgba(150,255,210,0) 50%,rgba(150,255,210,.7) 62%,rgba(200,170,255,.65) 72%,rgba(255,170,220,.55) 80%,rgba(150,255,210,0) 90%);mix-blend-mode:screen;animation:la-aurora var(--d,16s) linear infinite}
+@keyframes la-aurora{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+/* Streams: dashes of light run continuously along light trails. */
+.la-stream::before{top:0;bottom:0;left:0;width:200%;background:repeating-linear-gradient(100deg,transparent 0 9%,rgba(255,255,255,0) 9%,rgba(255,255,255,.95) 11.5%,rgba(255,255,255,0) 13%,transparent 13% 25%);animation:la-stream var(--d,3s) linear infinite}
+@keyframes la-stream{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+
+/* Wind: a band of light sweeps across wide grass, then rests. */
+.la-breeze::before{top:0;bottom:0;left:0;width:300%;background:linear-gradient(100deg,transparent 0 38%,rgba(255,255,235,.42) 46%,rgba(255,255,235,0) 56%);animation:la-sweep var(--d,7s) ease-in-out infinite}
+/* Water: streaks fall inside the waterfall's own shape, foam brightens the foot. */
+.la-flow{background:linear-gradient(rgba(255,255,255,0) 60%,rgba(235,255,255,.4))}
+.la-flow::before,.la-flow::after{left:0;right:0;top:-240px;bottom:0;background:var(--la-streaks) 0 0/48px 240px repeat;animation:la-fall var(--d,1.1s) linear infinite}
+.la-flow::after{background-size:70px 240px;background-position:21px 0;opacity:.55;animation-duration:calc(var(--d,1.1s) * 1.7)}
+@keyframes la-fall{to{transform:translateY(240px)}}
+.la-splash{position:absolute;left:var(--x);top:var(--y);width:var(--w);aspect-ratio:2.2;translate:-50% -55%}
+.la-splash>i{position:absolute;display:block;border-radius:50%}
+.la-puff{inset:0;background:radial-gradient(closest-side,rgba(255,255,255,.8),rgba(230,250,255,0));opacity:0;animation:la-puff var(--d,2.4s) ease-out infinite;animation-delay:var(--dl,0s)}
+@keyframes la-puff{0%{transform:scale(.5);opacity:.9}100%{transform:scale(1.3) translateY(-14%);opacity:0}}
+.la-drop{left:var(--px);bottom:38%;width:5px;height:5px;background:#FFFFFF;box-shadow:0 0 6px rgba(200,255,255,.95);opacity:0;animation:la-drop var(--d,1.4s) ease-out infinite;animation-delay:var(--dl,0s)}
+@keyframes la-drop{0%{transform:translate(0,0);opacity:0}12%{opacity:1}50%{transform:translate(var(--hx,8px),var(--hy,-26px))}100%{transform:translate(calc(var(--hx,8px) * 2),8px);opacity:0}}
+/* Pond: soft ripple lines drift toward you, and a glint crosses now and then. */
+.la-shimmer::before{left:0;right:0;top:-24px;bottom:0;background:repeating-linear-gradient(180deg,rgba(255,255,255,0) 0 12px,rgba(255,255,255,.3) 17px,rgba(255,255,255,0) 22px 24px);animation:la-ripple var(--d,3.6s) linear infinite}
+@keyframes la-ripple{to{transform:translateY(24px)}}
+.la-shimmer::after,.la-glint::after{top:0;bottom:0;left:0;width:300%;background:linear-gradient(110deg,transparent 42%,rgba(255,255,255,.95) 47%,rgba(255,255,255,0) 52%);animation:la-sweep var(--d,5s) ease-in-out infinite}
+.la-shimmer::after{animation-duration:calc(var(--d,3.6s) * 2)}
+/* Stepping stones light up one after another along the path, like runway lights. */
+.la-runway::before{inset:0;background:rgba(255,255,255,.35);animation:la-pulse 3s ease-in-out infinite alternate}
+.la-runway::after{top:0;bottom:0;left:0;width:300%;background:linear-gradient(60deg,transparent 40%,rgba(255,255,255,1) 46%,rgba(255,250,220,0) 52%);animation:la-sweep var(--d,3.6s) linear infinite}
+@keyframes la-pulse{from{opacity:.15}to{opacity:.7}}
+/* Neon: thin bands of light run from the horizon toward you, speeding up as they come, so light travels along
+   every grid line (a pink and a cyan band, half a lap apart). The mask layer is cropped to the floor. */
+.la-neon::before,.la-neon::after{left:0;right:0;top:0;height:200%;background:linear-gradient(180deg,transparent 0 46%,rgba(255,170,240,0) 46%,rgba(255,200,245,.95) 49.2%,rgba(255,255,255,1) 49.6%,transparent 50.4%);animation:la-run var(--d,2.8s) cubic-bezier(.55,0,1,.8) infinite}
+.la-neon::after{background:linear-gradient(180deg,transparent 0 46%,rgba(120,255,240,0) 46%,rgba(150,255,245,.95) 49.2%,rgba(255,255,255,1) 49.6%,transparent 50.4%)}
+@keyframes la-run{from{transform:translateY(-50%)}to{transform:translateY(0)}}
+
+/* Each layer's own phase (--dl) carries into its light; the neon's second ring runs half a lap behind. */
+.la .la-mask::before,.la .la-mask::after{animation-delay:var(--dl,0s)}
+.la .la-neon::after{animation-delay:calc(var(--dl,0s) - var(--d,3.2s) / 2)}
+
+/* A whole art that swirls: sways ±3° and breathes, zoomed 1.12× or more so no corner ever shows (a frame with sides
+   in ratio k needs cos 3° + k sin 3°: 1.09 for 16:9, 1.11 for a 2.17:1 phone). Put it on a wrapper holding the
+   <img> and its .la. */
+.la-swirl-art{position:absolute;inset:0;transform-origin:50% 50%;animation:la-swirl-art 14s ease-in-out infinite alternate}
+@keyframes la-swirl-art{from{transform:scale(1.12) rotate(-3deg)}to{transform:scale(1.16) rotate(3deg)}}
+
+@media (prefers-reduced-motion: reduce){.la-swirl-art{animation:none}.la *,.la *::before,.la *::after{animation:none!important}.la-splash,.la-mask::after{display:none}}
+/* The city's own aurora, stars, lanterns, lights and plants move (living art); the city still drifts as a whole. */
+.lg-city{overflow:hidden}
+.lg-city-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 70%;display:block}
+/* Opening door -> time tunnel: the door's rays, core and aura fade out while the tunnel fades in, instead of
+   vanishing in one frame (that dim frame read as a flicker). */
+.lg-rays,.lg-dw-core,.lg-aura{transition:opacity .5s ease,transform .5s ease}
+[data-state="tunnel"] .lg-rays{opacity:0;animation:lg-spin 30s linear infinite}
+[data-state="tunnel"] .lg-dw-core{opacity:0;transform:scale(1.35)}
+[data-state="tunnel"] .lg-aura{opacity:0}
+[data-state="tunnel"][data-live="yes"] .lg-warp{animation:lg-fadein .5s ease-out both}
+/* Tunnel without a dark dip: the door's glow lingers while a bright-centred tunnel and a half-size vortex grow in
+   behind it (a near-black tunnel start dropped the screen from bright to dark and back, which read as a flicker). */
+.lg-warp-bg{background:radial-gradient(closest-side,rgba(255,250,235,.95) 0%,rgba(var(--lg-glow),.92) 16%,#9A84E8 40%,#5A47B0 70%,#231C66 100%)}
+[data-state="tunnel"] .lg-flood{opacity:0;transform:scale(1.4);transition:opacity .9s ease .25s,transform .9s ease .25s}
+@keyframes lg-vortex{from{transform:scale(.5);opacity:.5}to{transform:scale(1.15);opacity:1}}
+/* Spotlight beams swing a few degrees round their source and breathe (on a plate with the sky filled in). */
+.la-sweep{transform-origin:var(--o,50% 0);animation:la-rays var(--d,9s) ease-in-out infinite alternate}
+@keyframes la-rays{0%{transform:rotate(-3.5deg);opacity:.7}50%{opacity:1}100%{transform:rotate(3.5deg);opacity:.8}}
+/* Each picture's name as a tooltip on hover or keyboard focus (and after a tap on touch). */
+.lg-tile{position:relative}
+.lg-tile[data-tip]::after{content:attr(data-tip);position:absolute;left:50%;bottom:calc(100% + 8px);z-index:5;padding:5px 10px;border-radius:10px;background:var(--ink);color:var(--surface);font:800 13px/1.2 var(--font-text);white-space:nowrap;box-shadow:0 6px 16px rgba(20,16,50,.28);opacity:0;transform:translate(-50%,4px);transition:opacity .15s ease,transform .15s ease;pointer-events:none}
+.lg-tile[data-tip]:hover::after,.lg-tile[data-tip]:focus-visible::after{opacity:1;transform:translate(-50%,0)}
+</style>
+</helmet>
+<div class="lg-root" data-theme="{{theme}}" data-band="{{band}}" data-variant="{{variant}}" data-state="{{phase}}" data-live="{{liveAttr}}" data-paused="{{pausedAttr}}" style="background: var(--twilight); color: var(--ink); font-family: var(--font-text)">
+
+  <!-- The living city: art, sky, lanterns, fireflies and flying Kix (all decorative) -->
+  <div class="lg-scene" aria-hidden="true">
+    <div class="lg-city">
+      <img class="lg-city-img" src="{{city}}" alt="">
+      <sc-if value="{{cityTwilight}}" hint-placeholder-val="{{true}}">
+        <div class="la" aria-hidden="true"><div class="la-box" style="--ar: 1600 / 914; --ox: 50%; --oy: 70%">
+          <img class="la-l la-haze" src="/_blob/1cfc3bf2ee9de2668d7c0398f1a69306" alt="" style="--x: 0%; --y: 0%; --w: 100%; --h: 33.7%; --d: 22s; --dx: 1cqw; --dl: -0s">
+          <img class="la-l la-waver" src="/_blob/6a68d3f281f5f12985fdbb9540110281" alt="" style="--x: 0%; --y: 67.29%; --w: 7%; --h: 15.1%; --d: 2.6s; --a: 1.8deg; --dl: -0s">
+          <img class="la-l la-waver" src="/_blob/91a4fa047ca54f5dba495e4ebc6410e5" alt="" style="--x: 13.75%; --y: 77.79%; --w: 6.19%; --h: 11.27%; --d: 3.2s; --a: 2.6deg; --dl: -1.1s">
+          <img class="la-l la-waver" src="/_blob/328084d1f07a54a53cdc611faa69ffc3" alt="" style="--x: 94.25%; --y: 69.37%; --w: 5.75%; --h: 12.8%; --d: 3.8s; --a: 1.8deg; --dl: -2.2s">
+          <i class="la-l la-mask la-breeze" style="--x: 80.88%; --y: 79.87%; --w: 9.5%; --h: 9.85%; --d: 7s; --dl: -0s; -webkit-mask-image: url(/_blob/9652b33d4ee1b62476bd4ffedbaed14a); mask-image: url(/_blob/9652b33d4ee1b62476bd4ffedbaed14a)"></i>
+          <i class="la-l la-mask la-shimmer" style="--x: 24.69%; --y: 65.43%; --w: 55.25%; --h: 6.78%; --d: 3.6s; --dl: -0s; -webkit-mask-image: url(/_blob/7c5cdb4c779f6db819261ca40f6fd6f8); mask-image: url(/_blob/7c5cdb4c779f6db819261ca40f6fd6f8)"></i>
+          <i class="la-l la-mask la-aurora" style="--x: 0%; --y: 0%; --w: 100%; --h: 33.7%; --d: 14s; -webkit-mask-image: url(/_blob/813672c6854c33760691211bfd104701); mask-image: url(/_blob/813672c6854c33760691211bfd104701)"></i>
+          <i class="la-l la-mask la-twinkle" style="--x: 0%; --y: 0%; --w: 33.31%; --h: 45.4%; --d: 1.8s; --dl: -0s; -webkit-mask-image: url(/_blob/702712f5c32144716e86c9c5345fcf7c); mask-image: url(/_blob/702712f5c32144716e86c9c5345fcf7c)"></i>
+          <i class="la-l la-mask la-twinkle" style="--x: 33.31%; --y: 0%; --w: 33.38%; --h: 45.4%; --d: 2.4s; --dl: -0.7s; -webkit-mask-image: url(/_blob/35b45d4c1b241da2e90c799df386bd63); mask-image: url(/_blob/35b45d4c1b241da2e90c799df386bd63)"></i>
+          <i class="la-l la-mask la-twinkle" style="--x: 66.69%; --y: 0%; --w: 33.31%; --h: 45.4%; --d: 3s; --dl: -1.4s; -webkit-mask-image: url(/_blob/c74b0d25a2ee4f9c600c264f08652aaf); mask-image: url(/_blob/c74b0d25a2ee4f9c600c264f08652aaf)"></i>
+          <i class="la-l la-mask la-flicker" style="--x: 0%; --y: 0%; --w: 25%; --h: 71.99%; --d: 2.4s; --dl: -0s; -webkit-mask-image: url(/_blob/cd0eabc8d9d4096e368d95ed94b42ed2); mask-image: url(/_blob/cd0eabc8d9d4096e368d95ed94b42ed2)"></i>
+          <i class="la-l la-mask la-flicker" style="--x: 25%; --y: 0%; --w: 25%; --h: 71.99%; --d: 3.1s; --dl: -0.9s; -webkit-mask-image: url(/_blob/35543da7f4d94c4990cab256c3c99f17); mask-image: url(/_blob/35543da7f4d94c4990cab256c3c99f17)"></i>
+          <i class="la-l la-mask la-flicker" style="--x: 50%; --y: 0%; --w: 25%; --h: 71.99%; --d: 3.8s; --dl: -1.8s; -webkit-mask-image: url(/_blob/e82e1b5fa5a5eeb68817fbed72e00091); mask-image: url(/_blob/e82e1b5fa5a5eeb68817fbed72e00091)"></i>
+          <i class="la-l la-mask la-flicker" style="--x: 75%; --y: 0%; --w: 25%; --h: 71.99%; --d: 4.5s; --dl: -2.7s; -webkit-mask-image: url(/_blob/2f8de30ea8029f4efe32a70a079b55b7); mask-image: url(/_blob/2f8de30ea8029f4efe32a70a079b55b7)"></i>
+        </div></div>
+      </sc-if>
+      <sc-if value="{{cityNeon}}" hint-placeholder-val="{{false}}">
+        <div class="la" aria-hidden="true"><div class="la-box" style="--ar: 1600 / 914; --ox: 50%; --oy: 70%">
+          <img class="la-l la-plate" src="/_blob/a74914fc8859f15b34ab06377ab873ae" alt="" style="--x: 0%; --y: 0%; --w: 100%; --h: 100%">
+          <img class="la-l la-sweep" src="/_blob/f8663e4d420c7cd085f6a233cea10c75" alt="" style="--x: 0%; --y: 0%; --w: 100%; --h: 49.78%; --d: 9s; --o: 52% -8.04%">
+          <i class="la-l la-mask la-stream" style="--x: 0%; --y: 25.49%; --w: 100%; --h: 73.09%; --d: 2.6s; -webkit-mask-image: url(/_blob/7730194d01f717b846bafc02160dcb50); mask-image: url(/_blob/7730194d01f717b846bafc02160dcb50)"></i>
+          <i class="la-l la-mask la-twinkle" style="--x: 0%; --y: 0%; --w: 33.31%; --h: 40.15%; --d: 1.8s; --dl: -0s; -webkit-mask-image: url(/_blob/308bff7f4763651c1567a8f3032d674e); mask-image: url(/_blob/308bff7f4763651c1567a8f3032d674e)"></i>
+          <i class="la-l la-mask la-twinkle" style="--x: 33.31%; --y: 0%; --w: 33.38%; --h: 40.15%; --d: 2.4s; --dl: -0.7s; -webkit-mask-image: url(/_blob/bfb52c1237babc23e945b6be080b6221); mask-image: url(/_blob/bfb52c1237babc23e945b6be080b6221)"></i>
+          <i class="la-l la-mask la-twinkle" style="--x: 66.69%; --y: 0%; --w: 33.31%; --h: 40.15%; --d: 3s; --dl: -1.4s; -webkit-mask-image: url(/_blob/22389dd7ecf8b88daf3414fddf908ce5); mask-image: url(/_blob/22389dd7ecf8b88daf3414fddf908ce5)"></i>
+          <i class="la-l la-mask la-flicker" style="--x: 0%; --y: 0%; --w: 25%; --h: 80.2%; --d: 2.4s; --dl: -0s; -webkit-mask-image: url(/_blob/c1c23450ce45b59715fcf08092041cde); mask-image: url(/_blob/c1c23450ce45b59715fcf08092041cde)"></i>
+          <i class="la-l la-mask la-flicker" style="--x: 25%; --y: 0%; --w: 25%; --h: 80.2%; --d: 3.1s; --dl: -0.9s; -webkit-mask-image: url(/_blob/cdfb033f6f8e915b41bbcce6ff3ce391); mask-image: url(/_blob/cdfb033f6f8e915b41bbcce6ff3ce391)"></i>
+          <i class="la-l la-mask la-flicker" style="--x: 50%; --y: 0%; --w: 25%; --h: 80.2%; --d: 3.8s; --dl: -1.8s; -webkit-mask-image: url(/_blob/8bd894be286352064465883c85446c6a); mask-image: url(/_blob/8bd894be286352064465883c85446c6a)"></i>
+          <i class="la-l la-mask la-flicker" style="--x: 75%; --y: 0%; --w: 25%; --h: 80.2%; --d: 4.5s; --dl: -2.7s; -webkit-mask-image: url(/_blob/7150ef2da62f2443e2388979adadc14b); mask-image: url(/_blob/7150ef2da62f2443e2388979adadc14b)"></i>
+        </div></div>
+      </sc-if>
+    </div>
+    <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10, 8, 34, 0.38) 0%, rgba(10, 8, 34, 0) 32%, rgba(10, 8, 34, 0) 58%, rgba(10, 8, 34, 0.5) 100%), radial-gradient(ellipse 50% 45% at 50% 50%, rgba(var(--lg-glow), 0.12), rgba(var(--lg-glow), 0) 70%)"></div>
+    <div class="lg-amb">
+      <sc-for list="{{stars}}" as="s" hint-placeholder-count="16">
+        <svg class="lg-star" viewBox="0 0 24 24" style="{{s.style}}"><path fill="currentColor" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z"/></svg>
+      </sc-for>
+      <div class="lg-shoot" style="left: 74%; top: 7%"><span class="lg-shoot-line"></span></div>
+      <div class="lg-shoot" style="left: 40%; top: 4%"><span class="lg-shoot-line" style="width: 110px; animation-duration: 17s; animation-delay: -9s"></span></div>
+      <sc-if value="{{showLanterns}}" hint-placeholder-val="{{true}}">
+        <sc-for list="{{lanterns}}" as="l" hint-placeholder-count="8">
+          <span class="lg-lantern" style="{{l.style}}"></span>
+        </sc-for>
+      </sc-if>
+      <sc-if value="{{showMotes}}" hint-placeholder-val="{{false}}">
+        <sc-for list="{{motes}}" as="m" hint-placeholder-count="12">
+          <span class="lg-mote" style="{{m.style}}"></span>
+        </sc-for>
+      </sc-if>
+      <sc-for list="{{fireflies}}" as="ff" hint-placeholder-count="9">
+        <span class="{{ff.cls}}" style="{{ff.style}}"><span class="lg-blink" style="{{ff.blinkStyle}}"></span></span>
+      </sc-for>
+      <sc-for list="{{flyers}}" as="f" hint-placeholder-count="3">
+        <div class="{{f.cls}}" style="{{f.style}}">
+          <div class="lg-arc" style="{{f.arcStyle}}">
+            <div class="lg-flip" style="{{f.flipStyle}}">
+              <span class="lg-trail"></span>
+              <svg class="lg-tspark" viewBox="0 0 24 24" style="right: 96%; top: 28%; width: 16%; animation-delay: -0.2s"><path fill="currentColor" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z"/></svg>
+              <svg class="lg-tspark" viewBox="0 0 24 24" style="right: 130%; top: 58%; width: 11%; animation-delay: -0.7s"><path fill="currentColor" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z"/></svg>
+              <svg class="lg-tspark" viewBox="0 0 24 24" style="right: 166%; top: 40%; width: 8%; animation-delay: -1.1s"><path fill="currentColor" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z"/></svg>
+              <img class="lg-flutter" src="{{f.src}}" alt="" style="{{f.imgStyle}}">
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <main class="lg-stage">
+    <!-- The door on the plaza, with walkers passing behind it -->
+    <div class="lg-doorzone" aria-hidden="true">
+      <div class="lg-aura"></div>
+      <div class="lg-walkers">
+        <sc-for list="{{walkers}}" as="w" hint-placeholder-count="3">
+          <div class="{{w.cls}}" style="{{w.style}}">
+            <span class="lg-shadow"></span>
+            <div class="lg-step" style="{{w.stepStyle}}">
+              <img class="lg-walker-img" src="{{w.src}}" alt="" style="{{w.imgStyle}}">
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div class="{{doorClass}}">
+        <div class="lg-doorway">
+          <div class="lg-dw-spin"><img src="/_blob/81d1a692843524016d9310655f15b973" alt=""></div>
+          <div class="lg-dw-core"></div>
+        </div>
+        <div class="lg-rays"></div>
+        <div class="lg-warp">
+          <div class="lg-warp-bg"></div>
+          <div class="lg-warp-vortex"><div class="lg-warp-spin"><img src="/_blob/81d1a692843524016d9310655f15b973" alt=""></div></div>
+          <div class="lg-ring"></div>
+          <div class="lg-ring" style="animation-delay: -0.43s"></div>
+          <div class="lg-ring" style="animation-delay: -0.86s"></div>
+          <sc-for list="{{streaks}}" as="st" hint-placeholder-count="18">
+            <span class="lg-streak" style="{{st.style}}"></span>
+          </sc-for>
+          <div class="lg-flash"></div>
+        </div>
+        <img class="lg-leaf lg-leaf--l" src="{{leafL}}" alt="">
+        <img class="lg-leaf lg-leaf--r" src="{{leafR}}" alt="">
+        <div class="lg-seam"></div>
+        <div class="lg-flood"></div>
+      </div>
+    </div>
+
+    <!-- Sign-in card (glass) -->
+    <section class="lg-card" aria-labelledby="lg-title" style="color: var(--ink); background: linear-gradient(var(--surface-glass), var(--surface-glass)), var(--surface-glass); -webkit-backdrop-filter: blur(22px) saturate(1.2); backdrop-filter: blur(22px) saturate(1.2); box-shadow: inset 0 0 0 1px rgba(var(--lg-glow), 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 0 40px rgba(var(--lg-glow), 0.14), 0 24px 60px rgba(8, 6, 30, 0.45)">
+
+      <!-- Grown-ups: email and password -->
+      <sc-if value="{{isDefault}}" hint-placeholder-val="{{true}}">
+        <div class="lg-dgrid">
+          <div class="lg-brand">
+            <img src="/_blob/86d2ad40444eabc4ba4c8a0e9f1d4603" alt="myKx" style="display: block; height: 28px; width: auto; align-self: flex-start">
+            <h1 id="lg-title" class="lg-h1" style="margin: 0; font-family: var(--font-display); font-weight: 600; color: var(--ink)">Welcome to myKx</h1>
+            <p style="margin: 0; font-size: 16px; line-height: 23px; font-weight: 500; color: var(--ink-muted)">Sign in for tonight's family summary.</p>
+          </div>
+
+          <form class="lg-dform" onSubmit="{{onFormSubmit}}">
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <label for="lg-email" style="font-size: 15px; line-height: 20px; font-weight: 800; color: var(--ink)">Email</label>
+              <div class="lg-field" style="display: flex; align-items: center; height: 48px; box-sizing: border-box; padding: 0 14px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: inset 0 0 0 2px var(--border-control)">
+                <input id="lg-email" class="lg-input" data-first="yes" type="email" name="email" autocomplete="username" inputmode="email" spellcheck="false" value="{{email}}" onChange="{{onEmail}}" onKeyDown="{{onKeyDefault}}" placeholder="you@example.com" aria-describedby="lg-msg" style="flex: 1; min-width: 0; height: 100%; padding: 0; border: 0; background: transparent; color: var(--ink); font: 500 16px/1 var(--font-text)">
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <label for="lg-password" style="font-size: 15px; line-height: 20px; font-weight: 800; color: var(--ink)">Password</label>
+              <div class="lg-field" style="display: flex; align-items: center; height: 48px; box-sizing: border-box; padding: 0 2px 0 14px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: inset 0 0 0 2px var(--border-control)">
+                <input id="lg-password" class="lg-input" type="{{pwType}}" name="password" autocomplete="current-password" value="{{password}}" onChange="{{onPassword}}" onKeyDown="{{onKeyDefault}}" aria-describedby="lg-msg" style="flex: 1; min-width: 0; height: 100%; padding: 0; border: 0; background: transparent; color: var(--ink); font: 500 16px/1 var(--font-text)">
+                <button class="lg-eye" type="button" onClick="{{togglePw}}" aria-label="{{pwLabel}}" aria-pressed="{{pwPressed}}" aria-controls="lg-password" style="display: grid; place-items: center; width: 44px; height: 44px; flex: none; padding: 0; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--ink-muted); cursor: pointer">
+                  <sc-if value="{{pwHidden}}" hint-placeholder-val="{{true}}">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                  </sc-if>
+                  <sc-if value="{{pwShown}}" hint-placeholder-val="{{false}}">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 3l18 18M10.6 5.1A10.8 10.8 0 0 1 12 5c6.5 0 10 7 10 7a17.6 17.6 0 0 1-3.2 4.2M6.6 6.6A17.4 17.4 0 0 0 2 12s3.5 7 10 7a10.4 10.4 0 0 0 5.4-1.6M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>
+                  </sc-if>
+                </button>
+              </div>
+            </div>
+            <button class="mk-btn mk-btn--reward" type="button" onClick="{{submitDefault}}" style="width: 100%; justify-content: center">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>Sign in
+            </button>
+            <div id="lg-msg" aria-live="polite">
+              <sc-if value="{{hasMsg}}" hint-placeholder-val="{{false}}">
+                <p style="margin: 0; display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: inset 4px 0 0 var(--warn), inset 0 0 0 1px var(--line); color: var(--ink); font-size: 15px; line-height: 21px; font-weight: 700">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px; flex: none; margin-top: 1px; color: var(--warn)"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M12 11v5M12 7.6v.2"/></svg>
+                  <span>{{msg}}</span>
+                </p>
+              </sc-if>
+            </div>
+            <a class="lg-link" href="#forgot-password" style="align-self: flex-start; font-size: 15px; line-height: 20px">Forgot password?</a>
+          </form>
+
+          <div class="lg-meta">
+            <a href="KidDoors.dc.html" style="display: inline-flex; align-items: center; gap: 10px; min-height: 44px; box-sizing: border-box; padding: 0 16px 0 12px; border-radius: var(--radius-pill); background: rgba(var(--lg-glow), 0.12); box-shadow: inset 0 0 0 1.5px rgba(var(--lg-glow), 0.5); color: var(--ink); font-size: 15px; line-height: 20px; font-weight: 800; text-decoration: none">
+              <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px; flex: none; color: var(--reward)"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 21h16M6 21V9a6 6 0 0 1 12 0v12M12 3v18M10 13h.01M14 13h.01"/></svg>
+              <span>Kids: find your door</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 18px; height: 18px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <p style="margin: 0; display: flex; gap: 10px; font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink-muted)">
+              <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 18px; height: 18px; flex: none; margin-top: 1px"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>
+              <span>We store your email and your family's learning data in Singapore. Kids never need an email.</span>
+            </p>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- Junior: a four-picture code with Kix -->
+      <sc-if value="{{isJunior}}" hint-placeholder-val="{{false}}">
+        <h1 id="lg-title" class="lg-sr">{{srTitle}}</h1>
+        <div class="lg-jgrid">
+          <div class="lg-jkix">
+            <img class="lg-jkix-img" src="/_blob/bb08e7ec23418f8b39ef9322df1f30f6" alt="Kix the explorer" style="filter: drop-shadow(0 8px 12px rgba(29, 51, 36, 0.25))">
+            <p style="position: relative; flex: 1 1 auto; min-width: 0; margin: 0; padding: 12px 16px; border-radius: var(--radius-lg); background: var(--surface-raised); box-shadow: inset 0 0 0 2px var(--line), var(--shadow-raised); font-family: var(--font-display); font-size: 20px; line-height: 26px; font-weight: 600; color: var(--ink)">
+              <span aria-hidden="true" style="position: absolute; left: -8px; top: 50%; width: 16px; height: 16px; margin-top: -8px; background: var(--surface-raised); transform: rotate(45deg); box-shadow: -2px 2px 0 0 var(--line)"></span>
+              <span style="position: relative">{{bubble}}</span>
+            </p>
+          </div>
+
+          <div class="lg-jpad">
+            <div class="lg-pad" role="group" aria-label="Picture code. Tap 4 pictures.">
+              <sc-for list="{{tiles}}" as="t" hint-placeholder-count="9">
+                <button class="lg-tile" type="button" data-first="{{t.first}}" data-tip="{{t.label}}" onClick="{{t.tap}}" style="background: var(--surface-raised); box-shadow: 0 0 0 3px var(--surface-raised), 0 0 0 5px var(--line), var(--shadow-raised)">
+                  <img src="{{t.src}}" alt="{{t.label}}">
+                </button>
+              </sc-for>
+            </div>
+          </div>
+
+          <div class="lg-jstatus">
+            <div aria-hidden="true" style="display: flex; align-items: center; gap: 10px">
+              <sc-for list="{{dots}}" as="d" hint-placeholder-count="4">
+                <span class="{{d.cls}}"></span>
+              </sc-for>
+            </div>
+            <span class="lg-sr" aria-live="polite">{{dotsLabel}}</span>
+            <button class="mk-btn mk-btn--secondary" type="button" onClick="{{clearCode}}" disabled="{{noCode}}" style="min-height: 56px">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M21 5H9l-6 7 6 7h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1zM17 9l-5 6M12 9l5 6"/></svg>Clear
+            </button>
+          </div>
+
+          <div class="lg-jmsg" id="lg-msg" aria-live="polite">
+            <sc-if value="{{hasMsg}}" hint-placeholder-val="{{false}}">
+              <p style="margin: 0; display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: inset 4px 0 0 var(--accent-2), inset 0 0 0 1px var(--line); color: var(--ink); font-size: 18px; line-height: 25px; font-weight: 700">
+                <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px; flex: none; margin-top: 1px; color: var(--accent)"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M12 11v5M12 7.6v.2"/></svg>
+                <span>{{msg}}</span>
+              </p>
+            </sc-if>
+          </div>
+
+          <a class="lg-link lg-jlink" href="KidDoors.dc.html" style="display: inline-flex; align-items: center; min-height: 56px; font-size: 18px; line-height: 24px">Not you? Pick another door</a>
+        </div>
+      </sc-if>
+
+      <!-- Teen: a password, minimal copy -->
+      <sc-if value="{{isTeen}}" hint-placeholder-val="{{false}}">
+        <div style="display: flex; flex-direction: column; gap: 16px">
+          <div class="lg-thead">
+            <img src="/_blob/b1a0d040fdecae5f59f1b400eef42c34" alt="" style="width: 48px; height: 48px; flex: none; border-radius: 50%; object-fit: contain; background: var(--surface); box-shadow: 0 0 0 2px rgba(var(--lg-glow), 0.9), 0 0 16px rgba(var(--lg-glow), 0.45)">
+            <h1 id="lg-title" class="lg-th1" style="margin: 0; font-family: var(--font-display-idol, var(--font-display)); font-weight: 700; letter-spacing: -0.01em; color: var(--ink)">{{teenHi}}</h1>
+            <a class="lg-link" href="KidDoors.dc.html" style="margin-left: auto; display: inline-flex; align-items: center; min-height: 44px; font-size: 15px">Not you?</a>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <label for="lg-teen-pw" style="font-size: 15px; line-height: 20px; font-weight: 700; color: var(--ink)">Password</label>
+            <div class="lg-trow">
+              <div class="lg-field" style="flex: 1 1 auto; min-width: 0; display: flex; align-items: center; height: 48px; box-sizing: border-box; padding: 0 2px 0 14px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: inset 0 0 0 2px var(--border-control)">
+                <input id="lg-teen-pw" class="lg-input" data-first="yes" type="{{pwType}}" name="password" autocomplete="current-password" value="{{teenPw}}" onChange="{{onTeenPw}}" onKeyDown="{{onKeyTeen}}" aria-describedby="lg-msg" style="flex: 1; min-width: 0; height: 100%; padding: 0; border: 0; background: transparent; color: var(--ink); font: 500 16px/1 var(--font-text)">
+                <button class="lg-eye" type="button" onClick="{{togglePw}}" aria-label="{{pwLabel}}" aria-pressed="{{pwPressed}}" aria-controls="lg-teen-pw" style="display: grid; place-items: center; width: 44px; height: 44px; flex: none; padding: 0; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--ink-muted); cursor: pointer">
+                  <sc-if value="{{pwHidden}}" hint-placeholder-val="{{true}}">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                  </sc-if>
+                  <sc-if value="{{pwShown}}" hint-placeholder-val="{{false}}">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 3l18 18M10.6 5.1A10.8 10.8 0 0 1 12 5c6.5 0 10 7 10 7a17.6 17.6 0 0 1-3.2 4.2M6.6 6.6A17.4 17.4 0 0 0 2 12s3.5 7 10 7a10.4 10.4 0 0 0 5.4-1.6M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>
+                  </sc-if>
+                </button>
+              </div>
+              <button class="mk-btn mk-btn--reward lg-tbtn" type="button" onClick="{{submitTeen}}">Open<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+            </div>
+          </div>
+          <div id="lg-msg" aria-live="polite">
+            <sc-if value="{{hasMsg}}" hint-placeholder-val="{{false}}">
+              <p style="margin: 0; display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: inset 4px 0 0 var(--accent-2), inset 0 0 0 1px var(--line); color: var(--ink); font-size: 16px; line-height: 22px; font-weight: 600">
+                <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px; flex: none; margin-top: 1px; color: var(--accent)"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M12 11v5M12 7.6v.2"/></svg>
+                <span>{{msg}}</span>
+              </p>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>
+    </section>
+  </main>
+
+  <!-- Top bar: wordmark for the kids' doors, and the design-preview controls -->
+  <div class="lg-top">
+    <sc-if value="{{showTopMark}}" hint-placeholder-val="{{false}}">
+      <img class="lg-mark" src="/_blob/86d2ad40444eabc4ba4c8a0e9f1d4603" alt="myKx">
+    </sc-if>
+    <div class="lg-preview" style="border: 2px dashed rgba(var(--lg-glow), 0.55); background: linear-gradient(var(--surface-glass), var(--surface-glass)), var(--surface-glass); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); color: var(--ink)">
+      <span class="lg-preview-label" style="font-size: 12px; line-height: 16px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted)">Design preview</span>
+      <span class="lg-preview-hint" style="font-size: 13px; line-height: 18px; font-weight: 700; color: var(--ink)">{{demoHint}}</span>
+      <sc-if value="{{canTry}}" hint-placeholder-val="{{true}}">
+        <button class="lg-pbtn" type="button" onClick="{{previewWrong}}" style="background: var(--surface-raised); color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--border-control); font: 800 13px/1 var(--font-text)">Wrong try</button>
+        <button class="lg-pbtn" type="button" onClick="{{previewOpen}}" style="background: var(--accent); color: var(--on-accent); font: 800 13px/1 var(--font-text)">Open door</button>
+      </sc-if>
+      <sc-if value="{{canReset}}" hint-placeholder-val="{{false}}">
+        <button class="lg-pbtn" type="button" onClick="{{reset}}" style="display: inline-flex; align-items: center; gap: 6px; background: var(--accent); color: var(--on-accent); font: 800 13px/1 var(--font-text)">
+          <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 16px; height: 16px"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M4 12a8 8 0 1 0 2.5-5.8M4 4v4h4"/></svg>Reset
+        </button>
+      </sc-if>
+    </div>
+  </div>
+
+  <!-- Arrived: through the tunnel and into your world -->
+  <div class="lg-arrived" style="background: radial-gradient(ellipse 60% 55% at 50% 45%, rgba(var(--lg-glow), 0.38), rgba(var(--lg-glow), 0) 70%), var(--surface)">
+    <div class="lg-arr-rays" aria-hidden="true"></div>
+    <section class="lg-arr-card" aria-labelledby="lg-arr-title" style="color: var(--ink); background: linear-gradient(var(--surface-glass), var(--surface-glass)), var(--surface-glass); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); box-shadow: inset 0 0 0 1px rgba(var(--lg-glow), 0.4), 0 0 48px rgba(var(--lg-glow), 0.28), var(--shadow-raised)">
+      <img class="lg-arr-kix" src="{{arriveKix}}" alt="">
+      <h2 id="lg-arr-title" class="lg-arr-h" style="margin: 0; font-family: var(--font-display); font-weight: 700; color: var(--ink)">{{arriveTitle}}</h2>
+      <sc-if value="{{isDefault}}" hint-placeholder-val="{{true}}">
+        <p style="margin: 0; font-size: 17px; line-height: 24px; font-weight: 600; color: var(--ink-muted)">Opening your family dashboard…</p>
+        <span class="lg-progress" aria-hidden="true"><span class="lg-progress-bar"></span></span>
+      </sc-if>
+      <button id="lg-back" class="mk-btn mk-btn--secondary" type="button" onClick="{{reset}}" style="margin-top: 6px">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M11 6l-6 6 6 6"/></svg>Back to the door
+      </button>
+    </section>
+    <div class="lg-veil" aria-hidden="true"></div>
+  </div>
+
+  <p class="lg-sr" role="status" aria-live="polite">{{announce}}</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"variant":{"editor":"enum","options":["default","junior","teen"],"default":"default"},"startState":{"editor":"enum","options":["idle","error","opening","tunnel","arrived"],"default":"idle"},"kidName":{"editor":"text","default":"Ari"},"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  state = { phase: null, live: false, attempt: 0, email: '', password: '', teenPw: '', showPw: false, code: [], note: '', hidden: false };
+  timers = [];
+  // Demo picture code (first four of the nine pad pictures, in order)
+  CODE = ['idle', 'cheer', 'pilot', 'dreamlight'];
+
+  componentDidMount() {
+    this.onVis = () => this.setState({ hidden: document.visibilityState === 'hidden' });
+    document.addEventListener('visibilitychange', this.onVis);
+  }
+
+  componentWillUnmount() {
+    this.clearTimers();
+    document.removeEventListener('visibilitychange', this.onVis);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.startState !== this.props.startState || prevProps.variant !== this.props.variant) {
+      this.clearTimers();
+      this.setState({ phase: null, live: false, attempt: 0, code: [], note: '', password: '', teenPw: '', showPw: false });
+      return;
+    }
+    if (prevState.phase !== 'arrived' && this.state.phase === 'arrived') {
+      this.later(150, () => {
+        const b = document.getElementById('lg-back');
+        if (b) b.focus({ preventScroll: true });
+      });
+    }
+  }
+
+  later(ms, fn) {
+    const id = setTimeout(() => {
+      this.timers = this.timers.filter((t) => t !== id);
+      fn();
+    }, ms);
+    this.timers.push(id);
+  }
+
+  clearTimers() {
+    this.timers.forEach((t) => clearTimeout(t));
+    this.timers = [];
+  }
+
+  reduced() {
+    try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; }
+  }
+
+  phaseNow() {
+    return this.state.phase ?? this.props.startState ?? 'idle';
+  }
+
+  busy() {
+    const p = this.phaseNow();
+    return p === 'opening' || p === 'tunnel' || p === 'arrived';
+  }
+
+  calm() {
+    // Any new input clears the last message.
+    return this.phaseNow() === 'error' ? 'idle' : this.state.phase;
+  }
+
+  // idle -> opening (1.15 s) -> tunnel (1.4 s) -> arrived
+  open() {
+    if (this.busy()) return;
+    this.clearTimers();
+    if (this.reduced()) {
+      this.setState({ phase: 'arrived', live: true, note: '', code: [] });
+      return;
+    }
+    this.setState({ phase: 'opening', live: true, note: '' });
+    this.later(1150, () => this.setState({ phase: 'tunnel' }));
+    this.later(2550, () => this.setState({ phase: 'arrived' }));
+  }
+
+  fail() {
+    if (this.busy()) return;
+    this.clearTimers();
+    this.setState((s) => ({ phase: 'error', live: true, attempt: s.attempt + 1, code: [], note: '', password: '', teenPw: '' }));
+  }
+
+  reset() {
+    this.clearTimers();
+    this.setState({ phase: 'idle', live: false, code: [], note: '', password: '', teenPw: '', showPw: false });
+    this.later(80, () => {
+      const f = document.querySelector('[data-first="yes"]');
+      if (f) f.focus({ preventScroll: true });
+    });
+  }
+
+  submitDefault() {
+    if (this.busy()) return;
+    if (!this.state.email.trim() || !this.state.password) {
+      this.setState({ phase: this.calm(), note: 'Type your email and password first.' });
+      return;
+    }
+    this.open();
+  }
+
+  submitTeen() {
+    if (this.busy()) return;
+    if (!this.state.teenPw) {
+      this.setState({ phase: this.calm(), note: 'Type your password first.' });
+      return;
+    }
+    if (this.state.teenPw === 'frogs123') this.open();
+    else this.fail();
+  }
+
+  tap(id) {
+    if (this.busy() || this.state.code.length >= 4) return;
+    const code = [...this.state.code, id];
+    this.setState({ code, note: '', phase: this.calm() });
+    if (code.length === 4) {
+      this.later(320, () => {
+        if (code.join('|') === this.CODE.join('|')) this.open();
+        else this.fail();
+      });
+    }
+  }
+
+  renderVals() {
+    const variant = ['default', 'junior', 'teen'].includes(this.props.variant) ? this.props.variant : 'default';
+    const phase = this.phaseNow();
+    const name = String(this.props.kidName ?? 'Ari').trim();
+    const B = (id) => '/_blob/' + id;
+    const KIX = B('edfd9859b1135de333b54095f6c8d1b6');
+    const EXPLORER = B('bb08e7ec23418f8b39ef9322df1f30f6');
+    const IDOL = B('f67be0c7944692dec26f38d50d8fbb8c');
+    const ANIME = B('b1a0d040fdecae5f59f1b400eef42c34');
+    const TWILIGHT = B('f3fd52715c2e2bb9ef9c063b0011465a');
+    const NEON = B('9374cb165c64994cde9d55b90b119b33');
+    const V = {
+      default: { theme: 'dreamlight', band: 'teen', city: TWILIGHT, leafL: B('3cf1381b21d9a458cad95e3d724a4c8b'), leafR: B('1905b9dd364707e5f032c19a95911b48'), flyers: [KIX, ANIME, IDOL], walkers: [KIX, EXPLORER, ANIME], arriveKix: KIX },
+      junior: { theme: 'terrarium', band: 'junior', city: TWILIGHT, leafL: B('9c763bd90b5c79dc3a1785d6edbe12c1'), leafR: B('d33aa23a3dbd8b858357dfcaaca61238'), flyers: [EXPLORER, KIX, ANIME], walkers: [EXPLORER, KIX, IDOL], arriveKix: EXPLORER },
+      teen: { theme: 'anime-sky', band: 'teen', city: NEON, leafL: B('6abf62cecd7692a4f6cd8cc410d8ea70'), leafR: B('9e11b476244a5dd6e1f8a4554f511184'), flyers: [IDOL, ANIME, KIX], walkers: [ANIME, IDOL, KIX], arriveKix: ANIME },
+    }[variant];
+
+    // Ambient city. Negative delays spread the loops out and give a good still frame under reduced motion.
+    const STARS = [[6, 8, 11, 0, 3.2], [14, 22, 7, -1.2, 4.1], [22, 5, 13, -2.1, 3.6], [31, 16, 6, -0.6, 2.8], [38, 31, 9, -1.8, 4.4], [46, 9, 7, -2.6, 3.1], [57, 15, 12, -0.3, 3.9], [64, 29, 6, -1.5, 2.6], [71, 6, 9, -2.9, 4.2], [79, 19, 14, -0.9, 3.4], [87, 10, 7, -2.2, 2.9], [94, 26, 10, -1.1, 3.7], [3, 34, 6, -3.1, 4.6], [52, 37, 6, -0.4, 3.3], [89, 39, 8, -2.4, 3.8], [26, 41, 7, -1.6, 4.0]];
+    const LANTERNS = [[7, 12, 16, 26, -3, 24], [17, 9, 12, 32, -18, -18], [29, 14, 18, 28, -9, 30], [41, 8, 11, 36, -27, 14], [61, 13, 17, 30, -14, -26], [72, 10, 13, 34, -4, 20], [83, 15, 19, 27, -21, -30], [94, 9, 12, 38, -11, 16]];
+    const MOTES = [[5, 4, 16, -2, 40, 1], [13, 3, 20, -11, -30, 2], [21, 5, 14, -6, 24, 1], [33, 3, 22, -15, -20, 2], [44, 4, 18, -3, 30, 1], [58, 3, 15, -9, -36, 2], [67, 5, 21, -17, 20, 1], [76, 3, 17, -5, -24, 2], [85, 4, 19, -12, 34, 1], [95, 3, 16, -8, -28, 2], [38, 3, 24, -20, 18, 1], [90, 5, 23, -1, -16, 2]];
+    const FLIES = [[7, 62, 9, -2, 0, 5], [16, 78, 11, -6, 1, 4], [24, 55, 8, -1, 0, 4], [35, 84, 12, -7, 1, 5], [66, 58, 10, -3, 1, 4], [74, 80, 9, -5, 0, 5], [83, 64, 13, -9, 1, 4], [92, 86, 10, -4, 0, 5], [50, 92, 11, -8, 0, 4]];
+    // Flyers cross in the first 62% of their loop; walkers in the first 80%.
+    const FLY = [
+      { top: '13%', size: 78, dur: 26, delay: -4, rtl: false, few: false },
+      { top: '27%', size: 54, dur: 34, delay: -18.2, rtl: true, few: false },
+      { top: '7%', size: 40, dur: 44, delay: -21.8, rtl: false, few: true },
+    ];
+    const WALK = [
+      { size: 50, dur: 48, delay: -6.9, rtl: false, lift: 0, few: false },
+      { size: 42, dur: 60, delay: -20.6, rtl: true, lift: 10, few: false },
+      { size: 36, dur: 72, delay: -46.1, rtl: false, lift: 18, few: true },
+    ];
+
+    const PICS = [
+      ['idle', '02f791d67e720a2bf4fdb268ff6b6b8a', 'Kix smiling'],
+      ['thinking', '322dfed5486a583d4343e28bcb22c301', 'Kix thinking'],
+      ['hint', 'f3d67ff062af0a3258ceadda37b9024f', 'Kix with a bright idea'],
+      ['cheer', 'f506e58a602297834bce49cc9565bca7', 'Kix cheering'],
+      ['dreamlight', '1be0285c83fc5de9a8d666fbb5e6c403', 'Starry Kix'],
+      ['anime-sky', '02b5a70e7404562cef8d3aaba98b9e32', 'Sky Kix'],
+      ['toon-pop', '37653891e49ec872cab5610d9f2e71d3', 'Toy Kix'],
+      ['idol-stage', '89c33c13cd369e58aad9fee004a30b65', 'Stage Kix'],
+      ['pilot', 'f2b604acfbcb01359f6fc041e9c051b4', 'Kix the pilot'],
+    ];
+    const code = this.state.code;
+
+    const msg = phase === 'error'
+      ? (variant === 'default' ? "That's not it. Try again, or reset your password." : "That's not it. Try again, or ask a grown-up.")
+      : (this.state.note || '');
+    const arriveTitle = variant === 'default' ? 'Welcome back' : (name ? `Hi ${name}! Your world is ready.` : 'Your world is ready.');
+    const showPw = this.state.showPw;
+    const calm = () => this.calm();
+
+    return {
+      variant,
+      phase,
+      theme: V.theme,
+      band: V.band,
+      city: V.city,
+      cityTwilight: variant !== 'teen',
+      cityNeon: variant === 'teen',
+      leafL: V.leafL,
+      leafR: V.leafR,
+      arriveKix: V.arriveKix,
+      liveAttr: this.state.live ? 'yes' : 'no',
+      pausedAttr: this.state.hidden ? 'yes' : 'no',
+      doorClass: phase === 'error' ? `lg-door lg-rattle-${this.state.attempt % 2 ? 'a' : 'b'}` : 'lg-door',
+      isDefault: variant === 'default',
+      isJunior: variant === 'junior',
+      isTeen: variant === 'teen',
+      showLanterns: variant !== 'teen',
+      showMotes: variant === 'teen',
+      showTopMark: variant !== 'default',
+
+      stars: STARS.map(([x, y, s, d, u]) => ({ style: `left: ${x}%; top: ${y}%; width: ${s}px; animation-delay: ${d}s; animation-duration: ${u}s` })),
+      lanterns: LANTERNS.map(([x, w, h, d, dl, sw]) => ({ style: `left: ${x}%; width: ${w}px; height: ${h}px; animation-duration: ${d}s; animation-delay: ${dl}s; --sway: ${sw}px` })),
+      motes: MOTES.map(([x, s, d, dl, sw, c]) => {
+        const g = c === 2 ? 'var(--lg-glow-2)' : 'var(--lg-glow)';
+        return { style: `left: ${x}%; width: ${s}px; height: ${s}px; animation-duration: ${d}s; animation-delay: ${dl}s; --sway: ${sw}px; background: rgb(${g}); box-shadow: 0 0 8px 2px rgba(${g}, 0.7)` };
+      }),
+      fireflies: FLIES.map(([x, y, d, dl, b, s], i) => ({
+        cls: b ? 'lg-firefly lg-firefly-b' : 'lg-firefly',
+        style: `left: ${x}%; top: ${y}%; width: ${s}px; height: ${s}px; animation-duration: ${d}s; animation-delay: ${dl}s`,
+        blinkStyle: `animation-duration: ${(2 + (i % 3) * 0.7).toFixed(1)}s; animation-delay: ${(dl * 0.7).toFixed(1)}s`,
+      })),
+      flyers: FLY.map((f, i) => {
+        const t = `animation-duration: ${f.dur}s; animation-delay: ${f.delay}s; animation-direction: ${f.rtl ? 'reverse' : 'normal'}`;
+        return {
+          cls: f.few ? 'lg-fly lg-few' : 'lg-fly',
+          style: `top: ${f.top}; width: ${f.size}px; ${t}`,
+          arcStyle: t,
+          flipStyle: f.rtl ? 'transform: scaleX(-1)' : '',
+          src: V.flyers[i],
+          imgStyle: `width: ${f.size}px; animation-delay: ${-i * 0.6}s`,
+        };
+      }),
+      walkers: WALK.map((w, i) => ({
+        cls: w.few ? 'lg-walk lg-few' : 'lg-walk',
+        style: `bottom: ${w.lift}px; width: ${w.size}px; animation-duration: ${w.dur}s; animation-delay: ${w.delay}s; animation-direction: ${w.rtl ? 'reverse' : 'normal'}`,
+        stepStyle: `animation-delay: ${(-i * 0.21).toFixed(2)}s`,
+        imgStyle: `width: ${w.size}px;${w.rtl ? ' transform: scaleX(-1);' : ''}`,
+        src: V.walkers[i],
+      })),
+      streaks: Array.from({ length: 18 }, (_, i) => {
+        const tint = i % 3 === 0 ? 'rgb(var(--lg-glow))' : i % 3 === 1 ? '#FFFFFF' : 'rgb(var(--lg-glow-2))';
+        return { style: `--a: ${i * 20 + (i % 3) * 7}deg; width: ${90 + ((i * 37) % 110)}px; animation-delay: ${(-((i * 0.29) % 0.95)).toFixed(2)}s; background: linear-gradient(90deg, rgba(255, 255, 255, 0), ${tint})` };
+      }),
+
+      // Grown-up form
+      email: this.state.email,
+      password: this.state.password,
+      onEmail: (e) => this.setState({ email: e.target.value, note: '', phase: calm() }),
+      onPassword: (e) => this.setState({ password: e.target.value, note: '', phase: calm() }),
+      onKeyDefault: (e) => { if (e.key === 'Enter') { e.preventDefault(); this.submitDefault(); } },
+      onFormSubmit: (e) => { if (e && e.preventDefault) e.preventDefault(); this.submitDefault(); },
+      submitDefault: () => this.submitDefault(),
+      pwType: showPw ? 'text' : 'password',
+      pwLabel: showPw ? 'Hide password' : 'Show password',
+      pwPressed: showPw ? 'true' : 'false',
+      pwHidden: !showPw,
+      pwShown: showPw,
+      togglePw: () => this.setState({ showPw: !showPw }),
+
+      // Junior picture code
+      srTitle: name ? `Open ${name}'s door` : 'Open your door',
+      bubble: name ? `Hi ${name}! Tap your 4 pictures.` : 'Hi! Tap your 4 pictures.',
+      tiles: PICS.map(([id, blob, label], i) => ({ id, label, src: B(blob), first: i === 0 ? 'yes' : 'no', tap: () => this.tap(id) })),
+      dots: [0, 1, 2, 3].map((i) => ({ cls: i < code.length ? 'lg-dot lg-dot--on' : 'lg-dot' })),
+      dotsLabel: `${code.length} of 4 pictures chosen`,
+      noCode: code.length === 0,
+      clearCode: () => { this.clearTimers(); this.setState({ code: [], note: '', phase: calm() }); },
+
+      // Teen password
+      teenHi: name ? `Hi ${name}` : 'Hi there',
+      teenPw: this.state.teenPw,
+      onTeenPw: (e) => this.setState({ teenPw: e.target.value, note: '', phase: calm() }),
+      onKeyTeen: (e) => { if (e.key === 'Enter') { e.preventDefault(); this.submitTeen(); } },
+      submitTeen: () => this.submitTeen(),
+
+      // Messages
+      hasMsg: msg !== '',
+      msg,
+      arriveTitle,
+      announce: phase === 'arrived'
+        ? (variant === 'default' ? 'Welcome back. Opening your family dashboard.' : arriveTitle)
+        : (phase === 'opening' && this.state.live ? 'Opening the door.' : ''),
+
+      // Design-preview controls
+      demoHint: { default: 'Any email and password opens it', junior: 'Code: smiling, cheering, pilot, starry', teen: 'Password: frogs123' }[variant],
+      canTry: phase === 'idle' || phase === 'error',
+      canReset: phase === 'opening' || phase === 'tunnel',
+      previewWrong: () => this.fail(),
+      previewOpen: () => this.open(),
+      reset: () => this.reset(),
+    };
+  }
+}
+</script>
+</body>
+</html>

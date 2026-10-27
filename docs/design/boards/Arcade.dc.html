@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Arcade</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+/* Living game backgrounds (shared by the arcade boards). A scene layer sits between the art and the UI:
+   drifting fog, light and particles that never stop, a "heat" level that brightens as the child plays well
+   (data-heat 0–3: combo, words done or blooms), a soft bloom on every hit (data-pulse a/b), and hidden tap
+   spots whose reaction is different on each tap (data-act cycles). Only transform and opacity animate; fog and
+   stars are 200 % wide with tiles that divide 50 %, so the loop is seamless. Colours come in as --c "r, g, b". */
+.am{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.am i,.am b,.am-spots,.am-floor,.am-lasers,.am-fan,.am-warp,.am-rays,.am-shower{position:absolute;display:block}
+@keyframes am-drift{to{transform:translateX(-50%)}}
+@keyframes am-drift-r{from{transform:translateX(-50%)}to{transform:none}}
+@keyframes am-breathe{from{opacity:var(--o,.5)}to{opacity:calc(var(--o,.5) * .55)}}
+.am-fog{left:0;width:200%;top:var(--y,55%);height:var(--h,50%);background:radial-gradient(closest-side,rgba(var(--c),.6),rgba(var(--c),0)) 0 40%/25% 75% repeat-x,radial-gradient(closest-side,rgba(var(--c),.45),rgba(var(--c),0)) 8% 85%/12.5% 60% repeat-x,radial-gradient(closest-side,rgba(var(--c),.35),rgba(var(--c),0)) 30% 10%/50% 70% repeat-x;opacity:var(--o,.5);animation:am-drift var(--d,60s) linear infinite,am-breathe 9s ease-in-out infinite alternate}
+.am-fog--r{animation:am-drift-r var(--d,60s) linear infinite,am-breathe 11s ease-in-out infinite alternate}
+
+/* Particles: --x across, --s size, --d/--dl timing. "rise" floats bottom to top; "float" wanders in place. */
+.am-mote{left:var(--x);width:var(--s,3px);height:var(--s,3px);border-radius:50%;background:rgb(var(--c));box-shadow:0 0 calc(var(--s,3px) * 2.5) rgba(var(--c),.9);opacity:0}
+.am-mote--rise{bottom:-12px;animation:am-rise var(--d,10s) linear infinite;animation-delay:var(--dl,0s)}
+@keyframes am-rise{0%{transform:translate(0,0);opacity:0}10%{opacity:.9}50%{transform:translate(var(--dx,20px),-55vh)}90%{opacity:.7}100%{transform:translate(0,-110vh);opacity:0}}
+.am-mote--float{top:var(--y);animation:am-wander var(--d,12s) ease-in-out infinite alternate,am-blink calc(var(--d,12s) / 3) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes am-wander{0%{transform:translate(0,0)}33%{transform:translate(var(--dx,24px),-18px)}66%{transform:translate(calc(var(--dx,24px) * -.6),12px)}100%{transform:translate(10px,-30px)}}
+@keyframes am-blink{from{opacity:.15}to{opacity:.95}}
+.am-mote--hot{visibility:hidden}
+.am[data-heat="1"] .am-mote--hot,.am[data-heat="2"] .am-mote--hot,.am[data-heat="3"] .am-mote--hot{visibility:visible}
+
+/* A soft bloom behind the action on every hit. */
+.am-bloom{left:var(--bx,50%);top:var(--by,40%);width:80vmin;height:80vmin;margin:-40vmin 0 0 -40vmin;border-radius:50%;background:radial-gradient(closest-side,rgba(var(--c),.5),rgba(var(--c),0));opacity:0}
+.am[data-pulse="a"] .am-bloom{animation:am-bloom-a .6s ease-out}
+.am[data-pulse="b"] .am-bloom{animation:am-bloom-b .6s ease-out}
+@keyframes am-bloom-a{0%{opacity:.9;transform:scale(.55)}100%{opacity:0;transform:scale(1.1)}}
+@keyframes am-bloom-b{0%{opacity:.9;transform:scale(.55)}100%{opacity:0;transform:scale(1.1)}}
+
+/* Running neon: a dim tube on each edge with two light dashes chasing round it (one lap = --lap). */
+.am-edge{background:rgba(var(--c),.16);box-shadow:0 0 8px rgba(var(--c),.18)}
+.am-edge--t,.am-edge--b{left:10px;right:10px;height:2px}
+.am-edge--l,.am-edge--r{top:10px;bottom:10px;width:2px}
+.am-edge--t{top:10px}.am-edge--b{bottom:10px}.am-edge--l{left:10px}.am-edge--r{right:10px}
+.am-edge>b{border-radius:2px;opacity:0;animation:var(--k) var(--lap,6.4s) linear infinite;animation-delay:var(--at,0s)}
+.am-edge--t>b,.am-edge--b>b{top:-1px;left:0;width:22%;height:4px}
+.am-edge--l>b,.am-edge--r>b{left:-1px;top:0;width:4px;height:22%}
+.am-edge--t>b{--k:am-lap-x;background:linear-gradient(90deg,rgba(var(--c),0),rgb(var(--c)) 75%,#FFFFFF);box-shadow:0 0 14px 3px rgba(var(--c),.75)}
+.am-edge--b>b{--k:am-lap-xr;background:linear-gradient(270deg,rgba(var(--c),0),rgb(var(--c)) 75%,#FFFFFF);box-shadow:0 0 14px 3px rgba(var(--c),.75)}
+.am-edge--r>b{--k:am-lap-y;background:linear-gradient(180deg,rgba(var(--c),0),rgb(var(--c)) 75%,#FFFFFF);box-shadow:0 0 14px 3px rgba(var(--c),.75)}
+.am-edge--l>b{--k:am-lap-yr;background:linear-gradient(0deg,rgba(var(--c),0),rgb(var(--c)) 75%,#FFFFFF);box-shadow:0 0 14px 3px rgba(var(--c),.75)}
+@keyframes am-lap-x{0%{transform:translateX(-100%);opacity:0}2%{opacity:1}23%{opacity:1}25%,100%{transform:translateX(455%);opacity:0}}
+@keyframes am-lap-xr{0%{transform:translateX(455%);opacity:0}2%{opacity:1}23%{opacity:1}25%,100%{transform:translateX(-100%);opacity:0}}
+@keyframes am-lap-y{0%{transform:translateY(-100%);opacity:0}2%{opacity:1}23%{opacity:1}25%,100%{transform:translateY(455%);opacity:0}}
+@keyframes am-lap-yr{0%{transform:translateY(455%);opacity:0}2%{opacity:1}23%{opacity:1}25%,100%{transform:translateY(-100%);opacity:0}}
+.am[data-heat="3"] .am-edge{background:rgba(var(--c),.4);box-shadow:0 0 14px rgba(var(--c),.5)}
+
+/* ---- Neon arena ---- */
+.am-spots{inset:0;opacity:.5;transition:opacity .8s}
+.am-spot{top:-6%;width:56%;height:100%;margin-left:-28%;background:linear-gradient(rgba(var(--c),.55),rgba(var(--c),.16) 50%,rgba(var(--c),0) 88%);-webkit-mask-image:conic-gradient(from 160deg at 50% 0,transparent 0deg,#000 13deg,#000 27deg,transparent 40deg);mask-image:conic-gradient(from 160deg at 50% 0,transparent 0deg,#000 13deg,#000 27deg,transparent 40deg);transform-origin:50% 0;animation:am-sweep var(--d,8s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes am-sweep{from{transform:rotate(-17deg)}to{transform:rotate(17deg)}}
+.am[data-heat="1"] .am-spots{opacity:.65}.am[data-heat="2"] .am-spots{opacity:.82}.am[data-heat="3"] .am-spots{opacity:1}
+.am-floor{left:-30%;right:-30%;bottom:-4%;height:50%;overflow:hidden;opacity:.45;transform:perspective(300px) rotateX(60deg);transform-origin:50% 100%;-webkit-mask-image:linear-gradient(transparent,#000 40%);mask-image:linear-gradient(transparent,#000 40%);transition:opacity .8s}
+.am-floor::before{content:"";position:absolute;left:0;right:0;top:-40px;bottom:0;background:repeating-linear-gradient(180deg,transparent 0 38px,rgba(255,61,203,.55) 38px 40px);animation:am-rush 1.3s linear infinite}
+@keyframes am-rush{to{transform:translateY(40px)}}
+.am[data-heat="2"] .am-floor{opacity:.75}.am[data-heat="3"] .am-floor{opacity:1}
+.am-run{top:0;left:var(--x);width:4px;height:20%;margin-left:-2px;border-radius:2px;background:linear-gradient(rgba(var(--c),0),rgb(var(--c)) 80%,#FFFFFF);box-shadow:0 0 12px 2px rgba(var(--c),.9);opacity:0;animation:am-run var(--d,2.4s) cubic-bezier(.5,0,.9,.6) infinite;animation-delay:var(--dl,0s)}
+@keyframes am-run{0%{transform:translateY(-100%);opacity:0}12%{opacity:1}100%{transform:translateY(520%);opacity:1}}
+.am-horizon{left:0;right:0;top:var(--hz,52%);height:2px;background:linear-gradient(90deg,transparent,rgba(61,245,255,.9) 28%,#FFFFFF 50%,rgba(255,61,203,.9) 72%,transparent);box-shadow:0 0 22px 5px rgba(61,245,255,.35);animation:am-hz 3.4s ease-in-out infinite}
+@keyframes am-hz{50%{opacity:.4;transform:scaleX(.82)}}
+.am-lasers{left:50%;top:var(--hz,52%);width:0;height:0;opacity:0;transition:opacity .8s}
+.am[data-heat="2"] .am-lasers{opacity:.55}.am[data-heat="3"] .am-lasers{opacity:.9}
+.am-fan{left:0;top:0;width:0;height:0;animation:am-fan 3.6s ease-in-out infinite alternate}
+.am-fan>i{left:-1px;top:0;width:2px;height:90vmax;transform-origin:50% 0;transform:rotate(var(--r));background:linear-gradient(rgba(var(--c),.95),rgba(var(--c),0) 60%);box-shadow:0 0 8px rgba(var(--c),.8)}
+@keyframes am-fan{from{transform:rotate(-12deg)}to{transform:rotate(12deg)}}
+/* Light-rig taps: colour swap, strobe, a laser fan, then every spot hunts for the centre. */
+.am[data-show="rig-swap"] .am-spots{animation:am-swap 2.2s ease-in-out}
+@keyframes am-swap{0%,100%{filter:none}50%{filter:hue-rotate(150deg) saturate(1.4)}}
+.am[data-show="rig-strobe"] .am-spots{animation:am-strobe .18s steps(1) 6}
+.am[data-show="rig-strobe"] .am-edge{animation:am-strobe .18s steps(1) 6}
+@keyframes am-strobe{0%{opacity:1}50%{opacity:.08}}
+.am[data-show="rig-fan"] .am-lasers{animation:am-fanburst 2.4s ease-out}
+@keyframes am-fanburst{0%{opacity:0}12%,70%{opacity:1}100%{opacity:0}}
+.am[data-show="rig-search"] .am-spot{animation:am-search 2.4s ease-in-out}
+@keyframes am-search{0%,100%{transform:rotate(0)}40%,60%{transform:rotate(var(--rs,0deg))}}
+
+/* ---- Space ---- */
+.am-stars{left:0;top:0;width:200%;height:100%;animation:am-drift var(--d,200s) linear infinite}
+.am-stars--1{--d:260s;opacity:.7;background:radial-gradient(circle at 12% 18%,#FFFFFF 0 1px,transparent 1.6px),radial-gradient(circle at 46% 64%,#EDE9FF 0 1px,transparent 1.6px),radial-gradient(circle at 78% 30%,#FFFFFF 0 .8px,transparent 1.4px),radial-gradient(circle at 30% 88%,#FFE38A 0 1px,transparent 1.6px),radial-gradient(circle at 88% 82%,#FFFFFF 0 .8px,transparent 1.4px);background-size:12.5% 240px}
+.am-stars--2{--d:150s;opacity:.85;background:radial-gradient(circle at 20% 40%,#FFFFFF 0 1.4px,transparent 2px),radial-gradient(circle at 70% 12%,#C9B8FF 0 1.3px,transparent 2px),radial-gradient(circle at 58% 76%,#FFFFFF 0 1.2px,transparent 1.9px);background-size:25% 330px}
+.am-stars--3{--d:90s;background:radial-gradient(circle at 34% 22%,#FFFFFF 0 1.8px,rgba(255,255,255,.35) 2.4px,transparent 4px),radial-gradient(circle at 82% 60%,#FFE38A 0 1.6px,rgba(255,227,138,.35) 2.3px,transparent 4px);background-size:25% 420px;animation:am-drift var(--d) linear infinite,am-twinkle 3.2s ease-in-out infinite alternate}
+@keyframes am-twinkle{from{opacity:1}to{opacity:.35}}
+.am-shoot{left:var(--x);top:var(--y);width:18%;height:2px;border-radius:2px;background:linear-gradient(90deg,#FFFFFF,rgba(255,255,255,.5) 25%,rgba(185,167,245,0));box-shadow:0 0 8px rgba(255,255,255,.7);transform-origin:0 50%;opacity:0;animation:am-shoot var(--d,9s) linear infinite;animation-delay:var(--dl,0s)}
+@keyframes am-shoot{0%{opacity:0;transform:rotate(-32deg) translateX(0) scaleX(.2)}2%{opacity:1}10%{opacity:0;transform:rotate(-32deg) translateX(-70vmin) scaleX(1)}100%{opacity:0;transform:rotate(-32deg) translateX(-70vmin)}}
+.am-shower{inset:0}
+.am-shower>i{left:var(--x);top:var(--y);width:16%;height:2px;border-radius:2px;background:linear-gradient(90deg,#FFFFFF,rgba(255,227,138,0));box-shadow:0 0 10px #FFFFFF;transform-origin:0 50%;opacity:0}
+.am[data-show="sky-shower"] .am-shower>i{animation:am-shoot 7s linear;animation-delay:var(--dl,0s)}
+.am-warp{inset:0;opacity:0;transition:opacity 1s}
+.am[data-heat="2"] .am-warp{opacity:.45}.am[data-heat="3"] .am-warp{opacity:.8}
+.am-warp>i{left:50%;top:44%;width:150vmax;height:150vmax;margin:-75vmax 0 0 -75vmax;border-radius:50%;background:repeating-conic-gradient(rgba(255,255,255,0) 0 5deg,rgba(237,233,255,.35) 5deg 5.4deg);-webkit-mask-image:radial-gradient(circle,transparent 10%,#000 30%,transparent 62%);mask-image:radial-gradient(circle,transparent 10%,#000 30%,transparent 62%);animation:am-warp 1.8s linear infinite;animation-delay:var(--dl,0s)}
+@keyframes am-warp{0%{transform:scale(.7) rotate(0);opacity:0}30%{opacity:1}100%{transform:scale(1.35) rotate(3deg);opacity:0}}
+
+/* ---- Terrarium ---- */
+.am-rays{inset:0;opacity:.75;transition:opacity 1s}
+.am[data-heat="2"] .am-rays{opacity:.9}.am[data-heat="3"] .am-rays{opacity:1}
+.am-ray{top:-30%;right:var(--x);width:var(--w,8%);height:150%;background:linear-gradient(rgba(255,244,200,.8),rgba(255,236,170,.34) 50%,rgba(255,236,170,0) 85%);-webkit-mask-image:linear-gradient(90deg,transparent,#000 35%,#000 65%,transparent);mask-image:linear-gradient(90deg,transparent,#000 35%,#000 65%,transparent);transform-origin:50% 0;transform:rotate(30deg);animation:am-ray var(--d,11s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes am-ray{0%{transform:rotate(27deg);opacity:.45}50%{opacity:1}100%{transform:rotate(33deg);opacity:.6}}
+.am[data-pulse="a"] .am-rays{animation:am-sun-a .9s ease-out}
+.am[data-pulse="b"] .am-rays{animation:am-sun-b .9s ease-out}
+@keyframes am-sun-a{30%{filter:brightness(1.6)}}
+@keyframes am-sun-b{30%{filter:brightness(1.6)}}
+.am-fly{left:var(--x);top:var(--y);width:18px;height:18px;border-radius:50%;background:radial-gradient(circle,#FFFFFF 0 16%,#F4FF9A 26%,rgba(214,255,90,.7) 42%,rgba(214,255,90,0) 70%);opacity:0;animation:am-wander var(--d,10s) ease-in-out infinite alternate,am-glow 2.4s ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes am-glow{0%,30%{opacity:0}70%,100%{opacity:1}}
+.am-drip{left:var(--x);top:-4%;width:6px;height:8px;border-radius:50% 50% 50% 50%/62% 62% 38% 38%;background:rgba(255,255,255,.55);box-shadow:inset -1px -1px 0 rgba(255,255,255,.95),0 0 3px rgba(255,255,255,.6);opacity:0;animation:am-drip var(--d,16s) ease-in infinite;animation-delay:var(--dl,0s)}
+.am-drip::before{content:"";position:absolute;left:2px;bottom:100%;width:2px;height:60px;border-radius:2px;background:linear-gradient(rgba(255,255,255,0),rgba(255,255,255,.45));transform-origin:50% 100%;transform:scaleY(var(--trail,1))}
+@keyframes am-drip{0%{transform:translateY(0);opacity:0}4%{opacity:.9}36%{transform:translateY(68vh);opacity:.85}44%,100%{transform:translateY(72vh);opacity:0}}
+.am-leaf{left:var(--x);top:-6%;width:16px;height:16px;border-radius:0 80% 0 80%;background:linear-gradient(135deg,#8CCB5E,#2C7A47);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25);opacity:0;animation:am-leaf var(--d,22s) ease-in-out infinite;animation-delay:var(--dl,0s)}
+@keyframes am-leaf{0%{transform:translate(0,0) rotate(0);opacity:0}5%{opacity:.95}25%{transform:translate(60px,26vh) rotate(160deg)}50%{transform:translate(-20px,52vh) rotate(320deg)}70%{transform:translate(40px,74vh) rotate(440deg);opacity:.9}78%,100%{transform:translate(40px,80vh) rotate(470deg);opacity:0}}
+
+/* ---- Hidden tap spots. Each tap plays the next reaction (data-act), so no two taps in a row look the same. ---- */
+.am-poke{position:absolute;pointer-events:auto;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.am-r{position:absolute;left:50%;top:50%;width:44%;aspect-ratio:1;translate:-50% -50%;border-radius:50%;opacity:0;pointer-events:none}
+/* Fog machine: a puff, a smoke ring, a three-puff burst. */
+.am-poke--fog .am-r{width:100%;background:radial-gradient(closest-side,rgba(250,248,255,.95),rgba(220,205,255,.5) 55%,rgba(201,184,255,0))}
+.am-poke--fog[data-act="puff"] .am-r1{animation:am-puff 2.8s ease-out}
+.am-poke--fog[data-act="ring"] .am-r1{background:none;box-shadow:inset 0 0 0 7px rgba(236,232,255,.5),0 0 18px rgba(255,61,203,.45);animation:am-ringout 2.4s ease-out}
+.am-poke--fog[data-act="burst"] .am-r{animation:am-puff 2.2s ease-out}
+.am-poke--fog[data-act="burst"] .am-r2{animation-delay:.25s;left:30%}
+.am-poke--fog[data-act="burst"] .am-r3{animation-delay:.5s;left:70%}
+@keyframes am-puff{0%{opacity:0;transform:scale(.25)}12%{opacity:.95}100%{opacity:0;transform:scale(2.2) translateY(-30%)}}
+@keyframes am-ringout{0%{opacity:.9;transform:scale(.3)}100%{opacity:0;transform:scale(2.4) translateY(-60%)}}
+/* Sky: a constellation draws itself (frog, rocket, crown), or a meteor shower. */
+.am-cons{position:absolute;inset:0;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 0 4px rgba(255,236,170,.9))}
+.am-cons g{opacity:0}
+.am-cons polyline{fill:none;stroke:rgba(255,240,190,.9);stroke-width:1.4;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;vector-effect:non-scaling-stroke}
+.am-cons circle{fill:#FFF8DC}
+.am-poke--sky[data-act="frog"] g[data-k="frog"],.am-poke--sky[data-act="rocket"] g[data-k="rocket"],.am-poke--sky[data-act="crown"] g[data-k="crown"]{animation:am-cons 4.2s ease-out}
+.am-poke--sky[data-act="frog"] g[data-k="frog"] polyline,.am-poke--sky[data-act="rocket"] g[data-k="rocket"] polyline,.am-poke--sky[data-act="crown"] g[data-k="crown"] polyline{animation:am-draw 4.2s ease-out}
+@keyframes am-cons{0%,85%{opacity:1}100%{opacity:0}}
+@keyframes am-draw{0%{stroke-dashoffset:1}45%,100%{stroke-dashoffset:0}}
+/* Planet: a moon swings round, the ring glints, a star sparkle. */
+.am-poke--planet[data-act="moon"] .am-r1{width:9%;background:radial-gradient(circle at 35% 35%,#FFFFFF,#C9B8FF);box-shadow:0 0 10px rgba(255,255,255,.8);animation:am-orbit 3.2s ease-in-out}
+@keyframes am-orbit{0%{opacity:0;transform:rotate(0) translateX(-420%)}12%,85%{opacity:1}100%{opacity:0;transform:rotate(330deg) translateX(-420%)}}
+.am-poke--planet[data-act="ring"] .am-r2{width:80%;aspect-ratio:3;border-radius:50%;box-shadow:0 0 0 2px rgba(255,227,138,.95),0 0 22px 4px rgba(255,227,138,.6);animation:am-glint 1.8s ease-out}
+@keyframes am-glint{0%{opacity:0;transform:rotate(-16deg) scale(.6)}30%{opacity:1}100%{opacity:0;transform:rotate(-16deg) scale(1.15)}}
+.am-poke--planet[data-act="glint"] .am-r3{width:30%;border-radius:0;background:linear-gradient(#FFFFFF,#FFE38A);clip-path:polygon(50% 0,58% 42%,100% 50%,58% 58%,50% 100%,42% 58%,0 50%,42% 42%);animation:am-spark 1.4s ease-out}
+@keyframes am-spark{0%{opacity:0;transform:scale(.2) rotate(0)}35%{opacity:1;transform:scale(1.1) rotate(45deg)}100%{opacity:0;transform:scale(.4) rotate(90deg)}}
+/* Pond: a ripple, a double ripple, bubbles, a plip. */
+.am-poke--pond .am-r{aspect-ratio:3;box-shadow:inset 0 0 0 3px rgba(255,255,255,.95),0 0 10px rgba(255,255,255,.55),inset 0 0 8px rgba(255,255,255,.5)}
+.am-poke--pond[data-act="ripple"] .am-r1,.am-poke--pond[data-act="double"] .am-r1,.am-poke--pond[data-act="double"] .am-r2,.am-poke--pond[data-act="plip"] .am-r1{animation:am-ripple 2s ease-out}
+.am-poke--pond[data-act="double"] .am-r2{animation-delay:.4s}
+@keyframes am-ripple{0%{opacity:.95;transform:scale(.2)}100%{opacity:0;transform:scale(2)}}
+.am-poke--pond[data-act="bubbles"] .am-r{width:7%;aspect-ratio:1;background:rgba(255,255,255,.25);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.9);animation:am-bubble 2.2s ease-out}
+.am-poke--pond[data-act="bubbles"] .am-r2{left:38%;animation-delay:.3s}
+.am-poke--pond[data-act="bubbles"] .am-r3{left:60%;animation-delay:.6s}
+@keyframes am-bubble{0%{opacity:0;transform:translate(0,40%)}20%{opacity:1}100%{opacity:0;transform:translate(10px,-260%) scale(1.3)}}
+.am-poke--pond[data-act="plip"] .am-r3{width:5%;aspect-ratio:1;box-shadow:none;background:rgba(255,255,255,.9);animation:am-plip 1.4s ease-out}
+@keyframes am-plip{0%{opacity:0;transform:translate(0,0)}15%{opacity:1}50%{transform:translate(120%,-420%)}100%{opacity:0;transform:translate(260%,0)}}
+/* Fern: a spore puff, fireflies scatter, dew sparkles. */
+.am-poke--fern .am-r{width:9%;background:#FFFFFF;box-shadow:0 0 6px 2px rgba(var(--c,255, 227, 138),.95),0 0 16px 4px rgba(var(--c,255, 227, 138),.6)}
+.am-poke--fern[data-act="spores"] .am-r{animation:am-fly 2.4s ease-out}
+.am-poke--fern[data-act="fireflies"] .am-r{--c:236, 255, 120;width:8%;animation:am-fly 3s ease-in-out}
+.am-poke--fern[data-act="fireflies"] .am-r2{animation-delay:.2s}
+.am-poke--fern[data-act="fireflies"] .am-r3{animation-delay:.35s}
+@keyframes am-fly{0%{opacity:0;transform:translate(0,0)}15%{opacity:1}100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(.6)}}
+.am-poke--fern[data-act="dew"] .am-r{width:14%;border-radius:0;--c:255, 255, 255;clip-path:polygon(50% 0,58% 42%,100% 50%,58% 58%,50% 100%,42% 58%,0 50%,42% 42%);animation:am-spark 1.3s ease-out}
+.am-poke--fern[data-act="dew"] .am-r1{left:30%;top:30%}
+.am-poke--fern[data-act="dew"] .am-r2{left:62%;top:52%;animation-delay:.25s}
+.am-poke--fern[data-act="dew"] .am-r3{left:40%;top:72%;animation-delay:.5s}
+
+@media (prefers-reduced-motion: reduce){.am,.am *,.am *::before{animation:none!important;transition:none!important}.am-warp,.am-lasers,.am-shoot,.am-run,.am-mote,.am-fly,.am-drip,.am-leaf,.am-edge>b{display:none!important}}
+/* Living art (scripts/living-art.ts): the parts of a background that should move are cut out of the art and move
+   by their kind, right on top of where they are painted. .la covers the art; .la-box is the art's cover box (--ar is
+   its aspect ratio, --ox/--oy its object-position), so every layer sits in percent of the art.
+   Display layers (sway, waver, mist, bob) move a cut-out copy; mask layers (breeze, flow, shimmer, glint, runway,
+   neon) add moving light inside the part's own shape. Only transform and opacity animate; reduced motion stops all. */
+.la{position:absolute;inset:0;overflow:hidden;pointer-events:none;container-type:size;--la-streaks:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2748%27 height=%27240%27%3E%3Crect x=%272.0%27 y=%27221%27 width=%271.3%27 height=%2742%27 rx=%270.7%27 fill=%27white%27 opacity=%270.66%27/%3E%3Crect x=%272.0%27 y=%27-19%27 width=%271.3%27 height=%2742%27 rx=%270.7%27 fill=%27white%27 opacity=%270.66%27/%3E%3Crect x=%2725.4%27 y=%2779%27 width=%272.2%27 height=%2775%27 rx=%271.1%27 fill=%27white%27 opacity=%270.55%27/%3E%3Crect x=%2725.4%27 y=%27-161%27 width=%272.2%27 height=%2775%27 rx=%271.1%27 fill=%27white%27 opacity=%270.55%27/%3E%3Crect x=%2732.1%27 y=%27153%27 width=%271.4%27 height=%2779%27 rx=%270.7%27 fill=%27white%27 opacity=%270.44%27/%3E%3Crect x=%2732.1%27 y=%27-87%27 width=%271.4%27 height=%2779%27 rx=%270.7%27 fill=%27white%27 opacity=%270.44%27/%3E%3Crect x=%2733.1%27 y=%27168%27 width=%272.1%27 height=%2726%27 rx=%271.1%27 fill=%27white%27 opacity=%270.50%27/%3E%3Crect x=%2733.1%27 y=%27-72%27 width=%272.1%27 height=%2726%27 rx=%271.1%27 fill=%27white%27 opacity=%270.50%27/%3E%3Crect x=%2742.6%27 y=%27194%27 width=%271.8%27 height=%2731%27 rx=%270.9%27 fill=%27white%27 opacity=%270.77%27/%3E%3Crect x=%2742.6%27 y=%27-46%27 width=%271.8%27 height=%2731%27 rx=%270.9%27 fill=%27white%27 opacity=%270.77%27/%3E%3Crect x=%2732.3%27 y=%27155%27 width=%272.5%27 height=%2762%27 rx=%271.3%27 fill=%27white%27 opacity=%270.77%27/%3E%3Crect x=%2732.3%27 y=%27-85%27 width=%272.5%27 height=%2762%27 rx=%271.3%27 fill=%27white%27 opacity=%270.77%27/%3E%3Crect x=%2718.4%27 y=%2780%27 width=%271.5%27 height=%2781%27 rx=%270.8%27 fill=%27white%27 opacity=%270.31%27/%3E%3Crect x=%2718.4%27 y=%27-160%27 width=%271.5%27 height=%2781%27 rx=%270.8%27 fill=%27white%27 opacity=%270.31%27/%3E%3Crect x=%2715.1%27 y=%27103%27 width=%272.5%27 height=%2743%27 rx=%271.3%27 fill=%27white%27 opacity=%270.55%27/%3E%3Crect x=%2715.1%27 y=%27-137%27 width=%272.5%27 height=%2743%27 rx=%271.3%27 fill=%27white%27 opacity=%270.55%27/%3E%3Crect x=%2734.1%27 y=%27211%27 width=%271.4%27 height=%2726%27 rx=%270.7%27 fill=%27white%27 opacity=%270.56%27/%3E%3Crect x=%2734.1%27 y=%27-29%27 width=%271.4%27 height=%2726%27 rx=%270.7%27 fill=%27white%27 opacity=%270.56%27/%3E%3Crect x=%2724.4%27 y=%27101%27 width=%272.5%27 height=%2736%27 rx=%271.3%27 fill=%27white%27 opacity=%270.25%27/%3E%3Crect x=%2724.4%27 y=%27-139%27 width=%272.5%27 height=%2736%27 rx=%271.3%27 fill=%27white%27 opacity=%270.25%27/%3E%3Crect x=%2718.1%27 y=%2783%27 width=%272.5%27 height=%2769%27 rx=%271.3%27 fill=%27white%27 opacity=%270.53%27/%3E%3Crect x=%2718.1%27 y=%27-157%27 width=%272.5%27 height=%2769%27 rx=%271.3%27 fill=%27white%27 opacity=%270.53%27/%3E%3Crect x=%279.3%27 y=%2797%27 width=%271.6%27 height=%2742%27 rx=%270.8%27 fill=%27white%27 opacity=%270.47%27/%3E%3Crect x=%279.3%27 y=%27-143%27 width=%271.6%27 height=%2742%27 rx=%270.8%27 fill=%27white%27 opacity=%270.47%27/%3E%3Crect x=%2716.6%27 y=%27128%27 width=%271.4%27 height=%2765%27 rx=%270.7%27 fill=%27white%27 opacity=%270.76%27/%3E%3Crect x=%2716.6%27 y=%27-112%27 width=%271.4%27 height=%2765%27 rx=%270.7%27 fill=%27white%27 opacity=%270.76%27/%3E%3Crect x=%2722.1%27 y=%27207%27 width=%272.0%27 height=%2766%27 rx=%271.0%27 fill=%27white%27 opacity=%270.53%27/%3E%3Crect x=%2722.1%27 y=%27-33%27 width=%272.0%27 height=%2766%27 rx=%271.0%27 fill=%27white%27 opacity=%270.53%27/%3E%3Crect x=%2724.2%27 y=%27165%27 width=%271.6%27 height=%2788%27 rx=%270.8%27 fill=%27white%27 opacity=%270.64%27/%3E%3Crect x=%2724.2%27 y=%27-75%27 width=%271.6%27 height=%2788%27 rx=%270.8%27 fill=%27white%27 opacity=%270.64%27/%3E%3Crect x=%2713.0%27 y=%27141%27 width=%271.5%27 height=%2747%27 rx=%270.8%27 fill=%27white%27 opacity=%270.45%27/%3E%3Crect x=%2713.0%27 y=%27-99%27 width=%271.5%27 height=%2747%27 rx=%270.8%27 fill=%27white%27 opacity=%270.45%27/%3E%3Crect x=%2737.0%27 y=%27211%27 width=%272.3%27 height=%2730%27 rx=%271.1%27 fill=%27white%27 opacity=%270.27%27/%3E%3Crect x=%2737.0%27 y=%27-29%27 width=%272.3%27 height=%2730%27 rx=%271.1%27 fill=%27white%27 opacity=%270.27%27/%3E%3Crect x=%2719.9%27 y=%2737%27 width=%272.6%27 height=%2727%27 rx=%271.3%27 fill=%27white%27 opacity=%270.35%27/%3E%3Crect x=%2719.9%27 y=%27-203%27 width=%272.6%27 height=%2727%27 rx=%271.3%27 fill=%27white%27 opacity=%270.35%27/%3E%3C/svg%3E")}
+.la-box{position:absolute;aspect-ratio:var(--ar);width:max(100cqw,calc(100cqh * var(--ar)));left:var(--ox,50%);top:var(--oy,50%);translate:calc(-1 * var(--ox,50%)) calc(-1 * var(--oy,50%))}
+.la-l{position:absolute;display:block;left:var(--x);top:var(--y);width:var(--w);height:var(--h);max-width:none;animation-delay:var(--dl,0s)}
+.la-mask{overflow:hidden;-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.la-mask::before,.la-mask::after{content:"";position:absolute;pointer-events:none}
+@keyframes la-sweep{0%{transform:translateX(-66.67%)}60%,100%{transform:translateX(0)}}
+
+/* Fronds sway from their base; reeds and tufts waver; clouds and haze drift and breathe; planets bob. */
+.la-sway{transform-origin:50% 100%;animation:la-sway var(--d,5s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes la-sway{from{transform:rotate(calc(-1 * var(--a,1.4deg)))}to{transform:rotate(var(--a,1.4deg))}}
+.la-waver{transform-origin:50% 100%;animation:la-waver var(--d,3s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes la-waver{from{transform:skewX(calc(-1 * var(--a,2.4deg)))}to{transform:skewX(var(--a,2.4deg)) scaleY(1.015)}}
+.la-mist{animation:la-mist var(--d,16s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes la-mist{0%{transform:translateX(calc(-1 * var(--dx,1cqw))) scale(1);opacity:.5}50%{opacity:1}100%{transform:translateX(var(--dx,1cqw)) scale(1.04);opacity:.65}}
+.la-haze{animation:la-haze var(--d,24s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes la-haze{from{transform:translateX(calc(-1 * var(--dx,1.2cqw))) scale(1.01);opacity:.85}to{transform:translateX(var(--dx,1.2cqw)) scale(1.04);opacity:1}}
+.la-bob{animation:la-bob var(--d,7s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes la-bob{from{transform:translateY(-.6cqh) rotate(-1.5deg)}to{transform:translateY(.6cqh) rotate(1.5deg)}}
+
+/* Islands float (they sit on a plate with the sky filled in behind them, so no ghost shows); stars orbit a point. */
+.la-float{animation:la-float var(--d,7s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes la-float{from{transform:translateY(calc(-1 * var(--ay,.5cqh))) rotate(-.4deg)}to{transform:translateY(var(--ay,.5cqh)) rotate(.4deg)}}
+.la-orbit{transform-origin:var(--o,50% 50%);animation:la-orbit var(--d,120s) linear infinite}
+@keyframes la-orbit{to{transform:rotate(-360deg)}}
+/* Spotlight beams swing a few degrees round their source and breathe (on a plate with the sky filled in). */
+.la-sweep{transform-origin:var(--o,50% 0);animation:la-rays var(--d,9s) ease-in-out infinite alternate}
+@keyframes la-rays{0%{transform:rotate(-3.5deg);opacity:.7}50%{opacity:1}100%{transform:rotate(3.5deg);opacity:.8}}
+/* Lanterns and chest glow flicker in four groups, each on its own beat; a core of light breathes. */
+.la-flicker{background:rgba(255,224,150,.9);animation:la-flicker var(--d,2.8s) ease-in-out infinite;animation-delay:var(--dl,0s)}
+@keyframes la-flicker{0%,100%{opacity:.1}30%{opacity:.7}45%{opacity:.35}70%{opacity:.95}}
+.la-pulse{background:radial-gradient(closest-side,#FFFFFF,rgba(255,240,210,.7));animation:la-glow var(--d,3.4s) ease-in-out infinite alternate}
+@keyframes la-glow{from{opacity:.05}to{opacity:.8}}
+
+/* Sky: soft clouds of light drift slowly across the sky's own shape (window bars and edges never move). */
+.la-sky::before{top:0;bottom:0;left:0;width:200%;background:radial-gradient(closest-side,rgba(255,240,250,.38),rgba(255,240,250,0)) 0 30%/25% 60% repeat-x,radial-gradient(closest-side,rgba(255,220,240,.28),rgba(255,220,240,0)) 12% 75%/12.5% 45% repeat-x;animation:la-sky-drift var(--d,90s) linear infinite}
+@keyframes la-sky-drift{to{transform:translateX(-50%)}}
+
+/* Stars twinkle in groups, each on its own beat. */
+.la-twinkle{background:#FFFFFF;animation:la-twinkle var(--d,2.2s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes la-twinkle{0%{opacity:0}60%{opacity:.25}100%{opacity:.95}}
+/* Aurora: soft bands of green, lilac and pink light flow through the aurora's (or a rainbow trail's) own shape. */
+.la-aurora::before{top:0;bottom:0;left:0;width:300%;background:linear-gradient(100deg,rgba(150,255,210,0) 0%,rgba(150,255,210,.75) 12%,rgba(200,170,255,.7) 22%,rgba(255,170,220,.6) 30%,rgba(150,255,210,0) 40%,rgba(150,255,210,0) 50%,rgba(150,255,210,.7) 62%,rgba(200,170,255,.65) 72%,rgba(255,170,220,.55) 80%,rgba(150,255,210,0) 90%);mix-blend-mode:screen;animation:la-aurora var(--d,16s) linear infinite}
+@keyframes la-aurora{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+/* Streams: dashes of light run continuously along light trails. */
+.la-stream::before{top:0;bottom:0;left:0;width:200%;background:repeating-linear-gradient(100deg,transparent 0 9%,rgba(255,255,255,0) 9%,rgba(255,255,255,.95) 11.5%,rgba(255,255,255,0) 13%,transparent 13% 25%);animation:la-stream var(--d,3s) linear infinite}
+@keyframes la-stream{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+
+/* Wind: a band of light sweeps across wide grass, then rests. */
+.la-breeze::before{top:0;bottom:0;left:0;width:300%;background:linear-gradient(100deg,transparent 0 38%,rgba(255,255,235,.42) 46%,rgba(255,255,235,0) 56%);animation:la-sweep var(--d,7s) ease-in-out infinite}
+/* Water: streaks fall inside the waterfall's own shape, foam brightens the foot. */
+.la-flow{background:linear-gradient(rgba(255,255,255,0) 60%,rgba(235,255,255,.4))}
+.la-flow::before,.la-flow::after{left:0;right:0;top:-240px;bottom:0;background:var(--la-streaks) 0 0/48px 240px repeat;animation:la-fall var(--d,1.1s) linear infinite}
+.la-flow::after{background-size:70px 240px;background-position:21px 0;opacity:.55;animation-duration:calc(var(--d,1.1s) * 1.7)}
+@keyframes la-fall{to{transform:translateY(240px)}}
+.la-splash{position:absolute;left:var(--x);top:var(--y);width:var(--w);aspect-ratio:2.2;translate:-50% -55%}
+.la-splash>i{position:absolute;display:block;border-radius:50%}
+.la-puff{inset:0;background:radial-gradient(closest-side,rgba(255,255,255,.8),rgba(230,250,255,0));opacity:0;animation:la-puff var(--d,2.4s) ease-out infinite;animation-delay:var(--dl,0s)}
+@keyframes la-puff{0%{transform:scale(.5);opacity:.9}100%{transform:scale(1.3) translateY(-14%);opacity:0}}
+.la-drop{left:var(--px);bottom:38%;width:5px;height:5px;background:#FFFFFF;box-shadow:0 0 6px rgba(200,255,255,.95);opacity:0;animation:la-drop var(--d,1.4s) ease-out infinite;animation-delay:var(--dl,0s)}
+@keyframes la-drop{0%{transform:translate(0,0);opacity:0}12%{opacity:1}50%{transform:translate(var(--hx,8px),var(--hy,-26px))}100%{transform:translate(calc(var(--hx,8px) * 2),8px);opacity:0}}
+/* Pond: soft ripple lines drift toward you, and a glint crosses now and then. */
+.la-shimmer::before{left:0;right:0;top:-24px;bottom:0;background:repeating-linear-gradient(180deg,rgba(255,255,255,0) 0 12px,rgba(255,255,255,.3) 17px,rgba(255,255,255,0) 22px 24px);animation:la-ripple var(--d,3.6s) linear infinite}
+@keyframes la-ripple{to{transform:translateY(24px)}}
+.la-shimmer::after,.la-glint::after{top:0;bottom:0;left:0;width:300%;background:linear-gradient(110deg,transparent 42%,rgba(255,255,255,.95) 47%,rgba(255,255,255,0) 52%);animation:la-sweep var(--d,5s) ease-in-out infinite}
+.la-shimmer::after{animation-duration:calc(var(--d,3.6s) * 2)}
+/* Stepping stones light up one after another along the path, like runway lights. */
+.la-runway::before{inset:0;background:rgba(255,255,255,.35);animation:la-pulse 3s ease-in-out infinite alternate}
+.la-runway::after{top:0;bottom:0;left:0;width:300%;background:linear-gradient(60deg,transparent 40%,rgba(255,255,255,1) 46%,rgba(255,250,220,0) 52%);animation:la-sweep var(--d,3.6s) linear infinite}
+@keyframes la-pulse{from{opacity:.15}to{opacity:.7}}
+/* Neon: thin bands of light run from the horizon toward you, speeding up as they come, so light travels along
+   every grid line (a pink and a cyan band, half a lap apart). The mask layer is cropped to the floor. */
+.la-neon::before,.la-neon::after{left:0;right:0;top:0;height:200%;background:linear-gradient(180deg,transparent 0 46%,rgba(255,170,240,0) 46%,rgba(255,200,245,.95) 49.2%,rgba(255,255,255,1) 49.6%,transparent 50.4%);animation:la-run var(--d,2.8s) cubic-bezier(.55,0,1,.8) infinite}
+.la-neon::after{background:linear-gradient(180deg,transparent 0 46%,rgba(120,255,240,0) 46%,rgba(150,255,245,.95) 49.2%,rgba(255,255,255,1) 49.6%,transparent 50.4%)}
+@keyframes la-run{from{transform:translateY(-50%)}to{transform:translateY(0)}}
+
+/* Each layer's own phase (--dl) carries into its light; the neon's second ring runs half a lap behind. */
+.la .la-mask::before,.la .la-mask::after{animation-delay:var(--dl,0s)}
+.la .la-neon::after{animation-delay:calc(var(--dl,0s) - var(--d,3.2s) / 2)}
+
+/* A whole art that swirls: sways ±3° and breathes, zoomed 1.12× or more so no corner ever shows (a frame with sides
+   in ratio k needs cos 3° + k sin 3°: 1.09 for 16:9, 1.11 for a 2.17:1 phone). Put it on a wrapper holding the
+   <img> and its .la. */
+.la-swirl-art{position:absolute;inset:0;transform-origin:50% 50%;animation:la-swirl-art 14s ease-in-out infinite alternate}
+@keyframes la-swirl-art{from{transform:scale(1.12) rotate(-3deg)}to{transform:scale(1.16) rotate(3deg)}}
+
+@media (prefers-reduced-motion: reduce){.la-swirl-art{animation:none}.la *,.la *::before,.la *::after{animation:none!important}.la-splash,.la-mask::after{display:none}}
+.ar-root>.la{opacity:.75}
+.ar-marquee{position:relative}
+.ar-marquee::before,.ar-marquee::after{content:"";position:absolute;left:12px;right:12px;top:4px;height:5px;background:radial-gradient(circle,#FFE38A 0 1.7px,rgba(255,227,138,0) 2.8px) 0 0/14px 5px repeat-x;filter:drop-shadow(0 0 3px #FFE38A);pointer-events:none;animation:ar-bulbs .7s steps(1) infinite}
+.ar-marquee::after{background-position:7px 0;animation-delay:-.35s}
+@keyframes ar-bulbs{0%{opacity:1}50%{opacity:.2}}
+@media (prefers-reduced-motion: reduce){.ar-marquee::before,.ar-marquee::after{animation:none}}
+.ar-root{position:relative;width:100%;min-height:100vh;box-sizing:border-box;overflow:hidden;background:#1E1C45;color:#F4F1FF;font-family:var(--font-text)}
+.ar-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.75}
+.ar-veil{position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(185,167,245,.25),rgba(30,28,69,0) 70%),linear-gradient(180deg,rgba(30,28,69,.2),rgba(30,28,69,.85))}
+.ar-wrap{position:relative;max-width:1440px;margin:0 auto;box-sizing:border-box;padding:24px 32px 32px;display:flex;flex-direction:column;gap:22px}
+.ar-head{display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+.ar-h1{margin:0;font:600 clamp(36px,5vw,56px)/1 var(--font-display);text-shadow:0 0 30px rgba(255,227,138,.45)}
+.ar-chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;box-sizing:border-box;padding:0 16px;border-radius:999px;background:rgba(43,42,92,.75);box-shadow:inset 0 0 0 1px rgba(185,167,245,.4);font:800 15px/1 var(--font-text);color:#F4F1FF;text-decoration:none}
+.ar-kix{display:flex;align-items:center;gap:12px;margin-left:auto;max-width:440px}
+.ar-kix img{width:72px;height:auto;filter:drop-shadow(0 6px 12px rgba(10,8,40,.5))}
+.ar-kix p{margin:0;padding:10px 14px;border-radius:18px 18px 18px 6px;background:rgba(43,42,92,.85);box-shadow:inset 0 0 0 1px rgba(185,167,245,.35);font:700 15px/1.4 var(--font-text)}
+.ar-tabs{display:inline-flex;align-self:flex-start;padding:4px;gap:4px;border-radius:999px;background:rgba(43,42,92,.75);box-shadow:inset 0 0 0 1px rgba(185,167,245,.4)}
+.ar-tabs button{min-height:40px;padding:0 16px;border:0;border-radius:999px;background:transparent;color:#F4F1FF;font:800 14px/1 var(--font-text);cursor:pointer}
+.ar-tabs button[aria-pressed="true"]{background:#B9A7F5;color:#1E1C45}
+.ar-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+.ar-cab{position:relative;display:flex;flex-direction:column;border-radius:26px 26px 18px 18px;background:linear-gradient(180deg,#3A3580,#25234F);box-shadow:inset 0 0 0 2px rgba(185,167,245,.35),0 18px 40px rgba(8,6,30,.45);color:inherit;text-decoration:none;overflow:hidden;transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s}
+.ar-cab:hover,.ar-cab:focus-visible{transform:translateY(-6px);box-shadow:inset 0 0 0 2px #FFE38A,0 0 34px rgba(255,227,138,.4),0 18px 40px rgba(8,6,30,.45);outline:none}
+.ar-marquee{padding:12px 16px 10px;text-align:center;font:700 22px/1 var(--font-display);letter-spacing:.03em;background:linear-gradient(90deg,rgba(255,61,203,.35),rgba(61,245,255,.35));text-shadow:0 0 12px rgba(255,255,255,.7)}
+.ar-screen{position:relative;margin:0 14px;height:150px;border-radius:14px;overflow:hidden;background:#120C2B;box-shadow:inset 0 0 0 3px #15132F}
+.ar-screen img{width:100%;height:100%;object-fit:cover}
+.ar-screen::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(180deg,rgba(255,255,255,.05) 0 2px,transparent 2px 4px);pointer-events:none}
+.ar-blink{position:absolute;left:0;right:0;bottom:10px;text-align:center;font:800 13px/1 var(--font-text);letter-spacing:.14em;color:#FFE38A;text-shadow:0 0 8px #FFE38A;animation:ar-blink 1.2s steps(2) infinite}
+.ar-word{position:absolute;padding:4px 8px;border-radius:8px;background:rgba(20,16,60,.8);font:600 15px/1 var(--font-display);color:#FFFFFF}
+.ar-body{display:flex;flex-direction:column;gap:8px;padding:14px 16px 16px}
+.ar-tag{align-self:flex-start;padding:4px 10px;border-radius:999px;background:#A8F0D4;color:#1E1C45;font:800 12px/1.2 var(--font-text)}
+.ar-desc{margin:0;font:600 14px/1.4 var(--font-text);color:#C6BFEE}
+.ar-prog{display:flex;align-items:center;justify-content:space-between;gap:8px;font:800 14px/1 var(--font-text)}
+.ar-prog span:last-child{color:#FFE38A}
+.ar-cab[data-soon="yes"]{filter:saturate(.4);opacity:.75}
+.ar-cab[data-soon="yes"] .ar-blink{color:#C6BFEE;text-shadow:none;animation:none}
+.ar-foot{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:14px 18px;border-radius:20px;background:rgba(43,42,92,.7);box-shadow:inset 0 0 0 1px rgba(185,167,245,.3);font:700 14px/1.4 var(--font-text);color:#C6BFEE}
+.ar-foot strong{color:#F4F1FF}
+.ar-root[data-variant="teen"] .ar-cab{border-radius:16px}
+.ar-root[data-variant="teen"] .ar-tag{background:#3DF5FF}
+@keyframes ar-blink{50%{opacity:.2}}
+@media (max-width: 599px){.ar-wrap{padding:16px 12px 20px}.ar-kix{margin-left:0}.ar-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}.ar-screen{height:110px;margin:0 10px}.ar-marquee{font-size:17px}}
+@media (prefers-reduced-motion: reduce){.ar-blink{animation:none}.ar-cab{transition:none}}
+</style>
+</helmet>
+<div class="ar-root" data-theme="dreamlight" data-band="{{band}}" data-variant="{{variant}}">
+  <img class="ar-bg" src="/_blob/a8d707ec8a8d491d808bf2d4cd5b1d6c" alt="">
+    <div class="la" aria-hidden="true"><div class="la-box" style="--ar: 1600 / 1067; --ox: 50%; --oy: 50%">
+      <i class="la-l la-mask la-sky" style="--x: 0%; --y: 0%; --w: 100%; --h: 99.16%; --d: 90s; -webkit-mask-image: url(/_blob/ffe0c99c519736eeb2eb6be3903b0492); mask-image: url(/_blob/ffe0c99c519736eeb2eb6be3903b0492)"></i>
+      <img class="la-l la-haze" src="/_blob/75d26adad55f91e5847fe3013cc8de73" alt="" style="--x: 0%; --y: 0%; --w: 100%; --h: 99.16%; --d: 22s; --dx: 1cqw; --dl: -0s">
+      <img class="la-l la-bob" src="/_blob/fcc873d316bd6fdcc259797ca1aa2375" alt="" style="--x: 86.56%; --y: 4.12%; --w: 11.94%; --h: 11.43%; --d: 7s; --dl: -0s">
+      <img class="la-l la-bob" src="/_blob/243469b9f7f3773f5d681773226197cf" alt="" style="--x: 0%; --y: 35.52%; --w: 6.38%; --h: 10.5%; --d: 8s; --dl: -2.2s">
+      <i class="la-l la-mask la-aurora" style="--x: 0%; --y: 0%; --w: 100%; --h: 41.14%; --d: 14s; -webkit-mask-image: url(/_blob/7b47b0277fdb86c136de15239645bafe); mask-image: url(/_blob/7b47b0277fdb86c136de15239645bafe)"></i>
+      <i class="la-l la-mask la-twinkle" style="--x: 0%; --y: 0%; --w: 33.31%; --h: 97.28%; --d: 1.8s; --dl: -0s; -webkit-mask-image: url(/_blob/e42b380efce3de744630ae68bbd0ae45); mask-image: url(/_blob/e42b380efce3de744630ae68bbd0ae45)"></i>
+      <i class="la-l la-mask la-twinkle" style="--x: 33.31%; --y: 0%; --w: 33.38%; --h: 97.28%; --d: 2.4s; --dl: -0.7s; -webkit-mask-image: url(/_blob/47dd72891fef68326e7ebb0e8faa4439); mask-image: url(/_blob/47dd72891fef68326e7ebb0e8faa4439)"></i>
+      <i class="la-l la-mask la-twinkle" style="--x: 66.69%; --y: 0%; --w: 33.31%; --h: 97.28%; --d: 3s; --dl: -1.4s; -webkit-mask-image: url(/_blob/9e84d8742fd90b1e9597ee712c0d592d); mask-image: url(/_blob/9e84d8742fd90b1e9597ee712c0d592d)"></i>
+    </div></div>
+  <div class="ar-veil"></div>
+  <div class="am am--space" data-heat="{{amHeat}}" data-pulse="{{amPulse}}" data-show="{{amShow}}" aria-hidden="true">
+    <i class="am-stars am-stars--1"></i><i class="am-stars am-stars--2"></i><i class="am-stars am-stars--3"></i>
+    <i class="am-fog" style="--c: 185, 167, 245; --y: -8%; --h: 62%; --d: 120s; --o: .34"></i>
+    <i class="am-fog am-fog--r" style="--c: 247, 182, 207; --y: 26%; --h: 52%; --d: 150s; --o: .2"></i>
+    <i class="am-fog" style="--c: 168, 240, 212; --y: 64%; --h: 46%; --d: 95s; --o: .16"></i>
+    <i class="am-shoot" style="--x: 82%; --y: 8%; --d: 11s; --dl: 2s"></i>
+    <i class="am-shoot" style="--x: 60%; --y: 3%; --d: 17s; --dl: 8s"></i>
+    <i class="am-shoot" style="--x: 96%; --y: 30%; --d: 23s; --dl: 14s"></i>
+    <i class="am-mote am-mote--float" style="--x: 14%; --y: 30%; --s: 3px; --c: 255, 227, 138; --d: 14s; --dl: -3s; --dx: 30px"></i>
+    <i class="am-mote am-mote--float" style="--x: 34%; --y: 58%; --s: 2px; --c: 237, 233, 255; --d: 11s; --dl: -7s; --dx: -20px"></i>
+    <i class="am-mote am-mote--float" style="--x: 66%; --y: 22%; --s: 3px; --c: 168, 240, 212; --d: 16s; --dl: -1s; --dx: 24px"></i>
+    <i class="am-mote am-mote--float" style="--x: 86%; --y: 48%; --s: 2px; --c: 255, 227, 138; --d: 12s; --dl: -9s; --dx: -28px"></i>
+    <i class="am-mote am-mote--float am-mote--hot" style="--x: 24%; --y: 74%; --s: 3px; --c: 247, 182, 207; --d: 13s; --dl: -4s; --dx: 18px"></i>
+    <i class="am-mote am-mote--float am-mote--hot" style="--x: 74%; --y: 66%; --s: 3px; --c: 255, 227, 138; --d: 15s; --dl: -11s; --dx: -16px"></i>
+    <i class="am-fog" style="--c: 201, 184, 255; --y: 70%; --h: 40%; --d: 80s; --o: .3"></i>
+  </div>
+  <div class="ar-wrap">
+    <header class="ar-head">
+      <a class="ar-chip" href="Home.dc.html">‹ Home</a>
+      <h1 class="ar-h1">Arcade</h1>
+      <span class="ar-chip">{{who}}</span>
+      <span class="ar-chip" title="Games count toward screen time">Today: 18 of 30 min</span>
+      <div class="ar-kix">
+        <img src="{{kixSrc}}" alt="">
+        <p>{{kixLine}}</p>
+      </div>
+    </header>
+    <div class="ar-tabs" role="group" aria-label="Show">
+      <sc-for list="{{filters}}" as="f" hint-placeholder-count="3"><button type="button" aria-pressed="{{f.pressed}}" onClick="{{f.pick}}">{{f.label}}</button></sc-for>
+    </div>
+    <div class="ar-grid">
+      <sc-for list="{{games}}" as="g" hint-placeholder-count="6">
+        <a class="ar-cab" href="{{g.href}}" data-soon="{{g.soon}}" aria-label="{{g.aria}}">
+          <div class="ar-marquee">{{g.name}}</div>
+          <div class="ar-screen">
+            <img src="{{g.art}}" alt="">
+            <sc-for list="{{g.words}}" as="w" hint-placeholder-count="2"><span class="ar-word" style="{{w.style}}">{{w.t}}</span></sc-for>
+            <span class="ar-blink">{{g.blink}}</span>
+          </div>
+          <div class="ar-body">
+            <span class="ar-tag">{{g.tag}}</span>
+            <p class="ar-desc">{{g.desc}}</p>
+            <div class="ar-prog"><span>{{g.stage}}</span><span>{{g.stars}}</span></div>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+    <footer class="ar-foot">
+      <span><strong>Stars come from how you play, never luck.</strong> Your best is only compared with your own best.</span>
+      <a class="mk-btn mk-btn--reward" href="TypingPath.dc.html" style="margin-left: auto; text-decoration: none">My typing path and card</a>
+    </footer>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"variant":{"editor":"enum","options":["junior","teen"],"default":"junior"},"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  state = { filter: 'all' };
+
+// ---- Living background (shared by the arcade boards) ----
+  // heat 0–3 brightens the scene as the child plays well; pulse 'a'/'b' flips on every hit so the bloom replays.
+  // Each hidden tap spot plays its next reaction in turn, so taps feel different each time (no randomness).
+  amModel(heat, pulse) {
+    const SPOTS = { rig: ['swap', 'strobe', 'fan', 'search'], fogl: ['puff', 'ring', 'burst'], fogr: ['ring', 'burst', 'puff'], sky: ['frog', 'shower', 'rocket', 'crown'], planet: ['moon', 'ring', 'glint'], pond: ['ripple', 'bubbles', 'double', 'plip'], fern: ['spores', 'dew', 'fireflies'] };
+    const am = this.state.am || { spot: '', act: '', n: {} };
+    const vals = { amHeat: String(heat), amPulse: pulse || '', amShow: am.spot ? `${am.spot}-${am.act}` : '' };
+    for (const [id, acts] of Object.entries(SPOTS)) {
+      const key = id.charAt(0).toUpperCase() + id.slice(1);
+      vals[`amAct${key}`] = am.spot === id ? am.act : '';
+      vals[`am${key}`] = () => {
+        const cur = this.state.am || { n: {} };
+        const n = cur.n[id] || 0;
+        this.setState({ am: { spot: id, act: acts[n % acts.length], n: { ...cur.n, [id]: n + 1 } } });
+      };
+    }
+    return vals;
+  }
+
+  renderVals() {
+    const teen = this.props.variant === 'teen';
+    const SPACE = '/_blob/e53b312451a9a26a537a4ceccd4574f7';
+    const NEON = '/_blob/d753dffc5beda0152688d3693d5fee48';
+    const GARDEN = '/_blob/42a1d142037c7463131ff440b4e5f999';
+    const QUEST = '/_blob/69e55678ceb673bf94acd536ed6023e0';
+    const VAULT = '/_blob/51658a9e815144ebc0da19f028bc2f57';
+    const w = (t, x, y) => ({ t, style: `left: ${x}%; top: ${y}%` });
+    const ALL = [
+      { id: 'star', name: 'Star Typer', href: 'StarTyper.dc.html', art: SPACE, words: [w('frog', 14, 22), w('pond', 58, 40)], tag: 'Typing · P3 English words', desc: 'Kix fires a star-bolt for every right key. Ghost hands show each finger.', stage: 'Stage 4 · Little words', stars: '★ 11 of 27', bands: ['junior', 'teen'], kind: 'typing' },
+      { id: 'garden', name: 'Word Garden', href: 'WordGarden.dc.html', art: GARDEN, words: [w('tadpole', 20, 30)], tag: 'Typing · P3 Science life cycles', desc: 'Type the stage you see. Every right word grows a flower. No timer.', stage: 'Stage 8 · Match it', stars: '★ 4 of 18', bands: ['junior'], kind: 'typing' },
+      { id: 'neon', name: 'Neon Strike', href: 'NeonStrike.dc.html', art: NEON, words: [w('friction', 30, 34)], tag: 'Typing · Sec 2 Science answers', desc: 'Answer the question by typing it. Beams fire only on the right keys. Track your words a minute.', stage: 'Stage 7 · Answer blast', stars: '★ 9 of 21', bands: ['teen'], kind: 'typing' },
+      { id: 'dash', name: 'Number Dash', href: 'Arcade.dc.html', art: QUEST, words: [w('7 × 8', 36, 30)], tag: 'Maths · P3 times tables', desc: 'Race along the sky path by answering facts. Coming soon.', stage: 'Coming soon', stars: '', bands: ['junior'], kind: 'maths', soon: true },
+      { id: 'stroke', name: 'Stroke Quest', href: 'Arcade.dc.html', art: VAULT, words: [w('写', 44, 28)], tag: 'Chinese · P3 stroke order', desc: 'Trace each character stroke by stroke from your word cards. Coming soon.', stage: 'Coming soon', stars: '', bands: ['junior'], kind: 'chinese', soon: true },
+      { id: 'ratio', name: 'Ratio Rescue', href: 'Arcade.dc.html', art: QUEST, words: [w('3 : 5', 38, 30)], tag: 'Maths · P6 ratio', desc: 'Balance the bridges with the right ratios. Coming soon.', stage: 'Coming soon', stars: '', bands: ['teen'], kind: 'maths', soon: true },
+      { id: 'circuit', name: 'Circuit Builder', href: 'Arcade.dc.html', art: NEON, words: [w('R = V / I', 26, 30)], tag: 'Science · Sec 2 electricity', desc: 'Wire the stage lights without blowing a fuse. Coming soon.', stage: 'Coming soon', stars: '', bands: ['teen'], kind: 'science', soon: true },
+    ];
+    const band = teen ? 'teen' : 'junior';
+    const f = this.state.filter;
+    const games = ALL.filter((g) => g.bands.includes(band) && (f === 'all' || (f === 'typing' ? g.kind === 'typing' : g.kind !== 'typing')))
+      .map((g) => ({ ...g, soon: g.soon ? 'yes' : 'no', blink: g.soon ? 'COMING SOON' : 'PRESS START', aria: `${g.name}. ${g.tag}. ${g.stage}` }));
+    return {
+      ...this.amModel(0, ''),
+      band,
+      variant: band,
+      who: teen ? 'Mei · Sec 2' : 'Ari · P3',
+      kixSrc: teen ? '/_blob/b1a0d040fdecae5f59f1b400eef42c34' : '/_blob/bb08e7ec23418f8b39ef9322df1f30f6',
+      kixLine: teen ? 'Every game here uses your own Sec 2 words and questions. Warm up with Neon Strike?' : 'These games use your own spelling and science words. Ready to fly, Ari?',
+      filters: [['all', 'All games'], ['typing', 'Typing'], ['subjects', 'Subjects']].map(([id, label]) => ({ label, pressed: f === id ? 'true' : 'false', pick: () => this.setState({ filter: id }) })),
+      games,
+    };
+  }
+}
+</script>
+</body>
+</html>

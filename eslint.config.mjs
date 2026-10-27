@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Agent worktrees are full repo copies.
     ".claude/**",
+    // Claude Design board sources (DC templates and their scripts), not app code.
+    "docs/design/**",
   ]),
 ]);
 

@@ -1,0 +1,15 @@
+    <div class="kb" data-hands="{{kbHands}}">
+      <p class="kb-hint" aria-live="polite"><sc-for list="{{kbHintNums}}" as="hn" hint-placeholder-count="1"><b class="kb-hint-n" style="{{hn.style}}">{{hn.n}}</b></sc-for>{{kbHint}}</p>
+      <div class="kb-board" role="group" aria-label="Keyboard: tap a key or use your own keyboard">
+        <sc-for list="{{kbKeys}}" as="key" hint-placeholder-count="31">
+          <button class="{{key.cls}}" type="button" style="{{key.style}}" aria-label="{{key.aria}}" onClick="{{key.press}}">{{key.label}}<i class="kb-kn" aria-hidden="true">{{key.n}}</i></button>
+        </sc-for>
+        <div class="kb-hands" data-mode="{{kbHands}}" aria-hidden="true">
+          <span class="kb-palm" style="left: calc(var(--u) * .3)"></span>
+          <span class="kb-palm kb-palm--r" style="left: calc(var(--u) * 6.25)"></span>
+          <sc-for list="{{kbFingers}}" as="fi" hint-placeholder-count="10">
+            <span class="{{fi.cls}}" style="{{fi.style}}"><b class="kb-num">{{fi.n}}</b></span>
+          </sc-for>
+        </div>
+      </div>
+    </div>

@@ -57,7 +57,7 @@ If a feature isn't in the 3-minute video, it isn't in this build. Screens come s
 - **App:** Next.js (App Router, TypeScript), Tailwind CSS v4, `motion`. Exact versions pinned at scaffold (no `^`).
 - **Look:** `tokens.css`, `bundle.css` and fonts copied from the design system. Screens are ported from the canvas `.dc.html` boards, which already use the same tokens and classes.
 - **Data:** Supabase Auth (parent signs in with email and password; children are profiles in the household, chosen from the profile button), Postgres with row-level security by household, Storage for Kix cutouts.
-- **Content:** skill packs are the source of quests, questions, hints, references and card sets. `content/skills/` holds the scrubbed packs imported from the founder's tutor skills; published versions live in the skill tables so admin uploads work in production. The raw source skills stay in git-ignored `content-private/`. Offline activities stay as fixtures. Spec: `docs/prd/SKILL_ENGINE.md`.
+- **Content:** skill packs are the source of quests, questions, hints, references and card sets. `content/skills/` holds the scrubbed packs imported from the founder's tutor skills; published versions live in the skill tables so admin uploads work in production. The raw source skills stay in a private folder outside the repo (`MYKX_PRIVATE_DIR`). Offline activities stay as fixtures. Spec: `docs/prd/SKILL_ENGINE.md`.
 - **Meta:** OpenAI SDK pointed at `https://api.meta.ai/v1`, called only from server route handlers, Standard models only (see the `meta-model-api` skill).
 - **Hosting:** one Vercel project; Supabase cloud free tier. No worker, queue or cron.
 
@@ -82,7 +82,7 @@ If a feature isn't in the 3-minute video, it isn't in this build. Screens come s
 app/(kid)/studio, home, learn/[quest], question/[id], treasure, critters, squadron, vibe
 app/(parent)/parent, dashboard, messages        app/(admin)/skills        app/api/...        app/under-the-hood (model_runs + skill events)
 components/   lib/meta/   lib/domain/   lib/db/   lib/sound/   lib/skills/   fixtures/   supabase/ (schema.sql, rls.sql, seed.sql, skills.sql)
-content/skills/ (public, scrubbed)   content-private/ (git-ignored raw skills)   scripts/import-skill.ts
+content/skills/ (public, scrubbed)   private folder outside the repo (raw skills)   scripts/import-skill.ts
 public/art/   public/brand/
 ```
 
@@ -115,7 +115,7 @@ Every day ends with something you can show on the production URL.
 - **A (3h):** scaffold; copy tokens, fonts and component CSS; theme provider (`data-theme`, `data-band`, view-transition switch); port the Sidekick Studio picker; deploy.
 - **B (3h):** `lib/meta` client; `scripts/smoke-meta.ts` exercising Spark (chat, JSON schema, streaming), Muse Image edit with `kix-base.png`, SAM 3.1 cutout to PNG; results with request IDs in `docs/plan/smoke-log.md`.
 - **A, added (2.5h, from today's head start):** sound engine in `lib/sound` (Tone.js loaded on first tap, a synthesised SFX palette per pack, optional ambience, mute in the HUD); Studio taps and pack picks make sound.
-- **C (done today):** the Skill Engine spec (`docs/prd/SKILL_ENGINE.md`) and the admin design boards; the seven source skills archived in git-ignored `content-private/`.
+- **C (done today):** the Skill Engine spec (`docs/prd/SKILL_ENGINE.md`) and the admin design boards; the seven source skills archived privately (since 28 Oct outside the repo, in the folder named by `MYKX_PRIVATE_DIR`).
 - **Exit:** the production URL re-skins the Studio picker across all five packs, with sound; the smoke log shows three Meta models answering.
 
 - **Done on 27 Oct evening, ahead of plan (uncommitted until approved):** the stream A and C branches copied into the working tree (screens, port script, seven skill packs); the door sign-in (`/signin`), "Who's learning?" (`/doors`) and kid doors (`/doors/[id]`, picture code with first-time set-up, teen password) with the living city, door and time tunnel; the sign-in back end (`lib/auth`, scrypt secrets, 12 h kid cookie, lockout, audit log, family/me/admin routes, a dev-only demo store; 53 tests); Your family (`/family`), Me (`/me`) and admin People (`/admin/people`); `/home` routes teens to the study deck; the Studio transform and voice routes now need a signed-in family and are rate-limited (the Day 3 auth risk is closed); **living scenes** (founder feedback: pokeable backgrounds with varied reactions; `docs/design/living-scenes.md`, two Muse Image edits of the study room); the deterministic domain (`lib/domain`) and a soak test of the bank and the learner model (`docs/plan/soak-report.md`).
@@ -237,7 +237,7 @@ Script target: about 360 words of voice-over (130 a minute), finished by Day 5.
 | Wellbeing signals feel like surveillance, or are wrong | Day 4 wording review | Parent-only, "possibly" with evidence and confidence, compared with the child's own baseline, no labels; camera off by default and on the device only; the child's settings say what's shared. |
 | The safety path misses or over-fires | Day 4 tests with ten phrases | Keyword list confirmed by the Spark call; urgent always shows the helplines; you review the wording. |
 | Four streams add merge risk | a stream misses a day's exit | Each stream owns its folders; merge A, B, C, D in that order; the family cut line applies before the core. |
-| Real names, notes or school-paper questions leak into the public repo | Day 2 scrub check | The importer writes only scrubbed, original content; a test scans `content/` for the real names and source-paper codes; raw skills stay in `content-private/`. |
+| Real names, notes or school-paper questions leak into the public repo | Day 2 scrub check | The importer writes only scrubbed, original content; a test scans `content/` for the real names and source-paper codes; raw skills stay in a private folder outside the repo. |
 | The Memory Keeper writes something unkind, wrong or sensitive | Day 6 test transcripts | Patch operations only (no free rewrite); a check rejects labels and diagnoses; every change is a revision the parent can see, edit or undo. |
 | `tool_search` behaves differently from the docs | Day 4 morning | Fallback mode: preload the quest's skill and pass references in the prompt; keep the orchestrator's load/unload trace. |
 | PDF extraction quality is poor | Day 6 | The review queue is mandatory anyway; JSON and Markdown parse without a model; use a clean worksheet in the video. |

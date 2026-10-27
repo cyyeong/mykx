@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Star Typer</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+/*KEYBOARD_CSS*/
+/*AMBIENCE_CSS*/
+.st-hud,.st-field,.st-keys{pointer-events:none}.st-hud>*,.st-field>*,.st-keys>*{pointer-events:auto}
+.st-root{position:relative;width:100%;min-height:100vh;box-sizing:border-box;overflow:hidden;display:grid;grid-template-rows:auto 1fr auto;background:#1E1C45;color:#F4F1FF;font-family:var(--font-text);outline:none;--kb-key:#F6F3FF;--kb-ink:#2B2A5C}
+.st-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.st-hud{position:relative;z-index:2;display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding:18px 24px}
+.st-pill{display:inline-flex;align-items:center;gap:8px;min-height:44px;box-sizing:border-box;padding:0 16px;border-radius:999px;background:rgba(43,42,92,.72);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:inset 0 0 0 1px rgba(185,167,245,.4);font:800 15px/1 var(--font-text);color:#F4F1FF;border:0;text-decoration:none}
+.st-title{display:flex;flex-direction:column;gap:2px;margin-right:auto}
+.st-title strong{font:600 26px/1.1 var(--font-display)}
+.st-title span{font:700 14px/1.2 var(--font-text);color:#C6BFEE}
+.st-bar{width:160px;height:10px;border-radius:5px;background:rgba(255,255,255,.18);overflow:hidden}
+.st-bar > i{display:block;height:100%;border-radius:5px;background:#FFE38A;box-shadow:0 0 10px #FFE38A;transition:width .3s}
+.st-seg{display:inline-flex;padding:4px;gap:4px;border-radius:999px;background:rgba(43,42,92,.72);box-shadow:inset 0 0 0 1px rgba(185,167,245,.4)}
+.st-seg button{min-height:36px;padding:0 12px;border:0;border-radius:999px;background:transparent;color:#F4F1FF;font:800 13px/1 var(--font-text);cursor:pointer}
+.st-seg button[aria-pressed="true"]{background:#B9A7F5;color:#1E1C45}
+.st-field{position:relative;z-index:1;min-height:300px}
+.st-meteor{position:absolute;display:flex;flex-direction:column;align-items:center;gap:8px;transform:translate(-50%,-50%);animation:st-drift 7s ease-in-out infinite alternate}
+.st-rock{position:relative;width:86px;height:78px;border-radius:46% 54% 42% 58% / 55% 45% 55% 45%;background:radial-gradient(circle at 34% 30%,#C9C0F2,#7E72C2 55%,#4A3F8C);box-shadow:inset -8px -10px 0 rgba(30,20,80,.35),0 0 26px rgba(185,167,245,.55)}
+.st-rock::before,.st-rock::after{content:"";position:absolute;border-radius:50%;background:rgba(60,48,130,.55)}
+.st-rock::before{width:18px;height:14px;left:22px;top:20px}
+.st-rock::after{width:12px;height:10px;right:20px;bottom:18px}
+.st-meteor[data-locked="yes"] .st-rock{box-shadow:inset -8px -10px 0 rgba(30,20,80,.35),0 0 0 4px #FFE38A,0 0 34px #FFE38A}
+.st-meteor[data-hit="a"] .st-rock{animation:st-hit-a .25s ease-out}
+.st-meteor[data-hit="b"] .st-rock{animation:st-hit-b .25s ease-out}
+.st-word{display:flex;gap:2px;padding:6px 12px;border-radius:14px;background:rgba(20,16,60,.78);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25);font:600 30px/1 var(--font-display);letter-spacing:.04em}
+.st-word b{font-weight:600;color:#FFE38A;text-shadow:0 0 10px #FFE38A}
+.st-word u{text-decoration:none;color:#FFFFFF}
+.st-word em{font-style:normal;color:rgba(244,241,255,.65)}
+.st-kix{position:absolute;left:50%;bottom:6px;width:110px;transform:translateX(-50%);animation:st-bob 2.4s ease-in-out infinite;filter:drop-shadow(0 8px 16px rgba(10,8,40,.5))}
+.st-bolt{position:absolute;left:50%;top:100%;width:16px;height:16px;margin:-8px 0 0 -8px;opacity:0;border-radius:50%;background:radial-gradient(circle,#FFFFFF,#FFE38A 45%,rgba(255,227,138,0) 70%);box-shadow:0 0 16px 6px rgba(255,227,138,.8);animation:st-fly .32s cubic-bezier(.3,0,.6,1) forwards}
+.st-burst{position:absolute;width:0;height:0}
+.st-burst i{position:absolute;width:10px;height:10px;margin:-5px;border-radius:50%;background:#FFE38A;box-shadow:0 0 10px #FFE38A;opacity:0;animation:var(--anim,st-dust) .8s ease-out forwards}
+.st-miss{position:absolute;left:50%;bottom:150px;transform:translateX(-50%);padding:6px 12px;border-radius:12px;background:rgba(20,16,60,.8);font:800 15px/1.2 var(--font-text);color:#FFC9A8;animation:st-fade 1.2s ease-out forwards}
+.st-keys{position:relative;z-index:2;width:min(860px,calc(100% - 32px));margin:0 auto;padding:4px 0 14px}
+.st-tip{position:absolute;left:24px;bottom:24px;z-index:2;max-width:200px;padding:10px 14px;border-radius:16px;background:rgba(43,42,92,.72);box-shadow:inset 0 0 0 1px rgba(185,167,245,.35);font:700 14px/1.35 var(--font-text);color:#C6BFEE}
+.st-clear{position:absolute;inset:0;z-index:5;display:grid;place-items:center;background:rgba(14,12,43,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.st-card{width:min(440px,calc(100% - 32px));box-sizing:border-box;padding:28px;border-radius:32px;background:rgba(43,42,92,.92);box-shadow:inset 0 0 0 1px rgba(255,227,138,.5),0 0 60px rgba(255,227,138,.3);text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center}
+.st-stars{display:flex;gap:10px;font-size:44px;line-height:1}
+.st-stars span{color:rgba(255,255,255,.2)}
+.st-stars span[data-on="yes"]{color:#FFE38A;text-shadow:0 0 16px #FFE38A;animation:st-pop .5s cubic-bezier(.34,1.56,.64,1) both}
+.st-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%}
+.st-stats div{padding:10px 6px;border-radius:16px;background:rgba(255,255,255,.08);font:700 13px/1.3 var(--font-text);color:#C6BFEE}
+.st-stats strong{display:block;font:600 24px/1.1 var(--font-display);color:#FFFFFF}
+.st-actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+@keyframes st-drift{from{margin-top:-6px}to{margin-top:10px}}
+@keyframes st-bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-8px)}}
+@keyframes st-fly{0%{left:50%;top:calc(100% - 80px);transform:scale(.6);opacity:1}85%{opacity:1}100%{left:var(--x);top:var(--y);transform:scale(1.2);opacity:0}}
+@keyframes st-fly2{0%{left:50%;top:calc(100% - 80px);transform:scale(.6);opacity:1}85%{opacity:1}100%{left:var(--x);top:var(--y);transform:scale(1.2);opacity:0}}
+@keyframes st-hit-a{40%{transform:scale(.9) rotate(-6deg);filter:brightness(1.6)}}
+@keyframes st-hit-b{40%{transform:scale(.9) rotate(6deg);filter:brightness(1.6)}}
+@keyframes st-dust{from{opacity:1}to{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
+@keyframes st-dust2{from{opacity:1}to{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
+@keyframes st-fade{0%{opacity:0}15%,70%{opacity:1}100%{opacity:0}}
+@keyframes st-pop{from{transform:scale(0)}to{transform:none}}
+@media (max-width: 599px){
+  .st-hud{padding:12px}
+  .st-title strong{font-size:20px}
+  .st-bar{width:100px}
+  .st-word{font-size:22px}
+  .st-rock{width:64px;height:58px}
+  .st-kix{width:84px}
+  .st-tip{display:none}
+  .st-keys{width:calc(100% - 16px)}
+}
+@media (prefers-reduced-motion: reduce){.st-meteor,.st-kix,.st-bolt,.st-burst i{animation:none}}
+</style>
+</helmet>
+<div class="st-root" data-theme="dreamlight" data-band="junior" tabindex="0">
+  <img class="st-bg" src="/_blob/a8d707ec8a8d491d808bf2d4cd5b1d6c" alt="">
+  <!--LIVING_ART:space:50%:30%-->
+  <!--AMBIENCE_HTML:space-->
+  <header class="st-hud">
+    <a class="st-pill" href="Arcade.dc.html">‹ Arcade</a>
+    <div class="st-title">
+      <strong>Star Typer</strong>
+      <span>Stage 4 · Little words · level 2 of 5</span>
+    </div>
+    <span class="st-pill" title="Words done">{{doneLabel}} <span class="st-bar"><i style="{{barStyle}}"></i></span></span>
+    <span class="st-pill">Accuracy {{accuracy}}</span>
+    <div class="st-seg" role="group" aria-label="Ghost hands">
+      <sc-for list="{{handModes}}" as="m" hint-placeholder-count="3">
+        <button type="button" aria-pressed="{{m.pressed}}" onClick="{{m.pick}}">{{m.label}}</button>
+      </sc-for>
+    </div>
+    <span class="st-pill">Calm mode</span>
+  </header>
+  <main class="st-field" aria-label="Type the word on a meteor to fire Kix's star-bolts">
+    <sc-for list="{{meteors}}" as="mt" hint-placeholder-count="3">
+      <div class="st-meteor" style="{{mt.style}}" data-locked="{{mt.locked}}" data-hit="{{mt.hit}}">
+        <div class="st-rock"></div>
+        <div class="st-word"><b>{{mt.done}}</b><u>{{mt.now}}</u><em>{{mt.rest}}</em></div>
+      </div>
+    </sc-for>
+    <sc-for list="{{bolts}}" as="bo" hint-placeholder-count="0">
+      <span class="st-bolt" style="{{bo.style}}"></span>
+    </sc-for>
+    <sc-for list="{{bursts}}" as="bu" hint-placeholder-count="0">
+      <span class="st-burst" style="{{bu.style}}"><i style="--dx: -40px; --dy: -30px"></i><i style="--dx: 44px; --dy: -26px"></i><i style="--dx: -30px; --dy: 38px"></i><i style="--dx: 36px; --dy: 34px"></i><i style="--dx: 0px; --dy: -50px"></i><i style="--dx: 4px; --dy: 48px"></i></span>
+    </sc-for>
+    <sc-if value="{{showMiss}}" hint-placeholder-val="{{false}}">
+      <span class="st-miss">{{missText}}</span>
+    </sc-if>
+    <img class="st-kix" src="/_blob/edfd9859b1135de333b54095f6c8d1b6" alt="Kix, ready to fire">
+  </main>
+  <p class="st-tip">Sit tall, wrists up, eyes on the screen. Feel the bumps on F and J.</p>
+  <section class="st-keys">
+    <!--KEYBOARD_HTML-->
+  </section>
+  <sc-if value="{{clear}}" hint-placeholder-val="{{false}}">
+    <div class="st-clear" role="dialog" aria-label="Level clear">
+      <div class="st-card">
+        <img src="/_blob/f506e58a602297834bce49cc9565bca7" alt="" style="width: 110px; height: 110px; border-radius: 50%; object-fit: cover">
+        <h2 style="margin: 0; font: 600 34px/1.1 var(--font-display)">Level clear!</h2>
+        <div class="st-stars" aria-label="{{starsLabel}}">
+          <sc-for list="{{stars}}" as="s" hint-placeholder-count="3"><span data-on="{{s.on}}" style="{{s.style}}">★</span></sc-for>
+        </div>
+        <div class="st-stats">
+          <div><strong>{{accuracy}}</strong>accuracy</div>
+          <div><strong>{{wordsDone}}</strong>words</div>
+          <div><strong>F J R U</strong>keys you used most</div>
+        </div>
+        <p style="margin: 0; font: 600 14px/1.4 var(--font-text); color: #C6BFEE">★ finish · ★★ 90% right · ★★★ 96% right. Same play, same stars.</p>
+        <div class="st-actions">
+          <button class="mk-btn mk-btn--secondary" type="button" onClick="{{restart}}">Play again</button>
+          <a class="mk-btn mk-btn--reward" href="TypingPath.dc.html" style="text-decoration: none">Next level</a>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"hands":{"editor":"enum","options":["on","fade","off"],"default":"on"},"startState":{"editor":"enum","options":["play","clear"],"default":"play"},"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  WORDS = ['frog', 'egg', 'pond', 'leaf', 'bee', 'moth', 'ant', 'sun', 'tail', 'web', 'log', 'bug', 'fern', 'nest'];
+  SPOTS = [[22, 30], [50, 18], [78, 34]];
+  GOAL = 10;
+  state = { slots: [0, 1, 2], nextWord: 3, target: null, typed: 0, done: 0, hits: 0, misses: 0, bolts: [], bursts: [], hit: [null, null, null], miss: null, wrong: '', hands: null, seq: 0, restarted: false };
+
+  componentDidMount() {
+    this.onKey = (e) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const k = e.key.length === 1 ? e.key.toLowerCase() : '';
+      if (!k) return;
+      e.preventDefault();
+      this.typeKey(k);
+    };
+    window.addEventListener('keydown', this.onKey);
+  }
+
+  componentWillUnmount() { window.removeEventListener('keydown', this.onKey); }
+
+  word(slot) { return this.WORDS[this.state.slots[slot] % this.WORDS.length]; }
+
+  typeKey(k) {
+    const s = this.state;
+    if (this.isClear()) return;
+    const seq = s.seq + 1;
+    let target = s.target, typed = s.typed;
+    if (target === null) {
+      target = [0, 1, 2].find((i) => this.word(i)[0] === k);
+      if (target === undefined) return this.miss(k, seq);
+      typed = 0;
+    }
+    const w = this.word(target);
+    if (w[typed] !== k) return this.miss(k, seq);
+    typed += 1;
+    const [x, y] = this.SPOTS[target];
+    const bolt = { id: s.hits, style: `--x: ${x}%; --y: ${y}%; animation-name: ${s.hits % 2 ? 'st-fly' : 'st-fly2'}` };
+    const hit = s.hit.slice(); hit[target] = s.hits % 2 ? 'a' : 'b';
+    const patch = { seq, hits: s.hits + 1, bolts: s.bolts.concat([bolt]).slice(-6), hit, wrong: '', miss: null };
+    if (typed === w.length) {
+      const slots = s.slots.slice(); slots[target] = s.nextWord;
+      Object.assign(patch, { slots, nextWord: s.nextWord + 1, target: null, typed: 0, done: s.done + 1, bursts: s.bursts.concat([{ id: s.done, style: `left: ${x}%; top: ${y}%; --anim: ${s.done % 2 ? 'st-dust' : 'st-dust2'}` }]).slice(-3) });
+    } else Object.assign(patch, { target, typed });
+    this.setState(patch);
+  }
+
+  miss(k, seq) {
+    const s = this.state;
+    this.setState({ seq, misses: s.misses + 1, wrong: k, miss: seq });
+    setTimeout(() => { if (this.state.miss === seq) this.setState({ wrong: '', miss: null }); }, 1200);
+  }
+
+  isClear() { return this.state.done >= this.GOAL || (!this.state.restarted && this.props.startState === 'clear'); }
+
+  renderVals() {
+    const s = this.state;
+    const handsMode = s.hands ?? this.props.hands ?? 'on';
+    const clear = this.isClear();
+    const total = s.hits + s.misses;
+    const acc = total ? s.hits / total : (this.props.startState === 'clear' ? 0.97 : 1);
+    const stars = 1 + (acc >= 0.9 ? 1 : 0) + (acc >= 0.96 ? 1 : 0);
+    const suggest = s.target ?? 0;
+    const nextKey = clear ? '' : this.word(suggest)[s.target === null ? 0 : s.typed];
+    const done = !s.restarted && this.props.startState === 'clear' && s.done === 0 ? this.GOAL : s.done;
+    return {
+      ...this.amModel(Math.min(3, Math.floor(s.done / 3)), s.hits ? (s.hits % 2 ? 'a' : 'b') : ''),
+      ...this.kbModel(nextKey, s.wrong, handsMode),
+      meteors: [0, 1, 2].map((i) => {
+        const w = this.word(i);
+        const n = s.target === i ? s.typed : 0;
+        return { style: `left: ${this.SPOTS[i][0]}%; top: ${this.SPOTS[i][1]}%; animation-delay: ${-i * 2.1}s`, locked: s.target === i ? 'yes' : 'no', hit: s.hit[i] || '', done: w.slice(0, n), now: w.slice(n, n + 1), rest: w.slice(n + 1) };
+      }),
+      bolts: s.bolts,
+      bursts: s.bursts,
+      showMiss: s.miss !== null,
+      missText: `Not quite: try ${nextKey === ' ' ? 'space' : nextKey.toUpperCase()}. No rush.`,
+      doneLabel: `${Math.min(done, this.GOAL)} / ${this.GOAL}`,
+      barStyle: `width: ${Math.min(100, (done / this.GOAL) * 100)}%`,
+      accuracy: `${Math.round(acc * 100)}%`,
+      wordsDone: String(Math.min(done, this.GOAL)),
+      handModes: [['on', 'Hands on'], ['fade', 'Fade'], ['off', 'Off']].map(([id, label]) => ({ label, pressed: handsMode === id ? 'true' : 'false', pick: () => this.setState({ hands: id }) })),
+      clear,
+      stars: [1, 2, 3].map((n) => ({ on: n <= stars ? 'yes' : 'no', style: `animation-delay: ${n * 0.18}s` })),
+      starsLabel: `${stars} of 3 stars`,
+      restart: () => this.setState({ slots: [0, 1, 2], nextWord: 3, target: null, typed: 0, done: 0, hits: 0, misses: 0, bolts: [], bursts: [], hit: [null, null, null], miss: null, wrong: '', restarted: true }),
+    };
+  }
+
+/*KEYBOARD_JS*/
+/*AMBIENCE_JS*/
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+/* Living game backgrounds (shared by the arcade boards). A scene layer sits between the art and the UI:
+   drifting fog, light and particles that never stop, a "heat" level that brightens as the child plays well
+   (data-heat 0–3: combo, words done or blooms), a soft bloom on every hit (data-pulse a/b), and hidden tap
+   spots whose reaction is different on each tap (data-act cycles). Only transform and opacity animate; fog and
+   stars are 200 % wide with tiles that divide 50 %, so the loop is seamless. Colours come in as --c "r, g, b". */
+.am{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.am i,.am b,.am-spots,.am-floor,.am-lasers,.am-fan,.am-warp,.am-rays,.am-shower{position:absolute;display:block}
+@keyframes am-drift{to{transform:translateX(-50%)}}
+@keyframes am-drift-r{from{transform:translateX(-50%)}to{transform:none}}
+@keyframes am-breathe{from{opacity:var(--o,.5)}to{opacity:calc(var(--o,.5) * .55)}}
+.am-fog{left:0;width:200%;top:var(--y,55%);height:var(--h,50%);background:radial-gradient(closest-side,rgba(var(--c),.6),rgba(var(--c),0)) 0 40%/25% 75% repeat-x,radial-gradient(closest-side,rgba(var(--c),.45),rgba(var(--c),0)) 8% 85%/12.5% 60% repeat-x,radial-gradient(closest-side,rgba(var(--c),.35),rgba(var(--c),0)) 30% 10%/50% 70% repeat-x;opacity:var(--o,.5);animation:am-drift var(--d,60s) linear infinite,am-breathe 9s ease-in-out infinite alternate}
+.am-fog--r{animation:am-drift-r var(--d,60s) linear infinite,am-breathe 11s ease-in-out infinite alternate}
+
+/* Particles: --x across, --s size, --d/--dl timing. "rise" floats bottom to top; "float" wanders in place. */
+.am-mote{left:var(--x);width:var(--s,3px);height:var(--s,3px);border-radius:50%;background:rgb(var(--c));box-shadow:0 0 calc(var(--s,3px) * 2.5) rgba(var(--c),.9);opacity:0}
+.am-mote--rise{bottom:-12px;animation:am-rise var(--d,10s) linear infinite;animation-delay:var(--dl,0s)}
+@keyframes am-rise{0%{transform:translate(0,0);opacity:0}10%{opacity:.9}50%{transform:translate(var(--dx,20px),-55vh)}90%{opacity:.7}100%{transform:translate(0,-110vh);opacity:0}}
+.am-mote--float{top:var(--y);animation:am-wander var(--d,12s) ease-in-out infinite alternate,am-blink calc(var(--d,12s) / 3) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes am-wander{0%{transform:translate(0,0)}33%{transform:translate(var(--dx,24px),-18px)}66%{transform:translate(calc(var(--dx,24px) * -.6),12px)}100%{transform:translate(10px,-30px)}}
+@keyframes am-blink{from{opacity:.15}to{opacity:.95}}
+.am-mote--hot{visibility:hidden}
+.am[data-heat="1"] .am-mote--hot,.am[data-heat="2"] .am-mote--hot,.am[data-heat="3"] .am-mote--hot{visibility:visible}
+
+/* A soft bloom behind the action on every hit. */
+.am-bloom{left:var(--bx,50%);top:var(--by,40%);width:80vmin;height:80vmin;margin:-40vmin 0 0 -40vmin;border-radius:50%;background:radial-gradient(closest-side,rgba(var(--c),.5),rgba(var(--c),0));opacity:0}
+.am[data-pulse="a"] .am-bloom{animation:am-bloom-a .6s ease-out}
+.am[data-pulse="b"] .am-bloom{animation:am-bloom-b .6s ease-out}
+@keyframes am-bloom-a{0%{opacity:.9;transform:scale(.55)}100%{opacity:0;transform:scale(1.1)}}
+@keyframes am-bloom-b{0%{opacity:.9;transform:scale(.55)}100%{opacity:0;transform:scale(1.1)}}
+
+/* Running neon: a dim tube on each edge with two light dashes chasing round it (one lap = --lap). */
+.am-edge{background:rgba(var(--c),.16);box-shadow:0 0 8px rgba(var(--c),.18)}
+.am-edge--t,.am-edge--b{left:10px;right:10px;height:2px}
+.am-edge--l,.am-edge--r{top:10px;bottom:10px;width:2px}
+.am-edge--t{top:10px}.am-edge--b{bottom:10px}.am-edge--l{left:10px}.am-edge--r{right:10px}
+.am-edge>b{border-radius:2px;opacity:0;animation:var(--k) var(--lap,6.4s) linear infinite;animation-delay:var(--at,0s)}
+.am-edge--t>b,.am-edge--b>b{top:-1px;left:0;width:22%;height:4px}
+.am-edge--l>b,.am-edge--r>b{left:-1px;top:0;width:4px;height:22%}
+.am-edge--t>b{--k:am-lap-x;background:linear-gradient(90deg,rgba(var(--c),0),rgb(var(--c)) 75%,#FFFFFF);box-shadow:0 0 14px 3px rgba(var(--c),.75)}
+.am-edge--b>b{--k:am-lap-xr;background:linear-gradient(270deg,rgba(var(--c),0),rgb(var(--c)) 75%,#FFFFFF);box-shadow:0 0 14px 3px rgba(var(--c),.75)}
+.am-edge--r>b{--k:am-lap-y;background:linear-gradient(180deg,rgba(var(--c),0),rgb(var(--c)) 75%,#FFFFFF);box-shadow:0 0 14px 3px rgba(var(--c),.75)}
+.am-edge--l>b{--k:am-lap-yr;background:linear-gradient(0deg,rgba(var(--c),0),rgb(var(--c)) 75%,#FFFFFF);box-shadow:0 0 14px 3px rgba(var(--c),.75)}
+@keyframes am-lap-x{0%{transform:translateX(-100%);opacity:0}2%{opacity:1}23%{opacity:1}25%,100%{transform:translateX(455%);opacity:0}}
+@keyframes am-lap-xr{0%{transform:translateX(455%);opacity:0}2%{opacity:1}23%{opacity:1}25%,100%{transform:translateX(-100%);opacity:0}}
+@keyframes am-lap-y{0%{transform:translateY(-100%);opacity:0}2%{opacity:1}23%{opacity:1}25%,100%{transform:translateY(455%);opacity:0}}
+@keyframes am-lap-yr{0%{transform:translateY(455%);opacity:0}2%{opacity:1}23%{opacity:1}25%,100%{transform:translateY(-100%);opacity:0}}
+.am[data-heat="3"] .am-edge{background:rgba(var(--c),.4);box-shadow:0 0 14px rgba(var(--c),.5)}
+
+/* ---- Neon arena ---- */
+.am-spots{inset:0;opacity:.5;transition:opacity .8s}
+.am-spot{top:-6%;width:56%;height:100%;margin-left:-28%;background:linear-gradient(rgba(var(--c),.55),rgba(var(--c),.16) 50%,rgba(var(--c),0) 88%);-webkit-mask-image:conic-gradient(from 160deg at 50% 0,transparent 0deg,#000 13deg,#000 27deg,transparent 40deg);mask-image:conic-gradient(from 160deg at 50% 0,transparent 0deg,#000 13deg,#000 27deg,transparent 40deg);transform-origin:50% 0;animation:am-sweep var(--d,8s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes am-sweep{from{transform:rotate(-17deg)}to{transform:rotate(17deg)}}
+.am[data-heat="1"] .am-spots{opacity:.65}.am[data-heat="2"] .am-spots{opacity:.82}.am[data-heat="3"] .am-spots{opacity:1}
+.am-floor{left:-30%;right:-30%;bottom:-4%;height:50%;overflow:hidden;opacity:.45;transform:perspective(300px) rotateX(60deg);transform-origin:50% 100%;-webkit-mask-image:linear-gradient(transparent,#000 40%);mask-image:linear-gradient(transparent,#000 40%);transition:opacity .8s}
+.am-floor::before{content:"";position:absolute;left:0;right:0;top:-40px;bottom:0;background:repeating-linear-gradient(180deg,transparent 0 38px,rgba(255,61,203,.55) 38px 40px);animation:am-rush 1.3s linear infinite}
+@keyframes am-rush{to{transform:translateY(40px)}}
+.am[data-heat="2"] .am-floor{opacity:.75}.am[data-heat="3"] .am-floor{opacity:1}
+.am-run{top:0;left:var(--x);width:4px;height:20%;margin-left:-2px;border-radius:2px;background:linear-gradient(rgba(var(--c),0),rgb(var(--c)) 80%,#FFFFFF);box-shadow:0 0 12px 2px rgba(var(--c),.9);opacity:0;animation:am-run var(--d,2.4s) cubic-bezier(.5,0,.9,.6) infinite;animation-delay:var(--dl,0s)}
+@keyframes am-run{0%{transform:translateY(-100%);opacity:0}12%{opacity:1}100%{transform:translateY(520%);opacity:1}}
+.am-horizon{left:0;right:0;top:var(--hz,52%);height:2px;background:linear-gradient(90deg,transparent,rgba(61,245,255,.9) 28%,#FFFFFF 50%,rgba(255,61,203,.9) 72%,transparent);box-shadow:0 0 22px 5px rgba(61,245,255,.35);animation:am-hz 3.4s ease-in-out infinite}
+@keyframes am-hz{50%{opacity:.4;transform:scaleX(.82)}}
+.am-lasers{left:50%;top:var(--hz,52%);width:0;height:0;opacity:0;transition:opacity .8s}
+.am[data-heat="2"] .am-lasers{opacity:.55}.am[data-heat="3"] .am-lasers{opacity:.9}
+.am-fan{left:0;top:0;width:0;height:0;animation:am-fan 3.6s ease-in-out infinite alternate}
+.am-fan>i{left:-1px;top:0;width:2px;height:90vmax;transform-origin:50% 0;transform:rotate(var(--r));background:linear-gradient(rgba(var(--c),.95),rgba(var(--c),0) 60%);box-shadow:0 0 8px rgba(var(--c),.8)}
+@keyframes am-fan{from{transform:rotate(-12deg)}to{transform:rotate(12deg)}}
+/* Light-rig taps: colour swap, strobe, a laser fan, then every spot hunts for the centre. */
+.am[data-show="rig-swap"] .am-spots{animation:am-swap 2.2s ease-in-out}
+@keyframes am-swap{0%,100%{filter:none}50%{filter:hue-rotate(150deg) saturate(1.4)}}
+.am[data-show="rig-strobe"] .am-spots{animation:am-strobe .18s steps(1) 6}
+.am[data-show="rig-strobe"] .am-edge{animation:am-strobe .18s steps(1) 6}
+@keyframes am-strobe{0%{opacity:1}50%{opacity:.08}}
+.am[data-show="rig-fan"] .am-lasers{animation:am-fanburst 2.4s ease-out}
+@keyframes am-fanburst{0%{opacity:0}12%,70%{opacity:1}100%{opacity:0}}
+.am[data-show="rig-search"] .am-spot{animation:am-search 2.4s ease-in-out}
+@keyframes am-search{0%,100%{transform:rotate(0)}40%,60%{transform:rotate(var(--rs,0deg))}}
+
+/* ---- Space ---- */
+.am-stars{left:0;top:0;width:200%;height:100%;animation:am-drift var(--d,200s) linear infinite}
+.am-stars--1{--d:260s;opacity:.7;background:radial-gradient(circle at 12% 18%,#FFFFFF 0 1px,transparent 1.6px),radial-gradient(circle at 46% 64%,#EDE9FF 0 1px,transparent 1.6px),radial-gradient(circle at 78% 30%,#FFFFFF 0 .8px,transparent 1.4px),radial-gradient(circle at 30% 88%,#FFE38A 0 1px,transparent 1.6px),radial-gradient(circle at 88% 82%,#FFFFFF 0 .8px,transparent 1.4px);background-size:12.5% 240px}
+.am-stars--2{--d:150s;opacity:.85;background:radial-gradient(circle at 20% 40%,#FFFFFF 0 1.4px,transparent 2px),radial-gradient(circle at 70% 12%,#C9B8FF 0 1.3px,transparent 2px),radial-gradient(circle at 58% 76%,#FFFFFF 0 1.2px,transparent 1.9px);background-size:25% 330px}
+.am-stars--3{--d:90s;background:radial-gradient(circle at 34% 22%,#FFFFFF 0 1.8px,rgba(255,255,255,.35) 2.4px,transparent 4px),radial-gradient(circle at 82% 60%,#FFE38A 0 1.6px,rgba(255,227,138,.35) 2.3px,transparent 4px);background-size:25% 420px;animation:am-drift var(--d) linear infinite,am-twinkle 3.2s ease-in-out infinite alternate}
+@keyframes am-twinkle{from{opacity:1}to{opacity:.35}}
+.am-shoot{left:var(--x);top:var(--y);width:18%;height:2px;border-radius:2px;background:linear-gradient(90deg,#FFFFFF,rgba(255,255,255,.5) 25%,rgba(185,167,245,0));box-shadow:0 0 8px rgba(255,255,255,.7);transform-origin:0 50%;opacity:0;animation:am-shoot var(--d,9s) linear infinite;animation-delay:var(--dl,0s)}
+@keyframes am-shoot{0%{opacity:0;transform:rotate(-32deg) translateX(0) scaleX(.2)}2%{opacity:1}10%{opacity:0;transform:rotate(-32deg) translateX(-70vmin) scaleX(1)}100%{opacity:0;transform:rotate(-32deg) translateX(-70vmin)}}
+.am-shower{inset:0}
+.am-shower>i{left:var(--x);top:var(--y);width:16%;height:2px;border-radius:2px;background:linear-gradient(90deg,#FFFFFF,rgba(255,227,138,0));box-shadow:0 0 10px #FFFFFF;transform-origin:0 50%;opacity:0}
+.am[data-show="sky-shower"] .am-shower>i{animation:am-shoot 7s linear;animation-delay:var(--dl,0s)}
+.am-warp{inset:0;opacity:0;transition:opacity 1s}
+.am[data-heat="2"] .am-warp{opacity:.45}.am[data-heat="3"] .am-warp{opacity:.8}
+.am-warp>i{left:50%;top:44%;width:150vmax;height:150vmax;margin:-75vmax 0 0 -75vmax;border-radius:50%;background:repeating-conic-gradient(rgba(255,255,255,0) 0 5deg,rgba(237,233,255,.35) 5deg 5.4deg);-webkit-mask-image:radial-gradient(circle,transparent 10%,#000 30%,transparent 62%);mask-image:radial-gradient(circle,transparent 10%,#000 30%,transparent 62%);animation:am-warp 1.8s linear infinite;animation-delay:var(--dl,0s)}
+@keyframes am-warp{0%{transform:scale(.7) rotate(0);opacity:0}30%{opacity:1}100%{transform:scale(1.35) rotate(3deg);opacity:0}}
+
+/* ---- Terrarium ---- */
+.am-rays{inset:0;opacity:.75;transition:opacity 1s}
+.am[data-heat="2"] .am-rays{opacity:.9}.am[data-heat="3"] .am-rays{opacity:1}
+.am-ray{top:-30%;right:var(--x);width:var(--w,8%);height:150%;background:linear-gradient(rgba(255,244,200,.8),rgba(255,236,170,.34) 50%,rgba(255,236,170,0) 85%);-webkit-mask-image:linear-gradient(90deg,transparent,#000 35%,#000 65%,transparent);mask-image:linear-gradient(90deg,transparent,#000 35%,#000 65%,transparent);transform-origin:50% 0;transform:rotate(30deg);animation:am-ray var(--d,11s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes am-ray{0%{transform:rotate(27deg);opacity:.45}50%{opacity:1}100%{transform:rotate(33deg);opacity:.6}}
+.am[data-pulse="a"] .am-rays{animation:am-sun-a .9s ease-out}
+.am[data-pulse="b"] .am-rays{animation:am-sun-b .9s ease-out}
+@keyframes am-sun-a{30%{filter:brightness(1.6)}}
+@keyframes am-sun-b{30%{filter:brightness(1.6)}}
+.am-fly{left:var(--x);top:var(--y);width:18px;height:18px;border-radius:50%;background:radial-gradient(circle,#FFFFFF 0 16%,#F4FF9A 26%,rgba(214,255,90,.7) 42%,rgba(214,255,90,0) 70%);opacity:0;animation:am-wander var(--d,10s) ease-in-out infinite alternate,am-glow 2.4s ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes am-glow{0%,30%{opacity:0}70%,100%{opacity:1}}
+.am-drip{left:var(--x);top:-4%;width:6px;height:8px;border-radius:50% 50% 50% 50%/62% 62% 38% 38%;background:rgba(255,255,255,.55);box-shadow:inset -1px -1px 0 rgba(255,255,255,.95),0 0 3px rgba(255,255,255,.6);opacity:0;animation:am-drip var(--d,16s) ease-in infinite;animation-delay:var(--dl,0s)}
+.am-drip::before{content:"";position:absolute;left:2px;bottom:100%;width:2px;height:60px;border-radius:2px;background:linear-gradient(rgba(255,255,255,0),rgba(255,255,255,.45));transform-origin:50% 100%;transform:scaleY(var(--trail,1))}
+@keyframes am-drip{0%{transform:translateY(0);opacity:0}4%{opacity:.9}36%{transform:translateY(68vh);opacity:.85}44%,100%{transform:translateY(72vh);opacity:0}}
+.am-leaf{left:var(--x);top:-6%;width:16px;height:16px;border-radius:0 80% 0 80%;background:linear-gradient(135deg,#8CCB5E,#2C7A47);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25);opacity:0;animation:am-leaf var(--d,22s) ease-in-out infinite;animation-delay:var(--dl,0s)}
+@keyframes am-leaf{0%{transform:translate(0,0) rotate(0);opacity:0}5%{opacity:.95}25%{transform:translate(60px,26vh) rotate(160deg)}50%{transform:translate(-20px,52vh) rotate(320deg)}70%{transform:translate(40px,74vh) rotate(440deg);opacity:.9}78%,100%{transform:translate(40px,80vh) rotate(470deg);opacity:0}}
+
+/* ---- Hidden tap spots. Each tap plays the next reaction (data-act), so no two taps in a row look the same. ---- */
+.am-poke{position:absolute;pointer-events:auto;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.am-r{position:absolute;left:50%;top:50%;width:44%;aspect-ratio:1;translate:-50% -50%;border-radius:50%;opacity:0;pointer-events:none}
+/* Fog machine: a puff, a smoke ring, a three-puff burst. */
+.am-poke--fog .am-r{width:100%;background:radial-gradient(closest-side,rgba(250,248,255,.95),rgba(220,205,255,.5) 55%,rgba(201,184,255,0))}
+.am-poke--fog[data-act="puff"] .am-r1{animation:am-puff 2.8s ease-out}
+.am-poke--fog[data-act="ring"] .am-r1{background:none;box-shadow:inset 0 0 0 7px rgba(236,232,255,.5),0 0 18px rgba(255,61,203,.45);animation:am-ringout 2.4s ease-out}
+.am-poke--fog[data-act="burst"] .am-r{animation:am-puff 2.2s ease-out}
+.am-poke--fog[data-act="burst"] .am-r2{animation-delay:.25s;left:30%}
+.am-poke--fog[data-act="burst"] .am-r3{animation-delay:.5s;left:70%}
+@keyframes am-puff{0%{opacity:0;transform:scale(.25)}12%{opacity:.95}100%{opacity:0;transform:scale(2.2) translateY(-30%)}}
+@keyframes am-ringout{0%{opacity:.9;transform:scale(.3)}100%{opacity:0;transform:scale(2.4) translateY(-60%)}}
+/* Sky: a constellation draws itself (frog, rocket, crown), or a meteor shower. */
+.am-cons{position:absolute;inset:0;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 0 4px rgba(255,236,170,.9))}
+.am-cons g{opacity:0}
+.am-cons polyline{fill:none;stroke:rgba(255,240,190,.9);stroke-width:1.4;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;vector-effect:non-scaling-stroke}
+.am-cons circle{fill:#FFF8DC}
+.am-poke--sky[data-act="frog"] g[data-k="frog"],.am-poke--sky[data-act="rocket"] g[data-k="rocket"],.am-poke--sky[data-act="crown"] g[data-k="crown"]{animation:am-cons 4.2s ease-out}
+.am-poke--sky[data-act="frog"] g[data-k="frog"] polyline,.am-poke--sky[data-act="rocket"] g[data-k="rocket"] polyline,.am-poke--sky[data-act="crown"] g[data-k="crown"] polyline{animation:am-draw 4.2s ease-out}
+@keyframes am-cons{0%,85%{opacity:1}100%{opacity:0}}
+@keyframes am-draw{0%{stroke-dashoffset:1}45%,100%{stroke-dashoffset:0}}
+/* Planet: a moon swings round, the ring glints, a star sparkle. */
+.am-poke--planet[data-act="moon"] .am-r1{width:9%;background:radial-gradient(circle at 35% 35%,#FFFFFF,#C9B8FF);box-shadow:0 0 10px rgba(255,255,255,.8);animation:am-orbit 3.2s ease-in-out}
+@keyframes am-orbit{0%{opacity:0;transform:rotate(0) translateX(-420%)}12%,85%{opacity:1}100%{opacity:0;transform:rotate(330deg) translateX(-420%)}}
+.am-poke--planet[data-act="ring"] .am-r2{width:80%;aspect-ratio:3;border-radius:50%;box-shadow:0 0 0 2px rgba(255,227,138,.95),0 0 22px 4px rgba(255,227,138,.6);animation:am-glint 1.8s ease-out}
+@keyframes am-glint{0%{opacity:0;transform:rotate(-16deg) scale(.6)}30%{opacity:1}100%{opacity:0;transform:rotate(-16deg) scale(1.15)}}
+.am-poke--planet[data-act="glint"] .am-r3{width:30%;border-radius:0;background:linear-gradient(#FFFFFF,#FFE38A);clip-path:polygon(50% 0,58% 42%,100% 50%,58% 58%,50% 100%,42% 58%,0 50%,42% 42%);animation:am-spark 1.4s ease-out}
+@keyframes am-spark{0%{opacity:0;transform:scale(.2) rotate(0)}35%{opacity:1;transform:scale(1.1) rotate(45deg)}100%{opacity:0;transform:scale(.4) rotate(90deg)}}
+/* Pond: a ripple, a double ripple, bubbles, a plip. */
+.am-poke--pond .am-r{aspect-ratio:3;box-shadow:inset 0 0 0 3px rgba(255,255,255,.95),0 0 10px rgba(255,255,255,.55),inset 0 0 8px rgba(255,255,255,.5)}
+.am-poke--pond[data-act="ripple"] .am-r1,.am-poke--pond[data-act="double"] .am-r1,.am-poke--pond[data-act="double"] .am-r2,.am-poke--pond[data-act="plip"] .am-r1{animation:am-ripple 2s ease-out}
+.am-poke--pond[data-act="double"] .am-r2{animation-delay:.4s}
+@keyframes am-ripple{0%{opacity:.95;transform:scale(.2)}100%{opacity:0;transform:scale(2)}}
+.am-poke--pond[data-act="bubbles"] .am-r{width:7%;aspect-ratio:1;background:rgba(255,255,255,.25);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.9);animation:am-bubble 2.2s ease-out}
+.am-poke--pond[data-act="bubbles"] .am-r2{left:38%;animation-delay:.3s}
+.am-poke--pond[data-act="bubbles"] .am-r3{left:60%;animation-delay:.6s}
+@keyframes am-bubble{0%{opacity:0;transform:translate(0,40%)}20%{opacity:1}100%{opacity:0;transform:translate(10px,-260%) scale(1.3)}}
+.am-poke--pond[data-act="plip"] .am-r3{width:5%;aspect-ratio:1;box-shadow:none;background:rgba(255,255,255,.9);animation:am-plip 1.4s ease-out}
+@keyframes am-plip{0%{opacity:0;transform:translate(0,0)}15%{opacity:1}50%{transform:translate(120%,-420%)}100%{opacity:0;transform:translate(260%,0)}}
+/* Fern: a spore puff, fireflies scatter, dew sparkles. */
+.am-poke--fern .am-r{width:9%;background:#FFFFFF;box-shadow:0 0 6px 2px rgba(var(--c,255, 227, 138),.95),0 0 16px 4px rgba(var(--c,255, 227, 138),.6)}
+.am-poke--fern[data-act="spores"] .am-r{animation:am-fly 2.4s ease-out}
+.am-poke--fern[data-act="fireflies"] .am-r{--c:236, 255, 120;width:8%;animation:am-fly 3s ease-in-out}
+.am-poke--fern[data-act="fireflies"] .am-r2{animation-delay:.2s}
+.am-poke--fern[data-act="fireflies"] .am-r3{animation-delay:.35s}
+@keyframes am-fly{0%{opacity:0;transform:translate(0,0)}15%{opacity:1}100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(.6)}}
+.am-poke--fern[data-act="dew"] .am-r{width:14%;border-radius:0;--c:255, 255, 255;clip-path:polygon(50% 0,58% 42%,100% 50%,58% 58%,50% 100%,42% 58%,0 50%,42% 42%);animation:am-spark 1.3s ease-out}
+.am-poke--fern[data-act="dew"] .am-r1{left:30%;top:30%}
+.am-poke--fern[data-act="dew"] .am-r2{left:62%;top:52%;animation-delay:.25s}
+.am-poke--fern[data-act="dew"] .am-r3{left:40%;top:72%;animation-delay:.5s}
+
+@media (prefers-reduced-motion: reduce){.am,.am *,.am *::before{animation:none!important;transition:none!important}.am-warp,.am-lasers,.am-shoot,.am-run,.am-mote,.am-fly,.am-drip,.am-leaf,.am-edge>b{display:none!important}}

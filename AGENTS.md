@@ -1,6 +1,6 @@
 # myKx — agent rules
 
-Read by **Claude Code** (`CLAUDE.md` imports it), the only coding agent, and by **Muse Code** if it's used for an art round. Keep it short; details live in skills and `docs/`.
+Read by both coding agents: **Claude Code** (`CLAUDE.md` imports it) and **Muse Code**. Keep it short; details live in skills and `docs/`. Start a work session with `docs/plan/HANDOFF.md` and `docs/plan/PROGRESS.md`.
 
 ## Project
 
@@ -38,17 +38,20 @@ myKx gives every Singapore student an AI sidekick, **Kix**: learning loops that 
 7. **Demo path never depends on live generation.** Cached fallback for every generated surface.
 8. **Honest labels:** synthetic data, cached art and "limited evidence" are labelled in the UI and the video.
 9. **Voice is child data.** Push-to-talk only, never always listening; clips ≤ 30 s; audio is never stored or logged (keep the transcript only, like typed text); a parent can turn voice off per child. Meta has no TTS: Kix speaks with the browser's `speechSynthesis`, and the UI says so.
-10. **Skill packs are child-agnostic and original.** Never put a child's name, traits, diagnoses or progress in `content/skills/`; those live in the learner record (database) and Kix's Notebook. Raw source skills stay in git-ignored `content-private/`. Questions from school or exam papers are never committed or served to children; only derived archetypes and statistics are. The app never executes scripts that come inside a skill. The founder's children are named only by their stand-ins (Leonard, Abby, Jordan; not their real names) anywhere in git, in art and in the video.
+10. **Skill packs are child-agnostic and original.** Never put a child's name, traits, diagnoses or progress in `content/skills/`; those live in the learner record (database) and Kix's Notebook. Raw source skills and the real-name map live outside this repository and are off limits: never look for them, ask for them or copy from them. Questions from school or exam papers are never committed or served to children; only derived archetypes and statistics are. The app never executes scripts that come inside a skill. The founder's children are named only by their stand-ins (Leonard, Abby, Jordan; not their real names) anywhere in git, in art and in the video.
 11. **Progress is in the database; memory is in the Notebook.** Kix's Notebook (an LLM wiki per child) holds personality, asking patterns, language slips, events and memorable moments. It may quote mastery with a date but never stores or changes it. The Memory Keeper writes patch operations only, never labels or diagnoses a child, and every change is a revision the parent can edit or wipe. No RAG: agents read skill references and Notebook pages by id through tools.
 12. **Wellbeing signals are care, not surveillance.** Show them to the parent only, as "possibly …" with evidence and confidence against the child's own baseline; never diagnose or label. No face image or video ever leaves the device: camera signals are on-device counts behind a parent toggle with a visible indicator. Mood comes only from the child's words to Kix (Standard models). Family messages never reach Kix or a language model (a voice reply is only transcribed, and its audio discarded). Distress or safety words always trigger Kix's caring reply, the helplines (Tinkle Friend 1800 274 4788, SOS 1767) and an urgent parent flag. Signals never change mastery or rewards.
 13. **Kids never need an email.** Kids sign in with a picture code or password set by a parent, hashed on the server and never shown again; nicknames, never full names. Admin actions go through audited server routes and never expose a child's messages, Notebook or answers.
 14. Don't commit or push unless the user asks.
 
-## Division of work (one agent, two streams)
+## Division of work (two coding agents, from 28 Oct)
 
-- **Claude Code does all the code and the art** (art through `gen-image.mjs`).
-- Work splits into **stream A, UI** (`app/(kid)`, `app/(parent)`, `components/`, theme, motion), **stream B, platform** (`lib/meta`, `app/api`, `supabase/`, `lib/domain`, `fixtures/`, art) and **stream C, skills** (`lib/skills/`, `content/skills/`, `scripts/import-skill.ts`, `supabase/skills.sql`, `app/(admin)/`, `/api/kix/tutor`, `/api/admin/*`; spec in `docs/prd/SKILL_ENGINE.md`). B and C may run in parallel as subagents in separate git worktrees. Settle `lib/types.ts` before splitting, and merge after each task (A, then B, then C).
-- **Muse Code is optional**, for art exploration only. Its art-direction round on 27 Oct is in `docs/design/explorations/`.
+- **Muse Code** (Meta) builds app features from `docs/plan/HANDOFF.md`, on its own branch (`muse/<topic>`), and opens a pull request or asks the founder to merge. It never reads anything listed in `.museignore` (secrets, private material, session files), and it works from a fresh clone where possible.
+- **Claude Code** (Anthropic) keeps the Claude Design canvas (only it can publish there; copies of every board are in `docs/design/boards/`, the game boards' sources in `docs/design/canvas-src/`), reviews and merges Muse's branches, runs the checks, and takes any work the founder sends its way.
+- Both follow every rule in this file, and both add a row to `docs/plan/PROGRESS.md` for each finished task.
+- **Trail in commits:** every commit ends with a trailer naming the agent: `Agent: Muse Code` or `Agent: Claude Code` (Claude Code's commits also carry its Co-Authored-By line). Commit only when the founder has said to.
+- Code areas, for splitting work: **UI** (`app/(kid)`, `app/(parent)`, `components/`, theme, motion), **platform** (`lib/meta`, `app/api`, `supabase/`, `lib/domain`, `lib/auth`, `lib/signals`, fixtures, art), **skills** (`lib/skills/`, `content/skills/`, `scripts/import-skill.ts`, `app/(admin)/`, `/api/kix/tutor`, `/api/admin/*`; spec in `docs/prd/SKILL_ENGINE.md`), **games** (`lib/games/`, the Arcade; spec in `docs/prd/GAMES.md`), **print** (`lib/print/`, `components/papers/`).
+- **Art:** generate with `node --env-file=.env.local .agents/skills/muse-image-assets/scripts/gen-image.mjs …` (needs the Meta key, so Claude Code or the founder runs it); every kept file goes in the manifest (rule 6). Living-art layers come from `scripts/living-art.ts`.
 
 ## Stack
 

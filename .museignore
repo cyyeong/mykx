@@ -1,0 +1,30 @@
+# Muse Code must never read, index or send these. Same syntax as .gitignore.
+# Muse Code may run in contributor mode, where what it reads can be used for training (AGENTS.md rule 1),
+# so secrets and private material stay out of its reach. Work from a fresh clone where possible: it has none of these.
+
+# Secrets: API keys (Meta, Baseten), Supabase keys, the kid-session secret
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+.vercel/
+supabase/.temp/
+supabase/.branches/
+
+# Private source material (the founder's raw tutor skills and the real-name map). It lives outside this
+# repository; these lines guard against a copy ever landing here.
+content-private/
+mykx-prv/
+**/names.json
+*.skill
+
+# Claude Code session files and its local work branches
+.claude/
+
+# Build output and caches (noise, and they can embed environment values)
+.next/
+node_modules/
+tsconfig.tsbuildinfo
+scripts/soak/out/

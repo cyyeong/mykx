@@ -1,0 +1,970 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Admin: people and accounts</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+.ap-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.ap-click{cursor:pointer}
+.ap-click:focus-visible,.ap-root a:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+.ap-navi{text-decoration:none}
+.ap-navi:hover{color:var(--ink)}
+
+/* Controls. Selection and status live in attributes and always pair an icon or shape with a word. */
+.ap-ibtn{display:grid;place-items:center;width:44px;height:44px;flex:none;padding:0;border:0;border-radius:50%;background:transparent;color:var(--ink)}
+.ap-ibtn:hover{background:var(--surface)}
+.ap-ibtn:disabled{opacity:.35;cursor:not-allowed;background:transparent}
+.ap-chip{background:var(--surface-raised);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--border-control)}
+.ap-chip[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);box-shadow:none}
+.ap-field{box-shadow:inset 0 0 0 1.5px var(--border-control)}
+.ap-field:focus-within{box-shadow:inset 0 0 0 2px var(--focus-ring),0 0 0 4px rgba(31,102,193,.16)}
+.ap-input::placeholder{color:var(--ink-muted);opacity:1}
+.ap-input:focus{outline:none}
+.ap-input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none}
+.ap-danger{background:transparent;color:var(--warn);box-shadow:inset 0 0 0 1.5px var(--warn)}
+.ap-danger[aria-expanded="true"]{background:rgba(180,90,30,.08);box-shadow:inset 0 0 0 2px var(--warn)}
+.ap-danger:disabled,.ap-switch:disabled{opacity:.45;cursor:not-allowed}
+.ap-member{background:transparent}
+.ap-member:hover{background:var(--surface)}
+
+/* Table rows and compact cards: the selected account gets an accent bar or ring */
+.ap-row > *{background:var(--surface-raised);transition:background var(--duration-snappy) ease}
+.ap-row:hover > *{background:var(--surface)}
+.ap-row[data-selected="true"] > *{background:var(--surface)}
+.ap-row[data-selected="true"] > th{box-shadow:inset 3px 0 0 var(--accent)}
+.ap-stick{position:sticky;left:0;z-index:1}
+.ap-card{box-shadow:inset 0 0 0 1px var(--line)}
+.ap-card[data-selected="true"]{box-shadow:0 0 0 2px var(--accent),var(--shadow-raised)}
+.ap-in{animation:ap-in var(--duration-base) var(--ease-soft) both}
+.ap-in2{animation:ap-in2 var(--duration-base) var(--ease-soft) both}
+@keyframes ap-in{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+@keyframes ap-in2{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.ap-in,.ap-in2{animation:none}.ap-row > *{transition:none}}
+
+/* Layout (mykx-design-system §3a). Default = expanded 1024–1599: sidebar, table, 340 px detail column. */
+.ap-shell{display:flex;min-height:100vh}
+.ap-nav{width:232px;padding:24px 16px;flex-direction:column;gap:6px;box-shadow:inset -1px 0 0 var(--line)}
+.ap-brand{padding:0 8px 18px}
+.ap-navlist{display:flex;flex-direction:column;gap:6px}
+.ap-navi[aria-current="page"]{box-shadow:inset 3px 0 0 var(--accent)}
+.ap-who{margin-top:auto}
+.ap-main{padding:28px 32px}
+.ap-sub{font-size:16px;line-height:24px}
+.ap-search{flex:1 1 280px;max-width:380px}
+.ap-chips{flex-wrap:wrap}
+.ap-export{margin-left:auto}
+.ap-split{grid-template-columns:minmax(0,1fr) 340px}
+.ap-aside{display:flex;flex-direction:column}
+.ap-tablebox{display:block}
+.ap-cards{display:none}
+
+/* Medium 600–1023 (foldable open, tablet portrait): nav as a top bar, table scrolls in its own box, detail and audit log below. */
+@media (min-width: 600px) and (max-width: 1023px){
+  .ap-shell{flex-direction:column}
+  .ap-nav{width:auto;padding:12px 24px;flex-direction:row;flex-wrap:wrap;align-items:center;gap:8px 16px;box-shadow:inset 0 -1px 0 var(--line)}
+  .ap-brand{padding:0}
+  .ap-who{order:1;margin-top:0;margin-left:auto}
+  .ap-navlist{order:2;flex:1 1 100%;flex-direction:row;flex-wrap:wrap;gap:4px}
+  .ap-navi[aria-current="page"]{box-shadow:inset 0 -3px 0 var(--accent)}
+  .ap-main{padding:24px}
+  .ap-search{max-width:none}
+  .ap-chips{order:3;flex-basis:100%}
+  .ap-split{grid-template-columns:minmax(0,1fr)}
+  .ap-aside{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+}
+
+/* Compact < 600 (phones, cover screens): top bar with scrolling nav, the table becomes a card list, detail below. */
+@media (max-width: 599px){
+  .ap-shell{flex-direction:column}
+  .ap-nav{width:auto;padding:12px 16px;gap:10px;box-shadow:inset 0 -1px 0 var(--line)}
+  .ap-brand{padding:0}
+  .ap-who{margin-top:0}
+  .ap-navlist{flex-direction:row;gap:4px;overflow-x:auto}
+  .ap-navi{flex:none;white-space:nowrap}
+  .ap-navi[aria-current="page"]{box-shadow:inset 0 -3px 0 var(--accent)}
+  .ap-main{padding:20px 16px 28px}
+  .ap-search{flex:1 1 200px;max-width:none}
+  .ap-chips{order:3;flex:1 1 100%;flex-wrap:nowrap;overflow-x:auto;margin:-4px -16px;padding:4px 16px}
+  .ap-chip{flex:none}
+  .ap-export{margin-left:0}
+  .ap-split{grid-template-columns:minmax(0,1fr)}
+  .ap-tablebox{display:none}
+  .ap-cards{display:flex}
+}
+
+/* Desktop ≥ 1600: centred 1600 container, wider detail column. */
+@media (min-width: 1600px){
+  .ap-shell{max-width:1600px;margin:0 auto}
+  .ap-split{grid-template-columns:minmax(0,1fr) 380px}
+}
+.ap-navlist,.ap-chips{scrollbar-width:none}.ap-navlist::-webkit-scrollbar,.ap-chips::-webkit-scrollbar{display:none}
+</style>
+</helmet>
+<div class="ap-root" data-theme="anime-sky" data-band="teen" style="width: 100%; min-height: 100vh; box-sizing: border-box; position: relative; overflow-x: clip; background: var(--surface); color: var(--ink); font-family: var(--font-text)">
+ <div class="ap-shell">
+
+  <nav class="ap-nav" aria-label="Admin" style="flex: none; box-sizing: border-box; display: flex; background: var(--surface-raised)">
+    <div class="ap-brand" style="display: flex; align-items: center; gap: 10px">
+      <img src="/_blob/f52e18857979369421011da66fdb9de3" alt="myKx" style="height: 24px; width: auto">
+      <span style="padding: 2px 8px; border-radius: var(--radius-pill); background: var(--ink); color: var(--surface); font-size: 11px; line-height: 18px; font-weight: 700; letter-spacing: .04em">ADMIN</span>
+    </div>
+    <div class="ap-navlist">
+      <a class="ap-navi" href="AdminSkills.dc.html" style="display: block; padding: 12px; border-radius: var(--radius-sm); font-size: 16px; line-height: 20px; font-weight: 600; color: var(--ink-muted)">Skills</a>
+      <a class="ap-navi" href="AdminUpload.dc.html" style="display: block; padding: 12px; border-radius: var(--radius-sm); font-size: 16px; line-height: 20px; font-weight: 600; color: var(--ink-muted)">Add knowledge</a>
+      <a class="ap-navi" href="#" style="display: block; padding: 12px; border-radius: var(--radius-sm); font-size: 16px; line-height: 20px; font-weight: 600; color: var(--ink-muted)">Agents and tools</a>
+      <a class="ap-navi" href="AdminPeople.dc.html" aria-current="page" style="display: block; padding: 12px; border-radius: var(--radius-sm); font-size: 16px; line-height: 20px; font-weight: 600; background: var(--surface); color: var(--accent)">People</a>
+      <a class="ap-navi" href="#" style="display: block; padding: 12px; border-radius: var(--radius-sm); font-size: 16px; line-height: 20px; font-weight: 600; color: var(--ink-muted)">Activity</a>
+    </div>
+    <div class="ap-who" style="padding: 12px; border-radius: var(--radius-sm); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); font-size: 13px; line-height: 18px; color: var(--ink-muted)">
+      Signed in as <strong style="color: var(--ink)">Demo Parent</strong><br>Role: admin · synthetic data
+    </div>
+  </nav>
+
+  <main class="ap-main" style="flex: 1; min-width: 0; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px">
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <h1 style="margin: 0; font: 800 32px/38px var(--font-display)">People</h1>
+      <span class="ap-sub" style="display: flex; align-items: flex-start; gap: 8px; color: var(--ink-muted)">
+        <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 18px; height: 18px; flex: none; margin-top: 3px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 3l18 18M10.6 5.1A10 10 0 0 1 12 5c6.5 0 10 7 10 7a17 17 0 0 1-3.2 4.1M6.6 6.6C3.7 8.4 2 12 2 12s3.5 7 10 7c1.8 0 3.4-.5 4.8-1.3M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>
+        <span>Households and accounts. Admins see account details only, never a child's messages, Notebook or answers.</span>
+      </span>
+    </div>
+
+    <div class="ap-tools" style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
+      <div class="ap-search" style="min-width: 0">
+        <label class="ap-sr" for="ap-q">Search people</label>
+        <div class="ap-field" style="display: flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 2px 0 16px; border-radius: var(--radius-pill); background: var(--surface-raised)">
+          <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px; flex: none; color: var(--ink-muted)"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 11a7 7 0 1 0 14 0a7 7 0 1 0-14 0M21 21l-4.3-4.3"/></svg>
+          <input class="ap-input" id="ap-q" type="search" autocomplete="off" value="{{q}}" onChange="{{onQ}}" placeholder="Name or household" style="flex: 1; min-width: 0; height: 44px; padding: 0; border: 0; background: transparent; color: var(--ink); font: 400 16px/1 var(--font-text)">
+          <sc-if value="{{hasQ}}" hint-placeholder-val="{{false}}">
+            <button class="ap-click ap-ibtn" type="button" onClick="{{clearQ}}" aria-label="Clear search"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 18px; height: 18px"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg></button>
+          </sc-if>
+        </div>
+      </div>
+      <div class="ap-chips" role="group" aria-label="Show" style="display: flex; gap: 8px">
+        <sc-for list="{{filters}}" as="f" hint-placeholder-count="5">
+          <button class="ap-click ap-chip" type="button" onClick="{{f.pick}}" aria-pressed="{{f.pressed}}" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 12px 0 16px; border: 0; border-radius: var(--radius-pill); font: 600 16px/1 var(--font-text); white-space: nowrap">{{f.label}}<span style="{{f.countStyle}}">{{f.count}}</span></button>
+        </sc-for>
+      </div>
+      <button class="mk-btn mk-btn--secondary ap-export" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M12 3v12M7 10l5 5 5-5M4 21h16"/></svg>Export
+      </button>
+    </div>
+
+    <div class="ap-split" style="display: grid; gap: 20px; align-items: start">
+      <div style="display: flex; flex-direction: column; gap: 12px; min-width: 0">
+        <div role="status" aria-live="polite">
+          <sc-if value="{{hasRowNotice}}" hint-placeholder-val="{{false}}">
+            <p class="{{noticeCls}}" style="margin: 0; display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: var(--radius-sm); background: var(--surface-raised); box-shadow: inset 0 0 0 1.5px var(--success); font-size: 16px; line-height: 22px">
+              <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px; flex: none; color: var(--success)"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0M8 12l3 3 5-6"/></svg>
+              <span>{{rowNotice}}</span>
+            </p>
+          </sc-if>
+        </div>
+
+        <sc-if value="{{hasRows}}" hint-placeholder-val="{{true}}">
+          <!-- Expanded and medium: a real table. Rows are written out (no loop inside the table) and filtered with display. -->
+          <div class="ap-tablebox" style="overflow-x: auto; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line), var(--shadow-raised)">
+            <table style="width: 100%; min-width: 740px; border-collapse: separate; border-spacing: 0; font-size: 16px; line-height: 22px">
+              <caption class="ap-sr">{{caption}}</caption>
+              <thead>
+                <tr>
+                  <th class="ap-stick" scope="col" style="padding: 12px; text-align: left; font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink-muted); white-space: nowrap; background: var(--surface-raised)">Name</th>
+                  <th scope="col" style="padding: 12px; text-align: left; font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink-muted); white-space: nowrap">Role</th>
+                  <th scope="col" style="padding: 12px; text-align: left; font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink-muted); white-space: nowrap">Household</th>
+                  <th scope="col" style="padding: 12px; text-align: left; font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink-muted); white-space: nowrap">Status</th>
+                  <th scope="col" style="padding: 12px; text-align: left; font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink-muted); white-space: nowrap">Last sign-in</th>
+                  <th scope="col" style="padding: 12px 20px 12px 12px; text-align: right; font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink-muted); white-space: nowrap">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr class="ap-row" data-selected="{{t0.selected}}" style="{{t0.rowStyle}}">
+                <th class="ap-stick" scope="row" style="padding: 8px 12px; border-top: 1px solid var(--line); text-align: left; vertical-align: middle; white-space: nowrap">
+                  <button class="ap-click" type="button" onClick="{{t0.select}}" aria-pressed="{{t0.selected}}" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 4px 0 0; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--ink); text-align: left; font: 600 16px/22px var(--font-text)">
+                    <span aria-hidden="true" style="{{t0.avatarStyle}}"><sc-if value="{{t0.hasSprite}}" hint-placeholder-val="{{false}}"><img src="{{t0.sprite}}" alt="" style="{{t0.spriteStyle}}"></sc-if><sc-if value="{{t0.noSprite}}" hint-placeholder-val="{{true}}">{{t0.initials}}</sc-if></span>
+                    <span>{{t0.name}}</span>
+                  </button>
+                </th>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle">
+                  <span style="display: flex; flex-wrap: wrap; gap: 6px">
+                    <span style="{{t0.role1.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{t0.role1.icon}}"/></svg>{{t0.role1.label}}</span>
+                    <sc-if value="{{t0.hasRole2}}" hint-placeholder-val="{{false}}"><span style="{{t0.role2.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{t0.role2.icon}}"/></svg>{{t0.role2.label}}</span></sc-if>
+                  </span>
+                </td>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap">{{t0.household}}</td>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap">
+                  <span style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px">
+                    <span style="{{t0.status.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 15px; height: 15px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{t0.status.icon}}"/></svg>{{t0.status.label}}</span>
+                    <sc-if value="{{t0.hasStatusSub}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; line-height: 18px; color: var(--ink-muted)">{{t0.statusSub}}</span></sc-if>
+                  </span>
+                </td>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap; color: var(--ink-muted)">{{t0.last}}</td>
+                <td style="padding: 8px 8px 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap; text-align: right">
+                  <span style="display: inline-flex; gap: 2px">
+                    <button class="ap-click ap-ibtn" type="button" onClick="{{t0.doReset}}" disabled="{{t0.resetDisabled}}" aria-label="{{t0.resetLabel}}" title="{{t0.resetLabel}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 15a4 4 0 1 0 8 0a4 4 0 1 0-8 0M10.8 12.2 20 3M16.5 6.5l3 3M14 9l2 2"/></svg></button>
+                    <button class="ap-click ap-ibtn" type="button" onClick="{{t0.doLock}}" disabled="{{t0.lockDisabled}}" aria-label="{{t0.lockLabel}}" title="{{t0.lockLabel}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="{{t0.lockIcon}}"/></svg></button>
+                    <button class="ap-click ap-ibtn" type="button" onClick="{{t0.more}}" aria-label="{{t0.moreLabel}}" title="{{t0.moreLabel}}" aria-controls="ap-detail"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><circle cx="5" cy="12" r="1.8" fill="currentColor"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/><circle cx="19" cy="12" r="1.8" fill="currentColor"/></svg></button>
+                  </span>
+                </td>
+              </tr>
+              <tr class="ap-row" data-selected="{{t1.selected}}" style="{{t1.rowStyle}}">
+                <th class="ap-stick" scope="row" style="padding: 8px 12px; border-top: 1px solid var(--line); text-align: left; vertical-align: middle; white-space: nowrap">
+                  <button class="ap-click" type="button" onClick="{{t1.select}}" aria-pressed="{{t1.selected}}" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 4px 0 0; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--ink); text-align: left; font: 600 16px/22px var(--font-text)">
+                    <span aria-hidden="true" style="{{t1.avatarStyle}}"><sc-if value="{{t1.hasSprite}}" hint-placeholder-val="{{false}}"><img src="{{t1.sprite}}" alt="" style="{{t1.spriteStyle}}"></sc-if><sc-if value="{{t1.noSprite}}" hint-placeholder-val="{{true}}">{{t1.initials}}</sc-if></span>
+                    <span>{{t1.name}}</span>
+                  </button>
+                </th>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle">
+                  <span style="display: flex; flex-wrap: wrap; gap: 6px">
+                    <span style="{{t1.role1.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{t1.role1.icon}}"/></svg>{{t1.role1.label}}</span>
+                    <sc-if value="{{t1.hasRole2}}" hint-placeholder-val="{{false}}"><span style="{{t1.role2.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{t1.role2.icon}}"/></svg>{{t1.role2.label}}</span></sc-if>
+                  </span>
+                </td>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap">{{t1.household}}</td>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap">
+                  <span style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px">
+                    <span style="{{t1.status.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 15px; height: 15px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{t1.status.icon}}"/></svg>{{t1.status.label}}</span>
+                    <sc-if value="{{t1.hasStatusSub}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; line-height: 18px; color: var(--ink-muted)">{{t1.statusSub}}</span></sc-if>
+                  </span>
+                </td>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap; color: var(--ink-muted)">{{t1.last}}</td>
+                <td style="padding: 8px 8px 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap; text-align: right">
+                  <span style="display: inline-flex; gap: 2px">
+                    <button class="ap-click ap-ibtn" type="button" onClick="{{t1.doReset}}" disabled="{{t1.resetDisabled}}" aria-label="{{t1.resetLabel}}" title="{{t1.resetLabel}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 15a4 4 0 1 0 8 0a4 4 0 1 0-8 0M10.8 12.2 20 3M16.5 6.5l3 3M14 9l2 2"/></svg></button>
+                    <button class="ap-click ap-ibtn" type="button" onClick="{{t1.doLock}}" disabled="{{t1.lockDisabled}}" aria-label="{{t1.lockLabel}}" title="{{t1.lockLabel}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="{{t1.lockIcon}}"/></svg></button>
+                    <button class="ap-click ap-ibtn" type="button" onClick="{{t1.more}}" aria-label="{{t1.moreLabel}}" title="{{t1.moreLabel}}" aria-controls="ap-detail"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><circle cx="5" cy="12" r="1.8" fill="currentColor"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/><circle cx="19" cy="12" r="1.8" fill="currentColor"/></svg></button>
+                  </span>
+                </td>
+              </tr>
+              <tr class="ap-row" data-selected="{{t2.selected}}" style="{{t2.rowStyle}}">
+                <th class="ap-stick" scope="row" style="padding: 8px 12px; border-top: 1px solid var(--line); text-align: left; vertical-align: middle; white-space: nowrap">
+                  <button class="ap-click" type="button" onClick="{{t2.select}}" aria-pressed="{{t2.selected}}" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 4px 0 0; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--ink); text-align: left; font: 600 16px/22px var(--font-text)">
+                    <span aria-hidden="true" style="{{t2.avatarStyle}}"><sc-if value="{{t2.hasSprite}}" hint-placeholder-val="{{false}}"><img src="{{t2.sprite}}" alt="" style="{{t2.spriteStyle}}"></sc-if><sc-if value="{{t2.noSprite}}" hint-placeholder-val="{{true}}">{{t2.initials}}</sc-if></span>
+                    <span>{{t2.name}}</span>
+                  </button>
+                </th>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle">
+                  <span style="display: flex; flex-wrap: wrap; gap: 6px">
+                    <span style="{{t2.role1.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{t2.role1.icon}}"/></svg>{{t2.role1.label}}</span>
+                    <sc-if value="{{t2.hasRole2}}" hint-placeholder-val="{{false}}"><span style="{{t2.role2.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{t2.role2.icon}}"/></svg>{{t2.role2.label}}</span></sc-if>
+                  </span>
+                </td>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap">{{t2.household}}</td>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap">
+                  <span style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px">
+                    <span style="{{t2.status.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 15px; height: 15px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{t2.status.icon}}"/></svg>{{t2.status.label}}</span>
+                    <sc-if value="{{t2.hasStatusSub}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; line-height: 18px; color: var(--ink-muted)">{{t2.statusSub}}</span></sc-if>
+                  </span>
+                </td>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap; color: var(--ink-muted)">{{t2.last}}</td>
+                <td style="padding: 8px 8px 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap; text-align: right">
+                  <span style="display: inline-flex; gap: 2px">
+                    <button class="ap-click ap-ibtn" type="button" onClick="{{t2.doReset}}" disabled="{{t2.resetDisabled}}" aria-label="{{t2.resetLabel}}" title="{{t2.resetLabel}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 15a4 4 0 1 0 8 0a4 4 0 1 0-8 0M10.8 12.2 20 3M16.5 6.5l3 3M14 9l2 2"/></svg></button>
+                    <button class="ap-click ap-ibtn" type="button" onClick="{{t2.doLock}}" disabled="{{t2.lockDisabled}}" aria-label="{{t2.lockLabel}}" title="{{t2.lockLabel}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="{{t2.lockIcon}}"/></svg></button>
+                    <button class="ap-click ap-ibtn" type="button" onClick="{{t2.more}}" aria-label="{{t2.moreLabel}}" title="{{t2.moreLabel}}" aria-controls="ap-detail"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><circle cx="5" cy="12" r="1.8" fill="currentColor"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/><circle cx="19" cy="12" r="1.8" fill="currentColor"/></svg></button>
+                  </span>
+                </td>
+              </tr>
+              <tr class="ap-row" data-selected="{{t3.selected}}" style="{{t3.rowStyle}}">
+                <th class="ap-stick" scope="row" style="padding: 8px 12px; border-top: 1px solid var(--line); text-align: left; vertical-align: middle; white-space: nowrap">
+                  <button class="ap-click" type="button" onClick="{{t3.select}}" aria-pressed="{{t3.selected}}" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 4px 0 0; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--ink); text-align: left; font: 600 16px/22px var(--font-text)">
+                    <span aria-hidden="true" style="{{t3.avatarStyle}}"><sc-if value="{{t3.hasSprite}}" hint-placeholder-val="{{false}}"><img src="{{t3.sprite}}" alt="" style="{{t3.spriteStyle}}"></sc-if><sc-if value="{{t3.noSprite}}" hint-placeholder-val="{{true}}">{{t3.initials}}</sc-if></span>
+                    <span>{{t3.name}}</span>
+                  </button>
+                </th>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle">
+                  <span style="display: flex; flex-wrap: wrap; gap: 6px">
+                    <span style="{{t3.role1.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{t3.role1.icon}}"/></svg>{{t3.role1.label}}</span>
+                    <sc-if value="{{t3.hasRole2}}" hint-placeholder-val="{{false}}"><span style="{{t3.role2.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{t3.role2.icon}}"/></svg>{{t3.role2.label}}</span></sc-if>
+                  </span>
+                </td>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap">{{t3.household}}</td>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap">
+                  <span style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px">
+                    <span style="{{t3.status.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 15px; height: 15px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{t3.status.icon}}"/></svg>{{t3.status.label}}</span>
+                    <sc-if value="{{t3.hasStatusSub}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; line-height: 18px; color: var(--ink-muted)">{{t3.statusSub}}</span></sc-if>
+                  </span>
+                </td>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap; color: var(--ink-muted)">{{t3.last}}</td>
+                <td style="padding: 8px 8px 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap; text-align: right">
+                  <span style="display: inline-flex; gap: 2px">
+                    <button class="ap-click ap-ibtn" type="button" onClick="{{t3.doReset}}" disabled="{{t3.resetDisabled}}" aria-label="{{t3.resetLabel}}" title="{{t3.resetLabel}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 15a4 4 0 1 0 8 0a4 4 0 1 0-8 0M10.8 12.2 20 3M16.5 6.5l3 3M14 9l2 2"/></svg></button>
+                    <button class="ap-click ap-ibtn" type="button" onClick="{{t3.doLock}}" disabled="{{t3.lockDisabled}}" aria-label="{{t3.lockLabel}}" title="{{t3.lockLabel}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="{{t3.lockIcon}}"/></svg></button>
+                    <button class="ap-click ap-ibtn" type="button" onClick="{{t3.more}}" aria-label="{{t3.moreLabel}}" title="{{t3.moreLabel}}" aria-controls="ap-detail"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><circle cx="5" cy="12" r="1.8" fill="currentColor"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/><circle cx="19" cy="12" r="1.8" fill="currentColor"/></svg></button>
+                  </span>
+                </td>
+              </tr>
+              <tr class="ap-row" data-selected="{{t4.selected}}" style="{{t4.rowStyle}}">
+                <th class="ap-stick" scope="row" style="padding: 8px 12px; border-top: 1px solid var(--line); text-align: left; vertical-align: middle; white-space: nowrap">
+                  <button class="ap-click" type="button" onClick="{{t4.select}}" aria-pressed="{{t4.selected}}" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 4px 0 0; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--ink); text-align: left; font: 600 16px/22px var(--font-text)">
+                    <span aria-hidden="true" style="{{t4.avatarStyle}}"><sc-if value="{{t4.hasSprite}}" hint-placeholder-val="{{false}}"><img src="{{t4.sprite}}" alt="" style="{{t4.spriteStyle}}"></sc-if><sc-if value="{{t4.noSprite}}" hint-placeholder-val="{{true}}">{{t4.initials}}</sc-if></span>
+                    <span>{{t4.name}}</span>
+                  </button>
+                </th>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle">
+                  <span style="display: flex; flex-wrap: wrap; gap: 6px">
+                    <span style="{{t4.role1.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{t4.role1.icon}}"/></svg>{{t4.role1.label}}</span>
+                    <sc-if value="{{t4.hasRole2}}" hint-placeholder-val="{{false}}"><span style="{{t4.role2.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{t4.role2.icon}}"/></svg>{{t4.role2.label}}</span></sc-if>
+                  </span>
+                </td>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap">{{t4.household}}</td>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap">
+                  <span style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px">
+                    <span style="{{t4.status.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 15px; height: 15px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{t4.status.icon}}"/></svg>{{t4.status.label}}</span>
+                    <sc-if value="{{t4.hasStatusSub}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; line-height: 18px; color: var(--ink-muted)">{{t4.statusSub}}</span></sc-if>
+                  </span>
+                </td>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap; color: var(--ink-muted)">{{t4.last}}</td>
+                <td style="padding: 8px 8px 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap; text-align: right">
+                  <span style="display: inline-flex; gap: 2px">
+                    <button class="ap-click ap-ibtn" type="button" onClick="{{t4.doReset}}" disabled="{{t4.resetDisabled}}" aria-label="{{t4.resetLabel}}" title="{{t4.resetLabel}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 15a4 4 0 1 0 8 0a4 4 0 1 0-8 0M10.8 12.2 20 3M16.5 6.5l3 3M14 9l2 2"/></svg></button>
+                    <button class="ap-click ap-ibtn" type="button" onClick="{{t4.doLock}}" disabled="{{t4.lockDisabled}}" aria-label="{{t4.lockLabel}}" title="{{t4.lockLabel}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="{{t4.lockIcon}}"/></svg></button>
+                    <button class="ap-click ap-ibtn" type="button" onClick="{{t4.more}}" aria-label="{{t4.moreLabel}}" title="{{t4.moreLabel}}" aria-controls="ap-detail"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><circle cx="5" cy="12" r="1.8" fill="currentColor"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/><circle cx="19" cy="12" r="1.8" fill="currentColor"/></svg></button>
+                  </span>
+                </td>
+              </tr>
+              <tr class="ap-row" data-selected="{{t5.selected}}" style="{{t5.rowStyle}}">
+                <th class="ap-stick" scope="row" style="padding: 8px 12px; border-top: 1px solid var(--line); text-align: left; vertical-align: middle; white-space: nowrap">
+                  <button class="ap-click" type="button" onClick="{{t5.select}}" aria-pressed="{{t5.selected}}" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 4px 0 0; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--ink); text-align: left; font: 600 16px/22px var(--font-text)">
+                    <span aria-hidden="true" style="{{t5.avatarStyle}}"><sc-if value="{{t5.hasSprite}}" hint-placeholder-val="{{false}}"><img src="{{t5.sprite}}" alt="" style="{{t5.spriteStyle}}"></sc-if><sc-if value="{{t5.noSprite}}" hint-placeholder-val="{{true}}">{{t5.initials}}</sc-if></span>
+                    <span>{{t5.name}}</span>
+                  </button>
+                </th>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle">
+                  <span style="display: flex; flex-wrap: wrap; gap: 6px">
+                    <span style="{{t5.role1.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{t5.role1.icon}}"/></svg>{{t5.role1.label}}</span>
+                    <sc-if value="{{t5.hasRole2}}" hint-placeholder-val="{{false}}"><span style="{{t5.role2.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{t5.role2.icon}}"/></svg>{{t5.role2.label}}</span></sc-if>
+                  </span>
+                </td>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap">{{t5.household}}</td>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap">
+                  <span style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px">
+                    <span style="{{t5.status.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 15px; height: 15px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{t5.status.icon}}"/></svg>{{t5.status.label}}</span>
+                    <sc-if value="{{t5.hasStatusSub}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; line-height: 18px; color: var(--ink-muted)">{{t5.statusSub}}</span></sc-if>
+                  </span>
+                </td>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap; color: var(--ink-muted)">{{t5.last}}</td>
+                <td style="padding: 8px 8px 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap; text-align: right">
+                  <span style="display: inline-flex; gap: 2px">
+                    <button class="ap-click ap-ibtn" type="button" onClick="{{t5.doReset}}" disabled="{{t5.resetDisabled}}" aria-label="{{t5.resetLabel}}" title="{{t5.resetLabel}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 15a4 4 0 1 0 8 0a4 4 0 1 0-8 0M10.8 12.2 20 3M16.5 6.5l3 3M14 9l2 2"/></svg></button>
+                    <button class="ap-click ap-ibtn" type="button" onClick="{{t5.doLock}}" disabled="{{t5.lockDisabled}}" aria-label="{{t5.lockLabel}}" title="{{t5.lockLabel}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="{{t5.lockIcon}}"/></svg></button>
+                    <button class="ap-click ap-ibtn" type="button" onClick="{{t5.more}}" aria-label="{{t5.moreLabel}}" title="{{t5.moreLabel}}" aria-controls="ap-detail"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><circle cx="5" cy="12" r="1.8" fill="currentColor"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/><circle cx="19" cy="12" r="1.8" fill="currentColor"/></svg></button>
+                  </span>
+                </td>
+              </tr>
+              <tr class="ap-row" data-selected="{{t6.selected}}" style="{{t6.rowStyle}}">
+                <th class="ap-stick" scope="row" style="padding: 8px 12px; border-top: 1px solid var(--line); text-align: left; vertical-align: middle; white-space: nowrap">
+                  <button class="ap-click" type="button" onClick="{{t6.select}}" aria-pressed="{{t6.selected}}" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 4px 0 0; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--ink); text-align: left; font: 600 16px/22px var(--font-text)">
+                    <span aria-hidden="true" style="{{t6.avatarStyle}}"><sc-if value="{{t6.hasSprite}}" hint-placeholder-val="{{false}}"><img src="{{t6.sprite}}" alt="" style="{{t6.spriteStyle}}"></sc-if><sc-if value="{{t6.noSprite}}" hint-placeholder-val="{{true}}">{{t6.initials}}</sc-if></span>
+                    <span>{{t6.name}}</span>
+                  </button>
+                </th>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle">
+                  <span style="display: flex; flex-wrap: wrap; gap: 6px">
+                    <span style="{{t6.role1.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{t6.role1.icon}}"/></svg>{{t6.role1.label}}</span>
+                    <sc-if value="{{t6.hasRole2}}" hint-placeholder-val="{{false}}"><span style="{{t6.role2.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{t6.role2.icon}}"/></svg>{{t6.role2.label}}</span></sc-if>
+                  </span>
+                </td>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap">{{t6.household}}</td>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap">
+                  <span style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px">
+                    <span style="{{t6.status.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 15px; height: 15px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{t6.status.icon}}"/></svg>{{t6.status.label}}</span>
+                    <sc-if value="{{t6.hasStatusSub}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; line-height: 18px; color: var(--ink-muted)">{{t6.statusSub}}</span></sc-if>
+                  </span>
+                </td>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap; color: var(--ink-muted)">{{t6.last}}</td>
+                <td style="padding: 8px 8px 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap; text-align: right">
+                  <span style="display: inline-flex; gap: 2px">
+                    <button class="ap-click ap-ibtn" type="button" onClick="{{t6.doReset}}" disabled="{{t6.resetDisabled}}" aria-label="{{t6.resetLabel}}" title="{{t6.resetLabel}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 15a4 4 0 1 0 8 0a4 4 0 1 0-8 0M10.8 12.2 20 3M16.5 6.5l3 3M14 9l2 2"/></svg></button>
+                    <button class="ap-click ap-ibtn" type="button" onClick="{{t6.doLock}}" disabled="{{t6.lockDisabled}}" aria-label="{{t6.lockLabel}}" title="{{t6.lockLabel}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="{{t6.lockIcon}}"/></svg></button>
+                    <button class="ap-click ap-ibtn" type="button" onClick="{{t6.more}}" aria-label="{{t6.moreLabel}}" title="{{t6.moreLabel}}" aria-controls="ap-detail"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><circle cx="5" cy="12" r="1.8" fill="currentColor"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/><circle cx="19" cy="12" r="1.8" fill="currentColor"/></svg></button>
+                  </span>
+                </td>
+              </tr>
+              <tr class="ap-row" data-selected="{{t7.selected}}" style="{{t7.rowStyle}}">
+                <th class="ap-stick" scope="row" style="padding: 8px 12px; border-top: 1px solid var(--line); text-align: left; vertical-align: middle; white-space: nowrap">
+                  <button class="ap-click" type="button" onClick="{{t7.select}}" aria-pressed="{{t7.selected}}" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 4px 0 0; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--ink); text-align: left; font: 600 16px/22px var(--font-text)">
+                    <span aria-hidden="true" style="{{t7.avatarStyle}}"><sc-if value="{{t7.hasSprite}}" hint-placeholder-val="{{false}}"><img src="{{t7.sprite}}" alt="" style="{{t7.spriteStyle}}"></sc-if><sc-if value="{{t7.noSprite}}" hint-placeholder-val="{{true}}">{{t7.initials}}</sc-if></span>
+                    <span>{{t7.name}}</span>
+                  </button>
+                </th>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle">
+                  <span style="display: flex; flex-wrap: wrap; gap: 6px">
+                    <span style="{{t7.role1.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{t7.role1.icon}}"/></svg>{{t7.role1.label}}</span>
+                    <sc-if value="{{t7.hasRole2}}" hint-placeholder-val="{{false}}"><span style="{{t7.role2.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{t7.role2.icon}}"/></svg>{{t7.role2.label}}</span></sc-if>
+                  </span>
+                </td>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap">{{t7.household}}</td>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap">
+                  <span style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px">
+                    <span style="{{t7.status.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 15px; height: 15px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{t7.status.icon}}"/></svg>{{t7.status.label}}</span>
+                    <sc-if value="{{t7.hasStatusSub}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; line-height: 18px; color: var(--ink-muted)">{{t7.statusSub}}</span></sc-if>
+                  </span>
+                </td>
+                <td style="padding: 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap; color: var(--ink-muted)">{{t7.last}}</td>
+                <td style="padding: 8px 8px 8px 12px; border-top: 1px solid var(--line); vertical-align: middle; white-space: nowrap; text-align: right">
+                  <span style="display: inline-flex; gap: 2px">
+                    <button class="ap-click ap-ibtn" type="button" onClick="{{t7.doReset}}" disabled="{{t7.resetDisabled}}" aria-label="{{t7.resetLabel}}" title="{{t7.resetLabel}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 15a4 4 0 1 0 8 0a4 4 0 1 0-8 0M10.8 12.2 20 3M16.5 6.5l3 3M14 9l2 2"/></svg></button>
+                    <button class="ap-click ap-ibtn" type="button" onClick="{{t7.doLock}}" disabled="{{t7.lockDisabled}}" aria-label="{{t7.lockLabel}}" title="{{t7.lockLabel}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="{{t7.lockIcon}}"/></svg></button>
+                    <button class="ap-click ap-ibtn" type="button" onClick="{{t7.more}}" aria-label="{{t7.moreLabel}}" title="{{t7.moreLabel}}" aria-controls="ap-detail"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><circle cx="5" cy="12" r="1.8" fill="currentColor"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/><circle cx="19" cy="12" r="1.8" fill="currentColor"/></svg></button>
+                  </span>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Compact: the same accounts as a card list -->
+          <ul class="ap-cards" aria-label="Accounts" style="margin: 0; padding: 0; list-style: none; flex-direction: column; gap: 10px">
+            <sc-for list="{{cards}}" as="c" hint-placeholder-count="8">
+              <li class="ap-card" data-selected="{{c.selected}}" style="display: flex; flex-direction: column; gap: 8px; padding: 10px 10px 6px 14px; border-radius: var(--radius-md); background: var(--surface-raised)">
+                <div style="display: flex; align-items: center; gap: 8px">
+                  <button class="ap-click" type="button" onClick="{{c.select}}" aria-pressed="{{c.selected}}" style="flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--ink); text-align: left; font: 600 17px/22px var(--font-text)">
+                    <span aria-hidden="true" style="{{c.avatarStyle}}"><sc-if value="{{c.hasSprite}}" hint-placeholder-val="{{false}}"><img src="{{c.sprite}}" alt="" style="{{c.spriteStyle}}"></sc-if><sc-if value="{{c.noSprite}}" hint-placeholder-val="{{true}}">{{c.initials}}</sc-if></span>
+                    <span style="min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{c.name}}</span>
+                  </button>
+                  <span style="{{c.status.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 15px; height: 15px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{c.status.icon}}"/></svg>{{c.status.label}}</span>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px">
+                  <span style="{{c.role1.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{c.role1.icon}}"/></svg>{{c.role1.label}}</span>
+                  <sc-if value="{{c.hasRole2}}" hint-placeholder-val="{{false}}"><span style="{{c.role2.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{c.role2.icon}}"/></svg>{{c.role2.label}}</span></sc-if>
+                  <span style="font-size: 16px; line-height: 22px; color: var(--ink-muted)">{{c.household}}</span>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 8px; padding-top: 4px; box-shadow: inset 0 1px 0 var(--line)">
+                  <span style="font-size: 14px; line-height: 20px; color: var(--ink-muted)">{{c.meta}}</span>
+                  <span style="display: flex; gap: 2px; margin-left: auto">
+                    <button class="ap-click ap-ibtn" type="button" onClick="{{c.doReset}}" disabled="{{c.resetDisabled}}" aria-label="{{c.resetLabel}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 15a4 4 0 1 0 8 0a4 4 0 1 0-8 0M10.8 12.2 20 3M16.5 6.5l3 3M14 9l2 2"/></svg></button>
+                    <button class="ap-click ap-ibtn" type="button" onClick="{{c.doLock}}" disabled="{{c.lockDisabled}}" aria-label="{{c.lockLabel}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="{{c.lockIcon}}"/></svg></button>
+                    <button class="ap-click ap-ibtn" type="button" onClick="{{c.more}}" aria-label="{{c.moreLabel}}" aria-controls="ap-detail"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><circle cx="5" cy="12" r="1.8" fill="currentColor"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/><circle cx="19" cy="12" r="1.8" fill="currentColor"/></svg></button>
+                  </span>
+                </div>
+              </li>
+            </sc-for>
+          </ul>
+        </sc-if>
+
+        <sc-if value="{{noRows}}" hint-placeholder-val="{{false}}">
+          <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 24px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line)">
+            <span style="font-size: 18px; line-height: 24px; font-weight: 700">{{emptyText}}</span>
+            <span style="font-size: 16px; line-height: 22px; color: var(--ink-muted)">Search covers names and households. Kids are listed by nickname.</span>
+            <button class="mk-btn mk-btn--secondary ap-click" type="button" onClick="{{clearAll}}">Show everyone</button>
+          </div>
+        </sc-if>
+      </div>
+
+      <div class="ap-aside" style="gap: 16px; min-width: 0">
+        <!-- Account details: opens when a row is selected -->
+        <section id="ap-detail" aria-labelledby="ap-detail-h" style="display: flex; flex-direction: column; gap: 16px; padding: 18px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: var(--shadow-raised); scroll-margin-top: 16px">
+          <sc-if value="{{hasSel}}" hint-placeholder-val="{{true}}">
+            <div style="display: flex; align-items: flex-start; gap: 12px">
+              <span aria-hidden="true" style="{{d.avatarStyle}}"><sc-if value="{{d.hasSprite}}" hint-placeholder-val="{{true}}"><img src="{{d.sprite}}" alt="" style="{{d.spriteStyle}}"></sc-if><sc-if value="{{d.noSprite}}" hint-placeholder-val="{{false}}">{{d.initials}}</sc-if></span>
+              <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+                <h2 id="ap-detail-h" style="margin: 0; font: 800 22px/28px var(--font-display)">{{d.name}}</h2>
+                <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px">
+                  <span style="{{d.role1.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{d.role1.icon}}"/></svg>{{d.role1.label}}</span>
+                  <sc-if value="{{d.hasRole2}}" hint-placeholder-val="{{false}}"><span style="{{d.role2.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 14px; height: 14px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{d.role2.icon}}"/></svg>{{d.role2.label}}</span></sc-if>
+                  <span style="{{d.status.style}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 15px; height: 15px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{d.status.icon}}"/></svg>{{d.status.label}}</span>
+                </div>
+              </div>
+              <button class="ap-click ap-ibtn" type="button" onClick="{{closeDetail}}" aria-label="Close details" style="margin: -8px -8px 0 0; color: var(--ink-muted)"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg></button>
+            </div>
+
+            <div role="status" aria-live="polite">
+              <sc-if value="{{d.hasNotice}}" hint-placeholder-val="{{false}}">
+                <p class="{{noticeCls}}" style="margin: 0; display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; border-radius: var(--radius-sm); background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--success); font-size: 16px; line-height: 22px">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px; flex: none; margin-top: 1px; color: var(--success)"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0M8 12l3 3 5-6"/></svg>
+                  <span>{{d.notice}}</span>
+                </p>
+              </sc-if>
+            </div>
+
+            <sc-if value="{{d.hasLockNote}}" hint-placeholder-val="{{true}}">
+              <p style="margin: 0; display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; border-radius: var(--radius-sm); background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--warn); font-size: 16px; line-height: 22px">
+                <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px; flex: none; margin-top: 1px; color: var(--warn)"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 11h14v10H5zM8 11V7a4 4 0 0 1 8 0v4"/></svg>
+                <span>{{d.lockNote}}</span>
+              </p>
+            </sc-if>
+
+            <dl style="margin: 0; display: flex; flex-direction: column">
+              <sc-for list="{{facts}}" as="x" hint-placeholder-count="6">
+                <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0 12px; padding: 8px 0; box-shadow: inset 0 -1px 0 var(--line)">
+                  <dt style="font-size: 14px; line-height: 22px; font-weight: 600; color: var(--ink-muted)">{{x.k}}</dt>
+                  <dd style="margin: 0; font-size: 16px; line-height: 22px; font-weight: 600; text-align: right">{{x.v}}</dd>
+                </div>
+              </sc-for>
+            </dl>
+
+            <p style="margin: 0; display: flex; align-items: flex-start; gap: 10px; font-size: 16px; line-height: 22px; color: var(--ink-muted)">
+              <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 18px; height: 18px; flex: none; margin-top: 2px"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 3l18 18M10.6 5.1A10 10 0 0 1 12 5c6.5 0 10 7 10 7a17 17 0 0 1-3.2 4.1M6.6 6.6C3.7 8.4 2 12 2 12s3.5 7 10 7c1.8 0 3.4-.5 4.8-1.3M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>
+              <span>{{d.privacy}}</span>
+            </p>
+
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <h3 style="margin: 0; font-size: 16px; line-height: 22px; font-weight: 700">{{d.membersTitle}}</h3>
+              <sc-if value="{{d.hasMembers}}" hint-placeholder-val="{{true}}">
+                <ul style="margin: 0 -8px; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 2px">
+                  <sc-for list="{{members}}" as="m" hint-placeholder-count="3">
+                    <li>
+                      <button class="ap-click ap-member" type="button" onClick="{{m.select}}" style="display: flex; align-items: center; gap: 10px; width: 100%; min-height: 48px; padding: 4px 8px; border: 0; border-radius: var(--radius-sm); color: var(--ink); text-align: left; font: inherit">
+                        <span aria-hidden="true" style="{{m.avatarStyle}}"><sc-if value="{{m.hasSprite}}" hint-placeholder-val="{{false}}"><img src="{{m.sprite}}" alt="" style="{{m.spriteStyle}}"></sc-if><sc-if value="{{m.noSprite}}" hint-placeholder-val="{{true}}">{{m.initials}}</sc-if></span>
+                        <span style="flex: 1; min-width: 0; font-size: 16px; line-height: 22px; font-weight: 600">{{m.name}}</span>
+                        <span style="font-size: 14px; line-height: 20px; color: var(--ink-muted); white-space: nowrap">{{m.role}}</span>
+                        <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 16px; height: 16px; flex: none; color: var(--ink-muted)"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6"/></svg>
+                      </button>
+                    </li>
+                  </sc-for>
+                </ul>
+              </sc-if>
+              <sc-if value="{{d.noMembers}}" hint-placeholder-val="{{false}}">
+                <span style="font-size: 16px; line-height: 22px; color: var(--ink-muted)">{{d.noMembersText}}</span>
+              </sc-if>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 14px; box-shadow: inset 0 1px 0 var(--line)">
+              <h3 class="ap-sr">Actions</h3>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px">
+                <sc-if value="{{d.showUnlock}}" hint-placeholder-val="{{true}}">
+                  <button class="mk-btn mk-btn--primary ap-click" type="button" onClick="{{d.doLockToggle}}"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 11h14v10H5zM8 11V7a4 4 0 0 1 7.8-1.3"/></svg>Unlock</button>
+                </sc-if>
+                <sc-if value="{{d.showEnable}}" hint-placeholder-val="{{false}}">
+                  <button class="mk-btn mk-btn--primary ap-click" type="button" onClick="{{d.doEnable}}"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 3v9M6.4 6.4a8 8 0 1 0 11.2 0"/></svg>Enable account</button>
+                </sc-if>
+                <sc-if value="{{d.canReset}}" hint-placeholder-val="{{true}}">
+                  <button class="mk-btn mk-btn--secondary ap-click" type="button" onClick="{{d.doReset}}"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="{{d.resetIcon}}"/></svg>{{d.resetLabel}}</button>
+                </sc-if>
+                <sc-if value="{{d.showLock}}" hint-placeholder-val="{{false}}">
+                  <button class="mk-btn mk-btn--secondary ap-click" type="button" onClick="{{d.doLockToggle}}" disabled="{{d.isSelf}}"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 11h14v10H5zM8 11V7a4 4 0 0 1 8 0v4"/></svg>Lock</button>
+                </sc-if>
+                <sc-if value="{{d.showDisable}}" hint-placeholder-val="{{true}}">
+                  <button class="ap-click ap-danger" type="button" onClick="{{d.askDisable}}" aria-expanded="{{d.confirmExpanded}}" disabled="{{d.isSelf}}" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 16px; border: 0; border-radius: var(--radius-pill); font: 600 16px/1 var(--font-text); white-space: nowrap">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px; flex: none"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0M5.6 5.6l12.8 12.8"/></svg>Disable account
+                  </button>
+                </sc-if>
+              </div>
+
+              <sc-if value="{{d.confirming}}" hint-placeholder-val="{{false}}">
+                <div class="ap-in" role="group" aria-labelledby="ap-dis-q" style="display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: var(--radius-sm); background: var(--surface-raised); box-shadow: inset 0 0 0 2px var(--warn)">
+                  <p id="ap-dis-q" style="margin: 0; display: flex; align-items: flex-start; gap: 10px; font-size: 16px; line-height: 23px; font-weight: 700">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px; flex: none; margin-top: 2px; color: var(--warn)"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/></svg>
+                    <span>{{d.confirmQ}}</span>
+                  </p>
+                  <span style="font-size: 16px; line-height: 22px; color: var(--ink-muted)">{{d.confirmNote}}</span>
+                  <div style="display: flex; flex-wrap: wrap; gap: 8px">
+                    <button class="ap-click" type="button" onClick="{{d.doDisable}}" style="display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 18px; border: 0; border-radius: var(--radius-pill); background: var(--warn); color: var(--on-warn); font: 600 16px/1 var(--font-text)">Disable</button>
+                    <button class="mk-btn mk-btn--secondary ap-click" type="button" onClick="{{d.cancelDisable}}">Cancel</button>
+                  </div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{d.showAdmin}}" hint-placeholder-val="{{false}}">
+                <div style="display: flex; align-items: center; gap: 12px; min-height: 60px">
+                  <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+                    <span id="ap-admin-l" style="font-size: 16px; line-height: 22px; font-weight: 700">Admin</span>
+                    <span style="font-size: 14px; line-height: 20px; color: var(--ink-muted)">{{d.adminNote}}</span>
+                  </span>
+                  <button class="ap-click ap-switch" type="button" role="switch" aria-checked="{{d.adminChecked}}" aria-labelledby="ap-admin-l" onClick="{{d.toggleAdmin}}" disabled="{{d.isSelf}}" style="flex: none; width: 60px; height: 44px; padding: 0; border: 0; border-radius: var(--radius-pill); background: transparent; display: flex; align-items: center; justify-content: center">
+                    <span style="{{d.adminTrack}}"><span style="{{d.adminKnob}}"></span></span>
+                  </button>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{d.isSelf}}" hint-placeholder-val="{{false}}">
+                <span style="font-size: 14px; line-height: 20px; color: var(--ink-muted)">This is you. Another admin has to lock, disable or change admin access on your account.</span>
+              </sc-if>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{noSel}}" hint-placeholder-val="{{false}}">
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <h2 id="ap-detail-h" style="margin: 0; font: 800 20px/26px var(--font-display)">Account details</h2>
+              <span style="font-size: 16px; line-height: 22px; color: var(--ink-muted)">Pick someone in the list to see their account, household and actions.</span>
+            </div>
+          </sc-if>
+        </section>
+
+        <!-- Audit log: every admin action is written here -->
+        <section aria-labelledby="ap-log-h" style="display: flex; flex-direction: column; gap: 6px; padding: 18px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: var(--shadow-raised)">
+          <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 12px">
+            <h2 id="ap-log-h" style="margin: 0; font: 700 18px/24px var(--font-display)">Audit log</h2>
+            <span style="font-size: 14px; line-height: 20px; color: var(--ink-muted)">Newest first</span>
+          </div>
+          <ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column">
+            <sc-for list="{{log}}" as="e" hint-placeholder-count="4">
+              <li class="{{e.cls}}" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; box-shadow: inset 0 -1px 0 var(--line)">
+                <span aria-hidden="true" style="{{e.dotStyle}}"><svg viewBox="0 0 24 24" style="width: 15px; height: 15px"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="{{e.icon}}"/></svg></span>
+                <span style="flex: 1; min-width: 0; font-size: 16px; line-height: 22px"><strong style="font-weight: 700">{{e.who}}</strong> {{e.rest}} <span style="color: var(--ink-muted); white-space: nowrap">· {{e.when}}</span></span>
+              </li>
+            </sc-for>
+          </ol>
+          <a href="#" style="align-self: flex-start; display: inline-flex; align-items: center; min-height: 44px; font-size: 16px; line-height: 22px; font-weight: 600; color: var(--accent)">See the full audit log</a>
+        </section>
+      </div>
+    </div>
+
+    <p style="margin: 0; font-size: 13px; line-height: 18px; color: var(--ink-muted)">Example data for the design.</p>
+  </main>
+ </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"startState":{"editor":"enum","options":["kai-locked","kai-unlocked","confirm-disable"],"default":"kai-locked"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  state = { touched: false };
+
+  renderVals() {
+    const I = {
+      user: 'M4 21a8 8 0 0 1 16 0M8 7a4 4 0 1 0 8 0a4 4 0 1 0-8 0',
+      star: 'M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z',
+      shield: 'M12 2l8 3v6c0 5-3.5 9.5-8 11-4.5-1.5-8-6-8-11V5z',
+      check: 'M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0M8 12l3 3 5-6',
+      lock: 'M5 11h14v10H5zM8 11V7a4 4 0 0 1 8 0v4',
+      unlock: 'M5 11h14v10H5zM8 11V7a4 4 0 0 1 7.8-1.3',
+      slash: 'M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0M5.6 5.6l12.8 12.8',
+      key: 'M4 15a4 4 0 1 0 8 0a4 4 0 1 0-8 0M10.8 12.2 20 3M16.5 6.5l3 3M14 9l2 2',
+      mail: 'M3 5h18v14H3zM3 6l9 7 9-7',
+      power: 'M12 3v9M6.4 6.4a8 8 0 1 0 11.2 0',
+      publish: 'M12 21V9M7 14l5-5 5 5M4 3h16',
+    };
+    const SPR = {
+      ari: '/_blob/bb08e7ec23418f8b39ef9322df1f30f6',
+      zara: '/_blob/f67be0c7944692dec26f38d50d8fbb8c',
+      mei: '/_blob/b1a0d040fdecae5f59f1b400eef42c34',
+      kix: '/_blob/edfd9859b1135de333b54095f6c8d1b6',
+    };
+    // World identity colours behind kid avatars only (never behind text).
+    const SCENE = {
+      dreamlight: 'radial-gradient(60% 50% at 72% 18%, rgba(255, 227, 138, 0.55), rgba(255, 227, 138, 0) 70%), linear-gradient(180deg, #2B2A5C 0%, #5B4FA8 62%, #B9A7F5 100%)',
+      'anime-sky': 'radial-gradient(55% 50% at 80% 14%, rgba(255, 211, 110, 0.75), rgba(255, 211, 110, 0) 70%), linear-gradient(180deg, #3D8EE0 0%, #8EC4F5 58%, #F7B6CF 100%)',
+      'idol-stage': 'radial-gradient(60% 60% at 15% 0%, rgba(255, 61, 203, 0.6), rgba(255, 61, 203, 0) 70%), radial-gradient(60% 60% at 88% 8%, rgba(61, 245, 255, 0.5), rgba(61, 245, 255, 0) 70%), linear-gradient(180deg, #120C2B 0%, #2B1858 100%)',
+      terrarium: 'radial-gradient(70% 55% at 50% 100%, rgba(255, 211, 77, 0.55), rgba(255, 211, 77, 0) 70%), linear-gradient(180deg, #1C6C84 0%, #2C7A47 62%, #1D3324 100%)',
+    };
+
+    // Synthetic accounts. Emails are masked; secrets are never part of what an admin can see.
+    const PEOPLE = [
+      { id: 'demo-parent', name: 'Demo Parent', initials: 'DP', roles: ['parent', 'admin'], household: 'Demo family', hh: 'demo', status: 'active', last: 'Today 7:50 pm', email: 'd•••@example.com', joined: '2 Oct 2026', self: true },
+      { id: 'ari', name: 'Ari', roles: ['kid'], level: 'P3', household: 'Demo family', hh: 'demo', status: 'active', last: 'Today 7:42 pm', secret: 'pictures', joined: '3 Oct 2026', sprite: SPR.ari, world: 'terrarium' },
+      { id: 'zara', name: 'Zara', roles: ['kid'], level: 'P6', household: 'Demo family', hh: 'demo', status: 'active', last: 'Today 4:45 pm', secret: 'password', joined: '3 Oct 2026', sprite: SPR.zara, world: 'idol-stage' },
+      { id: 'mei', name: 'Mei', roles: ['kid'], level: 'Sec 2', household: 'Demo family', hh: 'demo', status: 'active', last: 'Yesterday 8:05 pm', secret: 'password', joined: '3 Oct 2026', sprite: SPR.mei, world: 'anime-sky' },
+      { id: 'lee-parent', name: 'Lee Parent', initials: 'LP', roles: ['parent'], household: 'Lee family', hh: 'lee', status: 'active', last: 'Mon 9:12 am', email: 'l•••@example.com', joined: '14 Oct 2026' },
+      { id: 'kai', name: 'Kai', roles: ['kid'], level: 'P3', household: 'Lee family', hh: 'lee', status: 'locked', last: 'Sun 5:30 pm', secret: 'pictures', joined: '14 Oct 2026', sprite: SPR.kix, world: 'dreamlight' },
+      { id: 'content-team', name: 'Content Team', initials: 'CT', roles: ['admin'], household: 'Platform team', hh: null, status: 'active', last: 'Today 3:10 pm', email: 'c•••@example.com', joined: '1 Oct 2026' },
+      { id: 'old-account', name: 'Old Account', initials: 'OA', roles: ['parent'], household: 'No household', hh: null, status: 'disabled', last: '14 Aug', email: 'o•••@example.com', joined: '20 Jul 2026' },
+    ];
+    const SEED_LOG = [
+      { who: 'Kai', rest: 'was locked after 5 wrong tries', when: 'today 6:58 pm', kind: 'lock' },
+      { who: 'Content Team', rest: 'published P3 Science v1.1.0', when: 'today 3:10 pm', kind: 'publish' },
+      { who: 'Demo Parent', rest: "reset Mei's password", when: 'yesterday', kind: 'key' },
+      { who: 'Content Team', rest: 'disabled Old Account', when: '2 Sep', kind: 'disable' },
+    ];
+
+    const BASE = { sel: 'kai', filter: 'all', q: '', status: {}, admin: {}, reset: {}, confirm: false, notice: null, rowNotice: null, log: SEED_LOG, logN: 0 };
+    const PRESET = {
+      'kai-locked': {},
+      'kai-unlocked': { status: { kai: 'active' }, log: [{ who: 'You', rest: 'unlocked Kai', when: '2 min ago', kind: 'unlock' }].concat(SEED_LOG), notice: 'Kai can sign in again.' },
+      'confirm-disable': { sel: 'lee-parent', confirm: true },
+    };
+    const start = this.props.startState ?? 'kai-locked';
+    const s = this.state.touched ? this.state : { ...BASE, ...(PRESET[start] || {}) };
+    const go = (patch) => this.setState({ ...s, ...patch, touched: true });
+
+    // Effective accounts after this session's actions.
+    const people = PEOPLE.map((p) => {
+      const status = s.status[p.id] ?? p.status;
+      const isAdmin = s.admin[p.id] ?? p.roles.includes('admin');
+      const roles = p.roles.filter((r) => r !== 'admin').concat(isAdmin ? ['admin'] : []);
+      return { ...p, status, isAdmin, roles };
+    });
+
+    const BADGE = 'display: inline-flex; align-items: center; gap: 5px; padding: 2px 10px 2px 8px; border-radius: var(--radius-pill); font-size: 13px; line-height: 20px; font-weight: 700; white-space: nowrap;';
+    const badge = (role, p) => {
+      if (role === 'kid') return { label: `Kid · ${p.level}`, icon: I.star, style: BADGE + ' background: var(--accent-2); color: var(--on-accent-2);' };
+      if (role === 'admin') return { label: 'Admin', icon: I.shield, style: BADGE + ' background: var(--ink); color: var(--surface-raised);' };
+      return { label: 'Parent', icon: I.user, style: BADGE + ' background: var(--surface-raised); color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--border-control);' };
+    };
+    const NONE = { label: '', icon: '', style: 'display: none;' };
+    const STATUS = {
+      active: { label: 'Active', icon: I.check, style: 'display: inline-flex; align-items: center; gap: 6px; font-size: 14px; line-height: 20px; font-weight: 700; color: var(--success); white-space: nowrap;' },
+      locked: { label: 'Locked', icon: I.lock, style: BADGE + ' background: var(--warn); color: var(--on-warn);' },
+      disabled: { label: 'Disabled', icon: I.slash, style: BADGE + ' color: var(--ink-muted); box-shadow: inset 0 0 0 1.5px var(--border-control);' },
+    };
+    const avatar = (p, size) => {
+      const ring = size > 40 ? '0 0 0 3px var(--surface-raised), 0 0 0 4.5px var(--line)' : '0 0 0 2px var(--surface-raised), 0 0 0 3px var(--line)';
+      if (p.sprite) {
+        return {
+          avatarStyle: `position: relative; display: block; flex: none; width: ${size}px; height: ${size}px; border-radius: 50%; overflow: hidden; background: ${SCENE[p.world]}; box-shadow: ${ring};`,
+          hasSprite: true, noSprite: false, sprite: p.sprite, initials: '',
+          spriteStyle: `position: absolute; left: 50%; bottom: -${Math.round(size * 0.1)}px; transform: translateX(-50%); height: ${Math.round(size * 1.12)}px; width: auto; max-width: none;`,
+        };
+      }
+      return {
+        avatarStyle: `display: grid; place-items: center; flex: none; width: ${size}px; height: ${size}px; border-radius: 50%; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--border-control); color: var(--ink); font-size: ${size > 40 ? 18 : 13}px; line-height: 1; font-weight: 800; letter-spacing: .02em;`,
+        hasSprite: false, noSprite: true, sprite: '', initials: p.initials, spriteStyle: '',
+      };
+    };
+    const roleText = (p) => (p.roles.includes('kid') ? `Kid · ${p.level}` : p.roles.map((r) => (r === 'admin' ? 'Admin' : 'Parent')).join(' · '));
+    const autoLocked = (p) => p.status === 'locked' && !s.status[p.id];
+    const statusSub = (p) => {
+      if (p.status === 'locked') return autoLocked(p) ? 'after 5 tries' : 'by you';
+      if (p.status === 'disabled') return s.status[p.id] ? 'by you' : 'since 2 Sep';
+      return '';
+    };
+    const parentOf = (p) => {
+      const x = PEOPLE.find((q) => q.hh && q.hh === p.hh && q.roles.includes('parent'));
+      return x ? x.name : 'Their parent';
+    };
+
+    // Every action writes an audit row and a plain-words notice next to where it was taken.
+    const logWith = (rest, kind) => [{ who: 'You', rest, when: 'just now', kind, fresh: true }].concat(s.log.map((e) => ({ ...e, fresh: false })));
+    const run = (p, r, where) => {
+      const patch = { log: logWith(r.rest, r.kind), logN: s.logN + 1, sel: p.id, confirm: false, notice: null, rowNotice: null };
+      if (r.status) patch.status = { ...s.status, [p.id]: r.status };
+      if (r.admin !== undefined) patch.admin = { ...s.admin, [p.id]: r.admin };
+      if (r.reset) patch.reset = { ...s.reset, [p.id]: true };
+      if (where === 'row') patch.rowNotice = r.notice; else patch.notice = r.notice;
+      go(patch);
+    };
+    const act = {
+      reset: (p) => {
+        if (p.roles.includes('kid')) {
+          const pics = p.secret === 'pictures';
+          return {
+            rest: `reset ${p.name}'s ${pics ? 'picture code' : 'password'}`, kind: 'key', reset: true,
+            notice: pics
+              ? `${p.name}'s old code no longer works. ${parentOf(p)} picks a new one with ${p.name} on their family device.`
+              : `${p.name}'s old password no longer works. ${parentOf(p)} sets a temporary one in Your family.`,
+          };
+        }
+        return { rest: `sent a password reset email to ${p.name}`, kind: 'mail', reset: true, notice: `Reset email sent to ${p.email}. The link works for 1 hour.` };
+      },
+      lock: (p) => (p.status === 'locked'
+        ? { rest: `unlocked ${p.name}`, kind: 'unlock', status: 'active', notice: `${p.name} can sign in again.` }
+        : { rest: `locked ${p.name}`, kind: 'lock', status: 'locked', notice: `${p.name} can't sign in until someone unlocks the account.` }),
+    };
+
+    // Reveal the detail panel when it sits below the list (medium, compact). Scrolls only this page's own scroller.
+    const reveal = () => {
+      try {
+        if (!window.matchMedia('(max-width: 1023px)').matches) return;
+        const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+        setTimeout(() => {
+          const el = document.getElementById('ap-detail');
+          if (!el) return;
+          let box = el.parentElement;
+          while (box && box !== document.body && box !== document.documentElement) {
+            const oy = getComputedStyle(box).overflowY;
+            if ((oy === 'auto' || oy === 'scroll') && box.scrollHeight > box.clientHeight) break;
+            box = box.parentElement;
+          }
+          if (box && box !== document.body && box !== document.documentElement) {
+            box.scrollTo({ top: el.getBoundingClientRect().top - box.getBoundingClientRect().top + box.scrollTop - 12, behavior });
+          } else {
+            window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 12, behavior });
+          }
+        }, 40);
+      } catch (e) { /* scrolling is a nicety */ }
+    };
+
+    // Filters and search.
+    const q = s.q.trim().toLowerCase();
+    const inFilter = (p, f) => f === 'all'
+      || (f === 'parents' && p.roles.includes('parent'))
+      || (f === 'kids' && p.roles.includes('kid'))
+      || (f === 'admins' && p.isAdmin)
+      || (f === 'locked' && p.status === 'locked');
+    const match = (p) => inFilter(p, s.filter) && (!q || p.name.toLowerCase().includes(q) || p.household.toLowerCase().includes(q));
+
+    const rows = people.map((p) => {
+      const shown = match(p);
+      const sel = s.sel === p.id;
+      const isKid = p.roles.includes('kid');
+      const dis = p.status === 'disabled';
+      const locked = p.status === 'locked';
+      const self = Boolean(p.self);
+      const r2 = p.roles[1] ? badge(p.roles[1], p) : null;
+      const sub = statusSub(p);
+      const open = () => { go({ sel: p.id, confirm: false, notice: null, rowNotice: null }); reveal(); };
+      return {
+        shown,
+        rowStyle: shown ? '' : 'display: none;',
+        selected: sel ? 'true' : 'false',
+        name: p.name,
+        ...avatar(p, 36),
+        role1: badge(p.roles[0], p),
+        hasRole2: Boolean(r2),
+        role2: r2 || NONE,
+        household: p.household,
+        status: STATUS[p.status],
+        hasStatusSub: Boolean(sub),
+        statusSub: sub,
+        last: p.last,
+        meta: `Last sign-in ${p.last}` + (sub ? ` · ${STATUS[p.status].label.toLowerCase()} ${sub}` : ''),
+        resetLabel: isKid ? `Reset ${p.name}'s ${p.secret === 'pictures' ? 'picture code' : 'password'}` : `Send ${p.name} a password reset email`,
+        resetDisabled: dis,
+        lockLabel: self ? `Lock ${p.name} (not available on your own account)` : dis ? `Lock ${p.name} (account is disabled)` : locked ? `Unlock ${p.name}` : `Lock ${p.name}`,
+        lockIcon: locked ? I.unlock : I.lock,
+        lockDisabled: dis || self,
+        moreLabel: `More about ${p.name}`,
+        select: open,
+        more: open,
+        doReset: () => run(p, act.reset(p), 'row'),
+        doLock: () => run(p, act.lock(p), 'row'),
+      };
+    });
+    const shownCount = rows.filter((r) => r.shown).length;
+
+    const FILTERS = [['all', 'All'], ['parents', 'Parents'], ['kids', 'Kids'], ['admins', 'Admins'], ['locked', 'Locked']];
+    const filters = FILTERS.map(([id, label]) => {
+      const on = id === s.filter;
+      return {
+        label,
+        count: people.filter((p) => inFilter(p, id)).length,
+        pressed: on ? 'true' : 'false',
+        countStyle: 'min-width: 22px; padding: 2px 6px; box-sizing: border-box; border-radius: 999px; font-size: 13px; line-height: 16px; font-weight: 700; text-align: center; font-variant-numeric: tabular-nums;'
+          + (on ? ' background: rgba(255, 255, 255, 0.22); color: inherit;' : ' background: var(--surface); color: var(--ink-muted); box-shadow: inset 0 0 0 1px var(--line);'),
+        pick: () => go({ filter: id, rowNotice: null }),
+      };
+    });
+
+    // Detail panel. With nothing selected the panel shows an empty state; dp keeps every hole defined.
+    const selP = people.find((p) => p.id === s.sel) || null;
+    const dp = selP || people[0];
+    const dKid = dp.roles.includes('kid');
+    const dParent = dp.roles.includes('parent');
+    const dSelf = Boolean(dp.self);
+    const dStatus = dp.status;
+    const dr2 = dp.roles[1] ? badge(dp.roles[1], dp) : null;
+    const adminOn = Boolean(dp.isAdmin);
+    const signinText = dKid
+      ? (dp.secret === 'pictures' ? 'Picture code' : 'Password') + (s.reset[dp.id] ? ' (reset just now)' : '')
+      : 'Email and password' + (s.reset[dp.id] ? ' (reset email sent)' : '');
+    const tries = autoLocked(dp) ? '5 in a row' : 'None';
+    const FACTS = dKid
+      ? [['Household', dp.household], ['Level', `${dp.level} · ${dp.level === 'P3' ? 'Junior' : 'Teen'} look`], ['Sign-in', signinText], ['Last sign-in', dp.last], ['Wrong tries', tries], ['Added', dp.joined]]
+      : [[dp.hh || !dp.isAdmin || dParent ? 'Household' : 'Team', dp.household], ['Email', dp.email], ['Sign-in', signinText], ['Last sign-in', dp.last], ['Wrong tries', tries], ['Joined', dp.joined]];
+    const mates = dp.hh ? people.filter((x) => x.hh === dp.hh && x.id !== dp.id) : [];
+    const switchStyle = (v) => ({
+      track: 'position: relative; display: block; width: 48px; height: 28px; border-radius: 999px; transition: background var(--duration-snappy) ease;'
+        + (v ? ' background: var(--accent);' : ' background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--border-control);'),
+      knob: 'position: absolute; top: 4px; left: 4px; width: 20px; height: 20px; border-radius: 50%; transition: transform var(--duration-snappy) var(--ease-soft);'
+        + (v ? ' transform: translateX(20px); background: var(--on-accent);' : ' background: var(--border-control);'),
+    });
+    const sw = switchStyle(adminOn);
+    const d = {
+      name: dp.name,
+      ...avatar(dp, 56),
+      role1: badge(dp.roles[0], dp),
+      hasRole2: Boolean(dr2),
+      role2: dr2 || NONE,
+      status: STATUS[dStatus],
+      hasNotice: Boolean(s.notice),
+      notice: s.notice || '',
+      hasLockNote: dStatus === 'locked',
+      lockNote: autoLocked(dp)
+        ? `Locked at 6:58 pm after 5 wrong tries in a row. ${parentOf(dp)} was told.`
+        : `Locked by you. ${dp.name} can't sign in until someone unlocks the account.`,
+      privacy: dKid
+        ? `${dp.name}'s messages, Notebook and answers stay private. Admins can't open them.`
+        : "Admins see account details only, never family messages or children's work.",
+      membersTitle: dp.hh ? `Others in ${dp.household}` : 'Household',
+      hasMembers: mates.length > 0,
+      noMembers: mates.length === 0,
+      noMembersText: dp.isAdmin && !dParent ? 'Platform team account. Not part of a household.' : 'Not part of a household.',
+      canReset: dStatus !== 'disabled',
+      resetLabel: dKid ? (dp.secret === 'pictures' ? 'Reset code' : 'Reset password') : 'Send password reset email',
+      resetIcon: dKid ? I.key : I.mail,
+      doReset: () => run(dp, act.reset(dp), 'panel'),
+      showUnlock: dStatus === 'locked',
+      showLock: dStatus === 'active',
+      doLockToggle: () => { if (!dSelf || dStatus === 'locked') run(dp, act.lock(dp), 'panel'); },
+      showEnable: dStatus === 'disabled',
+      doEnable: () => run(dp, { rest: `enabled ${dp.name}`, kind: 'enable', status: 'active', notice: `${dp.name} can sign in again.` }, 'panel'),
+      showDisable: dStatus !== 'disabled',
+      askDisable: () => { if (!dSelf) go({ confirm: !s.confirm, notice: null }); },
+      confirmExpanded: s.confirm ? 'true' : 'false',
+      confirming: Boolean(s.confirm) && dStatus !== 'disabled' && !dSelf,
+      confirmQ: `Disable ${dp.name}'s account?`,
+      confirmNote: dParent && dp.hh
+        ? `${dp.name} can't sign in, so the kids in ${dp.household} can't open their doors either, until an admin enables it again. Nothing is deleted.`
+        : `${dp.name} can't sign in until an admin enables it again. Nothing is deleted.`,
+      doDisable: () => run(dp, { rest: `disabled ${dp.name}`, kind: 'disable', status: 'disabled', notice: `${dp.name}'s account is disabled. Nothing was deleted.` }, 'panel'),
+      cancelDisable: () => go({ confirm: false }),
+      showAdmin: dParent,
+      adminChecked: adminOn ? 'true' : 'false',
+      adminTrack: sw.track,
+      adminKnob: sw.knob,
+      adminNote: adminOn ? "Can manage People, Skills and the audit log. Never sees children's work." : 'Off. Turn on to let them manage People and Skills.',
+      toggleAdmin: () => {
+        if (dSelf) return;
+        run(dp, {
+          rest: adminOn ? `removed admin access from ${dp.name}` : `made ${dp.name} an admin`, kind: 'admin', admin: !adminOn,
+          notice: adminOn ? `${dp.name} is no longer an admin.` : `${dp.name} is now an admin.`,
+        }, 'panel');
+      },
+      isSelf: dSelf,
+    };
+
+    const DOT = 'display: grid; place-items: center; flex: none; width: 30px; height: 30px; margin-top: -4px; border-radius: 50%;';
+    const quiet = ' background: var(--surface); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line);';
+    const KIND = {
+      lock: [I.lock, ' background: var(--warn); color: var(--on-warn);'],
+      unlock: [I.unlock, ' background: var(--success); color: var(--on-success);'],
+      enable: [I.power, ' background: var(--success); color: var(--on-success);'],
+      disable: [I.slash, ' background: var(--surface); color: var(--ink-muted); box-shadow: inset 0 0 0 1.5px var(--border-control);'],
+      key: [I.key, quiet],
+      mail: [I.mail, quiet],
+      admin: [I.shield, ' background: var(--ink); color: var(--surface-raised);'],
+      publish: [I.publish, ' background: var(--accent-2); color: var(--on-accent-2);'],
+    };
+    const fadeCls = s.logN % 2 ? 'ap-in' : 'ap-in2';
+
+    return {
+      q: s.q,
+      hasQ: s.q.length > 0,
+      onQ: (e) => go({ q: e && e.target ? String(e.target.value) : '', rowNotice: null }),
+      clearQ: () => go({ q: '' }),
+      filters,
+
+      hasRowNotice: Boolean(s.rowNotice),
+      rowNotice: s.rowNotice || '',
+      noticeCls: s.touched ? fadeCls : '',
+
+      hasRows: shownCount > 0,
+      noRows: shownCount === 0,
+      caption: `Accounts: ${shownCount} of ${people.length} shown. Select a name to see account details.`,
+      t0: rows[0], t1: rows[1], t2: rows[2], t3: rows[3], t4: rows[4], t5: rows[5], t6: rows[6], t7: rows[7],
+      cards: rows.filter((r) => r.shown),
+      emptyText: q ? `No one matches “${s.q.trim()}”.` : 'No one here right now.',
+      clearAll: () => go({ q: '', filter: 'all' }),
+
+      hasSel: Boolean(selP),
+      noSel: !selP,
+      closeDetail: () => go({ sel: null, confirm: false, notice: null }),
+      d,
+      facts: FACTS.map(([k, v]) => ({ k, v })),
+      members: mates.map((x) => ({
+        name: x.name,
+        role: roleText(x),
+        ...avatar(x, 32),
+        select: () => go({ sel: x.id, confirm: false, notice: null, rowNotice: null }),
+      })),
+
+      log: s.log.slice(0, 8).map((e) => ({
+        who: e.who,
+        rest: e.rest,
+        when: e.when,
+        icon: KIND[e.kind][0],
+        dotStyle: DOT + KIND[e.kind][1],
+        cls: e.fresh ? fadeCls : '',
+      })),
+    };
+  }
+}
+</script>
+</body>
+</html>

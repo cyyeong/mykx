@@ -30,7 +30,8 @@ import {
 } from "./import-skill-lib.ts";
 
 const VERSION = "1.0.0";
-const KEEP = (rel: string) => rel === "items/demo.json" || rel.startsWith("figures/demo-");
+/** Files written by hand for myKx (demo items, original question sets) that a re-import never deletes. */
+const KEEP = (rel: string) => rel === "items/demo.json" || rel.startsWith("figures/demo-") || /^items\/original-\d+\.json$/.test(rel);
 
 function main(): void {
   const args = process.argv.slice(2);

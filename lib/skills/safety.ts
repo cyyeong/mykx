@@ -17,7 +17,7 @@ export interface BannedHit {
 }
 
 /**
- * The founder's children: their stand-in names, plus the real ones from content-private/names.json when it exists
+ * The founder's children: their stand-in names, plus the real ones from the private folder's names.json when it is configured
  * (never committed). Packs are child-agnostic; their details live in the learner record and Kix's Notebook.
  */
 const CHILD_NAMES = [...STAND_INS, ...Object.keys(privateNames())];

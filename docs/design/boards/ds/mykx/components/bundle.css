@@ -1,0 +1,78 @@
+/* myKx component styles. Reads tokens.css variables only; pack = data-theme, band = data-band. */
+
+/* Pack and band mapping: components use --font-display, --font-text, --card-radius and --target. */
+:root, [data-theme="dreamlight"] { --font-display: var(--font-display-dreamlight); --card-radius: var(--radius-lg); }
+[data-theme="anime-sky"] { --font-display: var(--font-display-anime); --card-radius: var(--radius-sm); }
+[data-theme="toon-pop"] { --font-display: var(--font-display-toon); --card-radius: var(--radius-lg); }
+[data-theme="idol-stage"] { --font-display: var(--font-display-idol); --card-radius: var(--radius-md); }
+[data-theme="terrarium"] { --font-display: var(--font-display-terrarium); --card-radius: var(--radius-lg); }
+:root { --font-text: var(--font-body); --target: var(--target-junior); }
+[data-band="teen"] { --font-text: var(--font-body-teen); --target: var(--target-teen); }
+
+/* Button */
+.mk-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+  min-height: var(--target); padding: 0 var(--space-6); border: 0; border-radius: var(--radius-pill);
+  font: 800 16px/1 var(--font-text); cursor: pointer; white-space: nowrap;
+  transition: transform var(--duration-snappy) var(--ease-soft), box-shadow var(--duration-base) var(--ease-soft);
+}
+.mk-btn:active { transform: scale(0.96); }
+.mk-btn:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+.mk-btn svg { width: 20px; height: 20px; flex: none; }
+.mk-btn--primary { background: var(--accent); color: var(--on-accent); box-shadow: var(--shadow-raised); }
+.mk-btn--secondary { background: var(--surface-glass); color: var(--ink); box-shadow: inset 0 0 0 2px var(--border-control); backdrop-filter: blur(16px); }
+.mk-btn--reward { background: var(--reward); color: var(--on-reward); box-shadow: var(--shadow-glow); }
+.mk-btn[disabled] { opacity: 0.45; cursor: not-allowed; box-shadow: none; }
+[data-theme="toon-pop"] .mk-btn--primary, [data-theme="toon-pop"] .mk-btn--reward { box-shadow: inset 0 0 0 3px var(--border-control), var(--shadow-raised); }
+[data-band="teen"] .mk-btn { font-weight: 600; padding: 0 var(--space-4); }
+
+/* Quest node */
+.mk-node { display: grid; justify-items: center; gap: var(--space-2); width: 112px; text-align: center; }
+.mk-node__dot {
+  position: relative; display: grid; place-items: center; width: 64px; height: 64px; border-radius: var(--radius-pill);
+  background: var(--surface-raised); color: var(--ink); box-shadow: inset 0 0 0 3px var(--border-control);
+}
+.mk-node__dot svg { width: 28px; height: 28px; }
+.mk-node__label { font: 800 16px/22px var(--font-text); color: var(--ink); }
+.mk-node__note { font: 600 13px/18px var(--font-text); color: var(--ink-muted); }
+.mk-node--mastered .mk-node__dot { background: var(--reward); color: var(--on-reward); box-shadow: var(--shadow-glow); }
+.mk-node--current .mk-node__dot {
+  background: conic-gradient(var(--accent) calc(var(--mastery, 0) * 1%), var(--line) 0);
+  box-shadow: var(--shadow-glow);
+}
+.mk-node--current .mk-node__dot::after { content: ""; position: absolute; inset: 6px; border-radius: inherit; background: var(--surface-raised); }
+.mk-node--current .mk-node__dot > * { position: relative; z-index: 1; font: 800 18px/1 var(--font-display); }
+.mk-node--next .mk-node__dot { box-shadow: inset 0 0 0 3px var(--accent); animation: mk-pulse 2.4s var(--ease-soft) infinite; }
+.mk-node--locked .mk-node__dot { background: var(--surface); color: var(--ink-muted); box-shadow: inset 0 0 0 2px var(--line); }
+.mk-node--locked .mk-node__label { color: var(--ink-muted); }
+@keyframes mk-pulse { 50% { transform: scale(1.08); } }
+
+/* Holo card */
+.mk-holo {
+  --mx: 50%; --my: 30%; --rx: 0deg; --ry: 0deg;
+  position: relative; width: 248px; aspect-ratio: 5 / 7; border-radius: var(--radius-xl); overflow: hidden;
+  background: var(--surface-raised); color: var(--ink); box-shadow: var(--shadow-raised);
+  transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform var(--duration-base) var(--ease-soft);
+}
+.mk-holo__art { position: absolute; inset: 0 0 34% 0; }
+.mk-holo__art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mk-holo__foil {
+  position: absolute; inset: 0; mix-blend-mode: color-dodge; opacity: 0.32; pointer-events: none;
+  background: conic-gradient(from 90deg at var(--mx) var(--my), var(--kix-lavender), var(--kix-mint), var(--accent-2), var(--star-gold), var(--kix-lavender));
+}
+.mk-holo__glare {
+  position: absolute; inset: 0; mix-blend-mode: overlay; pointer-events: none;
+  background: radial-gradient(circle at var(--mx) var(--my), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0) 45%);
+}
+.mk-holo__meta { position: absolute; inset: auto 0 0 0; height: 34%; display: grid; align-content: center; gap: var(--space-1); padding: 0 var(--space-4); background: var(--surface-raised); }
+.mk-holo__chip { justify-self: start; padding: 2px var(--space-2); border-radius: var(--radius-pill); background: var(--accent-2); color: var(--on-accent-2); font: 700 12px/18px var(--font-text); }
+.mk-holo__title { margin: 0; font: 600 22px/26px var(--font-display); color: var(--ink); }
+.mk-holo__note { margin: 0; font: 500 13px/18px var(--font-text); color: var(--ink-muted); }
+.mk-holo::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 2px var(--line); pointer-events: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mk-btn, .mk-holo { transition: none; }
+  .mk-holo { transform: none; }
+  .mk-node--next .mk-node__dot { animation: none; }
+}
