@@ -39,7 +39,7 @@ If a feature isn't in the 3-minute video, it isn't in this build. Screens come s
 | Talk to Kix (in Question and Vibe Zone) | hold-to-talk → transcript to confirm; Kix reads questions, hints and cards aloud with captions | `muse-voice-transcribe-1.0` | typed box if the mic is denied or the call fails; read-aloud uses the device's voice |
 | Sound layer (every screen) | per-pack SFX, optional ambience, one mute | — (Tone.js in the browser) | ambience off by default; no sound for wrong answers |
 | Parent dashboard (phone first) | screen time against the limit; plan adherence; focus, mood and hesitation per session with evidence; urgent, watch and info flags; tonight's summary; controls | Muse Spark structured output (mood and safety check inside the post-session call) | in-app flags only (no push); camera signals are stretch |
-| Family messages | parent ↔ child inside the household, Kix stickers, quick encouragements, the child's reply sheet with quick replies, stickers and voice | — (never sent to a model) | Kix-suggested messages are a "should" |
+| Family messages | parent ↔ child inside the household, Kix stickers, quick encouragements, the child's reply sheet with quick replies, stickers and voice | `muse-voice-transcribe-1.0` for voice replies only (no language model ever reads them) | Kix-suggested messages are a "should" |
 | Teen study deck | seeded Sec 2 learner's numbers, labelled synthetic | — | static port |
 | Skills admin (laptop): catalogue, skill detail, add knowledge, agents × skills | upload → extract → review → publish a version that Kix uses next session; load/unload trace | Muse Spark vision + JSON schema (Content Curator) | JSON and Markdown parse without a model; see C's cut line |
 | Sky Squadron | flip cards (static port) | — | unlocks shown from seed data |
@@ -157,7 +157,7 @@ Every day ends with something you can show on the production URL.
 
 ### Day 7 · Mon 2 Nov · feature freeze at 22:00
 - **Morning:** bug bash from the rough capture; fixes only.
-- **Afternoon:** device pass on the demo path at 344, 390, 720 (foldable, with Chrome's posture emulation), 820, 1280 and 1600 px wide, plus a real phone and tablet (2h); keyboard path, contrast and reduced-motion checks; security checks (cross-household access refused, admin routes refuse non-admins, keys only on the server, no contributor model at runtime, no real names or school-paper questions in `content/` or the bundle; family messages never reach a model; signals never change mastery; the safety path fires for the ten test phrases); rehearse the demo path three times.
+- **Afternoon:** device pass on the demo path at 344, 390, 720 (foldable, with Chrome's posture emulation), 820, 1280 and 1600 px wide, plus a real phone and tablet (2h); keyboard path, contrast and reduced-motion checks; security checks (cross-household access refused, admin routes refuse non-admins, keys only on the server, no contributor model at runtime, no real names or school-paper questions in `content/` or the bundle; family messages never reach Kix or a language model; signals never change mastery; the safety path fires for the ten test phrases); rehearse the demo path three times.
 - **Exit:** freeze; three clean runs in production; tag `v1.0-freeze`.
 
 ### Day 8 · Tue 3 Nov · capture day
@@ -246,7 +246,7 @@ Script target: about 360 words of voice-over (130 a minute), finished by Day 5.
 - [ ] No secrets in the repo or client bundle; keys live only in Vercel environment variables.
 - [ ] The cross-household access test passes; admin routes refuse non-admins.
 - [ ] No real children's names, notes or school-paper questions anywhere in the repo or bundle (the `content/` scan passes).
-- [ ] Parent dashboard: screen time, plan, signals with evidence and the three flag levels work from seeded data; the safety path shows the helplines and an urgent flag for the ten test phrases; messages work both ways inside the household only (the cross-household test covers them); family messages never reach a model.
+- [ ] Parent dashboard: screen time, plan, signals with evidence and the three flag levels work from seeded data; the safety path shows the helplines and an urgent flag for the ten test phrases; messages work both ways inside the household only (the cross-household test covers them); family messages never reach Kix or a language model.
 - [ ] Kix's Notebook: a parent can read every page and its history, edit or delete a line, and wipe it; the five tricky transcripts produce no labels or diagnoses; mastery shown anywhere comes from the database.
 - [ ] Voice: mic denied → the typed box works; no audio in Storage, logs or `model_runs` (transcripts only); voice can be turned off for a child.
 - [ ] A 3:00 video with captions, uploaded, and opening for a signed-out viewer.
