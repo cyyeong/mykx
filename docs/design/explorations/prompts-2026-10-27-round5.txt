@@ -1,0 +1,13 @@
+Use the image_generation tool exactly 7 times (one call per image, no retries unless a call errors), then stop. Do not write code or any other files. After the 7 calls, reply with a numbered list mapping each number below to its saved file path.
+
+Context: art for "myKx", a kids' learning app. Kix is an ORIGINAL mascot shown in ref-kix.png. Never depict real people, existing characters, brands or logos. No text, no letters, no numbers, no question marks, no watermark in any image.
+
+For images 1-4 and 6 pass image_paths=["ref-kix.png"] and start the prompt with: "The same character as in the image, identical shape, proportions, face, texture and colours, same soft 3D vinyl-toy render;"
+1. "...idle pose: standing relaxed, arms gently at its sides, warm calm smile, looking at the viewer, full body, isolated on a plain flat light-grey background."
+2. "...thinking pose: one stubby hand on its chin, eyes looking up and to the side, a tiny glowing swirl of light floating above its head, full body, isolated on a plain flat light-grey background."
+3. "...giving a hint: holding up a small glowing orb of warm golden light in both hands, encouraging smile, leaning slightly forward, full body, isolated on a plain flat light-grey background."
+4. "...cheering: jumping in the air with both arms up, eyes squeezed shut with joy, a burst of small golden sparkles around it, full body, isolated on a plain flat light-grey background."
+6. "...as a young nature explorer wearing a little crown of fresh green leaves, holding a small glass jar with one cute tadpole swimming inside, delighted expression, full body, isolated on a plain flat soft moss-green background."
+For images 5 and 7 do NOT pass image_paths.
+5. A magical transformation moment for a kids' app: a small round star-shaped glowing silhouette of a mascot at the centre of a spiralling vortex of sparkles and flowing ribbons of lavender, mint and gold light, rising star dust, dreamy twilight-indigo background, soft bloom, wonder and anticipation, calm dark space around the vortex for interface text.
+7. A chunky playful 3D cartoon craft studio for kids, seen from a slightly high angle: a big rounded wooden desk with blank paper cards floating in the air, colour pencils, sticker sheets, a pot of glitter, a friendly glowing desk lamp, shelves with jars of craft supplies, pastel palette of grape purple, bubblegum pink, lime and sunny yellow on a warm cream room, soft studio lighting, clean empty desk surface in the centre for interface overlay.

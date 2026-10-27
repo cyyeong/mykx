@@ -1,0 +1,17 @@
+# secrets
+.env
+.env.*
+!.env.example
+
+# raw / unoptimised art (commit optimised files in public/art + manifest only)
+art-src/
+generated_images/
+
+# deps / builds
+node_modules/
+.next/
+out/
+dist/
+__pycache__/
+*.pyc
+.DS_Store

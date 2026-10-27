@@ -1,0 +1,8 @@
+Use the image_generation tool exactly 4 times (one call per image, no edits, no retries unless a call errors), then stop. Do not write code or any other files. After the 4 calls, reply with a one-line list of the saved file paths.
+
+All four are art-direction samples for "myKx", a Singapore kids' learning app whose mascot is "Kix": an ORIGINAL small sidekick creature — a round, star-shaped sprite with a glowing four-point sparkle on its forehead, big friendly eyes, soft lavender-and-mint body. Never depict real people, real celebrities or existing copyrighted characters.
+
+1. size "1024x1024": Kix in a modern Japanese anime key-visual style — cel shading, crisp line art, dramatic sky, sparkles; Kix waving beside a floating open textbook.
+2. size "1024x1024": Kix in a chunky, playful Western 3D cartoon style (soft clay/vinyl toy look, rim light, pastel studio background), holding a pencil like a magic wand.
+3. size "1024x1024": Kix reimagined as an original K-pop stage idol mascot — neon stage lights, holographic outfit, light-stick in hand, confetti, glossy magazine poster look. No real performers, no text.
+4. size "1792x1024": A magical, dreamy "Treasure Vault" landscape for a kids' reward screen — floating crystal islands in a twilight pastel sky, glowing treasure chests spilling stars, aurora ribbons, tiny lanterns, soft bokeh, Studio-quality fantasy matte painting, no characters, no text, lots of calm negative space in the centre for UI overlay.

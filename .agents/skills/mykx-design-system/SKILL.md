@@ -1,0 +1,136 @@
+---
+name: mykx-design-system
+description: myKx visual direction and theme engine — the source of truth for how myKx looks, moves and feels. Load before creating or restyling ANY myKx screen or component (Home, Learn & Revise, question player, Treasure Realm, Vibe Zone, Sidekick Studio, Parent view), choosing colours/fonts/motion, adding art, or reviewing UI polish. Covers age bands (Junior/Teen), style packs (Dreamlight, Anime Sky, Toon Pop, Idol Stage, Terrarium), critter companions, tokens, signature effects, accessibility and performance budgets. Use together with ui-ux-pro-max (lookups) and frontend-design (process); this skill wins on any conflict.
+---
+
+# myKx Design System
+
+**North star:** myKx must look like a place kids *want* to visit, not a worksheet with a chatbot. Judges score "Demo — is it genuinely cool to watch?" and "creative use of Meta tooling" equally with impact and engineering. When a feature and a visual moment compete for time, protect the visual moment on the demo path.
+
+Reference art (Muse Image, 27 Oct 2026): `docs/design/explorations/` — `kix-anime.jpg`, `kix-3d-cartoon.jpg`, `kix-idol-stage.jpg`, `treasure-vault.jpg`. Match that quality bar.
+
+## 1. Theme model: band × pack
+
+Every screen renders under two attributes on `<html>`:
+
+```html
+<html data-band="junior|teen" data-pack="dreamlight|anime-sky|toon-pop|idol-stage|terrarium">
+```
+
+- **Band** (from enrolment, never from a guess at age) controls density, type size, copy tone, target size and how much Kix appears.
+- **Pack** (the child's choice in Sidekick Studio) controls palette, display font, radii, texture, particles, background art and Kix's look.
+- Packs are CSS custom-property sets. Components only read semantic tokens. No raw hex in components.
+- Switching pack is the hero moment: wrap it in `document.startViewTransition()` (fallback: 400 ms cross-fade) so the whole UI re-skins on screen.
+
+### Token layers
+
+```css
+/* primitive (per pack) → semantic (what components read) */
+--surface, --surface-raised, --surface-glass   /* backgrounds, cards, frosted panels */
+--ink, --ink-muted, --ink-on-accent            /* text */
+--accent, --accent-2, --glow, --success, --warn
+--radius-sm|md|lg|pill, --border-w
+--font-display, --font-body
+--motion-snappy (120ms), --motion-base (240ms), --motion-hero (600ms), --ease-bounce, --ease-soft
+--art-bg (url), --particle (stars|petals|confetti|bubbles)
+```
+
+## 2. Style packs (original — no real IP)
+
+Pack names and art are original. Never name or imitate an existing franchise, studio, artist, idol group or real performer, in prompts or in UI copy. "Anime-inspired" and "K-pop-inspired" describe an aesthetic only.
+
+| Pack | Feel | Palette (start point) | Display / body font | Shape & texture | Particles | Kix look |
+|---|---|---|---|---|---|---|
+| **Dreamlight** (default) | magical, dreamy twilight; the Treasure aesthetic | twilight `#2B2A5C`, lavender `#B9A7F5`, mint `#A8F0D4`, peach glow `#FFC9A8`, star gold `#FFE38A`, mist `#EDE9FF` | Fredoka / Nunito | soft radii (20–28px), frosted glass, glow edges | drifting stars + lanterns | soft lavender-mint star sprite, forehead sparkle |
+| **Anime Sky** | cel-shaded skies, wind, light rays | dusk navy `#1B2350`, sky `#5AA9F0`, sakura `#F7B6CF`, cloud `#F8FAFF`, flare `#FFD36E` | M PLUS Rounded 1c / Nunito | crisp 2px ink outlines, speed-line accents | petals + light motes | cel-shaded, sharp highlights |
+| **Toon Pop** | chunky 3D vinyl toy, bouncy | grape `#7C5CFF`, bubblegum `#FF7EB6`, lime soda `#B6F36A`, sunny `#FFD23F`, cream `#FFF6E0`, ink `#2A1E5C` | Lilita One / Nunito | claymorphism: thick borders, double soft shadows, squash-and-stretch | bubbles | clay/vinyl toy render |
+| **Idol Stage** | concert neon, holographic, lightsticks | stage `#120C2B`, magenta `#FF3DCB`, cyan `#3DF5FF`, holo lilac `#C9B8FF`, lightstick mint `#8CFFC9`, chrome `#E6E8F0` | Unbounded / Outfit | holographic foil gradients, chrome bevels, glow | confetti + beam sweeps | plush star in holographic jacket with lightstick |
+| **Terrarium** | lush glass-tank nature world for critter fans (ants, mealworms, geckos, tadpoles, frogs) | moss ground `#EEF5E4`, deep moss ink `#1D3324`, leaf `#2C7A47`, amber `#F2A93B`, sun gold `#FFD34D`, pond teal `#1C6C84` | Grandstander / Nunito | soft organic radii, leaf and pebble shapes, dewdrop highlights | drifting spores + fireflies | young explorer: hat, magnifying glass, leaf scarf |
+
+Exact token values for every pack live in the published myKx design system (`tokens.json`); the hexes above are the identity colours.
+
+Fonts are a starting point. Confirm pairings with `python3 .agents/skills/ui-ux-pro-max/scripts/search.py "<mood>" --domain typography`, and load only two families per pack via `next/font`.
+
+## 3. Age bands
+
+| | **Junior** (P4, ~9–10) | **Teen** (Sec 1–3, ~12–15) |
+|---|---|---|
+| Layout | one task per screen; quest map | denser "study deck" dashboard |
+| Type | body 18–20px, display 40–56px | body 16px, display 32–44px |
+| Targets | ≥ 56px | ≥ 44px |
+| Kix | large, reacts on every action, speech bubbles | small HUD companion; speaks only when asked |
+| Copy | short, warm, concrete ("Nice thinking! Try one more.") | peer tone, no baby talk ("Solid. One fresh question to lock it in.") |
+| Default pack | Dreamlight / Toon Pop | Dreamlight / Anime Sky / Idol Stage; dark surfaces default |
+| Extras | read-aloud button (browser SpeechSynthesis) | focus timer, wallpaper/accent choice |
+
+Teens reject anything that looks childish. Junior screens must still feel premium, never clip-art.
+
+## 4. Surfaces and their signature moment
+
+Each surface gets **one** memorable moment. Keep everything around it calm.
+
+| Surface | Signature moment | Build notes |
+|---|---|---|
+| **Sidekick Studio** (onboarding) | Kix transforms into the chosen pack and the whole UI re-skins live | Muse Image edit from locked Kix reference → SAM 3.1 cutout → palette extract → view transition. Cached fallback per pack. |
+| **Home** | Kix greets by name over pack background art; today's quest glows | parallax art layer + one CTA |
+| **Learn & Revise** | Junior: winding quest path whose nodes glow with mastery. Teen: study deck with mastery rings | nodes = subskills; honest labels ("limited evidence") |
+| **Question player** | correct answer → sparkle burst; a reward card flies toward the Treasure icon | Kix expression states: idle, thinking, hint, cheer |
+| **Treasure Realm** | dreamy vault: floating crystal islands, aurora, drifting lanterns; holographic collectible cards tilt with pointer; skill constellation lights up | see §5 |
+| **Vibe Zone** | brief → planner/flashcards appear with generated art in the child's pack | trusted React renderer from a JSON spec, never model-authored HTML |
+| **Critter companion** (Terrarium) | the adopted tadpole or mealworm grows to its next real life-cycle stage, with the growth track showing the whole cycle | stages keyed to reward-ledger milestones; never sick, sad or dying; the growth track doubles as the life-cycle diagram |
+| **Parent view** | calm, editorial evening summary; evidence chips; one offline activity card | Dreamlight palette, low motion, no game chrome |
+
+## 5. Treasure Realm spec (magical and dreamy)
+
+- **Backdrop:** full-bleed Muse Image vault scene (`treasure-vault.jpg` direction) with an empty centre for UI. Layers: art → animated aurora gradient (CSS `@property` hue drift, 30–60 s loop) → canvas particles (stars, lanterns rising slowly) → UI.
+- **Parallax:** 2–3 depth layers shifting with pointer/device tilt (max 12px). Off under reduced motion.
+- **Collectible cards:** each earned reward is a card showing Muse Image art of the topic in the child's pack ("Light & Shadows": Kix making torch shadow-puppets). Holographic foil: pointer-tracked `radial-gradient` glare + `conic-gradient` foil with `mix-blend-mode: color-dodge`, 3D tilt ≤ 10°.
+- **Constellation:** mastered subskills are stars in an SVG constellation; new mastery draws the connecting line.
+- **Unlocks are deterministic** (from the reward ledger). No random drops, no loot boxes, no rankings, no money.
+- **Creations shelf:** Vibe Zone projects as framed polaroids, with share/revoke.
+- **Interest collections:** themed card sets earned on the same deterministic ledger, e.g. **Sky Squadron**: four original insect-inspired display jets (Dragonfly, Bumblebee, Firefly, Rhino Beetle), each card's back pairing an insect fact with a flight idea. Display flying only: no weapons, insignia, real aircraft models or film references.
+
+## 6. Motion and sound
+
+- Library: `motion` (Framer Motion) for components, CSS for ambient loops, a small canvas loop for particles. Pause particles when the tab is hidden.
+- Motion answers actions: press squash (120 ms), card flip, reward fly-to-Treasure (600 ms arc), pack re-skin (view transition). Ambient motion only in Treasure and Home backgrounds.
+- `prefers-reduced-motion`: no parallax, no particles, no tilt; keep fades ≤ 200 ms; show static art.
+- Sound (optional, off for Teen by default): soft chime on correct, sparkle on unlock, ≤ 30 KB each, user toggle.
+
+## 7. Accessibility and performance gates
+
+- Text over art always sits on a scrim or glass panel. Contrast ≥ 4.5:1 body, ≥ 3:1 large text, checked in every pack.
+- Visible focus ring in pack accent; full keyboard path through the question player.
+- Icons: SVG (Lucide/Phosphor), never emoji as icons.
+- Images: WebP/AVIF; backgrounds ≤ 300 KB at 1920w with `srcset`; stickers ≤ 120 KB; `next/image` with explicit sizes; LCP < 2.5 s on tablet.
+- Particle canvas ≤ 120 particles, DPR capped at 2, ≤ 2 ms per frame.
+- Target devices: tablet landscape first, then phone portrait, then desktop.
+
+## 8. Anti-patterns
+
+- Generic SaaS card grid, grey shadows, blue primary button: the "AI default" look.
+- Clip-art, stock emoji, Comic Sans/Comic Neue.
+- Real franchises, characters, idols, logos or brand names in art, copy or prompts.
+- Text baked into generated art. Put text in HTML.
+- Runtime dependency on live image generation for the demo path. Always have a cached asset.
+- Random or variable-ratio rewards.
+
+## 9. Workflow for any UI task
+
+Each design skill has one job, so they don't overlap:
+
+| Skill | Role | Not for |
+|---|---|---|
+| `mykx-design-system` (this) | **What** myKx looks like: tokens, packs, bands, surfaces | — |
+| `frontend-design` | **How** to design a screen: plan → check against generic defaults → build → screenshot critique; copy tone | choosing palette or fonts (§2 already decides them) |
+| `ui-ux-pro-max` | **Lookups**: a11y rules, interaction patterns, GSAP, icons, Next.js/Tailwind tips | `--design-system` / `--persist` (never run them here) |
+| Muse built-in `taste` | anti-slop filter (Muse only) | overriding §2 (see below) |
+
+Steps:
+
+1. Read this skill, then follow `frontend-design`'s process.
+2. Query `ui-ux-pro-max` with `--domain`/`--stack` for specific rules.
+3. Need art? Use the `muse-image-assets` skill. Never draw mascots in CSS or SVG.
+4. Build, take a screenshot in the browser, critique against §4 to §8, fix, and repeat once.
+
+**Deliberate exceptions to generic anti-slop lists** (Muse `taste`, `frontend-design`'s calibration list): lavender/violet in Dreamlight, aurora gradients, glow and frosted glass are brand choices for a magical kids' product. Keep them earned, not everywhere: aurora only in Treasure and Home backgrounds, glow only on interactive or reward elements, glass only on panels over art. The other anti-slop rules still apply (no single radius on everything, no fade-up on every section, no hover-lift on every card, no gradient headline text, no emoji icons).

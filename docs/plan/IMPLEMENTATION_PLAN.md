@@ -1,0 +1,208 @@
+# myKx implementation plan
+
+**Written:** Tue 27 Oct 2026, 10:30 SGT (Day 1). **Replaces** the day plan in `docs/prd/PRD_REVIEW.md` §5 and tightens its scope table (§4). Designs: [myKx Screens](https://claude.ai/artifact/8crEyKVQm9QxCHLDqPXioP) · [myKx design system](https://claude.ai/artifact/Jyr5pven8EDiRRfqAZDYuX).
+
+## 0. The budget
+
+- **Submit by Wed 4 Nov, 22:00 SGT.** The official deadline is Thu 5 Nov 10:00 SGT (4 Nov 21:00 EST); the morning of the 5th is for emergencies only.
+- **8 hours of your time per day.** Claude Code and Muse Code work in parallel inside those hours; your time (deciding, reviewing, merging, testing, filming) is the bottleneck, so the plan is sized to it.
+
+| | Hours | When |
+|---|---|---|
+| Available: today from 10:30 (≈ 5h) + Wed 28 Oct to Wed 4 Nov (8 days × 8h) | **69** | |
+| **Build** | 43.5 | Days 1–6 |
+| Harden and freeze (bug bash, accessibility, security, rehearsal; absorbs slips) | 10.5 | Day 7, Day 8 morning |
+| Video and submission (protected; never borrowed for features) | 12 | Days 5, 6, 8, 9 |
+| Final buffer | 3 | Day 9 afternoon |
+
+## 1. What we ship: the video is the spec
+
+If a feature isn't in the 3-minute video, it isn't in this build. Screens come straight from the canvas boards.
+
+| Screen (canvas board) | Must work for real | Live Meta call | Allowed shortcut |
+|---|---|---|---|
+| Sidekick Studio: picker, transform, reveal | pack and interests saved; re-skin; Kix kept; Pip adopted | Muse Image edit with the Kix reference → SAM 3.1 cutout | 25 s timeout → cached pack Kix |
+| Home | profile, today's quest, Pip's stage, squadron progress from data | — | — |
+| Quest map | node states from mastery | — | fixed node positions on the art |
+| Question and reward | marking, hints, attempts, mastery, reward card | Muse Spark hint (streamed) | 3 questions per quest |
+| Treasure Realm | cards from the reward ledger | — | — |
+| Critter Lab | Pip's stage from the ledger | — | frog is live; mealworm tab is display-only |
+| Vibe Zone | brief → spec → flashcards → version 2 → save → share/revoke | Muse Spark structured output | flashcards only (no planner) |
+| Parent summary (phone) | aggregates from attempts; narration | Muse Spark structured output | generated on tap, no scheduler |
+| Teen study deck | real mastery numbers | — | read-only |
+| Sky Squadron | flip cards; unlocks from the ledger | — | — |
+
+**Not in this build, and not in the video:** snap-homework ingestion (dropped from PRD_REVIEW §4: it isn't on the demo path, and the Studio already shows multimodal Meta use), PDF papers, RAG/wiki, admin UI, voice, scheduler or worker, phone layouts for the kids' screens (tablet and laptop only), the planner template. **Stretch only:** Baseten Muse Spark Open tagging.
+
+## 2. Architecture: the smallest thing that works
+
+- **App:** Next.js (App Router, TypeScript), Tailwind CSS v4, `motion`. Exact versions pinned at scaffold (no `^`).
+- **Look:** `tokens.css`, `bundle.css` and fonts copied from the design system. Screens are ported from the canvas `.dc.html` boards, which already use the same tokens and classes.
+- **Data:** Supabase Auth (parent signs in with email and password; children are profiles in the household, chosen from the profile button), Postgres with row-level security by household, Storage for Kix cutouts.
+- **Content:** quests, questions, hints, answers, card sets and offline activities are reviewed JSON fixtures in the repo, not database rows.
+- **Meta:** OpenAI SDK pointed at `https://api.meta.ai/v1`, called only from server route handlers, Standard models only (see the `meta-model-api` skill).
+- **Hosting:** one Vercel project; Supabase cloud free tier. No worker, queue or cron.
+
+**Tables (8):** `households`, `profiles` (role, band, pack, interests, kix_url), `attempts`, `ledger` (unique idempotency key), `creations` (versions in JSONB), `shares` (revoked_at), `summaries`, `model_runs`.
+
+**Pure, unit-tested domain code** (`lib/domain/`): marking, the mastery recompute from PRD §6, reward rules with the 15-a-day cap, companion stage, squadron unlocks. Models never write to these.
+
+**The live AI calls (every one logs to `model_runs` for the "under the hood" shot):**
+
+| Route | Model | In → out | On timeout or error |
+|---|---|---|---|
+| `POST /api/studio/transform` | `muse-image-1.0` edits + `sam-3.1` | pack + 2 interest chips → transparent PNG in Storage | after 25 s, the cached pack Kix |
+| `POST /api/kix/hint` | `muse-spark-1.3`, streamed | question + child's answer (never the key) → hint | after 10 s, the reviewed fixture hint |
+| `POST /api/vibe/spec` | `muse-spark-1.3`, JSON schema | brief → flashcard deck, validated with zod | the fixture deck |
+| `POST /api/parent/summary` | `muse-spark-1.3`, JSON schema | deterministic aggregates → what happened, what it may mean, tomorrow | template text from the same aggregates |
+| `POST /api/tag` (stretch) | Baseten `meta-models/muse-spark-open-1026` | brief → topic tag | skipped |
+
+```
+app/(kid)/studio, home, learn/[quest], question/[id], treasure, critters, squadron, vibe
+app/(parent)/parent        app/api/...        app/under-the-hood (model_runs viewer)
+components/   lib/meta/   lib/domain/   lib/db/   fixtures/   supabase/ (schema.sql, rls.sql, seed.sql)
+public/art/   public/brand/
+```
+
+## 3. How we go fast
+
+1. **Port, don't redesign.** A small html→JSX script turns each canvas board into a page; then wire data. Design changes after Day 3 go to the roadmap.
+2. **Fixtures beat CMS.** Twelve reviewed questions (Shadows, Frog life cycle, Forces) cover the whole demo.
+3. **Four live AI touchpoints, everything else deterministic.** Fewer things can break on camera, and every AI call has a fallback.
+4. **Demo mode.** A seeded household and a "Reset demo" route let any take start clean.
+5. **Two agent tracks with clear ownership**, merged once a day:
+
+| Track | Agent | Owns |
+|---|---|---|
+| A: UI | Claude Code | `app/(kid)`, `app/(parent)`, `components/`, theme engine, motion |
+| B: Platform | Muse Code | `lib/meta`, `app/api`, `supabase/`, `lib/domain`, `fixtures/`, art rounds |
+| You | — | decisions, answer review, merging, tablet testing, video |
+
+Branches `a/*` and `b/*`; `main` auto-deploys to Vercel. `lib/types.ts` is the contract between tracks; only Track B changes it.
+
+6. **Daily rhythm (8h):** 15 min plan → 3h build → 30 min merge and test → 3.5h build → 30 min deploy, plus a 2-minute screen capture of what works (it becomes video material) → 15 min plan for tomorrow.
+
+## 4. Day by day
+
+Every day ends with something you can show on the production URL.
+
+### Day 1 · Tue 27 Oct · ≈ 5h
+- **You (1h):** create a Standard Meta Model API key (add a card, set a $100 spend alert); create the Supabase and Vercel projects and a public GitHub repo; `git init` and commit today's PRD review, design system and skills, so judges can see the event history start here.
+- **A (3h):** scaffold; copy tokens, fonts and component CSS; theme provider (`data-theme`, `data-band`, view-transition switch); port the Sidekick Studio picker; deploy.
+- **B (3h):** `lib/meta` client; `scripts/smoke-meta.ts` exercising Spark (chat, JSON schema, streaming), Muse Image edit with `kix-base.png`, SAM 3.1 cutout to PNG; results with request IDs in `docs/plan/smoke-log.md`.
+- **Exit:** the production URL re-skins the Studio picker across all five packs; the smoke log shows three Meta models answering.
+
+### Day 2 · Wed 28 Oct
+- **A (6h):** html→JSX port script; static ports of Home, Quest map, Question, Treasure; shared pieces (Button, HoloCard, QuestNode, KixBubble, GlassPanel).
+- **B (7h):** Supabase schema, row-level security and seed (parent; Ari, P4, Terrarium; Mei, Sec 3, Anime Sky) 2h; fixtures for three quests with hints and answers 2h; the transform route (Image → SAM → Storage, with fallback) 3h.
+- **You:** review every fixture answer and hint (1h); merge; check on a tablet.
+- **Exit:** a signed-in parent switches to Ari and browses five themed screens in production; the transform route returns a cutout or the fallback within 25 s.
+
+### Day 3 · Thu 29 Oct · Checkpoint A
+- **A (7h):** Studio transform and reveal wired to the real route (progress steps, re-skin, keep or try again, pack and Kix saved) 4h; question player wired to the attempts route 3h.
+- **B (7h):** domain code with Vitest tests: marking, mastery, reward rules and cap, companion stage, squadron unlocks 5h; attempts and ledger routes 2h.
+- **Exit:** the Studio flow is live end to end; answering writes an attempt and a ledger entry.
+- **If it slips:** the Studio ships with cached art, and the live Muse Image call is shown from the smoke script in "under the hood".
+
+### Day 4 · Fri 30 Oct · Checkpoint B
+- **A (7.5h):** streamed hint with Kix expressions; quest map from mastery; reward card flies to Treasure; Treasure from the ledger 6h; Critter Lab from the companion stage 1.5h.
+- **B (7h):** hint route (streamed, no answer leakage, fallback) 2h; parent summary (aggregates, Spark narration, offline activity fixtures) 3h; Vibe spec route (JSON schema, zod, fallback) 2h.
+- **Exit:** the whole learning loop works in production: question → hint → mark → honest mastery change → card in Treasure → Pip grows.
+- **If it slips:** Sky Squadron and the teen deck become static ports, and Vibe Zone drops version 2.
+
+### Day 5 · Sat 31 Oct
+- **A (7h):** Vibe Zone (chat brief, deck rendered from the spec, flip, version 2, save for +5, share and revoke) 5h; parent summary screen on phone 2h.
+- **B (6h):** shares and revoke with a cross-household test 2h; creation versions 1h; art: regenerate the froglet, SAM cutouts of the four Kix expressions 2h; "Reset demo" route 1h.
+- **You:** video script v1 and shot list (1h).
+- **Exit:** every demo-path screen works in production.
+
+### Day 6 · Sun 1 Nov
+- **A (7h):** Sky Squadron and teen study deck wired to data 3h; motion pass (lanterns, aurora, parallax, reward flight, reduced motion) 4h.
+- **B (6h):** Baseten tagging only if credits were granted (≤ 2h), otherwise timeout and error states for every AI call; the "under the hood" page listing `model_runs` 2h; image sizes and page-load performance 2h.
+- **You:** a rough recording of the whole demo path (30 min) to see what looks weak.
+- **Exit:** the complete product is in production and a rough capture exists.
+
+### Day 7 · Mon 2 Nov · feature freeze at 22:00
+- **Morning:** bug bash from the rough capture; both tracks fix only.
+- **Afternoon:** keyboard path, contrast and reduced-motion checks; security checks (cross-household access refused, keys only on the server, no contributor model at runtime); rehearse the demo path three times.
+- **Exit:** freeze; three clean runs in production; tag `v1.0-freeze`.
+
+### Day 8 · Tue 3 Nov · capture day
+- **Morning (4h):** fixes only (2.5h); README (1.5h): what it is, the live link, the video, which Meta models are used where, how Muse Code was used, what was built from 27 Oct to 4 Nov, synthetic data, the asset manifest and licences. Confirm the repo is public.
+- **Afternoon (4h):** record every video segment in production, record the voice-over, and capture the "under the hood" shots.
+
+### Day 9 · Wed 4 Nov · edit and submit
+- **Morning (4h):** edit (assemble, burned-in captions, music, titles), export 1080p, upload unlisted, then watch it once on a phone and once on a laptop.
+- **Afternoon (1h):** submission form; a 20 to 30-second cut posted on X (the viral prize counts engagement until 8 Nov).
+- **3h buffer.** Submit as soon as the checklist in §7 is green, and no later than 22:00 SGT.
+
+### Day 10 · Thu 5 Nov
+Hands off. Emergency fixes only, before 10:00 SGT.
+
+## 5. The video (12 protected hours)
+
+Script target: about 360 words of voice-over (130 a minute), finished by Day 5.
+
+| Time | Beat | Screen | Shows |
+|---|---|---|---|
+| 0:00–0:15 | "My kids have always been my sidekicks…" | Treasure flythrough | the hook |
+| 0:15–0:45 | A child picks Terrarium and bugs and critters; Kix transforms; the app re-skins; Pip is adopted | Studio | Muse Image + SAM 3.1, live |
+| 0:45–1:00 | Home: today's quest, Pip, the squadron | Home | personalisation |
+| 1:00–1:35 | Quest map → question → streamed hint → correct → Kix cheers → card flies; "57, limited evidence" | Quest map, Question | Muse Spark; honest mastery |
+| 1:35–1:55 | Treasure, a Sky Squadron card flip, Pip grows | Treasure, Critter Lab | earned, never random |
+| 1:55–2:20 | "I keep forgetting the frog life cycle" → flashcards → harder version → save → share with Mum | Vibe Zone | structured output; no AI code runs |
+| 2:20–2:40 | Tonight's summary on the parent's phone; a flash of the teen deck | Parent, Study deck | evidence and uncertainty |
+| 2:40–3:00 | `model_runs`, Muse Code at work, the asset manifest; built 27 Oct–4 Nov; synthetic data | Under the hood | Meta tooling and honesty |
+
+**Rules:** record in production with the seeded demo and "Reset demo" between takes. Show at least one genuinely live transform; if it is slow, speed it up and label it. Burn in captions, since judges may watch muted. Use royalty-free music and credit it. Never show real children's names or photos.
+
+**Tools:** macOS screen recording (⌘⇧5) or OBS with a 1280×800 browser window; edit in CapCut desktop or DaVinci Resolve (both free); record the voice-over in a quiet room.
+
+| Video task | When | Hours |
+|---|---|---|
+| Script and shot list | Day 5 | 1 |
+| Rough capture | Day 6 | 0.5 |
+| Final capture | Day 8 afternoon | 3 |
+| Voice-over | Day 8 afternoon | 1 |
+| README | Day 8 morning | 1.5 |
+| Edit, export, upload, check | Day 9 morning | 4 |
+| Submission and X post | Day 9 afternoon | 1 |
+| **Total** | | **12** |
+
+## 6. Risks, early warnings and cuts
+
+| Risk | Early warning | Response |
+|---|---|---|
+| No Model API key today | Day 1 smoke script can't run | Get the key first. If billing blocks it, ask in Discord office hours (22:00–23:00 SGT) and build against fixtures meanwhile. |
+| Muse Image + SAM slow or flaky | transform over 25 s in the smoke log | Cached pack Kix fallback; pre-generate per pack; keep the disc framing. |
+| Row-level security eats time | over 3h on Day 2 | Simplest policy (household of the signed-in parent). Never ship without it. |
+| Porting is slower than expected | Day 2 exit missed | Static port first, wire later; apply the Day 3 and Day 4 slip rules. |
+| Agents collide | merge conflicts | File ownership above; merge daily; `lib/types.ts` changes by PR only. |
+| Credit burn | Billing page over $60 | Muse Code stays on contributor with synthetic data; runtime uses Standard; spend alert at $100. |
+| Video overruns | script not done by Day 5 | Day 8 afternoon and Day 9 are protected; scope cuts come from the build, never from the video. |
+| New feature requests | anything new after Day 6 | Goes on the roadmap slide, not into the build. |
+
+**Cut order when a checkpoint slips:**
+1. Baseten.
+2. Sky Squadron becomes static.
+3. Teen deck becomes static.
+4. Vibe Zone keeps make and save only.
+5. Pip's growth is shown as a fixed stage.
+6. Treasure particles and parallax.
+
+**Never cut:** the Studio transform (cached fallback is fine), the learning loop with honest mastery, the parent summary, household isolation, or video time.
+
+## 7. Definition of done
+
+- [ ] The production URL works in a fresh browser on a tablet and a laptop; "Reset demo" works.
+- [ ] Public GitHub repo with a README: problem, live link, video, Meta models and where they're used, Muse Code usage, what was built 27 Oct–4 Nov, synthetic data, the asset manifest, licences.
+- [ ] No secrets in the repo or client bundle; keys live only in Vercel environment variables.
+- [ ] The cross-household access test passes.
+- [ ] A 3:00 video with captions, uploaded, and opening for a signed-out viewer.
+- [ ] Submitted on the Cerebral Valley platform before 22:00 SGT on 4 Nov; X post live.
+
+## 8. Next 30 minutes
+
+1. Create the Meta Model API key, the Supabase project, the Vercel project and the GitHub repo; put the keys in `.env.local` (git-ignored).
+2. `git init` and commit today's work.
+3. Start Track A in Claude Code and Track B in Muse Code with the Day 1 tasks above, each pointed at `AGENTS.md` and this plan.

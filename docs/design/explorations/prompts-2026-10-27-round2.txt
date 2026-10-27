@@ -1,0 +1,14 @@
+Use the image_generation tool exactly 8 times (one call per image, no retries unless a call errors), then stop. Do not write code or any other files. After the 8 calls, reply with a numbered list mapping each number below to its saved file path.
+
+Context: art for "myKx", a kids' learning app. Kix is an ORIGINAL mascot shown in ref-kix.jpg: a soft five-point star-shaped sprite, glowing four-point sparkle on its forehead, big friendly dark eyes, rosy cheeks, gentle smile, stubby arms, lavender body fading to mint at the bottom. Never depict real people, real celebrities, existing characters, brands or logos. No text, no letters, no watermark in any image.
+
+For images 1-4 pass image_paths=["ref-kix.jpg"] and start the prompt with: "The same character as in the image, identical shape, proportions, face and colours;"
+1. "...front view, full body, standing, friendly neutral pose, soft 3D vinyl-toy render, isolated on a plain flat light-grey background, even studio lighting, no shadow clutter."
+2. "...restyled as a dreamy painterly fantasy illustration with a soft inner glow and tiny stars around it, full body, waving, isolated on a plain flat pale lavender background."
+3. "...restyled in modern Japanese anime cel-shaded style with crisp clean line art, full body, cheerful jump pose, isolated on a plain flat pale sky-blue background."
+4. "...restyled as an original K-pop-inspired stage mascot wearing a holographic iridescent jacket and holding a glowing star lightstick, full body, confident pose, isolated on a plain flat deep-indigo background."
+For images 5-8 do NOT pass image_paths.
+5. A magical quest-map landscape for a kids' learning journey, high three-quarter aerial view: pastel floating islands connected by a single glowing winding path of stepping stones from bottom-left to top-right, little crystal trees, waterfalls of light, soft clouds, twilight lavender and mint palette, dreamy painterly style, calm and uncluttered so UI markers can sit on the path.
+6. A cozy anime-style teen study room at dusk seen from inside: a desk by a big window, city lights and pink-violet sky outside, warm desk lamp, plants, soft lo-fi mood, cel-shaded modern anime background art, no people, large calm area of sky on the right half for interface overlay.
+7. A collectible card illustration titled nothing (no text): a small round star-shaped lavender-and-mint mascot sprite with a glowing forehead sparkle holds a torch and makes a rabbit shadow-puppet on a wall in a dreamy twilight bedroom, warm light beam, floating dust sparkles, magical painterly fantasy style.
+8. A collectible card illustration (no text): the same small star-shaped lavender-and-mint mascot sprite pushing a glowing toy cart while arrows of light show push and pull forces, neon cyan and magenta holographic concert-stage lighting, glossy K-pop-inspired poster aesthetic, original design.
