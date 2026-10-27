@@ -1,0 +1,26 @@
+/* Ambient critters (Critters.tsx). The layer passes clicks through; only the critters take them. */
+.cr-layer{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.cr-glow{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;padding:0;border:0;background:none;cursor:pointer;pointer-events:auto;-webkit-tap-highlight-color:transparent;animation:cr-wander 9s ease-in-out var(--d) infinite}
+.cr-glow > span{position:absolute;left:50%;top:50%;border-radius:50%;translate:-50% -50%;animation:cr-blink 2.8s ease-in-out var(--d) infinite}
+.cr-firefly > span{width:9px;height:9px;background:#F4FF9E;box-shadow:0 0 10px 4px rgba(222,255,120,.75)}
+.cr-spark > span{width:8px;height:8px;background:#FFF7D6;box-shadow:0 0 10px 4px rgba(255,227,138,.8)}
+.cr-lantern > span{width:14px;height:19px;border-radius:42% 42% 34% 34%;background:radial-gradient(circle at 50% 62%,#FFF4CC 0%,#FFC27A 45%,#E8804E 100%);box-shadow:0 0 14px 5px rgba(255,184,110,.5)}
+.cr-zip{animation:cr-zip 1.6s cubic-bezier(.2,.7,.3,1) both,cr-wander 9s ease-in-out 1.6s infinite}
+.cr-zip > span{animation:cr-flare 1.6s ease-out both,cr-blink 2.8s ease-in-out 1.6s infinite}
+@keyframes cr-wander{0%,100%{transform:translate(0,0)}25%{transform:translate(18px,-14px)}50%{transform:translate(4px,-28px)}75%{transform:translate(-16px,-10px)}}
+@keyframes cr-blink{0%,100%{opacity:.35}45%,60%{opacity:1}}
+@keyframes cr-zip{0%{transform:translate(0,0) scale(1)}30%{transform:translate(calc((var(--v) - .5) * 220px),calc(-60px - var(--v) * 80px)) scale(1.5)}100%{transform:translate(0,0) scale(1)}}
+@keyframes cr-flare{0%{opacity:1;scale:1}25%{opacity:1;scale:2.2}100%{opacity:.6;scale:1}}
+.cr-dragonfly{position:absolute;left:0;top:38%;width:64px;height:32px;padding:0;border:0;background:none;cursor:pointer;pointer-events:auto;animation:cr-cross 34s linear -12s infinite}
+.cr-dragonfly svg{display:block;width:100%;height:100%;animation:cr-hover 1.4s ease-in-out infinite alternate}
+.cr-wings{transform-origin:32px 10px;animation:cr-buzz .09s linear infinite alternate}
+.cr-loop svg{animation:cr-loop .9s cubic-bezier(.4,0,.2,1),cr-hover 1.4s ease-in-out .9s infinite alternate}
+@keyframes cr-cross{0%{transform:translate(-80px,0)}18%{transform:translate(calc(50vw - 32px),-60px)}36%,100%{transform:translate(calc(100vw + 80px),20px)}}
+@keyframes cr-hover{from{transform:translateY(-6px)}to{transform:translateY(6px)}}
+@keyframes cr-buzz{from{transform:scaleY(1)}to{transform:scaleY(.4)}}
+@keyframes cr-loop{0%{transform:rotate(0) translateY(0)}50%{transform:rotate(-200deg) translate(0,-40px) scale(1.15)}100%{transform:rotate(-360deg) translateY(0)}}
+@media (max-width: 599px){.cr-glow:nth-child(n+6){display:none}}
+@media (prefers-reduced-motion: reduce){
+  .cr-glow,.cr-glow > span,.cr-zip,.cr-zip > span,.cr-wings,.cr-dragonfly svg,.cr-loop svg{animation:none}
+  .cr-dragonfly{animation:none;left:auto;right:6%;top:30%}
+}

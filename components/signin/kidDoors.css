@@ -1,0 +1,170 @@
+/* "Who's learning?": ported from the KidDoors board (canvas row 9). Global, every class kd- prefixed. */
+.kd-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+/* The living city (decorative, aria-hidden): twinkling stars, a shooting star, lanterns drifting up, Kix flying past.
+   Paused while the tab is hidden; static under reduced motion. */
+@keyframes kd-twinkle{0%,100%{opacity:.3;transform:scale(.7)}50%{opacity:1;transform:scale(1.15)}}
+@keyframes kd-shoot{0%{opacity:0;transform:rotate(155deg) translateX(0)}2%{opacity:1}9%{opacity:0;transform:rotate(155deg) translateX(420px)}100%{opacity:0;transform:rotate(155deg) translateX(420px)}}
+@keyframes kd-rise{0%{opacity:0;transform:translate(0,0)}8%{opacity:.95}50%{transform:translate(22px,-52vh)}90%{opacity:.8}100%{opacity:0;transform:translate(-8px,-108vh)}}
+@keyframes kd-fly{0%{transform:translateX(-180px)}100%{transform:translateX(calc(100vw + 180px))}}
+@keyframes kd-flybob{0%,100%{transform:translateY(-8px) rotate(-6deg)}50%{transform:translateY(8px) rotate(5deg)}}
+@keyframes kd-bob{0%,100%{transform:translateY(0) rotate(8deg) scaleX(-1)}50%{transform:translateY(-12px) rotate(13deg) scaleX(-1)}}
+.kd-root{overflow:hidden;overflow:clip}
+.kd-bg{position:absolute;inset:0;width:100%;height:100%;overflow:hidden}
+.kd-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 85%;display:block}
+.kd-sky{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.kd-star{position:absolute;border-radius:50%;background:#FFF7D6;box-shadow:0 0 6px 1px rgba(255,227,138,.85);opacity:.8;animation:kd-twinkle 3.4s ease-in-out infinite}
+.kd-spark{position:absolute;color:#FFF3C4;filter:drop-shadow(0 0 4px rgba(255,227,138,.9));opacity:.85;animation:kd-twinkle 4.2s ease-in-out infinite}
+.kd-shoot{position:absolute;top:9%;left:74%;width:150px;height:2px;border-radius:2px;background:linear-gradient(90deg,rgba(255,247,214,0),#FFF7D6);box-shadow:0 0 8px rgba(255,247,214,.8);transform-origin:0 50%;opacity:0;animation:kd-shoot 11s ease-in 3s infinite}
+.kd-lantern{position:absolute;bottom:-40px;width:16px;height:22px;border-radius:7px 7px 9px 9px;background:linear-gradient(180deg,#FFF0B8 0%,#FFC36B 55%,#F2924B 100%);box-shadow:0 0 14px 4px rgba(255,190,110,.55),0 0 44px 12px rgba(255,170,90,.22);animation:kd-rise 26s linear infinite}
+.kd-fly{position:absolute;top:27%;left:0;width:76px;animation:kd-fly 26s linear -8s infinite}
+.kd-fly-img{position:relative;display:block;width:100%;height:auto;filter:drop-shadow(0 6px 14px rgba(14,12,43,.45));animation:kd-flybob 2.6s ease-in-out infinite}
+.kd-trail{position:absolute;top:46%;right:74%;width:150px;height:8px;border-radius:4px;background:linear-gradient(90deg,rgba(255,227,138,0),rgba(255,227,138,.85));filter:blur(1.5px)}
+.kd-trail-dot{position:absolute;border-radius:50%;background:#FFF3C4;box-shadow:0 0 6px #FFE38A}
+.kd-paused .kd-anim{animation-play-state:paused}
+/* Layout. Expanded (1024-1599) is the default and matches the 1280 x 800 board. */
+.kd-wrap{position:relative;z-index:1;width:100%;max-width:1440px;min-height:100vh;margin:0 auto;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;padding:24px 40px}
+.kd-head{align-self:stretch;display:flex;align-items:center;min-height:56px}
+.kd-logo{display:block;height:30px;width:auto}
+.kd-titles{display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:-10px;text-align:center}
+.kd-h1{font-size:clamp(36px,5vw,60px);line-height:1.05}
+.kd-who{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:2px 10px;min-height:56px;box-sizing:border-box;padding:0 0 0 22px;border-radius:var(--radius-pill)}
+.kd-switch{min-height:56px;padding:0 20px;border:0;border-radius:var(--radius-pill);background:rgba(185,167,245,.16);color:var(--ink);font:800 18px/1 var(--font-text);text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+.kd-switch:hover{background:rgba(185,167,245,.3)}
+.kd-switch:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+/* The doors. --kd-h is the door height; widths follow the art (junior 584 x 1100, teen 694 x 1100). */
+.kd-doors{--kd-h:clamp(260px, min(44vh, calc((100vw - 320px) / 2.6)), 380px);flex:1 0 auto;align-self:stretch;display:flex;justify-content:center;align-items:flex-end;gap:calc(var(--kd-h) * .25 + 32px);margin:0;padding:24px 0 12px;list-style:none}
+.kd-item{display:flex;flex-direction:column;align-items:center}
+.kd-door{position:relative;display:flex;flex-direction:column;align-items:center;color:var(--ink);text-decoration:none;border-radius:var(--radius-lg);outline:none;-webkit-tap-highlight-color:transparent}
+.kd-door:focus-visible{outline:3px solid var(--focus-ring);outline-offset:10px}
+.kd-stage{position:relative;display:block;flex:none;height:var(--kd-h)}
+.kd-stage-j{width:calc(var(--kd-h) * .531)}
+.kd-stage-t{width:calc(var(--kd-h) * .631)}
+.kd-halo{position:absolute;z-index:-1;left:-55%;right:-55%;top:-16%;bottom:-4%;border-radius:50%;opacity:.6;transform:scale(.9);transition:opacity var(--duration-base) var(--ease-soft),transform var(--duration-hero) var(--ease-soft)}
+.kd-halo-j{background:radial-gradient(closest-side,rgba(255,227,138,.5),rgba(255,201,168,.22) 55%,rgba(255,201,168,0))}
+.kd-halo-t{background:radial-gradient(closest-side,rgba(61,245,255,.38),rgba(201,184,255,.2) 55%,rgba(201,184,255,0))}
+.kd-ground{position:absolute;z-index:-1;left:-14%;right:-40%;bottom:-5%;height:10%;border-radius:50%;background:radial-gradient(closest-side,rgba(14,12,43,.6),rgba(14,12,43,0))}
+/* Kix hides behind the door's right edge and peeks out (mirrored so the free hand shows). */
+.kd-kix{position:absolute;bottom:0;left:calc(100% - var(--kd-h) * .108);width:calc(var(--kd-h) * .36);height:auto;transform-origin:50% 100%;transform:rotate(8deg) scaleX(-1);filter:drop-shadow(0 8px 12px rgba(14,12,43,.4))}
+.kd-light{position:absolute;left:5%;right:5%;top:4%;bottom:3%;opacity:.9;transition:opacity var(--duration-base) var(--ease-soft),filter var(--duration-base) var(--ease-soft)}
+.kd-light-j{border-radius:50% 50% 8px 8px / 30% 30% 8px 8px;background:radial-gradient(70% 55% at 50% 62%,#FFFBEA 0%,#FFE38A 38%,#FFB46B 78%,#F2924B 100%)}
+.kd-light-t{border-radius:6px;background:radial-gradient(70% 55% at 50% 55%,#FFFFFF 0%,#BFFBFF 35%,#3DF5FF 70%,#7A5CFF 100%)}
+.kd-leaves{position:absolute;inset:0;perspective:900px}
+.kd-leaf{position:absolute;top:0;display:block;width:50%;height:100%;backface-visibility:hidden;transition:transform 520ms var(--ease-soft)}
+.kd-leaf-l{left:0;transform-origin:0 50%}
+.kd-leaf-r{right:0;transform-origin:100% 50%}
+.kd-seam{position:absolute;left:50%;top:9%;bottom:5%;width:3px;margin-left:-1.5px;border-radius:2px;opacity:.75;transition:opacity var(--duration-base) var(--ease-soft)}
+.kd-seam-j{background:linear-gradient(180deg,rgba(255,227,138,0),#FFE38A 18%,#FFE38A 82%,rgba(255,227,138,0));box-shadow:0 0 10px 2px rgba(255,227,138,.6)}
+.kd-seam-t{background:linear-gradient(180deg,rgba(61,245,255,0),#3DF5FF 15%,#3DF5FF 85%,rgba(61,245,255,0));box-shadow:0 0 10px 2px rgba(61,245,255,.55)}
+.kd-plate{position:relative;z-index:2;display:flex;align-items:center;gap:12px;min-height:60px;box-sizing:border-box;margin-top:-30px;padding:8px 8px 8px 22px;border-radius:var(--radius-pill);background:var(--surface-glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);transition:box-shadow var(--duration-base) var(--ease-soft)}
+.kd-plate-j{box-shadow:inset 0 0 0 2px rgba(255,227,138,.5),var(--shadow-raised)}
+.kd-plate-t{box-shadow:inset 0 0 0 2px rgba(61,245,255,.5),var(--shadow-raised)}
+.kd-plate-text{display:flex;align-items:center;gap:10px;min-width:0}
+.kd-name{font:600 28px/1.1 var(--font-display);white-space:nowrap}
+.kd-level{padding:7px 12px;border-radius:var(--radius-pill);font:800 18px/1 var(--font-text);white-space:nowrap}
+.kd-level-j{background:var(--reward);color:var(--on-reward)}
+.kd-level-t{background:var(--accent-2);color:var(--on-accent-2)}
+.kd-go{display:grid;place-items:center;width:44px;height:44px;flex:none;border-radius:50%;background:var(--accent);color:var(--on-accent);transition:transform var(--duration-base) var(--ease-bounce)}
+.kd-go svg{width:22px;height:22px}
+/* Hover, keyboard focus and touch: the door glows, opens a crack, Kix bobs. */
+.kd-door:hover .kd-halo,.kd-door:focus-visible .kd-halo,.kd-door:active .kd-halo{opacity:1;transform:scale(1.06)}
+.kd-door:hover .kd-light,.kd-door:focus-visible .kd-light,.kd-door:active .kd-light{opacity:1;filter:brightness(1.12)}
+.kd-door:hover .kd-seam,.kd-door:focus-visible .kd-seam,.kd-door:active .kd-seam{opacity:0}
+.kd-door:hover .kd-leaf,.kd-door:focus-visible .kd-leaf,.kd-door:active .kd-leaf{transition:transform 640ms var(--ease-bounce)}
+.kd-door:hover .kd-leaf-l,.kd-door:focus-visible .kd-leaf-l,.kd-door:active .kd-leaf-l{transform:rotateY(36deg)}
+.kd-door:hover .kd-leaf-r,.kd-door:focus-visible .kd-leaf-r,.kd-door:active .kd-leaf-r{transform:rotateY(-36deg)}
+.kd-door:hover .kd-kix,.kd-door:focus-visible .kd-kix,.kd-door:active .kd-kix{animation:kd-bob 1s var(--ease-soft) infinite}
+.kd-door:hover .kd-plate-j,.kd-door:focus-visible .kd-plate-j{box-shadow:inset 0 0 0 2px #FFE38A,0 0 28px rgba(255,227,138,.55),var(--shadow-raised)}
+.kd-door:hover .kd-plate-t,.kd-door:focus-visible .kd-plate-t{box-shadow:inset 0 0 0 2px #3DF5FF,0 0 28px rgba(61,245,255,.5),var(--shadow-raised)}
+.kd-door:hover .kd-go,.kd-door:focus-visible .kd-go{transform:translateX(4px)}
+/* Add a kid (grown-ups) */
+.kd-item-add{align-self:flex-end}
+.kd-add{display:flex;flex-direction:column;align-items:center;gap:12px;box-sizing:border-box;padding:18px 18px 16px;border-radius:var(--radius-lg);color:var(--ink);text-decoration:none;background:var(--surface-glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:inset 0 0 0 1px var(--line),var(--shadow-raised);transition:box-shadow var(--duration-base) var(--ease-soft)}
+.kd-add:hover,.kd-add:focus-visible{box-shadow:inset 0 0 0 2px var(--accent),0 0 24px rgba(185,167,245,.4),var(--shadow-raised)}
+.kd-add:focus-visible{outline:3px solid var(--focus-ring);outline-offset:6px}
+.kd-add-arch{display:grid;place-items:center;flex:none;width:calc(var(--kd-h) * .3);height:calc(var(--kd-h) * .4);box-sizing:border-box;border-radius:999px 999px 12px 12px;border:2.5px dashed var(--border-control);color:var(--accent);transition:border-color var(--duration-base),background var(--duration-base)}
+.kd-add-arch svg{width:34px;height:34px}
+.kd-add:hover .kd-add-arch,.kd-add:focus-visible .kd-add-arch{border-color:var(--accent);background:rgba(185,167,245,.14)}
+.kd-add-text{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}
+.kd-add-title{font:600 22px/1.15 var(--font-display)}
+.kd-add-note{font:700 18px/1.3 var(--font-text);color:var(--ink-muted)}
+/* Footer */
+.kd-foot{display:flex;justify-content:center;margin-top:16px}
+.kd-manage{display:inline-flex;align-items:center;gap:10px;min-height:56px;box-sizing:border-box;padding:0 20px 0 18px;border-radius:var(--radius-pill);color:var(--ink);font:800 18px/1.2 var(--font-text);text-decoration:none;background:var(--surface-glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:inset 0 0 0 1px var(--line)}
+.kd-manage:hover{box-shadow:inset 0 0 0 2px var(--accent)}
+.kd-manage:focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px}
+.kd-manage svg{width:22px;height:22px;flex:none}
+/* Desktop (>= 1600): container 1440, taller doors; the city fills the margins. */
+@media (min-width: 1600px){
+  .kd-wrap{padding:32px 40px}
+  .kd-logo{height:34px}
+  .kd-h1{font-size:68px}
+  .kd-doors{--kd-h:clamp(340px, 44vh, 420px);gap:calc(var(--kd-h) * .25 + 28px)}
+  .kd-name{font-size:32px}
+}
+/* Medium (600-1023): three smaller doors in a row; "Add a kid" drops to its own row. */
+@media (min-width: 600px) and (max-width: 1023px){
+  .kd-wrap{padding:20px 24px 24px}
+  .kd-h1{font-size:44px}
+  .kd-doors{--kd-h:clamp(200px, min(34vh, calc((100vw - 96px) / 2.4)), 320px);flex-wrap:wrap;align-content:flex-end;gap:28px calc(var(--kd-h) * .25 + 16px)}
+  .kd-item-add{flex-basis:100%;align-items:center}
+  .kd-add{flex-direction:row;gap:14px;min-height:72px;padding:8px 22px 8px 8px}
+  .kd-add-arch{width:56px;height:56px;border-radius:50%}
+  .kd-add-arch svg{width:26px;height:26px}
+  .kd-add-text{align-items:flex-start;text-align:left}
+  .kd-plate{min-height:56px;margin-top:-26px;gap:10px;padding:6px 6px 6px 18px}
+  .kd-name{font-size:24px}
+  .kd-go{width:40px;height:40px}
+  .kd-fly{top:30%}
+}
+/* Compact (< 600): a vertical list of tall door cards, door on the left and name on the right. Fits 344 px. */
+@media (max-width: 599px){
+  .kd-wrap{align-items:stretch;padding:14px 12px 16px}
+  .kd-head{justify-content:center;min-height:40px}
+  .kd-logo{height:26px}
+  .kd-titles{gap:12px;margin-top:6px}
+  .kd-h1{font-size:clamp(32px,9vw,40px)}
+  .kd-who{padding:8px 8px 8px 16px;border-radius:var(--radius-lg)}
+  .kd-dot{display:none}
+  .kd-doors{--kd-h:150px;flex:none;flex-direction:column;justify-content:flex-start;align-items:stretch;gap:12px;margin-top:20px;padding:0}
+  .kd-item{align-items:stretch}
+  .kd-door{isolation:isolate;flex-direction:row;align-items:flex-end;gap:14px;min-height:170px;box-sizing:border-box;padding:16px 14px 0 18px;overflow:hidden;background:var(--surface-glass);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:inset 0 0 0 1px var(--line),var(--shadow-raised)}
+  .kd-door:hover,.kd-door:focus-visible{box-shadow:inset 0 0 0 2px var(--accent),var(--shadow-raised)}
+  .kd-door:focus-visible{outline-offset:3px}
+  .kd-stage{margin-right:calc(var(--kd-h) * .26)}
+  .kd-plate,.kd-door:hover .kd-plate-j,.kd-door:hover .kd-plate-t,.kd-door:focus-visible .kd-plate-j,.kd-door:focus-visible .kd-plate-t{flex:1 1 auto;min-width:0;align-self:center;justify-content:space-between;min-height:0;margin:0;padding:0;background:none;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
+  .kd-plate-text{flex-direction:column;align-items:flex-start;gap:8px}
+  .kd-name{font-size:30px}
+  .kd-item-add{align-self:stretch}
+  .kd-add{flex-direction:row;gap:14px;min-height:72px;padding:8px 16px 8px 8px}
+  .kd-add-arch{width:56px;height:56px;border-radius:50%}
+  .kd-add-arch svg{width:26px;height:26px}
+  .kd-add-text{align-items:flex-start;text-align:left}
+  .kd-foot{margin-top:14px}
+  .kd-manage{flex:1 1 auto;justify-content:center}
+  .kd-fly{top:10%;width:60px}
+}
+@media (prefers-reduced-motion: reduce){
+  .kd-anim{animation:none!important}
+  .kd-star,.kd-spark{opacity:.85}
+  .kd-lantern{transform:translateY(var(--kd-still));opacity:.9}
+  .kd-shoot{display:none}
+  .kd-fly{left:auto;right:8%;transform:none}
+  .kd-door:hover .kd-leaf-l,.kd-door:focus-visible .kd-leaf-l,.kd-door:active .kd-leaf-l,
+  .kd-door:hover .kd-leaf-r,.kd-door:focus-visible .kd-leaf-r,.kd-door:active .kd-leaf-r{transform:none}
+  .kd-door:hover .kd-kix,.kd-door:focus-visible .kd-kix,.kd-door:active .kd-kix{animation:none}
+  .kd-door:hover .kd-go,.kd-door:focus-visible .kd-go{transform:none}
+  .kd-halo,.kd-leaf,.kd-light,.kd-seam,.kd-go,.kd-plate{transition:opacity 200ms linear}
+  .kd-door:hover .kd-halo,.kd-door:focus-visible .kd-halo,.kd-door:active .kd-halo{transform:scale(.9)}
+}
+
+/* The sky answers taps (pointer only): the layout passes clicks through to it. */
+.kd-wrap{z-index:1}
+.kd-wrap,.kd-doors{pointer-events:none}
+.kd-head > *,.kd-titles > *,.kd-item,.kd-foot > *{pointer-events:auto}
+.kd-tap{pointer-events:auto;cursor:pointer}
+.kd-lantern.kd-tap::before{content:"";position:absolute;inset:-16px}
+.kd-tapped.kd-lantern::after{content:"";position:absolute;inset:-12px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,244,204,.95),rgba(255,194,122,.5) 50%,rgba(255,194,122,0));animation:kd-flare .9s ease-out both}
+@keyframes kd-flare{0%{opacity:0;transform:scale(.3)}30%{opacity:1;transform:scale(1.4)}100%{opacity:0;transform:scale(2.2)}}
+.kd-tapped.kd-fly .kd-fly-img{animation:kd-loop .9s cubic-bezier(.4,0,.2,1),kd-flybob 2.6s ease-in-out .9s infinite}
+@keyframes kd-loop{0%{rotate:0deg}50%{rotate:-200deg;translate:0 -40px;scale:1.15}100%{rotate:-360deg}}
+@media (prefers-reduced-motion: reduce){.kd-tapped::after,.kd-tapped .kd-fly-img{animation:none!important}}

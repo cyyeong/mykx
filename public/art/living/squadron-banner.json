@@ -1,0 +1,119 @@
+{
+  "art": "squadron-banner",
+  "src": "public/art/jets/squadron-banner.webp",
+  "width": 1600,
+  "height": 1067,
+  "plate": "/art/living/squadron-banner/plate.webp",
+  "layers": [
+    {
+      "id": "jet-1",
+      "motion": "float",
+      "src": "/art/living/squadron-banner/jet-1.webp",
+      "x": 47.75,
+      "y": 24.27,
+      "w": 42.94,
+      "h": 30.18,
+      "mask": false
+    },
+    {
+      "id": "jet-2",
+      "motion": "float",
+      "src": "/art/living/squadron-banner/jet-2.webp",
+      "x": 32.81,
+      "y": 52.76,
+      "w": 34.5,
+      "h": 30.46,
+      "mask": false
+    },
+    {
+      "id": "jet-3",
+      "motion": "float",
+      "src": "/art/living/squadron-banner/jet-3.webp",
+      "x": 13.88,
+      "y": 33.93,
+      "w": 29.5,
+      "h": 29.52,
+      "mask": false
+    },
+    {
+      "id": "jet-4",
+      "motion": "float",
+      "src": "/art/living/squadron-banner/jet-4.webp",
+      "x": 27.19,
+      "y": 6.65,
+      "w": 42.38,
+      "h": 29.99,
+      "mask": false
+    },
+    {
+      "id": "trail-1",
+      "motion": "mist",
+      "src": "/art/living/squadron-banner/trail-1.webp",
+      "x": 12.5,
+      "y": 36.18,
+      "w": 75.5,
+      "h": 61.76,
+      "mask": false
+    },
+    {
+      "id": "cloud-1",
+      "motion": "mist",
+      "src": "/art/living/squadron-banner/cloud-1.webp",
+      "x": 66.5,
+      "y": 57.08,
+      "w": 33.5,
+      "h": 42.92,
+      "mask": false
+    },
+    {
+      "id": "cloud-2",
+      "motion": "mist",
+      "src": "/art/living/squadron-banner/cloud-2.webp",
+      "x": 0,
+      "y": 64.57,
+      "w": 30.44,
+      "h": 35.43,
+      "mask": false
+    },
+    {
+      "id": "cloud-3",
+      "motion": "mist",
+      "src": "/art/living/squadron-banner/cloud-3.webp",
+      "x": 68.25,
+      "y": 0,
+      "w": 31.75,
+      "h": 25.02,
+      "mask": false
+    },
+    {
+      "id": "cloud-4",
+      "motion": "mist",
+      "src": "/art/living/squadron-banner/cloud-4.webp",
+      "x": 0,
+      "y": 31.49,
+      "w": 14.81,
+      "h": 26.8,
+      "mask": false
+    },
+    {
+      "id": "cloud-5",
+      "motion": "mist",
+      "src": "/art/living/squadron-banner/cloud-5.webp",
+      "x": 51.94,
+      "y": 0,
+      "w": 21.06,
+      "h": 9.47,
+      "mask": false
+    },
+    {
+      "id": "cloud-6",
+      "motion": "mist",
+      "src": "/art/living/squadron-banner/cloud-6.webp",
+      "x": 90.81,
+      "y": 15.56,
+      "w": 9.19,
+      "h": 13.68,
+      "mask": false
+    }
+  ]
+}

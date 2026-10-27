@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { Art } from "@/components/ui/Art";
+import { useSound } from "@/components/sound/SoundProvider";
 import { useTheme } from "@/components/theme/ThemeRoot";
 import { PACKS, getPack, wordmarkFor } from "@/components/theme/packs";
 import s from "./studio.module.css";
+import { TransformReveal } from "./TransformReveal";
 
 const INTERESTS = [
   "Bugs and critters",
@@ -35,10 +37,16 @@ function SparkleIcon(props: React.ComponentProps<"svg">) {
 
 export function StudioPicker() {
   const { pack: packId, setPack } = useTheme();
+  const { play } = useSound();
   const pack = getPack(packId);
   const [likes, setLikes] = useState<string[]>(["Bugs and critters", "Jets"]);
+  const [transforming, setTransforming] = useState(false);
+  // Kept Kix per world for this session (Day 3: Supabase Storage + profiles.kix_url).
+  const [kept, setKept] = useState<Partial<Record<string, string>>>({});
+  const keptKix = kept[pack.id];
 
   function toggle(label: string) {
+    play("tap");
     setLikes((cur) => (cur.includes(label) ? cur.filter((l) => l !== label) : [...cur, label].slice(-2)));
   }
 
@@ -49,7 +57,12 @@ export function StudioPicker() {
 
       <div className={s.stage}>
         <div className={s.kix}>
-          <Art base={pack.kix} alt={`Kix in the ${pack.name} style`} sizes="400px" className={s.kixImg} />
+          {keptKix ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={keptKix} alt={`Your Kix in the ${pack.name} style`} className={`${s.kixImg} ${s.kixKept}`} />
+          ) : (
+            <Art base={pack.kix} alt={`Kix in the ${pack.name} style`} sizes="400px" className={s.kixImg} />
+          )}
           {SPARKLES.map((sp) => (
             <SparkleIcon
               key={sp.className}
@@ -84,7 +97,10 @@ export function StudioPicker() {
                 className={s.tile}
                 data-theme={p.id}
                 aria-pressed={p.id === pack.id}
-                onClick={(e) => setPack(p.id, e.currentTarget)}
+                onClick={(e) => {
+                  setPack(p.id, e.currentTarget);
+                  play("packPick", p.id);
+                }}
               >
                 <Art base={p.kix} alt="" sizes="64px" className={s.tileImg} />
                 <span className={s.tileName}>{p.name}</span>
@@ -116,13 +132,27 @@ export function StudioPicker() {
         </div>
 
         <div className={s.cta}>
-          <button className="mk-btn mk-btn--reward" type="button" disabled={likes.length < 2}>
+          <button className="mk-btn mk-btn--reward" type="button" disabled={likes.length < 2} onClick={() => {
+            play("transform");
+            setTransforming(true);
+          }}>
             <SparkleIcon />
             Transform Kix
           </button>
           <span className={s.ctaNote}>Muse Image draws your Kix in about 20 seconds.</span>
         </div>
       </section>
+      {transforming && (
+        <TransformReveal
+          pack={pack.id}
+          interests={likes}
+          onKeep={(image) => {
+            setKept((k) => ({ ...k, [pack.id]: image }));
+            setTransforming(false);
+          }}
+          onClose={() => setTransforming(false)}
+        />
+      )}
     </main>
   );
 }

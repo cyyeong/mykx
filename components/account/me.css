@@ -1,0 +1,195 @@
+/* "Me", ported from the KidMe board (canvas row 8). Global, every class km2- prefixed. */
+.km2-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+/* Band scale: Junior body 18+, targets 56; Teen body 16+, targets 44 (bundle.css sets --target per band). */
+.km2-root{overflow:hidden;overflow:clip;--km2-body:18px;--km2-lh:26px;--km2-h2:28px;--km2-hi:22px;--km2-input:60px;--km2-in-font:22px;--km2-kix:150px}
+.km2-root[data-band="teen"]{--km2-body:16px;--km2-lh:24px;--km2-h2:24px;--km2-hi:19px;--km2-input:48px;--km2-in-font:17px;--km2-kix:112px}
+/* Calm, static backdrops (no ambient motion on settings screens). */
+.km2-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.km2-bg-junior{background:radial-gradient(70% 55% at 0% 0%,rgba(255,211,77,.30),rgba(255,211,77,0) 70%),radial-gradient(60% 50% at 100% 100%,rgba(44,122,71,.22),rgba(44,122,71,0) 70%),radial-gradient(50% 40% at 100% 0%,rgba(28,108,132,.14),rgba(28,108,132,0) 70%),linear-gradient(180deg,#F5FAEE 0%,#EEF5E4 50%,#E2EED6 100%)}
+.km2-bg-teen{background:radial-gradient(55% 45% at 88% 0%,rgba(255,211,110,.38),rgba(255,211,110,0) 70%),radial-gradient(50% 40% at 0% 100%,rgba(247,182,207,.42),rgba(247,182,207,0) 70%),linear-gradient(180deg,#BCD8F8 0%,#DCEAFC 38%,#F6F8FF 100%)}
+.km2-leaf{position:absolute;border-radius:0 100% 0 100%}
+.km2-leaf::after{content:"";position:absolute;left:8%;right:8%;top:50%;height:2px;margin-top:-1px;border-radius:1px;background:rgba(255,255,255,.55);transform:rotate(26deg)}
+.km2-dew{position:absolute;border-radius:50%;background:radial-gradient(circle at 34% 30%,#fff 0 16%,rgba(255,255,255,.55) 28%,rgba(28,108,132,.16) 72%,rgba(28,108,132,.06));box-shadow:inset 0 0 0 1px rgba(255,255,255,.7),0 2px 4px rgba(29,51,36,.08)}
+.km2-cloud{position:absolute;border-radius:999px;background:#fff}
+.km2-ray{position:absolute;top:-20%;width:110px;height:150%;background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,0) 80%);transform:rotate(26deg);transform-origin:50% 0}
+.km2-speed{position:absolute;height:2px;border-radius:2px;background:var(--accent);opacity:.16}
+/* Layout. Expanded (1024-1599) is the default and matches the 1280 x 800 board: two columns. */
+.km2-wrap{position:relative;z-index:1;width:100%;max-width:1200px;margin:0 auto;box-sizing:border-box;display:flex;flex-direction:column;gap:22px;padding:24px 40px 32px}
+.km2-head{display:flex;align-items:center;gap:16px;min-height:56px}
+.km2-back{display:grid;place-items:center;width:var(--target);height:var(--target);flex:none;border-radius:50%;color:var(--ink);background:var(--surface-raised);box-shadow:inset 0 0 0 2px var(--line),var(--shadow-raised);transition:transform var(--duration-snappy) var(--ease-soft)}
+.km2-back:active{transform:scale(.94)}
+.km2-back:focus-visible,.km2-signout:focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px}
+.km2-titles{display:flex;flex-direction:column;gap:2px;min-width:0}
+.km2-h1{font-size:clamp(36px,4vw,52px);line-height:1}
+.km2-lede{font-size:var(--km2-body);line-height:var(--km2-lh)}
+.km2-headend{margin-left:auto;display:flex;align-items:center;gap:12px}
+.km2-who{display:inline-flex;align-items:center;gap:10px;min-height:var(--target);box-sizing:border-box;padding:0 18px 0 6px;border-radius:var(--radius-pill);font-size:var(--km2-body);font-weight:800;white-space:nowrap}
+.km2-grid{display:grid;grid-template-columns:minmax(0,440fr) minmax(0,656fr);gap:24px;align-items:start}
+.km2-card{box-sizing:border-box;min-width:0;display:flex;flex-direction:column;gap:18px;padding:28px}
+.km2-cardhead{display:flex;flex-direction:column;gap:4px}
+.km2-h2{margin:0;font-family:var(--font-display);font-weight:800;font-size:var(--km2-h2);line-height:1.15}
+.km2-sub{margin:0;font-size:var(--km2-body);line-height:var(--km2-lh);font-weight:600;color:var(--ink-muted)}
+/* Nickname card */
+.km2-kixrow{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:16px}
+.km2-kix{display:block;width:var(--km2-kix);height:auto;filter:drop-shadow(0 10px 14px rgba(29,51,36,.18))}
+.km2-bubble{position:relative;display:flex;flex-direction:column;gap:6px;box-sizing:border-box;padding:16px 18px;border-radius:var(--radius-lg);background:var(--surface-raised);box-shadow:inset 0 0 0 2px var(--line),var(--shadow-raised);transition:box-shadow var(--duration-base) var(--ease-soft)}
+.km2-bubble-warn{box-shadow:inset 0 0 0 2px var(--warn),var(--shadow-raised)}
+.km2-tail{position:absolute;left:-9px;top:calc(50% - 9px);width:18px;height:18px;background:var(--surface-raised);transform:rotate(45deg);box-shadow:-2px 2px 0 0 var(--line)}
+.km2-bubble-warn .km2-tail{box-shadow:-2px 2px 0 0 var(--warn)}
+.km2-hi{position:relative;margin:0;font:800 var(--km2-hi)/1.2 var(--font-display)}
+.km2-tip{position:relative;margin:0;font-size:var(--km2-body);line-height:var(--km2-lh);font-weight:700}
+.km2-tip-warn{display:flex;gap:8px;align-items:flex-start;color:var(--warn)}
+.km2-tip-warn svg{width:20px;height:20px;flex:none;margin-top:3px}
+.km2-field{display:flex;flex-direction:column;gap:8px}
+.km2-labelrow{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.km2-label{font-size:var(--km2-body);line-height:var(--km2-lh);font-weight:800;color:var(--ink)}
+.km2-count{font-size:var(--km2-body);line-height:var(--km2-lh);font-weight:700;color:var(--ink-muted);font-variant-numeric:tabular-nums}
+.km2-count-near{color:var(--warn)}
+.km2-nbox{display:flex;align-items:center;height:var(--km2-input);box-sizing:border-box;padding:0 18px;border-radius:calc(var(--card-radius) * .75);background:var(--surface-raised);box-shadow:inset 0 0 0 2px var(--border-control)}
+.km2-nbox:focus-within{box-shadow:inset 0 0 0 3px var(--accent),0 0 0 4px var(--line)}
+.km2-ninput{flex:1;min-width:0;height:100%;padding:0;border:0;outline:none;background:transparent;color:var(--ink);font:800 var(--km2-in-font)/1 var(--font-text)}
+.km2-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px}
+.km2-status{flex:1 1 180px;min-width:0;min-height:var(--km2-lh);margin:0;display:flex;align-items:center;gap:8px;font-size:var(--km2-body);line-height:var(--km2-lh);font-weight:800}
+.km2-status svg{width:22px;height:22px;flex:none}
+.km2-ok{color:var(--success)}
+.km2-warn{color:var(--warn)}
+/* Picture code card (Junior) */
+.km2-codebody{display:grid;grid-template-columns:minmax(0,1fr) 312px;grid-template-rows:auto 1fr auto;grid-template-areas:"steps pad" "now pad" "forgot acts";column-gap:26px;row-gap:18px}
+.km2-steps{grid-area:steps;display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.km2-step{position:relative;display:flex;align-items:center;gap:12px;min-height:56px;box-sizing:border-box;padding:6px 16px 6px 6px;border-radius:var(--radius-pill);font:800 18px/22px var(--font-text);transition:background var(--duration-base) var(--ease-soft)}
+.km2-stepnum{display:grid;place-items:center;width:44px;height:44px;flex:none;border-radius:50%;font:800 18px/1 var(--font-text)}
+.km2-stepnum svg{width:22px;height:22px}
+.km2-step-now{background:var(--accent);color:var(--on-accent);box-shadow:var(--shadow-raised)}
+.km2-step-now .km2-stepnum{background:var(--on-accent);color:var(--accent)}
+.km2-step-done .km2-stepnum{background:var(--success);color:var(--on-success)}
+.km2-step-next{color:var(--ink-muted)}
+.km2-step-next .km2-stepnum{box-shadow:inset 0 0 0 2px var(--border-control)}
+.km2-now{grid-area:now;display:flex;flex-direction:column;gap:12px}
+.km2-dots{display:flex;gap:14px;padding:2px 0}
+.km2-dot{width:24px;height:24px;border-radius:50%;box-shadow:inset 0 0 0 3px var(--border-control);transition:background var(--duration-snappy) var(--ease-soft),transform var(--duration-base) var(--ease-bounce),box-shadow var(--duration-snappy)}
+.km2-dot-on{background:var(--accent);box-shadow:0 0 0 3px rgba(255,211,77,.45);transform:scale(1.12)}
+.km2-note{margin:0;font-size:var(--km2-body);line-height:var(--km2-lh);font-weight:700;color:var(--ink-muted)}
+.km2-note.km2-warn{color:var(--warn)}
+.km2-padwrap{grid-area:pad;width:312px}
+.km2-pad{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.km2-pic{position:relative;display:block;width:100%;aspect-ratio:1;padding:0;border:0;border-radius:var(--radius-md);overflow:hidden;cursor:pointer;background:var(--surface-raised);box-shadow:0 0 0 2px var(--line),0 6px 14px rgba(29,51,36,.14);transition:transform var(--duration-snappy) var(--ease-soft),box-shadow var(--duration-base) var(--ease-soft);-webkit-tap-highlight-color:transparent}
+.km2-pic img{display:block;width:100%;height:100%;object-fit:cover;pointer-events:none;-webkit-user-select:none;user-select:none}
+.km2-pic:hover{box-shadow:0 0 0 3px var(--accent),0 8px 18px rgba(29,51,36,.18)}
+.km2-pic:active{transform:scale(.92);box-shadow:0 0 0 4px var(--reward),var(--shadow-glow)}
+.km2-pic:focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px}
+.km2-acts{grid-area:acts;display:flex;flex-wrap:wrap;gap:10px}
+.km2-acts .mk-btn{flex:1 1 auto;padding:0 18px}
+.km2-forgot{grid-area:forgot;align-self:center;margin:0;display:flex;align-items:flex-start;gap:8px;font-size:var(--km2-body);line-height:var(--km2-lh);font-weight:700;color:var(--ink-muted)}
+.km2-forgot svg{width:20px;height:20px;flex:none;margin-top:3px}
+.km2-saved{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;aspect-ratio:1;box-sizing:border-box;padding:20px;text-align:center;border-radius:var(--radius-lg);background:var(--surface-raised);box-shadow:inset 0 0 0 3px var(--reward),var(--shadow-raised)}
+.km2-badge{position:relative;display:grid;place-items:center;width:104px;height:104px;margin-bottom:6px;border-radius:50%;background:var(--success);color:var(--on-success);box-shadow:0 0 0 8px rgba(255,211,77,.4),var(--shadow-glow);animation:km2-pop .6s var(--ease-bounce) both}
+.km2-badge svg{position:relative;width:56px;height:56px}
+.km2-burst{position:absolute;left:50%;top:50%;width:12px;height:12px;margin:-6px;border-radius:50%;background:var(--reward);opacity:0;animation:km2-burst .9s var(--ease-soft) .1s both}
+.km2-saved-h{margin:0;font:800 34px/1.1 var(--font-display)}
+.km2-saved-p{margin:0;font-size:20px;line-height:28px;font-weight:700}
+@keyframes km2-pop{0%{transform:scale(.3);opacity:0}100%{transform:scale(1);opacity:1}}
+@keyframes km2-burst{0%{opacity:1;transform:rotate(var(--a)) translateY(0) scale(.4)}100%{opacity:0;transform:rotate(var(--a)) translateY(-92px) scale(1)}}
+@keyframes km2-shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(3px)}}
+@keyframes km2-shake2{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(3px)}}
+.km2-shake{animation:km2-shake .42s var(--ease-soft)}
+.km2-shake2{animation:km2-shake2 .42s var(--ease-soft)}
+/* Password card (Teen) */
+.km2-pfields{display:flex;flex-direction:column;gap:16px}
+.km2-pfield{display:flex;flex-direction:column;gap:6px}
+.km2-pbox{display:flex;align-items:center;gap:4px;height:var(--km2-input);box-sizing:border-box;padding:0 2px 0 14px;border-radius:var(--radius-sm);background:var(--surface-raised);box-shadow:inset 0 0 0 2px var(--border-control)}
+.km2-pbox:focus-within{box-shadow:inset 0 0 0 2px var(--accent),0 0 0 4px var(--line)}
+.km2-pinput{flex:1;min-width:0;height:100%;padding:0;border:0;outline:none;background:transparent;color:var(--ink);font:500 var(--km2-in-font)/1 var(--font-text)}
+.km2-eye{display:grid;place-items:center;width:44px;height:44px;flex:none;padding:0;border:0;border-radius:var(--radius-sm);background:transparent;color:var(--ink-muted);cursor:pointer}
+.km2-eye:hover{color:var(--ink);background:var(--line)}
+.km2-eye:focus-visible{outline:3px solid var(--focus-ring);outline-offset:-3px}
+.km2-eye svg{width:22px;height:22px}
+.km2-meter{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:4px}
+.km2-seg{height:6px;border-radius:3px;background:var(--line);transition:background var(--duration-base) var(--ease-soft)}
+.km2-seg-warn{background:var(--warn)}
+.km2-seg-ok{background:var(--accent)}
+.km2-seg-strong{background:var(--success)}
+.km2-hint{min-height:22px;margin:0;display:flex;align-items:center;gap:6px;font-size:16px;line-height:22px;font-weight:600;color:var(--ink-muted)}
+.km2-hint svg{width:18px;height:18px;flex:none}
+.km2-hint.km2-ok{color:var(--success)}
+.km2-hint.km2-warn{color:var(--warn)}
+/* Desktop (>= 1600): container 1200, roomier cards. */
+@media (min-width: 1600px){
+  .km2-wrap{padding:40px 40px 48px;gap:28px}
+  .km2-grid{gap:32px}
+  .km2-card{padding:36px;gap:22px}
+  .km2-root{--km2-kix:170px}
+  .km2-root[data-band="teen"]{--km2-kix:128px}
+  .km2-codebody{grid-template-columns:minmax(0,1fr) 336px;column-gap:32px}
+  .km2-padwrap{width:336px}
+}
+/* Medium (600-1023): the two cards stack; the picture pad stays beside the steps. */
+@media (min-width: 600px) and (max-width: 1023px){
+  .km2-wrap{max-width:760px;padding:24px 24px 32px;gap:20px}
+  .km2-grid{grid-template-columns:minmax(0,1fr);gap:20px}
+  .km2-card{padding:24px}
+  .km2-codebody{grid-template-columns:minmax(0,1fr) clamp(240px, 40vw, 312px);column-gap:22px}
+  .km2-padwrap{width:auto}
+}
+/* Compact (< 600): one column. Steps shrink to a progress row with only the current step named. */
+@media (max-width: 599px){
+  .km2-wrap{padding:14px 12px 24px;gap:16px}
+  .km2-head{gap:10px}
+  .km2-h1{font-size:36px}
+  .km2-lede{display:none}
+  .km2-who{display:none}
+  .km2-grid{grid-template-columns:minmax(0,1fr);gap:14px}
+  .km2-card{padding:20px 16px;gap:16px}
+  .km2-root{--km2-kix:96px;--km2-hi:20px}
+  .km2-root[data-band="teen"]{--km2-kix:80px;--km2-hi:18px}
+  .km2-kixrow{gap:12px}
+  .km2-bubble{padding:12px 14px}
+  .km2-codebody{grid-template-columns:minmax(0,1fr);grid-template-rows:auto;grid-template-areas:"steps" "now" "pad" "acts" "forgot";row-gap:16px}
+  .km2-steps{flex-direction:row;gap:6px}
+  .km2-step{padding:6px}
+  .km2-step-now{flex:1 1 auto;padding-right:14px}
+  .km2-step:not(.km2-step-now) .km2-steplabel{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+  .km2-padwrap{width:auto}
+  .km2-pad{gap:10px}
+  .km2-acts .mk-btn{flex:1 1 0%}
+  .km2-saved{aspect-ratio:auto;min-height:280px}
+  .km2-actions .mk-btn{flex:1 1 100%}
+}
+@media (prefers-reduced-motion: reduce){
+  .km2-badge,.km2-shake,.km2-shake2{animation:none}
+  .km2-burst{display:none}
+  .km2-pic,.km2-dot,.km2-back,.km2-step,.km2-bubble,.km2-seg{transition:none}
+  .km2-pic:active{transform:none}
+  .km2-dot-on{transform:none}
+}
+/* ---- Added in the port ---- */
+/* More worlds than the board's two: calm, static backdrops that follow the kid's pack. */
+.km2-bg-dream{background:radial-gradient(60% 45% at 86% 0%,rgba(255,227,138,.20),rgba(255,227,138,0) 70%),radial-gradient(55% 45% at 0% 100%,rgba(168,240,212,.13),rgba(168,240,212,0) 70%),linear-gradient(180deg,#1E1C45 0%,#25235A 60%,#2D2A66 100%)}
+.km2-star{position:absolute;border-radius:50%;background:#FFF7D6;box-shadow:0 0 6px 1px rgba(255,227,138,.75);opacity:.8}
+.km2-lantern{position:absolute;width:16px;height:22px;border-radius:7px 7px 9px 9px;background:linear-gradient(180deg,#FFF0B8 0%,#FFC36B 55%,#F2924B 100%);box-shadow:0 0 14px 4px rgba(255,190,110,.45),0 0 44px 12px rgba(255,170,90,.18);opacity:.85}
+.km2-bg-idol{background:radial-gradient(50% 50% at 8% 0%,rgba(255,61,203,.26),rgba(255,61,203,0) 70%),radial-gradient(50% 50% at 94% 4%,rgba(61,245,255,.2),rgba(61,245,255,0) 70%),linear-gradient(180deg,#120C2B 0%,#1A1238 100%)}
+.km2-beam{position:absolute;top:-12%;width:150px;height:130%;transform-origin:50% 0;background:linear-gradient(180deg,rgba(255,61,203,.16),rgba(255,61,203,0) 72%)}
+.km2-beam-cyan{background:linear-gradient(180deg,rgba(61,245,255,.13),rgba(61,245,255,0) 72%)}
+.km2-neon{position:absolute;height:2px;border-radius:2px;background:#FF3DCB;box-shadow:0 0 10px 1px rgba(255,61,203,.7);opacity:.5}
+.km2-neon-cyan{background:#3DF5FF;box-shadow:0 0 10px 1px rgba(61,245,255,.7)}
+.km2-bg-toon{background:radial-gradient(40% 35% at 0% 0%,rgba(255,210,63,.32),rgba(255,210,63,0) 70%),radial-gradient(40% 35% at 100% 100%,rgba(255,126,182,.26),rgba(255,126,182,0) 70%),linear-gradient(180deg,#FFF6E0 0%,#FFF0D2 100%)}
+.km2-blob{position:absolute;border-radius:50%}
+/* Loading and "not signed in": Kix and one line, centred. */
+.km2-gate{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;box-sizing:border-box;padding:32px 20px;text-align:center}
+.km2-gate-kix{display:block;width:140px;height:auto;filter:drop-shadow(0 10px 14px rgba(14,12,43,.25))}
+@keyframes km2-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.km2-bob{animation:km2-bob 2.4s var(--ease-soft) infinite}
+.km2-pic:disabled{cursor:default}
+.km2-signout:disabled{opacity:.6}
+.km2-demo{position:relative;margin:4px 0 0;display:flex;align-items:center;gap:8px;font-size:14px;line-height:20px;font-weight:600;color:var(--ink-muted)}
+.km2-demo-tag{padding:1px 8px;border-radius:var(--radius-pill);background:var(--ink);color:var(--surface);font-size:11px;line-height:18px;font-weight:800;letter-spacing:.04em}
+/* The sound HUD (kid layout) sits top-right; on Me it moves to the bottom corner so it never covers Sign out. */
+body:has(.km2-root) [role="group"][aria-label="Sound"]{top:auto;bottom:max(16px,env(safe-area-inset-bottom))}
+.km2-wrap{padding-bottom:96px}
+@media (max-width: 599px){
+  .km2-signout{width:var(--target);padding:0}
+  .km2-signout-label{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+  .km2-gate-kix{width:112px}
+}
+@media (prefers-reduced-motion: reduce){.km2-bob{animation:none}}
+.km2-titles{flex:1 1 auto}
+.km2-headend{flex:none}

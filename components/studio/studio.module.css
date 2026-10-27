@@ -57,6 +57,9 @@
   border-radius: 50%;
   box-shadow: 0 0 0 10px var(--surface-raised), 0 0 0 13px var(--accent), var(--shadow-glow);
 }
+/* A kept, cut-out Kix: no disc, it stands on the stage. */
+.kixKept { object-fit: contain; box-shadow: none; filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.28)); }
+
 .sparkle {
   position: absolute;
   color: var(--reward);

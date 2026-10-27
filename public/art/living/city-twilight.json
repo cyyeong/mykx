@@ -1,0 +1,148 @@
+{
+  "art": "city-twilight",
+  "src": "public/art/login/city-twilight.webp",
+  "width": 1600,
+  "height": 914,
+  "layers": [
+    {
+      "id": "plant-1",
+      "motion": "breeze",
+      "src": "/art/living/city-twilight/plant-1.webp",
+      "x": 80.88,
+      "y": 79.87,
+      "w": 9.5,
+      "h": 9.85,
+      "mask": true
+    },
+    {
+      "id": "plant-2",
+      "motion": "waver",
+      "src": "/art/living/city-twilight/plant-2.webp",
+      "x": 0,
+      "y": 67.29,
+      "w": 7,
+      "h": 15.1,
+      "mask": false
+    },
+    {
+      "id": "plant-3",
+      "motion": "waver",
+      "src": "/art/living/city-twilight/plant-3.webp",
+      "x": 13.75,
+      "y": 77.79,
+      "w": 6.19,
+      "h": 11.27,
+      "mask": false
+    },
+    {
+      "id": "plant-4",
+      "motion": "waver",
+      "src": "/art/living/city-twilight/plant-4.webp",
+      "x": 94.25,
+      "y": 69.37,
+      "w": 5.75,
+      "h": 12.8,
+      "mask": false
+    },
+    {
+      "id": "water",
+      "motion": "shimmer",
+      "src": "/art/living/city-twilight/water.webp",
+      "x": 24.69,
+      "y": 65.43,
+      "w": 55.25,
+      "h": 6.78,
+      "mask": true
+    },
+    {
+      "id": "aurora",
+      "motion": "haze",
+      "src": "/art/living/city-twilight/aurora.webp",
+      "x": 0,
+      "y": 0,
+      "w": 100,
+      "h": 33.7,
+      "mask": false
+    },
+    {
+      "id": "aurorashine",
+      "motion": "aurora",
+      "src": "/art/living/city-twilight/aurorashine.webp",
+      "x": 0,
+      "y": 0,
+      "w": 100,
+      "h": 33.7,
+      "mask": true
+    },
+    {
+      "id": "stars-1",
+      "motion": "twinkle",
+      "src": "/art/living/city-twilight/stars-1.webp",
+      "x": 0,
+      "y": 0,
+      "w": 33.31,
+      "h": 45.4,
+      "mask": true
+    },
+    {
+      "id": "stars-2",
+      "motion": "twinkle",
+      "src": "/art/living/city-twilight/stars-2.webp",
+      "x": 33.31,
+      "y": 0,
+      "w": 33.38,
+      "h": 45.4,
+      "mask": true
+    },
+    {
+      "id": "stars-3",
+      "motion": "twinkle",
+      "src": "/art/living/city-twilight/stars-3.webp",
+      "x": 66.69,
+      "y": 0,
+      "w": 33.31,
+      "h": 45.4,
+      "mask": true
+    },
+    {
+      "id": "lights-1",
+      "motion": "flicker",
+      "src": "/art/living/city-twilight/lights-1.webp",
+      "x": 0,
+      "y": 0,
+      "w": 25,
+      "h": 71.99,
+      "mask": true
+    },
+    {
+      "id": "lights-2",
+      "motion": "flicker",
+      "src": "/art/living/city-twilight/lights-2.webp",
+      "x": 25,
+      "y": 0,
+      "w": 25,
+      "h": 71.99,
+      "mask": true
+    },
+    {
+      "id": "lights-3",
+      "motion": "flicker",
+      "src": "/art/living/city-twilight/lights-3.webp",
+      "x": 50,
+      "y": 0,
+      "w": 25,
+      "h": 71.99,
+      "mask": true
+    },
+    {
+      "id": "lights-4",
+      "motion": "flicker",
+      "src": "/art/living/city-twilight/lights-4.webp",
+      "x": 75,
+      "y": 0,
+      "w": 25,
+      "h": 71.99,
+      "mask": true
+    }
+  ]
+}

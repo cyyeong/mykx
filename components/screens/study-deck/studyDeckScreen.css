@@ -1,0 +1,45 @@
+/* Study deck (Teen), from the StudyDeck board's <helmet> styles. Global, every class sd- prefixed.
+   The room behind it is a living scene (.sd-scene): the deck sits above it, and only the panel takes clicks. */
+.sd-tab{cursor:pointer;flex:none;white-space:nowrap}
+.sd-tab:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+/* Layout: expanded (1024-1599) is the default and matches the 1280 x 800 board */
+.sd-wrap{position:relative;z-index:1;pointer-events:none;flex:1;width:100%;max-width:1440px;margin:0 auto;box-sizing:border-box;padding:76px 32px 32px;display:flex;flex-direction:row;justify-content:flex-end;align-items:stretch}
+.sd-panel{pointer-events:auto;width:688px;flex:none;box-sizing:border-box;padding:32px;display:flex;flex-direction:column;gap:22px}
+.sd-title{font-size:clamp(30px,6vw,40px);line-height:1.15}
+.sd-tabs{display:flex;gap:6px;padding:4px;border-radius:var(--radius-pill);align-self:flex-start;justify-self:start}
+.sd-rings{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.sd-ring{display:flex;flex-direction:column;gap:10px;padding:18px}
+.sd-next-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 12px}
+.sd-actions{display:flex;flex-wrap:wrap;gap:10px}
+.sd-kix{margin-top:auto;display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+.sd-bubble{flex:1 1 200px;min-width:0;font-size:15px;line-height:22px}
+/* Compact (< 600): art as a banner on top, then one stacked column of sections */
+@media (max-width: 599px){
+  .sd-scene{bottom:auto;height:480px;--ox:8%;-webkit-mask-image:linear-gradient(180deg,black 50%,transparent);mask-image:linear-gradient(180deg,black 50%,transparent)}
+  .sd-wrap{flex-direction:column;justify-content:flex-start;padding:250px 12px 12px}
+  .sd-panel{width:auto;padding:22px 18px;gap:18px}
+  .sd-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-self:stretch;border-radius:var(--radius-lg)}
+  .sd-rings{grid-template-columns:minmax(0,1fr);gap:10px}
+  .sd-ring{display:grid;grid-template-columns:64px minmax(0,1fr);column-gap:14px;row-gap:2px;align-items:center;align-content:center;padding:14px 16px}
+  .sd-ring > :first-child{grid-row:span 2}
+  .sd-ring-label{align-self:end}
+  .sd-ring-cap{align-self:start}
+  .sd-actions > .mk-btn{flex:1 1 auto}
+  .sd-kix{margin-top:0}
+  .sd-bubble{flex-basis:160px;font-size:16px;line-height:24px}
+  .sd-kix > .mk-btn{flex:1 1 100%}
+}
+/* Medium (600-1023): art shows above; the deck goes full width in 2 columns (next session beside Kix) */
+@media (min-width: 600px) and (max-width: 1023px){
+  .sd-scene{--ox:22%}
+  .sd-wrap{flex-direction:column;justify-content:flex-end;padding:24px}
+  .sd-panel{width:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:18px;row-gap:20px;padding:28px}
+  .sd-span{grid-column:1 / -1}
+  .sd-kix{margin-top:0;align-self:center}
+  .sd-bubble{flex-basis:180px;font-size:16px;line-height:24px}
+}
+/* Desktop (>= 1600): content capped at 1440 and centred; sky art fills the margins */
+@media (min-width: 1600px){
+  .sd-wrap{padding:48px 40px}
+  .sd-panel{width:760px;padding:40px}
+}

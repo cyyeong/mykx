@@ -1,0 +1,90 @@
+/* "Your family", ported from the FamilyAccounts board (canvas row 8). Global, every class fa- prefixed. */
+.fa-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.fa-click{cursor:pointer}
+.fa-click:focus-visible,.fa-root a:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+/* Fields, segmented controls and chips: state lives in aria attributes, so selection is never colour alone */
+.fa-field{box-shadow:inset 0 0 0 1.5px var(--border-control)}
+.fa-field:focus-within{box-shadow:inset 0 0 0 2px var(--focus-ring),0 0 0 4px rgba(31,102,193,.16)}
+.fa-field[data-invalid="true"]{box-shadow:inset 0 0 0 2px var(--warn)}
+.fa-input::placeholder{color:var(--ink-muted);opacity:1}
+.fa-input:focus{outline:none}
+.fa-seg{background:transparent;color:var(--ink)}
+.fa-seg[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
+.fa-chip{background:var(--surface-raised);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--border-control)}
+.fa-chip[aria-pressed="true"]{box-shadow:inset 0 0 0 2.5px var(--accent);color:var(--accent)}
+.fa-tick{display:none}
+.fa-chip[aria-pressed="true"] .fa-tick{display:block}
+.fa-row{background:transparent}
+.fa-row:hover{background:var(--surface)}
+.fa-reset[aria-expanded="true"]{box-shadow:inset 0 0 0 2px var(--accent);color:var(--accent)}
+.fa-rm{background:transparent;color:var(--warn);box-shadow:inset 0 0 0 1.5px var(--warn)}
+.fa-rm[aria-expanded="true"]{background:rgba(180,90,30,.08);box-shadow:inset 0 0 0 2px var(--warn)}
+.fa-chev{transition:transform var(--duration-snappy) var(--ease-soft)}
+[aria-expanded="true"] > .fa-chev{transform:rotate(180deg)}
+.fa-in{animation:fa-in var(--duration-base) var(--ease-soft) both}
+@keyframes fa-in{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.fa-in{animation:none}.fa-chev{transition:none}}
+[data-band] .fa-act.mk-btn{white-space:normal;line-height:1.2;text-align:center;padding-top:8px;padding-bottom:8px}
+.fa-warnbtn{cursor:pointer}
+.fa-warnbtn:disabled{opacity:.45;cursor:not-allowed}
+.fa-chip:disabled,.fa-seg:disabled{cursor:not-allowed}
+/* Limits: daily time chips, 3 per row on narrow cards */
+.fa-limits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.fa-limit{min-height:44px;padding:0 8px;border:0;border-radius:var(--radius-pill);font:600 15px/1 var(--font-text);white-space:nowrap}
+.fa-limit[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);box-shadow:none}
+/* Loading: calm placeholders, no shimmer */
+.fa-skel-block{background:var(--line)}
+.fa-skel-line{display:block;height:16px;border-radius:8px;background:var(--line)}
+/* Not signed in */
+.fa-gate{position:relative;box-sizing:border-box;max-width:520px;margin:0 auto;padding:64px 24px;display:flex;flex-direction:column;gap:16px}
+/* Layout (mykx-design-system §3a). Default = expanded 1024–1599: kids 3 across, a right column (Add a kid, Your account), centred at 1200. */
+.fa-root{position:relative;overflow-x:hidden;overflow-x:clip}
+.fa-amb{position:absolute;inset:0;pointer-events:none;display:block}
+.fa-wrap{position:relative;box-sizing:border-box;max-width:1200px;margin:0 auto;padding:32px;display:grid;grid-template-columns:minmax(0,1fr) 320px;grid-template-rows:repeat(4,auto);grid-template-areas:"top top" "title title" "kids side" "foot foot";align-items:start;gap:20px 24px}
+.fa-top{grid-area:top}
+.fa-title{grid-area:title}
+.fa-kids{grid-area:kids}
+.fa-side{grid-area:side;display:flex;flex-direction:column;gap:20px}
+.fa-foot{grid-area:foot}
+.fa-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
+.fa-kid{display:flex;flex-direction:column}
+.fa-stage{height:160px;border-radius:0}
+.fa-door{left:50%;bottom:0;width:124px;height:146px;transform:translateX(-50%);border-radius:62px 62px 0 0}
+.fa-sprite{height:116px}
+.fa-info{padding:14px 16px 0}
+.fa-acts{flex-direction:column;align-items:stretch;padding:14px 16px 16px}
+.fa-panel{margin:0 16px 16px}
+.fa-panelslot{min-width:0}
+/* Medium 600–1023 (foldable open, tablet portrait): kid cards 2 up, Add a kid and Your account side by side below. */
+@media (min-width: 600px) and (max-width: 1023px){
+  .fa-wrap{grid-template-columns:minmax(0,1fr);grid-template-rows:repeat(5,auto);grid-template-areas:"top" "title" "kids" "side" "foot";padding:24px;gap:20px}
+  .fa-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .fa-stage{height:144px}
+  .fa-door{width:112px;height:128px;border-radius:56px 56px 0 0}
+  .fa-sprite{height:106px}
+  .fa-side{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:16px}
+}
+/* Compact < 600: the phone design, one column. Each card puts the arched door beside the name. */
+@media (max-width: 599px){
+  .fa-amb{display:none}
+  .fa-wrap{display:flex;flex-direction:column;gap:16px;padding:20px 16px 28px}
+  .fa-grid{grid-template-columns:minmax(0,1fr);gap:14px}
+  .fa-kid{display:grid;grid-template-columns:104px minmax(0,1fr);grid-template-areas:"stage info" "acts acts" "panel panel";align-items:start}
+  .fa-stage{grid-area:stage;height:124px;margin:14px 0 0 14px;border-radius:45px 45px 12px 12px}
+  .fa-door{width:72px;height:100px;border-radius:36px 36px 0 0}
+  .fa-sprite{height:84px}
+  .fa-info{grid-area:info;padding:14px 14px 0}
+  .fa-acts{grid-area:acts;display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr));padding:14px}
+  .fa-rm{grid-column:1 / -1}
+  .fa-panelslot{grid-area:panel}
+  .fa-panel{margin:0 14px 14px}
+  .fa-kid > :not(.fa-stage):not(.fa-info):not(.fa-acts){grid-column:1 / -1}
+  .fa-side{gap:16px}
+}
+/* Desktop ≥ 1600: same two areas, more air, centred 1200 with sky glow in the margins. */
+@media (min-width: 1600px){
+  .fa-wrap{padding:48px 32px;gap:24px 28px;grid-template-columns:minmax(0,1fr) 340px}
+  .fa-stage{height:176px}
+  .fa-door{width:132px;height:156px;border-radius:66px 66px 0 0}
+  .fa-sprite{height:124px}
+}

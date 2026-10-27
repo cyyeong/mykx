@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-// Home lands on Day 2; until then the Studio is the front door.
+// The front door is the door: grown-ups sign in, then each kid opens their own.
 export default function Index() {
-  redirect("/studio");
+  redirect("/signin");
 }

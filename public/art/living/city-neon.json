@@ -1,0 +1,98 @@
+{
+  "art": "city-neon",
+  "src": "public/art/login/city-neon.webp",
+  "width": 1600,
+  "height": 914,
+  "layers": [
+    {
+      "id": "trails",
+      "motion": "stream",
+      "src": "/art/living/city-neon/trails.webp",
+      "x": 0,
+      "y": 25.49,
+      "w": 100,
+      "h": 73.09,
+      "mask": true
+    },
+    {
+      "id": "beams",
+      "motion": "haze",
+      "src": "/art/living/city-neon/beams.webp",
+      "x": 0,
+      "y": 0,
+      "w": 100,
+      "h": 45.4,
+      "mask": false
+    },
+    {
+      "id": "stars-1",
+      "motion": "twinkle",
+      "src": "/art/living/city-neon/stars-1.webp",
+      "x": 0,
+      "y": 0,
+      "w": 33.31,
+      "h": 40.15,
+      "mask": true
+    },
+    {
+      "id": "stars-2",
+      "motion": "twinkle",
+      "src": "/art/living/city-neon/stars-2.webp",
+      "x": 33.31,
+      "y": 0,
+      "w": 33.38,
+      "h": 40.15,
+      "mask": true
+    },
+    {
+      "id": "stars-3",
+      "motion": "twinkle",
+      "src": "/art/living/city-neon/stars-3.webp",
+      "x": 66.69,
+      "y": 0,
+      "w": 33.31,
+      "h": 40.15,
+      "mask": true
+    },
+    {
+      "id": "windows-1",
+      "motion": "flicker",
+      "src": "/art/living/city-neon/windows-1.webp",
+      "x": 0,
+      "y": 0,
+      "w": 25,
+      "h": 80.2,
+      "mask": true
+    },
+    {
+      "id": "windows-2",
+      "motion": "flicker",
+      "src": "/art/living/city-neon/windows-2.webp",
+      "x": 25,
+      "y": 0,
+      "w": 25,
+      "h": 80.2,
+      "mask": true
+    },
+    {
+      "id": "windows-3",
+      "motion": "flicker",
+      "src": "/art/living/city-neon/windows-3.webp",
+      "x": 50,
+      "y": 0,
+      "w": 25,
+      "h": 80.2,
+      "mask": true
+    },
+    {
+      "id": "windows-4",
+      "motion": "flicker",
+      "src": "/art/living/city-neon/windows-4.webp",
+      "x": 75,
+      "y": 0,
+      "w": 25,
+      "h": 80.2,
+      "mask": true
+    }
+  ]
+}

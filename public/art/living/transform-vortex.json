@@ -1,0 +1,30 @@
+{
+  "art": "transform-vortex",
+  "src": "public/art/scenes/transform-vortex.webp",
+  "width": 1600,
+  "height": 1067,
+  "layers": [
+    {
+      "id": "stars",
+      "motion": "orbit",
+      "src": "/art/living/transform-vortex/stars.webp",
+      "x": 0,
+      "y": 1.87,
+      "w": 100,
+      "h": 88.1,
+      "mask": false,
+      "ox": 50,
+      "oy": 49.8
+    },
+    {
+      "id": "core",
+      "motion": "pulse",
+      "src": "/art/living/transform-vortex/core.webp",
+      "x": 0,
+      "y": 35.8,
+      "w": 100,
+      "h": 29.52,
+      "mask": true
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+/* Frosted glass panel. Every rule is :where(), so screen classes override it at any breakpoint. */
+:where(.glass) {
+  --glass-ring: inset 0 0 0 1px var(--line);
+  --glass-lift: 0 0 #0000;
+  background: var(--surface-glass);
+  -webkit-backdrop-filter: blur(var(--glass-blur, 16px));
+  backdrop-filter: blur(var(--glass-blur, 16px));
+  border-radius: var(--glass-radius, var(--radius-lg));
+  box-shadow: var(--glass-ring), var(--glass-lift);
+}
+:where(.accent) { --glass-ring: inset 0 0 0 2px var(--accent); }
+:where(.control) { --glass-ring: inset 0 0 0 2px var(--border-control); }
+:where(.none) { --glass-ring: 0 0 #0000; }
+:where(.raised) { --glass-lift: var(--shadow-raised); }

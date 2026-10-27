@@ -107,7 +107,7 @@
     "kind": "background",
     "model": "muse-image-1.0",
     "route": "muse-code",
-    "prompt": "size \"1792x1024\": A magical, dreamy \"Treasure Vault\" landscape for a kids' reward screen \u2014 floating crystal islands in a twilight pastel sky, glowing treasure chests spilling stars, aurora ribbons, tiny lanterns, soft bokeh, Studio-quality fantasy matte painting, no characters, no text, lots of calm negative space in the centre for UI overlay.",
+    "prompt": "size \"1792x1024\": A magical, dreamy \"Treasure Vault\" landscape for a kids' reward screen — floating crystal islands in a twilight pastel sky, glowing treasure chests spilling stars, aurora ribbons, tiny lanterns, soft bokeh, Studio-quality fantasy matte painting, no characters, no text, lots of calm negative space in the centre for UI overlay.",
     "refs": [],
     "size": "1920x1280 (tool default)",
     "source": "docs/design/explorations/treasure-vault.jpg",
@@ -161,7 +161,7 @@
     "kind": "background",
     "model": "muse-image-1.0",
     "route": "muse-code",
-    "prompt": "size \"1024x1024\": Kix in a modern Japanese anime key-visual style \u2014 cel shading, crisp line art, dramatic sky, sparkles; Kix waving beside a floating open textbook.",
+    "prompt": "size \"1024x1024\": Kix in a modern Japanese anime key-visual style — cel shading, crisp line art, dramatic sky, sparkles; Kix waving beside a floating open textbook.",
     "refs": [],
     "size": "1920x1280 (tool default)",
     "source": "docs/design/explorations/kix-anime.jpg",
@@ -179,7 +179,7 @@
     "kind": "background",
     "model": "muse-image-1.0",
     "route": "muse-code",
-    "prompt": "size \"1024x1024\": Kix reimagined as an original K-pop stage idol mascot \u2014 neon stage lights, holographic outfit, light-stick in hand, confetti, glossy magazine poster look. No real performers, no text.",
+    "prompt": "size \"1024x1024\": Kix reimagined as an original K-pop stage idol mascot — neon stage lights, holographic outfit, light-stick in hand, confetti, glossy magazine poster look. No real performers, no text.",
     "refs": [],
     "size": "1920x1280 (tool default)",
     "source": "docs/design/explorations/kix-idol-stage.jpg",
@@ -585,5 +585,1911 @@
     "created": "2026-10-27",
     "sha256": "f66e97db5037cb4019925acc0facc02c7a439be31e7b519296d809f37d087153",
     "cut_by": null
+  },
+  {
+    "id": "login-city-twilight",
+    "path": "public/art/login/city-twilight.webp",
+    "kind": "scene",
+    "model": "muse-image-1.0",
+    "pack": null,
+    "prompt": "A magical twilight city seen from a wide plaza at dusk: rooftops, little towers, arched bridges and lantern-lit windows glowing warm, a calm empty open plaza in the centre foreground, distant floating paper lanterns, a deep starry sky with a soft aurora, no people, no characters. dreamy magical twilight fantasy illustration, pastel lavender, mint and peach light, soft bokeh, glowing stars, gentle aurora, painterly, calm. calm uncluttered negative space in the centre for interface overlay. no text, no letters, no logos, no watermark",
+    "refs": [],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "345c9c229702136f3c856caaad6c71339c4bb4928d50212dd403f7232a6c6a61",
+    "size": 122930,
+    "created": "2026-10-27",
+    "source": "art-src/doors/city-twilight.webp"
+  },
+  {
+    "id": "login-city-neon",
+    "path": "public/art/login/city-neon.webp",
+    "kind": "scene",
+    "model": "muse-image-1.0",
+    "pack": null,
+    "prompt": "A futuristic neon city at night seen from a wide plaza: sleek towers, glass skybridges, soft cyan and magenta light trails, glowing windows, a calm empty plaza in the centre foreground, a deep starry sky, no people, no characters. modern Japanese anime key-visual style, cel shading, crisp clean line art, dramatic sky with light rays, light motes. calm uncluttered negative space in the centre for interface overlay. no text, no letters, no logos, no watermark",
+    "refs": [],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "edac509e4902b1d4100aaacb8f388d2ae91a78287aea1e544307d602b767e1ca",
+    "size": 208530,
+    "created": "2026-10-27",
+    "source": "art-src/doors/city-neon.webp"
+  },
+  {
+    "id": "login-door-grand-left",
+    "path": "public/art/login/door-grand-left.webp",
+    "kind": "door",
+    "model": "muse-image-1.0",
+    "pack": null,
+    "prompt": "A grand, magical closed double door seen straight on, perfectly symmetrical, filling the whole frame edge to edge, the vertical seam exactly in the centre. Tall arched deep twilight-blue doors with flowing gold filigree, a glowing four-point star crest split exactly across the two doors at the seam, soft golden light leaking around the edges, tiny floating sparkles. dreamy magical twilight fantasy illustration, pastel lavender, mint and peach light, soft bokeh, glowing stars, gentle aurora, painterly, calm. no text, no letters, no logos, no watermark",
+    "refs": [],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "5fbe18625da38ed35397c9e695972b4531f78b2bc291c30df271e4c7a7e58875",
+    "size": 75490,
+    "created": "2026-10-27",
+    "cut_by": "sam-3.1 (\"door\", union), split at the seam",
+    "source": "art-src/doors/door-grand-2.webp"
+  },
+  {
+    "id": "login-door-grand-right",
+    "path": "public/art/login/door-grand-right.webp",
+    "kind": "door",
+    "model": "muse-image-1.0",
+    "pack": null,
+    "prompt": "A grand, magical closed double door seen straight on, perfectly symmetrical, filling the whole frame edge to edge, the vertical seam exactly in the centre. Tall arched deep twilight-blue doors with flowing gold filigree, a glowing four-point star crest split exactly across the two doors at the seam, soft golden light leaking around the edges, tiny floating sparkles. dreamy magical twilight fantasy illustration, pastel lavender, mint and peach light, soft bokeh, glowing stars, gentle aurora, painterly, calm. no text, no letters, no logos, no watermark",
+    "refs": [],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "4fe0c5a9a9361d3daadd4f2adffe1242df53cd49b6d372acecf8139c8f4c9e59",
+    "size": 74452,
+    "created": "2026-10-27",
+    "cut_by": "sam-3.1 (\"door\", union), split at the seam",
+    "source": "art-src/doors/door-grand-2.webp"
+  },
+  {
+    "id": "login-door-junior-left",
+    "path": "public/art/login/door-junior-left.webp",
+    "kind": "door",
+    "model": "muse-image-1.0",
+    "pack": null,
+    "prompt": "A friendly storybook round-topped closed double door seen straight on, perfectly symmetrical, filling the whole frame edge to edge, the vertical seam exactly in the centre. Carved warm honey wood with soft moss and tiny leaves along the frame, a small brass frog door-knocker on each door, warm lantern glow, cosy and inviting for young children. soft picture-book 3D illustration, warm pastel colours, gentle rim light. no text, no letters, no logos, no watermark",
+    "refs": [],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "a97148bd69ab17537fde0a9a94a3ae72aaaa3f84728adee9293039efecd9b2e5",
+    "size": 43002,
+    "created": "2026-10-27",
+    "cut_by": "sam-3.1 (\"door\", union), split at the seam",
+    "source": "art-src/doors/door-junior-2.webp"
+  },
+  {
+    "id": "login-door-junior-right",
+    "path": "public/art/login/door-junior-right.webp",
+    "kind": "door",
+    "model": "muse-image-1.0",
+    "pack": null,
+    "prompt": "A friendly storybook round-topped closed double door seen straight on, perfectly symmetrical, filling the whole frame edge to edge, the vertical seam exactly in the centre. Carved warm honey wood with soft moss and tiny leaves along the frame, a small brass frog door-knocker on each door, warm lantern glow, cosy and inviting for young children. soft picture-book 3D illustration, warm pastel colours, gentle rim light. no text, no letters, no logos, no watermark",
+    "refs": [],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "ff1d088df53427478b74ef60539e8cd7a06b5ad626b359c2c25fadca41b78ead",
+    "size": 39998,
+    "created": "2026-10-27",
+    "cut_by": "sam-3.1 (\"door\", union), split at the seam",
+    "source": "art-src/doors/door-junior-2.webp"
+  },
+  {
+    "id": "login-door-teen-left",
+    "path": "public/art/login/door-teen-left.webp",
+    "kind": "door",
+    "model": "muse-image-1.0",
+    "pack": null,
+    "prompt": "A sleek modern closed double portal door seen straight on, perfectly symmetrical, filling the whole frame edge to edge, the vertical seam exactly in the centre. Dark smoked glass and brushed graphite metal with thin glowing cyan and magenta light lines tracing the panels, minimal, futuristic, premium, cinematic product lighting, subtle reflections. no text, no letters, no logos, no watermark",
+    "refs": [],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "4dc9922e1c864fa2e8cbb70642a440aeb56ce8539e7312cb478a0cee88aeaa53",
+    "size": 19832,
+    "created": "2026-10-27",
+    "cut_by": "sam-3.1 (\"door\", union), split at the seam",
+    "source": "art-src/doors/door-teen-2.webp"
+  },
+  {
+    "id": "login-door-teen-right",
+    "path": "public/art/login/door-teen-right.webp",
+    "kind": "door",
+    "model": "muse-image-1.0",
+    "pack": null,
+    "prompt": "A sleek modern closed double portal door seen straight on, perfectly symmetrical, filling the whole frame edge to edge, the vertical seam exactly in the centre. Dark smoked glass and brushed graphite metal with thin glowing cyan and magenta light lines tracing the panels, minimal, futuristic, premium, cinematic product lighting, subtle reflections. no text, no letters, no logos, no watermark",
+    "refs": [],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "8831f40935d94846fc7cb659f56cde622f0625457338953dcbab3a6f281ab8e6",
+    "size": 18386,
+    "created": "2026-10-27",
+    "cut_by": "sam-3.1 (\"door\", union), split at the seam",
+    "source": "art-src/doors/door-teen-2.webp"
+  },
+  {
+    "id": "login-kix",
+    "path": "public/art/login/kix.webp",
+    "kind": "kix-sprite",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "(cut-out of the approved Kix base)",
+    "refs": [
+      "public/art/kix/kix-base.webp"
+    ],
+    "route": "sam",
+    "sha256": "999c78e9175b35621cc21f9076fe7e6032332ce3b5c69872276cbc3303915f96",
+    "size": 29274,
+    "created": "2026-10-27",
+    "cut_by": "sam-3.1 (\"plush toy\")"
+  },
+  {
+    "id": "login-kix-idol-stage",
+    "path": "public/art/login/kix-idol-stage.webp",
+    "kind": "kix-sprite",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "(cut-out of the Idol Stage Kix)",
+    "refs": [
+      "public/art/kix/idol-stage.webp"
+    ],
+    "route": "sam",
+    "sha256": "3b9aeafd9f2387e20e51d24e6542941eecdc2b04301939421c531de57e87447f",
+    "size": 48192,
+    "created": "2026-10-27",
+    "cut_by": "sam-3.1 (\"plush toy\")"
+  },
+  {
+    "id": "login-kix-anime-sky",
+    "path": "public/art/login/kix-anime-sky.webp",
+    "kind": "kix-sprite",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "(cut-out of the Anime Sky Kix)",
+    "refs": [
+      "public/art/kix/anime-sky.webp"
+    ],
+    "route": "sam",
+    "sha256": "663886f358b844d6867926a7f173450a9e942d4db750c6cfb1ffa16d0c502fc2",
+    "size": 29632,
+    "created": "2026-10-27",
+    "cut_by": "sam-3.1 (\"cartoon character\")"
+  },
+  {
+    "id": "login-kix-terrarium",
+    "path": "public/art/login/kix-terrarium.webp",
+    "kind": "kix-sprite",
+    "model": "muse-image-1.0",
+    "pack": null,
+    "prompt": "Live Studio transform, 27 Oct: lib/studio/prompt.ts for terrarium + Bugs and critters + Jets",
+    "refs": [
+      "public/art/kix/kix-base.webp"
+    ],
+    "route": "app (/api/studio/transform)",
+    "sha256": "11406083560abed7d88846975b4db83b5592b7ecd102f90474b93915cc355d31",
+    "size": 41264,
+    "created": "2026-10-27",
+    "cut_by": "sam-3.1 (\"plush toy\" + hat, magnifying glass, goggles, unioned)"
+  },
+  {
+    "id": "scene-study-room-lamp-off",
+    "path": "public/art/scenes/study-room-lamp-off.webp",
+    "kind": "scene",
+    "model": "muse-image-1.0",
+    "pack": null,
+    "prompt": "Edit this exact illustration. Keep every object, the camera framing, the composition, the colours of the sky and the painting style exactly the same. Only change: the desk lamp is switched off, its shade is dark and the warm glow on the wall and desk is gone; the room is now lit only by the soft dusk light from the window, cooler and dimmer. No text.",
+    "refs": [
+      "public/art/scenes/study-room.webp"
+    ],
+    "route": "api-script (gen-image.mjs, edit)",
+    "sha256": "e640778cb4b58b4818a36162cc91ff1cff6538a5a536e0bd7b9809e0dbf2691c",
+    "size": 77210,
+    "created": "2026-10-27",
+    "note": "Living scene state of study-room (same framing); crossfaded over the base art in the teen study deck."
+  },
+  {
+    "id": "scene-study-room-drawer",
+    "path": "public/art/scenes/study-room-drawer.webp",
+    "kind": "scene",
+    "model": "muse-image-1.0",
+    "pack": null,
+    "prompt": "Edit this exact illustration. Keep every object, the camera framing, the composition, the lighting and the painting style exactly the same. Only change: the wooden desk now has a shallow drawer at the front edge, pulled half open toward the viewer, showing coloured pencils, a folded paper star and a small sticky note inside. No text, no letters.",
+    "refs": [
+      "public/art/scenes/study-room.webp"
+    ],
+    "route": "api-script (gen-image.mjs, edit)",
+    "sha256": "162bdb550ac9bf67a0cf6ffcbe288e949c2cf456f78aa395b8bfff05ac2cc250",
+    "size": 116762,
+    "created": "2026-10-27",
+    "note": "Living scene state of study-room (same framing); crossfaded over the base art in the teen study deck."
+  },
+  {
+    "id": "game-space",
+    "path": "public/art/games/space.webp",
+    "kind": "scene",
+    "model": "muse-image-1.0",
+    "pack": null,
+    "prompt": "A friendly deep-space scene for a children's typing game: a soft purple and blue nebula, thousands of tiny twinkling stars, a small pastel ringed planet low in the top-right corner, two gentle comet trails, a faint glowing moon at the left edge, lots of calm open dark space in the middle and lower half for the game, dreamy painterly children's book illustration, lavender, mint and peach highlights. No text, no letters, no characters, no ships, no logos, no watermark.",
+    "refs": [],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "7123046735774445a5449b7f5d8290451e55a497be5a9c018813f313c04d3125",
+    "size": 51202,
+    "created": "2026-10-27",
+    "note": "Game Arcade: typing game background (design review)."
+  },
+  {
+    "id": "game-neon-arena",
+    "path": "public/art/games/neon-arena.webp",
+    "kind": "scene",
+    "model": "muse-image-1.0",
+    "pack": null,
+    "prompt": "A sleek neon arena for a teen rhythm typing game: a dark violet night stage, a glowing magenta and cyan perspective grid floor running to a bright horizon, soft volumetric light beams from above, holographic haze and floating light particles, large calm empty space in the centre for interface, cinematic, clean, modern, original. No text, no letters, no characters, no people, no logos, no watermark.",
+    "refs": [],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "f331a3610138f608c2ecf3f5d61330e009a8b1f26c589f7e215970d3437aeb03",
+    "size": 97000,
+    "created": "2026-10-27",
+    "note": "Game Arcade: typing game background (design review)."
+  },
+  {
+    "id": "living-terrarium-fern-1",
+    "path": "public/art/living/terrarium/fern-1.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "fern",
+    "refs": [
+      "public/art/scenes/terrarium.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "48242f6f5a2e2b19239a3d73c519fe5064a75f5b9ed93b96be5e8a24d8320171",
+    "size": 6528,
+    "created": "2026-10-27",
+    "note": "Living art: sway layer cut from terrarium."
+  },
+  {
+    "id": "living-terrarium-fern-2",
+    "path": "public/art/living/terrarium/fern-2.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "fern",
+    "refs": [
+      "public/art/scenes/terrarium.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "0fce2f5568557e6202344b2d2e8b0818d820971fe9dbf0b201a52a04dc476923",
+    "size": 3582,
+    "created": "2026-10-27",
+    "note": "Living art: sway layer cut from terrarium."
+  },
+  {
+    "id": "living-terrarium-fern-3",
+    "path": "public/art/living/terrarium/fern-3.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "fern",
+    "refs": [
+      "public/art/scenes/terrarium.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "6a527c13dce31d49c6170cae5909b38a18a3cc46eb679e896a380e3c8ba76128",
+    "size": 2346,
+    "created": "2026-10-27",
+    "note": "Living art: sway layer cut from terrarium."
+  },
+  {
+    "id": "living-terrarium-fern-4",
+    "path": "public/art/living/terrarium/fern-4.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "fern",
+    "refs": [
+      "public/art/scenes/terrarium.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "1e0aaf5639b7db97a76a74871aebee4126f8370d857f42c2713aad6e0b862f97",
+    "size": 2592,
+    "created": "2026-10-27",
+    "note": "Living art: sway layer cut from terrarium."
+  },
+  {
+    "id": "living-terrarium-fern-5",
+    "path": "public/art/living/terrarium/fern-5.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "fern",
+    "refs": [
+      "public/art/scenes/terrarium.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "d264971fee030acf5961fc55e71dda53a7701b4666d0fb3f2041c7ba0960e208",
+    "size": 2960,
+    "created": "2026-10-27",
+    "note": "Living art: sway layer cut from terrarium."
+  },
+  {
+    "id": "living-terrarium-fern-6",
+    "path": "public/art/living/terrarium/fern-6.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "fern",
+    "refs": [
+      "public/art/scenes/terrarium.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "1f497695f2c05790fa508e25b72f7a97d49ad64fe343fc9c7cad06294540397b",
+    "size": 2224,
+    "created": "2026-10-27",
+    "note": "Living art: sway layer cut from terrarium."
+  },
+  {
+    "id": "living-terrarium-grass-1",
+    "path": "public/art/living/terrarium/grass-1.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "reeds",
+    "refs": [
+      "public/art/scenes/terrarium.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "1aaa90ccfed246a319f8492a8481d26198d56ba146008506f3740871da15955e",
+    "size": 5060,
+    "created": "2026-10-27",
+    "note": "Living art: waver layer cut from terrarium."
+  },
+  {
+    "id": "living-terrarium-grass-2",
+    "path": "public/art/living/terrarium/grass-2.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "reeds",
+    "refs": [
+      "public/art/scenes/terrarium.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "616e47839ee6a29f8b5007aaba3251f2cb03d3146502c07417e43f3fd31071f5",
+    "size": 2228,
+    "created": "2026-10-27",
+    "note": "Living art: waver layer cut from terrarium."
+  },
+  {
+    "id": "living-terrarium-grass-3",
+    "path": "public/art/living/terrarium/grass-3.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "reeds",
+    "refs": [
+      "public/art/scenes/terrarium.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "cea44bf49f93eda59ff1728a936fa5731082050d5df113f322d98ab83d7d9a4a",
+    "size": 1456,
+    "created": "2026-10-27",
+    "note": "Living art: waver layer cut from terrarium."
+  },
+  {
+    "id": "living-terrarium-grass-4",
+    "path": "public/art/living/terrarium/grass-4.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "reeds",
+    "refs": [
+      "public/art/scenes/terrarium.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "bc2ea593a1ca79f9e960ab518834c91e07871efe64fb4d31b31b8bf9c8dcc5fb",
+    "size": 1420,
+    "created": "2026-10-27",
+    "note": "Living art: waver layer cut from terrarium."
+  },
+  {
+    "id": "living-terrarium-grass-5",
+    "path": "public/art/living/terrarium/grass-5.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "reeds",
+    "refs": [
+      "public/art/scenes/terrarium.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "937b9ec1d081f76ae281fe280752108689b33a6c3cd9b0e503a8390f2afb1d02",
+    "size": 2380,
+    "created": "2026-10-27",
+    "note": "Living art: waver layer cut from terrarium."
+  },
+  {
+    "id": "living-terrarium-pond",
+    "path": "public/art/living/terrarium/pond.webp",
+    "kind": "mask",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "pond water",
+    "refs": [
+      "public/art/scenes/terrarium.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "471e06159e101b89e85195526ade14e58ad204295ea19aea7e9dd6fb953752fa",
+    "size": 3260,
+    "created": "2026-10-27",
+    "note": "Living art: shimmer layer cut from terrarium."
+  },
+  {
+    "id": "living-terrarium-dew",
+    "path": "public/art/living/terrarium/dew.webp",
+    "kind": "mask",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "water droplet",
+    "refs": [
+      "public/art/scenes/terrarium.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "97b1bc2850a0605501f8273d4d8d57b82268a52f7708b2f4fd55650d2ea79296",
+    "size": 4910,
+    "created": "2026-10-27",
+    "note": "Living art: glint layer cut from terrarium."
+  },
+  {
+    "id": "living-quest-map-waterfall-1",
+    "path": "public/art/living/quest-map/waterfall-1.webp",
+    "kind": "mask",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "waterfall",
+    "refs": [
+      "public/art/scenes/quest-map.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "73974d8764f405868de1c6b66f5d1af07d62f11e380f20092f6ebd7f6af56625",
+    "size": 1136,
+    "created": "2026-10-27",
+    "note": "Living art: flow layer cut from quest-map."
+  },
+  {
+    "id": "living-quest-map-waterfall-2",
+    "path": "public/art/living/quest-map/waterfall-2.webp",
+    "kind": "mask",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "waterfall",
+    "refs": [
+      "public/art/scenes/quest-map.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "ed94517dfef7ccae2cf8103668c7ed2102dbe102a6120987ff23d7dcc96b88ef",
+    "size": 1064,
+    "created": "2026-10-27",
+    "note": "Living art: flow layer cut from quest-map."
+  },
+  {
+    "id": "living-quest-map-cloud-1",
+    "path": "public/art/living/quest-map/cloud-1.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "cloud",
+    "refs": [
+      "public/art/scenes/quest-map.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "f21bcccacb52a5dd9d10b0b6417058ddfda4ba36e9962438e6c9c5df9b3304dd",
+    "size": 5164,
+    "created": "2026-10-27",
+    "note": "Living art: mist layer cut from quest-map."
+  },
+  {
+    "id": "living-quest-map-cloud-2",
+    "path": "public/art/living/quest-map/cloud-2.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "cloud",
+    "refs": [
+      "public/art/scenes/quest-map.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "21573f8f4040bb59cea1738f631b6e0c5f661251903f66d5887a6a026c4cb37f",
+    "size": 4414,
+    "created": "2026-10-27",
+    "note": "Living art: mist layer cut from quest-map."
+  },
+  {
+    "id": "living-quest-map-cloud-3",
+    "path": "public/art/living/quest-map/cloud-3.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "cloud",
+    "refs": [
+      "public/art/scenes/quest-map.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "75deca1ad1ac757fe228ea872dba2d578b03373398b129d0dccc836734d1be8b",
+    "size": 4660,
+    "created": "2026-10-27",
+    "note": "Living art: mist layer cut from quest-map."
+  },
+  {
+    "id": "living-quest-map-cloud-4",
+    "path": "public/art/living/quest-map/cloud-4.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "cloud",
+    "refs": [
+      "public/art/scenes/quest-map.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "dce4c0f32430d88d8367980b3fb4dce246dd5c2aaba709214de31b3270e71b7b",
+    "size": 8256,
+    "created": "2026-10-27",
+    "note": "Living art: mist layer cut from quest-map."
+  },
+  {
+    "id": "living-quest-map-cloud-5",
+    "path": "public/art/living/quest-map/cloud-5.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "cloud",
+    "refs": [
+      "public/art/scenes/quest-map.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "373135454641bfd27aad942ac27b0d88e330eed0bad88cfcd0868bef5df7d321",
+    "size": 2970,
+    "created": "2026-10-27",
+    "note": "Living art: mist layer cut from quest-map."
+  },
+  {
+    "id": "living-quest-map-cloud-6",
+    "path": "public/art/living/quest-map/cloud-6.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "cloud",
+    "refs": [
+      "public/art/scenes/quest-map.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "717e786ee3e793f66ef01925e8fc9a416d8abb710011c8119d6b1f9e6048d825",
+    "size": 2772,
+    "created": "2026-10-27",
+    "note": "Living art: mist layer cut from quest-map."
+  },
+  {
+    "id": "living-quest-map-cloud-7",
+    "path": "public/art/living/quest-map/cloud-7.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "cloud",
+    "refs": [
+      "public/art/scenes/quest-map.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "5c9c922b8311268e44a0a7c618a7152a9cbd90177da1d7adb1b4a63f96c81d26",
+    "size": 3784,
+    "created": "2026-10-27",
+    "note": "Living art: mist layer cut from quest-map."
+  },
+  {
+    "id": "living-quest-map-cloud-8",
+    "path": "public/art/living/quest-map/cloud-8.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "cloud",
+    "refs": [
+      "public/art/scenes/quest-map.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "f81353ee6049e05d95d94e31de7f0d8a4457eb2e4f0b4c0ab3bdfb77ce3a6ce1",
+    "size": 3188,
+    "created": "2026-10-27",
+    "note": "Living art: mist layer cut from quest-map."
+  },
+  {
+    "id": "living-quest-map-grass-1",
+    "path": "public/art/living/quest-map/grass-1.webp",
+    "kind": "mask",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "grass",
+    "refs": [
+      "public/art/scenes/quest-map.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "1720fa1100f1776d95a6bfb36d3d044d43cb338e1669bba57163f2be25bd232a",
+    "size": 8666,
+    "created": "2026-10-27",
+    "note": "Living art: breeze layer cut from quest-map."
+  },
+  {
+    "id": "living-quest-map-grass-2",
+    "path": "public/art/living/quest-map/grass-2.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "grass",
+    "refs": [
+      "public/art/scenes/quest-map.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "8feae54ca38486e5477c99a3a5dd4c7c403db97a5a70a3957183580b9675e4e6",
+    "size": 4960,
+    "created": "2026-10-27",
+    "note": "Living art: waver layer cut from quest-map."
+  },
+  {
+    "id": "living-quest-map-grass-3",
+    "path": "public/art/living/quest-map/grass-3.webp",
+    "kind": "mask",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "grass",
+    "refs": [
+      "public/art/scenes/quest-map.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "d0c0a0544bbbbc7c5bf052cff327ff614f8532842abbcd5228f80a372d37d8f3",
+    "size": 1558,
+    "created": "2026-10-27",
+    "note": "Living art: breeze layer cut from quest-map."
+  },
+  {
+    "id": "living-quest-map-grass-4",
+    "path": "public/art/living/quest-map/grass-4.webp",
+    "kind": "mask",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "grass",
+    "refs": [
+      "public/art/scenes/quest-map.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "34e89ba36bab64a3f16572090ca92a996e6b1f102ca8ea2586b34d21d19fe01f",
+    "size": 1452,
+    "created": "2026-10-27",
+    "note": "Living art: breeze layer cut from quest-map."
+  },
+  {
+    "id": "living-quest-map-grass-5",
+    "path": "public/art/living/quest-map/grass-5.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "grass",
+    "refs": [
+      "public/art/scenes/quest-map.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "d21e565aaad57dba9d6665c0fa4953272181c80cbd47cfb017e3f57e5a4010d5",
+    "size": 2470,
+    "created": "2026-10-27",
+    "note": "Living art: waver layer cut from quest-map."
+  },
+  {
+    "id": "living-quest-map-grass-6",
+    "path": "public/art/living/quest-map/grass-6.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "grass",
+    "refs": [
+      "public/art/scenes/quest-map.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "4ea64a3d68a9e47002791d38fd240bf60103e08d531598736ba8c53c2f884cc3",
+    "size": 2434,
+    "created": "2026-10-27",
+    "note": "Living art: waver layer cut from quest-map."
+  },
+  {
+    "id": "living-quest-map-grass-7",
+    "path": "public/art/living/quest-map/grass-7.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "grass",
+    "refs": [
+      "public/art/scenes/quest-map.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "ef2c7b0058fa032fb766a438bca01d94fc786a65fe3b9c85920622e51860e660",
+    "size": 2140,
+    "created": "2026-10-27",
+    "note": "Living art: waver layer cut from quest-map."
+  },
+  {
+    "id": "living-quest-map-grass-8",
+    "path": "public/art/living/quest-map/grass-8.webp",
+    "kind": "mask",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "grass",
+    "refs": [
+      "public/art/scenes/quest-map.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "096ed6a9042132dae1a24f8aa92ecc1782a35845871702ef5b11f17245ee3442",
+    "size": 592,
+    "created": "2026-10-27",
+    "note": "Living art: breeze layer cut from quest-map."
+  },
+  {
+    "id": "living-quest-map-crystal",
+    "path": "public/art/living/quest-map/crystal.webp",
+    "kind": "mask",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "crystals",
+    "refs": [
+      "public/art/scenes/quest-map.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "a01be99f815602015663b8d558797fcf771d99068529a2438b4d8e5d28f134d0",
+    "size": 10270,
+    "created": "2026-10-27",
+    "note": "Living art: glint layer cut from quest-map."
+  },
+  {
+    "id": "living-quest-map-stones",
+    "path": "public/art/living/quest-map/stones.webp",
+    "kind": "mask",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "glowing stepping stone",
+    "refs": [
+      "public/art/scenes/quest-map.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "65be1c8a72aa66e627644ab145baf22c75227d4f5f4f70b07475881627cf6e7d",
+    "size": 9844,
+    "created": "2026-10-27",
+    "note": "Living art: runway layer cut from quest-map."
+  },
+  {
+    "id": "living-neon-arena-neon",
+    "path": "public/art/living/neon-arena/neon.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "neon pixels (threshold, no model)",
+    "refs": [
+      "public/art/games/neon-arena.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "b9f5f35db648ed465d90deceb37a991ae70b32e9a14091d34715141b9e652164",
+    "size": 47678,
+    "created": "2026-10-27",
+    "note": "Living art: neon layer cut from neon-arena."
+  },
+  {
+    "id": "living-neon-arena-haze",
+    "path": "public/art/living/neon-arena/haze.webp",
+    "kind": "layer",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "luma pixels (threshold, no model)",
+    "refs": [
+      "public/art/games/neon-arena.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "58e18a60ae860120749c49dc3058251c045f510199c88d8891e882ea41ba4a00",
+    "size": 197676,
+    "created": "2026-10-27",
+    "note": "Living art: haze layer cut from neon-arena."
+  },
+  {
+    "id": "living-treasure-vault-island-1",
+    "path": "public/art/living/treasure-vault/island-1.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "floating island",
+    "refs": [
+      "public/art/scenes/treasure-vault.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "7ecbe080e9f585d230bba53ebcfc91686aad749bdb51394b04907abb95c482f7",
+    "size": 21600,
+    "created": "2026-10-27",
+    "note": "Living art: float layer cut from treasure-vault."
+  },
+  {
+    "id": "living-treasure-vault-island-2",
+    "path": "public/art/living/treasure-vault/island-2.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "floating island",
+    "refs": [
+      "public/art/scenes/treasure-vault.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "884254e78df60cb142830ab38f56c8c8359f2429c3e05de573f7bd568c86f01d",
+    "size": 18596,
+    "created": "2026-10-27",
+    "note": "Living art: float layer cut from treasure-vault."
+  },
+  {
+    "id": "living-treasure-vault-island-3",
+    "path": "public/art/living/treasure-vault/island-3.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "floating island",
+    "refs": [
+      "public/art/scenes/treasure-vault.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "8b8ae2814cffa86ec3e765c12db1ebf2f4418cd97dfe1482cd87324668bff673",
+    "size": 7816,
+    "created": "2026-10-27",
+    "note": "Living art: float layer cut from treasure-vault."
+  },
+  {
+    "id": "living-treasure-vault-island-4",
+    "path": "public/art/living/treasure-vault/island-4.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "floating island",
+    "refs": [
+      "public/art/scenes/treasure-vault.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "a85a372af98867560d3876bc32cdaf81e39e7851d3ecc8115ca109b9bb366225",
+    "size": 9222,
+    "created": "2026-10-27",
+    "note": "Living art: float layer cut from treasure-vault."
+  },
+  {
+    "id": "living-treasure-vault-island-5",
+    "path": "public/art/living/treasure-vault/island-5.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "floating island",
+    "refs": [
+      "public/art/scenes/treasure-vault.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "8bbd2a7dbefadd97f1740b1cdf2abf3b77688b613775211cc554e36b9e227897",
+    "size": 6396,
+    "created": "2026-10-27",
+    "note": "Living art: float layer cut from treasure-vault."
+  },
+  {
+    "id": "living-treasure-vault-island-6",
+    "path": "public/art/living/treasure-vault/island-6.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "floating island",
+    "refs": [
+      "public/art/scenes/treasure-vault.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "76543fdd459a0459b8ce7cc26a7a28948714ff68e6514d9827c5b93eb7650613",
+    "size": 6130,
+    "created": "2026-10-27",
+    "note": "Living art: float layer cut from treasure-vault."
+  },
+  {
+    "id": "living-treasure-vault-island-7",
+    "path": "public/art/living/treasure-vault/island-7.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "floating island",
+    "refs": [
+      "public/art/scenes/treasure-vault.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "526139eb4152eb46a66d2610c713d7b71e0013ae994b155f376c528ed09eb6e5",
+    "size": 5632,
+    "created": "2026-10-27",
+    "note": "Living art: float layer cut from treasure-vault."
+  },
+  {
+    "id": "living-treasure-vault-island-8",
+    "path": "public/art/living/treasure-vault/island-8.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "floating island",
+    "refs": [
+      "public/art/scenes/treasure-vault.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "d4294f9900600c4945f8b50bc1891a790c65c3319eca3b98ecacb1978774a93f",
+    "size": 4556,
+    "created": "2026-10-27",
+    "note": "Living art: float layer cut from treasure-vault."
+  },
+  {
+    "id": "living-treasure-vault-aurora",
+    "path": "public/art/living/treasure-vault/aurora.webp",
+    "kind": "layer",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "cool pixels (threshold, no model)",
+    "refs": [
+      "public/art/scenes/treasure-vault.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "6502a674947c8b943134a9f9ffc336bd2d7acb6660ea820bfc88fbffa1be07fc",
+    "size": 6770,
+    "created": "2026-10-27",
+    "note": "Living art: haze layer cut from treasure-vault."
+  },
+  {
+    "id": "living-treasure-vault-cloud",
+    "path": "public/art/living/treasure-vault/cloud.webp",
+    "kind": "layer",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "luma pixels (threshold, no model)",
+    "refs": [
+      "public/art/scenes/treasure-vault.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "937733489a8dbb97eb7e661b0ebaf789a34e04858591aae2fd5a8e70df4e925c",
+    "size": 320454,
+    "created": "2026-10-27",
+    "note": "Living art: haze layer cut from treasure-vault."
+  },
+  {
+    "id": "living-treasure-vault-glow-1",
+    "path": "public/art/living/treasure-vault/glow-1.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "warm pixels (threshold, no model)",
+    "refs": [
+      "public/art/scenes/treasure-vault.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "7c22c008c1dd42240ffc4c931b816d883255132e8d0b501f7a033ed660d98229",
+    "size": 10144,
+    "created": "2026-10-27",
+    "note": "Living art: flicker layer cut from treasure-vault."
+  },
+  {
+    "id": "living-treasure-vault-glow-2",
+    "path": "public/art/living/treasure-vault/glow-2.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "warm pixels (threshold, no model)",
+    "refs": [
+      "public/art/scenes/treasure-vault.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "ec4ea3e23280e28a80213201c17a572394fc45cfc23143b1c93bcf93b798ed05",
+    "size": 4746,
+    "created": "2026-10-27",
+    "note": "Living art: flicker layer cut from treasure-vault."
+  },
+  {
+    "id": "living-treasure-vault-glow-3",
+    "path": "public/art/living/treasure-vault/glow-3.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "warm pixels (threshold, no model)",
+    "refs": [
+      "public/art/scenes/treasure-vault.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "f26895004d46c91d322532549ed09f1208a99204ba6f7125808b9d6cd55cf47c",
+    "size": 3950,
+    "created": "2026-10-27",
+    "note": "Living art: flicker layer cut from treasure-vault."
+  },
+  {
+    "id": "living-treasure-vault-glow-4",
+    "path": "public/art/living/treasure-vault/glow-4.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "warm pixels (threshold, no model)",
+    "refs": [
+      "public/art/scenes/treasure-vault.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "d8b4740b4388b61578a0178a181bc151337680789bc183b382b670074251dae5",
+    "size": 10528,
+    "created": "2026-10-27",
+    "note": "Living art: flicker layer cut from treasure-vault."
+  },
+  {
+    "id": "living-treasure-vault-plate",
+    "path": "public/art/living/treasure-vault/plate.webp",
+    "kind": "plate",
+    "model": "none (normalised blur fill)",
+    "pack": null,
+    "prompt": "treasure-vault with island filled in from the surrounding art",
+    "refs": [
+      "public/art/scenes/treasure-vault.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "c182c0f2e22c37f6b3fcafb2730ce4b7082e191d0c7a297993bade63c0500de6",
+    "size": 66956,
+    "created": "2026-10-27",
+    "note": "Living art: base plate for treasure-vault, drawn under the moving layers."
+  },
+  {
+    "id": "living-transform-vortex-stars",
+    "path": "public/art/living/transform-vortex/stars.webp",
+    "kind": "layer",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "white pixels (threshold, no model)",
+    "refs": [
+      "public/art/scenes/transform-vortex.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "3f89e2479e887489cdac695a0f086a34dab237a49bb58f44385192b2488c6129",
+    "size": 186860,
+    "created": "2026-10-27",
+    "note": "Living art: orbit layer cut from transform-vortex."
+  },
+  {
+    "id": "living-transform-vortex-core",
+    "path": "public/art/living/transform-vortex/core.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "luma pixels (threshold, no model)",
+    "refs": [
+      "public/art/scenes/transform-vortex.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "aaa03e6eb81f3806b3d73c9e307f04d36bea7bc7b46fd34a85d97ca42241b392",
+    "size": 9702,
+    "created": "2026-10-27",
+    "note": "Living art: pulse layer cut from transform-vortex."
+  },
+  {
+    "id": "living-squadron-banner-jet-1",
+    "path": "public/art/living/squadron-banner/jet-1.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "toy airplane",
+    "refs": [
+      "public/art/jets/squadron-banner.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "0796de55211f043a32a135afa816b1a2141476efec1e4ea9ea1b2c98980195d1",
+    "size": 18662,
+    "created": "2026-10-27",
+    "note": "Living art: float layer cut from squadron-banner."
+  },
+  {
+    "id": "living-squadron-banner-jet-2",
+    "path": "public/art/living/squadron-banner/jet-2.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "toy airplane",
+    "refs": [
+      "public/art/jets/squadron-banner.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "9629dbbd21482b99f0e34b7704e9330905250eb61db6ef3266ce253ced4834bd",
+    "size": 18800,
+    "created": "2026-10-27",
+    "note": "Living art: float layer cut from squadron-banner."
+  },
+  {
+    "id": "living-squadron-banner-jet-3",
+    "path": "public/art/living/squadron-banner/jet-3.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "toy airplane",
+    "refs": [
+      "public/art/jets/squadron-banner.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "0c14ceb089ce8fa360ed5f253904b061d7d0f212e9c3a17c9c4dc6779b802e50",
+    "size": 13348,
+    "created": "2026-10-27",
+    "note": "Living art: float layer cut from squadron-banner."
+  },
+  {
+    "id": "living-squadron-banner-jet-4",
+    "path": "public/art/living/squadron-banner/jet-4.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "toy airplane",
+    "refs": [
+      "public/art/jets/squadron-banner.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "082ad9b0c93fc50f9cf4787dfc6fccd8e956e07ede58fd3bc2f33b499c492e54",
+    "size": 20358,
+    "created": "2026-10-27",
+    "note": "Living art: float layer cut from squadron-banner."
+  },
+  {
+    "id": "living-squadron-banner-trail-1",
+    "path": "public/art/living/squadron-banner/trail-1.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "colorful smoke trail",
+    "refs": [
+      "public/art/jets/squadron-banner.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "d168ad7c795d24acf291a762599e91f958db8e45f974717c926d52a725884d68",
+    "size": 32720,
+    "created": "2026-10-27",
+    "note": "Living art: mist layer cut from squadron-banner."
+  },
+  {
+    "id": "living-squadron-banner-cloud-1",
+    "path": "public/art/living/squadron-banner/cloud-1.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "cloud",
+    "refs": [
+      "public/art/jets/squadron-banner.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "867e8e2de122fa9a5db18eb45f95544ddf6aa7e60757d37a60d5e073190fd173",
+    "size": 6792,
+    "created": "2026-10-27",
+    "note": "Living art: mist layer cut from squadron-banner."
+  },
+  {
+    "id": "living-squadron-banner-cloud-2",
+    "path": "public/art/living/squadron-banner/cloud-2.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "cloud",
+    "refs": [
+      "public/art/jets/squadron-banner.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "1a4b48151653ab54ee049bb3fa2a53985006f60029d162ade074c7c0f94336db",
+    "size": 4828,
+    "created": "2026-10-27",
+    "note": "Living art: mist layer cut from squadron-banner."
+  },
+  {
+    "id": "living-squadron-banner-cloud-3",
+    "path": "public/art/living/squadron-banner/cloud-3.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "cloud",
+    "refs": [
+      "public/art/jets/squadron-banner.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "1b1b6dd36f6f46908495884c64b9d34cf7a9465c7b2dff75db1c0045378f1b10",
+    "size": 4970,
+    "created": "2026-10-27",
+    "note": "Living art: mist layer cut from squadron-banner."
+  },
+  {
+    "id": "living-squadron-banner-cloud-4",
+    "path": "public/art/living/squadron-banner/cloud-4.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "cloud",
+    "refs": [
+      "public/art/jets/squadron-banner.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "ca86026ee5244fd1a7a6ce232830fdcdfefc5ba63896db21752bc48677ff6950",
+    "size": 3018,
+    "created": "2026-10-27",
+    "note": "Living art: mist layer cut from squadron-banner."
+  },
+  {
+    "id": "living-squadron-banner-cloud-5",
+    "path": "public/art/living/squadron-banner/cloud-5.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "cloud",
+    "refs": [
+      "public/art/jets/squadron-banner.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "5e92001bf6b21640467aea7e7e3ad8a3a96512bcdea13ada88712557b7350f29",
+    "size": 2174,
+    "created": "2026-10-27",
+    "note": "Living art: mist layer cut from squadron-banner."
+  },
+  {
+    "id": "living-squadron-banner-cloud-6",
+    "path": "public/art/living/squadron-banner/cloud-6.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "cloud",
+    "refs": [
+      "public/art/jets/squadron-banner.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "6c54180e4cc5cbaa5fb670e2cf7f1f3a2e025ee637484d30522d25c32d17754a",
+    "size": 1386,
+    "created": "2026-10-27",
+    "note": "Living art: mist layer cut from squadron-banner."
+  },
+  {
+    "id": "living-squadron-banner-plate",
+    "path": "public/art/living/squadron-banner/plate.webp",
+    "kind": "plate",
+    "model": "none (normalised blur fill)",
+    "pack": null,
+    "prompt": "squadron-banner with jet filled in from the surrounding art",
+    "refs": [
+      "public/art/jets/squadron-banner.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "7fadc6745f57ae4624b0c2ea355af29cc7d4d96ee1671808794c7ab683c42ee7",
+    "size": 58906,
+    "created": "2026-10-27",
+    "note": "Living art: base plate for squadron-banner, drawn under the moving layers."
+  },
+  {
+    "id": "living-study-room-plant-1",
+    "path": "public/art/living/study-room/plant-1.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "potted plant",
+    "refs": [
+      "public/art/scenes/study-room.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "60c457a86ffa4b910e9bc744dc29be9865b365c8ff8586d4ca291fca29c3efda",
+    "size": 10944,
+    "created": "2026-10-27",
+    "note": "Living art: sway layer cut from study-room."
+  },
+  {
+    "id": "living-study-room-plant-2",
+    "path": "public/art/living/study-room/plant-2.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "potted plant",
+    "refs": [
+      "public/art/scenes/study-room.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "778fd42804c2750afd20c566d7143a612ae7dd9f2d09c08ad2599a69d6a66100",
+    "size": 7332,
+    "created": "2026-10-27",
+    "note": "Living art: sway layer cut from study-room."
+  },
+  {
+    "id": "living-study-room-plant-3",
+    "path": "public/art/living/study-room/plant-3.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "potted plant",
+    "refs": [
+      "public/art/scenes/study-room.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "827ace0914216357f85166922007d192776ecc3e8591a03020c6603064fa1ccc",
+    "size": 5864,
+    "created": "2026-10-27",
+    "note": "Living art: sway layer cut from study-room."
+  },
+  {
+    "id": "living-study-room-plant-4",
+    "path": "public/art/living/study-room/plant-4.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "potted plant",
+    "refs": [
+      "public/art/scenes/study-room.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "97e56e7363c97366a6487015f53f82a9172c76f8826e3b0b498ef9694b9a0a57",
+    "size": 2226,
+    "created": "2026-10-27",
+    "note": "Living art: sway layer cut from study-room."
+  },
+  {
+    "id": "living-study-room-plant-5",
+    "path": "public/art/living/study-room/plant-5.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "potted plant",
+    "refs": [
+      "public/art/scenes/study-room.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "ad043966a065e1e2d8e2a2919ecadbf5359255e6cabd2c314224d84439a0a437",
+    "size": 3618,
+    "created": "2026-10-27",
+    "note": "Living art: sway layer cut from study-room."
+  },
+  {
+    "id": "living-study-room-sky",
+    "path": "public/art/living/study-room/sky.webp",
+    "kind": "mask",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "sky",
+    "refs": [
+      "public/art/scenes/study-room.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "3541372cb31d82c1f87b1bde6b78a586afc334afaf2074cef220f7ed27fd8efc",
+    "size": 5628,
+    "created": "2026-10-27",
+    "note": "Living art: sky layer cut from study-room."
+  },
+  {
+    "id": "living-study-room-lights-1",
+    "path": "public/art/living/study-room/lights-1.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "warm pixels (threshold, no model)",
+    "refs": [
+      "public/art/scenes/study-room.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "ce2dcc9fd22cec9744c976175955b540a96e096abb43820ecfcb189b9bc3cf62",
+    "size": 3046,
+    "created": "2026-10-27",
+    "note": "Living art: flicker layer cut from study-room."
+  },
+  {
+    "id": "living-study-room-lights-2",
+    "path": "public/art/living/study-room/lights-2.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "warm pixels (threshold, no model)",
+    "refs": [
+      "public/art/scenes/study-room.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "b8af7b0bb5812ee81cbfe72e005d652586b6e20c268e54ed565cde19ce6cc628",
+    "size": 2708,
+    "created": "2026-10-27",
+    "note": "Living art: flicker layer cut from study-room."
+  },
+  {
+    "id": "living-study-room-lights-3",
+    "path": "public/art/living/study-room/lights-3.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "warm pixels (threshold, no model)",
+    "refs": [
+      "public/art/scenes/study-room.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "b63d894a389e4adcbd1ead80880e8968abc1a7952638847df7c16fd08ee43221",
+    "size": 498,
+    "created": "2026-10-27",
+    "note": "Living art: flicker layer cut from study-room."
+  },
+  {
+    "id": "living-space-planet-1",
+    "path": "public/art/living/space/planet-1.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "planet",
+    "refs": [
+      "public/art/games/space.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "b94d05e84d5a83752143bd1ce15937b725561e460f1f52c2c40215e548a01802",
+    "size": 2680,
+    "created": "2026-10-27",
+    "note": "Living art: bob layer cut from space."
+  },
+  {
+    "id": "living-space-planet-2",
+    "path": "public/art/living/space/planet-2.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "planet",
+    "refs": [
+      "public/art/games/space.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "103ae683e3ea370975ef665277225437ba2df12a8ef9e86acd4f68df4c85c034",
+    "size": 982,
+    "created": "2026-10-27",
+    "note": "Living art: bob layer cut from space."
+  },
+  {
+    "id": "living-space-cloud",
+    "path": "public/art/living/space/cloud.webp",
+    "kind": "layer",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "luma pixels (threshold, no model)",
+    "refs": [
+      "public/art/games/space.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "ad2b1f5c28f5afbbe2f8a9848a5a29d44dee6ae58cc6ef14fa161b5f96e87dc2",
+    "size": 216918,
+    "created": "2026-10-27",
+    "note": "Living art: haze layer cut from space."
+  },
+  {
+    "id": "living-space-cloudflow",
+    "path": "public/art/living/space/cloudflow.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "luma pixels (threshold, no model)",
+    "refs": [
+      "public/art/games/space.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "731003844064258b809d624c129840b696f33bf302bd3c6015825ebccbe7b6d2",
+    "size": 69594,
+    "created": "2026-10-27",
+    "note": "Living art: sky layer cut from space."
+  },
+  {
+    "id": "living-space-comet",
+    "path": "public/art/living/space/comet.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "chroma pixels (threshold, no model)",
+    "refs": [
+      "public/art/games/space.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "0f8943f92381f8e6e0f934f87c2f77daec8bbc0ae7cc4bd7fa7ec1776e310da7",
+    "size": 22174,
+    "created": "2026-10-27",
+    "note": "Living art: aurora layer cut from space."
+  },
+  {
+    "id": "living-space-stars-1",
+    "path": "public/art/living/space/stars-1.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "white pixels (threshold, no model)",
+    "refs": [
+      "public/art/games/space.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "2aae6517a73fd65777e0ad18bf420ddbacc3fd78f366083f6a7e45b18877e415",
+    "size": 19214,
+    "created": "2026-10-27",
+    "note": "Living art: twinkle layer cut from space."
+  },
+  {
+    "id": "living-space-stars-2",
+    "path": "public/art/living/space/stars-2.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "white pixels (threshold, no model)",
+    "refs": [
+      "public/art/games/space.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "b19c8526e4dc733c546b3a99d87fd71c8f44f29f019c98545ea8626ddd159e25",
+    "size": 16930,
+    "created": "2026-10-27",
+    "note": "Living art: twinkle layer cut from space."
+  },
+  {
+    "id": "living-space-stars-3",
+    "path": "public/art/living/space/stars-3.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "white pixels (threshold, no model)",
+    "refs": [
+      "public/art/games/space.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "764f1c1fdb7a160a50cac3c4566500264741386fae1bda83f81f1b7e8664c17b",
+    "size": 20860,
+    "created": "2026-10-27",
+    "note": "Living art: twinkle layer cut from space."
+  },
+  {
+    "id": "living-city-twilight-plant-1",
+    "path": "public/art/living/city-twilight/plant-1.webp",
+    "kind": "mask",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "lavender plants",
+    "refs": [
+      "public/art/login/city-twilight.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "3880c8ced8e3bf92e3f97d39e5d4f8974fd6819311d3c0187fd71416fc36df37",
+    "size": 770,
+    "created": "2026-10-27",
+    "note": "Living art: breeze layer cut from city-twilight."
+  },
+  {
+    "id": "living-city-twilight-plant-2",
+    "path": "public/art/living/city-twilight/plant-2.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "lavender plants",
+    "refs": [
+      "public/art/login/city-twilight.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "bf1e82257065d8050036bbd415281b1dd8937bb0903c5d27c40a2eccb540b006",
+    "size": 2254,
+    "created": "2026-10-27",
+    "note": "Living art: waver layer cut from city-twilight."
+  },
+  {
+    "id": "living-city-twilight-plant-3",
+    "path": "public/art/living/city-twilight/plant-3.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "lavender plants",
+    "refs": [
+      "public/art/login/city-twilight.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "8ea25ade8028facdace0c10539dcb281247242773400eb8032975ad13fcbb04a",
+    "size": 1446,
+    "created": "2026-10-27",
+    "note": "Living art: waver layer cut from city-twilight."
+  },
+  {
+    "id": "living-city-twilight-plant-4",
+    "path": "public/art/living/city-twilight/plant-4.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "lavender plants",
+    "refs": [
+      "public/art/login/city-twilight.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "5881b55492501d6a8d21cc6d4e8860394ac001096de4c0da0375016510d39af8",
+    "size": 1548,
+    "created": "2026-10-27",
+    "note": "Living art: waver layer cut from city-twilight."
+  },
+  {
+    "id": "living-city-twilight-water",
+    "path": "public/art/living/city-twilight/water.webp",
+    "kind": "mask",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "canal water",
+    "refs": [
+      "public/art/login/city-twilight.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "8aebd17a558065b644b02882960e57ee1201cfdf40b1875a8da05b0bf5197265",
+    "size": 1224,
+    "created": "2026-10-27",
+    "note": "Living art: shimmer layer cut from city-twilight."
+  },
+  {
+    "id": "living-city-twilight-aurora",
+    "path": "public/art/living/city-twilight/aurora.webp",
+    "kind": "layer",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "cool pixels (threshold, no model)",
+    "refs": [
+      "public/art/login/city-twilight.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "79293767862dbb1b71fa653eac4793adf6b508cd3ed0aa99577ced6ef184eaa0",
+    "size": 76238,
+    "created": "2026-10-27",
+    "note": "Living art: haze layer cut from city-twilight."
+  },
+  {
+    "id": "living-city-twilight-aurorashine",
+    "path": "public/art/living/city-twilight/aurorashine.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "cool pixels (threshold, no model)",
+    "refs": [
+      "public/art/login/city-twilight.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "95ded9354cf4f5691a89ad6d13b01b1d2d900ddd2d7abfb969d33ecd3025c4fc",
+    "size": 32116,
+    "created": "2026-10-27",
+    "note": "Living art: aurora layer cut from city-twilight."
+  },
+  {
+    "id": "living-city-twilight-stars-1",
+    "path": "public/art/living/city-twilight/stars-1.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "white pixels (threshold, no model)",
+    "refs": [
+      "public/art/login/city-twilight.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "2103c33a641c5145a60332d1ccd4b516670f6000dfe2ef84b3f9611d4eb2b2f0",
+    "size": 4048,
+    "created": "2026-10-27",
+    "note": "Living art: twinkle layer cut from city-twilight."
+  },
+  {
+    "id": "living-city-twilight-stars-2",
+    "path": "public/art/living/city-twilight/stars-2.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "white pixels (threshold, no model)",
+    "refs": [
+      "public/art/login/city-twilight.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "da8a92cc10ceca0d7e1e69e4dbf0fb351c015c44c39392dd621b23cb5ce3749e",
+    "size": 12300,
+    "created": "2026-10-27",
+    "note": "Living art: twinkle layer cut from city-twilight."
+  },
+  {
+    "id": "living-city-twilight-stars-3",
+    "path": "public/art/living/city-twilight/stars-3.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "white pixels (threshold, no model)",
+    "refs": [
+      "public/art/login/city-twilight.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "17774b10be007783889c89a018f7604468be7b2bd26f63464c40cb0c5afdeb07",
+    "size": 5222,
+    "created": "2026-10-27",
+    "note": "Living art: twinkle layer cut from city-twilight."
+  },
+  {
+    "id": "living-city-twilight-lights-1",
+    "path": "public/art/living/city-twilight/lights-1.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "warm pixels (threshold, no model)",
+    "refs": [
+      "public/art/login/city-twilight.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "2098dd1033cb719fd9a687f58165b9b25188dd10d5712307d0ef337a0dab1654",
+    "size": 8924,
+    "created": "2026-10-27",
+    "note": "Living art: flicker layer cut from city-twilight."
+  },
+  {
+    "id": "living-city-twilight-lights-2",
+    "path": "public/art/living/city-twilight/lights-2.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "warm pixels (threshold, no model)",
+    "refs": [
+      "public/art/login/city-twilight.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "097a45009a2d3a52f405d7f15c2f9aa166830deaeb9069a0f8941253c3ac62a2",
+    "size": 5632,
+    "created": "2026-10-27",
+    "note": "Living art: flicker layer cut from city-twilight."
+  },
+  {
+    "id": "living-city-twilight-lights-3",
+    "path": "public/art/living/city-twilight/lights-3.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "warm pixels (threshold, no model)",
+    "refs": [
+      "public/art/login/city-twilight.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "249c5860ed020863407728e1e84077db62040a428947aca126d9c94bdb93cafd",
+    "size": 3094,
+    "created": "2026-10-27",
+    "note": "Living art: flicker layer cut from city-twilight."
+  },
+  {
+    "id": "living-city-twilight-lights-4",
+    "path": "public/art/living/city-twilight/lights-4.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "warm pixels (threshold, no model)",
+    "refs": [
+      "public/art/login/city-twilight.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "dda84e6c0fe5e5be8175ff46297036256574ecdff77a8aee2402a2044393ec5f",
+    "size": 8704,
+    "created": "2026-10-27",
+    "note": "Living art: flicker layer cut from city-twilight."
+  },
+  {
+    "id": "living-city-neon-trails",
+    "path": "public/art/living/city-neon/trails.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "chroma pixels (threshold, no model)",
+    "refs": [
+      "public/art/login/city-neon.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "6aeeafb6b088df9b17489779d22c9240e386ea1ff0ffcd1bac42d03c0e36e6ee",
+    "size": 55372,
+    "created": "2026-10-27",
+    "note": "Living art: stream layer cut from city-neon."
+  },
+  {
+    "id": "living-city-neon-beams",
+    "path": "public/art/living/city-neon/beams.webp",
+    "kind": "layer",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "luma pixels (threshold, no model)",
+    "refs": [
+      "public/art/login/city-neon.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "547e632131827eb3e24ecddbed3c1b8ff7fe90be65755a3004d9e259b0f72f98",
+    "size": 72892,
+    "created": "2026-10-27",
+    "note": "Living art: haze layer cut from city-neon."
+  },
+  {
+    "id": "living-city-neon-stars-1",
+    "path": "public/art/living/city-neon/stars-1.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "white pixels (threshold, no model)",
+    "refs": [
+      "public/art/login/city-neon.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "cfd54cfebfb070702781f6603aae1060c85dc9b0109074c5ec7fe6889420912c",
+    "size": 1526,
+    "created": "2026-10-27",
+    "note": "Living art: twinkle layer cut from city-neon."
+  },
+  {
+    "id": "living-city-neon-stars-2",
+    "path": "public/art/living/city-neon/stars-2.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "white pixels (threshold, no model)",
+    "refs": [
+      "public/art/login/city-neon.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "c94e35428b8651932328148b4e38b106678c5303063c3546557d9edd33a5a181",
+    "size": 3862,
+    "created": "2026-10-27",
+    "note": "Living art: twinkle layer cut from city-neon."
+  },
+  {
+    "id": "living-city-neon-stars-3",
+    "path": "public/art/living/city-neon/stars-3.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "white pixels (threshold, no model)",
+    "refs": [
+      "public/art/login/city-neon.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "f5a9e24d3fb3608953a0a32b04881a6a7e5138b642448cd9c665e94e957f1a73",
+    "size": 1728,
+    "created": "2026-10-27",
+    "note": "Living art: twinkle layer cut from city-neon."
+  },
+  {
+    "id": "living-city-neon-windows-1",
+    "path": "public/art/living/city-neon/windows-1.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "warm pixels (threshold, no model)",
+    "refs": [
+      "public/art/login/city-neon.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "d4a6ddf6a78b18a24ee04ee1a73a1f6adf22ae0869402308e046af4d5c08cf78",
+    "size": 3734,
+    "created": "2026-10-27",
+    "note": "Living art: flicker layer cut from city-neon."
+  },
+  {
+    "id": "living-city-neon-windows-2",
+    "path": "public/art/living/city-neon/windows-2.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "warm pixels (threshold, no model)",
+    "refs": [
+      "public/art/login/city-neon.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "0a03d8ab1d4931e6b7ee830dd511805edadbdd5bc8fe2aa7575984e3400d44e9",
+    "size": 2340,
+    "created": "2026-10-27",
+    "note": "Living art: flicker layer cut from city-neon."
+  },
+  {
+    "id": "living-city-neon-windows-3",
+    "path": "public/art/living/city-neon/windows-3.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "warm pixels (threshold, no model)",
+    "refs": [
+      "public/art/login/city-neon.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "a458efcf27cc6984da793e90a1f191bb62f405d74475bd406de8c4cfb438a3b6",
+    "size": 1474,
+    "created": "2026-10-27",
+    "note": "Living art: flicker layer cut from city-neon."
+  },
+  {
+    "id": "living-city-neon-windows-4",
+    "path": "public/art/living/city-neon/windows-4.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "warm pixels (threshold, no model)",
+    "refs": [
+      "public/art/login/city-neon.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "91d2e87f0db3abf909771c42aa7b118f9ac5ba290abd77a9a5b6dfff34d3069d",
+    "size": 4338,
+    "created": "2026-10-27",
+    "note": "Living art: flicker layer cut from city-neon."
   }
 ]

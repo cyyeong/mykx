@@ -1,0 +1,208 @@
+{
+  "art": "quest-map",
+  "src": "public/art/scenes/quest-map.webp",
+  "width": 1600,
+  "height": 1067,
+  "layers": [
+    {
+      "id": "waterfall-1",
+      "motion": "flow",
+      "src": "/art/living/quest-map/waterfall-1.webp",
+      "x": 58.25,
+      "y": 45.92,
+      "w": 7.81,
+      "h": 36.74,
+      "mask": true
+    },
+    {
+      "id": "waterfall-2",
+      "motion": "flow",
+      "src": "/art/living/quest-map/waterfall-2.webp",
+      "x": 82.88,
+      "y": 20.99,
+      "w": 6.69,
+      "h": 31.68,
+      "mask": true
+    },
+    {
+      "id": "cloud-1",
+      "motion": "mist",
+      "src": "/art/living/quest-map/cloud-1.webp",
+      "x": 55.06,
+      "y": 68.79,
+      "w": 36.56,
+      "h": 31.21,
+      "mask": false
+    },
+    {
+      "id": "cloud-2",
+      "motion": "mist",
+      "src": "/art/living/quest-map/cloud-2.webp",
+      "x": 0,
+      "y": 10.68,
+      "w": 30.25,
+      "h": 31.4,
+      "mask": false
+    },
+    {
+      "id": "cloud-3",
+      "motion": "mist",
+      "src": "/art/living/quest-map/cloud-3.webp",
+      "x": 69.56,
+      "y": 41.42,
+      "w": 30.44,
+      "h": 33.93,
+      "mask": false
+    },
+    {
+      "id": "cloud-4",
+      "motion": "mist",
+      "src": "/art/living/quest-map/cloud-4.webp",
+      "x": 12.69,
+      "y": 44.7,
+      "w": 46.5,
+      "h": 28.87,
+      "mask": false
+    },
+    {
+      "id": "cloud-5",
+      "motion": "mist",
+      "src": "/art/living/quest-map/cloud-5.webp",
+      "x": 71.31,
+      "y": 78.16,
+      "w": 28.69,
+      "h": 21.84,
+      "mask": false
+    },
+    {
+      "id": "cloud-6",
+      "motion": "mist",
+      "src": "/art/living/quest-map/cloud-6.webp",
+      "x": 0,
+      "y": 0,
+      "w": 40,
+      "h": 13.12,
+      "mask": false
+    },
+    {
+      "id": "cloud-7",
+      "motion": "mist",
+      "src": "/art/living/quest-map/cloud-7.webp",
+      "x": 70.44,
+      "y": 43.77,
+      "w": 24.5,
+      "h": 20.99,
+      "mask": false
+    },
+    {
+      "id": "cloud-8",
+      "motion": "mist",
+      "src": "/art/living/quest-map/cloud-8.webp",
+      "x": 0,
+      "y": 45.45,
+      "w": 18.31,
+      "h": 24.93,
+      "mask": false
+    },
+    {
+      "id": "grass-1",
+      "motion": "breeze",
+      "src": "/art/living/quest-map/grass-1.webp",
+      "x": 0,
+      "y": 63.26,
+      "w": 39.75,
+      "h": 36.74,
+      "mask": true
+    },
+    {
+      "id": "grass-2",
+      "motion": "waver",
+      "src": "/art/living/quest-map/grass-2.webp",
+      "x": 42.13,
+      "y": 43.86,
+      "w": 17.13,
+      "h": 16.78,
+      "mask": false
+    },
+    {
+      "id": "grass-3",
+      "motion": "breeze",
+      "src": "/art/living/quest-map/grass-3.webp",
+      "x": 61.44,
+      "y": 8.9,
+      "w": 18.5,
+      "h": 16.59,
+      "mask": true
+    },
+    {
+      "id": "grass-4",
+      "motion": "breeze",
+      "src": "/art/living/quest-map/grass-4.webp",
+      "x": 54.75,
+      "y": 36.27,
+      "w": 15.38,
+      "h": 12.28,
+      "mask": true
+    },
+    {
+      "id": "grass-5",
+      "motion": "waver",
+      "src": "/art/living/quest-map/grass-5.webp",
+      "x": 85.19,
+      "y": 16.96,
+      "w": 10.44,
+      "h": 13.5,
+      "mask": false
+    },
+    {
+      "id": "grass-6",
+      "motion": "waver",
+      "src": "/art/living/quest-map/grass-6.webp",
+      "x": 26.94,
+      "y": 36.74,
+      "w": 8.62,
+      "h": 13.31,
+      "mask": false
+    },
+    {
+      "id": "grass-7",
+      "motion": "waver",
+      "src": "/art/living/quest-map/grass-7.webp",
+      "x": 75.69,
+      "y": 20.52,
+      "w": 8.38,
+      "h": 10.03,
+      "mask": false
+    },
+    {
+      "id": "grass-8",
+      "motion": "breeze",
+      "src": "/art/living/quest-map/grass-8.webp",
+      "x": 83.06,
+      "y": 0,
+      "w": 9.88,
+      "h": 6.94,
+      "mask": true
+    },
+    {
+      "id": "crystal",
+      "motion": "glint",
+      "src": "/art/living/quest-map/crystal.webp",
+      "x": 0.88,
+      "y": 0,
+      "w": 96.19,
+      "h": 100,
+      "mask": true
+    },
+    {
+      "id": "stones",
+      "motion": "runway",
+      "src": "/art/living/quest-map/stones.webp",
+      "x": 0.88,
+      "y": 0,
+      "w": 96.19,
+      "h": 100,
+      "mask": true
+    }
+  ]
+}

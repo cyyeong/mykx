@@ -1,0 +1,138 @@
+{
+  "art": "terrarium",
+  "src": "public/art/scenes/terrarium.webp",
+  "width": 1600,
+  "height": 1067,
+  "layers": [
+    {
+      "id": "fern-1",
+      "motion": "sway",
+      "src": "/art/living/terrarium/fern-1.webp",
+      "x": 22.13,
+      "y": 52.2,
+      "w": 13.31,
+      "h": 14.81,
+      "mask": false
+    },
+    {
+      "id": "fern-2",
+      "motion": "sway",
+      "src": "/art/living/terrarium/fern-2.webp",
+      "x": 30.63,
+      "y": 40.39,
+      "w": 10.44,
+      "h": 15.09,
+      "mask": false
+    },
+    {
+      "id": "fern-3",
+      "motion": "sway",
+      "src": "/art/living/terrarium/fern-3.webp",
+      "x": 25.5,
+      "y": 10.59,
+      "w": 8.88,
+      "h": 13.78,
+      "mask": false
+    },
+    {
+      "id": "fern-4",
+      "motion": "sway",
+      "src": "/art/living/terrarium/fern-4.webp",
+      "x": 24.56,
+      "y": 27.18,
+      "w": 8.94,
+      "h": 15.18,
+      "mask": false
+    },
+    {
+      "id": "fern-5",
+      "motion": "sway",
+      "src": "/art/living/terrarium/fern-5.webp",
+      "x": 6.06,
+      "y": 49.77,
+      "w": 7.69,
+      "h": 17.06,
+      "mask": false
+    },
+    {
+      "id": "fern-6",
+      "motion": "sway",
+      "src": "/art/living/terrarium/fern-6.webp",
+      "x": 10.56,
+      "y": 20.62,
+      "w": 6.56,
+      "h": 15.37,
+      "mask": false
+    },
+    {
+      "id": "grass-1",
+      "motion": "waver",
+      "src": "/art/living/terrarium/grass-1.webp",
+      "x": 79.25,
+      "y": 44.7,
+      "w": 9.13,
+      "h": 21.65,
+      "mask": false
+    },
+    {
+      "id": "grass-2",
+      "motion": "waver",
+      "src": "/art/living/terrarium/grass-2.webp",
+      "x": 53.13,
+      "y": 45.45,
+      "w": 6,
+      "h": 15.56,
+      "mask": false
+    },
+    {
+      "id": "grass-3",
+      "motion": "waver",
+      "src": "/art/living/terrarium/grass-3.webp",
+      "x": 74.19,
+      "y": 45.55,
+      "w": 5.13,
+      "h": 11.53,
+      "mask": false
+    },
+    {
+      "id": "grass-4",
+      "motion": "waver",
+      "src": "/art/living/terrarium/grass-4.webp",
+      "x": 70.13,
+      "y": 44.42,
+      "w": 4.75,
+      "h": 11.81,
+      "mask": false
+    },
+    {
+      "id": "grass-5",
+      "motion": "waver",
+      "src": "/art/living/terrarium/grass-5.webp",
+      "x": 68.94,
+      "y": 61.39,
+      "w": 5.81,
+      "h": 10.5,
+      "mask": false
+    },
+    {
+      "id": "pond",
+      "motion": "shimmer",
+      "src": "/art/living/terrarium/pond.webp",
+      "x": 51.31,
+      "y": 52.2,
+      "w": 38.56,
+      "h": 17.53,
+      "mask": true
+    },
+    {
+      "id": "dew",
+      "motion": "glint",
+      "src": "/art/living/terrarium/dew.webp",
+      "x": 9.5,
+      "y": 7.12,
+      "w": 85.94,
+      "h": 79.19,
+      "mask": true
+    }
+  ]
+}

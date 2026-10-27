@@ -1,0 +1,29 @@
+/* Living scenes (components/scene/LivingScene.tsx). Global, every class ls- prefixed. */
+.ls-frame{position:absolute;inset:0;z-index:0;overflow:hidden;container-type:size;--ox:50%;--oy:50%}
+.ls-box{position:absolute;aspect-ratio:var(--ar);width:max(100cqw,calc(100cqh * var(--ar)));left:var(--ox);top:var(--oy);translate:calc(-1 * var(--ox)) calc(-1 * var(--oy))}
+.ls-art,.ls-layer{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:fill}
+.ls-layer{opacity:0;transition:opacity 420ms var(--ease-soft);pointer-events:none}
+.ls-layer[data-on="yes"]{opacity:1}
+
+/* Hotspots: invisible until hover or focus; an occasional glint says "poke me" */
+.ls-spot{position:absolute;padding:0;border:0;border-radius:18%;background:transparent;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:box-shadow var(--duration-base) var(--ease-soft),background var(--duration-base) var(--ease-soft)}
+.ls-spot--round{border-radius:50%}
+.ls-spot:hover{background:radial-gradient(closest-side,rgba(255,247,214,.22),rgba(255,247,214,0));box-shadow:0 0 0 2px rgba(255,247,214,.55),0 0 24px rgba(255,227,138,.35)}
+.ls-spot:focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px}
+.ls-spot:active{background:radial-gradient(closest-side,rgba(255,247,214,.35),rgba(255,247,214,0))}
+.ls-glint{position:absolute;left:50%;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;opacity:0;pointer-events:none;background:conic-gradient(from 45deg,transparent 0 10%,#FFF7D6 12% 13%,transparent 15% 35%,#FFF7D6 37% 38%,transparent 40% 60%,#FFF7D6 62% 63%,transparent 65% 85%,#FFF7D6 87% 88%,transparent 90%);border-radius:50%;filter:drop-shadow(0 0 4px rgba(255,236,170,.95));animation:ls-glint 11s ease-in-out var(--glint-delay,0s) infinite}
+@keyframes ls-glint{0%,88%,100%{opacity:0;transform:scale(.3) rotate(0deg)}92%{opacity:1;transform:scale(1.15) rotate(45deg)}96%{opacity:0;transform:scale(.4) rotate(90deg)}}
+
+/* Shared effect pieces (positioned by each room in art percentages) */
+.ls-fx{position:absolute;pointer-events:none}
+.ls-clip{position:absolute;overflow:hidden;pointer-events:none}
+.ls-note{position:absolute;max-width:min(240px,40vw);padding:8px 12px;border-radius:12px 12px 12px 4px;background:#FFFBEA;color:#3A2E1F;font:700 14px/1.3 var(--font-text);box-shadow:0 6px 18px rgba(30,20,10,.3);transform-origin:0 100%;animation:ls-note 3.6s var(--ease-soft) both;pointer-events:none}
+@keyframes ls-note{0%{opacity:0;transform:translateY(8px) scale(.85) rotate(-3deg)}10%,80%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-10px)}}
+
+@media (prefers-reduced-motion: reduce){
+  .ls-layer{transition:opacity 150ms linear}
+  .ls-glint{animation:none}
+  .ls-fx,.ls-fx *{animation-duration:1ms!important;animation-iteration-count:1!important}
+  .ls-note{animation:ls-fade 3.2s linear both}
+}
+@keyframes ls-fade{0%,100%{opacity:0}8%,85%{opacity:1}}

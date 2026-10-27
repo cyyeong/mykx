@@ -1,0 +1,88 @@
+{
+  "art": "space",
+  "src": "public/art/games/space.webp",
+  "width": 1600,
+  "height": 1067,
+  "layers": [
+    {
+      "id": "planet-1",
+      "motion": "bob",
+      "src": "/art/living/space/planet-1.webp",
+      "x": 86.56,
+      "y": 4.12,
+      "w": 11.94,
+      "h": 11.43,
+      "mask": false
+    },
+    {
+      "id": "planet-2",
+      "motion": "bob",
+      "src": "/art/living/space/planet-2.webp",
+      "x": 0,
+      "y": 35.52,
+      "w": 6.38,
+      "h": 10.5,
+      "mask": false
+    },
+    {
+      "id": "cloud",
+      "motion": "haze",
+      "src": "/art/living/space/cloud.webp",
+      "x": 0,
+      "y": 0,
+      "w": 100,
+      "h": 99.16,
+      "mask": false
+    },
+    {
+      "id": "cloudflow",
+      "motion": "sky",
+      "src": "/art/living/space/cloudflow.webp",
+      "x": 0,
+      "y": 0,
+      "w": 100,
+      "h": 99.16,
+      "mask": true
+    },
+    {
+      "id": "comet",
+      "motion": "aurora",
+      "src": "/art/living/space/comet.webp",
+      "x": 0,
+      "y": 0,
+      "w": 100,
+      "h": 41.14,
+      "mask": true
+    },
+    {
+      "id": "stars-1",
+      "motion": "twinkle",
+      "src": "/art/living/space/stars-1.webp",
+      "x": 0,
+      "y": 0,
+      "w": 33.31,
+      "h": 97.28,
+      "mask": true
+    },
+    {
+      "id": "stars-2",
+      "motion": "twinkle",
+      "src": "/art/living/space/stars-2.webp",
+      "x": 33.31,
+      "y": 0,
+      "w": 33.38,
+      "h": 97.28,
+      "mask": true
+    },
+    {
+      "id": "stars-3",
+      "motion": "twinkle",
+      "src": "/art/living/space/stars-3.webp",
+      "x": 66.69,
+      "y": 0,
+      "w": 33.31,
+      "h": 97.28,
+      "mask": true
+    }
+  ]
+}

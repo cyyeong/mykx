@@ -1,0 +1,47 @@
+/* The teen study room's props (StudyRoom.tsx). Positions are art percentages of .ls-box. */
+.sr-flicker{animation:sr-flicker .8s steps(1,end) both}
+@keyframes sr-flicker{0%{opacity:1}12%{opacity:.15}22%{opacity:.85}38%{opacity:0}52%{opacity:.6}66%,100%{opacity:0}}
+.sr-glow{left:6%;top:44%;width:24%;height:34%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,214,140,.32),rgba(255,214,140,0));mix-blend-mode:screen;opacity:0;transition:opacity .4s var(--ease-soft)}
+.sr-glow[data-on="yes"]{opacity:1;animation:sr-breathe 5s ease-in-out infinite}
+@keyframes sr-breathe{0%,100%{opacity:.75}50%{opacity:1}}
+.sr-drawer{transform:translateY(-1.2%);transition:opacity .38s var(--ease-soft),transform .45s var(--ease-soft),filter .4s}
+.sr-drawer[data-on="yes"]{transform:none}
+.sr-dim{filter:brightness(.55) saturate(.85)}
+.sr-bloom{left:2.2%;top:1.6%;width:1.8%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#FFE38A 0 18%,transparent 20%),conic-gradient(from 0deg,#FF8FB8 0 14%,#FFB8D2 14% 20%,#FF8FB8 20% 34%,#FFB8D2 34% 40%,#FF8FB8 40% 54%,#FFB8D2 54% 60%,#FF8FB8 60% 74%,#FFB8D2 74% 80%,#FF8FB8 80%);filter:drop-shadow(0 0 4px rgba(255,143,184,.7));animation:sr-bloom .6s var(--ease-bounce) both}
+@keyframes sr-bloom{from{transform:scale(0) rotate(-90deg)}to{transform:none}}
+
+/* Sky events, clipped to the panes; the mullion stays in front */
+.sr-panes{-webkit-mask-image:linear-gradient(90deg,#000 70.4%,transparent 70.4% 76.2%,#000 76.2%);mask-image:linear-gradient(90deg,#000 70.4%,transparent 70.4% 76.2%,#000 76.2%)}
+.sr-panes > *{position:absolute}
+.sr-star{width:22%;height:2px;border-radius:2px;background:linear-gradient(90deg,rgba(255,255,255,0),#FFFDF0);box-shadow:0 0 6px rgba(255,250,220,.9);rotate:-28deg;animation:sr-shoot 1.6s cubic-bezier(.3,0,.8,.6) both}
+@keyframes sr-shoot{from{left:100%;top:calc(4% + var(--v) * 18%);opacity:0}15%{opacity:1}to{left:-30%;top:calc(30% + var(--v) * 18%);opacity:0}}
+.sr-birds{left:-20%;top:calc(14% + var(--v) * 22%);width:16%;height:8%;animation:sr-cross 5s linear both}
+.sr-bird{position:absolute;width:34%;left:calc(var(--i) * 30%);top:calc(var(--i) * 18% - (var(--i) - 1) * (var(--i) - 1) * 24%);transform-origin:50% 60%;animation:sr-flap .42s ease-in-out calc(var(--i) * -.13s) infinite alternate}
+@keyframes sr-flap{from{transform:scaleY(1)}to{transform:scaleY(.35)}}
+@keyframes sr-cross{from{left:-20%}to{left:110%}}
+.sr-plane{width:10%;left:105%;top:calc(18% + var(--v) * 20%);animation:sr-glide 5.4s cubic-bezier(.4,0,.6,1) both,sr-bob 1.8s ease-in-out infinite alternate}
+@keyframes sr-glide{from{left:105%;opacity:0}8%{opacity:1}to{left:-15%;opacity:1}}
+@keyframes sr-bob{from{transform:translateY(-10%) rotate(-4deg)}to{transform:translateY(30%) rotate(5deg)}}
+.sr-firework{left:calc(18% + var(--v) * 60%);top:calc(22% + var(--v) * 18%);width:0;height:0}
+.sr-firework > span{position:absolute;left:0;top:0;width:18px;height:2px;border-radius:2px;background:linear-gradient(90deg,rgba(255,227,138,0),#FFE38A);transform-origin:0 50%;rotate:var(--a);animation:sr-burst 1.6s cubic-bezier(.2,.7,.3,1) both}
+.sr-firework > span:nth-child(3n){background:linear-gradient(90deg,rgba(255,143,184,0),#FF8FB8)}
+.sr-firework > span:nth-child(3n+1){background:linear-gradient(90deg,rgba(168,240,212,0),#A8F0D4)}
+@keyframes sr-burst{0%{opacity:0;transform:translateX(0) scaleX(.2)}15%{opacity:1}100%{opacity:0;transform:translateX(46px) scaleX(1)}}
+.sr-moon{left:48%;top:6%;width:13%;aspect-ratio:1;border-radius:50%;box-shadow:inset 12px -7px 0 0 #FFF3C4;filter:drop-shadow(0 0 10px rgba(255,243,196,.8));animation:sr-moon 7s ease-in-out both}
+@keyframes sr-moon{0%{opacity:0;transform:translateY(20%)}20%,75%{opacity:1;transform:none}100%{opacity:0}}
+.sr-lights{inset:0}
+.sr-lights > span{position:absolute;width:1.4%;aspect-ratio:1;border-radius:50%;background:#FFE7A3;box-shadow:0 0 8px 3px rgba(255,214,120,.8);opacity:0;animation:sr-twinkle 1.4s ease-in-out 2 alternate both}
+@keyframes sr-twinkle{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:scale(1.2)}}
+
+/* Desk */
+.sr-note{left:24%;top:73%}
+.sr-spark{left:30%;top:91%;width:2.4%;aspect-ratio:1;background:conic-gradient(from 45deg,transparent 0 10%,#FFF7D6 12% 13%,transparent 15% 35%,#FFF7D6 37% 38%,transparent 40% 60%,#FFF7D6 62% 63%,transparent 65% 85%,#FFF7D6 87% 88%,transparent 90%);border-radius:50%;filter:drop-shadow(0 0 6px rgba(255,236,170,1));animation:sr-spark .7s ease-in-out 2 both}
+.sr-spark--cactus{left:2%;top:1%}
+@keyframes sr-spark{0%{opacity:0;transform:scale(.3) rotate(0deg)}50%{opacity:1;transform:scale(1.2) rotate(45deg)}100%{opacity:0;transform:scale(.5) rotate(90deg)}}
+.sr-music{left:15%;top:76%;width:4%;height:4%}
+.sr-music > svg{position:absolute;left:0;bottom:0;width:60%;opacity:0;animation:sr-rise 2.8s ease-out calc(var(--i) * .7s) both}
+@keyframes sr-rise{0%{opacity:0;transform:translate(0,0) rotate(0deg)}15%{opacity:1}100%{opacity:0;transform:translate(calc(var(--s) * 1px),-160px) rotate(calc(var(--s) * 1deg))}}
+.sr-leaf{left:23%;top:68%;width:1.6%;animation:sr-fall 4s ease-in both}
+@keyframes sr-fall{0%{transform:translate(0,0) rotate(0deg);opacity:1}25%{transform:translate(calc(-10px + var(--v) * 20px),40%) rotate(40deg)}50%{transform:translate(calc(14px - var(--v) * 10px),120%) rotate(-30deg)}75%{transform:translate(calc(-6px + var(--v) * 10px),220%) rotate(25deg)}92%{transform:translate(4px,300%) rotate(80deg);opacity:1}100%{transform:translate(4px,300%) rotate(80deg);opacity:0}}
+.sr-bug{left:22%;top:80.5%;width:1.3%;rotate:100deg;animation:sr-crawl 4s linear both}
+@keyframes sr-crawl{0%{left:22%;top:80.5%;opacity:0}8%{opacity:1}45%{left:26%;top:82%;rotate:110deg}55%{left:26.5%;top:82.2%;rotate:60deg}90%{left:31%;top:81%;rotate:85deg;opacity:1}100%{left:32%;top:81%;opacity:0}}

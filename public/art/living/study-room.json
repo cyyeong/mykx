@@ -1,0 +1,98 @@
+{
+  "art": "study-room",
+  "src": "public/art/scenes/study-room.webp",
+  "width": 1600,
+  "height": 1067,
+  "layers": [
+    {
+      "id": "plant-1",
+      "motion": "sway",
+      "src": "/art/living/study-room/plant-1.webp",
+      "x": 20,
+      "y": 62.51,
+      "w": 18.56,
+      "h": 28.58,
+      "mask": false
+    },
+    {
+      "id": "plant-2",
+      "motion": "sway",
+      "src": "/art/living/study-room/plant-2.webp",
+      "x": 12.06,
+      "y": 11.34,
+      "w": 7,
+      "h": 32.61,
+      "mask": false
+    },
+    {
+      "id": "plant-3",
+      "motion": "sway",
+      "src": "/art/living/study-room/plant-3.webp",
+      "x": 0,
+      "y": 63.07,
+      "w": 7.94,
+      "h": 25.77,
+      "mask": false
+    },
+    {
+      "id": "plant-4",
+      "motion": "sway",
+      "src": "/art/living/study-room/plant-4.webp",
+      "x": 0.19,
+      "y": 4.87,
+      "w": 5.5,
+      "h": 15.37,
+      "mask": false
+    },
+    {
+      "id": "plant-5",
+      "motion": "sway",
+      "src": "/art/living/study-room/plant-5.webp",
+      "x": 14.38,
+      "y": 66.17,
+      "w": 6.44,
+      "h": 12,
+      "mask": false
+    },
+    {
+      "id": "sky",
+      "motion": "sky",
+      "src": "/art/living/study-room/sky.webp",
+      "x": 24.69,
+      "y": 0,
+      "w": 75.31,
+      "h": 100,
+      "mask": true
+    },
+    {
+      "id": "lights-1",
+      "motion": "flicker",
+      "src": "/art/living/study-room/lights-1.webp",
+      "x": 0,
+      "y": 35.99,
+      "w": 33.31,
+      "h": 37.21,
+      "mask": true
+    },
+    {
+      "id": "lights-2",
+      "motion": "flicker",
+      "src": "/art/living/study-room/lights-2.webp",
+      "x": 33.31,
+      "y": 35.99,
+      "w": 33.38,
+      "h": 37.21,
+      "mask": true
+    },
+    {
+      "id": "lights-3",
+      "motion": "flicker",
+      "src": "/art/living/study-room/lights-3.webp",
+      "x": 66.69,
+      "y": 35.99,
+      "w": 33.31,
+      "h": 37.21,
+      "mask": true
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "art": "treasure-vault",
+  "src": "public/art/scenes/treasure-vault.webp",
+  "width": 1600,
+  "height": 1067,
+  "plate": "/art/living/treasure-vault/plate.webp",
+  "layers": [
+    {
+      "id": "island-1",
+      "motion": "float",
+      "src": "/art/living/treasure-vault/island-1.webp",
+      "x": 74.38,
+      "y": 14.43,
+      "w": 25.63,
+      "h": 55.67,
+      "mask": false
+    },
+    {
+      "id": "island-2",
+      "motion": "float",
+      "src": "/art/living/treasure-vault/island-2.webp",
+      "x": 0,
+      "y": 22.49,
+      "w": 25.88,
+      "h": 53.23,
+      "mask": false
+    },
+    {
+      "id": "island-3",
+      "motion": "float",
+      "src": "/art/living/treasure-vault/island-3.webp",
+      "x": 68.06,
+      "y": 76.01,
+      "w": 31.94,
+      "h": 23.99,
+      "mask": false
+    },
+    {
+      "id": "island-4",
+      "motion": "float",
+      "src": "/art/living/treasure-vault/island-4.webp",
+      "x": 0,
+      "y": 77.88,
+      "w": 31,
+      "h": 22.12,
+      "mask": false
+    },
+    {
+      "id": "island-5",
+      "motion": "float",
+      "src": "/art/living/treasure-vault/island-5.webp",
+      "x": 6.81,
+      "y": 3.56,
+      "w": 13.13,
+      "h": 25.02,
+      "mask": false
+    },
+    {
+      "id": "island-6",
+      "motion": "float",
+      "src": "/art/living/treasure-vault/island-6.webp",
+      "x": 67.25,
+      "y": 68.88,
+      "w": 17.69,
+      "h": 25.12,
+      "mask": false
+    },
+    {
+      "id": "island-7",
+      "motion": "float",
+      "src": "/art/living/treasure-vault/island-7.webp",
+      "x": 76.63,
+      "y": 3.47,
+      "w": 12.25,
+      "h": 22.21,
+      "mask": false
+    },
+    {
+      "id": "island-8",
+      "motion": "float",
+      "src": "/art/living/treasure-vault/island-8.webp",
+      "x": 21.56,
+      "y": 72.07,
+      "w": 15.88,
+      "h": 17.62,
+      "mask": false
+    },
+    {
+      "id": "aurora",
+      "motion": "haze",
+      "src": "/art/living/treasure-vault/aurora.webp",
+      "x": 0,
+      "y": 18.28,
+      "w": 100,
+      "h": 16.87,
+      "mask": false
+    },
+    {
+      "id": "cloud",
+      "motion": "haze",
+      "src": "/art/living/treasure-vault/cloud.webp",
+      "x": 0,
+      "y": 0,
+      "w": 100,
+      "h": 100,
+      "mask": false
+    },
+    {
+      "id": "glow-1",
+      "motion": "flicker",
+      "src": "/art/living/treasure-vault/glow-1.webp",
+      "x": 0,
+      "y": 3.94,
+      "w": 25,
+      "h": 94.94,
+      "mask": true
+    },
+    {
+      "id": "glow-2",
+      "motion": "flicker",
+      "src": "/art/living/treasure-vault/glow-2.webp",
+      "x": 25,
+      "y": 3.94,
+      "w": 25,
+      "h": 94.94,
+      "mask": true
+    },
+    {
+      "id": "glow-3",
+      "motion": "flicker",
+      "src": "/art/living/treasure-vault/glow-3.webp",
+      "x": 50,
+      "y": 3.94,
+      "w": 25,
+      "h": 94.94,
+      "mask": true
+    },
+    {
+      "id": "glow-4",
+      "motion": "flicker",
+      "src": "/art/living/treasure-vault/glow-4.webp",
+      "x": 75,
+      "y": 3.94,
+      "w": 25,
+      "h": 94.94,
+      "mask": true
+    }
+  ]
+}

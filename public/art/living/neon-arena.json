@@ -1,0 +1,28 @@
+{
+  "art": "neon-arena",
+  "src": "public/art/games/neon-arena.webp",
+  "width": 1600,
+  "height": 1067,
+  "layers": [
+    {
+      "id": "neon",
+      "motion": "neon",
+      "src": "/art/living/neon-arena/neon.webp",
+      "x": 0,
+      "y": 53.33,
+      "w": 100,
+      "h": 46.67,
+      "mask": true
+    },
+    {
+      "id": "haze",
+      "motion": "haze",
+      "src": "/art/living/neon-arena/haze.webp",
+      "x": 0,
+      "y": 1.03,
+      "w": 100,
+      "h": 98.97,
+      "mask": false
+    }
+  ]
+}

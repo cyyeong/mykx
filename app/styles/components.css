@@ -76,3 +76,6 @@
   .mk-holo { transform: none; }
   .mk-node--next .mk-node__dot { animation: none; }
 }
+
+/* App additions (not in the design-system bundle) */
+a.mk-btn { text-decoration: none; }
