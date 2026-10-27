@@ -81,11 +81,13 @@ Full-bleed dream-vault art with an aurora drift, rising lanterns, pointer/tilt p
 - **Teen:** a sleek study deck with mastery rings, focus timer and "limited evidence" labels; Kix as a quiet HUD.
 - **Correct answer:** a sparkle burst, then a reward card flies to the Treasure icon. This is the visual link between learning and Treasure.
 
-### E5. Motion and sound
-One orchestrated moment per screen (see the design system). Optional soft chimes, on by default for Junior and off for Teen.
+### E5. Motion and sound (sound promoted to core, 27 Oct)
+One orchestrated moment per screen (see the design system). **Sound layer:** every pack has its own synthesised sound palette (Dreamlight music box, Anime Sky glockenspiel, Toon Pop marimba and boings, Idol Stage synth pluck, Terrarium kalimba, wood blocks and frog croaks) for taps, correct answers, reward cards, the transform and Pip growing, plus an optional ambient bed (Terrarium rain and crickets, Dreamlight night chimes). Built with Tone.js in the browser: no audio files, nothing to license, loaded on first tap. SFX on by default for Junior and off for Teen; ambience off by default; one mute button. No sound for wrong answers.
 
-### E6. "Hey Kix" voice (P1)
-Muse Voice Transcribe in, browser speech out. Cheap ($0.18/hour) and a delightful live-demo beat. Only add it after the Day 7 freeze criteria are met.
+**Research (27 Oct):** Meta's Model API has no music, sound-effect or text-to-speech model, so sound is synthesised and music is "written" by Muse Spark as data (E10). Details in the `meta-model-api` skill.
+
+### E6. "Talk to Kix" voice (promoted to core, 27 Oct)
+**Voice in:** hold-to-talk on the Kix bubble → the browser records up to 30 s, encodes 16 kHz mono WAV → our `/api/voice/transcribe` route → `muse-voice-transcribe-1.0` → the transcript shows in the bubble for the child to confirm. Used for the Vibe Zone brief ("I keep forgetting the frog life cycle") and for asking Kix for a hint. **Voice out:** Kix reads questions, hints and flashcards aloud with the browser's `speechSynthesis`, with captions and word highlighting; labelled "Kix speaks with your device's voice". Big impact for younger and weaker readers, and the fourth live Meta model in the product. Costs cents ($0.18 per audio hour). **Child-data rules:** push-to-talk only, audio never stored or logged, transcript only, parent can turn voice off per child.
 
 ### E7. Critter world: the Terrarium pack and a companion that grows (added 27 Oct, founder's youngest)
 The youngest loves the exotic side of nature: ants, mealworms, lizards, tadpoles and frogs. That lines up with lower-primary Science, where life cycles (frog, mealworm beetle) and classifying animals (insects, amphibians, reptiles) are core topics, so the interest becomes the lesson, not decoration.
@@ -107,6 +109,9 @@ The same child loves fighter jets, especially the ones in big action films. We c
 ### E9. Shareable sidekick card (Viral and Community Vote)
 Export a 1080×1350 card: the child's Kix in their pack plus a first name chosen by the parent (optional) and no school or other personal data. Feeds the X post required for the viral prize.
 
+### E10. Study Song: Kix turns notes into a song (stretch, 27 Oct)
+A second Vibe Zone template. The child says or types "make the frog life cycle a song" → Muse Spark returns a zod-validated **song spec** (title, tempo, scale, groove, four lyric lines with one note per syllable) → trusted Tone.js code plays it with the child's pack instruments while the lyrics bounce karaoke-style and Kix bobs to the beat. Muse Spark writes the music; the app only plays validated data (hard rule 4). Mnemonic songs are a proven memory aid, and it's a strong "surprise us" and viral beat. Fixture fallback song for the demo. Built only after Checkpoint B is green (implementation plan §6).
+
 ---
 
 ## 4. Re-scope: keep, simplify, cut
@@ -127,6 +132,9 @@ Export a 1080×1350 card: the child's Kix in their pack plus a first name chosen
 | FR12 admin | **Cut** | use the Supabase dashboard and seed scripts | 0 |
 | FR13 SAM science activity | **Replaced** | SAM sticker cutouts in Sidekick Studio | (in FR05) |
 | Critter world (new, E7) | **Add** | Terrarium pack, critter companion with life-cycle growth, 6 reviewed life-cycle and classification items | 4 |
+| Sound layer (E5) | **Add (core)** | Tone.js SFX per pack, optional ambience, mute; lazy-loaded | 2.5 |
+| Talk to Kix (E6) | **Add (core)** | hold-to-talk → Muse Voice Transcribe; browser read-aloud with captions | 4.5 |
+| Study Song (E10) | **Stretch** | Vibe Zone song template: Spark song spec → Tone.js karaoke player | 3.5 |
 | Sky Squadron (new, E8) | **Add, cuttable** | four insect-inspired jet cards + hero banner + Kix pilot outfit on the Treasure shelf | 2 |
 | Art production (new) | **Add** | ~70 production images, cutouts, optimisation, manifest | 5 |
 | Polish, a11y, perf, deploy (new) | **Add** | screenshots and critique passes; tablet checks | 6 |

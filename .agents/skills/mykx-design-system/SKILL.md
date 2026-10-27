@@ -95,7 +95,27 @@ Each surface gets **one** memorable moment. Keep everything around it calm.
 - Library: `motion` (Framer Motion) for components, CSS for ambient loops, a small canvas loop for particles. Pause particles when the tab is hidden.
 - Motion answers actions: press squash (120 ms), card flip, reward fly-to-Treasure (600 ms arc), pack re-skin (view transition). Ambient motion only in Treasure and Home backgrounds.
 - `prefers-reduced-motion`: no parallax, no particles, no tilt; keep fades ≤ 200 ms; show static art.
-- Sound (optional, off for Teen by default): soft chime on correct, sparkle on unlock, ≤ 30 KB each, user toggle.
+- Sound: see §6a.
+
+## 6a. Voice and sound (added 27 Oct)
+
+**Sound is synthesised, never recorded.** Tone.js (lazy-loaded on the first tap; browsers block audio before a gesture) plays every effect, so there are no audio files to license or download. Master level −12 dB; effects ≤ 600 ms except the transform; no sound for wrong answers (kindness rule); one mute button in the HUD; SFX on by default for Junior and off for Teen; ambience off by default.
+
+| Pack | Instrument palette | Ambience bed (optional) |
+|---|---|---|
+| Dreamlight | music box / celesta, soft pad, wind chimes | night breeze and distant chimes |
+| Anime Sky | bright piano, glockenspiel, airy strings | wind and synth birdsong |
+| Toon Pop | marimba, slide whistle, boing, woodblock | none (it's loud enough) |
+| Idol Stage | synth pluck, claps, sparkle arpeggios | soft four-on-the-floor pulse |
+| Terrarium | kalimba, wood blocks, FM frog croak | rain, crickets, pond drips |
+
+Events, same everywhere, voiced by the pack's palette: tap (soft tick), pack pick (the pack's signature chord), correct (rising three notes), hint (two gentle notes), reward card (sparkle arpeggio and shimmer), transform (two-second rising whoosh, then a reveal chord), card flip (swish), Pip grows (pond bloop and chime).
+
+**Talk to Kix (voice in).** A mic button sits on the Kix speech bubble, at least 64 px for Junior. *Hold* to talk; never a toggle that keeps listening. States: idle (mic glyph) → listening (accent ring that pulses with the mic level, "Listening…", Kix leans in with the thinking expression) → transcribing (three dots in the bubble) → heard (the transcript in the bubble with ✓ "That's right" and ↺ "Say it again"). The typed box is always visible beside it. Mic denied: show a calm one-line note and keep typing available.
+
+**Kix speaks (voice out).** Browser `speechSynthesis`, with the best installed voice from a preference list; Junior rate 0.95 and pitch 1.2, Teen rate 1.0 and pitch 1.0. Captions are always on: the spoken line shows in the bubble with the current word highlighted in the reward colour. A small speaker button replays the line. Small print in Settings and Under the hood: "Kix speaks with your device's voice."
+
+**Study Song (stretch).** A karaoke card in Vibe Zone: four lyric lines, the current syllable lifts and glows in the reward colour, a beat dot pulses in the accent colour, and Kix bobs on every beat (respect reduced motion: no bobbing, highlight only). Play and pause, and a loop button.
 
 ## 7. Accessibility and performance gates
 

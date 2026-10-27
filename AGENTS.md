@@ -37,7 +37,8 @@ myKx gives every Singapore student an AI sidekick, **Kix**: learning loops that 
 6. **Every kept generated asset goes in `public/art/manifest.json`** (prompt, model, refs, hash, date).
 7. **Demo path never depends on live generation.** Cached fallback for every generated surface.
 8. **Honest labels:** synthetic data, cached art and "limited evidence" are labelled in the UI and the video.
-9. Don't commit or push unless the user asks.
+9. **Voice is child data.** Push-to-talk only, never always listening; clips ≤ 30 s; audio is never stored or logged (keep the transcript only, like typed text); a parent can turn voice off per child. Meta has no TTS: Kix speaks with the browser's `speechSynthesis`, and the UI says so.
+10. Don't commit or push unless the user asks.
 
 ## Division of work (one agent, two streams)
 
@@ -47,7 +48,7 @@ myKx gives every Singapore student an AI sidekick, **Kix**: learning loops that 
 
 ## Stack
 
-Next.js 16.4 (App Router, TypeScript, Cache Components on) · Tailwind CSS v4 + CSS custom-property themes · `motion` · Supabase (Auth, Postgres + RLS, Storage) · OpenAI SDK pointed at `https://api.meta.ai/v1` · Vercel.
+Next.js 16.4 (App Router, TypeScript, Cache Components on) · Tailwind CSS v4 + CSS custom-property themes · `motion` · Tone.js (synthesised sound, lazy-loaded) · Supabase (Auth, Postgres + RLS, Storage) · OpenAI SDK pointed at `https://api.meta.ai/v1` · Vercel.
 
 ## Commands
 

@@ -1,6 +1,6 @@
 # myKx implementation plan
 
-**Written:** Tue 27 Oct 2026, 10:30 SGT (Day 1). **Replaces** the day plan in `docs/prd/PRD_REVIEW.md` §5 and tightens its scope table (§4). **Updated** 27 Oct, 11:45: Claude Code is the only coding agent (was Claude Code + Muse Code). Designs: [myKx Screens](https://claude.ai/artifact/8crEyKVQm9QxCHLDqPXioP) · [myKx design system](https://claude.ai/artifact/Jyr5pven8EDiRRfqAZDYuX).
+**Written:** Tue 27 Oct 2026, 10:30 SGT (Day 1). **Replaces** the day plan in `docs/prd/PRD_REVIEW.md` §5 and tightens its scope table (§4). **Updated** 27 Oct, 11:45: Claude Code is the only coding agent (was Claude Code + Muse Code). 27 Oct, 12:45: voice and sound added to the core, Study Song added as the first stretch (PRD_REVIEW E5, E6, E10). Designs: [myKx Screens](https://claude.ai/artifact/8crEyKVQm9QxCHLDqPXioP) · [myKx design system](https://claude.ai/artifact/Jyr5pven8EDiRRfqAZDYuX).
 
 ## 0. The budget
 
@@ -15,6 +15,8 @@
 | Video and submission (protected; never borrowed for features) | 12 | Days 5, 6, 8, 9 |
 | Final buffer | 3 | Day 9 afternoon |
 
+**Voice and sound (added 27 Oct)** are about 7 hours of agent work. They fit without moving the freeze: Day 1's head start (the Studio picker was done by midday) takes the sound engine, the teen deck becomes a static port (saves 1.5h), and the rest goes into spare stream capacity on Days 2, 5 and 6. Your hours don't change; the mic check joins the Day 2 tablet check.
+
 ## 1. What we ship: the video is the spec
 
 If a feature isn't in the 3-minute video, it isn't in this build. Screens come straight from the canvas boards.
@@ -27,12 +29,14 @@ If a feature isn't in the 3-minute video, it isn't in this build. Screens come s
 | Question and reward | marking, hints, attempts, mastery, reward card | Muse Spark hint (streamed) | 3 questions per quest |
 | Treasure Realm | cards from the reward ledger | — | — |
 | Critter Lab | Pip's stage from the ledger | — | frog is live; mealworm tab is display-only |
-| Vibe Zone | brief → spec → flashcards → version 2 → save → share/revoke | Muse Spark structured output | flashcards only (no planner) |
+| Vibe Zone | brief (spoken or typed) → spec → flashcards → version 2 → save → share/revoke | Muse Spark structured output; Muse Voice Transcribe | flashcards only (no planner); Study Song is stretch |
+| Talk to Kix (in Question and Vibe Zone) | hold-to-talk → transcript to confirm; Kix reads questions, hints and cards aloud with captions | `muse-voice-transcribe-1.0` | typed box if the mic is denied or the call fails; read-aloud uses the device's voice |
+| Sound layer (every screen) | per-pack SFX, optional ambience, one mute | — (Tone.js in the browser) | ambience off by default; no sound for wrong answers |
 | Parent summary (phone) | aggregates from attempts; narration | Muse Spark structured output | generated on tap, no scheduler |
-| Teen study deck | real mastery numbers | — | read-only |
+| Teen study deck | seeded teen's numbers, labelled synthetic | — | static port |
 | Sky Squadron | flip cards; unlocks from the ledger | — | — |
 
-**Not in this build, and not in the video:** snap-homework ingestion (dropped from PRD_REVIEW §4: it isn't on the demo path, and the Studio already shows multimodal Meta use), PDF papers, RAG/wiki, admin UI, voice, scheduler or worker, phone layouts for the kids' screens (tablet and laptop only), the planner template. **Stretch only:** Baseten Muse Spark Open tagging.
+**Not in this build, and not in the video:** snap-homework ingestion (dropped from PRD_REVIEW §4: it isn't on the demo path, and the Studio already shows multimodal Meta use), PDF papers, RAG/wiki, admin UI, voice, scheduler or worker, phone layouts for the kids' screens (tablet and laptop only), the planner template. Also out: realtime voice streaming (needs a WebSocket the browser can't open without exposing the key) and any Meta voice or music output (none exists; see the `meta-model-api` skill). **Stretch only, in this order:** Study Song (PRD_REVIEW E10), then Baseten Muse Spark Open tagging.
 
 ## 2. Architecture: the smallest thing that works
 
@@ -53,14 +57,15 @@ If a feature isn't in the 3-minute video, it isn't in this build. Screens come s
 |---|---|---|---|
 | `POST /api/studio/transform` | `muse-image-1.0` edits + `sam-3.1` | pack + 2 interest chips → transparent PNG in Storage | after 25 s, the cached pack Kix |
 | `POST /api/kix/hint` | `muse-spark-1.3`, streamed | question + child's answer (never the key) → hint | after 10 s, the reviewed fixture hint |
-| `POST /api/vibe/spec` | `muse-spark-1.3`, JSON schema | brief → flashcard deck, validated with zod | the fixture deck |
+| `POST /api/vibe/spec` | `muse-spark-1.3`, JSON schema | brief → flashcard deck (stretch: or a song spec), validated with zod | the fixture deck or song |
+| `POST /api/voice/transcribe` | `muse-voice-transcribe-1.0`, `PUSH_TO_TALK` | 16 kHz mono WAV, ≤ 30 s → transcript; audio never stored or logged | the typed box |
 | `POST /api/parent/summary` | `muse-spark-1.3`, JSON schema | deterministic aggregates → what happened, what it may mean, tomorrow | template text from the same aggregates |
 | `POST /api/tag` (stretch) | Baseten `meta-models/muse-spark-open-1026` | brief → topic tag | skipped |
 
 ```
 app/(kid)/studio, home, learn/[quest], question/[id], treasure, critters, squadron, vibe
 app/(parent)/parent        app/api/...        app/under-the-hood (model_runs viewer)
-components/   lib/meta/   lib/domain/   lib/db/   fixtures/   supabase/ (schema.sql, rls.sql, seed.sql)
+components/   lib/meta/   lib/domain/   lib/db/   lib/sound/   fixtures/   supabase/ (schema.sql, rls.sql, seed.sql)
 public/art/   public/brand/
 ```
 
@@ -90,12 +95,13 @@ Every day ends with something you can show on the production URL.
 - **You (done 11:30):** Standard Meta Model API key, Supabase and Vercel projects, public repo `cyyeong/mykx`, first commit `dc574c0`. Still to do: put the keys in `.env.local` (see `.env.example`).
 - **A (3h):** scaffold; copy tokens, fonts and component CSS; theme provider (`data-theme`, `data-band`, view-transition switch); port the Sidekick Studio picker; deploy.
 - **B (3h):** `lib/meta` client; `scripts/smoke-meta.ts` exercising Spark (chat, JSON schema, streaming), Muse Image edit with `kix-base.png`, SAM 3.1 cutout to PNG; results with request IDs in `docs/plan/smoke-log.md`.
-- **Exit:** the production URL re-skins the Studio picker across all five packs; the smoke log shows three Meta models answering.
+- **A, added (2.5h, from today's head start):** sound engine in `lib/sound` (Tone.js loaded on first tap, a synthesised SFX palette per pack, optional ambience, mute in the HUD); Studio taps and pack picks make sound.
+- **Exit:** the production URL re-skins the Studio picker across all five packs, with sound; the smoke log shows three Meta models answering.
 
 ### Day 2 · Wed 28 Oct
-- **A (6h):** html→JSX port script; static ports of Home, Quest map, Question, Treasure; shared pieces (Button, HoloCard, QuestNode, KixBubble, GlassPanel).
-- **B (7h):** Supabase schema, row-level security and seed (parent; Ari, P4, Terrarium; Mei, Sec 3, Anime Sky) 2h; fixtures for three quests with hints and answers 2h; the transform route (Image → SAM → Storage, with fallback) 3h.
-- **You:** review every fixture answer and hint (1h); check on a tablet.
+- **A (7.5h):** html→JSX port script; static ports of Home, Quest map, Question, Treasure; shared pieces (Button, HoloCard, QuestNode, KixBubble, GlassPanel) 6h; hold-to-talk button on KixBubble with level ring and a 16 kHz WAV recorder, plus a `useKixVoice` read-aloud hook with captions 1.5h.
+- **B (7.5h):** Supabase schema, row-level security and seed (parent; Ari, P4, Terrarium; Mei, Sec 3, Anime Sky; `voice_enabled` on both) 2h; fixtures for three quests with hints and answers 2h; the transform route (Image → SAM → Storage, with fallback) 3h; add Muse Voice Transcribe to the smoke script with a synthetic clip from macOS `say` 0.5h.
+- **You:** review every fixture answer and hint (1h); check on a tablet, including the mic prompt and read-aloud voice.
 - **Exit:** a signed-in parent switches to Ari and browses five themed screens in production; the transform route returns a cutout or the fallback within 25 s.
 
 ### Day 3 · Thu 29 Oct · Checkpoint A
@@ -108,18 +114,20 @@ Every day ends with something you can show on the production URL.
 - **A (7.5h):** streamed hint with Kix expressions; quest map from mastery; reward card flies to Treasure; Treasure from the ledger 6h; Critter Lab from the companion stage 1.5h.
 - **B (7h):** hint route (streamed, no answer leakage, fallback) 2h; parent summary (aggregates, Spark narration, offline activity fixtures) 3h; Vibe spec route (JSON schema, zod, fallback) 2h.
 - **Exit:** the whole learning loop works in production: question → hint → mark → honest mastery change → card in Treasure → Pip grows.
-- **If it slips:** Sky Squadron and the teen deck become static ports, and Vibe Zone drops version 2.
+- **If it slips:** Sky Squadron becomes a static port, Vibe Zone drops version 2, and the Study Song stretch is off.
 
 ### Day 5 · Sat 31 Oct
 - **A (7h):** Vibe Zone (chat brief, deck rendered from the spec, flip, version 2, save for +5, share and revoke) 5h; parent summary screen on phone 2h.
-- **B (6h):** shares and revoke with a cross-household test 2h; creation versions 1h; art: regenerate the froglet, SAM cutouts of the four Kix expressions 2h; "Reset demo" route 1h.
+- **A, inside the 5h:** the Vibe brief accepts hold-to-talk.
+- **B (7.5h):** shares and revoke with a cross-household test 2h; creation versions 1h; art: regenerate the froglet, SAM cutouts of the four Kix expressions 2h; "Reset demo" route 1h; `/api/voice/transcribe` (validate WAV and length, Standard key, no audio in logs or Storage, `model_runs` row) 1.5h.
 - **You:** video script v1 and shot list (1h).
 - **Exit:** every demo-path screen works in production.
 
 ### Day 6 · Sun 1 Nov
-- **A (7h):** Sky Squadron and teen study deck wired to data 3h; motion pass (lanterns, aurora, parallax, reward flight, reduced motion) 4h.
+- **A (7.5h):** Sky Squadron wired to data 1.5h; teen study deck as a static port 0.5h; voice in the question player (ask Kix by voice; Kix reads the question and hint aloud) 1.5h; motion pass (lanterns, aurora, parallax, reward flight, reduced motion) 4h.
 - **B (6h):** Baseten tagging only if credits were granted (≤ 2h), otherwise timeout and error states for every AI call; the "under the hood" page listing `model_runs` 2h; image sizes and page-load performance 2h.
 - **You:** a rough recording of the whole demo path (30 min) to see what looks weak.
+- **Stretch window (only if Checkpoint B was green and today's exit is met):** Study Song: B adds a song template to the Vibe spec route with a zod schema and a fixture song 1h (in Baseten's slot if credits weren't granted); A builds the Tone.js karaoke player with the pack's instruments 2.5h. Otherwise it goes on the roadmap slide.
 - **Exit:** the complete product is in production and a rough capture exists.
 
 ### Day 7 · Mon 2 Nov · feature freeze at 22:00
@@ -148,13 +156,13 @@ Script target: about 360 words of voice-over (130 a minute), finished by Day 5.
 | 0:00–0:15 | "My kids have always been my sidekicks…" | Treasure flythrough | the hook |
 | 0:15–0:45 | A child picks Terrarium and bugs and critters; Kix transforms; the app re-skins; Pip is adopted | Studio | Muse Image + SAM 3.1, live |
 | 0:45–1:00 | Home: today's quest, Pip, the squadron | Home | personalisation |
-| 1:00–1:35 | Quest map → question → streamed hint → correct → Kix cheers → card flies; "57, limited evidence" | Quest map, Question | Muse Spark; honest mastery |
+| 1:00–1:35 | Quest map → Kix reads the question aloud → the child asks "why?" by voice → streamed hint → correct → Kix cheers → card flies; "57, limited evidence" | Quest map, Question | Muse Spark; Muse Voice Transcribe; honest mastery |
 | 1:35–1:55 | Treasure, a Sky Squadron card flip, Pip grows | Treasure, Critter Lab | earned, never random |
-| 1:55–2:20 | "I keep forgetting the frog life cycle" → flashcards → harder version → save → share with Mum | Vibe Zone | structured output; no AI code runs |
+| 1:55–2:20 | The child *says* "I keep forgetting the frog life cycle" → flashcards → harder version (or, if built, "make it a song" and a few seconds of karaoke) → save → share with Mum | Vibe Zone | voice in; structured output; no AI code runs |
 | 2:20–2:40 | Tonight's summary on the parent's phone; a flash of the teen deck | Parent, Study deck | evidence and uncertainty |
-| 2:40–3:00 | `model_runs`, the asset manifest and its Muse Image prompts; built 27 Oct–4 Nov; synthetic data | Under the hood | Meta tooling and honesty |
+| 2:40–3:00 | `model_runs` showing four live Meta models (Spark, Image, SAM 3.1, Voice Transcribe), the asset manifest and its Muse Image prompts; built 27 Oct–4 Nov; synthetic data; "Kix speaks with your device's voice" | Under the hood | Meta tooling and honesty |
 
-**Rules:** record in production with the seeded demo and "Reset demo" between takes. Show at least one genuinely live transform; if it is slow, speed it up and label it. Burn in captions, since judges may watch muted. Use royalty-free music and credit it. Never show real children's names or photos.
+**Rules:** record in production with the seeded demo and "Reset demo" between takes. Capture app sound with the screen (the SFX are part of the wow) and duck the music under the voice-over. The spoken lines are performed by an adult or read from the script, never a real child's voice. Show at least one genuinely live transform; if it is slow, speed it up and label it. Burn in captions, since judges may watch muted. Use royalty-free music and credit it. Never show real children's names or photos.
 
 **Tools:** macOS screen recording (⌘⇧5) or OBS with a 1280×800 browser window; edit in CapCut desktop or DaVinci Resolve (both free); record the voice-over in a quiet room.
 
@@ -179,16 +187,19 @@ Script target: about 360 words of voice-over (130 a minute), finished by Day 5.
 | Porting is slower than expected | Day 2 exit missed | Static port first, wire later; apply the Day 3 and Day 4 slip rules. |
 | Parallel streams collide | merge conflicts between worktrees | Streams own separate folders; `lib/types.ts` is settled before they split; merge after each task. |
 | Credit burn | Billing page over $60 | Art drafts at n ≤ 4 and only keepers re-run; long Spark tests use fixtures; spend alert at $100. |
+| Mic or audio quirks on the tablet (permissions, Safari) | Day 2 tablet check | The typed box is always visible; Tone.js starts on the first tap (browsers block audio before one); record the voice beats on laptop Chrome if the tablet misbehaves. |
+| Read-aloud voice sounds robotic | Day 2 tablet check | Pick the best installed voice per device from a preference list; captions always on; keep read-aloud lines short. |
+| Voice transcription slow or wrong | smoke log latency over 3 s, or misheard demo lines | The transcript is always shown for the child to confirm or retype; rehearse the demo lines. |
 | Video overruns | script not done by Day 5 | Day 8 afternoon and Day 9 are protected; scope cuts come from the build, never from the video. |
 | New feature requests | anything new after Day 6 | Goes on the roadmap slide, not into the build. |
 
-**Cut order when a checkpoint slips:**
-1. Baseten.
+**Cut order when a checkpoint slips** (the stretch items, Study Song and Baseten, only start when ahead, so they go first):
+1. Study Song, then Baseten.
 2. Sky Squadron becomes static.
-3. Teen deck becomes static.
-4. Vibe Zone keeps make and save only.
-5. Pip's growth is shown as a fixed stage.
-6. Treasure particles and parallax.
+3. Vibe Zone keeps make and save only.
+4. Pip's growth is shown as a fixed stage.
+5. Treasure particles and parallax; the ambience bed.
+6. Voice in the question player (keep it in Vibe Zone, where the video needs it).
 
 **Never cut:** the Studio transform (cached fallback is fine), the learning loop with honest mastery, the parent summary, household isolation, or video time.
 
@@ -198,6 +209,7 @@ Script target: about 360 words of voice-over (130 a minute), finished by Day 5.
 - [ ] Public GitHub repo with a README: problem, live link, video, Meta models and where they're used, the Muse Code art-direction round, what was built 27 Oct–4 Nov, synthetic data, the asset manifest, licences.
 - [ ] No secrets in the repo or client bundle; keys live only in Vercel environment variables.
 - [ ] The cross-household access test passes.
+- [ ] Voice: mic denied → the typed box works; no audio in Storage, logs or `model_runs` (transcripts only); voice can be turned off for a child.
 - [ ] A 3:00 video with captions, uploaded, and opening for a signed-out viewer.
 - [ ] Submitted on the Cerebral Valley platform before 22:00 SGT on 4 Nov; X post live.
 

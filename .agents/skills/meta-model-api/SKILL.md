@@ -76,9 +76,20 @@ const stream = await meta.responses.create({
 
 Box and point prompt JSON shapes: see the "segmenting with prompts" guide (**unverified**).
 
-## Voice (optional)
+## Voice and audio (checked against dev.meta.ai/docs/speech-to-text, 27 Oct)
 
-`POST /v1/asr/transcribe` (file) or `wss://api.meta.ai/v1/asr/realtime`. Meta has no text-to-speech model, so use browser `speechSynthesis` for Kix read-aloud.
+**What exists:** speech-to-text only (`muse-voice-transcribe-1.0`, 25 languages incl. English and Mandarin, $0.18 per audio hour, billed per whole second; failed requests and 429s aren't billed). **What doesn't:** no text-to-speech, no speech-to-speech, no music or sound-effect generation on the Model API. Muse Spark lists audio as an input, but for `muse-spark-1.3` audio understanding is "not fully supported"; the docs point to `muse-spark-1.2` or the transcribe model instead.
+
+**myKx uses the file endpoint** (push-to-talk), proxied through our own route so the key stays on the server:
+- `POST https://api.meta.ai/v1/asr/transcribe`, `Authorization: Bearer <key>`, `multipart/form-data` with two parts: `request` (JSON: `model`, `mode`, `audioEncoding`) and `audio` (WAV).
+- Audio must be RIFF/WAVE, **mono, 16-bit PCM, 16 kHz or 24 kHz**. Encode in the browser (OfflineAudioContext resample → PCM16 → WAV header). Limits: 32 MB body, 10 min audio; we cap clips at 30 s (≈ 1 MB), well under Vercel's 4.5 MB function body limit.
+- `mode`: `PUSH_TO_TALK` (default), `ENDPOINTING`, `DIARIZATION`. Response JSON: `sessionId`, `transcript`, `audioDurationMs`, `turns[]` (`turnId`, `startMs`, `endMs`, `transcript`). `Accept: text/event-stream` streams partials.
+- Realtime alternative: `wss://api.meta.ai/v1/asr/realtime`; the key goes in the **first JSON frame** as `authorization.accessToken` (the header is ignored), audio as PCM16 binary frames at real-time pace. There are **no ephemeral client tokens**, so a browser can't connect directly without exposing the key, and Vercel functions can't hold a WebSocket. Not used.
+
+**Voice out:** browser `speechSynthesis` (free, offline, per-device voices). Label it honestly in the UI and video ("Kix speaks with your device's voice").
+**Music and sound:** Spark writes music as *data* (a zod-validated song spec: tempo, scale, notes, groove, lyric lines) and the app's own Tone.js synths play it. Sound effects and ambience are synthesised in the browser, so there are no audio files to license.
+
+**Voice is child data:** push-to-talk only, never always listening; audio is never stored or logged (only the transcript, like typed text); clips ≤ 30 s; Standard key; the parent can turn voice off per child.
 
 ## Open weights: Muse Spark Open via Baseten (bonus: Best Build on Meta Open Weight Models)
 
