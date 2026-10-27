@@ -19,14 +19,16 @@ import {
   OTHER_PARENT_ID,
   OTHER_PARENT_USER_ID,
 } from "./demo-family.ts";
+import type { AttemptEvent } from "../domain/attempts.ts";
+import type { LedgerEntry } from "../domain/rewards.ts";
 import type { CookieJar } from "./http.ts";
-import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch } from "./store.ts";
+import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt } from "./store.ts";
 import { NicknameTakenError } from "./store.ts";
 import { sessionSecret, signToken, verifyToken } from "./tokens.ts";
 
 export const DEMO_PARENT_COOKIE = "mykx_demo_parent";
 /** Bump when the store's shape changes: a running dev server then rebuilds it on the next request (see demoStore). */
-const DEMO_STORE_SHAPE = 2; // 2: focus camera (cameraEnabled, signals)
+const DEMO_STORE_SHAPE = 3; // 3: learning record (attempts, ledger)
 const DEMO_TTL_SEC = 7 * 24 * 60 * 60;
 const LABEL = "demo-parent";
 
@@ -76,6 +78,9 @@ function yesterdayAfternoonSg(now = Date.now()): number {
 
 type StoredNote = FocusNote & { householdId: string };
 
+type StoredLearnAttempt = StoredAttempt & { householdId: string; kidId: string };
+type StoredLedgerEntry = LedgerEntry & { householdId: string; kidId: string };
+
 interface DemoPayload {
   u: string;
   g: number; // generation: "sign out everywhere" bumps it
@@ -91,6 +96,10 @@ export class DemoStore implements AuthStore {
   /** Camera minutes by `${kidId}|${minute ms}`: counts only. */
   readonly focusMinuteRows = new Map<string, { householdId: string; kidId: string; minute: FocusMinute }>();
   readonly focusNoteRows: StoredNote[] = [];
+  /** Attempts by idempotency key: a resubmitted key is ignored. */
+  readonly attemptRows = new Map<string, StoredLearnAttempt>();
+  /** Ledger entries by entry key: a replay never pays twice. */
+  readonly ledgerRows = new Map<string, StoredLedgerEntry>();
   private readonly emails = new Map<string, string>(); // auth user id → email
   private readonly banned = new Set<string>();
   private readonly generation = new Map<string, number>();
@@ -244,6 +253,8 @@ export class DemoStore implements AuthStore {
     // Same as the database's on delete cascade: their signals go with them.
     for (const [key, row] of this.focusMinuteRows) if (row.kidId === kidId) this.focusMinuteRows.delete(key);
     this.focusNoteRows.splice(0, this.focusNoteRows.length, ...this.focusNoteRows.filter((n) => n.kidId !== kidId));
+    for (const [key, row] of this.attemptRows) if (row.kidId === kidId) this.attemptRows.delete(key);
+    for (const [key, row] of this.ledgerRows) if (row.kidId === kidId) this.ledgerRows.delete(key);
     return this.profiles.delete(kidId);
   }
 
@@ -257,6 +268,63 @@ export class DemoStore implements AuthStore {
     const p = this.profiles.get(kidId);
     return Boolean(p && p.householdId === householdId && p.role === "child");
   }
+
+  // Learning record
+
+  readonly learn = {
+    attempts: async (householdId: string, kidId: string): Promise<AttemptEvent[]> => {
+      return [...this.attemptRows.values()]
+        .filter((r) => r.householdId === householdId && r.kidId === kidId)
+        .sort((a, b) => Date.parse(a.at) - Date.parse(b.at) || a.id.localeCompare(b.id))
+        .map((r) => ({
+          id: r.id,
+          itemId: r.itemId,
+          family: r.family,
+          question: r.question,
+          skill: r.skill,
+          topic: r.topic,
+          subskill: r.subskill,
+          at: r.at,
+          marks: r.marks,
+          maxMarks: r.maxMarks,
+          firstTry: r.firstTry,
+          hintsBeforeSubmit: r.hintsBeforeSubmit,
+          revealed: r.revealed,
+          confirmed: r.confirmed,
+          ...(r.revisions ? { revisions: r.revisions } : {}),
+          ...(r.explanation ? { explanation: r.explanation } : {}),
+          ...(r.explanationRevised ? { explanationRevised: r.explanationRevised } : {}),
+        }));
+    },
+    saveAttempt: async (householdId: string, kidId: string, attempt: StoredAttempt): Promise<void> => {
+      if (!this.ownsKid(householdId, kidId)) return;
+      if (this.attemptRows.has(attempt.idempotencyKey)) return; // offline resend: never twice
+      this.attemptRows.set(attempt.idempotencyKey, { ...attempt, householdId, kidId });
+    },
+    ledger: async (householdId: string, kidId: string): Promise<LedgerEntry[]> => {
+      return [...this.ledgerRows.values()]
+        .filter((r) => r.householdId === householdId && r.kidId === kidId)
+        .sort((a, b) => Date.parse(a.at) - Date.parse(b.at))
+        .map((r) => ({
+          key: r.key,
+          kind: r.kind,
+          rule: r.rule,
+          amount: r.amount,
+          ...(r.ref !== undefined ? { ref: r.ref } : {}),
+          at: r.at,
+          day: r.day,
+          ...(r.requested !== undefined ? { requested: r.requested } : {}),
+          ...(r.note !== undefined ? { note: r.note } : {}),
+        }));
+    },
+    saveLedgerEntries: async (householdId: string, kidId: string, entries: readonly LedgerEntry[]): Promise<void> => {
+      if (!this.ownsKid(householdId, kidId)) return;
+      for (const e of entries) {
+        if (this.ledgerRows.has(e.key)) continue; // replay: never pays twice
+        this.ledgerRows.set(e.key, { ...e, householdId, kidId });
+      }
+    },
+  };
 
   readonly signals = {
     saveFocusMinutes: async (householdId: string, kidId: string, minutes: readonly FocusMinute[]) => {
