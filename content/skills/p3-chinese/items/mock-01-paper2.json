@@ -1,0 +1,905 @@
+[
+  {
+    "id": "p3chi-mock-01-paper2-q1",
+    "skill": "p3-chinese",
+    "topic": "paper2.bianzi",
+    "subskill": "char_choice",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "从所提供的选择中，选出最适当的字，然后把代表它的数字（1、2、3或4）填写在括号里。\n\n妈妈每天提醒我要____时睡觉。",
+    "options": [
+      "准",
+      "推",
+      "谁",
+      "难"
+    ],
+    "answer": 1,
+    "working": [
+      "准时 zhǔn shí = on time. Look at the left side: 准 has 冫(two dots). 推 tuī = push (扌hand), 谁 shuí = who (讠speech), 难 nán = difficult (又)."
+    ],
+    "distractors": {
+      "2": "手字旁 — it's an action with hands (推开门).",
+      "3": "言字旁 — a speaking word (谁在说话).",
+      "4": "难 = difficult, wrong meaning and wrong sound."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q1"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q2",
+    "skill": "p3-chinese",
+    "topic": "paper2.bianzi",
+    "subskill": "char_choice",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "从所提供的选择中，选出最适当的字，然后把代表它的数字（1、2、3或4）填写在括号里。\n\n哥哥把用过的塑料____扔进垃圾桶里。",
+    "options": [
+      "代",
+      "袋",
+      "待",
+      "贷"
+    ],
+    "answer": 2,
+    "working": [
+      "塑料袋 sù liào dài = plastic bag. 袋 has 衣 at the bottom because a bag is made of cloth. 代 = replace (代替), 待 = wait (等待), 贷 = loan."
+    ],
+    "distractors": {
+      "1": "代替 = replace. No 衣, so not a bag.",
+      "3": "等待 = to wait.",
+      "4": "贝 = money; 贷款 = loan."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q2"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q3",
+    "skill": "p3-chinese",
+    "topic": "paper2.bianzi",
+    "subskill": "char_choice",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "从所提供的选择中，选出最适当的字，然后把代表它的数字（1、2、3或4）填写在括号里。\n\n小乐做错了事，连忙向老师道____。",
+    "options": [
+      "欠",
+      "谦",
+      "歉",
+      "嫌"
+    ],
+    "answer": 3,
+    "working": [
+      "道歉 dào qiàn = to apologise. 歉 = 兼 + 欠. Memory hook: when you owe (欠) someone an apology, say 道歉."
+    ],
+    "distractors": {
+      "1": "欠 qiàn alone means to owe money (欠钱).",
+      "2": "谦虚 qiān xū = modest.",
+      "4": "嫌 xián = to dislike."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q3"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q4",
+    "skill": "p3-chinese",
+    "topic": "paper2.bianzi",
+    "subskill": "char_choice",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "从所提供的选择中，选出最适当的字，然后把代表它的数字（1、2、3或4）填写在括号里。\n\n弟弟的眼睛又大又____，真可爱。",
+    "options": [
+      "园",
+      "圆",
+      "元",
+      "远"
+    ],
+    "answer": 2,
+    "working": [
+      "圆 yuán = round. The box 囗 around 员 looks like a circle — 圆圆的眼睛."
+    ],
+    "distractors": {
+      "1": "公园 = park (garden).",
+      "3": "一元 = one dollar.",
+      "4": "远 yuǎn = far (辶 walking)."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q4"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q5",
+    "skill": "p3-chinese",
+    "topic": "paper2.bianzi",
+    "subskill": "char_choice",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "从所提供的选择中，选出最适当的字，然后把代表它的数字（1、2、3或4）填写在括号里。\n\n我们沿着____边走，看到了许多小鱼。",
+    "options": [
+      "胡",
+      "湖",
+      "糊",
+      "蝴"
+    ],
+    "answer": 2,
+    "working": [
+      "湖边 hú biān = lakeside. 氵= water, so 湖 is the lake. Same sound, different radical: 胡 (surname / beard), 糊 (paste, 米), 蝴 (butterfly, 虫)."
+    ],
+    "distractors": {
+      "1": "A surname (胡老师) or beard — no water radical.",
+      "3": "米字旁 — 糊涂 / 浆糊.",
+      "4": "虫字旁 — 蝴蝶 butterfly."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q5"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q6",
+    "skill": "p3-chinese",
+    "topic": "paper2.ciyu",
+    "subskill": "word_choice",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "选出最适当的词语，把号码填写在括号里。\n\n虽然天气很冷，爷爷____每天早上去公园散步。",
+    "options": [
+      "应该",
+      "仍然",
+      "如果",
+      "果然"
+    ],
+    "answer": 2,
+    "working": [
+      "虽然……仍然…… = although … still …. 仍然 réng rán = still / as before. The sentence says the cold does not stop Grandpa."
+    ],
+    "distractors": {
+      "1": "should — the sentence is not giving advice.",
+      "3": "if — needs 就 later and does not pair with 虽然.",
+      "4": "as expected — nothing was predicted."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q6"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q7",
+    "skill": "p3-chinese",
+    "topic": "paper2.ciyu",
+    "subskill": "word_choice",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "选出最适当的词语，把号码填写在括号里。\n\n小明____把花瓶打破了，吓得脸都白了。",
+    "options": [
+      "仔细地",
+      "不小心",
+      "认真地",
+      "慢慢地"
+    ],
+    "answer": 2,
+    "working": [
+      "不小心 bù xiǎo xīn = carelessly / by accident. You break things by accident, not 仔细 (carefully) or 认真 (seriously)."
+    ],
+    "distractors": {
+      "1": "carefully — opposite of what happened.",
+      "3": "seriously — does not fit breaking a vase.",
+      "4": "slowly — breaking a vase is sudden."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q7"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q8",
+    "skill": "p3-chinese",
+    "topic": "paper2.ciyu",
+    "subskill": "word_choice",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "选出最适当的词语，把号码填写在括号里。\n\n老师叫我们要____课室，不要在墙上乱涂乱画。",
+    "options": [
+      "保护",
+      "保卫",
+      "爱护",
+      "照顾"
+    ],
+    "answer": 3,
+    "working": [
+      "爱护 ài hù = cherish and take care of (things/public property): 爱护课室、爱护公物. 保护环境 is the collocation for the environment; 照顾 is for people/animals; 保卫 is for the country."
+    ],
+    "distractors": {
+      "1": "保护 goes with 环境 / 动物 / 小孩 — strong 'protect from harm'.",
+      "2": "保卫国家 — defend the country.",
+      "4": "照顾 goes with people and pets (照顾弟弟, 照顾小狗)."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q8"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q9",
+    "skill": "p3-chinese",
+    "topic": "paper2.ciyu",
+    "subskill": "word_choice",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "选出最适当的词语，把号码填写在括号里。\n\n我____爸爸明天带我去游乐场玩。",
+    "options": [
+      "请求",
+      "要求",
+      "需要",
+      "请问"
+    ],
+    "answer": 1,
+    "working": [
+      "请求 qǐng qiú = to ask politely for something (a child to a parent). 要求 is a demand (teacher to pupils), 需要 = need, 请问 = excuse me, may I ask."
+    ],
+    "distractors": {
+      "2": "Too strong — a demand, not a polite request.",
+      "3": "need — 我需要爸爸带我 is wrong grammar here.",
+      "4": "Used only to start a question: 请问，厕所在哪里？"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q9"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q10",
+    "skill": "p3-chinese",
+    "topic": "paper2.kantu",
+    "subskill": "picture_word",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "根据图意，选出最适当的词语，然后把号码填写在括号里。\n\n小明把用过的纸巾扔进____里。",
+    "options": [
+      "瓶子",
+      "垃圾桶",
+      "纸盒",
+      "袋子"
+    ],
+    "answer": 2,
+    "working": [
+      "垃圾桶 lā jī tǒng = rubbish bin. The picture is a bin, not a bottle (瓶子), box (纸盒) or bag (袋子)."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q10"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/wastebasket.png"
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q11",
+    "skill": "p3-chinese",
+    "topic": "paper2.kantu",
+    "subskill": "picture_word",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "根据图意，选出最适当的词语，然后把号码填写在括号里。\n\n早上，____响了，小文还不想起床。",
+    "options": [
+      "手表",
+      "闹钟",
+      "电话",
+      "门铃"
+    ],
+    "answer": 2,
+    "working": [
+      "闹钟 nào zhōng = alarm clock (the two bells on top!). 闹 = noisy — an alarm clock makes noise to wake you."
+    ],
+    "figure": "figures/p3chi-mock-01-paper2-q11.svg",
+    "figure_spec": {
+      "scene": {
+        "w": 38,
+        "h": 38,
+        "items": [
+          {
+            "type": "clock",
+            "x": 20,
+            "y": 20,
+            "w": 60,
+            "time": "7:00"
+          }
+        ]
+      }
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q11"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q12",
+    "skill": "p3-chinese",
+    "topic": "paper2.kantu",
+    "subskill": "picture_word",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "根据图意，选出最适当的词语，然后把号码填写在括号里。\n\n大象用长长的鼻子____。",
+    "options": [
+      "吸水",
+      "喷水",
+      "喝水",
+      "洗澡"
+    ],
+    "answer": 2,
+    "working": [
+      "喷水 pēn shuǐ = to spray water OUT (arrow going out). 吸水 = suck water IN. 喷 has 口 because water sprays out of an opening."
+    ],
+    "figure": "figures/p3chi-mock-01-paper2-q12.svg",
+    "figure_spec": {
+      "scene": {
+        "w": 38,
+        "h": 38,
+        "items": [
+          {
+            "type": "icon",
+            "id": "elephant",
+            "x": 2,
+            "y": 4,
+            "w": 66
+          },
+          {
+            "type": "icon",
+            "id": "sweat_drops",
+            "x": 60,
+            "y": 48,
+            "w": 36
+          },
+          {
+            "type": "arrow",
+            "x1": 52,
+            "y1": 70,
+            "x2": 70,
+            "y2": 92
+          }
+        ]
+      }
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q12"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q13",
+    "skill": "p3-chinese",
+    "topic": "paper2.kantu",
+    "subskill": "picture_word",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "根据图意，选出最适当的词语，然后把号码填写在括号里。\n\n妈妈去超市买东西时，总是带着____。",
+    "options": [
+      "环保袋",
+      "塑料袋",
+      "纸盒",
+      "书包"
+    ],
+    "answer": 1,
+    "working": [
+      "环保袋 huán bǎo dài = reusable (eco) bag — the recycling sign tells you it is 环保. 塑料袋 is the plastic bag we should 减少使用."
+    ],
+    "figure": "figures/p3chi-mock-01-paper2-q13.svg",
+    "figure_spec": {
+      "icons": [
+        "handbag",
+        "recycle"
+      ],
+      "w": 38
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q13"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q14",
+    "skill": "p3-chinese",
+    "topic": "paper2.dapei",
+    "subskill": "collocation",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "从所提供的词语中，选出可以和各题搭配成合理词组的词语，然后把代表它的数字（1–6）填写在括号里。\n\n升（ ）",
+    "options": [
+      "发抖",
+      "国旗",
+      "冷汗",
+      "竹竿",
+      "习惯",
+      "地图"
+    ],
+    "answer": 2,
+    "working": [
+      "升国旗 shēng guó qí = raise the flag (every Monday assembly!)."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q14"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q15",
+    "skill": "p3-chinese",
+    "topic": "paper2.dapei",
+    "subskill": "collocation",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "从所提供的词语中，选出可以和各题搭配成合理词组的词语，然后把代表它的数字（1–6）填写在括号里。\n\n全身（ ）",
+    "options": [
+      "发抖",
+      "国旗",
+      "冷汗",
+      "竹竿",
+      "习惯",
+      "地图"
+    ],
+    "answer": 1,
+    "working": [
+      "全身发抖 = whole body trembling (cold or scared)."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q15"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q16",
+    "skill": "p3-chinese",
+    "topic": "paper2.dapei",
+    "subskill": "collocation",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "从所提供的词语中，选出可以和各题搭配成合理词组的词语，然后把代表它的数字（1–6）填写在括号里。\n\n冒出（ ）",
+    "options": [
+      "发抖",
+      "国旗",
+      "冷汗",
+      "竹竿",
+      "习惯",
+      "地图"
+    ],
+    "answer": 3,
+    "working": [
+      "冒出冷汗 = break out in a cold sweat (nervous/scared). 冒 = come out."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q16"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q17",
+    "skill": "p3-chinese",
+    "topic": "paper2.dapei",
+    "subskill": "collocation",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "从所提供的词语中，选出可以和各题搭配成合理词组的词语，然后把代表它的数字（1–6）填写在括号里。\n\n改掉（ ）",
+    "options": [
+      "发抖",
+      "国旗",
+      "冷汗",
+      "竹竿",
+      "习惯",
+      "地图"
+    ],
+    "answer": 5,
+    "working": [
+      "改掉习惯 = get rid of a (bad) habit. 改掉坏习惯 is the full phrase."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q17"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q18",
+    "skill": "p3-chinese",
+    "topic": "paper2.dapei",
+    "subskill": "collocation",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "从所提供的词语中，选出可以和各题搭配成合理词组的词语，然后把代表它的数字（1–6）填写在括号里。\n\n看（ ）",
+    "options": [
+      "发抖",
+      "国旗",
+      "冷汗",
+      "竹竿",
+      "习惯",
+      "地图"
+    ],
+    "answer": 6,
+    "working": [
+      "看地图 = read a map. 竹竿 (bamboo pole) is the distractor — you 拿竹竿, not 看竹竿."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q18"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q19",
+    "skill": "p3-chinese",
+    "topic": "paper2.zuju",
+    "subskill": "sequencing",
+    "difficulty": 2,
+    "marks": 5,
+    "type": "short",
+    "stem": "把下面的句子按先后的顺序组成一个段落，在格子里写上序号。\n\n(A) 上个星期六，我和妈妈一起去超市买东西。\n(B) 妈妈说：“塑料袋会弄脏环境，我们应该用环保袋代替。”\n(C) 付钱的时候，售货员问我们要不要塑料袋。\n(D) 我点点头，帮妈妈把东西放进环保袋里。\n(E) 我们买了水果、青菜和一些纸品。\n(F) 妈妈摇摇头，从包里拿出一个环保袋。\n(G) 从那天起，我每次购物都会带着环保袋。\n\n（第一句和最后一句已经给了：(A) = 1，(G) = 7）",
+    "answer": "1, 5, 3, 6, 2, 4, 7",
+    "working": [
+      "Order of events: go to supermarket (1) → buy things (2 = 我们买了…) → at payment the cashier asks (3 = 付钱的时候…) → Mum shakes head and takes out eco bag (4 = 妈妈摇摇头…) → Mum explains why (5 = 妈妈说…) → I nod and pack (6 = 我点点头…) → ending (7). Clue words: 付钱的时候 must come after 买了; 摇摇头 answers the cashier's question; 点点头 answers Mum's words."
+    ],
+    "marking": [
+      "Write the position (1–7) of each sentence, in the order (A)…(G)."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q19"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q20",
+    "skill": "p3-chinese",
+    "topic": "paper2.juzi",
+    "subskill": "expand",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "open",
+    "stem": "把括号里的词语加在句子中适当的地方。\n\n小狗跑到我身边。（摇着尾巴）",
+    "answer": "小狗摇着尾巴跑到我身边。",
+    "working": [
+      "摇着尾巴 describes HOW the dog ran, so it goes right before the action 跑. Pattern: 谁 + 怎么样地 + 做什么. 2 marks: 1 for correct position, 1 for copying every other character correctly."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q20"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q21",
+    "skill": "p3-chinese",
+    "topic": "paper2.juzi",
+    "subskill": "combine",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "open",
+    "stem": "用括号里的词语把两个句子连接成一个句子。\n\n天气很热。\n哥哥还是去踢足球。（虽然……，但是……）",
+    "answer": "虽然天气很热，但是哥哥还是去踢足球。",
+    "working": [
+      "虽然 goes in front of the first sentence (the obstacle), 但是 in front of the second (what happened anyway). Keep 还是 — it strengthens the meaning."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q21"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q22",
+    "skill": "p3-chinese",
+    "topic": "paper2.juzi",
+    "subskill": "combine",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "open",
+    "stem": "用括号里的词语把两个句子连接成一个句子。\n\n你不好好练习写字。\n你会写得很难看。（如果……，就……）",
+    "answer": "如果你不好好练习写字，就会写得很难看。",
+    "working": [
+      "如果 = if (condition first), 就 = then (result). When both halves have the same subject 你, drop the second 你 after 就: 如果你……，就……。 Writing 如果你……，你就…… is also accepted."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q22"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q23",
+    "skill": "p3-chinese",
+    "topic": "paper2.juzi",
+    "subskill": "imitate",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "open",
+    "stem": "仿照例句，用“把”写一个句子。\n\n例：小乐把水果全吃完了。",
+    "answer": "弟弟把房间收拾得干干净净。（任何通顺的“把”字句都可以）",
+    "working": [
+      "把字句 pattern: 谁 + 把 + 东西 + 怎么样了. The thing comes BEFORE the action. Score 2 if the sentence has 把 in the right place, a complete ending (了 / 得…), and no wrong characters."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q23"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q24",
+    "skill": "p3-chinese",
+    "topic": "paper2.juzi",
+    "subskill": "combine",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "open",
+    "stem": "请把以下三个句子改写成一个句子。\n\n小猫的眼睛圆圆的。\n小猫的耳朵尖尖的。\n小猫的尾巴长长的。",
+    "answer": "小猫的眼睛圆圆的，耳朵尖尖的，尾巴长长的。",
+    "working": [
+      "Say 小猫的 once, then list the three parts with commas. Keep the 的 after each 圆圆 / 尖尖 / 长长."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q24"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q25",
+    "skill": "p3-chinese",
+    "topic": "paper2.yuedu",
+    "subskill": "rc_mcq",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "根据短文的内容和上下文的意思，选出最适当的答案。\n\n星期天早上，爸爸带小华到湖边做什么？",
+    "passage": "星期天早上，爸爸带小华到湖边钓鱼。湖边的风景很美，可是小华发现草地上有许多垃圾，还有几只乌鸦在垃圾堆里找东西吃。\n小华问爸爸：“为什么这里这么脏？”爸爸说：“有些人没有公德心，随地乱扔垃圾。”小华想了一会儿，从书包里拿出一个塑料袋，开始捡垃圾。爸爸看见了，也走过来帮忙。\n不一会儿，草地又变得干干净净了。一位阿姨经过时，对他们竖起了拇指。小华觉得很开心。他决定以后每个星期都来这里捡垃圾，保护环境。",
+    "options": [
+      "散步",
+      "钓鱼",
+      "捡垃圾",
+      "看乌鸦"
+    ],
+    "answer": 2,
+    "working": [
+      "Find the question's key words in the passage: 星期天早上 … 带小华到湖边钓鱼. The answer is in the FIRST sentence. 捡垃圾 happened later, so it is not what they went there to do."
+    ],
+    "distractors": {
+      "1": "Not in the passage.",
+      "3": "That was what 小华 decided to do AFTER seeing the litter.",
+      "4": "They saw crows but did not go there to watch them."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q25"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q26",
+    "skill": "p3-chinese",
+    "topic": "paper2.yuedu",
+    "subskill": "rc_mcq",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "根据短文的内容和上下文的意思，选出最适当的答案。\n\n小华为什么开始捡垃圾？",
+    "passage": "星期天早上，爸爸带小华到湖边钓鱼。湖边的风景很美，可是小华发现草地上有许多垃圾，还有几只乌鸦在垃圾堆里找东西吃。\n小华问爸爸：“为什么这里这么脏？”爸爸说：“有些人没有公德心，随地乱扔垃圾。”小华想了一会儿，从书包里拿出一个塑料袋，开始捡垃圾。爸爸看见了，也走过来帮忙。\n不一会儿，草地又变得干干净净了。一位阿姨经过时，对他们竖起了拇指。小华觉得很开心。他决定以后每个星期都来这里捡垃圾，保护环境。",
+    "options": [
+      "因为爸爸叫他捡。",
+      "因为他要喂乌鸦。",
+      "因为他看到草地上有很多垃圾。",
+      "因为阿姨给了他一个塑料袋。"
+    ],
+    "answer": 3,
+    "working": [
+      "为什么 asks for the cause. 小华 saw the litter (草地上有许多垃圾), asked why, then 想了一会儿 and started picking up — nobody told him to. 爸爸 only helped afterwards."
+    ],
+    "distractors": {
+      "1": "爸爸 came to help AFTER 小华 started.",
+      "2": "The crows were eating rubbish; nobody fed them.",
+      "4": "He took the bag from his own 书包; the auntie only gave a thumbs-up."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q26"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q27",
+    "skill": "p3-chinese",
+    "topic": "paper2.yuedu",
+    "subskill": "rc_mcq",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "根据短文的内容和上下文的意思，选出最适当的答案。\n\n以下哪一个句子是__不对__的？",
+    "passage": "星期天早上，爸爸带小华到湖边钓鱼。湖边的风景很美，可是小华发现草地上有许多垃圾，还有几只乌鸦在垃圾堆里找东西吃。\n小华问爸爸：“为什么这里这么脏？”爸爸说：“有些人没有公德心，随地乱扔垃圾。”小华想了一会儿，从书包里拿出一个塑料袋，开始捡垃圾。爸爸看见了，也走过来帮忙。\n不一会儿，草地又变得干干净净了。一位阿姨经过时，对他们竖起了拇指。小华觉得很开心。他决定以后每个星期都来这里捡垃圾，保护环境。",
+    "options": [
+      "爸爸也帮忙捡垃圾。",
+      "阿姨对他们竖起了拇指。",
+      "小华以后每个星期都会来捡垃圾。",
+      "小华从书包里拿出一个环保袋。"
+    ],
+    "answer": 4,
+    "working": [
+      "Underline 不对 — you are hunting for the FALSE one. The passage says 塑料袋 (plastic bag), not 环保袋. Options 1–3 all appear word-for-word in the passage."
+    ],
+    "distractors": {
+      "1": "True: 爸爸看见了，也走过来帮忙。",
+      "2": "True: 一位阿姨……对他们竖起了拇指。",
+      "3": "True: last sentence."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q27"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q28",
+    "skill": "p3-chinese",
+    "topic": "paper2.yuedu",
+    "subskill": "rc_open",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "open",
+    "stem": "根据便条的内容，回答问题。\n\n这张便条是谁写给谁的？",
+    "passage": "小文：\n\n明天是学校的国庆庆祝会。老师说我们要穿红色或者白色的衣服，还要带一面小国旗。我已经帮你准备了一面小国旗，放在你的书桌上。\n明天早上七点，我会在组屋楼下的停车场等你，我们一起走路去学校。请你准时起床，不要迟到！\n\n小乐\n8月8日\n晚上8点",
+    "answer": "这张便条是小乐写给小文的。",
+    "working": [
+      "Format clue: the name at the TOP (小文：) is the receiver; the name at the BOTTOM is the writer. 1 mark each."
+    ],
+    "marking": [
+      "写便条的人：小乐（1分）",
+      "收便条的人：小文（1分）",
+      "Answer in a full sentence: 这张便条是……写给……的。"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q28"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q29",
+    "skill": "p3-chinese",
+    "topic": "paper2.yuedu",
+    "subskill": "rc_open",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "open",
+    "stem": "根据便条的内容，回答问题。\n\n小乐帮小文准备了什么？放在哪里？",
+    "passage": "小文：\n\n明天是学校的国庆庆祝会。老师说我们要穿红色或者白色的衣服，还要带一面小国旗。我已经帮你准备了一面小国旗，放在你的书桌上。\n明天早上七点，我会在组屋楼下的停车场等你，我们一起走路去学校。请你准时起床，不要迟到！\n\n小乐\n8月8日\n晚上8点",
+    "answer": "小乐帮小文准备了一面小国旗，放在小文的书桌上。",
+    "working": [
+      "Two questions = two ideas = two marks. Copy the exact phrase from the note: 一面小国旗 (1) + 放在你的书桌上 → change 你 to 小文 (1)."
+    ],
+    "marking": [
+      "准备了一面小国旗（1分）",
+      "放在小文的书桌上（1分）— writing 你的书桌 loses the mark because 你 is wrong outside the note."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q29"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-mock-01-paper2-q30",
+    "skill": "p3-chinese",
+    "topic": "paper2.yuedu",
+    "subskill": "rc_open",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "open",
+    "stem": "根据便条的内容，回答问题。\n\n小文明天早上应该怎么做？",
+    "passage": "小文：\n\n明天是学校的国庆庆祝会。老师说我们要穿红色或者白色的衣服，还要带一面小国旗。我已经帮你准备了一面小国旗，放在你的书桌上。\n明天早上七点，我会在组屋楼下的停车场等你，我们一起走路去学校。请你准时起床，不要迟到！\n\n小乐\n8月8日\n晚上8点",
+    "answer": "小文明天早上应该准时起床，七点到组屋楼下的停车场和小乐一起走路去学校。",
+    "working": [
+      "应该怎么做 = what should he do. Look at the second paragraph: 准时起床 + 七点到停车场. Give at least two actions for 2 marks."
+    ],
+    "marking": [
+      "准时起床／不要迟到（1分）",
+      "七点到组屋楼下的停车场等小乐／和小乐一起去学校（1分）"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mock01_paper2.json#Q30"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  }
+]

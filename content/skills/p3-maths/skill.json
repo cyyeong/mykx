@@ -1,0 +1,658 @@
+{
+  "id": "p3-maths",
+  "version": "1.0.0",
+  "status": "published",
+  "title": "P3 Maths",
+  "description": "Primary 3 Mathematics (Singapore MOE 2021 syllabus): whole numbers, the four operations, money, fractions, measurement, time, area and perimeter, angles and lines, bar graphs. Model method, short visual sessions, exam-format practice.",
+  "subject": "maths",
+  "level": "P3",
+  "syllabus": "MOE 2021 Primary Mathematics (P3)",
+  "language": "en",
+  "agents": {
+    "tutor": "auto",
+    "vibe": "on_demand",
+    "parent": "on_demand",
+    "curator": "auto"
+  },
+  "topics": [
+    {
+      "id": "number.whole_numbers",
+      "title": "Numbers up to 10 000",
+      "weight": 0.07,
+      "source_tag": "whole_numbers",
+      "subskills": [
+        "place_value",
+        "numerals_words",
+        "compare_order",
+        "number_patterns",
+        "digit_value"
+      ]
+    },
+    {
+      "id": "number.add_subtract",
+      "title": "Addition and subtraction",
+      "weight": 0.15,
+      "source_tag": "add_subtract",
+      "subskills": [
+        "algorithm_4digit",
+        "missing_number",
+        "missing_digit",
+        "fewer_more_than",
+        "two_step",
+        "part_whole_model",
+        "sum_difference_model",
+        "working_backwards"
+      ]
+    },
+    {
+      "id": "number.multiply_divide",
+      "title": "Multiplication and division",
+      "weight": 0.2,
+      "source_tag": "multiply_divide",
+      "subskills": [
+        "tables_6_9",
+        "multiply_3d_by_1d",
+        "divide_3d_by_1d",
+        "division_remainder",
+        "equal_groups",
+        "two_step_mul_div",
+        "comparison_model_times",
+        "comparison_model_extra",
+        "before_after",
+        "simultaneous_compare"
+      ]
+    },
+    {
+      "id": "number.money",
+      "title": "Money",
+      "weight": 0.1,
+      "source_tag": "money",
+      "subskills": [
+        "add_money",
+        "subtract_money",
+        "change",
+        "multiply_price",
+        "best_buy_grouping"
+      ]
+    },
+    {
+      "id": "number.fractions",
+      "title": "Fractions",
+      "weight": 0.08,
+      "source_tag": "fractions",
+      "subskills": [
+        "equivalent_fractions",
+        "simplest_form",
+        "compare_order_unlike",
+        "number_line",
+        "add_related",
+        "subtract_related",
+        "subtract_from_whole"
+      ]
+    },
+    {
+      "id": "measurement.length_mass_volume",
+      "title": "Length, mass and volume",
+      "weight": 0.09,
+      "source_tag": "measurement",
+      "subskills": [
+        "convert_length",
+        "convert_mass",
+        "convert_volume",
+        "compound_units",
+        "read_scale",
+        "measure_word_problem",
+        "routes_compare"
+      ]
+    },
+    {
+      "id": "measurement.time",
+      "title": "Time",
+      "weight": 0.08,
+      "source_tag": "time",
+      "subskills": [
+        "convert_h_min",
+        "tell_time_24h",
+        "duration",
+        "end_time",
+        "start_time",
+        "across_midnight",
+        "two_step_time"
+      ]
+    },
+    {
+      "id": "geometry.area_perimeter",
+      "title": "Area and perimeter",
+      "weight": 0.07,
+      "source_tag": "area_perimeter",
+      "subskills": [
+        "area_counting_squares",
+        "area_rectangle_square",
+        "perimeter_rectangle_square",
+        "perimeter_rectilinear",
+        "area_vs_perimeter",
+        "wire_reshaped"
+      ]
+    },
+    {
+      "id": "geometry.angles_lines",
+      "title": "Angles; perpendicular and parallel lines",
+      "weight": 0.07,
+      "source_tag": "angles_lines",
+      "subskills": [
+        "right_acute_obtuse",
+        "count_angles_in_figure",
+        "identify_parallel",
+        "identify_perpendicular",
+        "draw_parallel",
+        "draw_perpendicular"
+      ]
+    },
+    {
+      "id": "statistics.bar_graphs",
+      "title": "Bar graphs",
+      "weight": 0.08,
+      "source_tag": "bar_graphs",
+      "subskills": [
+        "read_scale",
+        "read_minor_gridlines",
+        "difference_between_bars",
+        "double_bar_compare",
+        "total_from_graph",
+        "graph_to_money"
+      ]
+    }
+  ],
+  "archetypes": [
+    {
+      "id": "WN1",
+      "topic": "number.whole_numbers",
+      "pattern": "Which digit is in the __ place / value of the digit",
+      "exam_weight": 0.014
+    },
+    {
+      "id": "WN2",
+      "topic": "number.whole_numbers",
+      "pattern": "Numerals ↔ words",
+      "exam_weight": 0.014
+    },
+    {
+      "id": "WN3",
+      "topic": "number.whole_numbers",
+      "pattern": "Order four 4-digit numbers that share digits",
+      "exam_weight": 0.014
+    },
+    {
+      "id": "WN4",
+      "topic": "number.whole_numbers",
+      "pattern": "Alternating-step pattern",
+      "exam_weight": 0.014
+    },
+    {
+      "id": "WN5",
+      "topic": "number.whole_numbers",
+      "pattern": "Sum of the values of one digit across two numbers",
+      "exam_weight": 0.014
+    },
+    {
+      "id": "AS1",
+      "topic": "number.add_subtract",
+      "pattern": "Missing number in an addition or subtraction (use the inverse)",
+      "exam_weight": 0.017
+    },
+    {
+      "id": "AS2",
+      "topic": "number.add_subtract",
+      "pattern": "Missing digit in a column subtraction",
+      "exam_weight": 0.017
+    },
+    {
+      "id": "AS3",
+      "topic": "number.add_subtract",
+      "pattern": "Difference given, greater given, find smaller",
+      "exam_weight": 0.017
+    },
+    {
+      "id": "AS4",
+      "topic": "number.add_subtract",
+      "pattern": "\"A has 107 fewer than B; total?\" — the *fewer/more* trap",
+      "exam_weight": 0.017
+    },
+    {
+      "id": "AS5",
+      "topic": "number.add_subtract",
+      "pattern": "Two-step: joined, then left; entered and left a stadium",
+      "exam_weight": 0.017
+    },
+    {
+      "id": "AS6",
+      "topic": "number.add_subtract",
+      "pattern": "Three-day part-whole",
+      "exam_weight": 0.017
+    },
+    {
+      "id": "AS7",
+      "topic": "number.add_subtract",
+      "pattern": "Sum-and-difference",
+      "exam_weight": 0.017
+    },
+    {
+      "id": "AS8",
+      "topic": "number.add_subtract",
+      "pattern": "Working backwards: undo a chain of gives and receives to find the start",
+      "exam_weight": 0.017
+    },
+    {
+      "id": "AS9",
+      "topic": "number.add_subtract",
+      "pattern": "\"How many fewer boys than girls\" when only total and boys are given (two steps)",
+      "exam_weight": 0.017
+    },
+    {
+      "id": "MD1",
+      "topic": "number.multiply_divide",
+      "pattern": "Table fact in a context (rows, groups)",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "MD2",
+      "topic": "number.multiply_divide",
+      "pattern": "3-digit × 1-digit",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "MD3",
+      "topic": "number.multiply_divide",
+      "pattern": "Remainder as the answer (\"left unpacked\")",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "MD4",
+      "topic": "number.multiply_divide",
+      "pattern": "Multiply then divide (cartons × packets ÷ boxes)",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "MD5",
+      "topic": "number.multiply_divide",
+      "pattern": "Before-after with 'times': bought more, now n times another amount",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "MD6",
+      "topic": "number.multiply_divide",
+      "pattern": "Comparison model with an extra: one amount is a multiple, another is that plus a fixed extra",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "MD7",
+      "topic": "number.multiply_divide",
+      "pattern": "Three-party comparison: one is a multiple, one is less by a fixed amount, total known",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "MD8",
+      "topic": "number.multiply_divide",
+      "pattern": "Equal at first; one gains and one loses; then one is n times the other",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "MD9",
+      "topic": "number.multiply_divide",
+      "pattern": "Two purchases that differ in one item: the difference isolates that item",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "MD10",
+      "topic": "number.multiply_divide",
+      "pattern": "Working backwards with daily usage and an amount left over",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "MO1",
+      "topic": "number.money",
+      "pattern": "Change from $10 / $100 / two $50 notes",
+      "exam_weight": 0.017
+    },
+    {
+      "id": "MO2",
+      "topic": "number.money",
+      "pattern": "Add or subtract two prices with cents",
+      "exam_weight": 0.017
+    },
+    {
+      "id": "MO3",
+      "topic": "number.money",
+      "pattern": "Which two items were bought, given the change",
+      "exam_weight": 0.017
+    },
+    {
+      "id": "MO4",
+      "topic": "number.money",
+      "pattern": "Bundle vs single price: least cost for an exact number",
+      "exam_weight": 0.017
+    },
+    {
+      "id": "MO5",
+      "topic": "number.money",
+      "pattern": "Free items with a bundle: count items per price, then scale",
+      "exam_weight": 0.017
+    },
+    {
+      "id": "MO6",
+      "topic": "number.money",
+      "pattern": "How much more money is needed",
+      "exam_weight": 0.017
+    },
+    {
+      "id": "FR1",
+      "topic": "number.fractions",
+      "pattern": "Simplest form; equivalent with box",
+      "exam_weight": 0.011
+    },
+    {
+      "id": "FR2",
+      "topic": "number.fractions",
+      "pattern": "Which is NOT equivalent",
+      "exam_weight": 0.011
+    },
+    {
+      "id": "FR3",
+      "topic": "number.fractions",
+      "pattern": "Order three unlike fractions (use ½ as a benchmark or make equivalent)",
+      "exam_weight": 0.011
+    },
+    {
+      "id": "FR4",
+      "topic": "number.fractions",
+      "pattern": "Fraction on a number line with n intervals",
+      "exam_weight": 0.011
+    },
+    {
+      "id": "FR5",
+      "topic": "number.fractions",
+      "pattern": "Add/subtract related fractions; simplify the answer",
+      "exam_weight": 0.011
+    },
+    {
+      "id": "FR6",
+      "topic": "number.fractions",
+      "pattern": "1 − a fraction (\"what fraction was left\")",
+      "exam_weight": 0.011
+    },
+    {
+      "id": "FR7",
+      "topic": "number.fractions",
+      "pattern": "Two people eat parts of the same cake: total eaten",
+      "exam_weight": 0.011
+    },
+    {
+      "id": "ME1",
+      "topic": "measurement.length_mass_volume",
+      "pattern": "Convert between units (kg and g, m and cm), converting before calculating",
+      "exam_weight": 0.015
+    },
+    {
+      "id": "ME2",
+      "topic": "measurement.length_mass_volume",
+      "pattern": "Read two containers, find the difference in ml",
+      "exam_weight": 0.015
+    },
+    {
+      "id": "ME3",
+      "topic": "measurement.length_mass_volume",
+      "pattern": "Subtract repeated amounts from a total volume",
+      "exam_weight": 0.015
+    },
+    {
+      "id": "ME4",
+      "topic": "measurement.length_mass_volume",
+      "pattern": "'n times as much as a cup': divide, then compare",
+      "exam_weight": 0.015
+    },
+    {
+      "id": "ME5",
+      "topic": "measurement.length_mass_volume",
+      "pattern": "Route map: shorter of two routes; answer in km and m",
+      "exam_weight": 0.015
+    },
+    {
+      "id": "ME6",
+      "topic": "measurement.length_mass_volume",
+      "pattern": "Container comparisons: more than one, less than another; find a sum",
+      "exam_weight": 0.015
+    },
+    {
+      "id": "TI1",
+      "topic": "measurement.time",
+      "pattern": "h ↔ min",
+      "exam_weight": 0.011
+    },
+    {
+      "id": "TI2",
+      "topic": "measurement.time",
+      "pattern": "End time from a start time plus a duration",
+      "exam_weight": 0.011
+    },
+    {
+      "id": "TI3",
+      "topic": "measurement.time",
+      "pattern": "Duration between two 24-hour times",
+      "exam_weight": 0.011
+    },
+    {
+      "id": "TI4",
+      "topic": "measurement.time",
+      "pattern": "Arrived, waited, then an event ended: find the event's length (two jumps on a time line)",
+      "exam_weight": 0.011
+    },
+    {
+      "id": "TI5",
+      "topic": "measurement.time",
+      "pattern": "Start time from end time − duration (bus home)",
+      "exam_weight": 0.011
+    },
+    {
+      "id": "TI6",
+      "topic": "measurement.time",
+      "pattern": "Across midnight: start time from an end time and a long duration",
+      "exam_weight": 0.011
+    },
+    {
+      "id": "TI7",
+      "topic": "measurement.time",
+      "pattern": "Total time − one part, then subtract from the finishing time",
+      "exam_weight": 0.011
+    },
+    {
+      "id": "AR1",
+      "topic": "geometry.area_perimeter",
+      "pattern": "Which two grid shapes have the same area (count squares + half-squares)",
+      "exam_weight": 0.012
+    },
+    {
+      "id": "AR2",
+      "topic": "geometry.area_perimeter",
+      "pattern": "Area of a rectangle/square from dimensions",
+      "exam_weight": 0.012
+    },
+    {
+      "id": "AR3",
+      "topic": "geometry.area_perimeter",
+      "pattern": "Area and perimeter of two figures: 'same ___ but different ___'",
+      "exam_weight": 0.012
+    },
+    {
+      "id": "AR4",
+      "topic": "geometry.area_perimeter",
+      "pattern": "Perimeter of a figure made of identical rectangles (find the hidden sides)",
+      "exam_weight": 0.012
+    },
+    {
+      "id": "AR5",
+      "topic": "geometry.area_perimeter",
+      "pattern": "Wire bent into a rectangle, then into a square: perimeter → side → area",
+      "exam_weight": 0.012
+    },
+    {
+      "id": "AR6",
+      "topic": "geometry.area_perimeter",
+      "pattern": "Perimeter of an L-shape with two sides unlabelled",
+      "exam_weight": 0.012
+    },
+    {
+      "id": "AN1",
+      "topic": "geometry.angles_lines",
+      "pattern": "Name the acute/obtuse angle among marked angles",
+      "exam_weight": 0.014
+    },
+    {
+      "id": "AN2",
+      "topic": "geometry.angles_lines",
+      "pattern": "Count acute (or obtuse) angles *inside* a figure — includes unmarked corners",
+      "exam_weight": 0.014
+    },
+    {
+      "id": "AN3",
+      "topic": "geometry.angles_lines",
+      "pattern": "Which segment is parallel to AB on a grid (same across/down steps)",
+      "exam_weight": 0.014
+    },
+    {
+      "id": "AN4",
+      "topic": "geometry.angles_lines",
+      "pattern": "Which statement is true (// and ⊥ among four segments)",
+      "exam_weight": 0.014
+    },
+    {
+      "id": "AN5",
+      "topic": "geometry.angles_lines",
+      "pattern": "Draw a parallel / perpendicular line through a point (ruler, grid steps)",
+      "exam_weight": 0.014
+    },
+    {
+      "id": "BG1",
+      "topic": "statistics.bar_graphs",
+      "pattern": "Read a bar; how many fewer",
+      "exam_weight": 0.016
+    },
+    {
+      "id": "BG2",
+      "topic": "statistics.bar_graphs",
+      "pattern": "True/false statements that need the minor gridlines",
+      "exam_weight": 0.016
+    },
+    {
+      "id": "BG3",
+      "topic": "statistics.bar_graphs",
+      "pattern": "Double bar graph: which day had n more of one than the other; totals",
+      "exam_weight": 0.016
+    },
+    {
+      "id": "BG4",
+      "topic": "statistics.bar_graphs",
+      "pattern": "Horizontal double bars: most popular over two days; how many",
+      "exam_weight": 0.016
+    },
+    {
+      "id": "BG5",
+      "topic": "statistics.bar_graphs",
+      "pattern": "From the graph to money: total items × price",
+      "exam_weight": 0.016
+    }
+  ],
+  "references": [
+    {
+      "file": "references/syllabus-map.md",
+      "title": "P3 Maths syllabus map",
+      "sections": [
+        "Term order in school (2026)",
+        "NUMBER AND ALGEBRA",
+        "MEASUREMENT AND GEOMETRY",
+        "STATISTICS",
+        "What is NOT in P3 (do not teach, do not set)"
+      ]
+    },
+    {
+      "file": "references/exam-blueprint.md",
+      "title": "P3 end-of-year paper: format, marking and traps",
+      "sections": [
+        "1. Paper format",
+        "2. Topic shares (150 marks across the three papers)",
+        "3. Question archetypes by topic",
+        "4. How marks are awarded",
+        "5. The traps that cost P3 pupils the most marks"
+      ]
+    },
+    {
+      "file": "references/model-method.md",
+      "title": "The P3 toolkit: model method, time line and the thinking routine",
+      "sections": [
+        "0. The thinking routine the schools teach: UnPAC + NTUC",
+        "1. Part-whole model",
+        "2. Comparison model (bars lined up on the left)",
+        "3. Before–after model",
+        "4. Time line (compulsory for duration questions)",
+        "5. Equal-groups and best-buy reasoning",
+        "6. Fractions — the two moves",
+        "7. Area and perimeter — the fence and the carpet",
+        "8. Angles and lines — hand tools"
+      ]
+    },
+    {
+      "file": "references/coaching-playbook.md",
+      "title": "Coaching playbook: short, visual, game-like sessions that stick",
+      "sections": [
+        "1. Session shape — 20 minutes, hard stop",
+        "2. Making it interesting enough to hold the learner",
+        "3. The techniques that make it stick",
+        "4. Memory hooks for P3 maths (use these exact ones so they stay consistent)",
+        "5. Diagnosing where the break is",
+        "6. Feedback wording that works",
+        "7. The last 10 days before the paper"
+      ]
+    },
+    {
+      "file": "references/question-generation.md",
+      "title": "Writing P3 maths questions",
+      "sections": [
+        "Writing good P3 questions",
+        "Targeted sets (the usual case)",
+        "QA checklist before delivering a set"
+      ]
+    }
+  ],
+  "tools": [
+    "read_reference",
+    "find_items",
+    "check_answer"
+  ],
+  "sources": [
+    {
+      "kind": "own",
+      "note": "Method, references and practice sets written with the founder's own tutor skill (each set was worked and checked before use), scrubbed of learner details by scripts/import-skill.ts."
+    },
+    {
+      "kind": "own",
+      "note": "Topic weights and archetypes are statistics and patterns derived from school papers kept as private reference; no question text, school names or paper codes are included."
+    }
+  ],
+  "licence": "Content CC-BY 4.0 (myKx); items and figures original.",
+  "excluded": [
+    "assets/question_bank.json",
+    "references/question-bank-2025.md",
+    "PORTABLE.md"
+  ],
+  "legacy_scripts": {
+    "note": "kept privately; never executed",
+    "files": [
+      "assets/make_figs_clinic01.py",
+      "assets/make_figs_diagnostic.py",
+      "assets/make_figs_mock02.py",
+      "assets/make_figs_time.py",
+      "scripts/build_paper.py",
+      "scripts/mathdraw.py",
+      "scripts/tracker.py"
+    ]
+  }
+}

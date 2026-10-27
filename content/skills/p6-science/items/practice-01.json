@@ -1,0 +1,860 @@
+[
+  {
+    "id": "p6sci-practice-01-q1",
+    "skill": "p6-science",
+    "topic": "systems.electrical",
+    "subskill": "circuits_from_observations",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Mei Ling set up a circuit with two bulbs, a buzzer and two switches. The table shows what she observed.\n\n| Switch 1 | Switch 2 | Number of bulbs lit | Buzzer sounds? |\n| --- | --- | --- | --- |\n| Closed | Closed | 2 | Yes |\n| Closed | Open | 1 | No |\n| Open | Closed | 1 | Yes |\n\nWhich circuit matches her observations?",
+    "options": [
+      "Bulb A in series with switch 1; bulb B and buzzer in series with switch 2, on a parallel branch",
+      "Bulb A and buzzer in series with switch 1 on one branch; bulb B alone on a second branch, switch 2 in the main loop",
+      "Both bulbs in series with switch 1; buzzer alone with switch 2 on a parallel branch",
+      "All components in one series loop with both switches"
+    ],
+    "answer": 1,
+    "working": [
+      "When S1 only is closed, 1 bulb lights and no buzzer → bulb A must be on a branch with S1 alone. When S2 only is closed, 1 bulb + buzzer → bulb B and buzzer share the S2 branch. Both closed → 2 bulbs + buzzer. Only (1) gives all three rows.",
+      "Watch out: Option (2): with S2 in the main loop, opening S2 would switch everything off, contradicting row 2."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "example_paper.json#Q1"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p6sci-practice-01-q2",
+    "skill": "p6-science",
+    "topic": "systems.electrical",
+    "subskill": "series_parallel",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Study the circuit below. All bulbs and batteries are working.\n\nWhich statement is correct?",
+    "options": [
+      "Bulb P is brighter than bulb Q.",
+      "Bulbs Q and R are brighter than bulb P.",
+      "If bulb Q fuses, bulb P will not light up.",
+      "If bulb P fuses, bulbs Q and R will not light up."
+    ],
+    "answer": 1,
+    "working": [
+      "P is alone on its branch; Q and R share a branch in series so each gets less current and is dimmer. Branches are independent, so one fusing does not affect the other branch.",
+      "Watch out: Students think 'more bulbs on a branch = more light'. In series, more bulbs = dimmer."
+    ],
+    "figure": "figures/p6sci-practice-01-q2.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "circuit",
+          "battery": {
+            "cells": 2
+          },
+          "series": [
+            {
+              "switch": "S1",
+              "closed": true
+            }
+          ],
+          "parallel": [
+            [
+              {
+                "bulb": "P"
+              }
+            ],
+            [
+              {
+                "bulb": "Q"
+              },
+              {
+                "bulb": "R"
+              }
+            ]
+          ],
+          "width": 7,
+          "height": 4
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "example_paper.json#Q2"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p6sci-practice-01-q3",
+    "skill": "p6-science",
+    "topic": "interactions.environment",
+    "subskill": "populations",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Ravi put equal numbers of two kinds of fish into each of two identical tanks with the same amount of water plants. Tank X had fish J and K. Tank Y had fish J and L. The graphs show his results over a week.\n\nWhich food chain shows the relationship among the organisms?",
+    "options": [
+      "Plant → J → K → L",
+      "Plant → K → J → L",
+      "Plant → K → L → J",
+      "Plant → L → K → J"
+    ],
+    "answer": 2,
+    "working": [
+      "Tank X: K fell while J rose → J eats K. Tank Y: J fell while L rose → L eats J. K is eaten and eats no fish, so K eats the plants: Plant → K → J → L.",
+      "Watch out: Reading the falling line as the predator. The population that DROPS is the prey."
+    ],
+    "figure": "figures/p6sci-practice-01-q3.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "line_graph",
+          "w": 5.5,
+          "h": 2.6,
+          "hide_numbers": true,
+          "xlabel": "Days",
+          "ylabel": "Number of fish",
+          "series": [
+            {
+              "label": "J (tank X)",
+              "x": [
+                0,
+                7
+              ],
+              "y": [
+                5,
+                8
+              ],
+              "style": "-"
+            },
+            {
+              "label": "K (tank X)",
+              "x": [
+                0,
+                7
+              ],
+              "y": [
+                5,
+                2
+              ],
+              "style": ":"
+            },
+            {
+              "label": "J (tank Y)",
+              "x": [
+                0,
+                7
+              ],
+              "y": [
+                5,
+                2
+              ],
+              "style": "-"
+            },
+            {
+              "label": "L (tank Y)",
+              "x": [
+                0,
+                7
+              ],
+              "y": [
+                5,
+                8
+              ],
+              "style": "--"
+            }
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "example_paper.json#Q3"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p6sci-practice-01-q4",
+    "skill": "p6-science",
+    "topic": "cycles.water",
+    "subskill": "temperature_time_graphs",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Jody filled a beaker completely with ice cubes and left it in a room at 25 °C. The graph shows the temperature of the contents over 25 minutes.\n\nHe made two changes to the set-up at the 10th and 20th minute. Which changes did he make?",
+    "options": [
+      "10th: added ice cubes; 20th: added tap water",
+      "10th: added a heat source; 20th: added ice cubes",
+      "10th: added a heat source; 20th: added a heat source",
+      "10th: added ice cubes; 20th: removed the heat source"
+    ],
+    "answer": 2,
+    "working": [
+      "0–4 min: flat at 0 °C while the ice melts. Then the water warms to 25 °C, the room temperature, and stays there: without heat it can't get warmer than the room. From 10 min it climbs steeply to 100 °C → a heat source was added. At 20 min it drops sharply → something cold was added (ice), and it then rises again because the heat source is still on. Removing the heat source would give a slow fall, not a sharp drop.",
+      "Watch out: The flat parts at 0 °C and 100 °C are melting and boiling: temperature stays the same during a change of state."
+    ],
+    "figure": "figures/p6sci-practice-01-q4.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "line_graph",
+          "w": 5.2,
+          "h": 3,
+          "xlabel": "Time (min)",
+          "ylabel": "Temperature (°C)",
+          "series": [
+            {
+              "x": [
+                0,
+                4,
+                8,
+                10,
+                14,
+                20,
+                21,
+                25
+              ],
+              "y": [
+                0,
+                0,
+                25,
+                25,
+                100,
+                100,
+                60,
+                72
+              ],
+              "style": "-"
+            }
+          ],
+          "xticks": [
+            0,
+            5,
+            10,
+            15,
+            20,
+            25
+          ],
+          "yticks": [
+            0,
+            20,
+            40,
+            60,
+            80,
+            100
+          ],
+          "vlines": [
+            10,
+            20
+          ],
+          "hlines": [
+            25,
+            100
+          ],
+          "ylim": [
+            0,
+            110
+          ],
+          "end_labels": false
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "example_paper.json#Q4"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p6sci-practice-01-q5",
+    "skill": "p6-science",
+    "topic": "interactions.forces",
+    "subskill": "springs",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Three identical springs, X, Y and Z, were hung from a ceiling with loads of different masses. The diagram shows the stretched lengths.\n\nWhich statement is correct?",
+    "options": [
+      "Load P has the greatest mass.",
+      "Spring Z exerts the greatest elastic spring force.",
+      "The three loads have the same mass.",
+      "Spring X is stretched the most."
+    ],
+    "answer": 2,
+    "working": [
+      "Identical springs stretch more when pulled by a heavier load. Z stretched most → R is heaviest → Z exerts the greatest elastic spring force (it must hold up the heaviest load).",
+      "Watch out: Confusing the spring's length with its 'elasticity'. Identical springs have the same elasticity; the difference is the load."
+    ],
+    "figure": "figures/p6sci-practice-01-q5.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "spring_set",
+          "springs": [
+            {
+              "label": "X",
+              "length": 2,
+              "load": "P"
+            },
+            {
+              "label": "Y",
+              "length": 3,
+              "load": "Q"
+            },
+            {
+              "label": "Z",
+              "length": 4,
+              "load": "R"
+            }
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "example_paper.json#Q5"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p6sci-practice-01-q6",
+    "skill": "p6-science",
+    "topic": "energy.photosynthesis",
+    "subskill": "photosynthesis_conditions",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Jun Hao placed an aquatic plant in a test tube of water and shone a lamp on it in a dark room. He counted the bubbles produced in one minute, then moved the lamp further away and repeated.\n\n| | Changed variable | Measured variable | Kept the same |\n| --- | --- | --- | --- |\n| (1) | Number of bubbles per minute | Distance of lamp | Type of plant |\n| (2) | Distance of lamp | Number of bubbles per minute | Type of plant |\n| (3) | Type of lamp | Distance of lamp | Number of bubbles |\n| (4) | Distance of lamp | Size of bubbles | Type of test tube |\n\nWhich row correctly identifies the variables?",
+    "options": [
+      "Row (1)",
+      "Row (2)",
+      "Row (3)",
+      "Row (4)"
+    ],
+    "answer": 2,
+    "working": [
+      "He CHANGED the lamp distance on purpose; he MEASURED the bubbles per minute (the result); the plant, water and lamp stay the same for a fair test.",
+      "Watch out: Swapping changed and measured variables. Ask: 'What did he do on purpose?' (changed) vs 'What did he count/record?' (measured)."
+    ],
+    "figure": "figures/p6sci-practice-01-q6.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "scene",
+          "box": [
+            10,
+            5
+          ],
+          "items": [
+            {
+              "prim": "testtube",
+              "x": 3,
+              "y": 0.9,
+              "h": 2.6,
+              "level": 0.9,
+              "plant": true,
+              "bubbles": true,
+              "label": "aquatic plant in water"
+            },
+            {
+              "prim": "lamp",
+              "x": 6.2,
+              "y": 2.6,
+              "facing": "left",
+              "on": true,
+              "label": "lamp"
+            },
+            {
+              "prim": "arrow",
+              "x0": 3.6,
+              "y0": 1.2,
+              "x1": 5.9,
+              "y1": 1.2,
+              "text": "distance"
+            },
+            {
+              "prim": "ground",
+              "x0": 0.5,
+              "x1": 9.5,
+              "y": 0.4
+            }
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "example_paper.json#Q6"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p6sci-practice-01-q7",
+    "skill": "p6-science",
+    "topic": "cycles.reproduction",
+    "subskill": "flower_parts",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "The diagram shows a cross-section of a flower.\n\n| | Part | Name | Function |\n| --- | --- | --- | --- |\n| A | J | Stigma | Receives pollen grains |\n| B | K | Anther | Produces pollen grains |\n| C | L | Ovary | Produces pollen grains |\n| D | M | Filament | Holds up the anther |\n\nWhich row correctly matches the part, its name and its function?",
+    "options": [
+      "A and B only",
+      "A, B and D only",
+      "B and C only",
+      "C and D only"
+    ],
+    "answer": 2,
+    "working": [
+      "Stigma receives pollen (A ✓). Anther makes pollen = male reproductive cells (B ✓). Ovary contains ovules, the FEMALE cells — not pollen (C ✗). Filament holds up the anther (D ✓).",
+      "Watch out: Ovary vs anther: ovary → ovules (female); anther → pollen (male). 'Ov' = female (egg)."
+    ],
+    "figure": "figures/p6sci-practice-01-q7.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "flower",
+          "labels": {
+            "stigma": "J",
+            "anther": "K",
+            "ovary": "L",
+            "filament": "M"
+          }
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "example_paper.json#Q7"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p6sci-practice-01-q8",
+    "skill": "p6-science",
+    "topic": "cycles.life",
+    "subskill": "insect_cycles",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "The diagram shows the life cycle of insect X.\n\nWhich statements describe insect X correctly?\nA: Its young looks like the adult. &nbsp; B: The missing stage is the pupa. &nbsp; C: Its young does not have wings. &nbsp; D: It has three stages in its life cycle.",
+    "options": [
+      "A and B only",
+      "B and C only",
+      "A and D only",
+      "C and D only"
+    ],
+    "answer": 2,
+    "working": [
+      "Egg → larva → ? → adult is the 4-stage cycle (butterfly, beetle, mosquito, housefly). The missing stage is the pupa. The larva looks nothing like the adult and has no wings.",
+      "Watch out: 3-stage insects (cockroach, grasshopper, dragonfly) have a NYMPH that looks like a small wingless adult. 4-stage insects have a larva + pupa."
+    ],
+    "figure": "figures/p6sci-practice-01-q8.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "life_cycle",
+          "stages": [
+            "egg",
+            "larva",
+            "pupa",
+            "adult"
+          ],
+          "title": "Insect X",
+          "blank": [
+            2
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "example_paper.json#Q8"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p6sci-practice-01-q31a",
+    "skill": "p6-science",
+    "topic": "energy.heat",
+    "subskill": "conductors_insulators",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Siti poured 300 ml of hot water at 80 °C into two identical cups, A and B. She wrapped cup B with a thick layer of cotton wool. She measured the temperature of the water in each cup every 5 minutes.\n\n(a) Predict which cup of water will be at a lower temperature after 20 minutes. Explain your answer.",
+    "answer": "Cup A. Cotton wool traps air, and air is a poor conductor of heat, so heat from the water in cup B is lost to the cooler surroundings more slowly. Water in A loses heat faster and reaches a lower temperature.",
+    "marking": [
+      "1 mark for choosing A; 1 mark for 'cotton wool / trapped air is a poor conductor of heat so heat is lost more slowly'. Must say HEAT is LOST (not 'cold gets in')."
+    ],
+    "figure": "figures/p6sci-practice-01-q31ab.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "scene",
+          "box": [
+            10,
+            5
+          ],
+          "items": [
+            {
+              "prim": "beaker",
+              "x": 1.5,
+              "y": 1,
+              "w": 2,
+              "h": 2.4,
+              "level": 0.6,
+              "label": "cup A",
+              "sublabel": "water at 80 °C"
+            },
+            {
+              "prim": "beaker",
+              "x": 6,
+              "y": 1,
+              "w": 2,
+              "h": 2.4,
+              "level": 0.6,
+              "label": "cup B",
+              "sublabel": "water at 80 °C"
+            },
+            {
+              "prim": "block",
+              "x": 5.6,
+              "y": 1,
+              "w": 0.4,
+              "h": 2.4,
+              "hatch": "...."
+            },
+            {
+              "prim": "block",
+              "x": 8,
+              "y": 1,
+              "w": 0.4,
+              "h": 2.4,
+              "hatch": "...."
+            },
+            {
+              "prim": "label",
+              "x": 9.2,
+              "y": 3.9,
+              "text": "cotton wool",
+              "tx": 8.2,
+              "ty": 3.3
+            },
+            {
+              "prim": "thermometer",
+              "x": 2.5,
+              "y": 2.3,
+              "h": 1.6,
+              "label": ""
+            },
+            {
+              "prim": "thermometer",
+              "x": 7,
+              "y": 2.3,
+              "h": 1.6,
+              "label": ""
+            },
+            {
+              "prim": "ground",
+              "x0": 0.5,
+              "x1": 9.5,
+              "y": 0.95
+            }
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "example_paper.json#Q31(a)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p6sci-practice-01-q31b",
+    "skill": "p6-science",
+    "topic": "energy.heat",
+    "subskill": "conductors_insulators",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Siti poured 300 ml of hot water at 80 °C into two identical cups, A and B. She wrapped cup B with a thick layer of cotton wool. She measured the temperature of the water in each cup every 5 minutes.\n\n(b) Siti repeated the experiment using ice-cold water at 5 °C instead of hot water. Which cup would reach room temperature first? Explain.",
+    "answer": "Cup A. Heat from the warmer surroundings is gained by the cold water. The cotton wool around cup B slows down the gain of heat, so cup A gains heat faster and reaches room temperature first.",
+    "marking": [
+      "Choice (1) + reason must mention heat GAINED from surroundings and cotton wool slowing heat gain (1). Same idea as (a) in reverse — insulators slow heat flow in BOTH directions."
+    ],
+    "figure": "figures/p6sci-practice-01-q31ab.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "scene",
+          "box": [
+            10,
+            5
+          ],
+          "items": [
+            {
+              "prim": "beaker",
+              "x": 1.5,
+              "y": 1,
+              "w": 2,
+              "h": 2.4,
+              "level": 0.6,
+              "label": "cup A",
+              "sublabel": "water at 80 °C"
+            },
+            {
+              "prim": "beaker",
+              "x": 6,
+              "y": 1,
+              "w": 2,
+              "h": 2.4,
+              "level": 0.6,
+              "label": "cup B",
+              "sublabel": "water at 80 °C"
+            },
+            {
+              "prim": "block",
+              "x": 5.6,
+              "y": 1,
+              "w": 0.4,
+              "h": 2.4,
+              "hatch": "...."
+            },
+            {
+              "prim": "block",
+              "x": 8,
+              "y": 1,
+              "w": 0.4,
+              "h": 2.4,
+              "hatch": "...."
+            },
+            {
+              "prim": "label",
+              "x": 9.2,
+              "y": 3.9,
+              "text": "cotton wool",
+              "tx": 8.2,
+              "ty": 3.3
+            },
+            {
+              "prim": "thermometer",
+              "x": 2.5,
+              "y": 2.3,
+              "h": 1.6,
+              "label": ""
+            },
+            {
+              "prim": "thermometer",
+              "x": 7,
+              "y": 2.3,
+              "h": 1.6,
+              "label": ""
+            },
+            {
+              "prim": "ground",
+              "x0": 0.5,
+              "x1": 9.5,
+              "y": 0.95
+            }
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "example_paper.json#Q31(b)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p6sci-practice-01-q32a",
+    "skill": "p6-science",
+    "topic": "interactions.environment",
+    "subskill": "food_chains_webs",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "open",
+    "stem": "The diagram shows a food web in a garden.\n\n(a) Name one organism that is both a prey and a predator.",
+    "answer": "Bird or lizard (they eat grasshoppers and are eaten by the hawk).",
+    "marking": [
+      "Any one."
+    ],
+    "figure": "figures/p6sci-practice-01-q32ab.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "food_web",
+          "nodes": {
+            "grass": [
+              0,
+              0
+            ],
+            "grasshopper": [
+              2.5,
+              1.2
+            ],
+            "caterpillar": [
+              2.5,
+              -1.2
+            ],
+            "bird": [
+              5,
+              1.2
+            ],
+            "lizard": [
+              5,
+              -1.2
+            ],
+            "hawk": [
+              7.5,
+              0
+            ]
+          },
+          "edges": [
+            [
+              "grass",
+              "grasshopper"
+            ],
+            [
+              "grass",
+              "caterpillar"
+            ],
+            [
+              "grasshopper",
+              "bird"
+            ],
+            [
+              "grasshopper",
+              "lizard"
+            ],
+            [
+              "caterpillar",
+              "bird"
+            ],
+            [
+              "bird",
+              "hawk"
+            ],
+            [
+              "lizard",
+              "hawk"
+            ]
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "example_paper.json#Q32(a)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p6sci-practice-01-q32b",
+    "skill": "p6-science",
+    "topic": "interactions.environment",
+    "subskill": "food_chains_webs",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "The diagram shows a food web in a garden.\n\n(b) A farmer sprayed insecticide that killed most of the grasshoppers. Explain how this would affect the population of caterpillars after a few weeks.",
+    "answer": "The caterpillar population would decrease. With fewer grasshoppers, the birds and lizards have less food, so they feed more on caterpillars.",
+    "marking": [
+      "1 mark: decrease. 1 mark: birds/lizards switch to eating more caterpillars because their other food (grasshopper) is gone. NOT 'more grass for caterpillars so they increase' — the predator effect comes first."
+    ],
+    "figure": "figures/p6sci-practice-01-q32ab.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "food_web",
+          "nodes": {
+            "grass": [
+              0,
+              0
+            ],
+            "grasshopper": [
+              2.5,
+              1.2
+            ],
+            "caterpillar": [
+              2.5,
+              -1.2
+            ],
+            "bird": [
+              5,
+              1.2
+            ],
+            "lizard": [
+              5,
+              -1.2
+            ],
+            "hawk": [
+              7.5,
+              0
+            ]
+          },
+          "edges": [
+            [
+              "grass",
+              "grasshopper"
+            ],
+            [
+              "grass",
+              "caterpillar"
+            ],
+            [
+              "grasshopper",
+              "bird"
+            ],
+            [
+              "grasshopper",
+              "lizard"
+            ],
+            [
+              "caterpillar",
+              "bird"
+            ],
+            [
+              "bird",
+              "hawk"
+            ],
+            [
+              "lizard",
+              "hawk"
+            ]
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "example_paper.json#Q32(b)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  }
+]

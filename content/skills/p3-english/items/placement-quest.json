@@ -1,0 +1,1643 @@
+[
+  {
+    "id": "p3eng-placement-quest-q1",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "tense_simple_present",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Every morning, my grandfather ____ his dog around the park.",
+    "options": [
+      "walk",
+      "walks",
+      "walked",
+      "is walking"
+    ],
+    "answer": 2,
+    "working": [
+      "‘Every morning’ tells us it is a habit, so we use the simple present. Grandfather is one person, so the verb takes an s: walks.",
+      "Watch out: ‘is walking’ means right now, not every morning."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q1"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q2",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "tense_continuous",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Mei Ling ____ her homework when the lights suddenly went out.",
+    "options": [
+      "does",
+      "did",
+      "was doing",
+      "is doing"
+    ],
+    "answer": 3,
+    "working": [
+      "A long action (doing homework) was cut by a short one (the lights went out). Long action in the past = was/were + -ing.",
+      "Watch out: ‘did’ sounds past, but it would mean she finished her homework, not that she was in the middle of it."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q2"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q3",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "sva",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Each of the boys ____ a water bottle for the trip.",
+    "options": [
+      "bring",
+      "brings",
+      "are bringing",
+      "have brought"
+    ],
+    "answer": 2,
+    "working": [
+      "The boss of the sentence is ‘Each’, which means one. One boss takes a singular verb: brings.",
+      "Watch out: ‘boys’ is only a passenger. Don’t let it make you choose a plural verb."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q3"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q4",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "demonstratives",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "“Please pass me ____ markers on the far table,” said the teacher.",
+    "options": [
+      "this",
+      "that",
+      "these",
+      "those"
+    ],
+    "answer": 4,
+    "working": [
+      "Markers = many. On the far table = far away. Many + far = those.",
+      "Watch out: ‘these’ is many but near."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q4"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q5",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "quantifiers",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "There isn’t ____ milk left in the fridge.",
+    "options": [
+      "many",
+      "any",
+      "a few",
+      "some"
+    ],
+    "answer": 2,
+    "working": [
+      "‘isn’t’ makes the sentence negative, and negatives take ‘any’. Milk cannot be counted, so ‘many’ and ‘a few’ are out too.",
+      "Watch out: ‘some’ is for positive sentences: There is some milk."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q5"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q6",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "prepositions",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "The cat jumped ____ the table and ran out of the kitchen.",
+    "options": [
+      "off",
+      "into",
+      "under",
+      "between"
+    ],
+    "answer": 1,
+    "working": [
+      "The cat was on the table and left it. Leaving the top of something = off.",
+      "Watch out: ‘into’ means going inside something. You cannot jump inside a table."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q6"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q7",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "pronoun_reflexive",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Ravi and I cleaned up the classroom by ____ after the party.",
+    "options": [
+      "ourselves",
+      "themselves",
+      "myself",
+      "yourselves"
+    ],
+    "answer": 1,
+    "working": [
+      "Ravi and I = we. The mirror word for ‘we’ is ourselves.",
+      "Watch out: ‘myself’ only covers me, but Ravi helped too."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q7"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q8",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "connectors",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Our team practised very hard, ____ we still lost the match.",
+    "options": [
+      "so",
+      "because",
+      "but",
+      "and"
+    ],
+    "answer": 3,
+    "working": [
+      "Practising hard should help you win, but they lost. A surprise or opposite idea needs ‘but’.",
+      "Watch out: ‘so’ is for a result that makes sense, like ‘we practised hard, so we won’."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q8"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q9",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "question_tags",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "You have finished your project, ____ you?",
+    "options": [
+      "do",
+      "don’t",
+      "have",
+      "haven’t"
+    ],
+    "answer": 4,
+    "working": [
+      "Flip and mirror: the sentence is positive with helper ‘have’, so the tag is negative with the same helper: haven’t you?",
+      "Watch out: ‘don’t’ copies the wrong helper. Look for the helper verb already in the sentence."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q9"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q10",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "verb_form",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Mother told Marcus that he must ____ his room before dinner.",
+    "options": [
+      "tidy",
+      "tidies",
+      "tidied",
+      "tidying"
+    ],
+    "answer": 1,
+    "working": [
+      "After ‘must’ (and can, will, should, has to) the verb goes back to its plain base form: tidy.",
+      "Watch out: ‘he’ makes you want an s, but the helper ‘must’ is bossy and takes the s away."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q10"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q11",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "pronoun_subject_object",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Choose the word from the box for blank (1).",
+    "passage": "Marcus and his cousin Ethan love football. Every Sunday, ___(1)___ play at the field near their block. Last week, Ethan kicked the ball so hard that it flew over the fence. Marcus climbed over to get it, but ___(2)___ could not find it anywhere.\nEthan ran over to help ___(3)___. Finally, Ethan spotted the ball under a bush and threw it back to ___(4)___ cousin.",
+    "options": [
+      "he",
+      "him",
+      "his",
+      "they",
+      "them",
+      "we"
+    ],
+    "answer": 4,
+    "working": [
+      "Marcus and Ethan (two people) are DOING the playing, so we need the doer word for many: they.",
+      "Watch out: ‘them’ is for someone receiving an action, not doing it."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q11"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q12",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "pronoun_subject_object",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Choose the word from the box for blank (2).",
+    "passage": "Marcus and his cousin Ethan love football. Every Sunday, ___(1)___ play at the field near their block. Last week, Ethan kicked the ball so hard that it flew over the fence. Marcus climbed over to get it, but ___(2)___ could not find it anywhere.\nEthan ran over to help ___(3)___. Finally, Ethan spotted the ball under a bush and threw it back to ___(4)___ cousin.",
+    "options": [
+      "he",
+      "him",
+      "his",
+      "they",
+      "them",
+      "we"
+    ],
+    "answer": 1,
+    "working": [
+      "Marcus is the one who could not find it. One boy doing the action = he."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q12"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q13",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "pronoun_subject_object",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Choose the word from the box for blank (3).",
+    "passage": "Marcus and his cousin Ethan love football. Every Sunday, ___(1)___ play at the field near their block. Last week, Ethan kicked the ball so hard that it flew over the fence. Marcus climbed over to get it, but ___(2)___ could not find it anywhere.\nEthan ran over to help ___(3)___. Finally, Ethan spotted the ball under a bush and threw it back to ___(4)___ cousin.",
+    "options": [
+      "he",
+      "him",
+      "his",
+      "they",
+      "them",
+      "we"
+    ],
+    "answer": 2,
+    "working": [
+      "Ethan helps Marcus. Marcus receives the help, so we use the receiver word: him."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q13"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q14",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "pronoun_possessive",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Choose the word from the box for blank (4).",
+    "passage": "Marcus and his cousin Ethan love football. Every Sunday, ___(1)___ play at the field near their block. Last week, Ethan kicked the ball so hard that it flew over the fence. Marcus climbed over to get it, but ___(2)___ could not find it anywhere.\nEthan ran over to help ___(3)___. Finally, Ethan spotted the ball under a bush and threw it back to ___(4)___ cousin.",
+    "options": [
+      "he",
+      "him",
+      "his",
+      "they",
+      "them",
+      "we"
+    ],
+    "answer": 3,
+    "working": [
+      "A word that shows the cousin belongs to Ethan goes before the noun: his cousin."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q14"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q15",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "sva",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Choose the correct word for (1).",
+    "passage": "Ants are amazing insects. A single ant (1) [carry / carries] food many times heavier than its own body. Ants (2) [live / lives] together in large groups called colonies.\nEach colony (3) [has / have] a queen. The queen lays eggs all day long, and this (4) [help / helps] the colony to grow bigger.",
+    "options": [
+      "carry",
+      "carries"
+    ],
+    "answer": 2,
+    "working": [
+      "A single ant = one. One subject, so the verb gets the s: carries (y changes to ies)."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q15"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q16",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "sva",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Choose the correct word for (2).",
+    "passage": "Ants are amazing insects. A single ant (1) [carry / carries] food many times heavier than its own body. Ants (2) [live / lives] together in large groups called colonies.\nEach colony (3) [has / have] a queen. The queen lays eggs all day long, and this (4) [help / helps] the colony to grow bigger.",
+    "options": [
+      "live",
+      "lives"
+    ],
+    "answer": 1,
+    "working": [
+      "Ants = many. Many subjects, no s on the verb: live."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q16"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q17",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "sva",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Choose the correct word for (3).",
+    "passage": "Ants are amazing insects. A single ant (1) [carry / carries] food many times heavier than its own body. Ants (2) [live / lives] together in large groups called colonies.\nEach colony (3) [has / have] a queen. The queen lays eggs all day long, and this (4) [help / helps] the colony to grow bigger.",
+    "options": [
+      "has",
+      "have"
+    ],
+    "answer": 1,
+    "working": [
+      "Each colony = one colony. One subject takes has.",
+      "Watch out: ‘Each’ always means one at a time."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q17"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q18",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "sva",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Choose the correct word for (4).",
+    "passage": "Ants are amazing insects. A single ant (1) [carry / carries] food many times heavier than its own body. Ants (2) [live / lives] together in large groups called colonies.\nEach colony (3) [has / have] a queen. The queen lays eggs all day long, and this (4) [help / helps] the colony to grow bigger.",
+    "options": [
+      "help",
+      "helps"
+    ],
+    "answer": 2,
+    "working": [
+      "‘this’ stands for one whole idea (the queen laying eggs), so it is singular: this helps.",
+      "Watch out: ‘eggs’ is plural, but it is not the subject of ‘help’."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q18"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q19",
+    "skill": "p3-english",
+    "topic": "language.vocab",
+    "subskill": "context_clues",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "The tired hikers ____ up the steep hill, dragging their feet.",
+    "options": [
+      "dashed",
+      "trudged",
+      "skipped",
+      "raced"
+    ],
+    "answer": 2,
+    "working": [
+      "The clue twins are ‘tired’ and ‘dragging their feet’. Trudged means walked slowly and heavily.",
+      "Watch out: dashed, skipped and raced are all fast or bouncy, which clashes with ‘tired’."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q19"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q20",
+    "skill": "p3-english",
+    "topic": "language.vocab",
+    "subskill": "context_clues",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "The little boy was ____ to see the huge dinosaur skeleton. It was the most amazing thing he had ever seen!",
+    "options": [
+      "astonished",
+      "disappointed",
+      "embarrassed",
+      "furious"
+    ],
+    "answer": 1,
+    "working": [
+      "‘the most amazing thing he had ever seen’ tells us he was very surprised in a good way: astonished.",
+      "Watch out: The other three are all unhappy feelings. Check whether the clue is happy or unhappy first."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q20"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q21",
+    "skill": "p3-english",
+    "topic": "language.vocab",
+    "subskill": "similes",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Our new classmate hardly says a word. She is as quiet as a ____.",
+    "options": [
+      "mouse",
+      "lion",
+      "fox",
+      "peacock"
+    ],
+    "answer": 1,
+    "working": [
+      "The saying is ‘as quiet as a mouse’."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q21"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q22",
+    "skill": "p3-english",
+    "topic": "language.vocab",
+    "subskill": "phrasal_verbs",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "The firemen ____ the fire quickly with their hoses.",
+    "options": [
+      "put off",
+      "put out",
+      "put on",
+      "put up"
+    ],
+    "answer": 2,
+    "working": [
+      "To put out a fire means to stop it burning.",
+      "Watch out: ‘put off’ means to delay something, like putting off your homework."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q22"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q23",
+    "skill": "p3-english",
+    "topic": "language.vocab",
+    "subskill": "collective_nouns",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "We saw a ____ of fish swimming around the coral.",
+    "options": [
+      "herd",
+      "flock",
+      "school",
+      "pack"
+    ],
+    "answer": 3,
+    "working": [
+      "A group of fish is a school. (Herd = cows, flock = birds or sheep, pack = wolves.)"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q23"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q24",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "prepositions",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Fill in blank (1) with ONE suitable word.",
+    "passage": "Last Saturday, Priya went ___(1)___ the library with her father. She wanted to borrow books ___(2)___ planets because she had a science project. The librarian helped her to find three books, ___(3)___ Priya thanked her politely.",
+    "answer": "to",
+    "working": [
+      "We go TO a place."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q24"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q25",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "prepositions",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Fill in blank (2) with ONE suitable word.",
+    "passage": "Last Saturday, Priya went ___(1)___ the library with her father. She wanted to borrow books ___(2)___ planets because she had a science project. The librarian helped her to find three books, ___(3)___ Priya thanked her politely.",
+    "answer": "about",
+    "accept": [
+      "on"
+    ],
+    "working": [
+      "Books about (or on) a topic."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q25"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q26",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "connectors",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Fill in blank (3) with ONE suitable word.",
+    "passage": "Last Saturday, Priya went ___(1)___ the library with her father. She wanted to borrow books ___(2)___ planets because she had a science project. The librarian helped her to find three books, ___(3)___ Priya thanked her politely.",
+    "answer": "and",
+    "accept": [
+      "so"
+    ],
+    "working": [
+      "Two connected actions: she was helped, and she said thank you. ‘so’ also works because the thanks came from the help."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q26"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q27",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "tense_simple_past",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "The word \"go\" at (1) has a grammar mistake. Write the correct word.",
+    "passage": "Yesterday, our class go (1) on a learning journey to the zoo. We saw a jiraffe (2) eating leaves from a tall tree (3) \"Look at its long neck (4)\" shouted Ben. Everyone laughed happyly (5).",
+    "answer": "went",
+    "working": [
+      "‘Yesterday’ is a past time clue, so go becomes went."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q27"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q28",
+    "skill": "p3-english",
+    "topic": "language.spelling",
+    "subskill": "spelling",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "The word \"jiraffe\" at (2) is spelt wrongly. Write it correctly.",
+    "passage": "Yesterday, our class go (1) on a learning journey to the zoo. We saw a jiraffe (2) eating leaves from a tall tree (3) \"Look at its long neck (4)\" shouted Ben. Everyone laughed happyly (5).",
+    "answer": "giraffe",
+    "working": [
+      "Giraffe starts with a soft g that sounds like j."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q28"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q29",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "punctuation",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "A punctuation mark is missing at (3). Write the missing punctuation mark.",
+    "passage": "Yesterday, our class go (1) on a learning journey to the zoo. We saw a jiraffe (2) eating leaves from a tall tree (3) \"Look at its long neck (4)\" shouted Ben. Everyone laughed happyly (5).",
+    "answer": ".",
+    "working": [
+      "The sentence about the giraffe ends here, so it needs a full stop."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q29"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "accept": [
+      "full stop"
+    ]
+  },
+  {
+    "id": "p3eng-placement-quest-q30",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "punctuation",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "A punctuation mark is missing at (4). Write the missing punctuation mark.",
+    "passage": "Yesterday, our class go (1) on a learning journey to the zoo. We saw a jiraffe (2) eating leaves from a tall tree (3) \"Look at its long neck (4)\" shouted Ben. Everyone laughed happyly (5).",
+    "answer": "!",
+    "working": [
+      "Ben ‘shouted’ in excitement, so his words end with an exclamation mark inside the speech marks."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q30"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "accept": [
+      "exclamation mark"
+    ]
+  },
+  {
+    "id": "p3eng-placement-quest-q31",
+    "skill": "p3-english",
+    "topic": "language.spelling",
+    "subskill": "spelling",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "The word \"happyly\" at (5) is spelt wrongly. Write it correctly.",
+    "passage": "Yesterday, our class go (1) on a learning journey to the zoo. We saw a jiraffe (2) eating leaves from a tall tree (3) \"Look at its long neck (4)\" shouted Ben. Everyone laughed happyly (5).",
+    "answer": "happily",
+    "working": [
+      "happy + ly: change the y to i, then add ly."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q31"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q32",
+    "skill": "p3-english",
+    "topic": "language.sentence",
+    "subskill": "synthesis",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Rewrite the sentences as ONE sentence using the word given. Keep the meaning the same.\n\nWei Jie was hungry. He had not eaten breakfast.\n\n(because)",
+    "answer": "Wei Jie was hungry because he had not eaten breakfast.",
+    "working": [
+      "‘because’ joins a result to its reason. Copy both parts exactly, and the second ‘He’ becomes ‘he’."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q32"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q33",
+    "skill": "p3-english",
+    "topic": "language.sentence",
+    "subskill": "synthesis",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Rewrite the sentences as ONE sentence using the word given. Keep the meaning the same.\n\nThe rain was heavy. The children still played outside.\n\n(Although)",
+    "answer": "Although the rain was heavy, the children still played outside.",
+    "accept": [
+      "Although the rain was heavy, the children played outside."
+    ],
+    "working": [
+      "Although + surprise idea, comma, main idea.",
+      "Watch out: Never use ‘although’ and ‘but’ in the same sentence."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q33"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q34",
+    "skill": "p3-english",
+    "topic": "language.sentence",
+    "subskill": "word_order",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "short",
+    "stem": "Arrange the words to make a correct sentence. Remember the capital letter and the full stop.\n\n[the bus] [were waiting] [arrived] [when] [we] [at the stop]",
+    "answer": "We were waiting at the stop when the bus arrived.",
+    "accept": [
+      "When the bus arrived, we were waiting at the stop."
+    ],
+    "working": [
+      "Find WHO first (we), then WHAT they were doing (were waiting at the stop), then join the second part with ‘when’."
+    ],
+    "marking": [
+      "2 marks for the full correct sentence; 1 mark if one chunk is out of place or the capital/full stop is missing."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q34"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q35",
+    "skill": "p3-english",
+    "topic": "reading.visual",
+    "subskill": "vt_purpose",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Riverside Kite Day is organised by ____.",
+    "passage": "Brightwater Community Club presents\n**Riverside Kite Day**\nFly high and have fun with the whole family!\nFREE ENTRY!\nDate: Saturday, 21 November\nTime: 3 p.m. to 6 p.m.\nVenue: Riverside Park, Big Field\n**Activities**\n- **Kite-Making Workshop** (3 p.m. to 4 p.m.): Make your own kite! $5 per child. All materials provided.\n- **Kite-Flying Contest** (4.30 p.m. to 5.30 p.m.): Open to children aged 7 to 12. Prizes for the three highest-flying kites!\n- **Food Corner** (Open all afternoon): Buy snacks and drinks from our stalls.\n- **Lucky Draw** (5.45 p.m.): All visitors can take part. Collect your ticket at the entrance.\n**Kite-Making Workshop: register by 14 November** Register at www.brightwatercc.sg Only 40 places available!\nFor enquiries, call Ms Farah at 6123 4567.",
+    "options": [
+      "Ms Farah",
+      "Riverside Park",
+      "Brightwater Community Club",
+      "the contest winners"
+    ],
+    "answer": 3,
+    "working": [
+      "The small line at the very top says ‘Brightwater Community Club presents’. ‘Presents’ tells you who is organising.",
+      "Watch out: Ms Farah only answers questions. The park is just the place."
+    ],
+    "figure": "figures/p3eng-placement-quest-q35-q38.svg",
+    "figure_spec": {
+      "poster": {
+        "theme": "#2A7F62",
+        "accent": "#BFE3C9",
+        "presenter": "Brightwater Community Club presents",
+        "badge": "FREE|ENTRY!",
+        "corner_icon": "star",
+        "title": "Riverside Kite Day",
+        "tagline": "Fly high and have fun with the whole family!",
+        "facts": [
+          {
+            "icon": "calendar",
+            "label": "Date",
+            "value": "Saturday, 21 November"
+          },
+          {
+            "icon": "clock",
+            "label": "Time",
+            "value": "3 p.m. to 6 p.m."
+          },
+          {
+            "icon": "pin",
+            "label": "Venue",
+            "value": "Riverside Park, Big Field"
+          }
+        ],
+        "art": [
+          {
+            "kind": "person",
+            "x": 120,
+            "pose": "point",
+            "mood": "excited",
+            "gender": "boy",
+            "top": "#E76F51",
+            "scale": 1.6
+          },
+          {
+            "kind": "kite",
+            "x": 260,
+            "y": 170,
+            "scale": 1.4
+          }
+        ],
+        "banner": "Activities",
+        "art_right": [
+          {
+            "kind": "person",
+            "x": 200,
+            "pose": "wave",
+            "mood": "happy",
+            "gender": "girl",
+            "top": "#2A9D8F",
+            "scale": 1.6
+          }
+        ],
+        "boxes": [
+          {
+            "title": "Kite-Making Workshop",
+            "sub": "3 p.m. to 4 p.m.",
+            "icon": "palette",
+            "body": "Make your own kite!\n$5 per child. All materials provided."
+          },
+          {
+            "title": "Kite-Flying Contest",
+            "sub": "4.30 p.m. to 5.30 p.m.",
+            "icon": "trophy",
+            "body": "Open to children aged 7 to 12.\nPrizes for the three highest-flying kites!"
+          },
+          {
+            "title": "Food Corner",
+            "sub": "Open all afternoon",
+            "icon": "food",
+            "body": "Buy snacks and drinks from our stalls."
+          },
+          {
+            "title": "Lucky Draw",
+            "sub": "5.45 p.m.",
+            "icon": "gift",
+            "body": "All visitors can take part.\nCollect your ticket at the entrance."
+          }
+        ],
+        "wide_box": {
+          "title": "Kite-Making Workshop: register by 14 November",
+          "body": "Register at www.brightwatercc.sg\nOnly 40 places available!"
+        },
+        "footer": [
+          "For enquiries, call Ms Farah at 6123 4567."
+        ]
+      }
+    },
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q35"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3eng-placement-quest-q36",
+    "skill": "p3-english",
+    "topic": "reading.visual",
+    "subskill": "vt_traps",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Ahmad is 13 years old. Which activity can he NOT join?",
+    "passage": "Brightwater Community Club presents\n**Riverside Kite Day**\nFly high and have fun with the whole family!\nFREE ENTRY!\nDate: Saturday, 21 November\nTime: 3 p.m. to 6 p.m.\nVenue: Riverside Park, Big Field\n**Activities**\n- **Kite-Making Workshop** (3 p.m. to 4 p.m.): Make your own kite! $5 per child. All materials provided.\n- **Kite-Flying Contest** (4.30 p.m. to 5.30 p.m.): Open to children aged 7 to 12. Prizes for the three highest-flying kites!\n- **Food Corner** (Open all afternoon): Buy snacks and drinks from our stalls.\n- **Lucky Draw** (5.45 p.m.): All visitors can take part. Collect your ticket at the entrance.\n**Kite-Making Workshop: register by 14 November** Register at www.brightwatercc.sg Only 40 places available!\nFor enquiries, call Ms Farah at 6123 4567.",
+    "options": [
+      "the Kite-Making Workshop",
+      "the Kite-Flying Contest",
+      "the Food Corner",
+      "the Lucky Draw"
+    ],
+    "answer": 2,
+    "working": [
+      "The contest is only for children aged 7 to 12. Ahmad is 13, so he is too old.",
+      "Watch out: Read the small print in every box: rules about age, price and dates hide there."
+    ],
+    "figure": "figures/p3eng-placement-quest-q35-q38.svg",
+    "figure_spec": {
+      "poster": {
+        "theme": "#2A7F62",
+        "accent": "#BFE3C9",
+        "presenter": "Brightwater Community Club presents",
+        "badge": "FREE|ENTRY!",
+        "corner_icon": "star",
+        "title": "Riverside Kite Day",
+        "tagline": "Fly high and have fun with the whole family!",
+        "facts": [
+          {
+            "icon": "calendar",
+            "label": "Date",
+            "value": "Saturday, 21 November"
+          },
+          {
+            "icon": "clock",
+            "label": "Time",
+            "value": "3 p.m. to 6 p.m."
+          },
+          {
+            "icon": "pin",
+            "label": "Venue",
+            "value": "Riverside Park, Big Field"
+          }
+        ],
+        "art": [
+          {
+            "kind": "person",
+            "x": 120,
+            "pose": "point",
+            "mood": "excited",
+            "gender": "boy",
+            "top": "#E76F51",
+            "scale": 1.6
+          },
+          {
+            "kind": "kite",
+            "x": 260,
+            "y": 170,
+            "scale": 1.4
+          }
+        ],
+        "banner": "Activities",
+        "art_right": [
+          {
+            "kind": "person",
+            "x": 200,
+            "pose": "wave",
+            "mood": "happy",
+            "gender": "girl",
+            "top": "#2A9D8F",
+            "scale": 1.6
+          }
+        ],
+        "boxes": [
+          {
+            "title": "Kite-Making Workshop",
+            "sub": "3 p.m. to 4 p.m.",
+            "icon": "palette",
+            "body": "Make your own kite!\n$5 per child. All materials provided."
+          },
+          {
+            "title": "Kite-Flying Contest",
+            "sub": "4.30 p.m. to 5.30 p.m.",
+            "icon": "trophy",
+            "body": "Open to children aged 7 to 12.\nPrizes for the three highest-flying kites!"
+          },
+          {
+            "title": "Food Corner",
+            "sub": "Open all afternoon",
+            "icon": "food",
+            "body": "Buy snacks and drinks from our stalls."
+          },
+          {
+            "title": "Lucky Draw",
+            "sub": "5.45 p.m.",
+            "icon": "gift",
+            "body": "All visitors can take part.\nCollect your ticket at the entrance."
+          }
+        ],
+        "wide_box": {
+          "title": "Kite-Making Workshop: register by 14 November",
+          "body": "Register at www.brightwatercc.sg\nOnly 40 places available!"
+        },
+        "footer": [
+          "For enquiries, call Ms Farah at 6123 4567."
+        ]
+      }
+    },
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q36"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3eng-placement-quest-q37",
+    "skill": "p3-english",
+    "topic": "reading.visual",
+    "subskill": "vt_traps",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which of these statements is true?",
+    "passage": "Brightwater Community Club presents\n**Riverside Kite Day**\nFly high and have fun with the whole family!\nFREE ENTRY!\nDate: Saturday, 21 November\nTime: 3 p.m. to 6 p.m.\nVenue: Riverside Park, Big Field\n**Activities**\n- **Kite-Making Workshop** (3 p.m. to 4 p.m.): Make your own kite! $5 per child. All materials provided.\n- **Kite-Flying Contest** (4.30 p.m. to 5.30 p.m.): Open to children aged 7 to 12. Prizes for the three highest-flying kites!\n- **Food Corner** (Open all afternoon): Buy snacks and drinks from our stalls.\n- **Lucky Draw** (5.45 p.m.): All visitors can take part. Collect your ticket at the entrance.\n**Kite-Making Workshop: register by 14 November** Register at www.brightwatercc.sg Only 40 places available!\nFor enquiries, call Ms Farah at 6123 4567.",
+    "options": [
+      "Visitors must pay to enter Kite Day.",
+      "The workshop is free for all children.",
+      "Children must register for the workshop by 14 November.",
+      "There are more than 40 places in the workshop."
+    ],
+    "answer": 3,
+    "working": [
+      "The wide box says to register by 14 November.",
+      "Watch out: Entry is FREE (badge), the workshop costs $5, and there are ONLY 40 places, not more than 40."
+    ],
+    "figure": "figures/p3eng-placement-quest-q35-q38.svg",
+    "figure_spec": {
+      "poster": {
+        "theme": "#2A7F62",
+        "accent": "#BFE3C9",
+        "presenter": "Brightwater Community Club presents",
+        "badge": "FREE|ENTRY!",
+        "corner_icon": "star",
+        "title": "Riverside Kite Day",
+        "tagline": "Fly high and have fun with the whole family!",
+        "facts": [
+          {
+            "icon": "calendar",
+            "label": "Date",
+            "value": "Saturday, 21 November"
+          },
+          {
+            "icon": "clock",
+            "label": "Time",
+            "value": "3 p.m. to 6 p.m."
+          },
+          {
+            "icon": "pin",
+            "label": "Venue",
+            "value": "Riverside Park, Big Field"
+          }
+        ],
+        "art": [
+          {
+            "kind": "person",
+            "x": 120,
+            "pose": "point",
+            "mood": "excited",
+            "gender": "boy",
+            "top": "#E76F51",
+            "scale": 1.6
+          },
+          {
+            "kind": "kite",
+            "x": 260,
+            "y": 170,
+            "scale": 1.4
+          }
+        ],
+        "banner": "Activities",
+        "art_right": [
+          {
+            "kind": "person",
+            "x": 200,
+            "pose": "wave",
+            "mood": "happy",
+            "gender": "girl",
+            "top": "#2A9D8F",
+            "scale": 1.6
+          }
+        ],
+        "boxes": [
+          {
+            "title": "Kite-Making Workshop",
+            "sub": "3 p.m. to 4 p.m.",
+            "icon": "palette",
+            "body": "Make your own kite!\n$5 per child. All materials provided."
+          },
+          {
+            "title": "Kite-Flying Contest",
+            "sub": "4.30 p.m. to 5.30 p.m.",
+            "icon": "trophy",
+            "body": "Open to children aged 7 to 12.\nPrizes for the three highest-flying kites!"
+          },
+          {
+            "title": "Food Corner",
+            "sub": "Open all afternoon",
+            "icon": "food",
+            "body": "Buy snacks and drinks from our stalls."
+          },
+          {
+            "title": "Lucky Draw",
+            "sub": "5.45 p.m.",
+            "icon": "gift",
+            "body": "All visitors can take part.\nCollect your ticket at the entrance."
+          }
+        ],
+        "wide_box": {
+          "title": "Kite-Making Workshop: register by 14 November",
+          "body": "Register at www.brightwatercc.sg\nOnly 40 places available!"
+        },
+        "footer": [
+          "For enquiries, call Ms Farah at 6123 4567."
+        ]
+      }
+    },
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q37"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3eng-placement-quest-q38",
+    "skill": "p3-english",
+    "topic": "reading.visual",
+    "subskill": "vt_purpose",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "The main purpose of the poster is to ____.",
+    "passage": "Brightwater Community Club presents\n**Riverside Kite Day**\nFly high and have fun with the whole family!\nFREE ENTRY!\nDate: Saturday, 21 November\nTime: 3 p.m. to 6 p.m.\nVenue: Riverside Park, Big Field\n**Activities**\n- **Kite-Making Workshop** (3 p.m. to 4 p.m.): Make your own kite! $5 per child. All materials provided.\n- **Kite-Flying Contest** (4.30 p.m. to 5.30 p.m.): Open to children aged 7 to 12. Prizes for the three highest-flying kites!\n- **Food Corner** (Open all afternoon): Buy snacks and drinks from our stalls.\n- **Lucky Draw** (5.45 p.m.): All visitors can take part. Collect your ticket at the entrance.\n**Kite-Making Workshop: register by 14 November** Register at www.brightwatercc.sg Only 40 places available!\nFor enquiries, call Ms Farah at 6123 4567.",
+    "options": [
+      "teach children how to make kites",
+      "invite people to a kite event at the park",
+      "sell kites and snacks",
+      "find a winner for the contest"
+    ],
+    "answer": 2,
+    "working": [
+      "Look at the biggest words: ‘Riverside Kite Day’ with a date, time and place. The poster is inviting people to come.",
+      "Watch out: The other options are only one small part of the poster. The main purpose covers the whole poster."
+    ],
+    "figure": "figures/p3eng-placement-quest-q35-q38.svg",
+    "figure_spec": {
+      "poster": {
+        "theme": "#2A7F62",
+        "accent": "#BFE3C9",
+        "presenter": "Brightwater Community Club presents",
+        "badge": "FREE|ENTRY!",
+        "corner_icon": "star",
+        "title": "Riverside Kite Day",
+        "tagline": "Fly high and have fun with the whole family!",
+        "facts": [
+          {
+            "icon": "calendar",
+            "label": "Date",
+            "value": "Saturday, 21 November"
+          },
+          {
+            "icon": "clock",
+            "label": "Time",
+            "value": "3 p.m. to 6 p.m."
+          },
+          {
+            "icon": "pin",
+            "label": "Venue",
+            "value": "Riverside Park, Big Field"
+          }
+        ],
+        "art": [
+          {
+            "kind": "person",
+            "x": 120,
+            "pose": "point",
+            "mood": "excited",
+            "gender": "boy",
+            "top": "#E76F51",
+            "scale": 1.6
+          },
+          {
+            "kind": "kite",
+            "x": 260,
+            "y": 170,
+            "scale": 1.4
+          }
+        ],
+        "banner": "Activities",
+        "art_right": [
+          {
+            "kind": "person",
+            "x": 200,
+            "pose": "wave",
+            "mood": "happy",
+            "gender": "girl",
+            "top": "#2A9D8F",
+            "scale": 1.6
+          }
+        ],
+        "boxes": [
+          {
+            "title": "Kite-Making Workshop",
+            "sub": "3 p.m. to 4 p.m.",
+            "icon": "palette",
+            "body": "Make your own kite!\n$5 per child. All materials provided."
+          },
+          {
+            "title": "Kite-Flying Contest",
+            "sub": "4.30 p.m. to 5.30 p.m.",
+            "icon": "trophy",
+            "body": "Open to children aged 7 to 12.\nPrizes for the three highest-flying kites!"
+          },
+          {
+            "title": "Food Corner",
+            "sub": "Open all afternoon",
+            "icon": "food",
+            "body": "Buy snacks and drinks from our stalls."
+          },
+          {
+            "title": "Lucky Draw",
+            "sub": "5.45 p.m.",
+            "icon": "gift",
+            "body": "All visitors can take part.\nCollect your ticket at the entrance."
+          }
+        ],
+        "wide_box": {
+          "title": "Kite-Making Workshop: register by 14 November",
+          "body": "Register at www.brightwatercc.sg\nOnly 40 places available!"
+        },
+        "footer": [
+          "For enquiries, call Ms Farah at 6123 4567."
+        ]
+      }
+    },
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q38"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3eng-placement-quest-q39",
+    "skill": "p3-english",
+    "topic": "reading.comprehension",
+    "subskill": "comp_literal",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Why did Nathan bring Biscuit home?",
+    "passage": "**The Missing Hamster**\n\nNathan’s class had a pet hamster named Biscuit. Every Friday, one pupil took Biscuit home for the weekend. This Friday, it was finally Nathan’s turn. He carried the cage home carefully and placed it on his desk.\n\nOn Saturday morning, Nathan woke up and rushed to say hello. His heart sank. The cage door was open and Biscuit was gone! Nathan searched under his bed, behind the curtains and inside his cupboard, but there was no sign of the hamster.\n\n\"What will I tell my teacher?\" he cried. His older sister, Joanne, heard him and came to help. She noticed a trail of tiny seeds on the floor. \"Biscuit must have dragged **them** out of his food bowl,\" she said. The two of them followed the trail into the kitchen.\n\nThere, curled up in a sock inside the laundry basket, was Biscuit, fast asleep. Nathan let out a sigh of relief and gently put him back in the cage. This time, he checked the door twice.\n\nOn Monday, Nathan told his teacher everything that had happened. Instead of scolding him, she thanked him for being honest. From then on, Nathan always checked every latch he closed.",
+    "options": [
+      "He had just bought the hamster.",
+      "It was his turn to look after the class pet.",
+      "His sister asked him to.",
+      "The hamster was sick."
+    ],
+    "answer": 2,
+    "working": [
+      "Paragraph 1: ‘one pupil took Biscuit home’ every Friday, and ‘it was finally Nathan’s turn’."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q39"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q40",
+    "skill": "p3-english",
+    "topic": "reading.comprehension",
+    "subskill": "comp_true_false",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "True or false? Nathan took Biscuit home on a Saturday.",
+    "passage": "**The Missing Hamster**\n\nNathan’s class had a pet hamster named Biscuit. Every Friday, one pupil took Biscuit home for the weekend. This Friday, it was finally Nathan’s turn. He carried the cage home carefully and placed it on his desk.\n\nOn Saturday morning, Nathan woke up and rushed to say hello. His heart sank. The cage door was open and Biscuit was gone! Nathan searched under his bed, behind the curtains and inside his cupboard, but there was no sign of the hamster.\n\n\"What will I tell my teacher?\" he cried. His older sister, Joanne, heard him and came to help. She noticed a trail of tiny seeds on the floor. \"Biscuit must have dragged **them** out of his food bowl,\" she said. The two of them followed the trail into the kitchen.\n\nThere, curled up in a sock inside the laundry basket, was Biscuit, fast asleep. Nathan let out a sigh of relief and gently put him back in the cage. This time, he checked the door twice.\n\nOn Monday, Nathan told his teacher everything that had happened. Instead of scolding him, she thanked him for being honest. From then on, Nathan always checked every latch he closed.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 2,
+    "working": [
+      "He took Biscuit home on Friday. Saturday is when he found the cage empty.",
+      "Watch out: Saturday IS in the passage, just for a different event. Check which event goes with which day."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q40"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q41",
+    "skill": "p3-english",
+    "topic": "reading.comprehension",
+    "subskill": "comp_true_false",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "True or false? Nathan looked for Biscuit in more than one place.",
+    "passage": "**The Missing Hamster**\n\nNathan’s class had a pet hamster named Biscuit. Every Friday, one pupil took Biscuit home for the weekend. This Friday, it was finally Nathan’s turn. He carried the cage home carefully and placed it on his desk.\n\nOn Saturday morning, Nathan woke up and rushed to say hello. His heart sank. The cage door was open and Biscuit was gone! Nathan searched under his bed, behind the curtains and inside his cupboard, but there was no sign of the hamster.\n\n\"What will I tell my teacher?\" he cried. His older sister, Joanne, heard him and came to help. She noticed a trail of tiny seeds on the floor. \"Biscuit must have dragged **them** out of his food bowl,\" she said. The two of them followed the trail into the kitchen.\n\nThere, curled up in a sock inside the laundry basket, was Biscuit, fast asleep. Nathan let out a sigh of relief and gently put him back in the cage. This time, he checked the door twice.\n\nOn Monday, Nathan told his teacher everything that had happened. Instead of scolding him, she thanked him for being honest. From then on, Nathan always checked every latch he closed.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "working": [
+      "He searched under the bed, behind the curtains and inside the cupboard: three places."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q41"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q42",
+    "skill": "p3-english",
+    "topic": "reading.comprehension",
+    "subskill": "comp_true_false",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "True or false? Joanne found Biscuit in Nathan’s cupboard.",
+    "passage": "**The Missing Hamster**\n\nNathan’s class had a pet hamster named Biscuit. Every Friday, one pupil took Biscuit home for the weekend. This Friday, it was finally Nathan’s turn. He carried the cage home carefully and placed it on his desk.\n\nOn Saturday morning, Nathan woke up and rushed to say hello. His heart sank. The cage door was open and Biscuit was gone! Nathan searched under his bed, behind the curtains and inside his cupboard, but there was no sign of the hamster.\n\n\"What will I tell my teacher?\" he cried. His older sister, Joanne, heard him and came to help. She noticed a trail of tiny seeds on the floor. \"Biscuit must have dragged **them** out of his food bowl,\" she said. The two of them followed the trail into the kitchen.\n\nThere, curled up in a sock inside the laundry basket, was Biscuit, fast asleep. Nathan let out a sigh of relief and gently put him back in the cage. This time, he checked the door twice.\n\nOn Monday, Nathan told his teacher everything that had happened. Instead of scolding him, she thanked him for being honest. From then on, Nathan always checked every latch he closed.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 2,
+    "working": [
+      "Biscuit was found in a sock inside the laundry basket in the kitchen."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q42"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q43",
+    "skill": "p3-english",
+    "topic": "reading.comprehension",
+    "subskill": "comp_referent",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "What does ‘them’ (in bold in the passage) refer to?",
+    "passage": "**The Missing Hamster**\n\nNathan’s class had a pet hamster named Biscuit. Every Friday, one pupil took Biscuit home for the weekend. This Friday, it was finally Nathan’s turn. He carried the cage home carefully and placed it on his desk.\n\nOn Saturday morning, Nathan woke up and rushed to say hello. His heart sank. The cage door was open and Biscuit was gone! Nathan searched under his bed, behind the curtains and inside his cupboard, but there was no sign of the hamster.\n\n\"What will I tell my teacher?\" he cried. His older sister, Joanne, heard him and came to help. She noticed a trail of tiny seeds on the floor. \"Biscuit must have dragged **them** out of his food bowl,\" she said. The two of them followed the trail into the kitchen.\n\nThere, curled up in a sock inside the laundry basket, was Biscuit, fast asleep. Nathan let out a sigh of relief and gently put him back in the cage. This time, he checked the door twice.\n\nOn Monday, Nathan told his teacher everything that had happened. Instead of scolding him, she thanked him for being honest. From then on, Nathan always checked every latch he closed.",
+    "answer": "the tiny seeds",
+    "accept": [
+      "a trail of tiny seeds",
+      "tiny seeds",
+      "the seeds"
+    ],
+    "working": [
+      "Look backwards for the nearest thing that could be dragged out of a food bowl: the tiny seeds. Test it: ‘Biscuit must have dragged the seeds out’ makes sense."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q43"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q44",
+    "skill": "p3-english",
+    "topic": "reading.comprehension",
+    "subskill": "comp_vocab",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Nathan searched (A) under his bed, behind the curtains and inside his cupboard, but there was no sign (B) of the hamster.\n\nWhich word means \"looked for\"?",
+    "passage": "**The Missing Hamster**\n\nNathan’s class had a pet hamster named Biscuit. Every Friday, one pupil took Biscuit home for the weekend. This Friday, it was finally Nathan’s turn. He carried the cage home carefully and placed it on his desk.\n\nOn Saturday morning, Nathan woke up and rushed to say hello. His heart sank. The cage door was open and Biscuit was gone! Nathan searched under his bed, behind the curtains and inside his cupboard, but there was no sign of the hamster.\n\n\"What will I tell my teacher?\" he cried. His older sister, Joanne, heard him and came to help. She noticed a trail of tiny seeds on the floor. \"Biscuit must have dragged **them** out of his food bowl,\" she said. The two of them followed the trail into the kitchen.\n\nThere, curled up in a sock inside the laundry basket, was Biscuit, fast asleep. Nathan let out a sigh of relief and gently put him back in the cage. This time, he checked the door twice.\n\nOn Monday, Nathan told his teacher everything that had happened. Instead of scolding him, she thanked him for being honest. From then on, Nathan always checked every latch he closed.",
+    "options": [
+      "searched",
+      "sign"
+    ],
+    "answer": 1,
+    "working": [
+      "Swap test: ‘Nathan looked for under his bed…’ Searched = looked for carefully."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q44"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q45",
+    "skill": "p3-english",
+    "topic": "reading.comprehension",
+    "subskill": "comp_phrase",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Pick out a three-word phrase from paragraph 2 that shows Nathan suddenly felt upset.",
+    "passage": "**The Missing Hamster**\n\nNathan’s class had a pet hamster named Biscuit. Every Friday, one pupil took Biscuit home for the weekend. This Friday, it was finally Nathan’s turn. He carried the cage home carefully and placed it on his desk.\n\nOn Saturday morning, Nathan woke up and rushed to say hello. His heart sank. The cage door was open and Biscuit was gone! Nathan searched under his bed, behind the curtains and inside his cupboard, but there was no sign of the hamster.\n\n\"What will I tell my teacher?\" he cried. His older sister, Joanne, heard him and came to help. She noticed a trail of tiny seeds on the floor. \"Biscuit must have dragged **them** out of his food bowl,\" she said. The two of them followed the trail into the kitchen.\n\nThere, curled up in a sock inside the laundry basket, was Biscuit, fast asleep. Nathan let out a sigh of relief and gently put him back in the cage. This time, he checked the door twice.\n\nOn Monday, Nathan told his teacher everything that had happened. Instead of scolding him, she thanked him for being honest. From then on, Nathan always checked every latch he closed.",
+    "answer": "His heart sank",
+    "working": [
+      "When your heart sinks, you suddenly feel worried or sad. Count the words: His (1) heart (2) sank (3).",
+      "Watch out: Copy exactly. A four-word answer gets no mark even if it contains the right words."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q45"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q46",
+    "skill": "p3-english",
+    "topic": "reading.comprehension",
+    "subskill": "comp_sequence",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Number the events in the order they happened (1 = first).\n\nA. Joanne noticed a trail of seeds.\nB. Nathan found the cage door open.\nC. Nathan checked the cage door twice.",
+    "passage": "**The Missing Hamster**\n\nNathan’s class had a pet hamster named Biscuit. Every Friday, one pupil took Biscuit home for the weekend. This Friday, it was finally Nathan’s turn. He carried the cage home carefully and placed it on his desk.\n\nOn Saturday morning, Nathan woke up and rushed to say hello. His heart sank. The cage door was open and Biscuit was gone! Nathan searched under his bed, behind the curtains and inside his cupboard, but there was no sign of the hamster.\n\n\"What will I tell my teacher?\" he cried. His older sister, Joanne, heard him and came to help. She noticed a trail of tiny seeds on the floor. \"Biscuit must have dragged **them** out of his food bowl,\" she said. The two of them followed the trail into the kitchen.\n\nThere, curled up in a sock inside the laundry basket, was Biscuit, fast asleep. Nathan let out a sigh of relief and gently put him back in the cage. This time, he checked the door twice.\n\nOn Monday, Nathan told his teacher everything that had happened. Instead of scolding him, she thanked him for being honest. From then on, Nathan always checked every latch he closed.",
+    "answer": "2, 1, 3",
+    "working": [
+      "Cage open (paragraph 2) → seeds noticed (paragraph 3) → door checked twice (paragraph 4)."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q46"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q47",
+    "skill": "p3-english",
+    "topic": "reading.comprehension",
+    "subskill": "comp_feelings",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "How did Nathan feel when he found Biscuit? Why did he feel this way?",
+    "passage": "**The Missing Hamster**\n\nNathan’s class had a pet hamster named Biscuit. Every Friday, one pupil took Biscuit home for the weekend. This Friday, it was finally Nathan’s turn. He carried the cage home carefully and placed it on his desk.\n\nOn Saturday morning, Nathan woke up and rushed to say hello. His heart sank. The cage door was open and Biscuit was gone! Nathan searched under his bed, behind the curtains and inside his cupboard, but there was no sign of the hamster.\n\n\"What will I tell my teacher?\" he cried. His older sister, Joanne, heard him and came to help. She noticed a trail of tiny seeds on the floor. \"Biscuit must have dragged **them** out of his food bowl,\" she said. The two of them followed the trail into the kitchen.\n\nThere, curled up in a sock inside the laundry basket, was Biscuit, fast asleep. Nathan let out a sigh of relief and gently put him back in the cage. This time, he checked the door twice.\n\nOn Monday, Nathan told his teacher everything that had happened. Instead of scolding him, she thanked him for being honest. From then on, Nathan always checked every latch he closed.",
+    "answer": "He felt relieved because he had found Biscuit safe and sound, so the class pet was not lost.",
+    "accept": [
+      "glad / happy (with the correct reason)"
+    ],
+    "working": [
+      "‘let out a sigh of relief’ is the feeling clue: relieved. The reason is that the missing hamster was safe."
+    ],
+    "marking": [
+      "1 mark for the feeling (relieved), 1 mark for the reason from the passage."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q47"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-placement-quest-q48",
+    "skill": "p3-english",
+    "topic": "reading.comprehension",
+    "subskill": "comp_inference",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "open",
+    "stem": "Why did the teacher thank Nathan instead of scolding him?",
+    "passage": "**The Missing Hamster**\n\nNathan’s class had a pet hamster named Biscuit. Every Friday, one pupil took Biscuit home for the weekend. This Friday, it was finally Nathan’s turn. He carried the cage home carefully and placed it on his desk.\n\nOn Saturday morning, Nathan woke up and rushed to say hello. His heart sank. The cage door was open and Biscuit was gone! Nathan searched under his bed, behind the curtains and inside his cupboard, but there was no sign of the hamster.\n\n\"What will I tell my teacher?\" he cried. His older sister, Joanne, heard him and came to help. She noticed a trail of tiny seeds on the floor. \"Biscuit must have dragged **them** out of his food bowl,\" she said. The two of them followed the trail into the kitchen.\n\nThere, curled up in a sock inside the laundry basket, was Biscuit, fast asleep. Nathan let out a sigh of relief and gently put him back in the cage. This time, he checked the door twice.\n\nOn Monday, Nathan told his teacher everything that had happened. Instead of scolding him, she thanked him for being honest. From then on, Nathan always checked every latch he closed.",
+    "answer": "Because he was honest and told her the truth about what had happened.",
+    "working": [
+      "Paragraph 5: ‘she thanked him for being honest’. Answer with ‘because’ and the reason."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "placement_quest.json#Q48"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  }
+]

@@ -1,0 +1,2120 @@
+[
+  {
+    "id": "p3sci-eoy-mock-80-e1",
+    "skill": "p3-science",
+    "topic": "diversity.living",
+    "subskill": "characteristics",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Mrs Lee's mimosa plant folds its leaves when it is touched. On a hot day, Ben's dog lies down in the shade.\n\nWhich characteristic of living things do **both** show?",
+    "options": [
+      "Living things grow.",
+      "Living things reproduce.",
+      "Living things respond to changes.",
+      "Living things need food to survive."
+    ],
+    "answer": 3,
+    "working": [
+      "Both react to something around them (a touch, the heat) — they respond to changes.",
+      "Watch out: Ask: what CAUSED the action? A touch or heat = a change around it = respond."
+    ],
+    "distractors": {
+      "1": "Neither story shows them getting bigger.",
+      "2": "Neither story shows young being produced.",
+      "4": "Neither story is about food."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E1"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e2",
+    "skill": "p3-science",
+    "topic": "diversity.living",
+    "subskill": "lnl_identify",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "The table shows some information about things P, Q, R and S. A tick (✓) shows that the thing has the characteristic.\n\n| Thing | Can grow | Can reproduce | Needs air, food\nand water |\n| --- | --- | --- | --- |\n| P | ✓ | ✓ | ✓ |\n| Q | ✓ | | |\n| R | ✓ | ✓ | ✓ |\n| S | | | |\n\nWhich of them are living things?",
+    "options": [
+      "P and R only",
+      "Q and R only",
+      "P, Q and R only",
+      "P, Q, R and S"
+    ],
+    "answer": 1,
+    "working": [
+      "A living thing has ALL the characteristics. Only P and R grow, reproduce and need air, food and water.",
+      "Watch out: Growing alone does not make something living."
+    ],
+    "distractors": {
+      "2": "Q can grow but cannot reproduce — like fire or a crystal, it is non-living.",
+      "3": "Q is not living (one tick is not enough).",
+      "4": "S has none of the characteristics."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E2"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e3",
+    "skill": "p3-science",
+    "topic": "diversity.classification",
+    "subskill": "plant_fungi_groups",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Study living things W, X and Y.\n\nWhich statement about W, X and Y is correct?",
+    "options": [
+      "W and X are flowering plants.",
+      "W and Y reproduce by spores.",
+      "Y makes its own food.",
+      "X and Y reproduce by seeds."
+    ],
+    "answer": 2,
+    "working": [
+      "W is a fern (non-flowering plant) and Y is a mushroom (fungus). Both reproduce by spores.",
+      "Watch out: Spores belong to ferns AND fungi — but only the fern makes its own food."
+    ],
+    "distractors": {
+      "1": "W (fern) has no flowers.",
+      "3": "A mushroom is a fungus — it cannot make its own food.",
+      "4": "Mushrooms reproduce by spores, not seeds."
+    },
+    "figure": "figures/p3sci-eoy-mock-80-e3.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "row",
+          "items": [
+            {
+              "kind": "icon",
+              "icon": "fern",
+              "w": 90,
+              "h": 80
+            },
+            {
+              "kind": "icon",
+              "icon": "fruiting_plant",
+              "w": 90,
+              "h": 80
+            },
+            {
+              "kind": "icon",
+              "icon": "mushroom",
+              "w": 90,
+              "h": 80
+            }
+          ],
+          "captions": [
+            "W",
+            "X",
+            "Y"
+          ],
+          "gap": 40
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E3"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e4",
+    "skill": "p3-science",
+    "topic": "diversity.classification",
+    "subskill": "fungi_bacteria",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Four statements were made about fungi and bacteria.\n\nA Yeast is used to make bread dough rise.\nB Some bacteria are used to make yoghurt.\nC Mould grows faster on dry bread than on moist bread.\nD All bacteria cause diseases.",
+    "options": [
+      "A only",
+      "A and B only",
+      "B and C only",
+      "A, C and D only"
+    ],
+    "answer": 2,
+    "working": [
+      "A and B are true. Mould needs moisture, so it grows faster on MOIST bread (C false). Many bacteria are useful (D false).",
+      "Watch out: Mark T or F beside every statement first."
+    ],
+    "distractors": {
+      "1": "B is also true.",
+      "3": "C is false — mould needs water to grow.",
+      "4": "C and D are both false."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E4"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e5",
+    "skill": "p3-science",
+    "topic": "diversity.classification",
+    "subskill": "fungi_bacteria",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Three similar slices of bread, A, B and C, were left for five days. A tick (✓) shows the condition is present. A slice not kept in a warm place was kept in a refrigerator.\n\n| Bread | Sprinkled\nwith water | Kept in a\nwarm place |\n| --- | --- | --- |\n| A | ✓ | ✓ |\n| B | | ✓ |\n| C | ✓ | |\n\nWhich slice of bread will have the most mould?",
+    "options": [
+      "B",
+      "C",
+      "All will have the same amount.",
+      "A"
+    ],
+    "answer": 4,
+    "working": [
+      "Mould grows best with water (moisture) and warmth. Only A has both.",
+      "Watch out: Mould needs water, warmth, food and air — check every condition."
+    ],
+    "distractors": {
+      "1": "B is warm but dry — mould needs water.",
+      "2": "C is moist but cold — mould grows slowly in the cold.",
+      "3": "The conditions are different, so the amounts differ."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E5"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e6",
+    "skill": "p3-science",
+    "topic": "diversity.classification",
+    "subskill": "animal_groups",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "The table shows some characteristics of animals E, F and G. A tick (✓) shows the animal has the characteristic.\n\n| Animal | Has feathers | Has moist skin | Gives birth to\nyoung alive |\n| --- | --- | --- | --- |\n| E | ✓ | | |\n| F | | ✓ | |\n| G | | | ✓ |\n\nWhich of the following could be animals E, F and G?",
+    "options": [
+      "E: bat · F: frog · G: dolphin",
+      "E: penguin · F: crocodile · G: cat",
+      "E: penguin · F: salamander · G: whale",
+      "E: ostrich · F: toad · G: chicken"
+    ],
+    "answer": 3,
+    "working": [
+      "Penguin = bird (feathers). Salamander = amphibian (moist skin). Whale = mammal (gives birth to young alive).",
+      "Watch out: Check every animal in the row — one wrong animal makes the whole row wrong."
+    ],
+    "distractors": {
+      "1": "A bat has fur, not feathers.",
+      "2": "A crocodile has dry, scaly skin.",
+      "4": "A chicken lays eggs."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E6"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e7",
+    "skill": "p3-science",
+    "topic": "diversity.classification",
+    "subskill": "insect_or_not",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Study the flowchart.\n\nWhich animals could be P and S?",
+    "options": [
+      "P: spider · S: centipede",
+      "P: beetle · S: spider",
+      "P: butterfly · S: housefly",
+      "P: spider · S: butterfly"
+    ],
+    "answer": 4,
+    "working": [
+      "A spider has 2 body parts → P. A butterfly has 3 body parts, 6 legs and wings → S.",
+      "Watch out: Trace each animal from the top, saying Yes/No at every diamond."
+    ],
+    "distractors": {
+      "1": "A centipede does not have 3 body parts, so it stops at P, not S.",
+      "2": "A beetle has 3 body parts, so it cannot be P.",
+      "3": "A butterfly has 3 body parts, so it cannot be P."
+    },
+    "figure": "figures/p3sci-eoy-mock-80-e7.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "flowchart",
+          "start": "Animals",
+          "steps": [
+            {
+              "q": "Does it have 3 body parts?",
+              "side": "No",
+              "out": "P"
+            },
+            {
+              "q": "Does it have 6 legs?",
+              "side": "No",
+              "out": "Q"
+            },
+            {
+              "q": "Does it have wings?",
+              "side": "No",
+              "out": "R"
+            }
+          ],
+          "end": "S"
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E7"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e8",
+    "skill": "p3-science",
+    "topic": "diversity.classification",
+    "subskill": "chart_heading",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Study the classification chart.\n\nWhich of the following could be headings X and Y?",
+    "options": [
+      "X: Cannot make their own food · Y: Can make their own food",
+      "X: Reproduce by spores · Y: Reproduce by seeds",
+      "X: Non-flowering · Y: Flowering",
+      "X: Can only be seen under a microscope · Y: Can be seen without a microscope"
+    ],
+    "answer": 1,
+    "working": [
+      "Mushroom, mould and yeast are fungi — they cannot make their own food. Fern, moss and balsam are plants — they make their own food.",
+      "Watch out: A heading must be true for EVERY item under it."
+    ],
+    "distractors": {
+      "2": "Fern and moss reproduce by spores, so Y cannot be 'by seeds'.",
+      "3": "Fern and moss are non-flowering, so Y cannot be 'flowering'.",
+      "4": "Mushrooms and mould can be seen without a microscope."
+    },
+    "figure": "figures/p3sci-eoy-mock-80-e8.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "tree",
+          "root": "Living things",
+          "width": 340,
+          "children": [
+            {
+              "label": "X",
+              "children": [
+                {
+                  "label": "",
+                  "items": [
+                    "mushroom",
+                    "mould",
+                    "yeast"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Y",
+              "children": [
+                {
+                  "label": "",
+                  "items": [
+                    "bird's-nest fern",
+                    "moss",
+                    "balsam"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E8"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e9",
+    "skill": "p3-science",
+    "topic": "diversity.materials",
+    "subskill": "property_to_use",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "The table shows the properties of materials P, Q, R and S.\n\n| Material | Strong | Flexible | Waterproof | Floats |\n| --- | --- | --- | --- | --- |\n| P | ✓ | | ✓ | ✓ |\n| Q | ✓ | | ✓ | |\n| R | | ✓ | ✓ | ✓ |\n| S | ✓ | | | ✓ |\n\nWhich material is most suitable for making a kayak (a small boat)?",
+    "options": [
+      "Q",
+      "P",
+      "R",
+      "S"
+    ],
+    "answer": 2,
+    "working": [
+      "A kayak must be strong (carry a person), waterproof (keep water out) and float. Only P has all three.",
+      "Watch out: List the jobs first; flexible is not needed here."
+    ],
+    "distractors": {
+      "1": "Q sinks.",
+      "3": "R is not strong.",
+      "4": "S is not waterproof — water would soak in."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E9"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e10",
+    "skill": "p3-science",
+    "topic": "diversity.materials",
+    "subskill": "transparency",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Pam put a toy inside three boxes made of materials K, L and M, one at a time. She recorded what she saw.\n\n| Box made of | What Pam saw |\n| --- | --- |\n| K | toy seen clearly |\n| L | toy seen faintly |\n| M | toy cannot be seen |\n\nWhich shows the materials from the one that lets the MOST light through to the LEAST?",
+    "options": [
+      "M, L, K",
+      "L, K, M",
+      "K, M, L",
+      "K, L, M"
+    ],
+    "answer": 4,
+    "working": [
+      "Clearly = most light passes through (K); faintly = some (L); cannot see = no light (M).",
+      "Watch out: Check the direction of the order the question asks for."
+    ],
+    "distractors": {
+      "1": "This is least to most — reversed.",
+      "2": "L lets less light through than K.",
+      "3": "M lets no light through, so it must be last."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E10"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e11",
+    "skill": "p3-science",
+    "topic": "diversity.materials",
+    "subskill": "flexibility",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Kai pressed down sheets E, F and G, of the same size, one at a time, and measured the distance d each sheet bent just before it broke.\n\n| Sheet | Distance bent, d (cm) |\n| --- | --- |\n| E | 2 |\n| F | 9 |\n| G | 5 |\n\nWhich sheet is most suitable for the cover of a notebook that must bend easily without breaking?",
+    "options": [
+      "E",
+      "G",
+      "F",
+      "E and G only"
+    ],
+    "answer": 3,
+    "working": [
+      "The further a sheet bends before breaking, the more flexible it is. F bent the most (9 cm).",
+      "Watch out: Read what d means in THIS question before choosing biggest or smallest."
+    ],
+    "distractors": {
+      "1": "E is the least flexible.",
+      "2": "G is less flexible than F.",
+      "4": "Neither is as flexible as F."
+    },
+    "figure": "figures/p3sci-eoy-mock-80-e11.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "flex_test"
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E11"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e12",
+    "skill": "p3-science",
+    "topic": "diversity.materials",
+    "subskill": "waterproof",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Bowls made of materials P, Q, R and S were placed over similar containers. 100 ml of water was poured into each bowl. After 5 minutes the water in each container was measured.\n\n| Material | Water collected in container (ml) |\n| --- | --- |\n| P | 0 |\n| Q | 60 |\n| R | 20 |\n| S | 95 |\n\nWhich material is most suitable for making an umbrella?",
+    "options": [
+      "P",
+      "Q",
+      "R",
+      "S"
+    ],
+    "answer": 1,
+    "working": [
+      "No water passed through P, so P is waterproof — it keeps the rain off.",
+      "Watch out: Waterproof = does NOT allow water to pass through = 0 ml collected."
+    ],
+    "distractors": {
+      "2": "60 ml passed through Q.",
+      "3": "Some water (20 ml) passed through R.",
+      "4": "Almost all the water passed through S."
+    },
+    "figure": "figures/p3sci-eoy-mock-80-e12.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "bowl_test",
+          "label": "P",
+          "collected": false
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E12"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e13",
+    "skill": "p3-science",
+    "topic": "diversity.materials",
+    "subskill": "fair_test",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Ali wants to find out if the **type of material** affects whether an object floats. Which objects should he use?",
+    "options": [
+      "Objects of the same size and shape, made of different materials",
+      "Objects of different sizes, made of the same material",
+      "Objects of different shapes, made of different materials",
+      "Objects of the same size, made of the same material"
+    ],
+    "answer": 1,
+    "working": [
+      "In a fair test only the variable being tested (material) changes; size and shape stay the same.",
+      "Watch out: Changed variable = what the aim says. Keep everything else the same."
+    ],
+    "distractors": {
+      "2": "This changes size, not material.",
+      "3": "Two things change (shape and material) — not fair.",
+      "4": "Nothing changes, so nothing is being tested."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E13"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e14",
+    "skill": "p3-science",
+    "topic": "diversity.materials",
+    "subskill": "material_types",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Which object is correctly matched to a property of the material it is made of?",
+    "options": [
+      "rubber tyre — lets light pass through",
+      "glass window — flexible",
+      "metal pot — absorbent",
+      "fabric towel — absorbent"
+    ],
+    "answer": 4,
+    "working": [
+      "A towel is made of fabric, which soaks up (absorbs) water.",
+      "Watch out: Say why the object needs that property — if it makes no sense, it's wrong."
+    ],
+    "distractors": {
+      "1": "Rubber does not let light pass through.",
+      "2": "Glass is not flexible — it breaks when bent.",
+      "3": "Metal does not absorb water."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E14"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e15",
+    "skill": "p3-science",
+    "topic": "cycles.plant",
+    "subskill": "plant_stages",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "The diagram shows the life cycle of a flowering plant. One stage is missing.\n\nWhat is the missing stage?",
+    "options": [
+      "fruit",
+      "germinating seed",
+      "spore",
+      "flower"
+    ],
+    "answer": 2,
+    "working": [
+      "A seed germinates (root then shoot grows out) before it becomes a young plant.",
+      "Watch out: Follow the arrows: the missing box comes straight after the seed."
+    ],
+    "distractors": {
+      "1": "Fruits are part of the adult plant, after the young plant stage.",
+      "3": "Flowering plants reproduce by seeds, not spores.",
+      "4": "Flowers appear on the adult plant."
+    },
+    "figure": "figures/p3sci-eoy-mock-80-e15.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "life_cycle",
+          "stages": [
+            "seed",
+            "",
+            "young plant",
+            "adult plant"
+          ],
+          "icons": [
+            "seed",
+            null,
+            "young_plant",
+            "fruiting_plant"
+          ],
+          "blank": [
+            1
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E15"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e16",
+    "skill": "p3-science",
+    "topic": "cycles.plant",
+    "subskill": "germination",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Similar bean seeds were placed on cotton wool in four dishes, A, B, C and D.\n\nIn which dishes will the seeds germinate?",
+    "options": [
+      "A only",
+      "A and D only",
+      "A and C only",
+      "A, C and D"
+    ],
+    "answer": 3,
+    "working": [
+      "Seeds need water, air and warmth to germinate. A and C have all three. Light is not needed, so the dark dish C still germinates.",
+      "Watch out: WAW: Water, Air, Warmth. NOT light."
+    ],
+    "distractors": {
+      "1": "C also germinates — light is not needed for germination.",
+      "2": "D is too cold — seeds need warmth.",
+      "4": "D is too cold."
+    },
+    "figure": "figures/p3sci-eoy-mock-80-e16.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "germination",
+          "dishes": [
+            {
+              "label": "A",
+              "water": true,
+              "note": "wet, light, 30 °C"
+            },
+            {
+              "label": "B",
+              "water": false,
+              "note": "dry, light, 30 °C"
+            },
+            {
+              "label": "C",
+              "water": true,
+              "cover": "dark",
+              "note": "wet, dark, 30 °C"
+            },
+            {
+              "label": "D",
+              "water": true,
+              "note": "wet, light, 4 °C"
+            }
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E16"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e17",
+    "skill": "p3-science",
+    "topic": "cycles.animal",
+    "subskill": "four_stage",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Which of these animals have a **pupa** stage in their life cycles?\n\nA mosquito\nB cockroach\nC beetle\nD chicken",
+    "options": [
+      "A and B only",
+      "A and C only",
+      "B and D only",
+      "A, B and C only"
+    ],
+    "answer": 2,
+    "working": [
+      "Mosquitoes and beetles have four stages: egg, larva, pupa, adult.",
+      "Watch out: B-B-M make pupae: Butterfly, Beetle, Mosquito."
+    ],
+    "distractors": {
+      "1": "A cockroach has egg, nymph, adult — no pupa.",
+      "3": "Neither the cockroach nor the chicken has a pupa.",
+      "4": "The cockroach has no pupa."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E17"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e18",
+    "skill": "p3-science",
+    "topic": "cycles.animal",
+    "subskill": "cycle_diagram",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Which diagram shows the life cycle of a cockroach?",
+    "options": [
+      "Diagram 1",
+      "Diagram 2",
+      "Diagram 3",
+      "Diagram 4"
+    ],
+    "answer": 4,
+    "working": [
+      "A cockroach has three stages: egg → nymph → adult → egg.",
+      "Watch out: Nymph = young that looks like the adult. No pupa for nymph animals."
+    ],
+    "distractors": {
+      "1": "That is a four-stage cycle (beetle, butterfly, mosquito).",
+      "2": "Cockroaches have no pupa stage.",
+      "3": "The order is wrong: the egg hatches into a nymph, not an adult."
+    },
+    "figure": "figures/p3sci-eoy-mock-80-e18.svg",
+    "figure_spec": {
+      "options": [
+        {
+          "kind": "life_cycle",
+          "stages": [
+            "egg",
+            "larva",
+            "pupa",
+            "adult"
+          ],
+          "size": "small",
+          "w": 190,
+          "h": 120
+        },
+        {
+          "kind": "life_cycle",
+          "stages": [
+            "egg",
+            "nymph",
+            "pupa",
+            "adult"
+          ],
+          "size": "small",
+          "w": 190,
+          "h": 120
+        },
+        {
+          "kind": "life_cycle",
+          "stages": [
+            "egg",
+            "adult",
+            "nymph"
+          ],
+          "size": "small",
+          "w": 190,
+          "h": 120
+        },
+        {
+          "kind": "life_cycle",
+          "stages": [
+            "egg",
+            "nymph",
+            "adult"
+          ],
+          "size": "small",
+          "w": 190,
+          "h": 120
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E18"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e19",
+    "skill": "p3-science",
+    "topic": "cycles.animal",
+    "subskill": "duration_graph",
+    "difficulty": 4,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "The graph shows the number of days a mosquito spends in each stage of its life cycle.\n\nThe eggs were laid on Day 0. At which stage is the mosquito on **Day 11**?",
+    "options": [
+      "pupa",
+      "larva",
+      "egg",
+      "adult"
+    ],
+    "answer": 1,
+    "working": [
+      "Egg: days 0–2. Larva: days 2–9 (2 + 7). Pupa: days 9–12 (9 + 3). Day 11 falls in the pupa stage.",
+      "Watch out: Add the bars one by one from Day 0, including the egg."
+    ],
+    "distractors": {
+      "2": "The larva stage ends on day 9.",
+      "3": "The egg hatches on day 2.",
+      "4": "Adult only from day 12 — forgetting the 2 egg days gives this wrong answer."
+    },
+    "figure": "figures/p3sci-eoy-mock-80-e19.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "bar_graph",
+          "categories": [
+            "egg",
+            "larva",
+            "pupa",
+            "adult"
+          ],
+          "series": [
+            {
+              "name": "mosquito",
+              "values": [
+                2,
+                7,
+                3,
+                14
+              ],
+              "fill": "dark"
+            }
+          ],
+          "ylabel": "Number of days",
+          "xlabel": "Stage",
+          "ymax": 16,
+          "ystep": 2,
+          "w": 320,
+          "h": 190
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E19"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e20",
+    "skill": "p3-science",
+    "topic": "cycles.animal",
+    "subskill": "stage_features",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Which statement about a tadpole is correct?",
+    "options": [
+      "It lives on land.",
+      "It looks like the adult frog.",
+      "It lives in water and has a tail.",
+      "It hatches from an egg laid on land."
+    ],
+    "answer": 3,
+    "working": [
+      "A tadpole lives in water and swims with its tail.",
+      "Watch out: Frog: 3 stages, but the young does NOT look like the adult."
+    ],
+    "distractors": {
+      "1": "Tadpoles live in water.",
+      "2": "A tadpole does not look like a frog — the frog is the odd one out among 3-stage animals.",
+      "4": "Frogs lay their eggs in water."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E20"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e21",
+    "skill": "p3-science",
+    "topic": "interactions.magnets",
+    "subskill": "poles",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "A bar magnet was divided into four equal parts, W, X, Y and Z. Each part was dipped into a tray of steel clips.\n\nWhich parts are the poles of the magnet?",
+    "options": [
+      "W and X",
+      "X and Y",
+      "Y and Z",
+      "W and Z"
+    ],
+    "answer": 4,
+    "working": [
+      "The magnetic force is strongest at the poles, at the two ends. W and Z attracted the most clips.",
+      "Watch out: Poles = the two ends = the two tallest bars."
+    ],
+    "distractors": {
+      "1": "X attracted only 2 clips.",
+      "2": "X and Y are the middle — the weakest part.",
+      "3": "Y attracted the fewest clips."
+    },
+    "figure": "figures/p3sci-eoy-mock-80-e21.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "magnet_layout",
+          "w": 270,
+          "h": 40,
+          "magnets": [
+            {
+              "type": "bar",
+              "x": 15,
+              "y": 6,
+              "len": 240,
+              "thick": 28,
+              "labels": [
+                "",
+                ""
+              ],
+              "parts": [
+                "W",
+                "X",
+                "Y",
+                "Z"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "bar_graph",
+          "categories": [
+            "W",
+            "X",
+            "Y",
+            "Z"
+          ],
+          "series": [
+            {
+              "name": "clips",
+              "values": [
+                8,
+                2,
+                1,
+                9
+              ],
+              "fill": "dark"
+            }
+          ],
+          "ylabel": "Number of clips attracted",
+          "xlabel": "Part of magnet",
+          "ymax": 10,
+          "ystep": 2,
+          "w": 300,
+          "h": 170
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E21"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e22",
+    "skill": "p3-science",
+    "topic": "interactions.magnets",
+    "subskill": "magnet_vs_magnetic",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Marcus brought each pole of a magnet near objects J, K, L and M.\n\n| Object | Near north pole | Near south pole |\n| --- | --- | --- |\n| J | attracted | attracted |\n| K | repelled | attracted |\n| L | no movement | no movement |\n| M | attracted | attracted |\n\nWhich object is **definitely** a magnet?",
+    "options": [
+      "J",
+      "K",
+      "L",
+      "M"
+    ],
+    "answer": 2,
+    "working": [
+      "K was repelled by the north pole. Only a magnet can be repelled by a magnet.",
+      "Watch out: Repelled = magnet for sure. Attracted alone proves nothing."
+    ],
+    "distractors": {
+      "1": "J was attracted by both poles — a magnetic material (it might not be a magnet).",
+      "3": "L did not move — non-magnetic.",
+      "4": "Like J, M could just be a magnetic material."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E22"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e23",
+    "skill": "p3-science",
+    "topic": "interactions.magnets",
+    "subskill": "pole_puzzle",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "A U-shaped magnet is attracted to a bar magnet as shown. End A is a north pole.\n\nWhat are poles P and Q?",
+    "options": [
+      "P: north · Q: south",
+      "P: north · Q: north",
+      "P: south · Q: north",
+      "P: south · Q: south"
+    ],
+    "answer": 3,
+    "working": [
+      "A (north) attracts P, so P is south. The other end of the bar magnet, Q, is north (and it attracts B, the south end of the U-magnet).",
+      "Watch out: Touching and attracting → opposite poles. Then flip for the other end."
+    ],
+    "distractors": {
+      "1": "P touches a north pole and attracts it, so P must be south.",
+      "2": "A magnet's two ends are always different.",
+      "4": "A magnet's two ends are always different."
+    },
+    "figure": "figures/p3sci-eoy-mock-80-e23.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "magnet_layout",
+          "w": 230,
+          "h": 160,
+          "magnets": [
+            {
+              "type": "u",
+              "x": 60,
+              "y": 40,
+              "w": 110,
+              "h": 112,
+              "arm": 22,
+              "open": "down",
+              "labels": [
+                "A",
+                "B"
+              ]
+            },
+            {
+              "type": "bar",
+              "x": 60,
+              "y": 14,
+              "len": 110,
+              "thick": 26,
+              "labels": [
+                "P",
+                "Q"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E23"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e24",
+    "skill": "p3-science",
+    "topic": "interactions.making_magnets",
+    "subskill": "electrical_method",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Ravi wants to find out if the **number of turns** of wire affects the strength of an electromagnet.\n\n| Set-up | Number of turns | Number of batteries | Core |\n| --- | --- | --- | --- |\n| A | 10 | 2 | iron nail |\n| B | 20 | 2 | iron nail |\n| C | 20 | 1 | iron nail |\n| D | 10 | 2 | copper rod |\n\nWhich two set-ups should he use?",
+    "options": [
+      "A and B",
+      "A and C",
+      "B and D",
+      "C and D"
+    ],
+    "answer": 1,
+    "working": [
+      "A and B differ ONLY in the number of turns.",
+      "Watch out: Cover the 'turns' column with your finger — the two set-ups must now look identical."
+    ],
+    "distractors": {
+      "2": "A and C differ in turns AND batteries.",
+      "3": "B and D differ in turns AND core.",
+      "4": "C and D differ in turns, batteries and core."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E24"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e25a",
+    "skill": "p3-science",
+    "topic": "diversity.living",
+    "subskill": "characteristics",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "open",
+    "stem": "Mei planted a balsam seedling and measured its height every week.\n\n| Week | 1 | 2 | 3 | 4 | 5 |\n| --- | --- | --- | --- | --- | --- |\n| Height (cm) | 3 | 6 | 10 | 15 | 21 |\n\n(a) Describe how the height of the plant changed over the five weeks.",
+    "answer": "The height **increased** every week (from 3 cm to 21 cm).",
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E25(a)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e25b",
+    "skill": "p3-science",
+    "topic": "diversity.living",
+    "subskill": "characteristics",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Mei planted a balsam seedling and measured its height every week.\n\n| Week | 1 | 2 | 3 | 4 | 5 |\n| --- | --- | --- | --- | --- | --- |\n| Height (cm) | 3 | 6 | 10 | 15 | 21 |\n\n(b) Which characteristic of living things does this show?",
+    "answer": "grow",
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E25(b)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "accept": [
+      "living things grow",
+      "they grow"
+    ]
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e25c",
+    "skill": "p3-science",
+    "topic": "diversity.living",
+    "subskill": "needs",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "open",
+    "stem": "Mei planted a balsam seedling and measured its height every week.\n\n| Week | 1 | 2 | 3 | 4 | 5 |\n| --- | --- | --- | --- | --- | --- |\n| Height (cm) | 3 | 6 | 10 | 15 | 21 |\n\n(c) In week 6, Mei went on holiday and nobody watered the plant. Two weeks later it had died. Explain why.",
+    "answer": "The plant did not get **water**. Living things need water to survive.",
+    "working": [
+      "Claim: It died because it had no water.",
+      "Evidence: Nobody watered it for two weeks.",
+      "Reasoning: Living things need water to survive."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E25(c)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e25d",
+    "skill": "p3-science",
+    "topic": "diversity.living",
+    "subskill": "characteristics",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Mei planted a balsam seedling and measured its height every week.\n\n| Week | 1 | 2 | 3 | 4 | 5 |\n| --- | --- | --- | --- | --- | --- |\n| Height (cm) | 3 | 6 | 10 | 15 | 21 |\n\n(d) Months later, Mei found new balsam plants growing near the pot. Which characteristic of living things does this show?",
+    "answer": "reproduce",
+    "marking": [
+      "Reject: 'grow' — the plants are NEW plants."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E25(d)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "accept": [
+      "living things reproduce",
+      "they reproduce"
+    ]
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e26a",
+    "skill": "p3-science",
+    "topic": "diversity.classification",
+    "subskill": "insect_or_not",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "(a) Give two reasons why animal Z is **not** an insect.\n\nReason 1:\nReason 2:",
+    "answer": "Any two: Z has **8 legs** but an insect has 6 legs. Z has **2 body parts** but an insect has 3. Z has **no feelers** but an insect has 1 pair.",
+    "working": [
+      "Common error: Writing only 'Z has 8 legs' without comparing with an insect, or giving the same reason twice."
+    ],
+    "figure": "figures/p3sci-eoy-mock-80-e26a.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "icon",
+          "icon": "spider",
+          "w": 120,
+          "h": 95,
+          "caption": "Animal Z"
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E26(a)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e26b",
+    "skill": "p3-science",
+    "topic": "diversity.classification",
+    "subskill": "chart_heading",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "open",
+    "stem": "Marcus classified some animals as shown.\n\n(b) Suggest suitable headings K and L.\n\nK:\nL:",
+    "answer": "K: **has 6 legs** (insects). L: **does not have 6 legs** (not insects). Both needed.",
+    "accept": [
+      "K: has 3 body parts / L: does not have 3 body parts."
+    ],
+    "figure": "figures/p3sci-eoy-mock-80-e26bc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "tree",
+          "root": "Animals",
+          "width": 340,
+          "children": [
+            {
+              "label": "Heading K",
+              "children": [
+                {
+                  "label": "",
+                  "items": [
+                    "grasshopper",
+                    "beetle",
+                    "housefly"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Heading L",
+              "children": [
+                {
+                  "label": "",
+                  "items": [
+                    "spider",
+                    "centipede",
+                    "crab"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E26(b)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e26c",
+    "skill": "p3-science",
+    "topic": "diversity.classification",
+    "subskill": "insect_or_not",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "open",
+    "stem": "Marcus classified some animals as shown.\n\n(c) Which group, K or L, should a butterfly be placed in? Explain.",
+    "answer": "K. A butterfly has **6 legs** (3 body parts, 1 pair of feelers) — it is an insect.",
+    "figure": "figures/p3sci-eoy-mock-80-e26bc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "tree",
+          "root": "Animals",
+          "width": 340,
+          "children": [
+            {
+              "label": "Heading K",
+              "children": [
+                {
+                  "label": "",
+                  "items": [
+                    "grasshopper",
+                    "beetle",
+                    "housefly"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Heading L",
+              "children": [
+                {
+                  "label": "",
+                  "items": [
+                    "spider",
+                    "centipede",
+                    "crab"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E26(c)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e27a",
+    "skill": "p3-science",
+    "topic": "diversity.materials",
+    "subskill": "strength",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Ravi placed strips of materials A, B, C and D, of the same size, across two supports. He added bricks one at a time until each strip broke.\n\n| Material | A | B | C | D |\n| --- | --- | --- | --- | --- |\n| Bricks needed to break the strip | 3 | 8 | 1 | 5 |\n\n(a) Which property of materials is Ravi testing?",
+    "answer": "**Strength**.",
+    "figure": "figures/p3sci-eoy-mock-80-e27abc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "strength_test",
+          "mode": "bridge",
+          "bricks": 3,
+          "label": "material"
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E27(a)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e27b",
+    "skill": "p3-science",
+    "topic": "diversity.materials",
+    "subskill": "property_to_use",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Ravi placed strips of materials A, B, C and D, of the same size, across two supports. He added bricks one at a time until each strip broke.\n\n| Material | A | B | C | D |\n| --- | --- | --- | --- | --- |\n| Bricks needed to break the strip | 3 | 8 | 1 | 5 |\n\n(b) Which material is most suitable for the seat of a park bench? Explain.",
+    "answer": "B. It held the **most bricks (8)** before breaking, so it is the **strongest** and can support the weight of people sitting on it.",
+    "working": [
+      "Claim: Material B.",
+      "Evidence: B needed 8 bricks to break — the most.",
+      "Reasoning: B is the strongest, so it can hold the weight of people without breaking.",
+      "Common error: Only 'B is the strongest' — no evidence from the table (1 of 2)."
+    ],
+    "figure": "figures/p3sci-eoy-mock-80-e27abc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "strength_test",
+          "mode": "bridge",
+          "bricks": 3,
+          "label": "material"
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E27(b)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e27c",
+    "skill": "p3-science",
+    "topic": "diversity.materials",
+    "subskill": "fair_test",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "open",
+    "stem": "Ravi placed strips of materials A, B, C and D, of the same size, across two supports. He added bricks one at a time until each strip broke.\n\n| Material | A | B | C | D |\n| --- | --- | --- | --- | --- |\n| Bricks needed to break the strip | 3 | 8 | 1 | 5 |\n\n(c) State one variable Ravi must keep the same to make this a fair test.",
+    "answer": "Any one: size / thickness of the strips; type and size of bricks; distance between the supports.",
+    "marking": [
+      "Reject: Type of material (changed) or number of bricks (measured)."
+    ],
+    "figure": "figures/p3sci-eoy-mock-80-e27abc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "strength_test",
+          "mode": "bridge",
+          "bricks": 3,
+          "label": "material"
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E27(c)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e28a",
+    "skill": "p3-science",
+    "topic": "cycles.plant",
+    "subskill": "germination",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "open",
+    "stem": "Siti placed similar bean seeds on wet cotton wool in two dishes, P and Q, at room temperature. She kept the cotton wool wet. Dish P was kept in a dark cupboard and dish Q near a window.\n\nAfter four days, the seeds in **both** dishes had germinated.\n\n(a) What was Siti trying to find out?",
+    "answer": "Whether seeds need **light** to germinate.",
+    "accept": [
+      "How light affects the germination of seeds."
+    ],
+    "figure": "figures/p3sci-eoy-mock-80-e28abc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "germination",
+          "dishes": [
+            {
+              "label": "P",
+              "water": true,
+              "cover": "dark",
+              "note": "dark cupboard"
+            },
+            {
+              "label": "Q",
+              "water": true,
+              "note": "near a window"
+            }
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E28(a)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e28b",
+    "skill": "p3-science",
+    "topic": "cycles.plant",
+    "subskill": "germination",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "open",
+    "stem": "Siti placed similar bean seeds on wet cotton wool in two dishes, P and Q, at room temperature. She kept the cotton wool wet. Dish P was kept in a dark cupboard and dish Q near a window.\n\nAfter four days, the seeds in **both** dishes had germinated.\n\n(b) What can she conclude from her results?",
+    "answer": "Seeds do **not need light** to germinate.",
+    "working": [
+      "Common error: 'Seeds need water' — water was the same in both dishes, so it was not tested."
+    ],
+    "figure": "figures/p3sci-eoy-mock-80-e28abc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "germination",
+          "dishes": [
+            {
+              "label": "P",
+              "water": true,
+              "cover": "dark",
+              "note": "dark cupboard"
+            },
+            {
+              "label": "Q",
+              "water": true,
+              "note": "near a window"
+            }
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E28(b)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e28c",
+    "skill": "p3-science",
+    "topic": "cycles.plant",
+    "subskill": "germination",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Siti placed similar bean seeds on wet cotton wool in two dishes, P and Q, at room temperature. She kept the cotton wool wet. Dish P was kept in a dark cupboard and dish Q near a window.\n\nAfter four days, the seeds in **both** dishes had germinated.\n\n(c) Other than water, name one condition seeds need to germinate.",
+    "answer": "air",
+    "marking": [
+      "Reject: Light, soil, sunlight."
+    ],
+    "figure": "figures/p3sci-eoy-mock-80-e28abc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "germination",
+          "dishes": [
+            {
+              "label": "P",
+              "water": true,
+              "cover": "dark",
+              "note": "dark cupboard"
+            },
+            {
+              "label": "Q",
+              "water": true,
+              "note": "near a window"
+            }
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E28(c)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it.",
+    "accept": [
+      "warmth"
+    ]
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e29a",
+    "skill": "p3-science",
+    "topic": "cycles.animal",
+    "subskill": "four_stage",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "open",
+    "stem": "The diagram shows the life cycle of a mosquito. Two stages are missing.\n\n(a) Write the names of the two missing stages in the boxes.",
+    "answer": "larva (after egg) and pupa (before adult) — both needed.",
+    "figure": "figures/p3sci-eoy-mock-80-e29ab.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "life_cycle",
+          "stages": [
+            "egg",
+            "",
+            "",
+            "adult"
+          ],
+          "icons": [
+            "mosquito_eggs",
+            "mosquito_larva",
+            "mosquito_pupa",
+            "mosquito"
+          ],
+          "blank": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E29(a)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e29b",
+    "skill": "p3-science",
+    "topic": "cycles.animal",
+    "subskill": "mosquito_control",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "open",
+    "stem": "The diagram shows the life cycle of a mosquito. Two stages are missing.\n\n(b) Suggest one way to stop mosquitoes from breeding in a flower vase at home. Explain how it works.",
+    "answer": "Change the water every few days (or remove stagnant water), so the **eggs and larvae** in the water cannot develop into **adult** mosquitoes.",
+    "working": [
+      "Common error: Giving the action without explaining the effect on the life cycle."
+    ],
+    "figure": "figures/p3sci-eoy-mock-80-e29ab.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "life_cycle",
+          "stages": [
+            "egg",
+            "",
+            "",
+            "adult"
+          ],
+          "icons": [
+            "mosquito_eggs",
+            "mosquito_larva",
+            "mosquito_pupa",
+            "mosquito"
+          ],
+          "blank": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E29(b)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e30a",
+    "skill": "p3-science",
+    "topic": "cycles.animal",
+    "subskill": "three_stage",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "open",
+    "stem": "The table shows the number of days organisms X and Y spend in each stage of their life cycles. ( – means the organism does not have that stage.)\n\n| Stage | Organism X (days) | Organism Y (days) |\n| --- | --- | --- |\n| egg | 5 | 3 |\n| larva | 10 | – |\n| nymph | – | 15 |\n| pupa | 6 | – |\n| adult | 20 | 25 |\n\n(a) Which organism, X or Y, could be a cockroach? Explain.",
+    "answer": "Y. It has a **nymph** stage and no pupa — a three-stage life cycle like a cockroach.",
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E30(a)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e30b",
+    "skill": "p3-science",
+    "topic": "cycles.animal",
+    "subskill": "duration_graph",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "The table shows the number of days organisms X and Y spend in each stage of their life cycles. ( – means the organism does not have that stage.)\n\n| Stage | Organism X (days) | Organism Y (days) |\n| --- | --- | --- |\n| egg | 5 | 3 |\n| larva | 10 | – |\n| nymph | – | 15 |\n| pupa | 6 | – |\n| adult | 20 | 25 |\n\n(b) How many days does organism X take to become an adult after its egg hatches?",
+    "answer": "16 days",
+    "working": [
+      "Larva 10 days + pupa 6 days = 16 days.",
+      "Common error: 21 (adding the egg) or 41 (everything)."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E30(b)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "accept": [
+      "16"
+    ]
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e30c",
+    "skill": "p3-science",
+    "topic": "cycles.animal",
+    "subskill": "duration_graph",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "open",
+    "stem": "The table shows the number of days organisms X and Y spend in each stage of their life cycles. ( – means the organism does not have that stage.)\n\n| Stage | Organism X (days) | Organism Y (days) |\n| --- | --- | --- |\n| egg | 5 | 3 |\n| larva | 10 | – |\n| nymph | – | 15 |\n| pupa | 6 | – |\n| adult | 20 | 25 |\n\n(c) Ben said that organism Y spends the longest time as a nymph. Do you agree? Explain using the table.",
+    "answer": "No. Y spends **25 days as an adult** but only **15 days as a nymph**.",
+    "working": [
+      "Claim: No.",
+      "Evidence: Adult 25 days, nymph 15 days.",
+      "Reasoning: 25 > 15, so the adult stage is the longest."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E30(c)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e31a",
+    "skill": "p3-science",
+    "topic": "interactions.magnets",
+    "subskill": "strength_test",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Siti slowly moved four magnets, P, Q, R and S, one at a time, towards a steel clip on a table. She measured the distance at which the clip was first attracted.\n\n| Magnet | P | Q | R | S |\n| --- | --- | --- | --- | --- |\n| Distance (cm) | 6 | 3 | 9 | 5 |\n\n(a) Arrange the magnets from the **weakest** to the **strongest**.\n\nweakest ____ , ____ , ____ , ____ strongest",
+    "answer": "Q, S, P, R",
+    "figure": "figures/p3sci-eoy-mock-80-e31abc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "magnet_distance",
+          "object": "steel clip",
+          "magnet_label": "P"
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E31(a)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e31b",
+    "skill": "p3-science",
+    "topic": "interactions.magnets",
+    "subskill": "strength_test",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "open",
+    "stem": "Siti slowly moved four magnets, P, Q, R and S, one at a time, towards a steel clip on a table. She measured the distance at which the clip was first attracted.\n\n| Magnet | P | Q | R | S |\n| --- | --- | --- | --- | --- |\n| Distance (cm) | 6 | 3 | 9 | 5 |\n\n(b) Tick (✓) the variables Siti must keep the same for a fair test.\n\n| Variable | Tick (✓) |\n| --- | --- |\n| Type of magnet | ? |\n| Size of the steel clip | ? |\n| Type of table surface | ? |\n| Distance at which the clip is attracted | ? |",
+    "answer": "Size of the steel clip ✓ and type of table surface ✓ (both, and nothing else).",
+    "working": [
+      "Common error: Ticking 'type of magnet' (that is the changed variable) or 'distance' (that is measured)."
+    ],
+    "figure": "figures/p3sci-eoy-mock-80-e31abc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "magnet_distance",
+          "object": "steel clip",
+          "magnet_label": "P"
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E31(b)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e31c",
+    "skill": "p3-science",
+    "topic": "interactions.magnets",
+    "subskill": "strength_test",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Siti slowly moved four magnets, P, Q, R and S, one at a time, towards a steel clip on a table. She measured the distance at which the clip was first attracted.\n\n| Magnet | P | Q | R | S |\n| --- | --- | --- | --- | --- |\n| Distance (cm) | 6 | 3 | 9 | 5 |\n\n(c) Siti needs a magnet that can pick up a steel key from as far away as possible. Which magnet should she use? Explain.",
+    "answer": "R. It attracted the clip from the **greatest distance (9 cm)**, so it is the **strongest** magnet.",
+    "working": [
+      "Claim: Magnet R.",
+      "Evidence: R attracted the clip from 9 cm — further than any other magnet.",
+      "Reasoning: The further away it can attract, the stronger the magnet, so R can pick up the key from furthest away."
+    ],
+    "figure": "figures/p3sci-eoy-mock-80-e31abc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "magnet_distance",
+          "object": "steel clip",
+          "magnet_label": "P"
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E31(c)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e32a",
+    "skill": "p3-science",
+    "topic": "interactions.magnets",
+    "subskill": "magnet_vs_magnetic",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Four rings, W, X, Y and Z, were placed on a wooden rod as shown.\n\n(a) Put a tick (✓) in the correct box for each statement.\n\n| Statement | Definitely\ntrue | Definitely\nfalse | Not possible\nto tell |\n| --- | --- | --- | --- |\n| W and X are magnets. | ? | ? | ? |\n| Y is a magnet. | ? | ? | ? |\n| Z is made of a non-magnetic material. | ? | ? | ? |\n| X is attracted to W. | ? | ? | ? |",
+    "answer": "W and X are magnets: **definitely true**. Y is a magnet: **not possible to tell**. Z is non-magnetic: **not possible to tell**. X is attracted to W: **definitely false**.",
+    "accept": [
+      "2 marks for all four correct; 1 mark for two or three correct."
+    ],
+    "figure": "figures/p3sci-eoy-mock-80-e32ab.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "ring_stack",
+          "rings": [
+            {
+              "name": "W"
+            },
+            {
+              "name": "X",
+              "gap": 22
+            },
+            {
+              "name": "Y",
+              "gap": 0
+            },
+            {
+              "name": "Z",
+              "gap": 0
+            }
+          ],
+          "rod_label": "wooden rod",
+          "base": "wooden base",
+          "w": 280
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E32(a)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e32b",
+    "skill": "p3-science",
+    "topic": "interactions.magnets",
+    "subskill": "attract_repel",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Four rings, W, X, Y and Z, were placed on a wooden rod as shown.\n\n(b) Marcus removed Y and Z, turned X upside down and put it back on the rod above W. Predict what will happen to X. Explain.",
+    "answer": "X will drop down and **touch W**. Turning X over makes **unlike poles** face each other, and unlike poles **attract**.",
+    "working": [
+      "Claim: X moves down onto W.",
+      "Evidence: X floated before, so like poles were facing; turning X over changes its facing pole.",
+      "Reasoning: Now unlike poles face each other, and unlike poles attract."
+    ],
+    "figure": "figures/p3sci-eoy-mock-80-e32ab.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "ring_stack",
+          "rings": [
+            {
+              "name": "W"
+            },
+            {
+              "name": "X",
+              "gap": 22
+            },
+            {
+              "name": "Y",
+              "gap": 0
+            },
+            {
+              "name": "Z",
+              "gap": 0
+            }
+          ],
+          "rod_label": "wooden rod",
+          "base": "wooden base",
+          "w": 280
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E32(b)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e33a",
+    "skill": "p3-science",
+    "topic": "interactions.making_magnets",
+    "subskill": "electrical_method",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "open",
+    "stem": "Siti made two electromagnets, P and Q, using similar iron nails.\n\n(a) Which electromagnet is stronger? Explain using the diagrams.",
+    "answer": "Q. It attracted **more paper clips** (6 compared with 2).",
+    "accept": [
+      "Q, because it has more turns and more batteries."
+    ],
+    "figure": "figures/p3sci-eoy-mock-80-e33abc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "row",
+          "items": [
+            {
+              "kind": "electromagnet",
+              "turns": 10,
+              "cells": 1,
+              "switch": "closed",
+              "clips": 2
+            }
+          ],
+          "captions": [
+            "Electromagnet P"
+          ]
+        },
+        {
+          "kind": "row",
+          "items": [
+            {
+              "kind": "electromagnet",
+              "turns": 20,
+              "cells": 2,
+              "switch": "closed",
+              "clips": 6
+            }
+          ],
+          "captions": [
+            "Electromagnet Q"
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E33(a)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e33b",
+    "skill": "p3-science",
+    "topic": "interactions.making_magnets",
+    "subskill": "electrical_method",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Siti made two electromagnets, P and Q, using similar iron nails.\n\n(b) Siti concluded that Q is stronger **because it has more turns of wire**. Is this a fair conclusion? Explain.",
+    "answer": "No. Q also has **more batteries**. Two variables were changed, so she **cannot tell** whether the extra turns or the extra battery made Q stronger.",
+    "working": [
+      "Claim: No, the conclusion is not fair.",
+      "Evidence: Q has 20 turns AND 2 batteries; P has 10 turns and 1 battery.",
+      "Reasoning: More than one variable changed, so the result cannot be linked to the turns alone."
+    ],
+    "figure": "figures/p3sci-eoy-mock-80-e33abc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "row",
+          "items": [
+            {
+              "kind": "electromagnet",
+              "turns": 10,
+              "cells": 1,
+              "switch": "closed",
+              "clips": 2
+            }
+          ],
+          "captions": [
+            "Electromagnet P"
+          ]
+        },
+        {
+          "kind": "row",
+          "items": [
+            {
+              "kind": "electromagnet",
+              "turns": 20,
+              "cells": 2,
+              "switch": "closed",
+              "clips": 6
+            }
+          ],
+          "captions": [
+            "Electromagnet Q"
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E33(b)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-eoy-mock-80-e33c",
+    "skill": "p3-science",
+    "topic": "interactions.making_magnets",
+    "subskill": "makeable_materials",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Siti made two electromagnets, P and Q, using similar iron nails.\n\n(c) Name one material, other than iron, that could be used for the nail so that it becomes a magnet.",
+    "answer": "steel",
+    "marking": [
+      "Reject: Copper, aluminium, any non-magnetic material."
+    ],
+    "figure": "figures/p3sci-eoy-mock-80-e33abc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "row",
+          "items": [
+            {
+              "kind": "electromagnet",
+              "turns": 10,
+              "cells": 1,
+              "switch": "closed",
+              "clips": 2
+            }
+          ],
+          "captions": [
+            "Electromagnet P"
+          ]
+        },
+        {
+          "kind": "row",
+          "items": [
+            {
+              "kind": "electromagnet",
+              "turns": 20,
+              "cells": 2,
+              "switch": "closed",
+              "clips": 6
+            }
+          ],
+          "captions": [
+            "Electromagnet Q"
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "eoy_mock_80.json#E33(c)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it.",
+    "accept": [
+      "nickel",
+      "cobalt"
+    ]
+  }
+]

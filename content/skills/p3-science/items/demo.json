@@ -1,0 +1,201 @@
+[
+  {
+    "id": "p3sci-demo-01",
+    "skill": "p3-science",
+    "topic": "cycles.animal",
+    "subskill": "three_stage",
+    "archetype": "ALC-1",
+    "difficulty": 1,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Which shows the stages of a frog's life cycle in the correct order?",
+    "options": [
+      "egg → adult frog → tadpole",
+      "egg → tadpole → froglet → adult frog",
+      "egg → larva → pupa → adult frog",
+      "tadpole → egg → adult frog"
+    ],
+    "answer": 2,
+    "working": [
+      "A frog lays its eggs (frogspawn) in water, and the eggs hatch into tadpoles.",
+      "A tadpole grows legs, loses its tail and becomes an adult frog, which lays eggs again.",
+      "So the order is egg → tadpole → froglet → adult frog, then back to egg. (Some books leave out the froglet and count three stages.)"
+    ],
+    "distractors": {
+      "1": "Puts the adult before the tadpole. A frog does not hatch as an adult; the tadpole comes first.",
+      "3": "Uses the four stages of a butterfly or a mosquito. A frog has no larva or pupa stage.",
+      "4": "The tadpole hatches FROM the egg, so the egg must come just before the tadpole."
+    },
+    "hints": [
+      "What hatches out of frogspawn in a pond?",
+      "A frog changes slowly, with no pupa. Put the stages in the order they happen after hatching."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "demo: drafted from references/question-generation.md (synthesis recipe)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "demo": true,
+    "notes": "Demo path item, drafted by Claude Code; founder review pending."
+  },
+  {
+    "id": "p3sci-demo-02",
+    "skill": "p3-science",
+    "topic": "cycles.animal",
+    "subskill": "stage_features",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Pip is a tadpole. Which of these can Pip do now?",
+    "options": [
+      "Hop across the grass on strong back legs.",
+      "Swim around the pond using its tail.",
+      "Fly to a different pond.",
+      "Lay eggs in the water."
+    ],
+    "answer": 2,
+    "working": [
+      "A tadpole lives in water. It swims with its tail and breathes with gills.",
+      "It grows legs later and loses its tail as it becomes a froglet, then a frog.",
+      "Only an adult frog can lay eggs. So Pip can swim around the pond using its tail."
+    ],
+    "distractors": {
+      "1": "Hopping on strong back legs is what an adult frog does. A young tadpole has no legs yet.",
+      "3": "Frogs can't fly at any stage of their life cycle.",
+      "4": "Only an adult frog lays eggs. A tadpole has to grow up first."
+    },
+    "hints": [
+      "Where does Pip live right now?",
+      "Which body part does a tadpole have that an adult frog does not?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "demo: drafted from references/content-cycles.md (stage features)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "demo": true,
+    "notes": "Demo path item, drafted by Claude Code; reworded 27 Oct so it no longer copies bank item e20 (soak report). Founder review pending."
+  },
+  {
+    "id": "p3sci-demo-03",
+    "skill": "p3-science",
+    "topic": "cycles.animal",
+    "subskill": "stage_features",
+    "archetype": "ALC-2",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Which statement about the life cycles of a frog and a mosquito is correct?",
+    "options": [
+      "Both have a pupa stage.",
+      "Both have young that look like their adults.",
+      "Both have young that live in water.",
+      "Both have adults that live only in water."
+    ],
+    "answer": 3,
+    "working": [
+      "Frog: egg → tadpole → froglet → adult. The eggs and tadpoles live in water; the adult frog lives on land and in water.",
+      "Mosquito: egg → larva → pupa → adult. The eggs, larvae and pupae live in water; the adult flies.",
+      "So the only statement true for both is that their young live in water."
+    ],
+    "distractors": {
+      "1": "Only the mosquito has a pupa. The frog's life cycle is egg → tadpole → adult.",
+      "2": "Neither does: a tadpole and a mosquito larva both look very different from their adults.",
+      "4": "The mosquito has four stages, but the frog has only three."
+    },
+    "hints": [
+      "Write out both life cycles first, stage by stage.",
+      "Check every statement against the frog AND the mosquito. Cross out any that is false for even one of them."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "demo: drafted from references/question-generation.md (compare two cycles)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "demo": true,
+    "notes": "Demo path item, drafted by Claude Code; founder review pending."
+  },
+  {
+    "id": "p3sci-demo-04",
+    "skill": "p3-science",
+    "topic": "cycles.animal",
+    "subskill": "cycle_diagram",
+    "archetype": "ALC-10",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Mei says, \"The egg is the first stage of a frog's life cycle and the adult frog is the last stage.\" Which is the best reply to Mei?",
+    "options": [
+      "No. A life cycle repeats, so it has no first or last stage.",
+      "Yes, because an adult frog cannot change any more.",
+      "No. The tadpole is the first stage because it hatches first.",
+      "Yes, because every life cycle begins with an egg."
+    ],
+    "answer": 1,
+    "working": [
+      "A life cycle is a repeated pattern of change.",
+      "Adult frogs lay eggs, the eggs hatch into tadpoles, the tadpoles grow into adults, and the adults lay eggs again.",
+      "So there is no first or last stage. We draw it as a closed loop with arrows."
+    ],
+    "distractors": {
+      "2": "The adult frog lays eggs, so the cycle carries on. The adult is not an end point.",
+      "3": "The tadpole hatches from the egg, so it cannot come before the egg.",
+      "4": "Many animals do hatch from eggs, but the cycle still repeats: the adult lays eggs again."
+    },
+    "hints": [
+      "Follow the frog's story stage by stage. What happens after the adult frog?",
+      "What does an adult frog do that starts everything all over again?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "demo: drafted from references/answering-cer.md (do you agree?)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "demo": true,
+    "notes": "Demo path item, drafted by Claude Code; founder review pending."
+  },
+  {
+    "id": "p3sci-demo-05",
+    "skill": "p3-science",
+    "topic": "cycles.animal",
+    "subskill": "duration_graph",
+    "archetype": "ALC-4",
+    "difficulty": 4,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "The table shows how long a frog spends in each stage of its life cycle.\n\n| Stage | Time spent |\n| --- | --- |\n| egg | 2 weeks |\n| tadpole | 12 weeks |\n| adult frog | 3 years |\n\nAfter the eggs hatch, how long does it take the young to become adult frogs?",
+    "options": [
+      "2 weeks",
+      "3 years",
+      "12 weeks",
+      "14 weeks"
+    ],
+    "answer": 3,
+    "working": [
+      "\"After the eggs hatch\" means start counting from the tadpole stage, not the egg.",
+      "\"Become adult frogs\" means stop when the adult stage begins.",
+      "Only the tadpole stage is in between, so it takes 12 weeks."
+    ],
+    "distractors": {
+      "1": "That is how long the egg stage lasts, before hatching.",
+      "2": "That is how long the adult stage lasts, after the frog has already become an adult.",
+      "4": "Adds the 2 weeks in the egg, but the question starts AFTER the eggs hatch."
+    },
+    "hints": [
+      "Find the stage that comes right after the egg hatches.",
+      "Start counting after the egg row and stop when the frog becomes an adult. Which rows are in between?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "demo: drafted from references/content-cycles.md (graphs and tables of stage lengths)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "demo": true,
+    "notes": "Demo path item, drafted by Claude Code; founder review pending."
+  }
+]

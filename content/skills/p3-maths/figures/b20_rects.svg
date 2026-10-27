@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="299.916pt" height="259.585477pt" viewBox="0 0 299.916 259.585477" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-24T15:41:20.532052</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 259.585477 
+L 299.916 259.585477 
+L 299.916 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 17.763508 210.453785 
+L 125.311569 210.453785 
+L 125.311569 102.905723 
+L 17.763508 102.905723 
+L 17.763508 210.453785 
+z
+" clip-path="url(#p5104dfb59c)" style="fill: none; stroke: #000000; stroke-width: 1.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 179.0856 210.453785 
+L 232.859631 210.453785 
+L 232.859631 31.207015 
+L 179.0856 31.207015 
+L 179.0856 210.453785 
+z
+" clip-path="url(#p5104dfb59c)" style="fill: none; stroke: #000000; stroke-width: 1.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="71.537538" y="159.991004" transform="rotate(-0 71.537538 159.991004)">P</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: middle" x="71.537538" y="92.655947" transform="rotate(-0 71.537538 92.655947)">6 cm</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: start" x="132.033323" y="159.577098" transform="rotate(-0 132.033323 159.577098)">6 cm</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="205.972615" y="124.14165" transform="rotate(-0 205.972615 124.14165)">Q</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: middle" x="205.972615" y="20.957239" transform="rotate(-0 205.972615 20.957239)">3 cm</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: start" x="239.581385" y="123.727744" transform="rotate(-0 239.581385 123.727744)">12 cm</text>
+   </g>
+   <g id="text_7">
+    <text style="font-style: italic; font-size: 8.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #444444" x="17.763508" y="244.062554" transform="rotate(-0 17.763508 244.062554)">Not drawn to scale</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p5104dfb59c">
+   <rect x="4.32" y="4.32" width="291.276" height="250.945477"/>
+  </clipPath>
+ </defs>
+</svg>

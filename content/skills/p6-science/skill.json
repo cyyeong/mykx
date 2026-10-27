@@ -1,0 +1,846 @@
+{
+  "id": "p6-science",
+  "version": "1.0.0",
+  "status": "published",
+  "title": "P6 Science (PSLE)",
+  "description": "Primary 6 / PSLE Science (Singapore MOE 2023 syllabus, 2026 format): all P3–P6 themes, with concept cards in the marker's words, the C.E.R. answer spine, misconceptions, experimental skills and statistically targeted practice.",
+  "subject": "science",
+  "level": "P6",
+  "syllabus": "MOE 2023 Primary Science; PSLE Science 0009 (from 2026)",
+  "language": "en",
+  "agents": {
+    "tutor": "auto",
+    "vibe": "on_demand",
+    "parent": "on_demand",
+    "curator": "auto"
+  },
+  "topics": [
+    {
+      "id": "interactions.environment",
+      "title": "Interactions within the environment",
+      "weight": 0.161,
+      "source_tag": "INT-ENV",
+      "subskills": [
+        "food_chains_webs",
+        "populations",
+        "adaptations",
+        "human_impact",
+        "experimental_skills"
+      ]
+    },
+    {
+      "id": "interactions.forces",
+      "title": "Forces and magnets",
+      "weight": 0.133,
+      "source_tag": "INT-FORCE",
+      "subskills": [
+        "identify_forces",
+        "friction",
+        "springs",
+        "gravity",
+        "magnets",
+        "experimental_skills"
+      ]
+    },
+    {
+      "id": "systems.electrical",
+      "title": "Electrical system",
+      "weight": 0.093,
+      "source_tag": "SYS-ELEC",
+      "subskills": [
+        "circuits_from_observations",
+        "series_parallel",
+        "conductors_testers",
+        "draw_circuit",
+        "electrical_safety",
+        "experimental_skills"
+      ]
+    },
+    {
+      "id": "systems.human",
+      "title": "Human systems",
+      "weight": 0.079,
+      "source_tag": "SYS-HUMAN",
+      "subskills": [
+        "digestive",
+        "respiratory_circulatory",
+        "systems_together",
+        "experimental_skills"
+      ]
+    },
+    {
+      "id": "cycles.reproduction",
+      "title": "Reproduction in plants and humans",
+      "weight": 0.073,
+      "source_tag": "CYC-REPRO",
+      "subskills": [
+        "pollination_fertilisation",
+        "flower_parts",
+        "seed_dispersal",
+        "germination",
+        "human_reproduction",
+        "experimental_skills"
+      ]
+    },
+    {
+      "id": "cycles.water",
+      "title": "Water and changes of state",
+      "weight": 0.066,
+      "source_tag": "CYC-WATER",
+      "subskills": [
+        "temperature_time_graphs",
+        "condensation",
+        "evaporation",
+        "water_cycle",
+        "experimental_skills"
+      ]
+    },
+    {
+      "id": "energy.conversion",
+      "title": "Energy forms and conversion",
+      "weight": 0.065,
+      "source_tag": "ENE-CONV",
+      "subskills": [
+        "energy_chains",
+        "gpe_ke",
+        "energy_graphs",
+        "experimental_skills"
+      ]
+    },
+    {
+      "id": "energy.photosynthesis",
+      "title": "Photosynthesis",
+      "weight": 0.062,
+      "source_tag": "ENE-PHOTO",
+      "subskills": [
+        "photosynthesis_conditions",
+        "gas_exchange",
+        "experimental_skills"
+      ]
+    },
+    {
+      "id": "energy.heat",
+      "title": "Heat",
+      "weight": 0.058,
+      "source_tag": "ENE-HEAT",
+      "subskills": [
+        "heat_flow",
+        "conductors_insulators",
+        "expansion_contraction",
+        "heat_vs_temperature",
+        "experimental_skills"
+      ]
+    },
+    {
+      "id": "cycles.matter",
+      "title": "Matter",
+      "weight": 0.051,
+      "source_tag": "CYC-MATTER",
+      "subskills": [
+        "states_of_matter",
+        "air_mass_volume",
+        "experimental_skills"
+      ]
+    },
+    {
+      "id": "systems.plant",
+      "title": "Plant system",
+      "weight": 0.046,
+      "source_tag": "SYS-PLANT",
+      "subskills": [
+        "plant_parts",
+        "transport_tubes",
+        "ringing",
+        "experimental_skills"
+      ]
+    },
+    {
+      "id": "diversity.living",
+      "title": "Living things and classification",
+      "weight": 0.031,
+      "source_tag": "DIV-LIV",
+      "subskills": [
+        "classification",
+        "fungi_bacteria",
+        "experimental_skills"
+      ]
+    },
+    {
+      "id": "energy.light",
+      "title": "Light",
+      "weight": 0.031,
+      "source_tag": "ENE-LIGHT",
+      "subskills": [
+        "shadows",
+        "reflection",
+        "transparency",
+        "experimental_skills"
+      ]
+    },
+    {
+      "id": "cycles.life",
+      "title": "Life cycles",
+      "weight": 0.024,
+      "source_tag": "CYC-LIFE",
+      "subskills": [
+        "insect_cycles",
+        "plant_growth",
+        "duration_graphs"
+      ]
+    },
+    {
+      "id": "diversity.materials",
+      "title": "Materials",
+      "weight": 0.024,
+      "source_tag": "DIV-MAT",
+      "subskills": [
+        "material_properties",
+        "experimental_skills"
+      ]
+    }
+  ],
+  "archetypes": [
+    {
+      "id": "INT-ENV-1",
+      "topic": "interactions.environment",
+      "pattern": "Read two population graphs → deduce food chain (prey falls while predator rises)",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "INT-ENV-2",
+      "topic": "interactions.environment",
+      "pattern": "Add/remove an organism and predict 2-step effects",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "INT-ENV-3",
+      "topic": "interactions.environment",
+      "pattern": "Classify producer/prey/predator/\"both prey and predator\"",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "INT-ENV-4",
+      "topic": "interactions.environment",
+      "pattern": "Define population/community/habitat",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "INT-ENV-5",
+      "topic": "interactions.environment",
+      "pattern": "Structural vs behavioural adaptation with feature → what it does → how that helps survival",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "INT-ENV-6",
+      "topic": "interactions.environment",
+      "pattern": "Camouflage",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "INT-ENV-7",
+      "topic": "interactions.environment",
+      "pattern": "Deforestation → habitat loss, soil erosion, more CO₂/global warming",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "INT-ENV-8",
+      "topic": "interactions.environment",
+      "pattern": "Fossil fuels → CO₂",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "INT-FORCE-1",
+      "topic": "interactions.forces",
+      "pattern": "Identify all forces on an object (gravity always",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "INT-FORCE-2",
+      "topic": "interactions.forces",
+      "pattern": "Friction if touching",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "INT-FORCE-3",
+      "topic": "interactions.forces",
+      "pattern": "Magnetic if magnet + magnetic material",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "INT-FORCE-4",
+      "topic": "interactions.forces",
+      "pattern": "Spring if stretched/compressed)",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "INT-FORCE-5",
+      "topic": "interactions.forces",
+      "pattern": "Friction direction opposite to motion",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "INT-FORCE-6",
+      "topic": "interactions.forces",
+      "pattern": "Force vs ramp angle graph",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "INT-FORCE-7",
+      "topic": "interactions.forces",
+      "pattern": "Springs: same spring + heavier load → longer stretch, spring force = load",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "INT-FORCE-8",
+      "topic": "interactions.forces",
+      "pattern": "Stacked/compressed springs",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "INT-FORCE-9",
+      "topic": "interactions.forces",
+      "pattern": "\"which is NOT an effect of a force\" (light, shadows)",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "INT-FORCE-10",
+      "topic": "interactions.forces",
+      "pattern": "Magnets: attracted-only = magnetic material, repelled = magnet",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "INT-FORCE-11",
+      "topic": "interactions.forces",
+      "pattern": "Stroking & electrical methods",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "INT-FORCE-12",
+      "topic": "interactions.forces",
+      "pattern": "Iron temporary vs steel permanent",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "INT-FORCE-13",
+      "topic": "interactions.forces",
+      "pattern": "Magnet strength from distance a clip is attracted",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "INT-FORCE-14",
+      "topic": "interactions.forces",
+      "pattern": "Electromagnet strength (more coils/batteries)",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "SYS-ELEC-1",
+      "topic": "systems.electrical",
+      "pattern": "Switch/observation table → circuit",
+      "exam_weight": 0.013
+    },
+    {
+      "id": "SYS-ELEC-2",
+      "topic": "systems.electrical",
+      "pattern": "Which bulb fusing switches off others",
+      "exam_weight": 0.013
+    },
+    {
+      "id": "SYS-ELEC-3",
+      "topic": "systems.electrical",
+      "pattern": "Brightness ranking (bulbs in series dim, batteries in series brighten, parallel branches independent)",
+      "exam_weight": 0.013
+    },
+    {
+      "id": "SYS-ELEC-4",
+      "topic": "systems.electrical",
+      "pattern": "Circuit tester on hidden wiring/materials",
+      "exam_weight": 0.013
+    },
+    {
+      "id": "SYS-ELEC-5",
+      "topic": "systems.electrical",
+      "pattern": "Draw/complete a circuit to meet a description",
+      "exam_weight": 0.013
+    },
+    {
+      "id": "SYS-ELEC-6",
+      "topic": "systems.electrical",
+      "pattern": "Safety (insulation",
+      "exam_weight": 0.013
+    },
+    {
+      "id": "SYS-ELEC-7",
+      "topic": "systems.electrical",
+      "pattern": "Don't overload)",
+      "exam_weight": 0.013
+    },
+    {
+      "id": "ENE-CONV-1",
+      "topic": "energy.conversion",
+      "pattern": "Energy chains for toy car, wind turbine, dam, water wheel, heater, stirrer",
+      "exam_weight": 0.013
+    },
+    {
+      "id": "ENE-CONV-2",
+      "topic": "energy.conversion",
+      "pattern": "GPE ↔ KE on slopes/ramps/bouncing ball with heat+sound losses",
+      "exam_weight": 0.013
+    },
+    {
+      "id": "ENE-CONV-3",
+      "topic": "energy.conversion",
+      "pattern": "Bar/line graphs of energy at a point",
+      "exam_weight": 0.013
+    },
+    {
+      "id": "ENE-CONV-4",
+      "topic": "energy.conversion",
+      "pattern": "Heavier/higher → more GPE → more KE → deeper dent / further travel",
+      "exam_weight": 0.013
+    },
+    {
+      "id": "ENE-CONV-5",
+      "topic": "energy.conversion",
+      "pattern": "Friction (rough/sand) → more heat, less KE",
+      "exam_weight": 0.013
+    },
+    {
+      "id": "CYC-WATER-1",
+      "topic": "cycles.water",
+      "pattern": "Temperature–time graphs (flat at 0 °C melting, flat at 100 °C boiling",
+      "exam_weight": 0.009
+    },
+    {
+      "id": "CYC-WATER-2",
+      "topic": "cycles.water",
+      "pattern": "What changed at minute X)",
+      "exam_weight": 0.009
+    },
+    {
+      "id": "CYC-WATER-3",
+      "topic": "cycles.water",
+      "pattern": "Where droplets form (outside cold container / inside lid of warm container",
+      "exam_weight": 0.009
+    },
+    {
+      "id": "CYC-WATER-4",
+      "topic": "cycles.water",
+      "pattern": "None at room temperature)",
+      "exam_weight": 0.009
+    },
+    {
+      "id": "CYC-WATER-5",
+      "topic": "cycles.water",
+      "pattern": "Explain mist/white fumes (water vapour meets cooler air/surface, loses heat, condenses)",
+      "exam_weight": 0.009
+    },
+    {
+      "id": "CYC-WATER-6",
+      "topic": "cycles.water",
+      "pattern": "Why mist disappears (gains heat, evaporates)",
+      "exam_weight": 0.009
+    },
+    {
+      "id": "CYC-WATER-7",
+      "topic": "cycles.water",
+      "pattern": "Evaporation factors (surface area, wind, temperature) and how to design/shorten the experiment",
+      "exam_weight": 0.009
+    },
+    {
+      "id": "SYS-HUMAN-1",
+      "topic": "systems.human",
+      "pattern": "Systems working together flow chart",
+      "exam_weight": 0.013
+    },
+    {
+      "id": "SYS-HUMAN-2",
+      "topic": "systems.human",
+      "pattern": "Blood oxygen/CO₂ along lungs–heart–legs",
+      "exam_weight": 0.013
+    },
+    {
+      "id": "SYS-HUMAN-3",
+      "topic": "systems.human",
+      "pattern": "More blood to muscles during exercise (comparative: faster, more oxygen & digested food, remove more CO₂)",
+      "exam_weight": 0.013
+    },
+    {
+      "id": "SYS-HUMAN-4",
+      "topic": "systems.human",
+      "pattern": "Digestive organs and what each does",
+      "exam_weight": 0.013
+    },
+    {
+      "id": "SYS-HUMAN-5",
+      "topic": "systems.human",
+      "pattern": "Enclosed-room gas changes",
+      "exam_weight": 0.013
+    },
+    {
+      "id": "SYS-HUMAN-6",
+      "topic": "systems.human",
+      "pattern": "Breathing-rate tables",
+      "exam_weight": 0.013
+    },
+    {
+      "id": "CYC-REPRO-1",
+      "topic": "cycles.reproduction",
+      "pattern": "Order germination→pollination→fertilisation→dispersal",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "CYC-REPRO-2",
+      "topic": "cycles.reproduction",
+      "pattern": "Flower parts & roles",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "CYC-REPRO-3",
+      "topic": "cycles.reproduction",
+      "pattern": "Pollinator clues (wind vs insect",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "CYC-REPRO-4",
+      "topic": "cycles.reproduction",
+      "pattern": "Smell of rotting meat = flies)",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "CYC-REPRO-5",
+      "topic": "cycles.reproduction",
+      "pattern": "Dispersal from a distance graph / fruit structure",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "CYC-REPRO-6",
+      "topic": "cycles.reproduction",
+      "pattern": "Why disperse",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "CYC-REPRO-7",
+      "topic": "cycles.reproduction",
+      "pattern": "Germination conditions & hypothesis wording",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "CYC-REPRO-8",
+      "topic": "cycles.reproduction",
+      "pattern": "Human parts that produce reproductive cells",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "CYC-REPRO-9",
+      "topic": "cycles.reproduction",
+      "pattern": "Traits passed on",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "ENE-PHOTO-1",
+      "topic": "energy.photosynthesis",
+      "pattern": "Bubbles-vs-lamp-distance",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "ENE-PHOTO-2",
+      "topic": "energy.photosynthesis",
+      "pattern": "CO₂ indicator colour by time of day",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "ENE-PHOTO-3",
+      "topic": "energy.photosynthesis",
+      "pattern": "Oil on leaf surfaces blocks tiny openings",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "ENE-PHOTO-4",
+      "topic": "energy.photosynthesis",
+      "pattern": "Starch test after blocking CO₂/light",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "ENE-PHOTO-5",
+      "topic": "energy.photosynthesis",
+      "pattern": "Ringing (remove food tubes: swelling above cut, roots starve, fruit smaller",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "ENE-PHOTO-6",
+      "topic": "energy.photosynthesis",
+      "pattern": "Remove water tubes: leaves wilt)",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "ENE-PHOTO-7",
+      "topic": "energy.photosynthesis",
+      "pattern": "Day vs night gas exchange",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "ENE-PHOTO-8",
+      "topic": "energy.photosynthesis",
+      "pattern": "Grass under object turns yellow",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "ENE-HEAT-1",
+      "topic": "energy.heat",
+      "pattern": "Heat gain/loss direction",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "ENE-HEAT-2",
+      "topic": "energy.heat",
+      "pattern": "Conductor vs insulator (air trapped in cotton/cup sleeve)",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "ENE-HEAT-3",
+      "topic": "energy.heat",
+      "pattern": "Cooling curves for different volumes or insulation",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "ENE-HEAT-4",
+      "topic": "energy.heat",
+      "pattern": "Expansion (tiles need gaps, air bubbles grow, lid loosens in hot water)",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "ENE-HEAT-5",
+      "topic": "energy.heat",
+      "pattern": "Contraction",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "ENE-HEAT-6",
+      "topic": "energy.heat",
+      "pattern": "Heat vs temperature",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "CYC-MATTER-1",
+      "topic": "cycles.matter",
+      "pattern": "Air volume arithmetic in containers/syringes (air compresses, water does not)",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "CYC-MATTER-2",
+      "topic": "cycles.matter",
+      "pattern": "Air has mass (balance)",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "CYC-MATTER-3",
+      "topic": "cycles.matter",
+      "pattern": "No definite shape for liquids",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "CYC-MATTER-4",
+      "topic": "cycles.matter",
+      "pattern": "Melting/boiling points from state tables",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "CYC-MATTER-5",
+      "topic": "cycles.matter",
+      "pattern": "Volume by displacement",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "ENE-LIGHT-1",
+      "topic": "energy.light",
+      "pattern": "Shadow size vs object/torch/screen positions",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "ENE-LIGHT-2",
+      "topic": "energy.light",
+      "pattern": "Light sensor readings",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "ENE-LIGHT-3",
+      "topic": "energy.light",
+      "pattern": "Reflection off glass and mirrors",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "ENE-LIGHT-4",
+      "topic": "energy.light",
+      "pattern": "Opaque/translucent/transparent cut-outs → dark vs light shadows",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "DIV-1",
+      "topic": "diversity.living",
+      "pattern": "Classification charts/flowcharts",
+      "exam_weight": 0.006
+    },
+    {
+      "id": "DIV-2",
+      "topic": "diversity.living",
+      "pattern": "Reptile vs mammal (body covering, reproduction)",
+      "exam_weight": 0.006
+    },
+    {
+      "id": "DIV-3",
+      "topic": "diversity.living",
+      "pattern": "Flowering vs non-flowering (seeds vs spores)",
+      "exam_weight": 0.006
+    },
+    {
+      "id": "DIV-4",
+      "topic": "diversity.living",
+      "pattern": "Bacteria growth vs temperature/oxygen",
+      "exam_weight": 0.006
+    },
+    {
+      "id": "DIV-5",
+      "topic": "diversity.living",
+      "pattern": "Material property tables",
+      "exam_weight": 0.006
+    },
+    {
+      "id": "CYC-LIFE-1",
+      "topic": "cycles.life",
+      "pattern": "3- vs 4-stage insects",
+      "exam_weight": 0.006
+    },
+    {
+      "id": "CYC-LIFE-2",
+      "topic": "cycles.life",
+      "pattern": "Which day has both pupa and nymph",
+      "exam_weight": 0.006
+    },
+    {
+      "id": "CYC-LIFE-3",
+      "topic": "cycles.life",
+      "pattern": "Life-cycle duration bar graphs",
+      "exam_weight": 0.006
+    },
+    {
+      "id": "CYC-LIFE-4",
+      "topic": "cycles.life",
+      "pattern": "Plant growth sequence",
+      "exam_weight": 0.006
+    }
+  ],
+  "references": [
+    {
+      "file": "references/syllabus.md",
+      "title": "PSLE Science: syllabus, format and wording",
+      "sections": [
+        "Exam day and format (SEAB)",
+        "Assessment objectives (SEAB)",
+        "Themes and topics by level (all P3–P6 content is examinable)",
+        "Current vocabulary that earns the mark *(reported textbook comparison — treat as best practice)*",
+        "Marks per theme (school planning documents)"
+      ]
+    },
+    {
+      "file": "references/concept-cards.md",
+      "title": "Concept cards: every fact, in the words the marker wants",
+      "sections": [
+        "DIV-LIV — Living things & classification",
+        "DIV-MAT — Materials",
+        "CYC-LIFE — Life cycles",
+        "CYC-REPRO — Reproduction in plants and humans",
+        "CYC-MATTER — Matter",
+        "CYC-WATER — Water cycle & changes of state",
+        "SYS-PLANT — Plant system",
+        "SYS-HUMAN — Human systems",
+        "SYS-ELEC — Electrical system",
+        "INT-ENV — Interactions within the environment",
+        "INT-FORCE — Forces & magnets",
+        "ENE-PHOTO — Photosynthesis (energy in food)",
+        "ENE-CONV — Energy forms & conversion",
+        "ENE-HEAT — Heat",
+        "ENE-LIGHT — Light"
+      ]
+    },
+    {
+      "file": "references/answer-techniques.md",
+      "title": "Answering techniques: how marks are won",
+      "sections": [
+        "1. Booklet A (MCQ, 60 marks) — the R.U.L.E. routine",
+        "2. Booklet B (structured, 40 marks) — the C.E.R. spine",
+        "3. Keyword bank by topic (use these words; they map to marking points)",
+        "4. The misconception list (each one has cost marks in school papers)",
+        "5. Time and paper management (exam day)"
+      ]
+    },
+    {
+      "file": "references/memory-strategies.md",
+      "title": "Memory strategies (evidence-based, low pressure)",
+      "sections": [
+        "A. The core loop: \"Ask, don't tell\"",
+        "B. Spacing schedule inside a 12-day window",
+        "C. Interleave, don't block",
+        "D. Dual coding — every idea gets a picture and a sentence",
+        "E. Elaboration prompts (\"why?\" and \"what if?\")",
+        "F. Concrete anchors — one everyday object per abstract idea",
+        "G. Mnemonics (only where a *list* must be recalled)",
+        "H. Error log = the real revision list",
+        "I. Low-pressure rules the tutor follows",
+        "J. Signs of overload (pause, switch to a cheap-win topic or stop)"
+      ]
+    },
+    {
+      "file": "references/tutoring-protocol.md",
+      "title": "Tutoring protocol: diagnose, target, repair, retain",
+      "sections": [
+        "0. Who is in the chat?",
+        "1. Diagnostic (first session, ~25 min, spread across two sittings if needed)",
+        "2. Session structure (20–30 min a day)",
+        "3. Choosing questions (statistically driven)",
+        "6. Twelve-day plan (the last 12 days before the exam)",
+        "7. Working with the parent"
+      ]
+    },
+    {
+      "file": "references/topic-stats.md",
+      "title": "Topic statistics: where the marks are",
+      "sections": [
+        "Marks by topic (all six papers combined, sorted)",
+        "Question archetypes (how questions are *shaped*)",
+        "What this means — target weights for a 12-day plan",
+        "Recurring sub-skills per topic (what recent school papers actually asked)"
+      ]
+    }
+  ],
+  "tools": [
+    "read_reference",
+    "find_items",
+    "check_answer"
+  ],
+  "sources": [
+    {
+      "kind": "own",
+      "note": "Method, references and practice sets written with the founder's own tutor skill (each set was worked and checked before use), scrubbed of learner details by scripts/import-skill.ts."
+    },
+    {
+      "kind": "own",
+      "note": "Topic weights and archetypes are statistics and patterns derived from school papers kept as private reference; no question text, school names or paper codes are included."
+    }
+  ],
+  "licence": "Content CC-BY 4.0 (myKx).",
+  "excluded": [
+    "references/question_bank.json",
+    "assets/<learner>_profile.json",
+    "assets/learner_profile_template.json",
+    "chatgpt/CUSTOM_GPT_INSTRUCTIONS.md",
+    "chatgpt/README.md",
+    "scripts/README.md"
+  ],
+  "legacy_scripts": {
+    "note": "kept privately; never executed",
+    "files": [
+      "scripts/diagrams.py",
+      "scripts/make_paper.py"
+    ]
+  }
+}

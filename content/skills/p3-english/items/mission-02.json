@@ -1,0 +1,857 @@
+[
+  {
+    "id": "p3eng-mission-02-q1",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "tense_continuous",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "The astronauts ____ dinner when the space station’s alarm went off.",
+    "options": [
+      "had",
+      "were having",
+      "are having",
+      "have"
+    ],
+    "answer": 2,
+    "working": [
+      "Dinner is the long action (the wave); the alarm going off is the short action that cuts in (the zap). The wave takes were + -ing.",
+      "Watch out: ‘had’ would mean dinner was already finished before the alarm."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_02_space_detectives.json#Q1"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-mission-02-q2",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "tense_continuous",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "While Priya ____ the stars, her brother was setting up the telescope.",
+    "options": [
+      "watch",
+      "watches",
+      "was watching",
+      "is watching"
+    ],
+    "answer": 3,
+    "working": [
+      "‘While’ joins two long actions happening at the same time in the past. The other half says ‘was setting up’, so match it: was watching.",
+      "Watch out: ‘is watching’ is happening now, but the sentence is in the past."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_02_space_detectives.json#Q2"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-mission-02-q3",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "tense_continuous",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Look! A shooting star ____ across the sky right now!",
+    "options": [
+      "moves",
+      "moved",
+      "is moving",
+      "was moving"
+    ],
+    "answer": 3,
+    "working": [
+      "‘Look!’ and ‘right now’ mean it is happening at this moment: is + -ing.",
+      "Watch out: ‘moves’ is for habits, like ‘The Moon moves around the Earth.’"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_02_space_detectives.json#Q3"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-mission-02-q4",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "tense_simple_past",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Last night, we ____ the Moon through Uncle Ravi’s telescope.",
+    "options": [
+      "see",
+      "saw",
+      "seeing",
+      "were see"
+    ],
+    "answer": 2,
+    "working": [
+      "‘Last night’ is a finished past time. See → saw (a one-off past form).",
+      "Watch out: ‘were see’ is never correct: after was/were you need the -ing form."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_02_space_detectives.json#Q4"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-mission-02-q5",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "verb_form",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Did you ____ the rocket launch on TV yesterday?",
+    "options": [
+      "watch",
+      "watched",
+      "watching",
+      "watches"
+    ],
+    "answer": 1,
+    "working": [
+      "‘Did’ is a bossy helper: it already shows the past, so it steals the -ed. Did + base verb: watch.",
+      "Watch out: ‘yesterday’ tempts you to write ‘watched’, but ‘did’ has done that job."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_02_space_detectives.json#Q5"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-mission-02-q6",
+    "skill": "p3-english",
+    "topic": "reading.visual",
+    "subskill": "vt_traps",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "If it is cloudy on the night, which activity might NOT take place?",
+    "passage": "Bright Minds Science Club presents\n**Starlight Night**\nExplore the planets and stars with your family!\nFAMILY FUN!\nDate: Saturday, 28 November\nTime: 6 p.m. to 9.30 p.m.\nVenue: Starlight Planetarium, Level 2\n**Highlights**\n- **Planet Show** (6.30 p.m. and 8 p.m.): A 30-minute show in our dome theatre. Maximum 50 people per show.\n- **Telescope Corner** (7 p.m. to 9 p.m.): See the Moon and Saturn up close! Only if the sky is clear.\n- **Rocket Workshop** (7.30 p.m.): Build and launch a paper rocket. For children aged 8 and above.\n- **Space Snacks** (Open all evening): Astronaut ice cream at $2 each.\n**Tickets: $15 per person · Children under 4 enter free** Buy at the door or at www.brightminds.sg Bright Minds Science Club members get $5 off.\nFor enquiries, call Mr Tan at 6789 1234.",
+    "options": [
+      "the Planet Show",
+      "the Telescope Corner",
+      "the Rocket Workshop",
+      "Space Snacks"
+    ],
+    "answer": 2,
+    "working": [
+      "The Telescope Corner box says ‘Only if the sky is clear.’ Clouds mean the sky is not clear.",
+      "Watch out: The Planet Show is about space too, but it is indoors in a dome theatre, so clouds don’t matter."
+    ],
+    "figure": "figures/p3eng-mission-02-q6-q9.svg",
+    "figure_spec": {
+      "poster": {
+        "theme": "#3D348B",
+        "accent": "#D9D4F5",
+        "presenter": "Bright Minds Science Club presents",
+        "badge": "FAMILY|FUN!",
+        "corner_icon": "star",
+        "title": "Starlight Night",
+        "tagline": "Explore the planets and stars with your family!",
+        "facts": [
+          {
+            "icon": "calendar",
+            "label": "Date",
+            "value": "Saturday, 28 November"
+          },
+          {
+            "icon": "clock",
+            "label": "Time",
+            "value": "6 p.m. to 9.30 p.m."
+          },
+          {
+            "icon": "pin",
+            "label": "Venue",
+            "value": "Starlight Planetarium, Level 2"
+          }
+        ],
+        "art": [
+          {
+            "kind": "person",
+            "x": 140,
+            "pose": "point",
+            "mood": "excited",
+            "gender": "boy",
+            "top": "#F4A261",
+            "scale": 1.6
+          },
+          {
+            "kind": "moon",
+            "x": 280,
+            "y": 190,
+            "scale": 1.2
+          }
+        ],
+        "banner": "Highlights",
+        "art_right": [
+          {
+            "kind": "person",
+            "x": 200,
+            "pose": "wave",
+            "mood": "happy",
+            "gender": "girl",
+            "top": "#8ECAE6",
+            "scale": 1.6
+          }
+        ],
+        "boxes": [
+          {
+            "title": "Planet Show",
+            "sub": "6.30 p.m. and 8 p.m.",
+            "icon": "star",
+            "body": "A 30-minute show in our dome theatre.\nMaximum 50 people per show."
+          },
+          {
+            "title": "Telescope Corner",
+            "sub": "7 p.m. to 9 p.m.",
+            "icon": "web",
+            "body": "See the Moon and Saturn up close!\nOnly if the sky is clear."
+          },
+          {
+            "title": "Rocket Workshop",
+            "sub": "7.30 p.m.",
+            "icon": "palette",
+            "body": "Build and launch a paper rocket.\nFor children aged 8 and above."
+          },
+          {
+            "title": "Space Snacks",
+            "sub": "Open all evening",
+            "icon": "food",
+            "body": "Astronaut ice cream at $2 each."
+          }
+        ],
+        "wide_box": {
+          "title": "Tickets: $15 per person · Children under 4 enter free",
+          "body": "Buy at the door or at www.brightminds.sg\nBright Minds Science Club members get $5 off."
+        },
+        "footer": [
+          "For enquiries, call Mr Tan at 6789 1234."
+        ]
+      }
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mission_02_space_detectives.json#Q6"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3eng-mission-02-q7",
+    "skill": "p3-english",
+    "topic": "reading.visual",
+    "subskill": "vt_traps",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Mrs Lim and her 3-year-old son go to Starlight Night. They are not club members. How much do they pay altogether?",
+    "passage": "Bright Minds Science Club presents\n**Starlight Night**\nExplore the planets and stars with your family!\nFAMILY FUN!\nDate: Saturday, 28 November\nTime: 6 p.m. to 9.30 p.m.\nVenue: Starlight Planetarium, Level 2\n**Highlights**\n- **Planet Show** (6.30 p.m. and 8 p.m.): A 30-minute show in our dome theatre. Maximum 50 people per show.\n- **Telescope Corner** (7 p.m. to 9 p.m.): See the Moon and Saturn up close! Only if the sky is clear.\n- **Rocket Workshop** (7.30 p.m.): Build and launch a paper rocket. For children aged 8 and above.\n- **Space Snacks** (Open all evening): Astronaut ice cream at $2 each.\n**Tickets: $15 per person · Children under 4 enter free** Buy at the door or at www.brightminds.sg Bright Minds Science Club members get $5 off.\nFor enquiries, call Mr Tan at 6789 1234.",
+    "options": [
+      "$10",
+      "$15",
+      "$25",
+      "$30"
+    ],
+    "answer": 2,
+    "working": [
+      "Only Mrs Lim pays $15. Her son is 3, and children under 4 enter free.",
+      "Watch out: $30 forgets the under-4 rule; $10 uses the members’ discount, but they are not members."
+    ],
+    "figure": "figures/p3eng-mission-02-q6-q9.svg",
+    "figure_spec": {
+      "poster": {
+        "theme": "#3D348B",
+        "accent": "#D9D4F5",
+        "presenter": "Bright Minds Science Club presents",
+        "badge": "FAMILY|FUN!",
+        "corner_icon": "star",
+        "title": "Starlight Night",
+        "tagline": "Explore the planets and stars with your family!",
+        "facts": [
+          {
+            "icon": "calendar",
+            "label": "Date",
+            "value": "Saturday, 28 November"
+          },
+          {
+            "icon": "clock",
+            "label": "Time",
+            "value": "6 p.m. to 9.30 p.m."
+          },
+          {
+            "icon": "pin",
+            "label": "Venue",
+            "value": "Starlight Planetarium, Level 2"
+          }
+        ],
+        "art": [
+          {
+            "kind": "person",
+            "x": 140,
+            "pose": "point",
+            "mood": "excited",
+            "gender": "boy",
+            "top": "#F4A261",
+            "scale": 1.6
+          },
+          {
+            "kind": "moon",
+            "x": 280,
+            "y": 190,
+            "scale": 1.2
+          }
+        ],
+        "banner": "Highlights",
+        "art_right": [
+          {
+            "kind": "person",
+            "x": 200,
+            "pose": "wave",
+            "mood": "happy",
+            "gender": "girl",
+            "top": "#8ECAE6",
+            "scale": 1.6
+          }
+        ],
+        "boxes": [
+          {
+            "title": "Planet Show",
+            "sub": "6.30 p.m. and 8 p.m.",
+            "icon": "star",
+            "body": "A 30-minute show in our dome theatre.\nMaximum 50 people per show."
+          },
+          {
+            "title": "Telescope Corner",
+            "sub": "7 p.m. to 9 p.m.",
+            "icon": "web",
+            "body": "See the Moon and Saturn up close!\nOnly if the sky is clear."
+          },
+          {
+            "title": "Rocket Workshop",
+            "sub": "7.30 p.m.",
+            "icon": "palette",
+            "body": "Build and launch a paper rocket.\nFor children aged 8 and above."
+          },
+          {
+            "title": "Space Snacks",
+            "sub": "Open all evening",
+            "icon": "food",
+            "body": "Astronaut ice cream at $2 each."
+          }
+        ],
+        "wide_box": {
+          "title": "Tickets: $15 per person · Children under 4 enter free",
+          "body": "Buy at the door or at www.brightminds.sg\nBright Minds Science Club members get $5 off."
+        },
+        "footer": [
+          "For enquiries, call Mr Tan at 6789 1234."
+        ]
+      }
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mission_02_space_detectives.json#Q7"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3eng-mission-02-q8",
+    "skill": "p3-english",
+    "topic": "reading.visual",
+    "subskill": "vt_details",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which of these statements is true?",
+    "passage": "Bright Minds Science Club presents\n**Starlight Night**\nExplore the planets and stars with your family!\nFAMILY FUN!\nDate: Saturday, 28 November\nTime: 6 p.m. to 9.30 p.m.\nVenue: Starlight Planetarium, Level 2\n**Highlights**\n- **Planet Show** (6.30 p.m. and 8 p.m.): A 30-minute show in our dome theatre. Maximum 50 people per show.\n- **Telescope Corner** (7 p.m. to 9 p.m.): See the Moon and Saturn up close! Only if the sky is clear.\n- **Rocket Workshop** (7.30 p.m.): Build and launch a paper rocket. For children aged 8 and above.\n- **Space Snacks** (Open all evening): Astronaut ice cream at $2 each.\n**Tickets: $15 per person · Children under 4 enter free** Buy at the door or at www.brightminds.sg Bright Minds Science Club members get $5 off.\nFor enquiries, call Mr Tan at 6789 1234.",
+    "options": [
+      "The Planet Show is shown only once.",
+      "Marcus, who is 9, can join the Rocket Workshop.",
+      "Tickets can only be bought online.",
+      "The whole event ends at 9 p.m."
+    ],
+    "answer": 2,
+    "working": [
+      "The Rocket Workshop is for children aged 8 and above. Marcus is 9.",
+      "Watch out: The show runs twice (6.30 and 8 p.m.); tickets are sold at the door too; only the Telescope Corner ends at 9 p.m. The event ends at 9.30 p.m."
+    ],
+    "figure": "figures/p3eng-mission-02-q6-q9.svg",
+    "figure_spec": {
+      "poster": {
+        "theme": "#3D348B",
+        "accent": "#D9D4F5",
+        "presenter": "Bright Minds Science Club presents",
+        "badge": "FAMILY|FUN!",
+        "corner_icon": "star",
+        "title": "Starlight Night",
+        "tagline": "Explore the planets and stars with your family!",
+        "facts": [
+          {
+            "icon": "calendar",
+            "label": "Date",
+            "value": "Saturday, 28 November"
+          },
+          {
+            "icon": "clock",
+            "label": "Time",
+            "value": "6 p.m. to 9.30 p.m."
+          },
+          {
+            "icon": "pin",
+            "label": "Venue",
+            "value": "Starlight Planetarium, Level 2"
+          }
+        ],
+        "art": [
+          {
+            "kind": "person",
+            "x": 140,
+            "pose": "point",
+            "mood": "excited",
+            "gender": "boy",
+            "top": "#F4A261",
+            "scale": 1.6
+          },
+          {
+            "kind": "moon",
+            "x": 280,
+            "y": 190,
+            "scale": 1.2
+          }
+        ],
+        "banner": "Highlights",
+        "art_right": [
+          {
+            "kind": "person",
+            "x": 200,
+            "pose": "wave",
+            "mood": "happy",
+            "gender": "girl",
+            "top": "#8ECAE6",
+            "scale": 1.6
+          }
+        ],
+        "boxes": [
+          {
+            "title": "Planet Show",
+            "sub": "6.30 p.m. and 8 p.m.",
+            "icon": "star",
+            "body": "A 30-minute show in our dome theatre.\nMaximum 50 people per show."
+          },
+          {
+            "title": "Telescope Corner",
+            "sub": "7 p.m. to 9 p.m.",
+            "icon": "web",
+            "body": "See the Moon and Saturn up close!\nOnly if the sky is clear."
+          },
+          {
+            "title": "Rocket Workshop",
+            "sub": "7.30 p.m.",
+            "icon": "palette",
+            "body": "Build and launch a paper rocket.\nFor children aged 8 and above."
+          },
+          {
+            "title": "Space Snacks",
+            "sub": "Open all evening",
+            "icon": "food",
+            "body": "Astronaut ice cream at $2 each."
+          }
+        ],
+        "wide_box": {
+          "title": "Tickets: $15 per person · Children under 4 enter free",
+          "body": "Buy at the door or at www.brightminds.sg\nBright Minds Science Club members get $5 off."
+        },
+        "footer": [
+          "For enquiries, call Mr Tan at 6789 1234."
+        ]
+      }
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mission_02_space_detectives.json#Q8"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3eng-mission-02-q9",
+    "skill": "p3-english",
+    "topic": "reading.visual",
+    "subskill": "vt_details",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Who should you contact if you have a question about Starlight Night?",
+    "passage": "Bright Minds Science Club presents\n**Starlight Night**\nExplore the planets and stars with your family!\nFAMILY FUN!\nDate: Saturday, 28 November\nTime: 6 p.m. to 9.30 p.m.\nVenue: Starlight Planetarium, Level 2\n**Highlights**\n- **Planet Show** (6.30 p.m. and 8 p.m.): A 30-minute show in our dome theatre. Maximum 50 people per show.\n- **Telescope Corner** (7 p.m. to 9 p.m.): See the Moon and Saturn up close! Only if the sky is clear.\n- **Rocket Workshop** (7.30 p.m.): Build and launch a paper rocket. For children aged 8 and above.\n- **Space Snacks** (Open all evening): Astronaut ice cream at $2 each.\n**Tickets: $15 per person · Children under 4 enter free** Buy at the door or at www.brightminds.sg Bright Minds Science Club members get $5 off.\nFor enquiries, call Mr Tan at 6789 1234.",
+    "options": [
+      "the Bright Minds website",
+      "Mr Tan",
+      "the Planet Show staff",
+      "the Level 2 counter"
+    ],
+    "answer": 2,
+    "working": [
+      "‘For enquiries, call Mr Tan.’ An enquiry is a question.",
+      "Watch out: The website is for buying tickets, not for questions."
+    ],
+    "figure": "figures/p3eng-mission-02-q6-q9.svg",
+    "figure_spec": {
+      "poster": {
+        "theme": "#3D348B",
+        "accent": "#D9D4F5",
+        "presenter": "Bright Minds Science Club presents",
+        "badge": "FAMILY|FUN!",
+        "corner_icon": "star",
+        "title": "Starlight Night",
+        "tagline": "Explore the planets and stars with your family!",
+        "facts": [
+          {
+            "icon": "calendar",
+            "label": "Date",
+            "value": "Saturday, 28 November"
+          },
+          {
+            "icon": "clock",
+            "label": "Time",
+            "value": "6 p.m. to 9.30 p.m."
+          },
+          {
+            "icon": "pin",
+            "label": "Venue",
+            "value": "Starlight Planetarium, Level 2"
+          }
+        ],
+        "art": [
+          {
+            "kind": "person",
+            "x": 140,
+            "pose": "point",
+            "mood": "excited",
+            "gender": "boy",
+            "top": "#F4A261",
+            "scale": 1.6
+          },
+          {
+            "kind": "moon",
+            "x": 280,
+            "y": 190,
+            "scale": 1.2
+          }
+        ],
+        "banner": "Highlights",
+        "art_right": [
+          {
+            "kind": "person",
+            "x": 200,
+            "pose": "wave",
+            "mood": "happy",
+            "gender": "girl",
+            "top": "#8ECAE6",
+            "scale": 1.6
+          }
+        ],
+        "boxes": [
+          {
+            "title": "Planet Show",
+            "sub": "6.30 p.m. and 8 p.m.",
+            "icon": "star",
+            "body": "A 30-minute show in our dome theatre.\nMaximum 50 people per show."
+          },
+          {
+            "title": "Telescope Corner",
+            "sub": "7 p.m. to 9 p.m.",
+            "icon": "web",
+            "body": "See the Moon and Saturn up close!\nOnly if the sky is clear."
+          },
+          {
+            "title": "Rocket Workshop",
+            "sub": "7.30 p.m.",
+            "icon": "palette",
+            "body": "Build and launch a paper rocket.\nFor children aged 8 and above."
+          },
+          {
+            "title": "Space Snacks",
+            "sub": "Open all evening",
+            "icon": "food",
+            "body": "Astronaut ice cream at $2 each."
+          }
+        ],
+        "wide_box": {
+          "title": "Tickets: $15 per person · Children under 4 enter free",
+          "body": "Buy at the door or at www.brightminds.sg\nBright Minds Science Club members get $5 off."
+        },
+        "footer": [
+          "For enquiries, call Mr Tan at 6789 1234."
+        ]
+      }
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mission_02_space_detectives.json#Q9"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3eng-mission-02-q10",
+    "skill": "p3-english",
+    "topic": "reading.comprehension",
+    "subskill": "comp_literal",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Why did Daniel join the queue at the Telescope Corner?",
+    "passage": "**Saturn at Last**\n\nDaniel had waited all week for Starlight Night. He wanted to see the rings of Saturn with his own eyes. When he and his mother reached the planetarium, a long queue had already formed at the Telescope Corner.\n\nThey waited for almost half an hour. While they were queuing, thick grey clouds drifted across the sky. \"Please hurry,\" Daniel whispered. Finally, it was his turn. He pressed his eye against the telescope, but all he could see was grey. His shoulders drooped.\n\nA volunteer named Miss Aisha noticed how upset he looked. \"Clouds move quickly,\" she said kindly. \"Let's wait a few minutes together.\" She told him a funny story about an astronaut whose spoon floated away during lunch. Then she handed him two star stickers and asked him to stick **them** on his cap.\n\nFive minutes later, the clouds slid away. Miss Aisha adjusted the telescope and stepped aside. Daniel looked again and gasped. There was Saturn, a tiny golden ball with a thin ring around it, shining in the dark sky.\n\nOn the way home, Daniel could not stop talking about it. \"Next time, I will be more patient,\" he told his mother with a grin.",
+    "options": [
+      "He wanted to meet Miss Aisha.",
+      "He wanted to see the rings of Saturn.",
+      "His mother wanted to buy a telescope.",
+      "He wanted to watch the Planet Show."
+    ],
+    "answer": 2,
+    "working": [
+      "Paragraph 1: ‘He wanted to see the rings of Saturn with his own eyes.’"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_02_space_detectives.json#Q10"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-mission-02-q11",
+    "skill": "p3-english",
+    "topic": "reading.comprehension",
+    "subskill": "comp_phrase",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Pick out a three-word phrase from paragraph 2 that shows Daniel was disappointed.",
+    "passage": "**Saturn at Last**\n\nDaniel had waited all week for Starlight Night. He wanted to see the rings of Saturn with his own eyes. When he and his mother reached the planetarium, a long queue had already formed at the Telescope Corner.\n\nThey waited for almost half an hour. While they were queuing, thick grey clouds drifted across the sky. \"Please hurry,\" Daniel whispered. Finally, it was his turn. He pressed his eye against the telescope, but all he could see was grey. His shoulders drooped.\n\nA volunteer named Miss Aisha noticed how upset he looked. \"Clouds move quickly,\" she said kindly. \"Let's wait a few minutes together.\" She told him a funny story about an astronaut whose spoon floated away during lunch. Then she handed him two star stickers and asked him to stick **them** on his cap.\n\nFive minutes later, the clouds slid away. Miss Aisha adjusted the telescope and stepped aside. Daniel looked again and gasped. There was Saturn, a tiny golden ball with a thin ring around it, shining in the dark sky.\n\nOn the way home, Daniel could not stop talking about it. \"Next time, I will be more patient,\" he told his mother with a grin.",
+    "answer": "His shoulders drooped",
+    "working": [
+      "When your shoulders droop, your body shows you are sad or disappointed. Count: His (1) shoulders (2) drooped (3).",
+      "Watch out: ‘all he could see was grey’ is what happened, not how he felt, and it is six words."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_02_space_detectives.json#Q11"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-mission-02-q12",
+    "skill": "p3-english",
+    "topic": "reading.comprehension",
+    "subskill": "comp_vocab",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Miss Aisha adjusted (A) the telescope and stepped (B) aside.\n\nWhich word means \"changed the position of\"?",
+    "passage": "**Saturn at Last**\n\nDaniel had waited all week for Starlight Night. He wanted to see the rings of Saturn with his own eyes. When he and his mother reached the planetarium, a long queue had already formed at the Telescope Corner.\n\nThey waited for almost half an hour. While they were queuing, thick grey clouds drifted across the sky. \"Please hurry,\" Daniel whispered. Finally, it was his turn. He pressed his eye against the telescope, but all he could see was grey. His shoulders drooped.\n\nA volunteer named Miss Aisha noticed how upset he looked. \"Clouds move quickly,\" she said kindly. \"Let's wait a few minutes together.\" She told him a funny story about an astronaut whose spoon floated away during lunch. Then she handed him two star stickers and asked him to stick **them** on his cap.\n\nFive minutes later, the clouds slid away. Miss Aisha adjusted the telescope and stepped aside. Daniel looked again and gasped. There was Saturn, a tiny golden ball with a thin ring around it, shining in the dark sky.\n\nOn the way home, Daniel could not stop talking about it. \"Next time, I will be more patient,\" he told his mother with a grin.",
+    "options": [
+      "adjusted",
+      "stepped"
+    ],
+    "answer": 1,
+    "working": [
+      "Swap test: ‘Miss Aisha changed the position of the telescope’ makes sense. To adjust something is to move or change it a little so it works better."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_02_space_detectives.json#Q12"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-mission-02-q13",
+    "skill": "p3-english",
+    "topic": "reading.comprehension",
+    "subskill": "comp_referent",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "What does ‘them’ (in bold in the passage) refer to?",
+    "passage": "**Saturn at Last**\n\nDaniel had waited all week for Starlight Night. He wanted to see the rings of Saturn with his own eyes. When he and his mother reached the planetarium, a long queue had already formed at the Telescope Corner.\n\nThey waited for almost half an hour. While they were queuing, thick grey clouds drifted across the sky. \"Please hurry,\" Daniel whispered. Finally, it was his turn. He pressed his eye against the telescope, but all he could see was grey. His shoulders drooped.\n\nA volunteer named Miss Aisha noticed how upset he looked. \"Clouds move quickly,\" she said kindly. \"Let's wait a few minutes together.\" She told him a funny story about an astronaut whose spoon floated away during lunch. Then she handed him two star stickers and asked him to stick **them** on his cap.\n\nFive minutes later, the clouds slid away. Miss Aisha adjusted the telescope and stepped aside. Daniel looked again and gasped. There was Saturn, a tiny golden ball with a thin ring around it, shining in the dark sky.\n\nOn the way home, Daniel could not stop talking about it. \"Next time, I will be more patient,\" he told his mother with a grin.",
+    "answer": "the two star stickers",
+    "accept": [
+      "two star stickers",
+      "star stickers",
+      "the star stickers"
+    ],
+    "working": [
+      "Look back for the nearest thing he could stick on a cap: the two star stickers. Test: ‘stick the star stickers on his cap’ makes sense."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_02_space_detectives.json#Q13"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-mission-02-q14",
+    "skill": "p3-english",
+    "topic": "reading.comprehension",
+    "subskill": "comp_true_false",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "True or false? Daniel saw Saturn the first time he looked through the telescope.",
+    "passage": "**Saturn at Last**\n\nDaniel had waited all week for Starlight Night. He wanted to see the rings of Saturn with his own eyes. When he and his mother reached the planetarium, a long queue had already formed at the Telescope Corner.\n\nThey waited for almost half an hour. While they were queuing, thick grey clouds drifted across the sky. \"Please hurry,\" Daniel whispered. Finally, it was his turn. He pressed his eye against the telescope, but all he could see was grey. His shoulders drooped.\n\nA volunteer named Miss Aisha noticed how upset he looked. \"Clouds move quickly,\" she said kindly. \"Let's wait a few minutes together.\" She told him a funny story about an astronaut whose spoon floated away during lunch. Then she handed him two star stickers and asked him to stick **them** on his cap.\n\nFive minutes later, the clouds slid away. Miss Aisha adjusted the telescope and stepped aside. Daniel looked again and gasped. There was Saturn, a tiny golden ball with a thin ring around it, shining in the dark sky.\n\nOn the way home, Daniel could not stop talking about it. \"Next time, I will be more patient,\" he told his mother with a grin.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 2,
+    "working": [
+      "The first time, all he could see was grey because of the clouds.",
+      "Watch out: He did see Saturn in the end, but not the FIRST time. Check every word of the statement."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_02_space_detectives.json#Q14"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-mission-02-q15",
+    "skill": "p3-english",
+    "topic": "reading.comprehension",
+    "subskill": "comp_true_false",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "True or false? Miss Aisha told Daniel a funny story while they waited.",
+    "passage": "**Saturn at Last**\n\nDaniel had waited all week for Starlight Night. He wanted to see the rings of Saturn with his own eyes. When he and his mother reached the planetarium, a long queue had already formed at the Telescope Corner.\n\nThey waited for almost half an hour. While they were queuing, thick grey clouds drifted across the sky. \"Please hurry,\" Daniel whispered. Finally, it was his turn. He pressed his eye against the telescope, but all he could see was grey. His shoulders drooped.\n\nA volunteer named Miss Aisha noticed how upset he looked. \"Clouds move quickly,\" she said kindly. \"Let's wait a few minutes together.\" She told him a funny story about an astronaut whose spoon floated away during lunch. Then she handed him two star stickers and asked him to stick **them** on his cap.\n\nFive minutes later, the clouds slid away. Miss Aisha adjusted the telescope and stepped aside. Daniel looked again and gasped. There was Saturn, a tiny golden ball with a thin ring around it, shining in the dark sky.\n\nOn the way home, Daniel could not stop talking about it. \"Next time, I will be more patient,\" he told his mother with a grin.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "working": [
+      "Paragraph 3: she told him a funny story about an astronaut’s floating spoon."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_02_space_detectives.json#Q15"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-mission-02-q16",
+    "skill": "p3-english",
+    "topic": "reading.comprehension",
+    "subskill": "comp_feelings",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "How did Daniel feel when he finally saw Saturn? Give one piece of evidence from the passage.",
+    "passage": "**Saturn at Last**\n\nDaniel had waited all week for Starlight Night. He wanted to see the rings of Saturn with his own eyes. When he and his mother reached the planetarium, a long queue had already formed at the Telescope Corner.\n\nThey waited for almost half an hour. While they were queuing, thick grey clouds drifted across the sky. \"Please hurry,\" Daniel whispered. Finally, it was his turn. He pressed his eye against the telescope, but all he could see was grey. His shoulders drooped.\n\nA volunteer named Miss Aisha noticed how upset he looked. \"Clouds move quickly,\" she said kindly. \"Let's wait a few minutes together.\" She told him a funny story about an astronaut whose spoon floated away during lunch. Then she handed him two star stickers and asked him to stick **them** on his cap.\n\nFive minutes later, the clouds slid away. Miss Aisha adjusted the telescope and stepped aside. Daniel looked again and gasped. There was Saturn, a tiny golden ball with a thin ring around it, shining in the dark sky.\n\nOn the way home, Daniel could not stop talking about it. \"Next time, I will be more patient,\" he told his mother with a grin.",
+    "answer": "He felt amazed. He gasped when he saw Saturn, and he could not stop talking about it on the way home.",
+    "accept": [
+      "excited / delighted / happy (with evidence)"
+    ],
+    "working": [
+      "‘gasped’ shows amazement, and ‘could not stop talking about it’ shows excitement."
+    ],
+    "marking": [
+      "1 mark for a suitable feeling (amazed, excited, delighted, happy). 1 mark for evidence lifted from the passage (gasped / could not stop talking about it)."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_02_space_detectives.json#Q16"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-mission-02-q17",
+    "skill": "p3-english",
+    "topic": "reading.comprehension",
+    "subskill": "comp_literal",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Give two things Miss Aisha did to cheer Daniel up.",
+    "passage": "**Saturn at Last**\n\nDaniel had waited all week for Starlight Night. He wanted to see the rings of Saturn with his own eyes. When he and his mother reached the planetarium, a long queue had already formed at the Telescope Corner.\n\nThey waited for almost half an hour. While they were queuing, thick grey clouds drifted across the sky. \"Please hurry,\" Daniel whispered. Finally, it was his turn. He pressed his eye against the telescope, but all he could see was grey. His shoulders drooped.\n\nA volunteer named Miss Aisha noticed how upset he looked. \"Clouds move quickly,\" she said kindly. \"Let's wait a few minutes together.\" She told him a funny story about an astronaut whose spoon floated away during lunch. Then she handed him two star stickers and asked him to stick **them** on his cap.\n\nFive minutes later, the clouds slid away. Miss Aisha adjusted the telescope and stepped aside. Daniel looked again and gasped. There was Saturn, a tiny golden ball with a thin ring around it, shining in the dark sky.\n\nOn the way home, Daniel could not stop talking about it. \"Next time, I will be more patient,\" he told his mother with a grin.",
+    "answer": "She told him a funny story about an astronaut. She gave him two star stickers to stick on his cap.",
+    "accept": [
+      "She waited with him / asked him to wait a few minutes together."
+    ],
+    "working": [
+      "Two marks = two different ideas, one on each line. Both are in paragraph 3."
+    ],
+    "marking": [
+      "1 mark for each different idea. Writing the same idea twice in different words scores only 1."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_02_space_detectives.json#Q17"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-mission-02-q18",
+    "skill": "p3-english",
+    "topic": "reading.comprehension",
+    "subskill": "comp_inference",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "open",
+    "stem": "What lesson did Daniel learn from this experience?",
+    "passage": "**Saturn at Last**\n\nDaniel had waited all week for Starlight Night. He wanted to see the rings of Saturn with his own eyes. When he and his mother reached the planetarium, a long queue had already formed at the Telescope Corner.\n\nThey waited for almost half an hour. While they were queuing, thick grey clouds drifted across the sky. \"Please hurry,\" Daniel whispered. Finally, it was his turn. He pressed his eye against the telescope, but all he could see was grey. His shoulders drooped.\n\nA volunteer named Miss Aisha noticed how upset he looked. \"Clouds move quickly,\" she said kindly. \"Let's wait a few minutes together.\" She told him a funny story about an astronaut whose spoon floated away during lunch. Then she handed him two star stickers and asked him to stick **them** on his cap.\n\nFive minutes later, the clouds slid away. Miss Aisha adjusted the telescope and stepped aside. Daniel looked again and gasped. There was Saturn, a tiny golden ball with a thin ring around it, shining in the dark sky.\n\nOn the way home, Daniel could not stop talking about it. \"Next time, I will be more patient,\" he told his mother with a grin.",
+    "answer": "He learnt to be patient, because waiting a few more minutes let him see Saturn.",
+    "working": [
+      "The last paragraph gives it away: ‘Next time, I will be more patient.’ Lessons usually hide in the last paragraph."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_02_space_detectives.json#Q18"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  }
+]

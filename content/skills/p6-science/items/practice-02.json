@@ -1,0 +1,924 @@
+[
+  {
+    "id": "p6sci-practice-02-q1",
+    "skill": "p6-science",
+    "topic": "interactions.forces",
+    "subskill": "magnets",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Magnet A was placed near an iron bar. When released, the iron bar moved towards the magnet along a wooden table.\n\n| | Direction of magnetic force on bar | Direction of frictional force on bar | Is gravitational force acting? |\n| --- | --- | --- | --- |\n| (1) | towards magnet A | towards magnet A | No |\n| (2) | towards magnet A | away from magnet A | Yes |\n| (3) | away from magnet A | towards magnet A | Yes |\n| (4) | away from magnet A | away from magnet A | No |\n\nWhich row correctly shows the forces acting on the iron bar as it moved?",
+    "options": [
+      "Row (1)",
+      "Row (2)",
+      "Row (3)",
+      "Row (4)"
+    ],
+    "answer": 2,
+    "working": [
+      "The magnet attracts the iron bar (magnetic force towards A). Friction acts opposite to the motion, so away from A. Gravity acts on every object all the time.",
+      "Watch out: Thinking gravity 'switches off' when an object is moving sideways. G-F-M-S: Gravity always."
+    ],
+    "figure": "figures/p6sci-practice-02-q1.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "magnets",
+          "box": [
+            9,
+            3
+          ],
+          "items": [
+            {
+              "kind": "magnet",
+              "x": 0.6,
+              "y": 1.2,
+              "w": 1.8,
+              "poles": [
+                "S",
+                "N"
+              ],
+              "label": "magnet A"
+            },
+            {
+              "kind": "bar",
+              "x": 5.2,
+              "y": 1.2,
+              "w": 2.4,
+              "label": "iron bar",
+              "hatch": "///",
+              "ends": [
+                "X",
+                "Y"
+              ]
+            },
+            {
+              "kind": "clip",
+              "x": 8.4,
+              "y": 1.45,
+              "label": "steel clip"
+            }
+          ],
+          "arrows": [
+            {
+              "x0": 5,
+              "y0": 2.3,
+              "x1": 3.4,
+              "y1": 2.3,
+              "text": "movement of bar"
+            }
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "example_paper_2.json#Q1"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p6sci-practice-02-q2",
+    "skill": "p6-science",
+    "topic": "interactions.forces",
+    "subskill": "magnets",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Refer to the same set-up. Magnet A was moved slowly towards the steel clip from 12 cm away. The clip was attracted when the magnet was 4 cm away. Magnets B and C were tested the same way and attracted the clip at 7 cm and 2 cm.\n\nWhich shows the magnets from the strongest to the weakest?",
+    "options": [
+      "A, B, C",
+      "B, A, C",
+      "C, A, B",
+      "C, B, A"
+    ],
+    "answer": 2,
+    "working": [
+      "A stronger magnet attracts the clip from further away. B (7 cm) > A (4 cm) > C (2 cm).",
+      "Watch out: Reading the smallest distance as 'strongest'. Further reach = stronger."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "example_paper_2.json#Q2"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p6sci-practice-02-q3",
+    "skill": "p6-science",
+    "topic": "energy.conversion",
+    "subskill": "energy_graphs",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Zoe released a toy car from the top of a ramp. The bar graph shows the amounts of energy the car had at point A near the bottom.\n\n| | Gravitational potential | Kinetic | Heat and sound |\n| --- | --- | --- | --- |\n| (1) | same | more | less |\n| (2) | same | less | more |\n| (3) | more | less | same |\n| (4) | less | same | more |\n\nShe then covered the ramp with sandpaper and released the same car from the same height. Which graph shows the energy at point A?",
+    "options": [
+      "Row (1)",
+      "Row (2)",
+      "Row (3)",
+      "Row (4)"
+    ],
+    "answer": 2,
+    "working": [
+      "Same height and mass → same GPE at A. Rougher surface → more friction → more of the energy converted to heat and sound → less kinetic energy. Total is unchanged (energy is only converted).",
+      "Watch out: Changing the GPE. Height did not change, so GPE at A is the same."
+    ],
+    "figure": "figures/p6sci-practice-02-q3.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "bar_chart",
+          "categories": [
+            "gravitational potential",
+            "kinetic",
+            "heat and sound"
+          ],
+          "values": [
+            3,
+            6,
+            1
+          ],
+          "ylabel": "Amount of energy (units)",
+          "hide_numbers": true,
+          "ylim": [
+            0,
+            7
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "example_paper_2.json#Q3"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p6sci-practice-02-q4",
+    "skill": "p6-science",
+    "topic": "energy.conversion",
+    "subskill": "energy_chains",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "The diagram shows a hydroelectric dam. Water stored behind the dam flows down a pipe and turns a turbine connected to a generator.\n\nWhich energy conversion is correct for the water and the turbine?",
+    "options": [
+      "kinetic energy (water) → gravitational potential energy (turbine)",
+      "gravitational potential energy (water) → kinetic energy (water) → kinetic energy (turbine)",
+      "heat energy (water) → kinetic energy (turbine)",
+      "electrical energy (water) → kinetic energy (turbine)"
+    ],
+    "answer": 2,
+    "working": [
+      "Water at a height has GPE. As it falls it gains KE, which is transferred to the turbine (KE), which the generator converts to electrical energy.",
+      "Watch out: Starting the chain with electrical energy. Electrical energy is the END product from the generator."
+    ],
+    "figure": "figures/p6sci-practice-02-q4.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "scene",
+          "box": [
+            10,
+            5.5
+          ],
+          "items": [
+            {
+              "prim": "block",
+              "x": 0.5,
+              "y": 1,
+              "w": 3,
+              "h": 3.6,
+              "hatch": ""
+            },
+            {
+              "prim": "block",
+              "x": 3.5,
+              "y": 1,
+              "w": 0.5,
+              "h": 3.6,
+              "hatch": "xxx"
+            },
+            {
+              "prim": "arrow",
+              "x0": 3.3,
+              "y0": 3.9,
+              "x1": 6.6,
+              "y1": 1.9
+            },
+            {
+              "prim": "block",
+              "x": 6.6,
+              "y": 1,
+              "w": 1.2,
+              "h": 1.2,
+              "hatch": ""
+            },
+            {
+              "prim": "block",
+              "x": 8.2,
+              "y": 1,
+              "w": 1.4,
+              "h": 1.2,
+              "hatch": ""
+            },
+            {
+              "prim": "arrow",
+              "x0": 7.8,
+              "y0": 1.6,
+              "x1": 8.2,
+              "y1": 1.6
+            },
+            {
+              "prim": "ground",
+              "x0": 0.2,
+              "x1": 9.8,
+              "y": 0.95
+            }
+          ],
+          "texts": [
+            {
+              "x": 2,
+              "y": 2.8,
+              "text": "water stored\nbehind dam",
+              "size": 9
+            },
+            {
+              "x": 3.75,
+              "y": 4.85,
+              "text": "dam",
+              "size": 9
+            },
+            {
+              "x": 5.9,
+              "y": 3.5,
+              "text": "water flows\ndown pipe",
+              "size": 9
+            },
+            {
+              "x": 7.2,
+              "y": 0.55,
+              "text": "turbine",
+              "size": 9
+            },
+            {
+              "x": 8.9,
+              "y": 0.55,
+              "text": "generator",
+              "size": 9
+            }
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "example_paper_2.json#Q4"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p6sci-practice-02-q5",
+    "skill": "p6-science",
+    "topic": "interactions.environment",
+    "subskill": "populations",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "The graph shows the populations of three organisms, P, Q and R, in a field. Organism R was introduced in week 3.\n\nWhich statement best explains the changes after week 3?",
+    "options": [
+      "R fed on Q, so P had more food.",
+      "R fed on P, so fewer P were left to feed on Q.",
+      "R fed on both P and Q.",
+      "Q fed on R, so Q increased."
+    ],
+    "answer": 2,
+    "working": [
+      "After R arrived, P fell while R rose → R eats P. With fewer P, Q (the food of P) was eaten less and increased. Two-step reasoning: predator of P arrives → P down → P's food Q up.",
+      "Watch out: Option (1) has the direction backwards: Q went UP, so Q was not being eaten more."
+    ],
+    "figure": "figures/p6sci-practice-02-q5.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "line_graph",
+          "w": 5.4,
+          "h": 3,
+          "xlabel": "Week",
+          "ylabel": "Population size",
+          "hide_numbers": false,
+          "series": [
+            {
+              "label": "P",
+              "x": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ],
+              "y": [
+                30,
+                32,
+                34,
+                35,
+                28,
+                20,
+                14
+              ],
+              "style": "-"
+            },
+            {
+              "label": "Q",
+              "x": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ],
+              "y": [
+                20,
+                18,
+                16,
+                15,
+                18,
+                24,
+                30
+              ],
+              "style": ":"
+            },
+            {
+              "label": "R",
+              "x": [
+                3,
+                4,
+                5,
+                6
+              ],
+              "y": [
+                5,
+                8,
+                12,
+                15
+              ],
+              "style": "--"
+            }
+          ],
+          "xticks": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "yticks": [],
+          "vlines": [
+            3
+          ],
+          "legend": false
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "example_paper_2.json#Q5"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p6sci-practice-02-q6",
+    "skill": "p6-science",
+    "topic": "interactions.environment",
+    "subskill": "adaptations",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Animal K lives on sandy beaches. It has a pale, sand-coloured shell, digs into the sand during the hottest part of the day and comes out at night to feed.\n\n| | Sand-coloured shell | Digging into sand by day | Feeding at night |\n| --- | --- | --- | --- |\n| (1) | structural | behavioural | behavioural |\n| (2) | behavioural | structural | behavioural |\n| (3) | structural | structural | behavioural |\n| (4) | behavioural | behavioural | structural |\n\nWhich row correctly classifies its adaptations?",
+    "options": [
+      "Row (1)",
+      "Row (2)",
+      "Row (3)",
+      "Row (4)"
+    ],
+    "answer": 1,
+    "working": [
+      "A body part or feature (shell colour) is structural; something the animal DOES (digging, feeding at night) is behavioural.",
+      "Watch out: Calling 'digging' structural because it uses claws. The adaptation being described is the action, not the claws."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "example_paper_2.json#Q6"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p6sci-practice-02-q7",
+    "skill": "p6-science",
+    "topic": "systems.electrical",
+    "subskill": "series_parallel",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Study the circuit. The iron rod inside the coil becomes a magnet only when current flows.\n\nKai wants the iron rod to attract MORE steel clips when the switch is closed. Which two changes would work?\nA: add another battery in the same direction &nbsp; B: use more turns of wire around the rod &nbsp; C: replace the iron rod with a plastic rod &nbsp; D: add another bulb in series",
+    "options": [
+      "A and B only",
+      "A and D only",
+      "B and C only",
+      "C and D only"
+    ],
+    "answer": 1,
+    "working": [
+      "An electromagnet is stronger with more batteries (more current) or more turns of wire. Plastic is not magnetic. Another bulb in series reduces the current, weakening the electromagnet.",
+      "Watch out: D: extra components in series make the circuit WEAKER, not stronger."
+    ],
+    "figure": "figures/p6sci-practice-02-q7.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "circuit",
+          "battery": {
+            "cells": 2
+          },
+          "series": [
+            {
+              "switch": "S",
+              "closed": false
+            },
+            {
+              "box": "coil + iron rod"
+            },
+            {
+              "bulb": "L"
+            }
+          ],
+          "width": 8,
+          "height": 3.5
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "example_paper_2.json#Q7"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p6sci-practice-02-q8",
+    "skill": "p6-science",
+    "topic": "interactions.forces",
+    "subskill": "springs",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Three identical blocks were placed on three identical springs standing on a table. Spring Z was then pushed down by a hand and held.\n\nWhich statement is correct?",
+    "options": [
+      "Spring Z exerts a greater elastic spring force than spring X.",
+      "Gravitational force on block Z is greater than on block X.",
+      "Spring X is compressed more than spring Z.",
+      "Spring Y exerts no force on block Y."
+    ],
+    "answer": 1,
+    "working": [
+      "Z is compressed the most, so it exerts the greatest elastic spring force (it pushes back against the block AND the hand). Identical blocks → same gravitational force. Y's spring pushes up to balance the block's weight.",
+      "Watch out: Confusing 'more compressed' with 'weaker'. More compression = more push-back."
+    ],
+    "figure": "figures/p6sci-practice-02-q8.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "scene",
+          "box": [
+            10,
+            5.5
+          ],
+          "items": [
+            {
+              "prim": "table",
+              "x": 0.5,
+              "y": 1.3,
+              "w": 9,
+              "label": "table"
+            },
+            {
+              "prim": "spring",
+              "x": 2,
+              "y0": 1.3,
+              "y1": 3.6
+            },
+            {
+              "prim": "block",
+              "x": 1.6,
+              "y": 3.6,
+              "w": 0.8,
+              "h": 0.6,
+              "label": "X"
+            },
+            {
+              "prim": "spring",
+              "x": 5,
+              "y0": 1.3,
+              "y1": 3.6
+            },
+            {
+              "prim": "block",
+              "x": 4.6,
+              "y": 3.6,
+              "w": 0.8,
+              "h": 0.6,
+              "label": "Y"
+            },
+            {
+              "prim": "spring",
+              "x": 8,
+              "y0": 1.3,
+              "y1": 2.6
+            },
+            {
+              "prim": "block",
+              "x": 7.6,
+              "y": 2.6,
+              "w": 0.8,
+              "h": 0.6,
+              "label": "Z"
+            },
+            {
+              "prim": "arrow",
+              "x0": 8,
+              "y0": 4.4,
+              "x1": 8,
+              "y1": 3.35,
+              "text": "push"
+            }
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "example_paper_2.json#Q8"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p6sci-practice-02-q31a",
+    "skill": "p6-science",
+    "topic": "interactions.environment",
+    "subskill": "adaptations",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "open",
+    "stem": "Bird G lives along the seashore and feeds on small fish. It builds its nest on the ground among brown pebbles and lays eggs whose shells are brown-spotted outside and white inside.\n\n(a) Explain how the brown-spotted eggshell helps the eggs survive.",
+    "answer": "The brown spots make the eggs blend in with the brown pebbles (camouflage), so predators cannot spot them easily.",
+    "marking": [
+      "Must link colour → not easily seen → predators. Feature alone = 0."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "example_paper_2.json#Q31(a)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p6sci-practice-02-q31b",
+    "skill": "p6-science",
+    "topic": "interactions.environment",
+    "subskill": "adaptations",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Bird G lives along the seashore and feeds on small fish. It builds its nest on the ground among brown pebbles and lays eggs whose shells are brown-spotted outside and white inside.\n\n(b) Soon after the chicks hatch, bird G picks up the broken eggshells and drops them far from the nest. Explain why.",
+    "answer": "The inside of the shells is white and stands out against the brown pebbles. If left near the nest they could attract predators to the chicks, so removing them keeps the chicks hidden.",
+    "marking": [
+      "1: white inside is easily seen / not camouflaged. 1: so predators would be led to the chicks; removing shells protects them."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "example_paper_2.json#Q31(b)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p6sci-practice-02-q31c",
+    "skill": "p6-science",
+    "topic": "interactions.environment",
+    "subskill": "adaptations",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "open",
+    "stem": "Bird G lives along the seashore and feeds on small fish. It builds its nest on the ground among brown pebbles and lays eggs whose shells are brown-spotted outside and white inside.\n\n(c) State whether removing the eggshells is a structural or a behavioural adaptation.",
+    "answer": "Behavioural adaptation.",
+    "marking": [
+      "Command word 'state' — one word answer, no explanation needed."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "example_paper_2.json#Q31(c)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p6sci-practice-02-q32a",
+    "skill": "p6-science",
+    "topic": "energy.conversion",
+    "subskill": "gpe_ke",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Ravi dropped two balls of the same size from a height of 1 m onto a sand tray. Ball D is heavier than ball A. He measured the depth of the dent each made.\n\n(a) Explain, using energy conversion, why ball D made a deeper dent.",
+    "answer": "Ball D has more mass, so at 1 m it has more gravitational potential energy. As it falls, more GPE is converted to more kinetic energy, which is transferred to the sand and pushes it deeper.",
+    "marking": [
+      "1: more mass → more GPE (same height). 1: more GPE → more KE → deeper dent. Must name both forms."
+    ],
+    "figure": "figures/p6sci-practice-02-q32abc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "bar_chart",
+          "categories": [
+            "Ball A",
+            "Ball D"
+          ],
+          "values": [
+            2.3,
+            3.4
+          ],
+          "ylabel": "Depth of dent (cm)",
+          "yticks": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "ylim": [
+            0,
+            4
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "example_paper_2.json#Q32(a)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p6sci-practice-02-q32b",
+    "skill": "p6-science",
+    "topic": "energy.conversion",
+    "subskill": "gpe_ke",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "open",
+    "stem": "Ravi dropped two balls of the same size from a height of 1 m onto a sand tray. Ball D is heavier than ball A. He measured the depth of the dent each made.\n\n(b) Ravi repeated the drops and found both dents were deeper than in his first try. Suggest one reason.",
+    "answer": "He dropped the balls from a greater height than 1 m (or the sand was looser).",
+    "marking": [
+      "Any single valid change of a variable that should have been kept the same."
+    ],
+    "figure": "figures/p6sci-practice-02-q32abc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "bar_chart",
+          "categories": [
+            "Ball A",
+            "Ball D"
+          ],
+          "values": [
+            2.3,
+            3.4
+          ],
+          "ylabel": "Depth of dent (cm)",
+          "yticks": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "ylim": [
+            0,
+            4
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "example_paper_2.json#Q32(b)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p6sci-practice-02-q32c",
+    "skill": "p6-science",
+    "topic": "energy.conversion",
+    "subskill": "gpe_ke",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "open",
+    "stem": "Ravi dropped two balls of the same size from a height of 1 m onto a sand tray. Ball D is heavier than ball A. He measured the depth of the dent each made.\n\n(c) Without changing the height, suggest how Ravi could make ball A create a dent as deep as ball D's.",
+    "answer": "Add mass to ball A (e.g. fill it with sand) so it has more gravitational potential energy at the same height.",
+    "marking": [
+      "'Drop from higher' scores 0 — the question says without changing the height. Underline conditions!"
+    ],
+    "figure": "figures/p6sci-practice-02-q32abc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "bar_chart",
+          "categories": [
+            "Ball A",
+            "Ball D"
+          ],
+          "values": [
+            2.3,
+            3.4
+          ],
+          "ylabel": "Depth of dent (cm)",
+          "yticks": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "ylim": [
+            0,
+            4
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "example_paper_2.json#Q32(c)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p6sci-practice-02-q33a",
+    "skill": "p6-science",
+    "topic": "systems.electrical",
+    "subskill": "series_parallel",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Ahmad built a circuit to open a gate. When the switch is pressed, the coil and iron rod become an electromagnet and pull an iron bolt, unlocking the gate. A spring pulls the bolt back when the switch is released.\n\n(a) Explain how pressing the switch unlocks the gate.",
+    "answer": "Pressing the switch closes the circuit so current flows through the coil. The iron rod becomes an electromagnet and attracts the iron bolt towards it, pulling the bolt out of the lock.",
+    "marking": [
+      "1: closed circuit → current flows. 1: rod becomes an electromagnet and attracts the iron bolt."
+    ],
+    "figure": "figures/p6sci-practice-02-q33abc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "circuit",
+          "battery": {
+            "cells": 2
+          },
+          "series": [
+            {
+              "switch": "S",
+              "closed": true
+            },
+            {
+              "box": "coil + iron rod"
+            }
+          ],
+          "width": 7,
+          "height": 3
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "example_paper_2.json#Q33(a)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p6sci-practice-02-q33b",
+    "skill": "p6-science",
+    "topic": "systems.electrical",
+    "subskill": "series_parallel",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Ahmad built a circuit to open a gate. When the switch is pressed, the coil and iron rod become an electromagnet and pull an iron bolt, unlocking the gate. A spring pulls the bolt back when the switch is released.\n\n(b) Ahmad replaced the iron rod with a bar magnet. State and explain what he would observe about the gate.",
+    "answer": "The gate would stay unlocked all the time. A bar magnet attracts the iron bolt whether or not the switch is closed, so the spring cannot pull the bolt back.",
+    "marking": [
+      "1: correct observation (stays unlocked / bolt stays attracted). 1: because a permanent magnet does not need current."
+    ],
+    "figure": "figures/p6sci-practice-02-q33abc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "circuit",
+          "battery": {
+            "cells": 2
+          },
+          "series": [
+            {
+              "switch": "S",
+              "closed": true
+            },
+            {
+              "box": "coil + iron rod"
+            }
+          ],
+          "width": 7,
+          "height": 3
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "example_paper_2.json#Q33(b)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p6sci-practice-02-q33c",
+    "skill": "p6-science",
+    "topic": "systems.electrical",
+    "subskill": "series_parallel",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "open",
+    "stem": "Ahmad built a circuit to open a gate. When the switch is pressed, the coil and iron rod become an electromagnet and pull an iron bolt, unlocking the gate. A spring pulls the bolt back when the switch is released.\n\n(c) Why must the bolt be made of iron or steel and not aluminium?",
+    "answer": "Only magnetic materials such as iron and steel are attracted by a magnet; aluminium is not magnetic.",
+    "marking": [
+      "Keyword: magnetic material / not attracted."
+    ],
+    "figure": "figures/p6sci-practice-02-q33abc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "circuit",
+          "battery": {
+            "cells": 2
+          },
+          "series": [
+            {
+              "switch": "S",
+              "closed": true
+            },
+            {
+              "box": "coil + iron rod"
+            }
+          ],
+          "width": 7,
+          "height": 3
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "example_paper_2.json#Q33(c)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  }
+]

@@ -1,0 +1,606 @@
+[
+  {
+    "id": "p3sci-mission-magnets-01-m1",
+    "skill": "p3-science",
+    "topic": "interactions.magnets",
+    "subskill": "pole_puzzle",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Three bar magnets were arranged as shown. Each magnet is attracted to the magnet it touches. Pole A is a north pole.\n\nWhich poles are south poles?",
+    "options": [
+      "B, D and F",
+      "B, C and F",
+      "C, D and E",
+      "B, D and E"
+    ],
+    "answer": 1,
+    "working": [
+      "A = N so B = S. B attracts C, so C = N and D = S. D attracts E, so E = N and F = S. South poles: B, D, F.",
+      "Watch out: Flip at every touching join. Write the letter on every end before choosing."
+    ],
+    "distractors": {
+      "2": "C touches the south pole B, so C must be north.",
+      "3": "C and E are north poles.",
+      "4": "E touches the south pole D, so E is north."
+    },
+    "figure": "figures/p3sci-mission-magnets-01-m1.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "magnet_layout",
+          "w": 280,
+          "h": 160,
+          "magnets": [
+            {
+              "type": "bar",
+              "x": 20,
+              "y": 120,
+              "len": 120,
+              "thick": 26,
+              "labels": [
+                "A",
+                "B"
+              ]
+            },
+            {
+              "type": "bar",
+              "x": 140,
+              "y": 40,
+              "len": 106,
+              "thick": 26,
+              "vertical": true,
+              "labels": [
+                "C",
+                "D"
+              ]
+            },
+            {
+              "type": "bar",
+              "x": 140,
+              "y": 14,
+              "len": 120,
+              "thick": 26,
+              "labels": [
+                "E",
+                "F"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mission_magnets_01.json#M1"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-mission-magnets-01-m2",
+    "skill": "p3-science",
+    "topic": "interactions.magnets",
+    "subskill": "attract_repel",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Magnets P and Q are placed on a table. Magnet Q is held in place.\n\nWhat happens to magnet P when it is let go?",
+    "options": [
+      "P moves towards Q.",
+      "P does not move, because magnets only attract iron.",
+      "Q moves away from P.",
+      "P moves away from Q."
+    ],
+    "answer": 4,
+    "working": [
+      "P's south pole faces Q's south pole. Like poles repel, so P is pushed away from Q.",
+      "Watch out: Look only at the two ends that FACE each other."
+    ],
+    "distractors": {
+      "1": "That would need unlike poles facing (N facing S).",
+      "2": "Magnets also attract and repel other magnets.",
+      "3": "Q is held in place, so it cannot move."
+    },
+    "figure": "figures/p3sci-mission-magnets-01-m2.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "magnets_table",
+          "magnets": [
+            {
+              "labels": [
+                "N",
+                "S"
+              ],
+              "name": "P"
+            },
+            {
+              "labels": [
+                "S",
+                "N"
+              ],
+              "name": "Q"
+            }
+          ],
+          "hold": 1
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mission_magnets_01.json#M2"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-mission-magnets-01-m3",
+    "skill": "p3-science",
+    "topic": "interactions.making_magnets",
+    "subskill": "stroke_method",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Siti tried to make magnets in four different ways. Which one will become the strongest magnet?",
+    "options": [
+      "Diagram 1",
+      "Diagram 2",
+      "Diagram 3",
+      "Diagram 4"
+    ],
+    "answer": 3,
+    "working": [
+      "Steel is magnetic. One-direction strokes make a magnet, and 50 strokes make a stronger magnet than 30.",
+      "Watch out: The biggest number is a trap twice here: (2) uses the wrong method and (4) the wrong material."
+    ],
+    "distractors": {
+      "1": "Correct method, but fewer strokes than (3).",
+      "2": "Back-and-forth strokes undo each other — even 80 strokes make a very weak magnet.",
+      "4": "Copper is not a magnetic material, so it can never become a magnet."
+    },
+    "figure": "figures/p3sci-mission-magnets-01-m3.svg",
+    "figure_spec": {
+      "options": [
+        {
+          "kind": "stroke",
+          "mode": "one_way",
+          "times": "30 times",
+          "object": "steel needle"
+        },
+        {
+          "kind": "stroke",
+          "mode": "both_ways",
+          "times": "80 times",
+          "object": "steel needle"
+        },
+        {
+          "kind": "stroke",
+          "mode": "one_way",
+          "times": "50 times",
+          "object": "steel needle"
+        },
+        {
+          "kind": "stroke",
+          "mode": "one_way",
+          "times": "80 times",
+          "object": "copper wire"
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mission_magnets_01.json#M3"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-mission-magnets-01-m4",
+    "skill": "p3-science",
+    "topic": "interactions.making_magnets",
+    "subskill": "stroke_method",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Marcus wrote some statements about making a magnet by the stroke method.\n\nA The magnet must be stroked in one direction only.\nB The more strokes, the stronger the magnet made.\nC An aluminium rod can be made into a magnet if it is stroked enough times.\nD The magnet is lifted away from the nail at the end of each stroke.",
+    "options": [
+      "A and B only",
+      "A, B and D only",
+      "B, C and D only",
+      "A, B, C and D"
+    ],
+    "answer": 2,
+    "working": [
+      "A, B and D describe the stroke method. C is false: aluminium is not a magnetic material.",
+      "Watch out: Mark each statement T or F first, then find the matching option."
+    ],
+    "distractors": {
+      "1": "Leaves out D — lifting the magnet away is part of the method.",
+      "3": "Includes the false statement C and leaves out A.",
+      "4": "C is false."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mission_magnets_01.json#M4"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3sci-mission-magnets-01-m5",
+    "skill": "p3-science",
+    "topic": "interactions.magnets",
+    "subskill": "magnet_vs_magnetic",
+    "difficulty": 4,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Three rings, X, Y and Z, were placed on a wooden rod as shown.\n\nWhich statement is **definitely** true?",
+    "options": [
+      "Z is a magnet.",
+      "Z is made of a non-magnetic material.",
+      "X and Z repel each other.",
+      "X and Y are magnets."
+    ],
+    "answer": 4,
+    "working": [
+      "Y floats above X, so they push each other away — only two magnets can repel. Z just sits on Y: it could be a magnet, a magnetic material or even non-magnetic resting there, so (1) and (2) cannot be sure.",
+      "Watch out: 'Definitely' means it MUST be true. A gap proves two magnets; touching proves nothing."
+    ],
+    "distractors": {
+      "1": "Z touches Y — touching tells us nothing for sure.",
+      "2": "Z might be attracted to Y, so it might be magnetic. Not possible to tell.",
+      "3": "X and Z are not facing each other."
+    },
+    "figure": "figures/p3sci-mission-magnets-01-m5.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "ring_stack",
+          "rings": [
+            {
+              "name": "X"
+            },
+            {
+              "name": "Y",
+              "gap": 24
+            },
+            {
+              "name": "Z",
+              "gap": 0
+            }
+          ],
+          "rod_label": "wooden rod",
+          "base": "wooden base",
+          "w": 270
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mission_magnets_01.json#M5"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-mission-magnets-01-m6",
+    "skill": "p3-science",
+    "topic": "interactions.magnets",
+    "subskill": "north_south",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "A compass was placed next to the north pole of a bar magnet. The dark end of the compass needle is its north-seeking pole.\n\nWhich diagram shows the compass needle correctly?",
+    "options": [
+      "Diagram 1",
+      "Diagram 2",
+      "Diagram 3",
+      "Diagram 4"
+    ],
+    "answer": 3,
+    "working": [
+      "The compass needle is a small magnet. Its north (dark) end is repelled by the magnet's north pole, so the dark end points away; its south end turns towards the magnet.",
+      "Watch out: A compass needle is a magnet — use like-repel, unlike-attract on its two ends."
+    ],
+    "distractors": {
+      "1": "That is where it points with no magnet nearby.",
+      "2": "The dark (north) end would be repelled, not attracted, by a north pole.",
+      "4": "The needle lines up with the magnet, not at a slant."
+    },
+    "figure": "figures/p3sci-mission-magnets-01-m6.svg",
+    "figure_spec": {
+      "options": [
+        {
+          "kind": "compass",
+          "angle": 0,
+          "magnet": "right",
+          "magnet_labels": [
+            "N",
+            "S"
+          ]
+        },
+        {
+          "kind": "compass",
+          "angle": 90,
+          "magnet": "right",
+          "magnet_labels": [
+            "N",
+            "S"
+          ]
+        },
+        {
+          "kind": "compass",
+          "angle": 270,
+          "magnet": "right",
+          "magnet_labels": [
+            "N",
+            "S"
+          ]
+        },
+        {
+          "kind": "compass",
+          "angle": 45,
+          "magnet": "right",
+          "magnet_labels": [
+            "N",
+            "S"
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mission_magnets_01.json#M6"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-mission-magnets-01-m7a",
+    "skill": "p3-science",
+    "topic": "interactions.magnets",
+    "subskill": "pole_puzzle",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Three ring magnets, A, B and C, were placed on a wooden rod as shown. The top face of A is a north pole.\n\n(a) Name the poles at face P and face Q.\n\nFace P:\nFace Q:",
+    "answer": "Face P: **north**. Face Q: **south**.",
+    "working": [
+      "Reasoning: B floats above A, so the faces facing each other are like poles: P is north like A's top face. The other face of the same magnet is the opposite pole, so Q is south.",
+      "Common error: Writing P = south because 'opposites attract' — but a gap means they REPEL."
+    ],
+    "figure": "figures/p3sci-mission-magnets-01-m7ab.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "ring_stack",
+          "rings": [
+            {
+              "name": "A"
+            },
+            {
+              "name": "B",
+              "gap": 22
+            },
+            {
+              "name": "C",
+              "gap": 22
+            }
+          ],
+          "faces": [
+            {
+              "ring": 0,
+              "face": "top",
+              "text": "north pole"
+            },
+            {
+              "ring": 1,
+              "face": "bottom",
+              "text": "face P"
+            },
+            {
+              "ring": 1,
+              "face": "top",
+              "text": "face Q"
+            }
+          ],
+          "rod_label": "wooden rod",
+          "base": "wooden base",
+          "w": 300
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mission_magnets_01.json#M7(a)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-mission-magnets-01-m7b",
+    "skill": "p3-science",
+    "topic": "interactions.magnets",
+    "subskill": "attract_repel",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "open",
+    "stem": "Three ring magnets, A, B and C, were placed on a wooden rod as shown. The top face of A is a north pole.\n\n(b) Marcus pushed ring C down gently and let go. Predict what happens to C. Explain.",
+    "answer": "C moves back up (and floats again). The bottom of C and face Q are **like poles**, which **repel**.",
+    "working": [
+      "Claim: C springs back up.",
+      "Evidence: C was floating above B before it was pushed.",
+      "Reasoning: Like poles of B and C face each other and repel."
+    ],
+    "figure": "figures/p3sci-mission-magnets-01-m7ab.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "ring_stack",
+          "rings": [
+            {
+              "name": "A"
+            },
+            {
+              "name": "B",
+              "gap": 22
+            },
+            {
+              "name": "C",
+              "gap": 22
+            }
+          ],
+          "faces": [
+            {
+              "ring": 0,
+              "face": "top",
+              "text": "north pole"
+            },
+            {
+              "ring": 1,
+              "face": "bottom",
+              "text": "face P"
+            },
+            {
+              "ring": 1,
+              "face": "top",
+              "text": "face Q"
+            }
+          ],
+          "rod_label": "wooden rod",
+          "base": "wooden base",
+          "w": 300
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mission_magnets_01.json#M7(b)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-mission-magnets-01-m8a",
+    "skill": "p3-science",
+    "topic": "interactions.making_magnets",
+    "subskill": "stroke_method",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "open",
+    "stem": "Siti stroked four similar steel needles, A to D, in one direction only. She counted the pins each needle attracted.\n\n| Needle | Number of strokes | Number of pins attracted |\n| --- | --- | --- |\n| A | 10 | 2 |\n| B | 20 | 5 |\n| C | 30 | 7 |\n| D | 40 | 9 |\n\n(a) State the relationship between the number of strokes and the number of pins attracted.",
+    "answer": "As the number of strokes **increases**, the number of pins attracted **increases**.",
+    "working": [
+      "Common error: Only naming the best needle ('D attracted the most')."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_magnets_01.json#M8(a)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3sci-mission-magnets-01-m8b",
+    "skill": "p3-science",
+    "topic": "interactions.making_magnets",
+    "subskill": "stroke_method",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Siti stroked four similar steel needles, A to D, in one direction only. She counted the pins each needle attracted.\n\n| Needle | Number of strokes | Number of pins attracted |\n| --- | --- | --- |\n| A | 10 | 2 |\n| B | 20 | 5 |\n| C | 30 | 7 |\n| D | 40 | 9 |\n\n(b) Siti stroked another steel needle, E, 40 times, moving the magnet backwards and forwards. E attracted only 1 pin. Explain why E attracted fewer pins than D.",
+    "answer": "E was stroked **back and forth (in both directions)** while D was stroked **in one direction only**. Strokes in opposite directions undo each other, so E became a much weaker magnet even with the same number of strokes.",
+    "working": [
+      "Claim: E is a weaker magnet because the method was wrong.",
+      "Evidence: Same number of strokes (40) as D, but back-and-forth instead of one direction.",
+      "Reasoning: The stroke method only works when stroking in one direction; back-and-forth strokes cancel out."
+    ],
+    "keywords": [
+      "one direction",
+      "back and forth",
+      "same number of strokes"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_magnets_01.json#M8(b)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3sci-mission-magnets-01-m9a",
+    "skill": "p3-science",
+    "topic": "interactions.making_magnets",
+    "subskill": "uses",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "open",
+    "stem": "A crane at a scrapyard uses an electromagnet to lift steel scraps and drop them into a lorry.\n\n(a) Why is an electromagnet more useful than a bar magnet for this job?",
+    "answer": "It can be **switched off**, so the crane can **drop** the steel scraps where it wants.",
+    "marking": [
+      "Reject: 'It is stronger' alone."
+    ],
+    "figure": "figures/p3sci-mission-magnets-01-m9ab.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "electromagnet",
+          "turns": 12,
+          "cells": 2,
+          "switch": "open",
+          "clips": 0,
+          "core": "iron core"
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mission_magnets_01.json#M9(a)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-mission-magnets-01-m9b",
+    "skill": "p3-science",
+    "topic": "interactions.making_magnets",
+    "subskill": "electrical_method",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "open",
+    "stem": "A crane at a scrapyard uses an electromagnet to lift steel scraps and drop them into a lorry.\n\n(b) Suggest one way to make the electromagnet lift more steel scraps at one time.",
+    "answer": "Increase the **number of turns** of wire, or use **more batteries**.",
+    "figure": "figures/p3sci-mission-magnets-01-m9ab.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "electromagnet",
+          "turns": 12,
+          "cells": 2,
+          "switch": "open",
+          "clips": 0,
+          "core": "iron core"
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mission_magnets_01.json#M9(b)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  }
+]

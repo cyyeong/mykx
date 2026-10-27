@@ -1,0 +1,152 @@
+[
+  {
+    "id": "p6math-demo-01",
+    "skill": "p6-maths",
+    "topic": "number.ratio",
+    "subskill": "ba_total_unchanged",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Jun and Kai had stamps in the ratio 7 : 3. After Jun gave Kai 24 stamps, they had the same number of stamps. How many stamps did Jun have at first?",
+    "options": [
+      "42",
+      "60",
+      "84",
+      "120"
+    ],
+    "answer": 3,
+    "working": [
+      "Stamps only move from Jun to Kai, so the TOTAL stays the same: 7u + 3u = 10u.",
+      "After the transfer they are equal, so each has 10u ÷ 2 = 5u.",
+      "Jun went from 7u to 5u, so he gave away 2u = 24 stamps. 1u = 12.",
+      "Jun at first = 7 × 12 = 84 stamps. Check: 84 − 24 = 60 and 36 + 24 = 60 ✓"
+    ],
+    "distractors": {
+      "1": "Used the gap of 4 units = 24. Giving 24 stamps closes the gap by 48 (Jun −24, Kai +24).",
+      "2": "That is how many stamps Jun had AFTER giving 24 away. The question asks for 'at first'.",
+      "4": "That is the total number of stamps, not Jun's share."
+    },
+    "hints": [
+      "When Jun gives stamps to Kai, what stays the same?",
+      "If they end up equal, each has half of the total. How many units is that, and how many units did Jun give away?"
+    ],
+    "source": { "kind": "generated", "ref": "demo: drafted from references/heuristics.md §2 (Type 2, total unchanged)" },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "demo": true,
+    "notes": "Demo path item, drafted by Claude Code; founder review pending."
+  },
+  {
+    "id": "p6math-demo-02",
+    "skill": "p6-maths",
+    "topic": "number.ratio",
+    "subskill": "ba_difference_unchanged",
+    "archetype": "RATIO-BA-DIFF",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Lina is 8 years old and her mother is 36 years old. In how many years' time will the ratio of Lina's age to her mother's age be 1 : 3?",
+    "options": [
+      "4 years",
+      "6 years",
+      "14 years",
+      "20 years"
+    ],
+    "answer": 2,
+    "working": [
+      "Both get older by the same number of years, so the DIFFERENCE in their ages never changes: 36 − 8 = 28 years.",
+      "Then, Lina : Mother = 1 : 3, so the age gap is 3 − 1 = 2 parts.",
+      "2 parts = 28 → 1 part = 14. Lina will be 14 years old.",
+      "14 − 8 = 6, so in 6 years' time. Check: 14 and 42, and 42 = 3 × 14 ✓"
+    ],
+    "distractors": {
+      "1": "Used the mother's age now (36 ÷ 3 = 12, then 12 − 8 = 4). The mother gets older too.",
+      "3": "14 is Lina's age at that time, not the number of years from now.",
+      "4": "Took the age gap of 28 as 1 part. In 1 : 3 the gap is 3 − 1 = 2 parts."
+    },
+    "hints": [
+      "As the years go by, what never changes between Lina and her mother?",
+      "Write 1 : 3 as parts. How many parts is the age gap, and how many years is the age gap?"
+    ],
+    "source": { "kind": "generated", "ref": "demo: drafted from references/heuristics.md §2 (Type 1, difference unchanged)" },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "demo": true,
+    "notes": "Demo path item, drafted by Claude Code; founder review pending."
+  },
+  {
+    "id": "p6math-demo-03",
+    "skill": "p6-maths",
+    "topic": "number.ratio",
+    "subskill": "ba_one_unchanged",
+    "archetype": "RATIO-BA-ONE",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "A box had red and green marbles in the ratio 5 : 2. After 36 red marbles were taken out, the ratio of red marbles to green marbles became 1 : 2. How many green marbles are there?",
+    "options": [
+      "9",
+      "45",
+      "72",
+      "18"
+    ],
+    "answer": 4,
+    "working": [
+      "Only red marbles were taken out, so the number of GREEN marbles stays the same.",
+      "Green is 2 units before and 2 units after, so the units already match. Red went from 5 units to 1 unit.",
+      "5u − 1u = 4u = 36 → 1u = 9.",
+      "Green = 2 × 9 = 18 marbles. Check: 45 : 18 = 5 : 2 and 9 : 18 = 1 : 2 ✓"
+    ],
+    "distractors": {
+      "1": "That is 1 unit. Green is 2 units.",
+      "2": "That is the number of red marbles at first, not the green marbles.",
+      "3": "Doubled the 36 red marbles taken out. The 36 is 4 units of red, not a number of green marbles."
+    },
+    "hints": [
+      "Which colour was not touched?",
+      "Make the untouched colour the same number of units before and after. How many units of red were taken out?"
+    ],
+    "source": { "kind": "generated", "ref": "demo: drafted from references/heuristics.md §2 (Type 3, one quantity unchanged)" },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "demo": true,
+    "notes": "Demo path item, drafted by Claude Code; founder review pending."
+  },
+  {
+    "id": "p6math-demo-04",
+    "skill": "p6-maths",
+    "topic": "number.ratio",
+    "subskill": "ba_both_change",
+    "difficulty": 4,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Amir and Ben had money in the ratio 5 : 3. After Amir spent $24 and Ben spent $4, the ratio of Amir's money to Ben's money became 3 : 2. How much money did Amir have at first?",
+    "options": [
+      "$180",
+      "$36",
+      "$156",
+      "$108"
+    ],
+    "answer": 1,
+    "working": [
+      "The two amounts change by DIFFERENT amounts, so nothing stays the same: write both 'after' amounts in units.",
+      "Before: Amir 5u, Ben 3u. After: Amir 5u − 24, Ben 3u − 4.",
+      "After ratio 3 : 2, so 2 × (5u − 24) = 3 × (3u − 4) → 10u − 48 = 9u − 12 → 1u = 36.",
+      "Amir at first = 5 × 36 = $180. Check: 180 − 24 = 156, 108 − 4 = 104, and 156 : 104 = 3 : 2 ✓"
+    ],
+    "distractors": {
+      "2": "That is 1 unit. Amir had 5 units at first.",
+      "3": "That is Amir's money AFTER spending $24. The question asks for 'at first'.",
+      "4": "That is Ben's money at first (3 units), not Amir's."
+    },
+    "hints": [
+      "Did anything stay the same? If not, write each person's 'after' amount using units.",
+      "The 'after' amounts are in the ratio 3 : 2, so 2 × (Amir after) = 3 × (Ben after). Solve for 1 unit."
+    ],
+    "source": { "kind": "generated", "ref": "demo: drafted from references/heuristics.md §2 (Type 4, both quantities change)" },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "demo": true,
+    "notes": "Demo path item, drafted by Claude Code; founder review pending."
+  }
+]

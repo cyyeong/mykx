@@ -1,0 +1,555 @@
+[
+  {
+    "id": "s2sci-set-electrical-01-e1",
+    "skill": "s2-science",
+    "topic": "physics.electrical",
+    "subskill": "current_in_series",
+    "archetype": "identical-readings-in-series",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Fig. 1.1 shows two lamps connected in series with two ammeters. Ammeter A1 reads 0.4 A. (Fig. 1.1)",
+    "options": [
+      "A2 reads 0.2 A, because the current is shared between the two lamps.",
+      "A2 reads 0.4 A, because there is only one path for the current.",
+      "A2 reads 0.8 A, because current builds up as it goes round.",
+      "A2 reads 0 A, because the current is used up by the lamps."
+    ],
+    "answer": 2,
+    "working": [
+      "In a series circuit there is only one path, so the same current flows through every component. Current is not used up or shared.",
+      "Watch out: 'Used up' is the single most common wrong idea in this topic. Energy is transferred; current is not."
+    ],
+    "distractors": {
+      "1": "Sharing of current happens at a junction in a PARALLEL circuit. There is no junction here.",
+      "3": "Current does not increase round a loop. Charge is conserved.",
+      "4": "Lamps convert electrical energy, they do not consume charge."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "set_electrical_01.json#E1"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/e1_series_ammeters.svg"
+  },
+  {
+    "id": "s2sci-set-electrical-01-e2",
+    "skill": "s2-science",
+    "topic": "physics.electrical",
+    "subskill": "parallel_independence",
+    "archetype": "open-one-branch",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Fig. 1.2 shows lamps P and Q on separate branches. Both lamps are identical and both are lit. Switch S2 is then opened. (Fig. 1.2)",
+    "options": [
+      "Both P and Q go out.",
+      "Q goes out and P stays at the same brightness.",
+      "Q goes out and P becomes dimmer.",
+      "Q goes out and P becomes brighter."
+    ],
+    "answer": 2,
+    "working": [
+      "Opening S2 breaks only the lower branch. P is on its own complete branch across the same cell, so the potential difference across P is unchanged and its brightness is unchanged.",
+      "Watch out: Read which switch is in which branch before anything else. Trace the loop with your finger."
+    ],
+    "distractors": {
+      "1": "This is what happens in SERIES. Here each branch is an independent path.",
+      "3": "Dimmer would require less pd or more resistance in P's own branch. Neither changed.",
+      "4": "A tempting 'more current is now available for P' idea, but the cell's pd across P did not change."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "set_electrical_01.json#E2"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/e2_parallel_switch.svg"
+  },
+  {
+    "id": "s2sci-set-electrical-01-e3",
+    "skill": "s2-science",
+    "topic": "physics.electrical",
+    "subskill": "meter_connection",
+    "archetype": "where-does-the-meter-go",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "In Fig. 1.3, a student wants to measure the potential difference across the lamp, and also the current through it. (Fig. 1.3)",
+    "options": [
+      "Voltmeter at P, ammeter at R.",
+      "Voltmeter at R, ammeter at P.",
+      "Voltmeter at Q, ammeter at R.",
+      "Voltmeter at R, ammeter at R."
+    ],
+    "answer": 2,
+    "working": [
+      "A voltmeter goes in parallel ACROSS the component (position R). An ammeter goes in series IN the loop (position P or Q).",
+      "Watch out: Memory hook: Ammeter = Along the path. Voltmeter = across the Void beside the component."
+    ],
+    "distractors": {
+      "1": "Reversed. A voltmeter in series would break the circuit path it is meant to measure across.",
+      "3": "Q is in the loop, so it is an ammeter position, not a voltmeter position.",
+      "4": "Two meters cannot both occupy the parallel branch and still measure current in the loop."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "set_electrical_01.json#E3"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/e3_meter_positions.svg"
+  },
+  {
+    "id": "s2sci-set-electrical-01-e4",
+    "skill": "s2-science",
+    "topic": "physics.electrical",
+    "subskill": "resistance_current_relationship",
+    "archetype": "slide-the-variable-resistor",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "In Fig. 1.4 the resistance of the variable resistor R is increased. (Fig. 1.4)",
+    "options": [
+      "The ammeter reading increases and lamp L gets brighter.",
+      "The ammeter reading decreases and lamp L gets dimmer.",
+      "The ammeter reading decreases and lamp L stays the same.",
+      "The ammeter reading stays the same and lamp L gets dimmer."
+    ],
+    "answer": 2,
+    "working": [
+      "Higher resistance opposes the current more, so the current in the single loop falls. Less current through the lamp means it is dimmer.",
+      "Watch out: Say the chain out loud: resistance up → current down → lamp dimmer."
+    ],
+    "distractors": {
+      "1": "Inverts the relationship. More resistance always means less current for the same supply.",
+      "3": "The lamp is in the same series loop, so a smaller current must also pass through it.",
+      "4": "Brightness cannot change without the current through the lamp changing."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "set_electrical_01.json#E4"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/e4_variable_resistor.svg"
+  },
+  {
+    "id": "s2sci-set-electrical-01-e5",
+    "skill": "s2-science",
+    "topic": "physics.electrical",
+    "subskill": "current_effects",
+    "archetype": "match-the-effect-to-the-application",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which row correctly matches an effect of an electric current to an application of that effect?",
+    "options": [
+      "Chemical effect — electric kettle",
+      "Heating effect — electroplating a key with copper",
+      "Magnetic effect — a crane lifting scrap iron with an electromagnet",
+      "Magnetic effect — a fuse melting during a fault"
+    ],
+    "answer": 3,
+    "working": [
+      "A current in a coil produces a magnetic field, which is how an electromagnet works.",
+      "Watch out: Three effects, three homes: Chemical = liquids (electrolysis, electroplating). Heating = kettle, toaster, fuse. Magnetic = electromagnet, motor, fan."
+    ],
+    "distractors": {
+      "1": "A kettle uses the heating effect.",
+      "2": "Electroplating is the chemical effect of a current in a liquid.",
+      "4": "A fuse melts because of the heating effect."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "set_electrical_01.json#E5"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2sci-set-electrical-01-e6",
+    "skill": "s2-science",
+    "topic": "physics.electrical",
+    "subskill": "fuse_and_breaker",
+    "archetype": "choose-the-fuse-rating",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "An appliance normally draws a current of 4.2 A. Which fuse should be fitted?",
+    "options": [
+      "1 A, so that the circuit breaks as early as possible.",
+      "3 A, so that the appliance is protected at all times.",
+      "5 A, slightly above the normal working current.",
+      "13 A, so that the fuse never needs replacing."
+    ],
+    "answer": 3,
+    "working": [
+      "The rating must be slightly HIGHER than the normal working current: high enough that the appliance runs, low enough that a fault current melts it.",
+      "Watch out: 'Slightly higher' is the mark-scheme phrase. Not 'much higher', not 'equal to'."
+    ],
+    "distractors": {
+      "1": "A 1 A fuse melts immediately during normal use and the appliance will not switch on.",
+      "2": "3 A is below the 4.2 A working current, so it blows in normal use.",
+      "4": "13 A is far too high. A dangerous fault current would flow without melting the fuse."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "set_electrical_01.json#E6"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2sci-set-electrical-01-e7",
+    "skill": "s2-science",
+    "topic": "physics.electrical",
+    "subskill": "effective_resistance",
+    "archetype": "series-vs-parallel-effective-resistance",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Two identical 10 Ω resistors are connected first in series, then in parallel, across the same supply. Which statement is correct?",
+    "options": [
+      "The effective resistance is 20 Ω in series and 5 Ω in parallel, so more current flows in the parallel arrangement.",
+      "The effective resistance is 20 Ω in series and 20 Ω in parallel.",
+      "The effective resistance is 5 Ω in series and 20 Ω in parallel.",
+      "The effective resistance is 10 Ω in both arrangements, because the resistors are identical."
+    ],
+    "answer": 1,
+    "working": [
+      "Series adds: 10 + 10 = 20 Ω. Parallel provides extra paths, so the effective resistance falls below the smallest resistor; for two equal resistors it halves to 5 Ω. Lower resistance means a larger current.",
+      "Watch out: Parallel = more lanes on the expressway = easier flow = lower resistance = bigger current."
+    ],
+    "distractors": {
+      "2": "Parallel cannot leave the resistance unchanged, because a second path has been added.",
+      "3": "Reversed. Adding components in series always increases the effective resistance.",
+      "4": "Identical values do not mean identical arrangements behave the same."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "set_electrical_01.json#E7"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2sci-set-electrical-01-e8",
+    "skill": "s2-science",
+    "topic": "physics.electrical",
+    "subskill": "power_and_energy",
+    "archetype": "kwh-bill-calculation",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which statement about the kilowatt-hour is correct?",
+    "options": [
+      "It is a unit of power, equal to 1000 watts.",
+      "It is a unit of energy, equal to the energy used by a 1 kW appliance in 1 hour.",
+      "It is a unit of current drawn by an appliance in one hour.",
+      "It is the cost of running a 1 kW appliance for 1 hour."
+    ],
+    "answer": 2,
+    "working": [
+      "kWh = power (in kW) × time (in h), so it measures ENERGY. One unit of electricity is 1 kWh.",
+      "Watch out: Watt is a rate (energy per second). Watt-hour is a total. Rate × time = total."
+    ],
+    "distractors": {
+      "1": "1000 W = 1 kW is the power. The 'hour' part makes it energy.",
+      "3": "Current is measured in amperes, not kWh.",
+      "4": "Cost = energy in kWh × price per kWh. The kWh itself is not money."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "set_electrical_01.json#E8"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2sci-set-electrical-01-e9a",
+    "skill": "s2-science",
+    "topic": "physics.electrical",
+    "subskill": "effective_resistance",
+    "archetype": "series-vs-parallel-effective-resistance",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "open",
+    "stem": "Fig. 2.1 shows two resistors connected in series to a 12 V supply. (Fig. 2.1)\n\n(a) State what the voltmeter in Fig. 2.1 is measuring.",
+    "answer": "The potential difference (voltage) across R2.",
+    "working": [
+      "Common error: Writing 'the voltage of the circuit'. The voltmeter reads across one named component only."
+    ],
+    "keywords": [
+      "potential difference",
+      "across R2"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_electrical_01.json#E9(a)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/e7_series_meters.svg"
+  },
+  {
+    "id": "s2sci-set-electrical-01-e9b",
+    "skill": "s2-science",
+    "topic": "physics.electrical",
+    "subskill": "effective_resistance",
+    "archetype": "series-vs-parallel-effective-resistance",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Fig. 2.1 shows two resistors connected in series to a 12 V supply. (Fig. 2.1)\n\n(b) Calculate the effective resistance of the circuit.",
+    "answer": "Resistors in series, so effective resistance = R1 + R2 = 20 + 40 = 60 Ω (unit required)",
+    "working": [
+      "Common error: Dropping the unit, or halving the values as if they were in parallel."
+    ],
+    "keywords": [
+      "60",
+      "Ω"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_electrical_01.json#E9(b)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/e7_series_meters.svg"
+  },
+  {
+    "id": "s2sci-set-electrical-01-e9c",
+    "skill": "s2-science",
+    "topic": "physics.electrical",
+    "subskill": "effective_resistance",
+    "archetype": "series-vs-parallel-effective-resistance",
+    "difficulty": 3,
+    "marks": 3,
+    "type": "open",
+    "stem": "Fig. 2.1 shows two resistors connected in series to a 12 V supply. (Fig. 2.1)\n\n(c) R2 is now replaced by an 80 Ω resistor. State and explain what happens to the reading on the ammeter.",
+    "answer": "The ammeter reading decreases. The effective resistance of the circuit increases (from 60 Ω to 100 Ω). A larger resistance opposes the current more, so a smaller current flows for the same supply.",
+    "working": [
+      "Common error: Stating the answer with no reason. 'State and explain' needs the direction AND the because."
+    ],
+    "keywords": [
+      "decreases",
+      "effective resistance increases",
+      "opposes"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_electrical_01.json#E9(c)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/e7_series_meters.svg"
+  },
+  {
+    "id": "s2sci-set-electrical-01-e9d",
+    "skill": "s2-science",
+    "topic": "physics.electrical",
+    "subskill": "effective_resistance",
+    "archetype": "series-vs-parallel-effective-resistance",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Fig. 2.1 shows two resistors connected in series to a 12 V supply. (Fig. 2.1)\n\n(d) The two resistors are rearranged in parallel across the same 12 V supply. Explain why the ammeter in the main circuit now reads a larger current.",
+    "answer": "In parallel there is more than one path for the current, so the effective resistance is lower than either resistor on its own. A lower effective resistance allows a larger current to flow from the supply.",
+    "working": [
+      "Common error: Saying 'parallel is stronger'. The marker wants paths → resistance → current."
+    ],
+    "keywords": [
+      "more than one path",
+      "lower effective resistance",
+      "larger current"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_electrical_01.json#E9(d)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/e7_series_meters.svg"
+  },
+  {
+    "id": "s2sci-set-electrical-01-e10a",
+    "skill": "s2-science",
+    "topic": "physics.electrical",
+    "subskill": "power_and_energy",
+    "archetype": "kwh-bill-calculation",
+    "difficulty": 3,
+    "marks": 3,
+    "type": "open",
+    "stem": "Fig. 2.2 shows the power ratings of five appliances in a flat. Electricity costs $0.32 per kWh. (Fig. 2.2)\n\n(a) The air-conditioner is used for 6 hours every night. Calculate the cost of running it for 30 nights.",
+    "answer": "Power = 1200 W = 1.2 kW (conversion shown) Energy = 1.2 kW × 6 h × 30 = 216 kWh Cost = 216 × $0.32 = $69.12",
+    "working": [
+      "Common error: Forgetting to divide watts by 1000. Working in W gives an answer 1000× too big."
+    ],
+    "keywords": [
+      "1.2 kW",
+      "216 kWh",
+      "$69.12"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_electrical_01.json#E10(a)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/e8_appliances.svg"
+  },
+  {
+    "id": "s2sci-set-electrical-01-e10b",
+    "skill": "s2-science",
+    "topic": "physics.electrical",
+    "subskill": "power_and_energy",
+    "archetype": "kwh-bill-calculation",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Fig. 2.2 shows the power ratings of five appliances in a flat. Electricity costs $0.32 per kWh. (Fig. 2.2)\n\n(b) The kettle has the highest power rating but costs far less per month than the air-conditioner. Explain why.",
+    "answer": "Energy used depends on power AND the time it is switched on. The kettle is only used for a few minutes at a time, so the total energy in kWh is much smaller despite the higher power rating.",
+    "working": [
+      "Common error: Answering only 'because it uses less electricity', which restates the question."
+    ],
+    "keywords": [
+      "power and time",
+      "used for a short time",
+      "total energy"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_electrical_01.json#E10(b)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/e8_appliances.svg"
+  },
+  {
+    "id": "s2sci-set-electrical-01-e10c",
+    "skill": "s2-science",
+    "topic": "physics.electrical",
+    "subskill": "power_and_energy",
+    "archetype": "kwh-bill-calculation",
+    "difficulty": 3,
+    "marks": 4,
+    "type": "open",
+    "stem": "Fig. 2.2 shows the power ratings of five appliances in a flat. Electricity costs $0.32 per kWh. (Fig. 2.2)\n\n(c) Suggest two ways the family could reduce their electricity bill, and for each one state the reason it works.",
+    "answer": "Use the fan instead of the air-conditioner — the fan has a much lower power rating (45 W vs 1200 W), so less energy is used per hour. Switch off appliances when not in use — reduces the number of hours, and energy = power × time. Accept: replace with appliances carrying more energy-efficiency ticks; use the air-con on a timer.",
+    "working": [
+      "Common error: Giving two actions but no reasons. Half the marks here are for the reasons."
+    ],
+    "keywords": [
+      "lower power rating",
+      "shorter time"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_electrical_01.json#E10(c)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/e8_appliances.svg"
+  },
+  {
+    "id": "s2sci-set-electrical-01-e11a",
+    "skill": "s2-science",
+    "topic": "physics.electrical",
+    "subskill": "hazards_and_safety",
+    "archetype": "spot-the-hazard-and-justify",
+    "difficulty": 3,
+    "marks": 4,
+    "type": "open",
+    "stem": "Fig. 2.3 shows part of a room in a flat. (Fig. 2.3)\n\n(a) Identify two electrical hazards shown in Fig. 2.3 and explain the danger of each.",
+    "answer": "Overloading — too many appliances on one socket means a very large current flows through the wires; the heating effect of this current can overheat the wires and start a fire. Damaged insulation — the bare wire is exposed, so touching it can give a severe electric shock, and sparks can ignite nearby flammable materials.",
+    "working": [
+      "Common error: Naming the hazard without the mechanism. Each hazard is worth 1 mark for the name and 1 for the danger."
+    ],
+    "keywords": [
+      "overloading",
+      "large current",
+      "heating effect",
+      "damaged insulation",
+      "electric shock"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_electrical_01.json#E11(a)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/e10_hazards.svg"
+  },
+  {
+    "id": "s2sci-set-electrical-01-e11b",
+    "skill": "s2-science",
+    "topic": "physics.electrical",
+    "subskill": "hazards_and_safety",
+    "archetype": "spot-the-hazard-and-justify",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Fig. 2.3 shows part of a room in a flat. (Fig. 2.3)\n\n(b) A person touches a faulty appliance with wet hands and receives a worse shock than they would with dry hands. Explain why.",
+    "answer": "Wet skin has a much lower resistance than dry skin. A lower resistance allows a larger current to flow through the body, so the shock is more severe.",
+    "working": [
+      "Common error: 'Water conducts electricity' alone does not score. The mark scheme wants resistance → current."
+    ],
+    "keywords": [
+      "lower resistance",
+      "larger current"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_electrical_01.json#E11(b)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/e10_hazards.svg"
+  },
+  {
+    "id": "s2sci-set-electrical-01-e11c",
+    "skill": "s2-science",
+    "topic": "physics.electrical",
+    "subskill": "hazards_and_safety",
+    "archetype": "spot-the-hazard-and-justify",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "open",
+    "stem": "Fig. 2.3 shows part of a room in a flat. (Fig. 2.3)\n\n(c) State one advantage of a circuit breaker over a fuse.",
+    "answer": "A circuit breaker can simply be reset and reused, whereas a blown fuse must be replaced.",
+    "working": [
+      "Common error: 'It is safer' is too vague to score."
+    ],
+    "keywords": [
+      "reset",
+      "replaced"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_electrical_01.json#E11(c)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/e10_hazards.svg"
+  }
+]

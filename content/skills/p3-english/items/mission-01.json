@@ -1,0 +1,849 @@
+[
+  {
+    "id": "p3eng-mission-01-q1",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "sva",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "The box of crayons ____ on the top shelf.",
+    "options": [
+      "is",
+      "are",
+      "were",
+      "have"
+    ],
+    "answer": 1,
+    "working": [
+      "Finger over ‘of crayons’. The Boss is ‘the box’: one box, so ‘is’.",
+      "Watch out: ‘crayons’ is the nearest noun, but it is only a passenger."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_01_find_the_boss.json#Q1"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-mission-01-q2",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "sva",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "There ____ some ice cream left in the freezer.",
+    "options": [
+      "is",
+      "are",
+      "were",
+      "have"
+    ],
+    "answer": 1,
+    "working": [
+      "After ‘There’, look AFTER the verb for the Boss: ice cream. You cannot count ice cream, so it is singular: is.",
+      "Watch out: ‘some’ makes it sound like many, but uncountable things are always singular."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_01_find_the_boss.json#Q2"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-mission-01-q3",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "sva",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Every morning, the children ____ their teeth before breakfast.",
+    "options": [
+      "brush",
+      "brushes",
+      "is brushing",
+      "has brushed"
+    ],
+    "answer": 1,
+    "working": [
+      "‘Children’ is a secret plural (many, but no s). Every morning = a habit. Many + habit = brush.",
+      "Watch out: ‘Every’ here goes with ‘morning’, not with the children."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_01_find_the_boss.json#Q3"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-mission-01-q4",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "sva",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "One of my friends ____ a pet tortoise.",
+    "options": [
+      "own",
+      "owns",
+      "are owning",
+      "have owned"
+    ],
+    "answer": 2,
+    "working": [
+      "Finger over ‘of my friends’. The Boss is ‘One’, so the verb takes an s: owns."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_01_find_the_boss.json#Q4"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-mission-01-q5",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "sva",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Ali and his sister ____ to school together every day.",
+    "options": [
+      "walk",
+      "walks",
+      "is walking",
+      "has walked"
+    ],
+    "answer": 1,
+    "working": [
+      "Ali AND his sister = two people. Two Bosses, no s: walk.",
+      "Watch out: ‘his sister’ is one person, but the ‘and’ makes the Boss two people."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_01_find_the_boss.json#Q5"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-mission-01-q6",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "sva",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Choose the correct word for (1).",
+    "passage": "Dinosaurs (1) [was / were] amazing animals. Today, scientists (2) [study / studies] their bones to learn about them. Each bone (3) [give / gives] a clue about how the dinosaur lived. The information from these clues (4) [help / helps] museums to build life-sized models.",
+    "options": [
+      "was",
+      "were"
+    ],
+    "answer": 2,
+    "working": [
+      "Dinosaurs = many, and they lived long ago, so ‘were’."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_01_find_the_boss.json#Q6"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-mission-01-q7",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "sva",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Choose the correct word for (2).",
+    "passage": "Dinosaurs (1) [was / were] amazing animals. Today, scientists (2) [study / studies] their bones to learn about them. Each bone (3) [give / gives] a clue about how the dinosaur lived. The information from these clues (4) [help / helps] museums to build life-sized models.",
+    "options": [
+      "study",
+      "studies"
+    ],
+    "answer": 1,
+    "working": [
+      "Scientists = many. Many Bosses, no s: study."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_01_find_the_boss.json#Q7"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-mission-01-q8",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "sva",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Choose the correct word for (3).",
+    "passage": "Dinosaurs (1) [was / were] amazing animals. Today, scientists (2) [study / studies] their bones to learn about them. Each bone (3) [give / gives] a clue about how the dinosaur lived. The information from these clues (4) [help / helps] museums to build life-sized models.",
+    "options": [
+      "give",
+      "gives"
+    ],
+    "answer": 2,
+    "working": [
+      "Each bone = one bone. One Boss takes the s: gives."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_01_find_the_boss.json#Q8"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-mission-01-q9",
+    "skill": "p3-english",
+    "topic": "language.grammar",
+    "subskill": "sva",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Choose the correct word for (4).",
+    "passage": "Dinosaurs (1) [was / were] amazing animals. Today, scientists (2) [study / studies] their bones to learn about them. Each bone (3) [give / gives] a clue about how the dinosaur lived. The information from these clues (4) [help / helps] museums to build life-sized models.",
+    "options": [
+      "help",
+      "helps"
+    ],
+    "answer": 2,
+    "working": [
+      "Finger over ‘from these clues’. The Boss is ‘the information’, which cannot be counted, so it is singular: helps.",
+      "Watch out: ‘clues’ is plural but it is a passenger."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_01_find_the_boss.json#Q9"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-mission-01-q10",
+    "skill": "p3-english",
+    "topic": "reading.visual",
+    "subskill": "vt_purpose",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Who is organising Dino Discovery Day?",
+    "passage": "The Little Explorers Club presents\n**Dino Discovery Day**\nDig, discover and roar with laughter!\nAGES 6 TO 12\nDate: Sunday, 15 November\nTime: 10 a.m. to 4 p.m.\nVenue: Sunrise Science Centre, Hall B\n**Highlights**\n- **Fossil Dig** (10 a.m. to 12 noon): Dig for fossils in our giant sandpit! Each child gets a free fossil to take home.\n- **Dino Craft Corner** (1 p.m. to 3 p.m.): Make your own dinosaur mask. $3 per mask. All materials provided.\n- **Roar Contest** (3.30 p.m.): Who has the loudest roar? Open to children aged 8 and above.\n- **Dino Café** (Open all day): Snacks and drinks for sale.\n**Tickets: $12 per child · $8 per adult** Early-bird price: $10 per child if you buy by 31 October. Buy tickets at www.littleexplorers.sg\nFor enquiries, email hello@littleexplorers.sg",
+    "options": [
+      "Sunrise Science Centre",
+      "The Little Explorers Club",
+      "Hall B",
+      "the Roar Contest winners"
+    ],
+    "answer": 2,
+    "working": [
+      "The top line says ‘The Little Explorers Club presents’. Presents = organises.",
+      "Watch out: Sunrise Science Centre is only the venue (the place)."
+    ],
+    "figure": "figures/p3eng-mission-01-q10-q13.svg",
+    "figure_spec": {
+      "poster": {
+        "theme": "#C0541A",
+        "accent": "#F6D7B0",
+        "presenter": "The Little Explorers Club presents",
+        "badge": "AGES|6 TO 12",
+        "corner_icon": "star",
+        "title": "Dino Discovery Day",
+        "tagline": "Dig, discover and roar with laughter!",
+        "facts": [
+          {
+            "icon": "calendar",
+            "label": "Date",
+            "value": "Sunday, 15 November"
+          },
+          {
+            "icon": "clock",
+            "label": "Time",
+            "value": "10 a.m. to 4 p.m."
+          },
+          {
+            "icon": "pin",
+            "label": "Venue",
+            "value": "Sunrise Science Centre, Hall B"
+          }
+        ],
+        "art": [
+          {
+            "kind": "person",
+            "x": 150,
+            "pose": "kneel",
+            "mood": "excited",
+            "gender": "boy",
+            "top": "#E76F51",
+            "scale": 1.5
+          },
+          {
+            "kind": "stone",
+            "x": 240,
+            "scale": 1.4
+          }
+        ],
+        "banner": "Highlights",
+        "art_right": [
+          {
+            "kind": "person",
+            "x": 200,
+            "pose": "hands_up",
+            "mood": "excited",
+            "gender": "girl",
+            "top": "#2A9D8F",
+            "scale": 1.5
+          }
+        ],
+        "boxes": [
+          {
+            "title": "Fossil Dig",
+            "sub": "10 a.m. to 12 noon",
+            "icon": "star",
+            "body": "Dig for fossils in our giant sandpit!\nEach child gets a free fossil to take home."
+          },
+          {
+            "title": "Dino Craft Corner",
+            "sub": "1 p.m. to 3 p.m.",
+            "icon": "palette",
+            "body": "Make your own dinosaur mask.\n$3 per mask. All materials provided."
+          },
+          {
+            "title": "Roar Contest",
+            "sub": "3.30 p.m.",
+            "icon": "trophy",
+            "body": "Who has the loudest roar?\nOpen to children aged 8 and above."
+          },
+          {
+            "title": "Dino Café",
+            "sub": "Open all day",
+            "icon": "food",
+            "body": "Snacks and drinks for sale."
+          }
+        ],
+        "wide_box": {
+          "title": "Tickets: $12 per child · $8 per adult",
+          "body": "Early-bird price: $10 per child if you buy by 31 October.\nBuy tickets at www.littleexplorers.sg"
+        },
+        "footer": [
+          "For enquiries, email hello@littleexplorers.sg"
+        ]
+      }
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mission_01_find_the_boss.json#Q10"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3eng-mission-01-q11",
+    "skill": "p3-english",
+    "topic": "reading.visual",
+    "subskill": "vt_traps",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Mei Ling is 7 years old. Which activity can she NOT join?",
+    "passage": "The Little Explorers Club presents\n**Dino Discovery Day**\nDig, discover and roar with laughter!\nAGES 6 TO 12\nDate: Sunday, 15 November\nTime: 10 a.m. to 4 p.m.\nVenue: Sunrise Science Centre, Hall B\n**Highlights**\n- **Fossil Dig** (10 a.m. to 12 noon): Dig for fossils in our giant sandpit! Each child gets a free fossil to take home.\n- **Dino Craft Corner** (1 p.m. to 3 p.m.): Make your own dinosaur mask. $3 per mask. All materials provided.\n- **Roar Contest** (3.30 p.m.): Who has the loudest roar? Open to children aged 8 and above.\n- **Dino Café** (Open all day): Snacks and drinks for sale.\n**Tickets: $12 per child · $8 per adult** Early-bird price: $10 per child if you buy by 31 October. Buy tickets at www.littleexplorers.sg\nFor enquiries, email hello@littleexplorers.sg",
+    "options": [
+      "the Fossil Dig",
+      "the Dino Craft Corner",
+      "the Roar Contest",
+      "the Dino Café"
+    ],
+    "answer": 3,
+    "working": [
+      "The Roar Contest is only for children aged 8 and above. Mei Ling is 7.",
+      "Watch out: The badge says ages 6 to 12, so she can come to the event. The rule inside one box is stricter."
+    ],
+    "figure": "figures/p3eng-mission-01-q10-q13.svg",
+    "figure_spec": {
+      "poster": {
+        "theme": "#C0541A",
+        "accent": "#F6D7B0",
+        "presenter": "The Little Explorers Club presents",
+        "badge": "AGES|6 TO 12",
+        "corner_icon": "star",
+        "title": "Dino Discovery Day",
+        "tagline": "Dig, discover and roar with laughter!",
+        "facts": [
+          {
+            "icon": "calendar",
+            "label": "Date",
+            "value": "Sunday, 15 November"
+          },
+          {
+            "icon": "clock",
+            "label": "Time",
+            "value": "10 a.m. to 4 p.m."
+          },
+          {
+            "icon": "pin",
+            "label": "Venue",
+            "value": "Sunrise Science Centre, Hall B"
+          }
+        ],
+        "art": [
+          {
+            "kind": "person",
+            "x": 150,
+            "pose": "kneel",
+            "mood": "excited",
+            "gender": "boy",
+            "top": "#E76F51",
+            "scale": 1.5
+          },
+          {
+            "kind": "stone",
+            "x": 240,
+            "scale": 1.4
+          }
+        ],
+        "banner": "Highlights",
+        "art_right": [
+          {
+            "kind": "person",
+            "x": 200,
+            "pose": "hands_up",
+            "mood": "excited",
+            "gender": "girl",
+            "top": "#2A9D8F",
+            "scale": 1.5
+          }
+        ],
+        "boxes": [
+          {
+            "title": "Fossil Dig",
+            "sub": "10 a.m. to 12 noon",
+            "icon": "star",
+            "body": "Dig for fossils in our giant sandpit!\nEach child gets a free fossil to take home."
+          },
+          {
+            "title": "Dino Craft Corner",
+            "sub": "1 p.m. to 3 p.m.",
+            "icon": "palette",
+            "body": "Make your own dinosaur mask.\n$3 per mask. All materials provided."
+          },
+          {
+            "title": "Roar Contest",
+            "sub": "3.30 p.m.",
+            "icon": "trophy",
+            "body": "Who has the loudest roar?\nOpen to children aged 8 and above."
+          },
+          {
+            "title": "Dino Café",
+            "sub": "Open all day",
+            "icon": "food",
+            "body": "Snacks and drinks for sale."
+          }
+        ],
+        "wide_box": {
+          "title": "Tickets: $12 per child · $8 per adult",
+          "body": "Early-bird price: $10 per child if you buy by 31 October.\nBuy tickets at www.littleexplorers.sg"
+        },
+        "footer": [
+          "For enquiries, email hello@littleexplorers.sg"
+        ]
+      }
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mission_01_find_the_boss.json#Q11"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3eng-mission-01-q12",
+    "skill": "p3-english",
+    "topic": "reading.visual",
+    "subskill": "vt_traps",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Marcus buys his ticket on 2 November. How much does he pay?",
+    "passage": "The Little Explorers Club presents\n**Dino Discovery Day**\nDig, discover and roar with laughter!\nAGES 6 TO 12\nDate: Sunday, 15 November\nTime: 10 a.m. to 4 p.m.\nVenue: Sunrise Science Centre, Hall B\n**Highlights**\n- **Fossil Dig** (10 a.m. to 12 noon): Dig for fossils in our giant sandpit! Each child gets a free fossil to take home.\n- **Dino Craft Corner** (1 p.m. to 3 p.m.): Make your own dinosaur mask. $3 per mask. All materials provided.\n- **Roar Contest** (3.30 p.m.): Who has the loudest roar? Open to children aged 8 and above.\n- **Dino Café** (Open all day): Snacks and drinks for sale.\n**Tickets: $12 per child · $8 per adult** Early-bird price: $10 per child if you buy by 31 October. Buy tickets at www.littleexplorers.sg\nFor enquiries, email hello@littleexplorers.sg",
+    "options": [
+      "$8",
+      "$10",
+      "$12",
+      "$3"
+    ],
+    "answer": 3,
+    "working": [
+      "The early-bird price only works if you buy by 31 October. 2 November is too late, so he pays the normal child price: $12.",
+      "Watch out: $10 is the early-bird price, and $8 is the adult price."
+    ],
+    "figure": "figures/p3eng-mission-01-q10-q13.svg",
+    "figure_spec": {
+      "poster": {
+        "theme": "#C0541A",
+        "accent": "#F6D7B0",
+        "presenter": "The Little Explorers Club presents",
+        "badge": "AGES|6 TO 12",
+        "corner_icon": "star",
+        "title": "Dino Discovery Day",
+        "tagline": "Dig, discover and roar with laughter!",
+        "facts": [
+          {
+            "icon": "calendar",
+            "label": "Date",
+            "value": "Sunday, 15 November"
+          },
+          {
+            "icon": "clock",
+            "label": "Time",
+            "value": "10 a.m. to 4 p.m."
+          },
+          {
+            "icon": "pin",
+            "label": "Venue",
+            "value": "Sunrise Science Centre, Hall B"
+          }
+        ],
+        "art": [
+          {
+            "kind": "person",
+            "x": 150,
+            "pose": "kneel",
+            "mood": "excited",
+            "gender": "boy",
+            "top": "#E76F51",
+            "scale": 1.5
+          },
+          {
+            "kind": "stone",
+            "x": 240,
+            "scale": 1.4
+          }
+        ],
+        "banner": "Highlights",
+        "art_right": [
+          {
+            "kind": "person",
+            "x": 200,
+            "pose": "hands_up",
+            "mood": "excited",
+            "gender": "girl",
+            "top": "#2A9D8F",
+            "scale": 1.5
+          }
+        ],
+        "boxes": [
+          {
+            "title": "Fossil Dig",
+            "sub": "10 a.m. to 12 noon",
+            "icon": "star",
+            "body": "Dig for fossils in our giant sandpit!\nEach child gets a free fossil to take home."
+          },
+          {
+            "title": "Dino Craft Corner",
+            "sub": "1 p.m. to 3 p.m.",
+            "icon": "palette",
+            "body": "Make your own dinosaur mask.\n$3 per mask. All materials provided."
+          },
+          {
+            "title": "Roar Contest",
+            "sub": "3.30 p.m.",
+            "icon": "trophy",
+            "body": "Who has the loudest roar?\nOpen to children aged 8 and above."
+          },
+          {
+            "title": "Dino Café",
+            "sub": "Open all day",
+            "icon": "food",
+            "body": "Snacks and drinks for sale."
+          }
+        ],
+        "wide_box": {
+          "title": "Tickets: $12 per child · $8 per adult",
+          "body": "Early-bird price: $10 per child if you buy by 31 October.\nBuy tickets at www.littleexplorers.sg"
+        },
+        "footer": [
+          "For enquiries, email hello@littleexplorers.sg"
+        ]
+      }
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mission_01_find_the_boss.json#Q12"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3eng-mission-01-q13",
+    "skill": "p3-english",
+    "topic": "reading.visual",
+    "subskill": "vt_details",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which of these statements is true?",
+    "passage": "The Little Explorers Club presents\n**Dino Discovery Day**\nDig, discover and roar with laughter!\nAGES 6 TO 12\nDate: Sunday, 15 November\nTime: 10 a.m. to 4 p.m.\nVenue: Sunrise Science Centre, Hall B\n**Highlights**\n- **Fossil Dig** (10 a.m. to 12 noon): Dig for fossils in our giant sandpit! Each child gets a free fossil to take home.\n- **Dino Craft Corner** (1 p.m. to 3 p.m.): Make your own dinosaur mask. $3 per mask. All materials provided.\n- **Roar Contest** (3.30 p.m.): Who has the loudest roar? Open to children aged 8 and above.\n- **Dino Café** (Open all day): Snacks and drinks for sale.\n**Tickets: $12 per child · $8 per adult** Early-bird price: $10 per child if you buy by 31 October. Buy tickets at www.littleexplorers.sg\nFor enquiries, email hello@littleexplorers.sg",
+    "options": [
+      "Children at the Fossil Dig can take home a free fossil.",
+      "The Dino Café is only open in the morning.",
+      "Dinosaur masks are free.",
+      "To ask a question, you should visit the website."
+    ],
+    "answer": 1,
+    "working": [
+      "The Fossil Dig box says each child gets a free fossil to take home.",
+      "Watch out: The café is open all day, masks cost $3, and questions go to the EMAIL address. The website is for tickets."
+    ],
+    "figure": "figures/p3eng-mission-01-q10-q13.svg",
+    "figure_spec": {
+      "poster": {
+        "theme": "#C0541A",
+        "accent": "#F6D7B0",
+        "presenter": "The Little Explorers Club presents",
+        "badge": "AGES|6 TO 12",
+        "corner_icon": "star",
+        "title": "Dino Discovery Day",
+        "tagline": "Dig, discover and roar with laughter!",
+        "facts": [
+          {
+            "icon": "calendar",
+            "label": "Date",
+            "value": "Sunday, 15 November"
+          },
+          {
+            "icon": "clock",
+            "label": "Time",
+            "value": "10 a.m. to 4 p.m."
+          },
+          {
+            "icon": "pin",
+            "label": "Venue",
+            "value": "Sunrise Science Centre, Hall B"
+          }
+        ],
+        "art": [
+          {
+            "kind": "person",
+            "x": 150,
+            "pose": "kneel",
+            "mood": "excited",
+            "gender": "boy",
+            "top": "#E76F51",
+            "scale": 1.5
+          },
+          {
+            "kind": "stone",
+            "x": 240,
+            "scale": 1.4
+          }
+        ],
+        "banner": "Highlights",
+        "art_right": [
+          {
+            "kind": "person",
+            "x": 200,
+            "pose": "hands_up",
+            "mood": "excited",
+            "gender": "girl",
+            "top": "#2A9D8F",
+            "scale": 1.5
+          }
+        ],
+        "boxes": [
+          {
+            "title": "Fossil Dig",
+            "sub": "10 a.m. to 12 noon",
+            "icon": "star",
+            "body": "Dig for fossils in our giant sandpit!\nEach child gets a free fossil to take home."
+          },
+          {
+            "title": "Dino Craft Corner",
+            "sub": "1 p.m. to 3 p.m.",
+            "icon": "palette",
+            "body": "Make your own dinosaur mask.\n$3 per mask. All materials provided."
+          },
+          {
+            "title": "Roar Contest",
+            "sub": "3.30 p.m.",
+            "icon": "trophy",
+            "body": "Who has the loudest roar?\nOpen to children aged 8 and above."
+          },
+          {
+            "title": "Dino Café",
+            "sub": "Open all day",
+            "icon": "food",
+            "body": "Snacks and drinks for sale."
+          }
+        ],
+        "wide_box": {
+          "title": "Tickets: $12 per child · $8 per adult",
+          "body": "Early-bird price: $10 per child if you buy by 31 October.\nBuy tickets at www.littleexplorers.sg"
+        },
+        "footer": [
+          "For enquiries, email hello@littleexplorers.sg"
+        ]
+      }
+    },
+    "source": {
+      "kind": "own",
+      "ref": "mission_01_find_the_boss.json#Q13"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3eng-mission-01-q14",
+    "skill": "p3-english",
+    "topic": "reading.comprehension",
+    "subskill": "comp_phrase",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Pick out a three-word phrase from paragraph 1 that shows Marcus was feeling nervous.",
+    "passage": "**The Big Match**\n\nIt was the last minute of the football final, and the score was one-all. Marcus dribbled the ball past two defenders. His heart pounded like a drum.\n\nSuddenly, a tall defender slid towards him. Marcus stumbled and almost fell, but he kept the ball. He looked up and saw his best friend, Wei Jie, standing alone near the goal. Marcus passed the ball to **him**.\n\nWei Jie kicked the ball with all his might. It flew past the goalkeeper and into the net! The crowd went wild. The coach ran over and gave both boys a high five. \"That pass was as important as the goal!\" he said.",
+    "answer": "His heart pounded",
+    "working": [
+      "A pounding heart is a sign of nerves. Count: His (1) heart (2) pounded (3).",
+      "Watch out: ‘pounded like a drum’ is FOUR words. Exact word count or no mark."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_01_find_the_boss.json#Q14"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-mission-01-q15",
+    "skill": "p3-english",
+    "topic": "reading.comprehension",
+    "subskill": "comp_referent",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "What does ‘him’ (in bold in the passage) refer to?",
+    "passage": "**The Big Match**\n\nIt was the last minute of the football final, and the score was one-all. Marcus dribbled the ball past two defenders. His heart pounded like a drum.\n\nSuddenly, a tall defender slid towards him. Marcus stumbled and almost fell, but he kept the ball. He looked up and saw his best friend, Wei Jie, standing alone near the goal. Marcus passed the ball to **him**.\n\nWei Jie kicked the ball with all his might. It flew past the goalkeeper and into the net! The crowd went wild. The coach ran over and gave both boys a high five. \"That pass was as important as the goal!\" he said.",
+    "answer": "Wei Jie",
+    "accept": [
+      "Marcus’s best friend, Wei Jie"
+    ],
+    "working": [
+      "Look back: the person Marcus saw standing alone near the goal was Wei Jie. Test it: ‘Marcus passed the ball to Wei Jie’ makes sense.",
+      "Watch out: There is another ‘him’ earlier (‘slid towards him’) that means Marcus. Always use the line number."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_01_find_the_boss.json#Q15"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-mission-01-q16",
+    "skill": "p3-english",
+    "topic": "reading.comprehension",
+    "subskill": "comp_true_false",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "True or false? Marcus fell down when the tall defender slid towards him.",
+    "passage": "**The Big Match**\n\nIt was the last minute of the football final, and the score was one-all. Marcus dribbled the ball past two defenders. His heart pounded like a drum.\n\nSuddenly, a tall defender slid towards him. Marcus stumbled and almost fell, but he kept the ball. He looked up and saw his best friend, Wei Jie, standing alone near the goal. Marcus passed the ball to **him**.\n\nWei Jie kicked the ball with all his might. It flew past the goalkeeper and into the net! The crowd went wild. The coach ran over and gave both boys a high five. \"That pass was as important as the goal!\" he said.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 2,
+    "working": [
+      "He stumbled and ALMOST fell, but he kept the ball.",
+      "Watch out: ‘almost’ means it did not happen. Tiny words change everything."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_01_find_the_boss.json#Q16"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-mission-01-q17",
+    "skill": "p3-english",
+    "topic": "reading.comprehension",
+    "subskill": "comp_true_false",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "True or false? Wei Jie was standing alone near the goal.",
+    "passage": "**The Big Match**\n\nIt was the last minute of the football final, and the score was one-all. Marcus dribbled the ball past two defenders. His heart pounded like a drum.\n\nSuddenly, a tall defender slid towards him. Marcus stumbled and almost fell, but he kept the ball. He looked up and saw his best friend, Wei Jie, standing alone near the goal. Marcus passed the ball to **him**.\n\nWei Jie kicked the ball with all his might. It flew past the goalkeeper and into the net! The crowd went wild. The coach ran over and gave both boys a high five. \"That pass was as important as the goal!\" he said.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "working": [
+      "Paragraph 2: Marcus saw Wei Jie standing alone near the goal."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_01_find_the_boss.json#Q17"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3eng-mission-01-q18",
+    "skill": "p3-english",
+    "topic": "reading.comprehension",
+    "subskill": "comp_inference",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "open",
+    "stem": "Why did the coach say the pass was as important as the goal?",
+    "passage": "**The Big Match**\n\nIt was the last minute of the football final, and the score was one-all. Marcus dribbled the ball past two defenders. His heart pounded like a drum.\n\nSuddenly, a tall defender slid towards him. Marcus stumbled and almost fell, but he kept the ball. He looked up and saw his best friend, Wei Jie, standing alone near the goal. Marcus passed the ball to **him**.\n\nWei Jie kicked the ball with all his might. It flew past the goalkeeper and into the net! The crowd went wild. The coach ran over and gave both boys a high five. \"That pass was as important as the goal!\" he said.",
+    "answer": "Because Wei Jie could only score the goal after Marcus passed the ball to him.",
+    "accept": [
+      "Without Marcus’s pass, Wei Jie could not have scored."
+    ],
+    "working": [
+      "The goal happened because of the pass. Answer with ‘because’ and link the pass to the goal."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "mission_01_find_the_boss.json#Q18"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  }
+]

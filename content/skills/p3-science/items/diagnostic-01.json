@@ -1,0 +1,1590 @@
+[
+  {
+    "id": "p3sci-diagnostic-01-a1",
+    "skill": "p3-science",
+    "topic": "diversity.living",
+    "subskill": "lnl_identify",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Which group contains **only** living things?",
+    "options": [
+      "seed, mushroom, yeast",
+      "fire, fern, frog",
+      "cloud, bacteria, chick",
+      "robot, mould, tadpole"
+    ],
+    "answer": 1,
+    "working": [
+      "A seed is living: it can grow into a plant, needs water and air, and it came from a plant. Mushroom and yeast are fungi — living things.",
+      "Watch out: Things that move or change (fire, cloud, robot) are the classic traps. Ask: can it grow AND reproduce AND does it need air, food and water?"
+    ],
+    "distractors": {
+      "2": "Fire grows and moves but cannot reproduce and does not need food or water — it is non-living.",
+      "3": "A cloud changes shape and size but is non-living.",
+      "4": "A robot can move and respond to commands but cannot grow or reproduce."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "diagnostic_01.json#A1"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3sci-diagnostic-01-a2",
+    "skill": "p3-science",
+    "topic": "diversity.classification",
+    "subskill": "plant_fungi_groups",
+    "archetype": "CLS-1",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "The table shows some characteristics of living things W, X, Y and Z. A tick (✓) shows that the characteristic is present.\n\n| Living thing | Reproduces\nby spores | Makes its\nown food | Bears\nflowers |\n| --- | --- | --- | --- |\n| W | ✓ | ✓ | |\n| X | ✓ | | |\n| Y | | ✓ | ✓ |\n| Z | | | |\n\nWhich of the following could be a mushroom and a bird's-nest fern?",
+    "options": [
+      "mushroom: W · bird's-nest fern: X",
+      "mushroom: X · bird's-nest fern: W",
+      "mushroom: X · bird's-nest fern: Y",
+      "mushroom: Z · bird's-nest fern: W"
+    ],
+    "answer": 2,
+    "working": [
+      "Mushroom = fungus: spores ✓ but cannot make its own food → X. Bird's-nest fern = non-flowering plant: spores ✓, makes its own food ✓, no flowers → W.",
+      "Watch out: Fungi are NOT plants: they reproduce by spores like ferns, but cannot make their own food."
+    ],
+    "distractors": {
+      "1": "Swapped: W makes its own food, so it cannot be a mushroom.",
+      "3": "Y bears flowers — it is a flowering plant, not a fern.",
+      "4": "Z has no spores, so it cannot be a mushroom."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "diagnostic_01.json#A2"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3sci-diagnostic-01-a3",
+    "skill": "p3-science",
+    "topic": "diversity.classification",
+    "subskill": "animal_groups",
+    "archetype": "CLS-3",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Study the flowchart.\n\nWhich animals could be L and N?",
+    "options": [
+      "L: frog · N: crocodile",
+      "L: snake · N: cat",
+      "L: penguin · N: frog",
+      "L: crocodile · N: frog"
+    ],
+    "answer": 4,
+    "working": [
+      "A crocodile (reptile) has dry, scaly skin → L. A frog (amphibian) has no feathers, moist skin (not dry and scaly) and no hair → N.",
+      "Watch out: Follow the arrows one diamond at a time and say the answer out loud at each step. A penguin cannot fly but is still a bird."
+    ],
+    "distractors": {
+      "1": "A frog has moist skin, so it cannot follow the 'dry, scaly skin → Yes' path to L.",
+      "2": "A cat has fur, so it ends at M, not N.",
+      "3": "A penguin has feathers, so it ends at K."
+    },
+    "figure": "figures/p3sci-diagnostic-01-a3.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "flowchart",
+          "start": "Animals",
+          "steps": [
+            {
+              "q": "Does it have feathers?",
+              "side": "Yes",
+              "out": "K"
+            },
+            {
+              "q": "Does it have dry, scaly skin?",
+              "side": "Yes",
+              "out": "L"
+            },
+            {
+              "q": "Does it have hair or fur?",
+              "side": "Yes",
+              "out": "M"
+            }
+          ],
+          "end": "N"
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "diagnostic_01.json#A3"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-diagnostic-01-a4",
+    "skill": "p3-science",
+    "topic": "diversity.classification",
+    "subskill": "insect_or_not",
+    "archetype": "CLS-5",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Which animal is an insect?",
+    "options": [
+      "Diagram 1",
+      "Diagram 2",
+      "Diagram 3",
+      "Diagram 4"
+    ],
+    "answer": 3,
+    "working": [
+      "An insect has 3 body parts, 6 legs and 1 pair of feelers. Only (3) has all three.",
+      "Watch out: Use the 3-6-2 check: 3 body parts, 6 legs, 2 feelers (1 pair). Touch each leg with your pencil as you count."
+    ],
+    "distractors": {
+      "1": "2 body parts and 8 legs, no feelers — a spider is not an insect.",
+      "2": "Far more than 6 legs.",
+      "4": "3 body parts and feelers, but 8 legs — count the legs on BOTH sides."
+    },
+    "figure": "figures/p3sci-diagnostic-01-a4.svg",
+    "figure_spec": {
+      "options": [
+        {
+          "kind": "icon",
+          "icon": "spider",
+          "w": 110,
+          "h": 90
+        },
+        {
+          "kind": "icon",
+          "icon": "centipede",
+          "w": 110,
+          "h": 90
+        },
+        {
+          "kind": "icon",
+          "icon": "beetle",
+          "w": 110,
+          "h": 90
+        },
+        {
+          "kind": "icon",
+          "icon": "insect",
+          "w": 110,
+          "h": 90,
+          "params": {
+            "legs": 8
+          }
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "diagnostic_01.json#A4"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-diagnostic-01-a5",
+    "skill": "p3-science",
+    "topic": "diversity.materials",
+    "subskill": "property_to_use",
+    "archetype": "MAT-1",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "The table shows the properties of four materials. A tick (✓) shows that the material has the property.\n\n| Material | Strong | Flexible | Waterproof | Transparent |\n| --- | --- | --- | --- | --- |\n| P | ✓ | | ✓ | ✓ |\n| Q | | ✓ | | |\n| R | | ✓ | ✓ | |\n| S | ✓ | | ✓ | |\n\nWhich material is most suitable for making a raincoat?",
+    "options": [
+      "P",
+      "Q",
+      "R",
+      "S"
+    ],
+    "answer": 3,
+    "working": [
+      "A raincoat must be waterproof (keeps the wearer dry) and flexible (bends so we can move and fold it). Only R has both.",
+      "Watch out: Strong is not always needed! First list what the object must DO, then match each job to a property."
+    ],
+    "distractors": {
+      "1": "P is waterproof but not flexible — a stiff raincoat would crack when you move.",
+      "2": "Q is flexible but not waterproof — rain would soak through.",
+      "4": "S is strong and waterproof but not flexible."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "diagnostic_01.json#A5"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3sci-diagnostic-01-a6",
+    "skill": "p3-science",
+    "topic": "diversity.materials",
+    "subskill": "float_sink",
+    "archetype": "MAT-3",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Blocks of materials P, Q, R and S of the same size were placed in a tank of water. The diagram shows what happened.\n\nRafa wants to make a toy boat and an anchor to stop the boat from drifting away. Which materials should he use?",
+    "options": [
+      "toy boat: Q · anchor: R",
+      "toy boat: R · anchor: P",
+      "toy boat: P · anchor: Q",
+      "toy boat: S · anchor: R"
+    ],
+    "answer": 3,
+    "working": [
+      "The boat must float (P or R). The anchor must sink (Q or S). Only option (3) has a floating boat AND a sinking anchor.",
+      "Watch out: Check BOTH columns of a table option. Many pupils check only the first column and stop."
+    ],
+    "distractors": {
+      "1": "Q sinks, so the boat would sink.",
+      "2": "P floats, so the anchor would not hold the boat in place.",
+      "4": "S sinks, so the boat would sink."
+    },
+    "figure": "figures/p3sci-diagnostic-01-a6.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "float_tank",
+          "objects": [
+            {
+              "label": "P",
+              "level": "float"
+            },
+            {
+              "label": "Q",
+              "level": "sink"
+            },
+            {
+              "label": "R",
+              "level": "float"
+            },
+            {
+              "label": "S",
+              "level": "sink"
+            }
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "diagnostic_01.json#A6"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-diagnostic-01-a7",
+    "skill": "p3-science",
+    "topic": "diversity.materials",
+    "subskill": "transparency",
+    "archetype": "MAT-2",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Halim measured the amount of light passing through four materials, A, B, C and D, using the set-up below.\n\nWhich materials are most suitable for a car windscreen and for curtains that keep a bedroom dark?",
+    "options": [
+      "car windscreen: B · bedroom curtains: C",
+      "car windscreen: C · bedroom curtains: B",
+      "car windscreen: D · bedroom curtains: A",
+      "car windscreen: B · bedroom curtains: A"
+    ],
+    "answer": 1,
+    "working": [
+      "A windscreen must let the most light through so the driver sees clearly → B (9 units). Curtains for a dark room must block the most light → C (0 units).",
+      "Watch out: Higher bar = MORE light passes through = more transparent. Say what a tall bar means before you choose."
+    ],
+    "distractors": {
+      "2": "Swapped: C lets no light through, so the driver could not see.",
+      "3": "D lets only half the light through and A still lets some light in.",
+      "4": "A lets 2 units of light through; C blocks more."
+    },
+    "figure": "figures/p3sci-diagnostic-01-a7.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "light_test",
+          "material_label": "sheet of material"
+        },
+        {
+          "kind": "bar_graph",
+          "categories": [
+            "no material",
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "series": [
+            {
+              "name": "light",
+              "values": [
+                10,
+                2,
+                9,
+                0,
+                5
+              ],
+              "fill": "dark"
+            }
+          ],
+          "ylabel": "Amount of light detected (units)",
+          "xlabel": "Material",
+          "ymax": 12,
+          "ystep": 2,
+          "w": 340,
+          "h": 190
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "diagnostic_01.json#A7"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-diagnostic-01-a8",
+    "skill": "p3-science",
+    "topic": "cycles.plant",
+    "subskill": "germination",
+    "archetype": "PLC-2",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Ali wants to find out if seeds need **water** to germinate. He placed the same number of similar seeds in set-ups A, B, C and D. A tick (✓) shows that the condition is present.\n\n| Set-up | Air | Water | Light | Temperature (°C) |\n| --- | --- | --- | --- | --- |\n| A | ✓ | ✓ | ✓ | 30 |\n| B | ✓ | | ✓ | 30 |\n| C | ✓ | ✓ | | 30 |\n| D | | ✓ | ✓ | 5 |\n\nWhich two set-ups should he use?",
+    "options": [
+      "A and C",
+      "B and C",
+      "B and D",
+      "A and B"
+    ],
+    "answer": 4,
+    "working": [
+      "In a fair test only the condition being tested (water) is changed; everything else stays the same. A and B differ only in water.",
+      "Watch out: Seeds need WATER, AIR and WARMTH to germinate (think 'WAW'). Light is NOT needed for germination — the seed's stored food is used first."
+    ],
+    "distractors": {
+      "1": "A and C differ in light, not water.",
+      "2": "B and C differ in water AND light — two changes, so it is not a fair test.",
+      "3": "B and D differ in air, water and temperature."
+    },
+    "source": {
+      "kind": "own",
+      "ref": "diagnostic_01.json#A8"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3sci-diagnostic-01-a9",
+    "skill": "p3-science",
+    "topic": "cycles.animal",
+    "subskill": "cycle_diagram",
+    "archetype": "ALC-1",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "The diagrams show three stages, F, G and H, in the life cycle of a frog.\n\nWhich diagram shows the life cycle of a frog correctly?",
+    "options": [
+      "Diagram 1",
+      "Diagram 2",
+      "Diagram 3",
+      "Diagram 4"
+    ],
+    "answer": 2,
+    "working": [
+      "Eggs (frogspawn, H) hatch into tadpoles (G), tadpoles grow into frogs (F), frogs lay eggs (H). The arrows must go H → G → F → H all the way round.",
+      "Watch out: Put your finger on the egg and follow the arrows. You must visit every stage once and land back on the egg."
+    ],
+    "distractors": {
+      "1": "All arrows point the wrong way (frog → tadpole).",
+      "3": "Two arrows leave H and none come back to it — this is not a cycle.",
+      "4": "Two arrows leave G and none go into it — the tadpole would come from nowhere."
+    },
+    "figure": "figures/p3sci-diagnostic-01-a9.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "row",
+          "items": [
+            {
+              "kind": "icon",
+              "icon": "frog",
+              "w": 80,
+              "h": 64
+            },
+            {
+              "kind": "icon",
+              "icon": "tadpole",
+              "w": 80,
+              "h": 64
+            },
+            {
+              "kind": "icon",
+              "icon": "frogspawn",
+              "w": 80,
+              "h": 64
+            }
+          ],
+          "captions": [
+            "F",
+            "G",
+            "H"
+          ],
+          "gap": 40
+        }
+      ],
+      "options": [
+        {
+          "kind": "life_cycle",
+          "stages": [
+            "H",
+            "G",
+            "F"
+          ],
+          "size": "small",
+          "curved": false,
+          "edges": [
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ]
+        },
+        {
+          "kind": "life_cycle",
+          "stages": [
+            "H",
+            "G",
+            "F"
+          ],
+          "size": "small",
+          "curved": false,
+          "edges": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "kind": "life_cycle",
+          "stages": [
+            "H",
+            "G",
+            "F"
+          ],
+          "size": "small",
+          "curved": false,
+          "edges": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              2
+            ]
+          ]
+        },
+        {
+          "kind": "life_cycle",
+          "stages": [
+            "H",
+            "G",
+            "F"
+          ],
+          "size": "small",
+          "curved": false,
+          "edges": [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              0
+            ]
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "diagnostic_01.json#A9"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-diagnostic-01-a10",
+    "skill": "p3-science",
+    "topic": "cycles.animal",
+    "subskill": "duration_graph",
+    "archetype": "ALC-4",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "The graph shows the number of days a beetle spends in each stage of its life cycle.\n\nHow many days does the beetle take to become an adult **after its egg hatches**?",
+    "options": [
+      "10",
+      "18",
+      "22",
+      "32"
+    ],
+    "answer": 2,
+    "working": [
+      "After hatching, the beetle is a larva (12 days) then a pupa (6 days) before it becomes an adult: 12 + 6 = 18 days.",
+      "Watch out: 'After hatching' = start counting from the larva. 'Become an adult' = stop before the adult bar."
+    ],
+    "distractors": {
+      "1": "10 days is how long the adult stage lasts.",
+      "3": "22 includes the 4 days in the egg — but the question starts AFTER the egg hatches.",
+      "4": "32 is the whole life cycle."
+    },
+    "figure": "figures/p3sci-diagnostic-01-a10.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "bar_graph",
+          "categories": [
+            "egg",
+            "larva",
+            "pupa",
+            "adult"
+          ],
+          "series": [
+            {
+              "name": "beetle",
+              "values": [
+                4,
+                12,
+                6,
+                10
+              ],
+              "fill": "dark"
+            }
+          ],
+          "ylabel": "Number of days",
+          "xlabel": "Stage",
+          "ymax": 14,
+          "ystep": 2,
+          "w": 320,
+          "h": 190
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "diagnostic_01.json#A10"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-diagnostic-01-a11",
+    "skill": "p3-science",
+    "topic": "interactions.magnets",
+    "subskill": "attract_repel",
+    "archetype": "MAG-4",
+    "difficulty": 4,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Four rings, P, Q, R and S, were placed on a wooden rod as shown.\n\nWhich rings **must** be magnets?",
+    "options": [
+      "P and Q only",
+      "R and S only",
+      "P, Q and S only",
+      "P, Q, R and S"
+    ],
+    "answer": 4,
+    "working": [
+      "A ring can only float above another ring if the two push each other away (like poles facing). Q floats above P, so P and Q are both magnets. S floats above R, so R and S are both magnets. All four must be magnets.",
+      "Watch out: A GAP means repel, and only two magnets can repel. Touching rings tell you nothing on their own."
+    ],
+    "distractors": {
+      "1": "Forgets that S is floating above R.",
+      "2": "Forgets that Q is floating above P.",
+      "3": "R is touching Q, but S is floating above R — R must be a magnet to push S up."
+    },
+    "figure": "figures/p3sci-diagnostic-01-a11.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "ring_stack",
+          "rings": [
+            {
+              "name": "P"
+            },
+            {
+              "name": "Q",
+              "gap": 22
+            },
+            {
+              "name": "R",
+              "gap": 0
+            },
+            {
+              "name": "S",
+              "gap": 20
+            }
+          ],
+          "rod_label": "wooden rod",
+          "base": "plastic base",
+          "w": 280
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "diagnostic_01.json#A11"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-diagnostic-01-a12",
+    "skill": "p3-science",
+    "topic": "interactions.making_magnets",
+    "subskill": "stroke_method",
+    "archetype": "MMU-1",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Which of the following will be made into the strongest magnet?",
+    "options": [
+      "Diagram 1",
+      "Diagram 2",
+      "Diagram 3",
+      "Diagram 4"
+    ],
+    "answer": 1,
+    "working": [
+      "Steel is a magnetic material. Stroking in ONE direction (lift the magnet away before the next stroke) makes a magnet; more strokes make a stronger magnet. (1) has more correct strokes than (4).",
+      "Watch out: Check THREE things in every stroke diagram: the material, the direction of the arrows (a loop, one way only), and the number of strokes."
+    ],
+    "distractors": {
+      "2": "Stroking back and forth undoes the strokes — the needle becomes a very weak magnet or none at all.",
+      "3": "Aluminium is not a magnetic material, so it cannot be made into a magnet however many strokes.",
+      "4": "Correct method but fewer strokes than (1)."
+    },
+    "figure": "figures/p3sci-diagnostic-01-a12.svg",
+    "figure_spec": {
+      "options": [
+        {
+          "kind": "stroke",
+          "mode": "one_way",
+          "times": "40 times",
+          "object": "steel needle"
+        },
+        {
+          "kind": "stroke",
+          "mode": "both_ways",
+          "times": "60 times",
+          "object": "steel needle"
+        },
+        {
+          "kind": "stroke",
+          "mode": "one_way",
+          "times": "60 times",
+          "object": "aluminium rod"
+        },
+        {
+          "kind": "stroke",
+          "mode": "one_way",
+          "times": "20 times",
+          "object": "steel needle"
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "diagnostic_01.json#A12"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-diagnostic-01-b1a",
+    "skill": "p3-science",
+    "topic": "diversity.living",
+    "subskill": "needs_experiment",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Kai placed a grasshopper in each of three similar containers, J, K and L, and kept them in the same place.\n\n(Container J has a lid with holes, food and a dish of water. K has a lid with holes and food only. L has a lid without holes, food and water.)\n\n(a) Kai wants to find out if living things need water to survive. Which two set-ups should he use?",
+    "answer": "J and K.",
+    "working": [
+      "Common error: Choosing J and L — those differ in air (lid holes), not water."
+    ],
+    "keywords": [
+      "only water is different"
+    ],
+    "figure": "figures/p3sci-diagnostic-01-b1abc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "row",
+          "items": [
+            {
+              "kind": "container",
+              "lid": "holes",
+              "items": [
+                "food",
+                "water"
+              ],
+              "animal": "grasshopper",
+              "label": "J",
+              "w": 140,
+              "h": 112
+            },
+            {
+              "kind": "container",
+              "lid": "holes",
+              "items": [
+                "food"
+              ],
+              "animal": "grasshopper",
+              "label": "K",
+              "w": 140,
+              "h": 112
+            },
+            {
+              "kind": "container",
+              "lid": "solid",
+              "items": [
+                "food",
+                "water"
+              ],
+              "animal": "grasshopper",
+              "label": "L",
+              "w": 140,
+              "h": 112
+            }
+          ],
+          "gap": 10
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "diagnostic_01.json#B1(a)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-diagnostic-01-b1b",
+    "skill": "p3-science",
+    "topic": "diversity.living",
+    "subskill": "needs",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "open",
+    "stem": "Kai placed a grasshopper in each of three similar containers, J, K and L, and kept them in the same place.\n\n(Container J has a lid with holes, food and a dish of water. K has a lid with holes and food only. L has a lid without holes, food and water.)\n\n(b) After three days, the grasshopper in set-up L died. Explain why.",
+    "answer": "The lid of L has no holes, so fresh air could not enter. The grasshopper needs **air** to survive.",
+    "working": [
+      "Claim: It died because it did not get enough air.",
+      "Evidence: L's lid has no holes, while J's lid (same food and water) has holes.",
+      "Reasoning: Living things need air to survive."
+    ],
+    "keywords": [
+      "air",
+      "no holes / air cannot enter"
+    ],
+    "marking": [
+      "Reject: 'It was too hot' or 'it was trapped' without mentioning air."
+    ],
+    "figure": "figures/p3sci-diagnostic-01-b1abc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "row",
+          "items": [
+            {
+              "kind": "container",
+              "lid": "holes",
+              "items": [
+                "food",
+                "water"
+              ],
+              "animal": "grasshopper",
+              "label": "J",
+              "w": 140,
+              "h": 112
+            },
+            {
+              "kind": "container",
+              "lid": "holes",
+              "items": [
+                "food"
+              ],
+              "animal": "grasshopper",
+              "label": "K",
+              "w": 140,
+              "h": 112
+            },
+            {
+              "kind": "container",
+              "lid": "solid",
+              "items": [
+                "food",
+                "water"
+              ],
+              "animal": "grasshopper",
+              "label": "L",
+              "w": 140,
+              "h": 112
+            }
+          ],
+          "gap": 10
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "diagnostic_01.json#B1(b)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-diagnostic-01-b1c",
+    "skill": "p3-science",
+    "topic": "diversity.living",
+    "subskill": "characteristics",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "open",
+    "stem": "Kai placed a grasshopper in each of three similar containers, J, K and L, and kept them in the same place.\n\n(Container J has a lid with holes, food and a dish of water. K has a lid with holes and food only. L has a lid without holes, food and water.)\n\n(c) When Kai tapped container J, the grasshopper jumped to the other side. Which characteristic of living things does this show?",
+    "answer": "Living things **respond to changes** (around them).",
+    "keywords": [
+      "respond",
+      "changes"
+    ],
+    "marking": [
+      "Reject: 'It can move' — moving alone is not one of the characteristics."
+    ],
+    "figure": "figures/p3sci-diagnostic-01-b1abc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "row",
+          "items": [
+            {
+              "kind": "container",
+              "lid": "holes",
+              "items": [
+                "food",
+                "water"
+              ],
+              "animal": "grasshopper",
+              "label": "J",
+              "w": 140,
+              "h": 112
+            },
+            {
+              "kind": "container",
+              "lid": "holes",
+              "items": [
+                "food"
+              ],
+              "animal": "grasshopper",
+              "label": "K",
+              "w": 140,
+              "h": 112
+            },
+            {
+              "kind": "container",
+              "lid": "solid",
+              "items": [
+                "food",
+                "water"
+              ],
+              "animal": "grasshopper",
+              "label": "L",
+              "w": 140,
+              "h": 112
+            }
+          ],
+          "gap": 10
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "diagnostic_01.json#B1(c)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-diagnostic-01-b2a",
+    "skill": "p3-science",
+    "topic": "diversity.classification",
+    "subskill": "chart_heading",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "open",
+    "stem": "Marcus classified some animals into two groups.\n\n(a) Suggest a suitable heading for each group.\n\nGroup A:\nGroup B:",
+    "answer": "Group A: give birth to young alive. Group B: lay eggs. (Both needed for 1 mark.)",
+    "accept": [
+      "Group A: mammals / feed their young with milk. Group B: do not give birth to young alive."
+    ],
+    "marking": [
+      "Reject: Group B: 'have scales' (the penguin has feathers and the frog has moist skin) or 'live in water'."
+    ],
+    "figure": "figures/p3sci-diagnostic-01-b2ab.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "tree",
+          "root": "Animals",
+          "width": 360,
+          "children": [
+            {
+              "label": "Group A",
+              "children": [
+                {
+                  "label": "",
+                  "items": [
+                    "bat",
+                    "cat",
+                    "whale"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Group B",
+              "children": [
+                {
+                  "label": "",
+                  "items": [
+                    "penguin",
+                    "crocodile",
+                    "frog"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "diagnostic_01.json#B2(a)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-diagnostic-01-b2b",
+    "skill": "p3-science",
+    "topic": "diversity.classification",
+    "subskill": "animal_groups",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Marcus classified some animals into two groups.\n\n(b) Mei said the whale should be in Group B because, like the frog and the crocodile, it can live in water. Do you agree? Explain.",
+    "answer": "No. The whale **gives birth to young alive** (and feeds its young with milk), just like the bat and the cat. The animals were grouped by **how they reproduce**, not by where they live — Group B animals lay eggs.",
+    "working": [
+      "Claim: No, the whale belongs in Group A.",
+      "Evidence: A whale gives birth to young alive, like the bat and the cat.",
+      "Reasoning: The groups are based on how the animals reproduce (give birth vs lay eggs), not on where they live.",
+      "Common error: Writing 'whale is a mammal' with no link to the grouping — scores 1 of 2."
+    ],
+    "keywords": [
+      "gives birth to young alive",
+      "mammal",
+      "how they reproduce"
+    ],
+    "figure": "figures/p3sci-diagnostic-01-b2ab.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "tree",
+          "root": "Animals",
+          "width": 360,
+          "children": [
+            {
+              "label": "Group A",
+              "children": [
+                {
+                  "label": "",
+                  "items": [
+                    "bat",
+                    "cat",
+                    "whale"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Group B",
+              "children": [
+                {
+                  "label": "",
+                  "items": [
+                    "penguin",
+                    "crocodile",
+                    "frog"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "diagnostic_01.json#B2(b)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-diagnostic-01-b3a",
+    "skill": "p3-science",
+    "topic": "diversity.materials",
+    "subskill": "absorbency",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Siti dipped strips of materials P, Q and R of the same size into three beakers. Each beaker had 200 ml of water at the start. After 10 minutes, she removed the strips and measured the water left.\n\n| Material | Water left after 10 minutes (ml) |\n| --- | --- |\n| P | 150 |\n| Q | 200 |\n| R | 110 |\n\n(a) Arrange the materials from the **most** absorbent to the **least** absorbent.\n\nmost absorbent ____ , ____ , ____ least absorbent",
+    "answer": "R, P, Q",
+    "working": [
+      "Common error: Ordering by the numbers in the table (Q, P, R). The LESS water left, the MORE the material absorbed."
+    ],
+    "figure": "figures/p3sci-diagnostic-01-b3abc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "beakers",
+          "beakers": [
+            {
+              "label": "P",
+              "level": 0.6,
+              "caption": "beaker P"
+            },
+            {
+              "label": "Q",
+              "level": 0.8,
+              "caption": "beaker Q"
+            },
+            {
+              "label": "R",
+              "level": 0.44,
+              "caption": "beaker R"
+            }
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "diagnostic_01.json#B3(a)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-diagnostic-01-b3b",
+    "skill": "p3-science",
+    "topic": "diversity.materials",
+    "subskill": "property_to_use",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "open",
+    "stem": "Siti dipped strips of materials P, Q and R of the same size into three beakers. Each beaker had 200 ml of water at the start. After 10 minutes, she removed the strips and measured the water left.\n\n| Material | Water left after 10 minutes (ml) |\n| --- | --- |\n| P | 150 |\n| Q | 200 |\n| R | 110 |\n\n(b) Which material is most suitable for a kitchen towel to wipe up spilt water? Explain.",
+    "answer": "R. It absorbed the most water (90 ml), so it can soak up the most spilt water.",
+    "working": [
+      "Claim: R",
+      "Evidence: Only 110 ml of water was left in beaker R — the least of the three.",
+      "Reasoning: R is the most absorbent, so it soaks up the most spilt water."
+    ],
+    "keywords": [
+      "absorbs the most water",
+      "least water left"
+    ],
+    "figure": "figures/p3sci-diagnostic-01-b3abc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "beakers",
+          "beakers": [
+            {
+              "label": "P",
+              "level": 0.6,
+              "caption": "beaker P"
+            },
+            {
+              "label": "Q",
+              "level": 0.8,
+              "caption": "beaker Q"
+            },
+            {
+              "label": "R",
+              "level": 0.44,
+              "caption": "beaker R"
+            }
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "diagnostic_01.json#B3(b)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-diagnostic-01-b3c",
+    "skill": "p3-science",
+    "topic": "diversity.materials",
+    "subskill": "fair_test",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "open",
+    "stem": "Siti dipped strips of materials P, Q and R of the same size into three beakers. Each beaker had 200 ml of water at the start. After 10 minutes, she removed the strips and measured the water left.\n\n| Material | Water left after 10 minutes (ml) |\n| --- | --- |\n| P | 150 |\n| Q | 200 |\n| R | 110 |\n\n(c) State one variable Siti must keep the same to make this a fair test.",
+    "answer": "Any one: size of the strips / amount of water at the start / time the strips were dipped / how deep the strips were dipped.",
+    "marking": [
+      "Reject: Type of material (this is the variable she changed) or amount of water left (this is what she measured)."
+    ],
+    "figure": "figures/p3sci-diagnostic-01-b3abc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "beakers",
+          "beakers": [
+            {
+              "label": "P",
+              "level": 0.6,
+              "caption": "beaker P"
+            },
+            {
+              "label": "Q",
+              "level": 0.8,
+              "caption": "beaker Q"
+            },
+            {
+              "label": "R",
+              "level": 0.44,
+              "caption": "beaker R"
+            }
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "diagnostic_01.json#B3(c)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-diagnostic-01-b4a",
+    "skill": "p3-science",
+    "topic": "cycles.animal",
+    "subskill": "cycle_diagram",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "open",
+    "stem": "Lily placed a butterfly egg in a tank. At the start of each stage, she put 30 fresh leaves into the tank. She counted the leaves left at the end of each stage.\n\n| Stage | Leaves at the start | Leaves at the end |\n| --- | --- | --- |\n| egg | 30 | 30 |\n| adult | 30 | 30 |\n| W | 30 | 30 |\n| X | 30 | 4 |\n\n(a) Draw the life cycle of the butterfly in the box using 'egg', 'adult', 'W' and 'X'.",
+    "answer": "egg → X → W → adult → (back to) egg, drawn as a cycle with arrows.",
+    "working": [
+      "Common error: Drawing a straight line with no arrow back to the egg — a life cycle repeats."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "diagnostic_01.json#B4(a)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3sci-diagnostic-01-b4b",
+    "skill": "p3-science",
+    "topic": "cycles.animal",
+    "subskill": "stage_features",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Lily placed a butterfly egg in a tank. At the start of each stage, she put 30 fresh leaves into the tank. She counted the leaves left at the end of each stage.\n\n| Stage | Leaves at the start | Leaves at the end |\n| --- | --- | --- |\n| egg | 30 | 30 |\n| adult | 30 | 30 |\n| W | 30 | 30 |\n| X | 30 | 4 |\n\n(b) Which stage, W or X, is the larva? Explain using the results.",
+    "answer": "X. The number of leaves dropped from 30 to 4 during stage X but stayed at 30 during W. The **larva feeds** on leaves, while the **pupa does not feed**.",
+    "working": [
+      "Claim: X is the larva.",
+      "Evidence: Leaves fell from 30 to 4 during X; they stayed at 30 during W.",
+      "Reasoning: The larva (caterpillar) eats leaves; the pupa does not feed, so W is the pupa.",
+      "Common error: Saying 'X ate leaves' without stating that the pupa does not feed — 1 of 2 marks."
+    ],
+    "keywords": [
+      "larva feeds",
+      "pupa does not feed",
+      "30 to 4"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "diagnostic_01.json#B4(b)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3sci-diagnostic-01-b5a",
+    "skill": "p3-science",
+    "topic": "interactions.magnets",
+    "subskill": "pole_puzzle",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "open",
+    "stem": "Four bar magnets were arranged as shown. Each magnet is attracted to the magnet it touches. One pole has been labelled for you.\n\n(a) Write 'N' or 'S' in boxes (i) and (ii).",
+    "answer": "(i) S (ii) N (both needed).",
+    "working": [
+      "Reasoning: Touching ends of attracting magnets are opposite poles. Top of the upright magnet is S, so the right end of the top magnet is N and (i) is S. The bottom of the upright magnet is N, so the next magnet's left end is S and its right end is N; the last magnet's left end is S, so (ii) is N.",
+      "Common error: Copying the same letter across a join. At every join, the letters must FLIP (N meets S)."
+    ],
+    "figure": "figures/p3sci-diagnostic-01-b5ab.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "magnet_layout",
+          "w": 380,
+          "h": 160,
+          "magnets": [
+            {
+              "type": "bar",
+              "x": 22,
+              "y": 120,
+              "len": 110,
+              "thick": 26,
+              "labels": [
+                "[]",
+                ""
+              ]
+            },
+            {
+              "type": "bar",
+              "x": 132,
+              "y": 40,
+              "len": 106,
+              "thick": 26,
+              "vertical": true,
+              "labels": [
+                "S",
+                ""
+              ]
+            },
+            {
+              "type": "bar",
+              "x": 132,
+              "y": 14,
+              "len": 110,
+              "thick": 26,
+              "labels": [
+                "",
+                ""
+              ]
+            },
+            {
+              "type": "bar",
+              "x": 242,
+              "y": 14,
+              "len": 110,
+              "thick": 26,
+              "labels": [
+                "",
+                "[]"
+              ]
+            }
+          ],
+          "notes": [
+            {
+              "x": 18,
+              "y": 150,
+              "text": "(i)",
+              "anchor": "end"
+            },
+            {
+              "x": 356,
+              "y": 48,
+              "text": "(ii)",
+              "anchor": "start"
+            }
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "diagnostic_01.json#B5(a)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-diagnostic-01-b5b",
+    "skill": "p3-science",
+    "topic": "interactions.magnets",
+    "subskill": "magnet_vs_magnetic",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Four bar magnets were arranged as shown. Each magnet is attracted to the magnet it touches. One pole has been labelled for you.\n\n(b) Tom brought object Y near the north pole of a magnet and Y was attracted. Tom concluded that Y must be a magnet. Do you agree? Explain.",
+    "answer": "No. Y was only **attracted**. A magnet also attracts **magnetic materials** such as iron and steel, so Y could just be a magnetic material. Only a magnet can be **repelled** by another magnet.",
+    "accept": [
+      "Suggesting he test both poles: if one end of Y is repelled, Y is a magnet."
+    ],
+    "working": [
+      "Claim: No, Y might not be a magnet.",
+      "Evidence: Y was attracted, not repelled, by the north pole.",
+      "Reasoning: Magnets attract magnetic materials (iron, steel) as well as unlike poles. Only a magnet can be repelled, so attraction alone does not prove Y is a magnet."
+    ],
+    "keywords": [
+      "magnetic material",
+      "only a magnet can repel"
+    ],
+    "figure": "figures/p3sci-diagnostic-01-b5ab.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "magnet_layout",
+          "w": 380,
+          "h": 160,
+          "magnets": [
+            {
+              "type": "bar",
+              "x": 22,
+              "y": 120,
+              "len": 110,
+              "thick": 26,
+              "labels": [
+                "[]",
+                ""
+              ]
+            },
+            {
+              "type": "bar",
+              "x": 132,
+              "y": 40,
+              "len": 106,
+              "thick": 26,
+              "vertical": true,
+              "labels": [
+                "S",
+                ""
+              ]
+            },
+            {
+              "type": "bar",
+              "x": 132,
+              "y": 14,
+              "len": 110,
+              "thick": 26,
+              "labels": [
+                "",
+                ""
+              ]
+            },
+            {
+              "type": "bar",
+              "x": 242,
+              "y": 14,
+              "len": 110,
+              "thick": 26,
+              "labels": [
+                "",
+                "[]"
+              ]
+            }
+          ],
+          "notes": [
+            {
+              "x": 18,
+              "y": 150,
+              "text": "(i)",
+              "anchor": "end"
+            },
+            {
+              "x": 356,
+              "y": 48,
+              "text": "(ii)",
+              "anchor": "start"
+            }
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "diagnostic_01.json#B5(b)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-diagnostic-01-b6a",
+    "skill": "p3-science",
+    "topic": "interactions.making_magnets",
+    "subskill": "electrical_method",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "open",
+    "stem": "Ravi made an electromagnet by coiling wire around an iron nail and connecting it to batteries. He counted the number of paper clips each set-up could attract.\n\n| Set-up | Number of turns | Number of batteries | Number of clips attracted |\n| --- | --- | --- | --- |\n| A | 10 | 1 | 3 |\n| B | 20 | 1 | 7 |\n| C | 20 | 2 | ? |\n| D | 30 | 1 | 11 |\n\n(a) Using set-ups A, B and D, state how the number of turns affects the strength of the electromagnet.",
+    "answer": "As the number of turns **increases**, the strength of the electromagnet **increases** (it attracts more clips).",
+    "working": [
+      "Common error: Writing only 'D is the strongest' — a relationship needs both variables: 'as ___ increases, ___ increases'."
+    ],
+    "figure": "figures/p3sci-diagnostic-01-b6abc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "electromagnet",
+          "turns": 10,
+          "cells": 1,
+          "switch": "closed",
+          "clips": 3
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "diagnostic_01.json#B6(a)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-diagnostic-01-b6b",
+    "skill": "p3-science",
+    "topic": "interactions.making_magnets",
+    "subskill": "electrical_method",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "open",
+    "stem": "Ravi made an electromagnet by coiling wire around an iron nail and connecting it to batteries. He counted the number of paper clips each set-up could attract.\n\n| Set-up | Number of turns | Number of batteries | Number of clips attracted |\n| --- | --- | --- | --- |\n| A | 10 | 1 | 3 |\n| B | 20 | 1 | 7 |\n| C | 20 | 2 | ? |\n| D | 30 | 1 | 11 |\n\n(b) Predict the number of clips set-up C will attract. Explain.",
+    "answer": "More than 7 (e.g. 12). C has the same number of turns as B but more batteries, so it is a stronger electromagnet.",
+    "accept": [
+      "Any number greater than 7 with the reason 'more batteries'."
+    ],
+    "figure": "figures/p3sci-diagnostic-01-b6abc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "electromagnet",
+          "turns": 10,
+          "cells": 1,
+          "switch": "closed",
+          "clips": 3
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "diagnostic_01.json#B6(b)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p3sci-diagnostic-01-b6c",
+    "skill": "p3-science",
+    "topic": "interactions.making_magnets",
+    "subskill": "makeable_materials",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "open",
+    "stem": "Ravi made an electromagnet by coiling wire around an iron nail and connecting it to batteries. He counted the number of paper clips each set-up could attract.\n\n| Set-up | Number of turns | Number of batteries | Number of clips attracted |\n| --- | --- | --- | --- |\n| A | 10 | 1 | 3 |\n| B | 20 | 1 | 7 |\n| C | 20 | 2 | ? |\n| D | 30 | 1 | 11 |\n\n(c) Ravi repeated set-up B with a copper rod instead of the iron nail. The copper rod did not become a magnet. Explain why.",
+    "answer": "Copper is **not a magnetic material**, so it cannot be made into a magnet.",
+    "keywords": [
+      "copper",
+      "non-magnetic"
+    ],
+    "marking": [
+      "Reject: 'Copper is a metal' — not all metals are magnetic."
+    ],
+    "figure": "figures/p3sci-diagnostic-01-b6abc.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "kind": "electromagnet",
+          "turns": 10,
+          "cells": 1,
+          "switch": "closed",
+          "clips": 3
+        }
+      ]
+    },
+    "source": {
+      "kind": "own",
+      "ref": "diagnostic_01.json#B6(c)"
+    },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  }
+]

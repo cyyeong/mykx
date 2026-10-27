@@ -1,0 +1,564 @@
+{
+  "id": "p3-science",
+  "version": "1.0.0",
+  "status": "published",
+  "title": "P3 Science",
+  "description": "Primary 3 Science (Singapore MOE 2023 syllabus): living things, classification, materials, life cycles of plants and animals, magnets. Adaptive missions, CER answering, exam-style practice.",
+  "subject": "science",
+  "level": "P3",
+  "syllabus": "MOE 2023 Primary Science (P3 strand: Diversity, Cycles, Interactions)",
+  "language": "en",
+  "agents": {
+    "tutor": "auto",
+    "vibe": "on_demand",
+    "parent": "on_demand",
+    "curator": "auto"
+  },
+  "topics": [
+    {
+      "id": "diversity.living",
+      "title": "Diversity of living and non-living things",
+      "weight": 0.09,
+      "source_tag": "living_nonliving",
+      "subskills": [
+        "characteristics",
+        "needs",
+        "lnl_identify",
+        "needs_experiment"
+      ]
+    },
+    {
+      "id": "diversity.classification",
+      "title": "Classification of living things",
+      "weight": 0.2,
+      "source_tag": "classification",
+      "subskills": [
+        "plant_fungi_groups",
+        "fungi_bacteria",
+        "animal_groups",
+        "insect_or_not",
+        "chart_heading"
+      ]
+    },
+    {
+      "id": "diversity.materials",
+      "title": "Diversity of materials",
+      "weight": 0.21,
+      "source_tag": "materials",
+      "subskills": [
+        "material_types",
+        "strength",
+        "flexibility",
+        "waterproof",
+        "absorbency",
+        "transparency",
+        "float_sink",
+        "property_to_use",
+        "fair_test"
+      ]
+    },
+    {
+      "id": "cycles.plant",
+      "title": "Life cycle of plants",
+      "weight": 0.07,
+      "source_tag": "lifecycle_plants",
+      "subskills": [
+        "plant_stages",
+        "germination",
+        "plant_cycle_reasoning"
+      ]
+    },
+    {
+      "id": "cycles.animal",
+      "title": "Life cycle of animals",
+      "weight": 0.16,
+      "source_tag": "lifecycle_animals",
+      "subskills": [
+        "three_stage",
+        "four_stage",
+        "cycle_diagram",
+        "stage_features",
+        "duration_graph",
+        "mosquito_control"
+      ]
+    },
+    {
+      "id": "interactions.magnets",
+      "title": "Properties of magnets",
+      "weight": 0.19,
+      "source_tag": "magnet_properties",
+      "subskills": [
+        "poles",
+        "attract_repel",
+        "pole_puzzle",
+        "magnetic_materials",
+        "magnet_vs_magnetic",
+        "north_south",
+        "strength_test"
+      ]
+    },
+    {
+      "id": "interactions.making_magnets",
+      "title": "Making and using magnets",
+      "weight": 0.07,
+      "source_tag": "magnet_making_using",
+      "subskills": [
+        "stroke_method",
+        "electrical_method",
+        "makeable_materials",
+        "uses"
+      ]
+    }
+  ],
+  "archetypes": [
+    {
+      "id": "LNL-1",
+      "topic": "diversity.living",
+      "pattern": "Name the characteristic of living things that a scenario shows",
+      "exam_weight": 0.03
+    },
+    {
+      "id": "LNL-2",
+      "topic": "diversity.living",
+      "pattern": "Wrongly classified pair",
+      "exam_weight": 0.015
+    },
+    {
+      "id": "LNL-3",
+      "topic": "diversity.living",
+      "pattern": "Which set-ups test a need",
+      "exam_weight": 0.023
+    },
+    {
+      "id": "LNL-4",
+      "topic": "diversity.living",
+      "pattern": "Why did it die / how to keep it alive",
+      "exam_weight": 0.015
+    },
+    {
+      "id": "LNL-5",
+      "topic": "diversity.living",
+      "pattern": "Living-thing evidence from observations of two set-ups",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "CLS-1",
+      "topic": "diversity.classification",
+      "pattern": "Tick table → identify group",
+      "exam_weight": 0.031
+    },
+    {
+      "id": "CLS-2",
+      "topic": "diversity.classification",
+      "pattern": "Classification chart, fill heading",
+      "exam_weight": 0.031
+    },
+    {
+      "id": "CLS-3",
+      "topic": "diversity.classification",
+      "pattern": "Flowchart: find the missing question or place items",
+      "exam_weight": 0.038
+    },
+    {
+      "id": "CLS-4",
+      "topic": "diversity.classification",
+      "pattern": "Which statement is true about two organisms",
+      "exam_weight": 0.023
+    },
+    {
+      "id": "CLS-5",
+      "topic": "diversity.classification",
+      "pattern": "Insect or not — give two reasons / which checks confirm",
+      "exam_weight": 0.023
+    },
+    {
+      "id": "CLS-6",
+      "topic": "diversity.classification",
+      "pattern": "Conditions for mould (fungi) to grow: rank or choose set-ups",
+      "exam_weight": 0.031
+    },
+    {
+      "id": "CLS-7",
+      "topic": "diversity.classification",
+      "pattern": "Bacteria / yeast statements",
+      "exam_weight": 0.015
+    },
+    {
+      "id": "CLS-8",
+      "topic": "diversity.classification",
+      "pattern": "Animal behaviour set-up",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "MAT-1",
+      "topic": "diversity.materials",
+      "pattern": "Most suitable material from a property tick table",
+      "exam_weight": 0.04
+    },
+    {
+      "id": "MAT-2",
+      "topic": "diversity.materials",
+      "pattern": "Light sensor / see-the-coin",
+      "exam_weight": 0.04
+    },
+    {
+      "id": "MAT-3",
+      "topic": "diversity.materials",
+      "pattern": "Float / sink tank",
+      "exam_weight": 0.03
+    },
+    {
+      "id": "MAT-4",
+      "topic": "diversity.materials",
+      "pattern": "Absorbency test: rank materials by water soaked up",
+      "exam_weight": 0.03
+    },
+    {
+      "id": "MAT-5",
+      "topic": "diversity.materials",
+      "pattern": "Strength test: load held before breaking",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "MAT-6",
+      "topic": "diversity.materials",
+      "pattern": "Flexibility test: read what the bending distance means",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "MAT-7",
+      "topic": "diversity.materials",
+      "pattern": "Waterproof test",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "MAT-8",
+      "topic": "diversity.materials",
+      "pattern": "Improve fairness",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "MAT-9",
+      "topic": "diversity.materials",
+      "pattern": "Which material is it, from how it behaves",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "PLC-1",
+      "topic": "cycles.plant",
+      "pattern": "Order the pictures / name the stage",
+      "exam_weight": 0.025
+    },
+    {
+      "id": "PLC-2",
+      "topic": "cycles.plant",
+      "pattern": "Germination conditions — choose two set-ups",
+      "exam_weight": 0.013
+    },
+    {
+      "id": "PLC-3",
+      "topic": "cycles.plant",
+      "pattern": "What shows the adult stage",
+      "exam_weight": 0.013
+    },
+    {
+      "id": "PLC-4",
+      "topic": "cycles.plant",
+      "pattern": "Young plant vs adult similarities",
+      "exam_weight": 0.006
+    },
+    {
+      "id": "PLC-5",
+      "topic": "cycles.plant",
+      "pattern": "True statements about the stages of a plant",
+      "exam_weight": 0.006
+    },
+    {
+      "id": "PLC-6",
+      "topic": "cycles.plant",
+      "pattern": "Continuous supply of seeds",
+      "exam_weight": 0.006
+    },
+    {
+      "id": "ALC-1",
+      "topic": "cycles.animal",
+      "pattern": "Pick the correctly arrowed cycle",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "ALC-2",
+      "topic": "cycles.animal",
+      "pattern": "Compare two cycles",
+      "exam_weight": 0.027
+    },
+    {
+      "id": "ALC-3",
+      "topic": "cycles.animal",
+      "pattern": "Match animals to characteristics",
+      "exam_weight": 0.007
+    },
+    {
+      "id": "ALC-4",
+      "topic": "cycles.animal",
+      "pattern": "Duration graph: time after hatching, stage on day N, longest stage",
+      "exam_weight": 0.04
+    },
+    {
+      "id": "ALC-5",
+      "topic": "cycles.animal",
+      "pattern": "Feeding table: which stage feeds and which does not",
+      "exam_weight": 0.013
+    },
+    {
+      "id": "ALC-6",
+      "topic": "cycles.animal",
+      "pattern": "Which stage is harmful to crops (the feeding larva)",
+      "exam_weight": 0.013
+    },
+    {
+      "id": "ALC-7",
+      "topic": "cycles.animal",
+      "pattern": "Moulting: which stage sheds its skin",
+      "exam_weight": 0.007
+    },
+    {
+      "id": "ALC-8",
+      "topic": "cycles.animal",
+      "pattern": "Mosquito control",
+      "exam_weight": 0.013
+    },
+    {
+      "id": "ALC-9",
+      "topic": "cycles.animal",
+      "pattern": "Why lay eggs in cracks of wood / on leaves",
+      "exam_weight": 0.007
+    },
+    {
+      "id": "ALC-10",
+      "topic": "cycles.animal",
+      "pattern": "No first stage",
+      "exam_weight": 0.007
+    },
+    {
+      "id": "ALC-11",
+      "topic": "cycles.animal",
+      "pattern": "Temperature vs life-cycle length relationship",
+      "exam_weight": 0.007
+    },
+    {
+      "id": "MAG-1",
+      "topic": "interactions.magnets",
+      "pattern": "Freely suspended magnet direction / compass",
+      "exam_weight": 0.028
+    },
+    {
+      "id": "MAG-2",
+      "topic": "interactions.magnets",
+      "pattern": "Clips along a magnet → poles",
+      "exam_weight": 0.021
+    },
+    {
+      "id": "MAG-3",
+      "topic": "interactions.magnets",
+      "pattern": "Chain of touching magnets → unknown poles",
+      "exam_weight": 0.028
+    },
+    {
+      "id": "MAG-4",
+      "topic": "interactions.magnets",
+      "pattern": "Floating rings / maglev train",
+      "exam_weight": 0.028
+    },
+    {
+      "id": "MAG-5",
+      "topic": "interactions.magnets",
+      "pattern": "Magnet / magnetic / non-magnetic from attract / repel data",
+      "exam_weight": 0.014
+    },
+    {
+      "id": "MAG-6",
+      "topic": "interactions.magnets",
+      "pattern": "Which magnets move which way",
+      "exam_weight": 0.007
+    },
+    {
+      "id": "MAG-7",
+      "topic": "interactions.magnets",
+      "pattern": "Strength ranking by clips / distance / sheets + fair-test variable",
+      "exam_weight": 0.035
+    },
+    {
+      "id": "MAG-8",
+      "topic": "interactions.magnets",
+      "pattern": "Ring magnet bottom-face clips",
+      "exam_weight": 0.007
+    },
+    {
+      "id": "MAG-9",
+      "topic": "interactions.magnets",
+      "pattern": "Magnetic or not: everyday objects and materials",
+      "exam_weight": 0.021
+    },
+    {
+      "id": "MMU-1",
+      "topic": "interactions.making_magnets",
+      "pattern": "Strongest magnet from stroke diagrams",
+      "exam_weight": 0.015
+    },
+    {
+      "id": "MMU-2",
+      "topic": "interactions.making_magnets",
+      "pattern": "Stroke-method investigation table",
+      "exam_weight": 0.005
+    },
+    {
+      "id": "MMU-3",
+      "topic": "interactions.making_magnets",
+      "pattern": "Electromagnet: what makes it stronger, predict from a table, which set-ups to compare",
+      "exam_weight": 0.025
+    },
+    {
+      "id": "MMU-4",
+      "topic": "interactions.making_magnets",
+      "pattern": "Nail between two electromagnets",
+      "exam_weight": 0.005
+    },
+    {
+      "id": "MMU-5",
+      "topic": "interactions.making_magnets",
+      "pattern": "Uses of magnets in everyday objects",
+      "exam_weight": 0.02
+    }
+  ],
+  "references": [
+    {
+      "file": "references/syllabus-map.md",
+      "title": "P3 Science syllabus map",
+      "sections": [
+        "Official learning outcomes (MOE 2023) and the sub-skill tags",
+        "Depth limits — what NOT to teach",
+        "Exam format (school-set; no national exam at P3)"
+      ]
+    },
+    {
+      "file": "references/content-diversity.md",
+      "title": "Diversity: living things, classification, materials",
+      "sections": [
+        "1. Living and non-living things (`diversity.living`)",
+        "2. Plants, fungi and bacteria (`plant_fungi_groups`, `fungi_bacteria`)",
+        "3. Animal groups (`animal_groups`)",
+        "4. Insects (`insect_or_not`)",
+        "5. Classification charts and headings (`chart_heading`)",
+        "6. Materials (`diversity.materials` sub-skills)"
+      ]
+    },
+    {
+      "file": "references/content-cycles.md",
+      "title": "Cycles: life cycles of plants and animals",
+      "sections": [
+        "1. Big ideas (examined every year)",
+        "2. Life cycle of a flowering plant (`plant_stages`, `germination`, `plant_cycle_reasoning`)",
+        "3. The seven animals named in the syllabus",
+        "4. Stage features — reading clues (`stage_features`)",
+        "5. Graphs and tables of stage lengths (`duration_graph`)",
+        "6. Mosquitoes in Singapore (`mosquito_control`)"
+      ]
+    },
+    {
+      "file": "references/content-magnets.md",
+      "title": "Interactions: magnets",
+      "sections": [
+        "1. Core properties (`poles`, `attract_repel`, `north_south`)",
+        "2. Magnet vs magnetic material vs non-magnetic (`magnetic_materials`, `magnet_vs_magnetic`)",
+        "3. Pole puzzles (`pole_puzzle`, `attract_repel`)",
+        "4. Comparing magnetic strength (`strength_test`)",
+        "5. Making a magnet — stroke method (`stroke_method`, `makeable_materials`)",
+        "6. Making a magnet — electrical method (`electrical_method`)",
+        "7. Uses of magnets (`uses`)"
+      ]
+    },
+    {
+      "file": "references/answering-cer.md",
+      "title": "Answering technique: CER, templates, MCQ routine, keywords",
+      "sections": [
+        "1. CER — Claim, Evidence, Reasoning",
+        "2. Same skeleton, different school names",
+        "3. Templates by question type",
+        "4. Worked examples — weak → strong",
+        "5. MCQ routine — \"Read · Circle · Cross · Check\"",
+        "6. Keyword bank (exact phrases markers look for)",
+        "7. Marking at home (parent/tutor)"
+      ]
+    },
+    {
+      "file": "references/coaching-playbook.md",
+      "title": "Coaching playbook: keeping a young learner switched on",
+      "sections": [
+        "1. Rules of the table",
+        "2. Session architecture (15–25 minutes)",
+        "3. Game formats (rotate — novelty is fuel)",
+        "4. Feedback that works",
+        "5. Focus rescue",
+        "6. Why this works (so you don't drift into lecturing)",
+        "7. Exam countdown",
+        "8. Working with the parent"
+      ]
+    },
+    {
+      "file": "references/question-generation.md",
+      "title": "Generating questions and papers",
+      "sections": [
+        "2. Synthesis recipe — new questions, not copies",
+        "3. Quality checklist (do every time — a wrong key teaches the wrong science)",
+        "7. Paper blueprints"
+      ]
+    },
+    {
+      "file": "references/exam-eve-sheet.md",
+      "title": "Exam-eve keyword sheet",
+      "sections": [
+        "1 · Living things go \"GRR + AFW\"",
+        "2 · Plants, fungi, bacteria",
+        "3 · Animal groups — \"Fat Alligators Rarely Bite Mean Insects\"",
+        "4 · Materials",
+        "5 · Life cycles",
+        "6 · Magnets",
+        "7 · Answering — CER: Say it → Show it → Science it",
+        "8 · Tomorrow morning"
+      ]
+    }
+  ],
+  "tools": [
+    "read_reference",
+    "find_items",
+    "check_answer"
+  ],
+  "sources": [
+    {
+      "kind": "own",
+      "note": "Method, references and practice sets written with the founder's own tutor skill (each set was worked and checked before use), scrubbed of learner details by scripts/import-skill.ts."
+    },
+    {
+      "kind": "own",
+      "note": "Topic weights and archetypes are statistics and patterns derived from school papers kept as private reference; no question text, school names or paper codes are included."
+    },
+    {
+      "kind": "generated",
+      "note": "Demo items (items/demo.json) drafted fresh by Claude Code following this pack's question-generation rules; pending founder review."
+    }
+  ],
+  "licence": "Content CC-BY 4.0 (myKx); items original.",
+  "excluded": [
+    "references/past-papers-verified.md",
+    "PORTABLE.md"
+  ],
+  "legacy_scripts": {
+    "note": "kept privately; never executed",
+    "files": [
+      "scripts/build_paper.py",
+      "scripts/make_sheet.py",
+      "scripts/p3draw.py",
+      "scripts/tracker.py"
+    ]
+  }
+}

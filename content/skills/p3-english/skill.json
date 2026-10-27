@@ -1,0 +1,459 @@
+{
+  "id": "p3-english",
+  "version": "1.0.0",
+  "status": "published",
+  "title": "P3 English (Paper 2)",
+  "description": "Primary 3 English Paper 2, Language Use and Comprehension (Singapore MOE English Language Syllabus 2020): grammar, vocabulary, cloze, editing, synthesis, visual text and comprehension. Named answering routines, memory hooks, game-like practice.",
+  "subject": "english",
+  "level": "P3",
+  "syllabus": "MOE English Language Syllabus 2020 (STELLAR 2.0), P3 Paper 2",
+  "language": "en-SG",
+  "agents": {
+    "tutor": "auto",
+    "vibe": "on_demand",
+    "parent": "on_demand",
+    "curator": "auto"
+  },
+  "topics": [
+    {
+      "id": "language.grammar",
+      "title": "Grammar",
+      "weight": 0.369,
+      "source_tag": "grammar",
+      "subskills": [
+        "tense_simple_present",
+        "tense_simple_past",
+        "tense_continuous",
+        "tense_future",
+        "tense_perfect",
+        "verb_form",
+        "sva",
+        "pronoun_subject_object",
+        "pronoun_possessive",
+        "pronoun_reflexive",
+        "demonstratives",
+        "quantifiers",
+        "prepositions",
+        "connectors",
+        "question_tags",
+        "wh_questions",
+        "modals",
+        "indefinites",
+        "punctuation"
+      ]
+    },
+    {
+      "id": "language.vocab",
+      "title": "Vocabulary",
+      "weight": 0.142,
+      "source_tag": "vocab",
+      "subskills": [
+        "context_clues",
+        "similes",
+        "phrasal_verbs",
+        "collective_nouns",
+        "confusables",
+        "word_class"
+      ]
+    },
+    {
+      "id": "language.spelling",
+      "title": "Spelling",
+      "weight": 0.037,
+      "source_tag": "spelling",
+      "subskills": [
+        "spelling"
+      ]
+    },
+    {
+      "id": "language.sentence",
+      "title": "Synthesis and word order",
+      "weight": 0.063,
+      "source_tag": "sentence",
+      "subskills": [
+        "synthesis",
+        "word_order"
+      ]
+    },
+    {
+      "id": "reading.visual",
+      "title": "Visual text",
+      "weight": 0.09,
+      "source_tag": "visual",
+      "subskills": [
+        "vt_purpose",
+        "vt_details",
+        "vt_traps"
+      ]
+    },
+    {
+      "id": "reading.comprehension",
+      "title": "Comprehension",
+      "weight": 0.299,
+      "source_tag": "comprehension",
+      "subskills": [
+        "comp_literal",
+        "comp_true_false",
+        "comp_sequence",
+        "comp_vocab",
+        "comp_referent",
+        "comp_phrase",
+        "comp_feelings",
+        "comp_inference"
+      ]
+    }
+  ],
+  "archetypes": [
+    {
+      "id": "GR-1",
+      "topic": "language.grammar",
+      "pattern": "Interrupted past action: was/were + -ing before 'when' + a short past event",
+      "exam_weight": 0.012
+    },
+    {
+      "id": "GR-2",
+      "topic": "language.grammar",
+      "pattern": "Happening now: is/are + -ing with a 'right now' clue",
+      "exam_weight": 0.012
+    },
+    {
+      "id": "GR-3",
+      "topic": "language.grammar",
+      "pattern": "Habit with every day / usually / always: simple present, -s for one",
+      "exam_weight": 0.012
+    },
+    {
+      "id": "GR-4",
+      "topic": "language.grammar",
+      "pattern": "Past time marker elsewhere in the sentence",
+      "exam_weight": 0.012
+    },
+    {
+      "id": "GR-5",
+      "topic": "language.grammar",
+      "pattern": "Helper verb (has to / must / can / did / does) + base verb",
+      "exam_weight": 0.012
+    },
+    {
+      "id": "GR-6",
+      "topic": "language.grammar",
+      "pattern": "Subject-verb agreement traps: each / every / one of the, plural with 'of', 'this helps'",
+      "exam_weight": 0.016
+    },
+    {
+      "id": "GR-7",
+      "topic": "language.grammar",
+      "pattern": "Demonstratives with a near/far clue",
+      "exam_weight": 0.012
+    },
+    {
+      "id": "GR-8",
+      "topic": "language.grammar",
+      "pattern": "Quantifiers with countable vs uncountable nouns",
+      "exam_weight": 0.012
+    },
+    {
+      "id": "GR-9",
+      "topic": "language.grammar",
+      "pattern": "Reflexive pronoun matching the doer",
+      "exam_weight": 0.012
+    },
+    {
+      "id": "GR-10",
+      "topic": "language.grammar",
+      "pattern": "Possessive pronoun standing alone",
+      "exam_weight": 0.012
+    },
+    {
+      "id": "GR-11",
+      "topic": "language.grammar",
+      "pattern": "Question tags: flip positive/negative, mirror the helper and tense",
+      "exam_weight": 0.012
+    },
+    {
+      "id": "GR-12",
+      "topic": "language.grammar",
+      "pattern": "Prepositions of movement",
+      "exam_weight": 0.012
+    },
+    {
+      "id": "GR-13",
+      "topic": "language.grammar",
+      "pattern": "Connectors: and, but, so, because, although, while, before, after",
+      "exam_weight": 0.012
+    },
+    {
+      "id": "GR-14",
+      "topic": "language.grammar",
+      "pattern": "Word-box grammar cloze, very often personal pronouns",
+      "exam_weight": 0.08
+    },
+    {
+      "id": "GR-15",
+      "topic": "language.grammar",
+      "pattern": "Underline-the-word cloze, very often subject-verb agreement",
+      "exam_weight": 0.08
+    },
+    {
+      "id": "VO-1",
+      "topic": "language.vocab",
+      "pattern": "Clue-twin: the sentence contains a phrase that means the blank",
+      "exam_weight": 0.03
+    },
+    {
+      "id": "VO-2",
+      "topic": "language.vocab",
+      "pattern": "Movement verbs chosen from manner clues",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "VO-3",
+      "topic": "language.vocab",
+      "pattern": "Feeling words chosen from the situation",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "VO-4",
+      "topic": "language.vocab",
+      "pattern": "Similes: as ___ as a ___",
+      "exam_weight": 0.012
+    },
+    {
+      "id": "VO-5",
+      "topic": "language.vocab",
+      "pattern": "Phrasal verbs: the little word carries the meaning",
+      "exam_weight": 0.012
+    },
+    {
+      "id": "VO-6",
+      "topic": "language.vocab",
+      "pattern": "Collective nouns",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "VO-7",
+      "topic": "language.vocab",
+      "pattern": "Vocabulary or comprehension cloze (word box or open)",
+      "exam_weight": 0.09
+    },
+    {
+      "id": "SP-1",
+      "topic": "language.spelling",
+      "pattern": "Editing: spelling (bold), grammar (underlined), punctuation (circle)",
+      "exam_weight": 0.08
+    },
+    {
+      "id": "SE-1",
+      "topic": "language.sentence",
+      "pattern": "Synthesis: join two sentences with a given connector",
+      "exam_weight": 0.05
+    },
+    {
+      "id": "SE-2",
+      "topic": "language.sentence",
+      "pattern": "Word order: arrange chunks into one sentence",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "VT-1",
+      "topic": "reading.visual",
+      "pattern": "Who organises the event ('presents')",
+      "exam_weight": 0.016
+    },
+    {
+      "id": "VT-2",
+      "topic": "reading.visual",
+      "pattern": "Date, time and venue details",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "VT-3",
+      "topic": "reading.visual",
+      "pattern": "Conditions: age, price, 'by' date, early bird",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "VT-4",
+      "topic": "reading.visual",
+      "pattern": "Which contact for which purpose",
+      "exam_weight": 0.012
+    },
+    {
+      "id": "VT-5",
+      "topic": "reading.visual",
+      "pattern": "Which statement is NOT true",
+      "exam_weight": 0.016
+    },
+    {
+      "id": "VT-6",
+      "topic": "reading.visual",
+      "pattern": "Main purpose of the poster",
+      "exam_weight": 0.012
+    },
+    {
+      "id": "CO-1",
+      "topic": "reading.comprehension",
+      "pattern": "Literal: find and lift a stated fact",
+      "exam_weight": 0.06
+    },
+    {
+      "id": "CO-2",
+      "topic": "reading.comprehension",
+      "pattern": "True/false, sometimes with a reason",
+      "exam_weight": 0.06
+    },
+    {
+      "id": "CO-3",
+      "topic": "reading.comprehension",
+      "pattern": "Sequencing events",
+      "exam_weight": 0.028
+    },
+    {
+      "id": "CO-4",
+      "topic": "reading.comprehension",
+      "pattern": "Word meaning: choose between two words, or find a word that means…",
+      "exam_weight": 0.032
+    },
+    {
+      "id": "CO-5",
+      "topic": "reading.comprehension",
+      "pattern": "Referent: what does it / they / them refer to",
+      "exam_weight": 0.028
+    },
+    {
+      "id": "CO-6",
+      "topic": "reading.comprehension",
+      "pattern": "Phrase lift with an exact word count",
+      "exam_weight": 0.032
+    },
+    {
+      "id": "CO-7",
+      "topic": "reading.comprehension",
+      "pattern": "Feeling + reason (2 marks)",
+      "exam_weight": 0.032
+    },
+    {
+      "id": "CO-8",
+      "topic": "reading.comprehension",
+      "pattern": "Two things (2 marks): two different ideas",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "CO-9",
+      "topic": "reading.comprehension",
+      "pattern": "Inference: why, how do we know, lesson learnt, character trait",
+      "exam_weight": 0.048
+    }
+  ],
+  "references": [
+    {
+      "file": "references/exam-blueprint.md",
+      "title": "P3 English Paper 2 blueprint",
+      "sections": [
+        "Timing in 2026",
+        "Paper 2 at a glance: 50 marks, 1 h 15 min",
+        "Suggested pacing for 75 minutes",
+        "Archetypes that repeat (use these to generate new items)",
+        "Depth limits: what P3 Paper 2 does NOT test"
+      ]
+    },
+    {
+      "file": "references/syllabus-map.md",
+      "title": "Skill tags for P3 Paper 2",
+      "sections": [
+        "grammar (about 18–20 marks)",
+        "vocab (about 8–10 marks)",
+        "spelling (about 2 marks)",
+        "sentence (about 3–4 marks)",
+        "visual (about 5 marks where tested)",
+        "comprehension (about 16 marks)",
+        "Error types (one per wrong answer)"
+      ]
+    },
+    {
+      "file": "references/teaching-toolkit.md",
+      "title": "Teaching toolkit: one card per skill",
+      "sections": [
+        "1. Tenses and verb forms: Time Detective",
+        "2. Subject-verb agreement: Find the Boss",
+        "3. Pronouns: Doers, Receivers, Owners, Mirrors",
+        "4. Demonstratives and quantifiers",
+        "5. Prepositions and connectors",
+        "6. Question tags, modals, indefinites, punctuation",
+        "7. Vocabulary",
+        "8. Spelling",
+        "9. Synthesis and word order",
+        "10. Visual text and comprehension"
+      ]
+    },
+    {
+      "file": "references/answer-strategies.md",
+      "title": "How to answer: a routine for every section",
+      "sections": [
+        "1. MCQ (grammar, vocabulary, visual text): CLUE HUNT",
+        "2. Word-box cloze (grammar or vocabulary): READ–NAME–TICK",
+        "3. Underline-the-word cloze (SVA): FIND THE BOSS",
+        "4. Open cloze (no helping words): WHAT KIND OF WORD?",
+        "5. Editing: THREE CHECKS",
+        "6. Synthesis: SENTENCE SANDWICH",
+        "7. Word order: WHO–DID–JOIN",
+        "8. Visual text: BIG – SMALL – TRAP",
+        "9. Comprehension: Q-L-A (Question, Locate, Answer)",
+        "10. The 5-minute check (end of paper)",
+        "11. Exam-day routine (teach it as a ritual)"
+      ]
+    },
+    {
+      "file": "references/coaching-playbook.md",
+      "title": "Coaching playbook: keeping a young learner switched on",
+      "sections": [
+        "1. What the evidence says",
+        "2. The 20-minute session",
+        "3. Game formats (rotate them; novelty is the point)",
+        "4. Talking to a 9-year-old in chat",
+        "5. Feedback that teaches",
+        "6. When the learner drifts",
+        "7. Parent mode vs the learner mode",
+        "8. Sprint plans by days to the exam"
+      ]
+    },
+    {
+      "file": "references/question-generation.md",
+      "title": "Writing new P3 English items",
+      "sections": [
+        "1. Synthesise, don't copy",
+        "2. Writing items that test the right thing",
+        "3. Quality checklist (run on every item before building)"
+      ]
+    }
+  ],
+  "tools": [
+    "read_reference",
+    "find_items",
+    "check_answer"
+  ],
+  "sources": [
+    {
+      "kind": "own",
+      "note": "Method, references and practice sets written with the founder's own tutor skill (each set was worked and checked before use), scrubbed of learner details by scripts/import-skill.ts."
+    },
+    {
+      "kind": "own",
+      "note": "Topic weights and archetypes are statistics and patterns derived from school papers kept as private reference; no question text, school names or paper codes are included."
+    }
+  ],
+  "licence": "Content CC-BY 4.0 (myKx); items, passages and posters original.",
+  "excluded": [
+    "references/past-papers-2025.md",
+    "PORTABLE.md"
+  ],
+  "legacy_scripts": {
+    "note": "kept privately; never executed",
+    "files": [
+      "scripts/build_paper.py",
+      "scripts/drawkit.py",
+      "scripts/power_cards.py",
+      "scripts/tracker.py"
+    ]
+  }
+}

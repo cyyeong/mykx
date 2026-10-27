@@ -1,0 +1,966 @@
+[
+  {
+    "id": "p3math-mock-02-m2-a1",
+    "skill": "p3-maths",
+    "topic": "number.whole_numbers",
+    "subskill": "numerals_words",
+    "archetype": "WN2",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "What is 9 thousands, 5 tens and 13 ones?",
+    "options": [
+      "9513",
+      "9063",
+      "9053",
+      "90 513"
+    ],
+    "answer": 2,
+    "working": [
+      "9 thousands = 9000, 5 tens = 50, 13 ones = 13.",
+      "9000 + 50 + 13 = 9063 (13 ones is 1 ten and 3 ones, so the tens digit becomes 6).",
+      "Watch out: 13 ones is more than 9 ones, so it renames into tens."
+    ],
+    "distractors": {
+      "1": "wrote the digits in a row and put 5 in the hundreds place",
+      "3": "forgot that 13 ones contains 1 ten",
+      "4": "wrote 9, 5 and 13 side by side"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-A1"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3math-mock-02-m2-a2",
+    "skill": "p3-maths",
+    "topic": "number.multiply_divide",
+    "subskill": "tables_6_9",
+    "archetype": "MD1",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "8 × 7 = 6 × 7 + ________",
+    "options": [
+      "2",
+      "7",
+      "14",
+      "49"
+    ],
+    "answer": 3,
+    "working": [
+      "8 sevens = 6 sevens + 2 sevens.",
+      "2 × 7 = 14. Check: 56 = 42 + 14 ✓"
+    ],
+    "distractors": {
+      "1": "8 − 6 = 2, forgot it is 2 sevens",
+      "2": "one seven only",
+      "4": "7 × 7"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-A2"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3math-mock-02-m2-a3",
+    "skill": "p3-maths",
+    "topic": "measurement.length_mass_volume",
+    "subskill": "convert_length",
+    "archetype": "ME1",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "4 km 60 m = ________ m",
+    "options": [
+      "4060",
+      "4600",
+      "460",
+      "40 060"
+    ],
+    "answer": 1,
+    "working": [
+      "4 km = 4000 m. 4000 + 60 = 4060 m."
+    ],
+    "distractors": {
+      "2": "60 m treated as 600 m",
+      "3": "4 km treated as 400 m",
+      "4": "wrote 4 and 0060 side by side"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-A3"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3math-mock-02-m2-a4",
+    "skill": "p3-maths",
+    "topic": "number.fractions",
+    "subskill": "compare_order_unlike",
+    "archetype": "FR3",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which one of the following fractions is the greatest?",
+    "options": [
+      "5/8",
+      "2/3",
+      "7/12",
+      "3/4"
+    ],
+    "answer": 4,
+    "working": [
+      "Twelfths: 2/3 = 8/12, 3/4 = 9/12, and 7/12. So 3/4 is the greatest of these three.",
+      "Eighths: 3/4 = 6/8, which is more than 5/8.",
+      "3/4 is the greatest.",
+      "Watch out: Bigger numbers on top and bottom do not make a bigger fraction."
+    ],
+    "distractors": {
+      "1": "5 and 8 are the biggest top-and-bottom pair, but the size of a fraction is not its digits",
+      "2": "8/12 is less than 9/12",
+      "3": "7 and 12 are big numbers, but 7/12 is the smallest here"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-A4"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3math-mock-02-m2-a5",
+    "skill": "p3-maths",
+    "topic": "measurement.time",
+    "subskill": "start_time",
+    "archetype": "TI5",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "What time is 25 minutes before 13 10?",
+    "options": [
+      "12 35",
+      "13 35",
+      "12 45",
+      "12 85"
+    ],
+    "answer": 3,
+    "working": [
+      "13 10 back 10 min → 13 00. 15 more minutes back → 12 45."
+    ],
+    "distractors": {
+      "1": "took off 35 min",
+      "2": "added 25 min instead",
+      "4": "subtracted as if an hour had 100 minutes"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-A5"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3math-mock-02-m2-a6",
+    "skill": "p3-maths",
+    "topic": "number.whole_numbers",
+    "subskill": "number_patterns",
+    "archetype": "WN4",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "What is the missing number in the number pattern?\n\n1250, &nbsp;1350, &nbsp;1550, &nbsp;1850, &nbsp;________, &nbsp;2750",
+    "options": [
+      "2350",
+      "2450",
+      "2150",
+      "2250"
+    ],
+    "answer": 4,
+    "working": [
+      "The steps grow by 100 each time: +100, +200, +300, +400, +500.",
+      "1850 + 400 = 2250. Check: 2250 + 500 = 2750 ✓",
+      "Watch out: Write the step under every gap. The steps themselves make a pattern."
+    ],
+    "distractors": {
+      "1": "used +500 one step too early",
+      "2": "used +600",
+      "3": "repeated the +300 step"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-A6"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3math-mock-02-m2-a7",
+    "skill": "p3-maths",
+    "topic": "number.add_subtract",
+    "subskill": "missing_digit",
+    "archetype": "AS2",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "In the addition below, A and B stand for missing digits. What is the value of A + B?",
+    "options": [
+      "12",
+      "13",
+      "14",
+      "11"
+    ],
+    "answer": 1,
+    "working": [
+      "Ones: 5 + 8 = 13 → write 3, carry 1.",
+      "Tens: 7 + B + 1 must end in 3, so 7 + B + 1 = 13 → B = 5, carry 1.",
+      "Hundreds: A + 6 + 1 must end in 4, so A + 6 + 1 = 14 → A = 7, carry 1.",
+      "Thousands: 3 + 2 + 1 = 6 ✓",
+      "A + B = 7 + 5 = 12. Check: 3775 + 2658 = 6433 ✓",
+      "Watch out: Every column after the ones may have a carried 1 coming in."
+    ],
+    "distractors": {
+      "2": "forgot one carry (A = 8)",
+      "3": "forgot both carries (B = 6, A = 8)",
+      "4": "subtracted the carried 1 instead of adding it"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-A7"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/m2_a7_column.svg"
+  },
+  {
+    "id": "p3math-mock-02-m2-a8",
+    "skill": "p3-maths",
+    "topic": "geometry.angles_lines",
+    "subskill": "count_angles_in_figure",
+    "archetype": "AN2",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "How many acute angles are there **inside** the figure?",
+    "options": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "answer": 2,
+    "working": [
+      "The figure has 7 corners. Test each with the corner of a page.",
+      "2 corners are right angles (bottom-left and the one above it).",
+      "2 corners point inwards (the notches) — these are bigger than two right angles, not acute.",
+      "3 corners are sharper than a right angle: the top tip, the right-hand point and the bottom-right corner.",
+      "There are 3 acute angles.",
+      "Watch out: Check every corner, not only the pointy-looking ones. The notch corners open the other way."
+    ],
+    "distractors": {
+      "1": "missed the bottom-right corner",
+      "3": "counted a right angle as acute",
+      "4": "counted the two notch corners too"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-A8"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/m2_a8_bolt.svg"
+  },
+  {
+    "id": "p3math-mock-02-m2-a9",
+    "skill": "p3-maths",
+    "topic": "number.money",
+    "subskill": "change",
+    "archetype": "MO3",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Mrs Tan bought 3 files at $4 each and a pen. She paid with a $20 note and received $5.65 change. How much did the pen cost?",
+    "options": [
+      "$2.35",
+      "$3.35",
+      "$10.35",
+      "$14.35"
+    ],
+    "answer": 1,
+    "working": [
+      "She spent $20.00 − $5.65 = $14.35.",
+      "3 files cost 3 × $4 = $12.",
+      "Pen = $14.35 − $12 = $2.35."
+    ],
+    "distractors": {
+      "2": "renaming slip: $20 − $5.65 taken as $15.35",
+      "3": "took away only one file ($4)",
+      "4": "stopped after finding the total spent"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-A9"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3math-mock-02-m2-a10",
+    "skill": "p3-maths",
+    "topic": "geometry.area_perimeter",
+    "subskill": "perimeter_rectilinear",
+    "archetype": "AR4",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "The figure is made up of 3 identical rectangles. Each rectangle is 9 cm long and 3 cm wide. What is the perimeter of the figure?",
+    "options": [
+      "36 cm",
+      "48 cm",
+      "42 cm",
+      "72 cm"
+    ],
+    "answer": 3,
+    "working": [
+      "Label every outside edge.",
+      "Bottom: 9 + 3 = 12 cm. Right: 9 cm (the upright rectangle). Small top step: 3 cm. Step down: 9 − 6 = 3 cm. Top-left: 9 cm. Left: 3 + 3 = 6 cm.",
+      "Perimeter = 12 + 9 + 3 + 3 + 9 + 6 = 42 cm.",
+      "Watch out: Perimeter is only the outside edge. Inside lines do not count."
+    ],
+    "distractors": {
+      "1": "missed the two 3 cm step edges",
+      "2": "counted an inside line as part of the boundary",
+      "4": "added the perimeters of all three rectangles"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-A10"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/m2_a10_rects.svg"
+  },
+  {
+    "id": "p3math-mock-02-m2-b11",
+    "skill": "p3-maths",
+    "topic": "number.fractions",
+    "subskill": "number_line",
+    "archetype": "FR4",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "What fraction is represented by A on the number line? Give your answer in its simplest form.",
+    "answer": "3/4",
+    "working": [
+      "There are 12 equal gaps from 0 to 1. A is at the 9th mark → 9/12.",
+      "9/12 = 3/4 (divide top and bottom by 3).",
+      "Common error: Leaving 9/12 (not simplest form), or counting 13 marks instead of 12 gaps."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-B11"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/m2_b11_nl.svg"
+  },
+  {
+    "id": "p3math-mock-02-m2-b12",
+    "skill": "p3-maths",
+    "topic": "measurement.length_mass_volume",
+    "subskill": "read_scale",
+    "archetype": "ME2",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "The jug can hold 1 ℓ of water. How much more water is needed to fill the jug completely?",
+    "answer": "350",
+    "unit": "ml",
+    "working": [
+      "From 600 ml to 800 ml there are 4 small steps, so each small step is 50 ml.",
+      "The water is 1 step above 600 ml → 650 ml.",
+      "1 ℓ = 1000 ml. 1000 − 650 = 350 ml.",
+      "Common error: Reading each small mark as 100 ml or 10 ml (gives 700 ml or 610 ml)."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-B12"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/m2_b12_jug.svg"
+  },
+  {
+    "id": "p3math-mock-02-m2-b13",
+    "skill": "p3-maths",
+    "topic": "measurement.time",
+    "subskill": "tell_time_24h",
+    "archetype": "TI1",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Write 12.45 a.m. in the 24-hour clock.",
+    "answer": "00 45",
+    "working": [
+      "12 midnight is 00 00 in the 24-hour clock.",
+      "12.45 a.m. is 45 minutes after midnight → 00 45.",
+      "Common error: Writing 12 45 — that is 12.45 p.m. (lunchtime)."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-B13"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3math-mock-02-m2-b14",
+    "skill": "p3-maths",
+    "topic": "number.multiply_divide",
+    "subskill": "division_remainder",
+    "archetype": "MD3",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "short",
+    "stem": "What is the smallest number that must be added to 503 so that the answer can be divided by 7 with no remainder?",
+    "answer": "1",
+    "working": [
+      "503 ÷ 7 = 71 R 6.",
+      "The remainder is 6. Adding 1 more completes another group of 7 (6 + 1 = 7).",
+      "503 + 1 = 504, and 504 ÷ 7 = 72 ✓",
+      "Common error: Answering 6 (the remainder). Taking away 6 makes 497, which divides by 7 — but the question says added."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-B14"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3math-mock-02-m2-b15",
+    "skill": "p3-maths",
+    "topic": "number.whole_numbers",
+    "subskill": "compare_order",
+    "archetype": "WN3",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "short",
+    "stem": "Use all the digits below once to form the smallest 4-digit even number.\n\n**0 &nbsp;&nbsp; 4 &nbsp;&nbsp; 7 &nbsp;&nbsp; 9**",
+    "answer": "4790",
+    "working": [
+      "A 4-digit number cannot start with 0, so the smallest start is 4.",
+      "Even means the ones digit is 0 or 4. The 4 is used, so the ones digit is 0.",
+      "Put the rest in increasing order: 4 7 9 0 → 4790.",
+      "Common error: 4079 (odd) or 0479 (not a 4-digit number)."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-B15"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3math-mock-02-m2-b16",
+    "skill": "p3-maths",
+    "topic": "geometry.angles_lines",
+    "subskill": "draw_perpendicular",
+    "archetype": "AN5",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Use a ruler for this question.\n(a) Draw a straight line through point C that is **parallel** to AB.\n(b) Draw a straight line through point D that is **perpendicular** to AB.",
+    "answer": "see the dashed lines",
+    "working": [
+      "AB goes 2 squares across and 4 squares up.",
+      "(a) From C, go 2 across and 4 up — same steps → parallel.",
+      "(b) Swap the steps and turn one around: from D, go 4 across and 2 down → perpendicular. Check with the corner of a page.",
+      "Common error: For (b), drawing the same slope as AB again (that is parallel), or not swapping the steps."
+    ],
+    "marking": [
+      "1 mark each line. Lines must pass through the point and be drawn with a ruler."
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-B16"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/m2_b16_grid.svg"
+  },
+  {
+    "id": "p3math-mock-02-m2-b17",
+    "skill": "p3-maths",
+    "topic": "number.fractions",
+    "subskill": "add_related",
+    "archetype": "FR7",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "short",
+    "stem": "Ali ate 1/4 of a pizza. Ben ate 3/8 of the same pizza. What fraction of the pizza was left? Give your answer in its simplest form.",
+    "answer": "3/8",
+    "working": [
+      "1/4 = 2/8.",
+      "Eaten: 2/8 + 3/8 = 5/8.",
+      "Left: 1 − 5/8 = 8/8 − 5/8 = 3/8.",
+      "Common error: Stopping at 5/8 (fraction eaten, not left); or 1/4 + 3/8 = 4/12."
+    ],
+    "marking": [
+      "M1 for 5/8 eaten, A1 for 3/8"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-B17"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3math-mock-02-m2-b18",
+    "skill": "p3-maths",
+    "topic": "measurement.time",
+    "subskill": "two_step_time",
+    "archetype": "TI7",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "Marcus reached home at 18 05. He took 35 minutes to travel home after his swimming lesson. The lesson lasted 1 h 25 min. At what time did the lesson start? Give your answer in the 24-hour clock.",
+    "answer": "16 05",
+    "working": [
+      "Go backwards on a time line.",
+      "Lesson ended: 18 05 − 35 min = 17 30.",
+      "Lesson started: 17 30 − 1 h 25 min = 16 05.",
+      "Common error: Going forwards (adding) from 18 05; or forgetting the 35-minute journey."
+    ],
+    "marking": [
+      "M1 for 17 30, A1 for 16 05"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-B18"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3math-mock-02-m2-b19",
+    "skill": "p3-maths",
+    "topic": "number.money",
+    "subskill": "best_buy_grouping",
+    "archetype": "MO4",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "Juice boxes are sold at the prices shown. Marcus needs 15 juice boxes for a class party. What is the least amount of money he must pay?",
+    "answer": "$12.30",
+    "working": [
+      "6 single boxes cost 6 × $0.90 = $5.40, so a pack ($4.80) is cheaper. Buy as many packs as possible.",
+      "15 = 6 + 6 + 3 → 2 packs and 3 single boxes.",
+      "2 packs: $4.80 + $4.80 = $9.60. 3 boxes: $0.90 + $0.90 + $0.90 = $2.70.",
+      "$9.60 + $2.70 = $12.30.",
+      "(3 packs = 18 boxes = $14.40, which costs more.)",
+      "Common error: Buying 3 packs ($14.40), or 15 × $0.90 = $13.50."
+    ],
+    "marking": [
+      "M1 for 2 packs + 3 boxes (or $9.60 and $2.70), A1 for $12.30"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-B19"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/m2_b19_prices.svg"
+  },
+  {
+    "id": "p3math-mock-02-m2-b20",
+    "skill": "p3-maths",
+    "topic": "measurement.length_mass_volume",
+    "subskill": "measure_word_problem",
+    "archetype": "ME3",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "short",
+    "stem": "A bucket had 4 ℓ of water. Mei filled 3 jugs with water from the bucket. Each jug holds 750 ml. How much water was left in the bucket? Give your answer in litres and millilitres.",
+    "answer": "1 ℓ 750 ml",
+    "unit": "ℓ ________ ml",
+    "working": [
+      "3 × 750 ml = 2250 ml.",
+      "4 ℓ = 4000 ml. 4000 − 2250 = 1750 ml.",
+      "1750 ml = 1 ℓ 750 ml.",
+      "Common error: 4 − 2250 (units not converted), or answering 1750 ml without converting."
+    ],
+    "marking": [
+      "M1 for 2250 ml or 1750 ml, A1 for 1 ℓ 750 ml"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-B20"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3math-mock-02-m2-c21a",
+    "skill": "p3-maths",
+    "topic": "number.add_subtract",
+    "subskill": "working_backwards",
+    "archetype": "AS8",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "short",
+    "stem": "Box A and Box B had 950 marbles altogether. After 125 marbles were moved from Box A to Box B, both boxes had the same number of marbles.\n\n(a) How many marbles were in each box after the marbles were moved?",
+    "answer": "475",
+    "working": [
+      "The total does not change when marbles are moved: 950 ÷ 2 = 475.",
+      "Each box had 475 marbles."
+    ],
+    "marking": [
+      "A1"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-C21(a)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3math-mock-02-m2-c21b",
+    "skill": "p3-maths",
+    "topic": "number.add_subtract",
+    "subskill": "working_backwards",
+    "archetype": "AS8",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "Box A and Box B had 950 marbles altogether. After 125 marbles were moved from Box A to Box B, both boxes had the same number of marbles.\n\n(b) How many marbles were in Box A at first?",
+    "answer": "600",
+    "working": [
+      "Box A gave away 125, so at first it had 125 more: 475 + 125 = 600.",
+      "Box A had 600 marbles at first.",
+      "Common error: 475 − 125 = 350 (that is Box B at first)."
+    ],
+    "marking": [
+      "M1 for 475 + 125, A1 for 600"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-C21(b)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3math-mock-02-m2-c21c",
+    "skill": "p3-maths",
+    "topic": "number.add_subtract",
+    "subskill": "working_backwards",
+    "archetype": "AS8",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "short",
+    "stem": "Box A and Box B had 950 marbles altogether. After 125 marbles were moved from Box A to Box B, both boxes had the same number of marbles.\n\n(c) How many more marbles did Box A have than Box B at first?",
+    "answer": "250",
+    "working": [
+      "Box B at first: 475 − 125 = 350.",
+      "600 − 350 = 250.",
+      "Common error: Answering 125 — moving 125 closes a gap of 2 × 125."
+    ],
+    "marking": [
+      "A1 (follow-through from (b) allowed)"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-C21(c)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3math-mock-02-m2-c22a",
+    "skill": "p3-maths",
+    "topic": "number.multiply_divide",
+    "subskill": "comparison_model_extra",
+    "archetype": "MD6",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "short",
+    "stem": "A pencil case costs $6 more than a book. Mrs Lim paid $47 for 3 books and 2 pencil cases.\n\n(a) If each pencil case cost $6 less, how much would Mrs Lim pay for the 3 books and 2 pencil cases?",
+    "answer": "$35",
+    "working": [
+      "2 pencil cases would cost 2 × $6 = $12 less.",
+      "$47 − $12 = $35.",
+      "Common error: $47 − $6 = $41 (only one pencil case)."
+    ],
+    "marking": [
+      "A1"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-C22(a)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3math-mock-02-m2-c22b",
+    "skill": "p3-maths",
+    "topic": "number.multiply_divide",
+    "subskill": "comparison_model_extra",
+    "archetype": "MD6",
+    "difficulty": 3,
+    "marks": 3,
+    "type": "short",
+    "stem": "A pencil case costs $6 more than a book. Mrs Lim paid $47 for 3 books and 2 pencil cases.\n\n(b) How much does one pencil case cost?",
+    "answer": "$13",
+    "working": [
+      "Book = 1 unit. Pencil case = 1 unit + $6.",
+      "3 books + 2 pencil cases = 5 units + $12 = $47.",
+      "5 units = $47 − $12 = $35.",
+      "1 unit = $35 ÷ 5 = $7 (one book).",
+      "Pencil case = $7 + $6 = $13.",
+      "Check: 3 × $7 + 2 × $13 = $21 + $26 = $47 ✓",
+      "Common error: Answering $7 (the book), or $47 ÷ 5 before taking away the $12."
+    ],
+    "marking": [
+      "M1 for 5 units = $35, M1 for 1 unit = $7, A1 for $13"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-C22(b)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3math-mock-02-m2-c23a",
+    "skill": "p3-maths",
+    "topic": "statistics.bar_graphs",
+    "subskill": "double_bar_compare",
+    "archetype": "BG3",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "short",
+    "stem": "The bar graph shows the number of tickets sold for a school concert on Friday and Saturday.\n\n(a) How many more child tickets were sold on Saturday than on Friday?",
+    "answer": "6",
+    "working": [
+      "Each small line is 2 tickets. Child: Saturday 34, Friday 28.",
+      "34 − 28 = 6.",
+      "Common error: Reading 34 as 35 or 28 as 30 (ignoring the small lines)."
+    ],
+    "marking": [
+      "A1"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-C23(a)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/m2_c23_bars.svg"
+  },
+  {
+    "id": "p3math-mock-02-m2-c23b",
+    "skill": "p3-maths",
+    "topic": "statistics.bar_graphs",
+    "subskill": "double_bar_compare",
+    "archetype": "BG3",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "short",
+    "stem": "The bar graph shows the number of tickets sold for a school concert on Friday and Saturday.\n\n(b) Which type of ticket had the most tickets sold over the two days?",
+    "answer": "Child",
+    "working": [
+      "Adult: 36 + 22 = 58. Child: 28 + 34 = 62. Senior: 24 + 30 = 54.",
+      "Child tickets: 62.",
+      "Common error: Choosing Adult because Friday's adult bar is the tallest bar on the graph."
+    ],
+    "marking": [
+      "A1"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-C23(b)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/m2_c23_bars.svg"
+  },
+  {
+    "id": "p3math-mock-02-m2-c23c",
+    "skill": "p3-maths",
+    "topic": "statistics.bar_graphs",
+    "subskill": "double_bar_compare",
+    "archetype": "BG3",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "The bar graph shows the number of tickets sold for a school concert on Friday and Saturday.\n\n(c) An adult ticket costs $8 and a child ticket costs $5. How much money was collected from the adult and child tickets sold on Saturday?",
+    "answer": "$346",
+    "working": [
+      "Saturday: 22 adult tickets, 34 child tickets.",
+      "22 × $8 = $176. 34 × $5 = $170.",
+      "$176 + $170 = $346.",
+      "Common error: Using Friday's bars, or adding all 56 tickets × $8."
+    ],
+    "marking": [
+      "M1 for $176 or $170, A1 for $346"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-C23(c)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/m2_c23_bars.svg"
+  },
+  {
+    "id": "p3math-mock-02-m2-c24a",
+    "skill": "p3-maths",
+    "topic": "geometry.area_perimeter",
+    "subskill": "wire_reshaped",
+    "archetype": "AR5",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "The figure below is made up of 3 identical squares. The perimeter of the figure is 40 cm.\n\n(a) What is the length of one side of a square?",
+    "answer": "5 cm",
+    "working": [
+      "Walk around the outside: the perimeter is made of 8 equal sides (3 on top, 3 at the bottom, 1 at each end).",
+      "40 ÷ 8 = 5",
+      "Each side is 5 cm.",
+      "Common error: 40 ÷ 4 = 10 (treating the figure as one square), or 40 ÷ 12 (counting the dashed lines inside)."
+    ],
+    "marking": [
+      "M1 for 8 sides / 40 ÷ 8, A1 for 5 cm"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-C24(a)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/m2_c24_squares.svg"
+  },
+  {
+    "id": "p3math-mock-02-m2-c24b",
+    "skill": "p3-maths",
+    "topic": "geometry.area_perimeter",
+    "subskill": "wire_reshaped",
+    "archetype": "AR5",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "The figure below is made up of 3 identical squares. The perimeter of the figure is 40 cm.\n\n(b) A piece of wire as long as the perimeter of the figure is bent to form one big square. How much greater is the area of the big square than the area of the figure?",
+    "answer": "25 cm²",
+    "working": [
+      "Area of figure = 15 cm × 5 cm = 75 cm² (or 3 × 25 cm²).",
+      "Big square: side = 40 ÷ 4 = 10 cm. Area = 10 × 10 = 100 cm².",
+      "100 − 75 = 25 cm².",
+      "Common error: Comparing perimeters (both 40 cm, difference 0), or missing the cm²."
+    ],
+    "marking": [
+      "M1 for 75 cm² and 100 cm², A1 for 25 cm²"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-C24(b)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/m2_c24_squares.svg"
+  },
+  {
+    "id": "p3math-mock-02-m2-c25a",
+    "skill": "p3-maths",
+    "topic": "number.multiply_divide",
+    "subskill": "before_after",
+    "archetype": "MD8",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "short",
+    "stem": "Marcus and Kai had the same number of stickers at first. Marcus gave away 18 stickers and Kai bought another 30 stickers. In the end, Kai had 4 times as many stickers as Marcus.\n\n(a) In the end, how many more stickers did Kai have than Marcus?",
+    "answer": "48",
+    "working": [
+      "They started equal. Marcus went down 18 and Kai went up 30, so the gap is 18 + 30 = 48.",
+      "Common error: 30 − 18 = 12."
+    ],
+    "marking": [
+      "A1"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-C25(a)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3math-mock-02-m2-c25b",
+    "skill": "p3-maths",
+    "topic": "number.multiply_divide",
+    "subskill": "before_after",
+    "archetype": "MD8",
+    "difficulty": 3,
+    "marks": 3,
+    "type": "short",
+    "stem": "Marcus and Kai had the same number of stickers at first. Marcus gave away 18 stickers and Kai bought another 30 stickers. In the end, Kai had 4 times as many stickers as Marcus.\n\n(b) How many stickers did each boy have at first?",
+    "answer": "34",
+    "working": [
+      "In the end: Kai = 4 units, Marcus = 1 unit. The gap is 3 units.",
+      "3 units = 48 → 1 unit = 48 ÷ 3 = 16 (Marcus in the end).",
+      "At first: 16 + 18 = 34.",
+      "Each boy had 34 stickers at first.",
+      "Check: Marcus 34 − 18 = 16; Kai 34 + 30 = 64 = 4 × 16 ✓",
+      "Common error: Answering 16 (Marcus in the end), or dividing 48 by 4 instead of 3."
+    ],
+    "marking": [
+      "M1 for 3 units = 48, M1 for 1 unit = 16, A1 for 34"
+    ],
+    "source": {
+      "kind": "own",
+      "ref": "set_mock_02.json#M2-C25(b)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  }
+]

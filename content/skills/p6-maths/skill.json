@@ -1,0 +1,698 @@
+{
+  "id": "p6-maths",
+  "version": "1.0.0",
+  "status": "published",
+  "title": "P6 Maths (PSLE)",
+  "description": "Primary 6 / PSLE Mathematics (Singapore MOE 2021 syllabus, 2026 exam format): fractions, ratio and before-after problems, percentage, angles, circles, volume, data, algebra. Name-the-method heuristics, low-pressure sessions, statistically targeted practice.",
+  "subject": "maths",
+  "level": "P6",
+  "syllabus": "MOE 2021 Primary Mathematics (Standard), PSLE from 2026",
+  "language": "en",
+  "agents": {
+    "tutor": "auto",
+    "vibe": "on_demand",
+    "parent": "on_demand",
+    "curator": "auto"
+  },
+  "topics": [
+    {
+      "id": "number.fractions",
+      "title": "Fractions",
+      "weight": 0.138,
+      "source_tag": "FR",
+      "subskills": [
+        "fraction_operations",
+        "fraction_of_quantity",
+        "remainder_concept",
+        "fraction_word_problems",
+        "fraction_of_figure"
+      ]
+    },
+    {
+      "id": "geometry.angles",
+      "title": "Angles and geometry",
+      "weight": 0.134,
+      "source_tag": "ANG",
+      "subskills": [
+        "angle_facts",
+        "isosceles_equilateral",
+        "quadrilateral_properties",
+        "angle_reasoning",
+        "parallel_perpendicular",
+        "symmetry",
+        "draw_on_grid"
+      ]
+    },
+    {
+      "id": "number.whole_numbers",
+      "title": "Whole numbers",
+      "weight": 0.132,
+      "source_tag": "WN",
+      "subskills": [
+        "place_value_numerals",
+        "rounding",
+        "factors_multiples",
+        "order_of_operations",
+        "number_patterns",
+        "whole_number_word_problems"
+      ]
+    },
+    {
+      "id": "statistics.data",
+      "title": "Data: tables, bar and line graphs, pie charts",
+      "weight": 0.098,
+      "source_tag": "DATA",
+      "subskills": [
+        "read_tables_graphs",
+        "pie_charts",
+        "line_graphs",
+        "true_false_npt"
+      ]
+    },
+    {
+      "id": "number.percentage",
+      "title": "Percentage",
+      "weight": 0.07,
+      "source_tag": "PCT",
+      "subskills": [
+        "percentage_of",
+        "percentage_change",
+        "find_original",
+        "discount_gst",
+        "percentage_word_problems"
+      ]
+    },
+    {
+      "id": "measurement.volume",
+      "title": "Volume of cubes, cuboids and liquids",
+      "weight": 0.066,
+      "source_tag": "VOL",
+      "subskills": [
+        "cuboid_volume",
+        "liquid_in_tanks",
+        "tank_rates"
+      ]
+    },
+    {
+      "id": "geometry.circles",
+      "title": "Circles",
+      "weight": 0.066,
+      "source_tag": "CIRC",
+      "subskills": [
+        "circumference",
+        "circle_area",
+        "composite_circles"
+      ]
+    },
+    {
+      "id": "algebra.expressions",
+      "title": "Algebra",
+      "weight": 0.046,
+      "source_tag": "ALG",
+      "subskills": [
+        "form_expression",
+        "simplify_evaluate",
+        "simple_equations"
+      ]
+    },
+    {
+      "id": "geometry.area_perimeter",
+      "title": "Area and perimeter",
+      "weight": 0.044,
+      "source_tag": "AREA",
+      "subskills": [
+        "triangle_area",
+        "composite_area",
+        "perimeter"
+      ]
+    },
+    {
+      "id": "number.decimals",
+      "title": "Decimals",
+      "weight": 0.042,
+      "source_tag": "DEC",
+      "subskills": [
+        "decimal_operations",
+        "compare_order_decimals",
+        "decimal_fraction_conversion"
+      ]
+    },
+    {
+      "id": "measurement.rate",
+      "title": "Rate and charges tables",
+      "weight": 0.042,
+      "source_tag": "RATE",
+      "subskills": [
+        "unit_rate",
+        "charges_tables",
+        "best_buy"
+      ]
+    },
+    {
+      "id": "number.ratio",
+      "title": "Ratio",
+      "weight": 0.036,
+      "source_tag": "RATIO",
+      "subskills": [
+        "ratio_basics",
+        "equivalent_ratio",
+        "repeated_identity",
+        "ba_total_unchanged",
+        "ba_difference_unchanged",
+        "ba_one_unchanged",
+        "ba_both_change",
+        "ratio_word_problems"
+      ]
+    },
+    {
+      "id": "measurement.units_time",
+      "title": "Measurement: units, time, estimation",
+      "weight": 0.034,
+      "source_tag": "MEAS",
+      "subskills": [
+        "unit_conversion",
+        "time_schedules",
+        "estimation"
+      ]
+    },
+    {
+      "id": "geometry.solids",
+      "title": "Nets, solids and views",
+      "weight": 0.032,
+      "source_tag": "SOLID",
+      "subskills": [
+        "nets",
+        "unit_cubes",
+        "views"
+      ]
+    },
+    {
+      "id": "statistics.average",
+      "title": "Average",
+      "weight": 0.02,
+      "source_tag": "AVG",
+      "subskills": [
+        "average_total",
+        "combined_average",
+        "missing_item"
+      ]
+    }
+  ],
+  "archetypes": [
+    {
+      "id": "FR-CORE",
+      "topic": "number.fractions",
+      "pattern": "Core fractions items: fraction of a figure; mixed to improper; fraction of quantity; divide fraction by whole; fraction between; how many quarters; fraction to decimal",
+      "exam_weight": 0.04
+    },
+    {
+      "id": "FR-REM",
+      "topic": "number.fractions",
+      "pattern": "Remainder concept: remainder + boxes; fractions + units; divide with remainder; fraction remainder into boxes",
+      "exam_weight": 0.026
+    },
+    {
+      "id": "FR-UNITS",
+      "topic": "number.fractions",
+      "pattern": "Units & parts / model drawing: fractions of whole + difference; fractions of a whole; fraction of groups + money; fraction of total left; fraction of fraction; fractions of salary",
+      "exam_weight": 0.038
+    },
+    {
+      "id": "FR-BA-DIFF",
+      "topic": "number.fractions",
+      "pattern": "Before-after: difference unchanged: gave equal number",
+      "exam_weight": 0.004
+    },
+    {
+      "id": "FR-ASSUME",
+      "topic": "number.fractions",
+      "pattern": "Assumption method: fraction + assumption",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "FR-GROUP",
+      "topic": "number.fractions",
+      "pattern": "Grouping, gap & difference, bundles: gap & difference with fractions",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "FR-RATIO",
+      "topic": "number.fractions",
+      "pattern": "Ratio inside another topic: ratio of shaded area",
+      "exam_weight": 0.004
+    },
+    {
+      "id": "FR-BA-BOTH",
+      "topic": "number.fractions",
+      "pattern": "Before-after: both quantities change: coins with fractions used",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "ANG-CORE",
+      "topic": "geometry.angles",
+      "pattern": "Core angles and geometry items: parallel lines on grid; lines of symmetry; rhombus angles; parallelogram + equilateral; square + equilateral; perpendicular lines",
+      "exam_weight": 0.094
+    },
+    {
+      "id": "ANG-REASON",
+      "topic": "geometry.angles",
+      "pattern": "True/false/not-possible or justify: triangles & parallel test; square + equilateral + parallel test; rhombus + parallelogram; reasoning about cut square",
+      "exam_weight": 0.026
+    },
+    {
+      "id": "ANG-DRAW",
+      "topic": "geometry.angles",
+      "pattern": "Draw or measure on a grid: measure + draw on grid; complete symmetric figure; measure + draw square",
+      "exam_weight": 0.014
+    },
+    {
+      "id": "WN-CORE",
+      "topic": "number.whole_numbers",
+      "pattern": "Core whole numbers items: place value; rounding + order of operations; common multiple & common factors; numerals; order of ops + common multiple; money - unitary",
+      "exam_weight": 0.048
+    },
+    {
+      "id": "WN-PATTERN",
+      "topic": "number.whole_numbers",
+      "pattern": "Number or figure patterns: repeating pattern sum; figure pattern; multiples pattern; bead pattern; repeating pattern; tile pattern table",
+      "exam_weight": 0.034
+    },
+    {
+      "id": "WN-BA-TOTAL",
+      "topic": "number.whole_numbers",
+      "pattern": "Before-after: total unchanged: internal transfer",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "WN-UNITS",
+      "topic": "number.whole_numbers",
+      "pattern": "Units & parts / model drawing: simultaneous totals",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "WN-GUESS",
+      "topic": "number.whole_numbers",
+      "pattern": "Guess & check / systematic listing: divisibility / systematic; divisibility reasoning",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "WN-SUBST",
+      "topic": "number.whole_numbers",
+      "pattern": "Substitution: substitution; equal capacity substitution",
+      "exam_weight": 0.014
+    },
+    {
+      "id": "WN-EQUAL",
+      "topic": "number.whole_numbers",
+      "pattern": "Equal concept / redistribution: redistribution equal",
+      "exam_weight": 0.004
+    },
+    {
+      "id": "WN-GROUP",
+      "topic": "number.whole_numbers",
+      "pattern": "Grouping, gap & difference, bundles: elimination from table",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "DATA-UNITS",
+      "topic": "statistics.data",
+      "pattern": "Units & parts / model drawing: table % + bar graph; pie chart + bar graph; pie chart with right angle",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "DATA-RATE",
+      "topic": "statistics.data",
+      "pattern": "Rate inside another topic: two line graphs; line graph + rate; line graph rate",
+      "exam_weight": 0.014
+    },
+    {
+      "id": "DATA-CORE",
+      "topic": "statistics.data",
+      "pattern": "Core data: tables, bar and line graphs, pie charts items: bar graph reading; pie chart to bar graph; line graph change; table reading",
+      "exam_weight": 0.012
+    },
+    {
+      "id": "DATA-REASON",
+      "topic": "statistics.data",
+      "pattern": "True/false/not-possible or justify: pie charts True/False/NPT; table reasoning; bar graph True/False",
+      "exam_weight": 0.012
+    },
+    {
+      "id": "DATA-PCT",
+      "topic": "statistics.data",
+      "pattern": "Percentage inside another topic: line graph; pie + torn bar graph; pie chart fraction/percent; pie chart + bar graph",
+      "exam_weight": 0.024
+    },
+    {
+      "id": "DATA-AVG",
+      "topic": "statistics.data",
+      "pattern": "Average inside another topic: bar graph + average",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "DATA-RATIO",
+      "topic": "statistics.data",
+      "pattern": "Ratio inside another topic: bar graph to ratio; bar graph ratio + percent",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "PCT-BACK",
+      "topic": "number.percentage",
+      "pattern": "Working backwards from the final amount: discount working backwards; find original + % decrease; discount percentage",
+      "exam_weight": 0.016
+    },
+    {
+      "id": "PCT-CORE",
+      "topic": "number.percentage",
+      "pattern": "Core percentage items: successive % change; percentage increase; percent of quantity; percentage decrease",
+      "exam_weight": 0.014
+    },
+    {
+      "id": "PCT-UNITS",
+      "topic": "number.percentage",
+      "pattern": "Units & parts / model drawing: percent to units; savings increase; discount comparison",
+      "exam_weight": 0.016
+    },
+    {
+      "id": "PCT-REM",
+      "topic": "number.percentage",
+      "pattern": "Remainder concept: percent of remainder",
+      "exam_weight": 0.006
+    },
+    {
+      "id": "PCT-BA-ONE",
+      "topic": "number.percentage",
+      "pattern": "Before-after: one quantity unchanged: percent before-after",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "PCT-ASSUME",
+      "topic": "number.percentage",
+      "pattern": "Assumption method: percent + assumption",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "VOL-CORE",
+      "topic": "measurement.volume",
+      "pattern": "Core volume of cubes, cuboids and liquids items: volume of cuboid; cube removed from block; packing cuboids; open box from net",
+      "exam_weight": 0.018
+    },
+    {
+      "id": "VOL-UNITS",
+      "topic": "measurement.volume",
+      "pattern": "Units & parts / model drawing: pour between tanks; two tanks compare; tank height from pails; equalise heights",
+      "exam_weight": 0.03
+    },
+    {
+      "id": "VOL-RATE",
+      "topic": "measurement.volume",
+      "pattern": "Rate inside another topic: two containers + taps; tanks draining/filling",
+      "exam_weight": 0.018
+    },
+    {
+      "id": "CIRC-UNITS",
+      "topic": "geometry.circles",
+      "pattern": "Units & parts / model drawing: two quadrants in square",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "CIRC-CORE",
+      "topic": "geometry.circles",
+      "pattern": "Core circles items: four circles in big circle; semicircle perimeter; triangle + quarter circle perimeter/area; rolling wheels; square + semicircle + quadrant area; quarter circles logo",
+      "exam_weight": 0.056
+    },
+    {
+      "id": "ALG-CORE",
+      "topic": "algebra.expressions",
+      "pattern": "Core algebra items: form expression; evaluate expression; form and simplify; simplify + evaluate; form equation; expression from sharing",
+      "exam_weight": 0.04
+    },
+    {
+      "id": "ALG-AVG",
+      "topic": "algebra.expressions",
+      "pattern": "Average inside another topic: expression + average",
+      "exam_weight": 0.006
+    },
+    {
+      "id": "AREA-CORE",
+      "topic": "geometry.area_perimeter",
+      "pattern": "Core area and perimeter items: area of triangle in squares; fold and cut; rectangles around square; triangle in trapezium; triangle and inscribed square; perimeter of composite",
+      "exam_weight": 0.034
+    },
+    {
+      "id": "AREA-DRAW",
+      "topic": "geometry.area_perimeter",
+      "pattern": "Draw or measure on a grid: draw equal area on grid",
+      "exam_weight": 0.004
+    },
+    {
+      "id": "AREA-PATTERN",
+      "topic": "geometry.area_perimeter",
+      "pattern": "Number or figure patterns: pins around rectangle",
+      "exam_weight": 0.006
+    },
+    {
+      "id": "DEC-CORE",
+      "topic": "number.decimals",
+      "pattern": "Core decimals items: decimal to mixed number; compare and order decimals; reading a scale; division & decimal multiplication; rounding + multiplication; compare decimals",
+      "exam_weight": 0.03
+    },
+    {
+      "id": "DEC-UNITS",
+      "topic": "number.decimals",
+      "pattern": "Units & parts / model drawing: mass of container",
+      "exam_weight": 0.006
+    },
+    {
+      "id": "DEC-GROUP",
+      "topic": "number.decimals",
+      "pattern": "Grouping, gap & difference, bundles: gap and difference",
+      "exam_weight": 0.006
+    },
+    {
+      "id": "RATE-TABLE",
+      "topic": "measurement.rate",
+      "pattern": "Charges/schedule table reading: charges table with time; charges table backwards; postage backwards",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "RATE-GROUP",
+      "topic": "measurement.rate",
+      "pattern": "Grouping, gap & difference, bundles: bundles pricing",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "RATE-CORE",
+      "topic": "measurement.rate",
+      "pattern": "Core rate and charges tables items: unit price; best buy",
+      "exam_weight": 0.012
+    },
+    {
+      "id": "RATIO-BA-ONE",
+      "topic": "number.ratio",
+      "pattern": "Before-after: one quantity unchanged: changing ratio",
+      "exam_weight": 0.004,
+      "subskill": "ba_one_unchanged"
+    },
+    {
+      "id": "RATIO-REP-ID",
+      "topic": "number.ratio",
+      "pattern": "Repeated identity: three-quantity ratio; three-way ratio",
+      "exam_weight": 0.008,
+      "subskill": "repeated_identity"
+    },
+    {
+      "id": "RATIO-CORE",
+      "topic": "number.ratio",
+      "pattern": "Core ratio items: fraction to ratio; ratio with limiting quantity",
+      "exam_weight": 0.006
+    },
+    {
+      "id": "RATIO-UNITS",
+      "topic": "number.ratio",
+      "pattern": "Units & parts / model drawing: chain comparison",
+      "exam_weight": 0.004
+    },
+    {
+      "id": "RATIO-PCT",
+      "topic": "number.ratio",
+      "pattern": "Percentage inside another topic: ratio with pie chart %",
+      "exam_weight": 0.002
+    },
+    {
+      "id": "RATIO-BA-DIFF",
+      "topic": "number.ratio",
+      "pattern": "Before-after: difference unchanged: age ratio",
+      "exam_weight": 0.004,
+      "subskill": "ba_difference_unchanged"
+    },
+    {
+      "id": "RATIO-GROUP",
+      "topic": "number.ratio",
+      "pattern": "Grouping, gap & difference, bundles: tickets grouping",
+      "exam_weight": 0.008
+    },
+    {
+      "id": "MEAS-CORE",
+      "topic": "measurement.units_time",
+      "pattern": "Core measurement: units, time, estimation items: estimate mass; compare masses; unit conversion; cm to m; order volumes",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "MEAS-TABLE",
+      "topic": "measurement.units_time",
+      "pattern": "Charges/schedule table reading: time - schedule; compare times",
+      "exam_weight": 0.01
+    },
+    {
+      "id": "MEAS-RATE",
+      "topic": "measurement.units_time",
+      "pattern": "Rate inside another topic: duration + rate",
+      "exam_weight": 0.004
+    },
+    {
+      "id": "SOLID-CORE",
+      "topic": "geometry.solids",
+      "pattern": "Core nets, solids and views items: net of cube; nets of pyramid; unit cubes to complete cube; edges of cube; views of cube solid; count unit cubes",
+      "exam_weight": 0.024
+    },
+    {
+      "id": "SOLID-ALG",
+      "topic": "geometry.solids",
+      "pattern": "Algebra inside another topic: net of cuboid",
+      "exam_weight": 0.004
+    },
+    {
+      "id": "SOLID-DRAW",
+      "topic": "geometry.solids",
+      "pattern": "Draw or measure on a grid: views of cube solid",
+      "exam_weight": 0.004
+    },
+    {
+      "id": "AVG-CORE",
+      "topic": "statistics.average",
+      "pattern": "Core average items: find missing item; average of remaining; combined average; target average",
+      "exam_weight": 0.016
+    },
+    {
+      "id": "AVG-REASON",
+      "topic": "statistics.average",
+      "pattern": "True/false/not-possible or justify: average + max difference",
+      "exam_weight": 0.004
+    }
+  ],
+  "references": [
+    {
+      "file": "references/exam-format.md",
+      "title": "PSLE Mathematics: format, scope, time budgeting",
+      "sections": [
+        "Dates (SEAB 2026 timetable)",
+        "Format (revised for 2026 — first cohort fully on the 2021 syllabus)",
+        "Syllabus scope (MOE 2021 Primary Mathematics syllabus, examinable P1–P6 content)",
+        "Time budgeting to teach",
+        "Marking realities worth telling the learner"
+      ]
+    },
+    {
+      "file": "references/heuristics.md",
+      "title": "Problem-solving heuristics: which method?",
+      "sections": [
+        "0. RHMC — the four-step habit for every problem sum",
+        "1. Units & Parts (the model-drawing engine) — 22 marks per paper",
+        "2. Before-and-After — 4 types",
+        "3. Repeated Identity (three-quantity ratios) — \"long ratio\"",
+        "4. Remainder concept",
+        "5. Grouping / Gap & Difference",
+        "6. Assumption (supposition) method",
+        "7. Working backwards",
+        "8. Equal concept / equal stage",
+        "9. Substitution",
+        "10. Guess & check / systematic listing",
+        "11. Number & figure patterns",
+        "12. Average",
+        "13. Rate / charges tables (\"or part thereof\")",
+        "14. Percentage change",
+        "15. Logic check"
+      ]
+    },
+    {
+      "file": "references/topic-playbooks.md",
+      "title": "Topic playbooks: must-know, hooks, recipes, traps",
+      "sections": [
+        "1. Whole Numbers (≈13 marks/paper, mostly Paper 1)",
+        "2. Fractions (≈14 marks/paper — the biggest topic)",
+        "3. Decimals (≈4 marks/paper, all short)",
+        "4. Percentage (≈7 marks/paper)",
+        "5. Ratio (≈4 marks/paper directly; the *method* worth 22)",
+        "6. Algebra (≈5 marks/paper)",
+        "7. Rate & charges tables (≈4 marks/paper)",
+        "8. Average (≈2 marks/paper, but in every paper)",
+        "9. Measurement & Time (≈3 marks/paper, all Paper 1)",
+        "10. Area & Perimeter (≈4 marks/paper)",
+        "11. Circles (≈7 marks/paper, Paper 2, 4–5 marks each)",
+        "12. Volume (≈7 marks/paper, Paper 2, 4–5 marks each)",
+        "13. Angles & Geometry (≈13 marks/paper — high yield and rule-based)",
+        "14. Nets, solids, unit cubes, drawing on grids (≈3 marks/paper)",
+        "15. Data (≈10 marks/paper)"
+      ]
+    },
+    {
+      "file": "references/topic-stats.md",
+      "title": "Topic statistics: where the marks are",
+      "sections": [
+        "Marks per topic (average per 100-mark paper)",
+        "Cross-topic heuristics (how many marks each *method* carries)",
+        "Priority tiers (marks/paper × how teachable in a week)",
+        "Distribution by paper section (what a real 2026 paper looks like)"
+      ]
+    },
+    {
+      "file": "references/tutoring-method.md",
+      "title": "Tutoring method: tone, session template, diagnostic, a 7-day plan",
+      "sections": [
+        "Principles (and why each one matters)",
+        "Tone (how to talk to the learner)",
+        "Session template (30–40 min)",
+        "Diagnostic (first session, ≤ 25 minutes)",
+        "Default 7-day plan (adapt after the diagnostic — swap days, never add more than one new topic per day)",
+        "Question generation rules (keep it authentic to the current format)",
+        "Logging (so weakness targeting is data-driven)",
+        "What NOT to do"
+      ]
+    }
+  ],
+  "tools": [
+    "read_reference",
+    "find_items",
+    "check_answer"
+  ],
+  "sources": [
+    {
+      "kind": "own",
+      "note": "Method, references and practice sets written with the founder's own tutor skill (each set was worked and checked before use), scrubbed of learner details by scripts/import-skill.ts."
+    },
+    {
+      "kind": "own",
+      "note": "Topic weights and archetypes are statistics and patterns derived from school papers kept as private reference; no question text, school names or paper codes are included."
+    },
+    {
+      "kind": "generated",
+      "note": "Demo items (items/demo.json) drafted fresh by Claude Code following this pack's question-generation rules; pending founder review."
+    }
+  ],
+  "licence": "Content CC-BY 4.0 (myKx).",
+  "excluded": [
+    "references/question_bank.md",
+    "references/chatgpt_setup.md",
+    "references/worksheet_cookbook.md"
+  ],
+  "legacy_scripts": {
+    "note": "kept privately; never executed",
+    "files": [
+      "assets/question_db.py",
+      "scripts/diagrams.py",
+      "scripts/make_worksheet.py",
+      "scripts/progress.py"
+    ]
+  }
+}

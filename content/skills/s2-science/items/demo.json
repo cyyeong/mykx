@@ -1,0 +1,118 @@
+[
+  {
+    "id": "s2sci-demo-01",
+    "skill": "s2-science",
+    "topic": "physics.electrical",
+    "subskill": "parallel_independence",
+    "archetype": "open-one-branch",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "The figure shows a 6 V cell, two identical lamps P and Q on separate branches, and two switches, S1 and S2. Both switches are closed and both lamps are lit. Switch S1 is then opened. What happens to the lamps?",
+    "options": [
+      "Only P goes out.",
+      "Only Q goes out.",
+      "Both P and Q go out.",
+      "Both lamps stay lit but become dimmer."
+    ],
+    "answer": 3,
+    "working": [
+      "S1 is in the main part of the circuit, next to the cell: every path from the cell passes through it.",
+      "Opening S1 breaks the only route back to the cell, so no current flows in either branch.",
+      "Both lamps go out. (Opening S2 instead would switch off only Q, because S2 is in Q's branch.)"
+    ],
+    "distractors": {
+      "1": "No switch sits on P's branch alone. S1 is in the main circuit, not on a branch.",
+      "2": "That is what opening S2 would do: S2 is on Q's branch only.",
+      "4": "A lamp dims only if the potential difference across it falls. Here the current stops completely."
+    },
+    "hints": [
+      "Put your finger on the cell and trace the loop through lamp P. Does your finger pass S1?",
+      "Now trace the loop through lamp Q. A switch that every loop passes through controls every lamp."
+    ],
+    "figure": "figures/e2_parallel_switch.svg",
+    "source": { "kind": "generated", "ref": "demo: drafted from references/question-generation.md (re-skinning open-one-branch)" },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "demo": true,
+    "notes": "Demo path item, drafted by Claude Code; reuses the pack's original circuit figure. Founder review pending."
+  },
+  {
+    "id": "s2sci-demo-02",
+    "skill": "s2-science",
+    "topic": "physics.electrical",
+    "subskill": "cost_calculation",
+    "archetype": "kwh-bill-calculation",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "The bar chart shows the power ratings of five appliances in a flat. The kettle is used for 15 minutes every day for 30 days. Electricity costs $0.30 per kWh. How much does it cost to use the kettle for the 30 days?",
+    "options": [
+      "$0.15",
+      "$4.50",
+      "$270.00",
+      "$4500.00"
+    ],
+    "answer": 2,
+    "working": [
+      "From the chart, the kettle's power rating is 2000 W = 2 kW.",
+      "Time: 15 min = 0.25 h a day, so 0.25 h × 30 days = 7.5 h.",
+      "Energy = 2 kW × 7.5 h = 15 kWh.",
+      "Cost = 15 kWh × $0.30 = $4.50."
+    ],
+    "distractors": {
+      "1": "That is the cost for one day only (0.5 kWh × $0.30). The question asks for 30 days.",
+      "3": "Used 15 hours instead of 15 minutes. Change minutes to hours first.",
+      "4": "Used 2000 W instead of 2 kW, so the answer is 1000 times too big."
+    },
+    "hints": [
+      "Two conversions come before any multiplying: watts to kilowatts, and minutes to hours.",
+      "Energy in kWh = power in kW × time in hours for all 30 days. Then multiply by the price of one kWh."
+    ],
+    "figure": "figures/e8_appliances.svg",
+    "source": { "kind": "generated", "ref": "demo: drafted from references/electrical-systems.md (the kWh calculation, step by step)" },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "demo": true,
+    "notes": "Demo path item, drafted by Claude Code; reuses the pack's original bar chart. Founder review pending."
+  },
+  {
+    "id": "s2sci-demo-03",
+    "skill": "s2-science",
+    "topic": "physics.electrical",
+    "subskill": "resistance_current_relationship",
+    "archetype": "slide-the-variable-resistor",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "The figure shows a 6 V cell, a variable resistor R, a lamp L and an ammeter in one loop. The resistance of R is decreased. Which statement correctly describes AND explains what happens to lamp L?",
+    "options": [
+      "L becomes brighter, because the resistance of the circuit decreases, so a larger current flows.",
+      "L becomes dimmer, because more of the current is used up by R.",
+      "L stays the same, because the voltage of the cell has not changed.",
+      "L becomes brighter, because R now gives more energy to the current."
+    ],
+    "answer": 1,
+    "working": [
+      "R, L and the ammeter are in one series loop.",
+      "Decreasing R decreases the effective resistance of the circuit.",
+      "For the same 6 V supply, a lower resistance means a larger current flows through every part of the loop, including L.",
+      "A larger current through L makes it brighter, and the ammeter reading increases."
+    ],
+    "distractors": {
+      "2": "Current is not used up. And less resistance means more current, not less.",
+      "3": "The supply is the same, but the resistance changed, so the current changes too.",
+      "4": "Right effect, wrong reason. A resistor does not give energy; lower resistance lets a larger current flow."
+    },
+    "hints": [
+      "Say the chain out loud: resistance down → current … → lamp …",
+      "R and L are in the same loop, so whatever happens to the current through R also happens through L."
+    ],
+    "figure": "figures/e4_variable_resistor.svg",
+    "source": { "kind": "generated", "ref": "demo: drafted from references/electrical-systems.md (model answers)" },
+    "status": "draft",
+    "version_added": "1.0.0",
+    "demo": true,
+    "notes": "Demo path item, drafted by Claude Code; reuses the pack's original circuit figure. Founder review pending."
+  }
+]

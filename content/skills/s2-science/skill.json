@@ -1,0 +1,552 @@
+{
+  "id": "s2-science",
+  "version": "1.0.0",
+  "status": "published",
+  "title": "Sec 2 G3 Science",
+  "description": "Secondary 2 G3 Science (Singapore MOE 2021 lower secondary syllabus): chemical changes, environment, forces and energy, heat, electrical systems, digestion, transport, reproduction. Misconception-first teaching, State-Cause-Link answers, exam-format practice with real circuit diagrams.",
+  "subject": "science",
+  "level": "Sec 2",
+  "syllabus": "MOE 2021 Lower Secondary Science, G2/G3 course (updated 2024)",
+  "language": "en",
+  "agents": {
+    "tutor": "auto",
+    "vibe": "on_demand",
+    "parent": "on_demand",
+    "curator": "auto"
+  },
+  "topics": [
+    {
+      "id": "chemistry.chemical_changes",
+      "title": "Chemical changes",
+      "weight": 0.14,
+      "source_tag": "chemical_changes",
+      "subskills": [
+        "physical_vs_chemical",
+        "word_equations",
+        "conservation_of_mass",
+        "reaction_types",
+        "acids_alkalis_ph",
+        "indicators",
+        "acid_reactions",
+        "gas_tests",
+        "experimental_design"
+      ]
+    },
+    {
+      "id": "biology.environment",
+      "title": "Interactions with the environment",
+      "weight": 0.1,
+      "source_tag": "interactions_with_environment",
+      "subskills": [
+        "human_impact",
+        "deforestation_effects",
+        "habitat_factors",
+        "adaptations",
+        "ecosystem_hierarchy",
+        "organism_interactions",
+        "food_chains_webs",
+        "energy_flow",
+        "experimental_design"
+      ]
+    },
+    {
+      "id": "physics.forces_energy",
+      "title": "Forces and energy transfer",
+      "weight": 0.15,
+      "source_tag": "forces_and_energy_transfer",
+      "subskills": [
+        "force_effects",
+        "contact_noncontact",
+        "friction",
+        "mass_vs_weight",
+        "pressure",
+        "work_done",
+        "energy_types",
+        "conservation_of_energy",
+        "experimental_design"
+      ]
+    },
+    {
+      "id": "physics.heat",
+      "title": "Transfer of heat and its effects",
+      "weight": 0.14,
+      "source_tag": "heat_transfer",
+      "subskills": [
+        "temperature_units",
+        "expansion_contraction",
+        "expansion_applications",
+        "conduction",
+        "convection",
+        "radiation",
+        "radiation_factors",
+        "insulation_applications",
+        "experimental_design"
+      ]
+    },
+    {
+      "id": "physics.electrical",
+      "title": "Electrical systems",
+      "weight": 0.15,
+      "source_tag": "electrical_systems",
+      "subskills": [
+        "circuit_symbols",
+        "current_in_series",
+        "parallel_independence",
+        "meter_connection",
+        "potential_difference",
+        "resistance_current_relationship",
+        "effective_resistance",
+        "current_effects",
+        "power_and_energy",
+        "cost_calculation",
+        "hazards_and_safety",
+        "fuse_and_breaker",
+        "energy_conservation_home",
+        "experimental_design"
+      ]
+    },
+    {
+      "id": "biology.digestion",
+      "title": "Human digestive system",
+      "weight": 0.11,
+      "source_tag": "human_digestive_system",
+      "subskills": [
+        "nutrients",
+        "why_digest",
+        "physical_vs_chemical_digestion",
+        "enzymes",
+        "organ_functions",
+        "enzyme_products",
+        "absorption",
+        "villi",
+        "use_of_products",
+        "experimental_design"
+      ]
+    },
+    {
+      "id": "biology.transport",
+      "title": "Transport systems in living things",
+      "weight": 0.11,
+      "source_tag": "transport_in_living_things",
+      "subskills": [
+        "diffusion",
+        "osmosis",
+        "osmosis_in_plants",
+        "blood_components",
+        "blood_vessels",
+        "plant_transport",
+        "gas_exchange",
+        "experimental_design"
+      ]
+    },
+    {
+      "id": "biology.reproduction",
+      "title": "Human sexual reproductive system",
+      "weight": 0.1,
+      "source_tag": "human_reproductive_system",
+      "subskills": [
+        "asexual_vs_sexual",
+        "puberty",
+        "male_organs",
+        "female_organs",
+        "fertilisation",
+        "implantation",
+        "heredity",
+        "menstrual_cycle",
+        "birth_control",
+        "stis",
+        "experimental_design"
+      ]
+    }
+  ],
+  "archetypes": [
+    {
+      "id": "identical-readings-in-series",
+      "topic": "physics.electrical",
+      "pattern": "Give one ammeter reading, ask for another in the same loop",
+      "exam_weight": 0.015
+    },
+    {
+      "id": "open-one-branch",
+      "topic": "physics.electrical",
+      "pattern": "Open a switch in one parallel branch, ask about the other lamp",
+      "exam_weight": 0.015
+    },
+    {
+      "id": "where-does-the-meter-go",
+      "topic": "physics.electrical",
+      "pattern": "Label positions on a circuit, ask where ammeter/voltmeter belong",
+      "exam_weight": 0.015
+    },
+    {
+      "id": "slide-the-variable-resistor",
+      "topic": "physics.electrical",
+      "pattern": "Increase resistance, ask about current and brightness",
+      "exam_weight": 0.015
+    },
+    {
+      "id": "series-vs-parallel-effective-resistance",
+      "topic": "physics.electrical",
+      "pattern": "Same resistors, two arrangements, compare current",
+      "exam_weight": 0.015
+    },
+    {
+      "id": "choose-the-fuse-rating",
+      "topic": "physics.electrical",
+      "pattern": "Working current given, pick the rating, justify \"slightly higher\"",
+      "exam_weight": 0.015
+    },
+    {
+      "id": "match-the-effect-to-the-application",
+      "topic": "physics.electrical",
+      "pattern": "Chemical / heating / magnetic effect to a device",
+      "exam_weight": 0.015
+    },
+    {
+      "id": "kwh-bill-calculation",
+      "topic": "physics.electrical",
+      "pattern": "Power rating + hours + price, with a W→kW conversion trap",
+      "exam_weight": 0.015
+    },
+    {
+      "id": "spot-the-hazard-and-justify",
+      "topic": "physics.electrical",
+      "pattern": "Scene with overloading / damaged insulation, name + mechanism",
+      "exam_weight": 0.015
+    },
+    {
+      "id": "draw-the-circuit",
+      "topic": "physics.electrical",
+      "pattern": "Written description → circuit diagram using correct symbols",
+      "exam_weight": 0.015
+    },
+    {
+      "id": "why-does-metal-feel-colder",
+      "topic": "physics.heat",
+      "pattern": "Why does metal feel colder",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "vacuum-flask-feature-to-function",
+      "topic": "physics.heat",
+      "pattern": "Vacuum flask feature to function",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "where-to-put-the-heating-element",
+      "topic": "physics.heat",
+      "pattern": "Where to put the heating element",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "bimetallic-strip-which-way-does-it-bend",
+      "topic": "physics.heat",
+      "pattern": "Bimetallic strip which way does it bend",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "black-vs-white-cup-data",
+      "topic": "physics.heat",
+      "pattern": "Black vs white cup data",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "cooling-curve-reading",
+      "topic": "physics.heat",
+      "pattern": "Cooling curve reading",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "expansion-gap-explanation",
+      "topic": "physics.heat",
+      "pattern": "Expansion gap explanation",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "mass-vs-weight-on-another-planet",
+      "topic": "physics.forces_energy",
+      "pattern": "Mass vs weight on another planet",
+      "exam_weight": 0.025
+    },
+    {
+      "id": "maximum-or-minimum-pressure-from-a-block",
+      "topic": "physics.forces_energy",
+      "pattern": "Maximum or minimum pressure from a block",
+      "exam_weight": 0.025
+    },
+    {
+      "id": "is-work-done-in-this-case",
+      "topic": "physics.forces_energy",
+      "pattern": "Is work done in this case",
+      "exam_weight": 0.025
+    },
+    {
+      "id": "energy-conversion-chain",
+      "topic": "physics.forces_energy",
+      "pattern": "Energy conversion chain",
+      "exam_weight": 0.025
+    },
+    {
+      "id": "GPE-to-KE-at-three-points",
+      "topic": "physics.forces_energy",
+      "pattern": "GPE to KE at three points",
+      "exam_weight": 0.025
+    },
+    {
+      "id": "friction-and-thermal-energy",
+      "topic": "physics.forces_energy",
+      "pattern": "Friction and thermal energy",
+      "exam_weight": 0.025
+    },
+    {
+      "id": "physical-or-chemical-change",
+      "topic": "chemistry.chemical_changes",
+      "pattern": "Physical or chemical change",
+      "exam_weight": 0.023
+    },
+    {
+      "id": "complete-the-word-equation",
+      "topic": "chemistry.chemical_changes",
+      "pattern": "Complete the word equation",
+      "exam_weight": 0.023
+    },
+    {
+      "id": "which-gas-and-how-to-test-it",
+      "topic": "chemistry.chemical_changes",
+      "pattern": "Which gas and how to test it",
+      "exam_weight": 0.023
+    },
+    {
+      "id": "indicator-colour-table",
+      "topic": "chemistry.chemical_changes",
+      "pattern": "Indicator colour table",
+      "exam_weight": 0.023
+    },
+    {
+      "id": "name-the-reaction-type",
+      "topic": "chemistry.chemical_changes",
+      "pattern": "Name the reaction type",
+      "exam_weight": 0.023
+    },
+    {
+      "id": "mass-before-and-after",
+      "topic": "chemistry.chemical_changes",
+      "pattern": "Mass before and after",
+      "exam_weight": 0.023
+    },
+    {
+      "id": "explain-the-direction-of-diffusion",
+      "topic": "biology.transport",
+      "pattern": "Explain the direction of diffusion",
+      "exam_weight": 0.022
+    },
+    {
+      "id": "osmosis-in-visking-tubing",
+      "topic": "biology.transport",
+      "pattern": "Osmosis in visking tubing",
+      "exam_weight": 0.022
+    },
+    {
+      "id": "artery-vein-capillary-comparison",
+      "topic": "biology.transport",
+      "pattern": "Artery vein capillary comparison",
+      "exam_weight": 0.022
+    },
+    {
+      "id": "xylem-or-phloem",
+      "topic": "biology.transport",
+      "pattern": "Xylem or phloem",
+      "exam_weight": 0.022
+    },
+    {
+      "id": "why-villi-have-that-shape",
+      "topic": "biology.transport",
+      "pattern": "Why villi have that shape",
+      "exam_weight": 0.022
+    },
+    {
+      "id": "enzyme-substrate-product-chain",
+      "topic": "biology.digestion",
+      "pattern": "Enzyme substrate product chain",
+      "exam_weight": 0.028
+    },
+    {
+      "id": "where-is-each-nutrient-digested",
+      "topic": "biology.digestion",
+      "pattern": "Where is each nutrient digested",
+      "exam_weight": 0.028
+    },
+    {
+      "id": "physical-vs-chemical-digestion",
+      "topic": "biology.digestion",
+      "pattern": "Physical vs chemical digestion",
+      "exam_weight": 0.028
+    },
+    {
+      "id": "surface-area-to-volume-argument",
+      "topic": "biology.digestion",
+      "pattern": "Surface area to volume argument",
+      "exam_weight": 0.028
+    },
+    {
+      "id": "complete-the-food-chain-arrows",
+      "topic": "biology.environment",
+      "pattern": "Complete the food chain arrows",
+      "exam_weight": 0.017
+    },
+    {
+      "id": "what-happens-if-this-species-is-removed",
+      "topic": "biology.environment",
+      "pattern": "What happens if this species is removed",
+      "exam_weight": 0.017
+    },
+    {
+      "id": "energy-loss-between-levels",
+      "topic": "biology.environment",
+      "pattern": "Energy loss between levels",
+      "exam_weight": 0.017
+    },
+    {
+      "id": "name-the-relationship",
+      "topic": "biology.environment",
+      "pattern": "Name the relationship",
+      "exam_weight": 0.017
+    },
+    {
+      "id": "deforestation-consequence-with-mechanism",
+      "topic": "biology.environment",
+      "pattern": "Deforestation consequence with mechanism",
+      "exam_weight": 0.017
+    },
+    {
+      "id": "structural-or-behavioural",
+      "topic": "biology.environment",
+      "pattern": "Structural or behavioural",
+      "exam_weight": 0.017
+    },
+    {
+      "id": "label-the-organ-and-give-its-function",
+      "topic": "biology.reproduction",
+      "pattern": "Label the organ and give its function",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "where-does-fertilisation-occur",
+      "topic": "biology.reproduction",
+      "pattern": "Where does fertilisation occur",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "menstrual-cycle-day-reasoning",
+      "topic": "biology.reproduction",
+      "pattern": "Menstrual cycle day reasoning",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "how-does-this-birth-control-method-work",
+      "topic": "biology.reproduction",
+      "pattern": "How does this birth control method work",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "bacterial-or-viral-STI",
+      "topic": "biology.reproduction",
+      "pattern": "Bacterial or viral STI",
+      "exam_weight": 0.02
+    }
+  ],
+  "references": [
+    {
+      "file": "references/syllabus-map.md",
+      "title": "Sec 2 G3 Science syllabus map",
+      "sections": [
+        "1. `chemistry.chemical_changes`",
+        "2. `biology.environment`",
+        "3. `physics.forces_energy`",
+        "4. `physics.heat`",
+        "5. `physics.electrical`",
+        "6. `biology.digestion`",
+        "7. `biology.transport`",
+        "8. `biology.reproduction`",
+        "Cross-cutting: `scientific_endeavour`"
+      ]
+    },
+    {
+      "file": "references/exam-blueprint.md",
+      "title": "Exam blueprint: format, command words, answer templates, archetypes",
+      "sections": [
+        "The paper",
+        "Command words — what the verb obliges the learner to write",
+        "Marks = ideas",
+        "The answer templates",
+        "Recurring question archetypes",
+        "Difficulty calibration"
+      ]
+    },
+    {
+      "file": "references/electrical-systems.md",
+      "title": "Electrical systems: misconceptions, ladder, model answers",
+      "sections": [
+        "The three misconceptions, in the order to kill them",
+        "The diagram literacy problem",
+        "Diagnostic ladder",
+        "Model answers — the exact phrasing that scores",
+        "The kWh calculation, step by step",
+        "Session sequence for this topic"
+      ]
+    },
+    {
+      "file": "references/coaching-playbook.md",
+      "title": "Coaching for focus and retention",
+      "sections": [
+        "Session shape — 25 minutes",
+        "The techniques that actually work",
+        "Reducing the attention cost",
+        "Feedback that works",
+        "Handling the bad day",
+        "For the parent"
+      ]
+    },
+    {
+      "file": "references/question-generation.md",
+      "title": "Generating questions with real diagrams",
+      "sections": [
+        "The diagram rule",
+        "How to synthesise a new question",
+        "Quality checklist before shipping a set"
+      ]
+    }
+  ],
+  "tools": [
+    "read_reference",
+    "find_items",
+    "check_answer"
+  ],
+  "sources": [
+    {
+      "kind": "own",
+      "note": "Method, references and practice sets written with the founder's own tutor skill (each set was worked and checked before use), scrubbed of learner details by scripts/import-skill.ts."
+    },
+    {
+      "kind": "own",
+      "note": "Topic weights and archetypes are statistics and patterns derived from school papers kept as private reference; no question text, school names or paper codes are included."
+    },
+    {
+      "kind": "generated",
+      "note": "Demo items (items/demo.json) drafted fresh by Claude Code following this pack's question-generation rules; pending founder review."
+    }
+  ],
+  "licence": "Content CC-BY 4.0 (myKx); items and figures original.",
+  "excluded": [
+    "PORTABLE.md"
+  ],
+  "legacy_scripts": {
+    "note": "kept privately; never executed",
+    "files": [
+      "assets/make_figs_electrical.py",
+      "scripts/build_paper.py",
+      "scripts/scidraw.py",
+      "scripts/tracker.py"
+    ]
+  }
+}

@@ -1,0 +1,277 @@
+{
+  "id": "p3-chinese",
+  "version": "1.0.0",
+  "status": "published",
+  "title": "P3 Chinese",
+  "description": "Primary 3 Chinese (Singapore MOE 2024 syllabus, 欢乐伙伴): the 15-lesson word catalogue with pinyin and meanings, Paper 2 technique section by section, oral and composition. English-first explanations around Chinese content, picture word cards.",
+  "subject": "chinese",
+  "level": "P3",
+  "syllabus": "MOE 小学华文课程标准 2024 (P3, 欢乐伙伴)",
+  "language": "zh-Hans",
+  "agents": {
+    "tutor": "auto",
+    "vibe": "on_demand",
+    "parent": "on_demand",
+    "curator": "auto"
+  },
+  "topics": [
+    {
+      "id": "words.catalogue",
+      "title": "Lesson words (识读字 / 识写字)",
+      "weight": 0,
+      "source_tag": "words",
+      "subskills": [
+        "recognise",
+        "write"
+      ]
+    },
+    {
+      "id": "paper2.bianzi",
+      "title": "辨字测验 character discrimination",
+      "weight": 0.05,
+      "source_tag": "辨字",
+      "subskills": [
+        "char_choice"
+      ]
+    },
+    {
+      "id": "paper2.ciyu",
+      "title": "词语选择 vocabulary",
+      "weight": 0.04,
+      "source_tag": "词语选择",
+      "subskills": [
+        "word_choice"
+      ]
+    },
+    {
+      "id": "paper2.kantu",
+      "title": "看图选词 picture to word",
+      "weight": 0.04,
+      "source_tag": "看图选词",
+      "subskills": [
+        "picture_word"
+      ]
+    },
+    {
+      "id": "paper2.dapei",
+      "title": "词语搭配 collocation",
+      "weight": 0.05,
+      "source_tag": "词语搭配",
+      "subskills": [
+        "collocation"
+      ]
+    },
+    {
+      "id": "paper2.zuju",
+      "title": "组句成段 sequencing",
+      "weight": 0.05,
+      "source_tag": "组句成段",
+      "subskills": [
+        "sequencing"
+      ]
+    },
+    {
+      "id": "paper2.juzi",
+      "title": "扩写／仿写／组合句子 sentence work",
+      "weight": 0.1,
+      "source_tag": "句子",
+      "subskills": [
+        "expand",
+        "imitate",
+        "combine"
+      ]
+    },
+    {
+      "id": "paper2.yuedu",
+      "title": "阅读理解 reading comprehension",
+      "weight": 0.12,
+      "source_tag": "阅读理解",
+      "subskills": [
+        "rc_mcq",
+        "rc_open"
+      ]
+    },
+    {
+      "id": "composition.kantu",
+      "title": "作文 看图写段 picture composition",
+      "weight": 0.15,
+      "source_tag": "作文",
+      "subskills": [
+        "picture_composition"
+      ]
+    },
+    {
+      "id": "oral",
+      "title": "口试 oral",
+      "weight": 0.3,
+      "source_tag": "口试",
+      "subskills": [
+        "reading_aloud",
+        "picture_talk",
+        "conversation"
+      ]
+    },
+    {
+      "id": "listening",
+      "title": "听力 listening",
+      "weight": 0.1,
+      "source_tag": "听力",
+      "subskills": [
+        "listening"
+      ]
+    }
+  ],
+  "archetypes": [
+    {
+      "id": "ZH-1",
+      "topic": "paper2.bianzi",
+      "pattern": "辨字: same-sound or same-component distractors for one target character inside a lesson word",
+      "exam_weight": 0.05
+    },
+    {
+      "id": "ZH-2",
+      "topic": "paper2.ciyu",
+      "pattern": "词语选择: connector choice, request verbs, 准-family",
+      "exam_weight": 0.04
+    },
+    {
+      "id": "ZH-3",
+      "topic": "paper2.kantu",
+      "pattern": "看图选词: concrete noun or action with a clear picture",
+      "exam_weight": 0.04
+    },
+    {
+      "id": "ZH-4",
+      "topic": "paper2.dapei",
+      "pattern": "词语搭配: fixed collocations",
+      "exam_weight": 0.05
+    },
+    {
+      "id": "ZH-5",
+      "topic": "paper2.zuju",
+      "pattern": "组句成段: a 5–7 sentence everyday story; connectors 首先/接着/最后/有一次/这一天 and pronoun back-references give the order",
+      "exam_weight": 0.05
+    },
+    {
+      "id": "ZH-6",
+      "topic": "paper2.juzi",
+      "pattern": "扩写: insert an adjective/adverb phrase; add 结果/因为",
+      "exam_weight": 0.033
+    },
+    {
+      "id": "ZH-7",
+      "topic": "paper2.juzi",
+      "pattern": "组合: 如果…就 · 虽然…但是 · 只要…就 · 或者 · 却 · merge three 的 descriptions",
+      "exam_weight": 0.033
+    },
+    {
+      "id": "ZH-8",
+      "topic": "paper2.juzi",
+      "pattern": "仿写: 把字句; 虽然…但是 modelled sentence",
+      "exam_weight": 0.033
+    },
+    {
+      "id": "ZH-9",
+      "topic": "paper2.yuedu",
+      "pattern": "阅读理解一: animal fable or child-at-home story, 3 MCQ",
+      "exam_weight": 0.06
+    },
+    {
+      "id": "ZH-10",
+      "topic": "paper2.yuedu",
+      "pattern": "理解问答: a family, helping-at-home or holiday passage; describe (copy), why (因为…), 从哪里可以看出 (quote), what next (opinion)",
+      "exam_weight": 0.06
+    },
+    {
+      "id": "ZH-11",
+      "topic": "composition.kantu",
+      "pattern": "作文: 4 pictures: a problem, a consequence, help or a realisation, a resolution; a personal-responsibility theme",
+      "exam_weight": 0.15
+    }
+  ],
+  "references": [
+    {
+      "file": "references/exam-blueprint.md",
+      "title": "Exam blueprint: P3 Chinese end-of-year",
+      "sections": [
+        "The 100 marks",
+        "Technique, section by section"
+      ]
+    },
+    {
+      "file": "references/word-catalogue.md",
+      "title": "Word catalogue: Lessons 1–15",
+      "sections": [
+        "第一课　(Lesson 1) — School life, effort and achievement (努力、练习、成功)",
+        "第二课　(Lesson 2) — Names, surnames and describing people (姓名、外貌)",
+        "第三课　(Lesson 3) — Morning routine, habits and being on time (闹钟、迟到、习惯)",
+        "第四课　(Lesson 4) — Change and growth — opposites like 深浅、宽窄 (变化)",
+        "第五课　(Lesson 5) — Outings: exhibitions, shopping, newspapers and magazines (傍晚、报刊、付钱)",
+        "第六课　(Lesson 6) — Mistakes, apologising and forgiving (错误、原谅、扶起来)",
+        "第七课　(Lesson 7) — Breaking things, paying back, resting when sick (赔、道歉、休息)",
+        "第八课　(Lesson 8) — Celebrations, clothes, hard work and sweat (贺、裙裤、汗)",
+        "第九课　(Lesson 9) — Animal stories, rescue and measuring (救、称、夸)",
+        "第十课　(Lesson 10) — Litter and protecting the environment (垃圾、环境)",
+        "第十一课　(Lesson 11) — Reusable bags, plastic and responsibility (环保袋、代替、责任)",
+        "第十二课　(Lesson 12) — Singapore flag, National Day, races of Singapore (国旗、国庆、民族)",
+        "第十三课　(Lesson 13) — Nature trips: lake, forest, beach, map (湖、森林、沙滩、地图)",
+        "第十四课　(Lesson 14) — Animal fable: strong/weak, lazy, salty/bland (强弱、懒、咸淡)",
+        "第十五课　(Lesson 15) — Fear, pain, bravery — a classroom story (吓、痛、勇敢、简单)"
+      ]
+    },
+    {
+      "file": "references/coaching-playbook.md",
+      "title": "Coaching playbook: engaged, short, and it sticks",
+      "sections": [
+        "1. How to talk",
+        "2. Session shape (15–25 minutes, never longer)",
+        "3. Memory techniques with evidence behind them (and how they look here)",
+        "4. Games that are secretly drills",
+        "5. Error types — name them, then treat them",
+        "6. Feedback wording",
+        "7. Parent-facing summary (end of every session)"
+      ]
+    },
+    {
+      "file": "references/question-generation.md",
+      "title": "Writing new P3 Chinese items",
+      "sections": [
+        "1. How to synthesise questions (not copy them)"
+      ]
+    }
+  ],
+  "tools": [
+    "read_reference",
+    "find_items",
+    "check_answer"
+  ],
+  "sources": [
+    {
+      "kind": "own",
+      "note": "Method, references and practice sets written with the founder's own tutor skill (each set was worked and checked before use), scrubbed of learner details by scripts/import-skill.ts."
+    },
+    {
+      "kind": "own",
+      "note": "Topic weights and archetypes are statistics and patterns derived from school papers kept as private reference; no question text, school names or paper codes are included."
+    }
+  ],
+  "licence": "Content CC-BY 4.0 (myKx); word icons Twemoji CC-BY 4.0.",
+  "attributions": [
+    "Twemoji graphics by Twitter, Inc. and other contributors, CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/); rasterised to 320 px, otherwise unchanged."
+  ],
+  "excluded": [
+    "references/question-bank.md",
+    "PORTABLE.md",
+    "assets/fonts/P3Kai-Regular.ttf",
+    "assets/fonts/P3Sans-Bold.ttf",
+    "assets/specs/oral01.json",
+    "assets/specs/compo01_paper1.json"
+  ],
+  "legacy_scripts": {
+    "note": "kept privately; never executed",
+    "files": [
+      "scripts/build_paper.py",
+      "scripts/tracker.py"
+    ]
+  }
+}

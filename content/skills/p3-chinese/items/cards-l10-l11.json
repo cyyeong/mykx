@@ -1,0 +1,487 @@
+[
+  {
+    "id": "p3chi-cards-l10-l11-flashcards-1",
+    "skill": "p3-chinese",
+    "topic": "words.catalogue",
+    "subskill": "recognise",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "card",
+    "stem": "垃圾",
+    "answer": "lā jī — rubbish",
+    "card": {
+      "pinyin": "lā jī",
+      "meaning": "rubbish"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "cards_L10_L11.json#flashcards#1"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/wastebasket.png"
+  },
+  {
+    "id": "p3chi-cards-l10-l11-flashcards-2",
+    "skill": "p3-chinese",
+    "topic": "words.catalogue",
+    "subskill": "recognise",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "card",
+    "stem": "蚊子",
+    "answer": "wén zi — mosquito",
+    "card": {
+      "pinyin": "wén zi",
+      "meaning": "mosquito"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "cards_L10_L11.json#flashcards#2"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/mosquito.png"
+  },
+  {
+    "id": "p3chi-cards-l10-l11-flashcards-3",
+    "skill": "p3-chinese",
+    "topic": "words.catalogue",
+    "subskill": "recognise",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "card",
+    "stem": "乌鸦",
+    "answer": "wū yā — crow",
+    "card": {
+      "pinyin": "wū yā",
+      "meaning": "crow"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "cards_L10_L11.json#flashcards#3"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/crow.png"
+  },
+  {
+    "id": "p3chi-cards-l10-l11-flashcards-4",
+    "skill": "p3-chinese",
+    "topic": "words.catalogue",
+    "subskill": "recognise",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "card",
+    "stem": "厨房",
+    "answer": "chú fáng — kitchen",
+    "card": {
+      "pinyin": "chú fáng",
+      "meaning": "kitchen"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "cards_L10_L11.json#flashcards#4"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/kitchen.png"
+  },
+  {
+    "id": "p3chi-cards-l10-l11-flashcards-5",
+    "skill": "p3-chinese",
+    "topic": "words.catalogue",
+    "subskill": "recognise",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "card",
+    "stem": "环境",
+    "answer": "environment",
+    "card": {
+      "meaning": "environment"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "cards_L10_L11.json#flashcards#5"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/river_park.png"
+  },
+  {
+    "id": "p3chi-cards-l10-l11-flashcards-6",
+    "skill": "p3-chinese",
+    "topic": "words.catalogue",
+    "subskill": "recognise",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "card",
+    "stem": "环保袋",
+    "answer": "huán bǎo dài — reusable bag",
+    "card": {
+      "pinyin": "huán bǎo dài",
+      "meaning": "reusable bag"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "cards_L10_L11.json#flashcards#6"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/handbag.png"
+  },
+  {
+    "id": "p3chi-cards-l10-l11-flashcards-7",
+    "skill": "p3-chinese",
+    "topic": "words.catalogue",
+    "subskill": "recognise",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "card",
+    "stem": "塑料袋",
+    "answer": "sù liào dài — plastic bag",
+    "card": {
+      "pinyin": "sù liào dài",
+      "meaning": "plastic bag"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "cards_L10_L11.json#flashcards#7"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/shopping_bags.png"
+  },
+  {
+    "id": "p3chi-cards-l10-l11-flashcards-8",
+    "skill": "p3-chinese",
+    "topic": "words.catalogue",
+    "subskill": "recognise",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "card",
+    "stem": "瓶子",
+    "answer": "píng zi — bottle",
+    "card": {
+      "pinyin": "píng zi",
+      "meaning": "bottle"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "cards_L10_L11.json#flashcards#8"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/water_bottle.png"
+  },
+  {
+    "id": "p3chi-cards-l10-l11-flashcards-9",
+    "skill": "p3-chinese",
+    "topic": "words.catalogue",
+    "subskill": "recognise",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "card",
+    "stem": "组屋",
+    "answer": "zǔ wū — HDB flat",
+    "card": {
+      "pinyin": "zǔ wū",
+      "meaning": "HDB flat"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "cards_L10_L11.json#flashcards#9"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/hdb.png"
+  },
+  {
+    "id": "p3chi-cards-l10-l11-flashcards-10",
+    "skill": "p3-chinese",
+    "topic": "words.catalogue",
+    "subskill": "recognise",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "card",
+    "stem": "停车场",
+    "answer": "tíng chē chǎng — car park",
+    "card": {
+      "pinyin": "tíng chē chǎng",
+      "meaning": "car park"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "cards_L10_L11.json#flashcards#10"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/parking.png"
+  },
+  {
+    "id": "p3chi-cards-l10-l11-flashcards-11",
+    "skill": "p3-chinese",
+    "topic": "words.catalogue",
+    "subskill": "recognise",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "card",
+    "stem": "废纸",
+    "answer": "fèi zhǐ — waste paper",
+    "card": {
+      "pinyin": "fèi zhǐ",
+      "meaning": "waste paper"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "cards_L10_L11.json#flashcards#11"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/page.png"
+  },
+  {
+    "id": "p3chi-cards-l10-l11-flashcards-12",
+    "skill": "p3-chinese",
+    "topic": "words.catalogue",
+    "subskill": "recognise",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "card",
+    "stem": "车辆",
+    "answer": "chē liàng — vehicles",
+    "card": {
+      "pinyin": "chē liàng",
+      "meaning": "vehicles"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "cards_L10_L11.json#flashcards#12"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0",
+    "figure": "figures/car.png"
+  },
+  {
+    "id": "p3chi-cards-l10-l11-dictation-1",
+    "skill": "p3-chinese",
+    "topic": "words.catalogue",
+    "subskill": "write",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "card",
+    "stem": "shè jì",
+    "answer": "设计",
+    "card": {
+      "pinyin": "shè jì"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "cards_L10_L11.json#dictation#1"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-cards-l10-l11-dictation-2",
+    "skill": "p3-chinese",
+    "topic": "words.catalogue",
+    "subskill": "write",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "card",
+    "stem": "guó qí",
+    "answer": "国旗",
+    "card": {
+      "pinyin": "guó qí"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "cards_L10_L11.json#dictation#2"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-cards-l10-l11-dictation-3",
+    "skill": "p3-chinese",
+    "topic": "words.catalogue",
+    "subskill": "write",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "card",
+    "stem": "yì kē xīng",
+    "answer": "一颗星",
+    "card": {
+      "pinyin": "yì kē xīng"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "cards_L10_L11.json#dictation#3"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-cards-l10-l11-dictation-4",
+    "skill": "p3-chinese",
+    "topic": "words.catalogue",
+    "subskill": "write",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "card",
+    "stem": "shì jiè",
+    "answer": "世界",
+    "card": {
+      "pinyin": "shì jiè"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "cards_L10_L11.json#dictation#4"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-cards-l10-l11-dictation-5",
+    "skill": "p3-chinese",
+    "topic": "words.catalogue",
+    "subskill": "write",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "card",
+    "stem": "xīn jiā pō",
+    "answer": "新加坡",
+    "card": {
+      "pinyin": "xīn jiā pō"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "cards_L10_L11.json#dictation#5"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-cards-l10-l11-dictation-6",
+    "skill": "p3-chinese",
+    "topic": "words.catalogue",
+    "subskill": "write",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "card",
+    "stem": "guó qìng",
+    "answer": "国庆",
+    "card": {
+      "pinyin": "guó qìng"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "cards_L10_L11.json#dictation#6"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-cards-l10-l11-dictation-7",
+    "skill": "p3-chinese",
+    "topic": "words.catalogue",
+    "subskill": "write",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "card",
+    "stem": "lǐ wù",
+    "answer": "礼物",
+    "card": {
+      "pinyin": "lǐ wù"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "cards_L10_L11.json#dictation#7"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-cards-l10-l11-dictation-8",
+    "skill": "p3-chinese",
+    "topic": "words.catalogue",
+    "subskill": "write",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "card",
+    "stem": "liàng jīng jīng",
+    "answer": "亮晶晶",
+    "card": {
+      "pinyin": "liàng jīng jīng"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "cards_L10_L11.json#dictation#8"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-cards-l10-l11-dictation-9",
+    "skill": "p3-chinese",
+    "topic": "words.catalogue",
+    "subskill": "write",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "card",
+    "stem": "chàng gē",
+    "answer": "唱歌",
+    "card": {
+      "pinyin": "chàng gē"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "cards_L10_L11.json#dictation#9"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "p3chi-cards-l10-l11-dictation-10",
+    "skill": "p3-chinese",
+    "topic": "words.catalogue",
+    "subskill": "write",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "card",
+    "stem": "xīng fèn",
+    "answer": "兴奋",
+    "card": {
+      "pinyin": "xīng fèn"
+    },
+    "source": {
+      "kind": "own",
+      "ref": "cards_L10_L11.json#dictation#10"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (source-skill QA)",
+    "version_added": "1.0.0"
+  }
+]
