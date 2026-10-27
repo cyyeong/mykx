@@ -16,7 +16,7 @@ import { join } from "node:path";
 import sharp from "sharp";
 import { cutoutFromMasks, maskArea, masksToAlpha, samSegment, type MaskRaster } from "../lib/meta/index.ts";
 
-export type Motion = "sway" | "waver" | "breeze" | "mist" | "haze" | "bob" | "float" | "orbit" | "flow" | "shimmer" | "glint" | "runway" | "neon" | "flicker" | "pulse" | "sky" | "twinkle" | "aurora" | "stream";
+export type Motion = "sway" | "waver" | "breeze" | "mist" | "haze" | "bob" | "float" | "orbit" | "sweep" | "flow" | "shimmer" | "glint" | "runway" | "neon" | "flicker" | "pulse" | "sky" | "twinkle" | "aurora" | "stream";
 const MASK_ONLY: ReadonlySet<Motion> = new Set(["breeze", "flow", "shimmer", "glint", "runway", "neon", "flicker", "pulse", "sky", "twinkle", "aurora", "stream"]);
 
 /** A circle in fractions of the art: centre x of the width, y of the height, radius r of the width. */
@@ -58,7 +58,7 @@ interface PixelPart {
   /** Leave out what these SAM parts cover (the clouds behind the islands are not the islands), or keep only that. */
   exclude?: string[];
   inside?: string[];
-  /** Where an orbit layer turns, in percent of the art. */
+  /** Where an orbit or sweep layer turns, in percent of the art. */
   center?: { x: number; y: number };
 }
 interface Recipe {
@@ -169,10 +169,11 @@ export const RECIPES: Recipe[] = [
     parts: [{ id: "sky", prompt: "sky", motion: "sky", layer: false }],
     pixels: [
       { id: "trails", motion: "stream", test: "chroma", below: 0.25 },
-      { id: "beams", motion: "haze", test: "luma", above: 0.45, inside: ["sky"] },
+      { id: "beams", motion: "sweep", test: "luma", above: 0.5, inside: ["sky"], within: { x: 0.52, y: 0, r: 0.34 }, center: { x: 52, y: -4 } },
       { id: "stars", motion: "twinkle", test: "white", above: 0.4, split: 3, inside: ["sky"] },
       { id: "windows", motion: "flicker", test: "warm", split: 4 },
     ],
+    plate: { under: ["beams"], sigma: 30, grow: 4 },
   },
   {
     art: "transform-vortex",
@@ -434,7 +435,7 @@ async function run(recipe: Recipe, root: string, manifest: Record<string, unknow
 
   if (sheetDir) {
     const scale = 900 / W;
-    const tint: Record<Motion, string> = { twinkle: "#FFFFFF", aurora: "#7FFFD4", stream: "#FF1493", sky: "#87CEEB", float: "#FF8C00", orbit: "#E0FFFF", flicker: "#FFB347", pulse: "#FFFFFF", sway: "#3CB371", waver: "#9ACD32", breeze: "#ADFF2F", haze: "#D8BFD8", mist: "#B0C4DE", bob: "#FFA500", flow: "#00BFFF", shimmer: "#40E0D0", glint: "#FFD700", runway: "#FF69B4", neon: "#FF00FF" };
+    const tint: Record<Motion, string> = { sweep: "#E0FFFF", twinkle: "#FFFFFF", aurora: "#7FFFD4", stream: "#FF1493", sky: "#87CEEB", float: "#FF8C00", orbit: "#E0FFFF", flicker: "#FFB347", pulse: "#FFFFFF", sway: "#3CB371", waver: "#9ACD32", breeze: "#ADFF2F", haze: "#D8BFD8", mist: "#B0C4DE", bob: "#FFA500", flow: "#00BFFF", shimmer: "#40E0D0", glint: "#FFD700", runway: "#FF69B4", neon: "#FF00FF" };
     const overlays = await Promise.all(
       layers.map(async (l) => {
         const w = Math.max(1, Math.round((l.w / 100) * W * scale)), h = Math.max(1, Math.round((l.h / 100) * H * scale));

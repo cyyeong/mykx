@@ -81,6 +81,11 @@
 .lg-tile{width:76px;height:76px;padding:0;border:0;border-radius:50%;cursor:pointer;justify-self:center;transition:transform 120ms var(--ease-bounce)}
 .lg-tile:active{transform:scale(.9)}
 .lg-tile img{display:block;width:100%;height:100%;border-radius:50%;object-fit:cover}
+/* Each picture's name as a tooltip on hover or keyboard focus (and after a tap on touch), so a grown-up can say
+   "Kix smiling, Kix cheering..." when helping a child set or remember a code. */
+.lg-tile{position:relative}
+.lg-tile[data-tip]::after{content:attr(data-tip);position:absolute;left:50%;bottom:calc(100% + 8px);z-index:5;padding:5px 10px;border-radius:10px;background:var(--ink);color:var(--surface);font:800 13px/1.2 var(--font-text);white-space:nowrap;box-shadow:0 6px 16px rgba(20,16,50,.28);opacity:0;transform:translate(-50%,4px);transition:opacity .15s ease,transform .15s ease;pointer-events:none}
+.lg-tile[data-tip]:hover::after,.lg-tile[data-tip]:focus-visible::after{opacity:1;transform:translate(-50%,0)}
 .lg-jstatus{grid-area:status;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
 .lg-jmsg{grid-area:msg}
 .lg-jlink{grid-area:link;justify-self:start}

@@ -120,7 +120,6 @@
   "0bc86ab935245816a2b4e88b9831a386": "/art/living/study-room/sky",
   "0e8ecccdf0bbf14d94c0c681329aa86c": "/art/scenes/study-room-lamp-off",
   "c13738b4b197e909d4a475e1d9bedc1c": "/art/scenes/study-room-drawer",
-  "167ba3f085de2956ea744e6d84858eaa": "/art/living/city-neon/beams",
   "308bff7f4763651c1567a8f3032d674e": "/art/living/city-neon/stars-1",
   "bfb52c1237babc23e945b6be080b6221": "/art/living/city-neon/stars-2",
   "22389dd7ecf8b88daf3414fddf908ce5": "/art/living/city-neon/stars-3",
@@ -150,5 +149,7 @@
   "243469b9f7f3773f5d681773226197cf": "/art/living/space/planet-2",
   "e42b380efce3de744630ae68bbd0ae45": "/art/living/space/stars-1",
   "47dd72891fef68326e7ebb0e8faa4439": "/art/living/space/stars-2",
-  "9e84d8742fd90b1e9597ee712c0d592d": "/art/living/space/stars-3"
+  "9e84d8742fd90b1e9597ee712c0d592d": "/art/living/space/stars-3",
+  "f8663e4d420c7cd085f6a233cea10c75": "/art/living/city-neon/beams",
+  "a74914fc8859f15b34ab06377ab873ae": "/art/living/city-neon/plate"
 }

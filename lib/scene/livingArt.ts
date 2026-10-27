@@ -2,7 +2,7 @@
 // for each cut-out part and its motion settings. Shared by the React <LivingArt> and the canvas board builder, so
 // both draw the same scene. Deterministic: a layer's speed, swing and phase come from its place in the list.
 
-export type LivingMotion = "sway" | "waver" | "breeze" | "mist" | "haze" | "bob" | "float" | "orbit" | "flow" | "shimmer" | "glint" | "runway" | "neon" | "flicker" | "pulse" | "sky" | "twinkle" | "aurora" | "stream";
+export type LivingMotion = "sway" | "waver" | "breeze" | "mist" | "haze" | "bob" | "float" | "orbit" | "sweep" | "flow" | "shimmer" | "glint" | "runway" | "neon" | "flicker" | "pulse" | "sky" | "twinkle" | "aurora" | "stream";
 
 export interface LivingLayer {
   id: string;
@@ -13,7 +13,7 @@ export interface LivingLayer {
   w: number;
   h: number;
   mask: boolean;
-  /** Turning point for an orbit layer, in percent of the art. */
+  /** Turning point for an orbit or sweep layer, in percent of the art. */
   ox?: number;
   oy?: number;
 }
@@ -35,7 +35,7 @@ export type LivingPiece =
   | { kind: "splash"; key: string; style: Style; puffs: Style[]; drops: Style[] };
 
 /** Paint order: drifting clouds first, then plants, then light. */
-const ORDER: LivingMotion[] = ["sky", "haze", "mist", "orbit", "bob", "float", "sway", "waver", "breeze", "shimmer", "glint", "aurora", "stream", "twinkle", "flicker", "pulse", "runway", "flow", "neon"];
+const ORDER: LivingMotion[] = ["sky", "haze", "sweep", "mist", "orbit", "bob", "float", "sway", "waver", "breeze", "shimmer", "glint", "aurora", "stream", "twinkle", "flicker", "pulse", "runway", "flow", "neon"];
 
 const n2 = (v: number) => String(Math.round(v * 100) / 100);
 
@@ -64,6 +64,8 @@ function timing(motion: LivingMotion, i: number): Style {
     }
     case "orbit":
       return { "--d": `${90 + i * 40}s` };
+    case "sweep":
+      return { "--d": `${9 + i * 3}s` };
     case "flicker":
       return { "--d": `${n2(pick(2.4, 0.7, 4))}s`, "--dl": `-${n2(i * 0.9)}s` };
     case "pulse":

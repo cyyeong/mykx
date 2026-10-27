@@ -3,6 +3,7 @@
   "src": "public/art/login/city-neon.webp",
   "width": 1600,
   "height": 914,
+  "plate": "/art/living/city-neon/plate.webp",
   "layers": [
     {
       "id": "trails",
@@ -16,13 +17,15 @@
     },
     {
       "id": "beams",
-      "motion": "haze",
+      "motion": "sweep",
       "src": "/art/living/city-neon/beams.webp",
       "x": 0,
       "y": 0,
       "w": 100,
-      "h": 45.4,
-      "mask": false
+      "h": 49.78,
+      "mask": false,
+      "ox": 52,
+      "oy": -4
     },
     {
       "id": "stars-1",

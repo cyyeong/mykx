@@ -2375,10 +2375,10 @@
       "public/art/login/city-neon.webp"
     ],
     "route": "scripts/living-art.ts",
-    "sha256": "547e632131827eb3e24ecddbed3c1b8ff7fe90be65755a3004d9e259b0f72f98",
-    "size": 72892,
+    "sha256": "f2a3c3a6b5ea4006768f667dd7c06e11f13d15f3645e90f8002f72a06be04423",
+    "size": 72516,
     "created": "2026-10-27",
-    "note": "Living art: haze layer cut from city-neon."
+    "note": "Living art: sweep layer cut from city-neon."
   },
   {
     "id": "living-city-neon-stars-1",
@@ -2491,5 +2491,21 @@
     "size": 4338,
     "created": "2026-10-27",
     "note": "Living art: flicker layer cut from city-neon."
+  },
+  {
+    "id": "living-city-neon-plate",
+    "path": "public/art/living/city-neon/plate.webp",
+    "kind": "plate",
+    "model": "none (normalised blur fill)",
+    "pack": null,
+    "prompt": "city-neon with beams filled in from the surrounding art",
+    "refs": [
+      "public/art/login/city-neon.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "26951dec6d34659b6d4daa298e7a27c6155bc58998186053aa69e017921cda40",
+    "size": 190640,
+    "created": "2026-10-27",
+    "note": "Living art: base plate for city-neon, drawn under the moving layers."
   }
 ]

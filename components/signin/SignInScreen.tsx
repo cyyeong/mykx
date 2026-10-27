@@ -621,6 +621,7 @@ export function SignInScreen({
                         key={p.id}
                         className="lg-tile"
                         type="button"
+                        data-tip={p.label}
                         onClick={() => tap(p.id)}
                         disabled={busy}
                         style={{ background: "var(--surface-raised)", boxShadow: "0 0 0 3px var(--surface-raised), 0 0 0 5px var(--line), var(--shadow-raised)" }}

@@ -27,6 +27,9 @@
 @keyframes la-float{from{transform:translateY(calc(-1 * var(--ay,.5cqh))) rotate(-.4deg)}to{transform:translateY(var(--ay,.5cqh)) rotate(.4deg)}}
 .la-orbit{transform-origin:var(--o,50% 50%);animation:la-orbit var(--d,120s) linear infinite}
 @keyframes la-orbit{to{transform:rotate(-360deg)}}
+/* Spotlight beams swing a few degrees round their source and breathe (on a plate with the sky filled in). */
+.la-sweep{transform-origin:var(--o,50% 0);animation:la-rays var(--d,9s) ease-in-out infinite alternate}
+@keyframes la-rays{0%{transform:rotate(-3.5deg);opacity:.7}50%{opacity:1}100%{transform:rotate(3.5deg);opacity:.8}}
 /* Lanterns and chest glow flicker in four groups, each on its own beat; a core of light breathes. */
 .la-flicker{background:rgba(255,224,150,.9);animation:la-flicker var(--d,2.8s) ease-in-out infinite;animation-delay:var(--dl,0s)}
 @keyframes la-flicker{0%,100%{opacity:.1}30%{opacity:.7}45%{opacity:.35}70%{opacity:.95}}
