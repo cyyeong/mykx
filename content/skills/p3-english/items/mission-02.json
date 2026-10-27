@@ -255,9 +255,10 @@
       "kind": "own",
       "ref": "mission_02_space_detectives.json#Q6"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3eng-mission-02-q7",
@@ -375,9 +376,10 @@
       "kind": "own",
       "ref": "mission_02_space_detectives.json#Q7"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3eng-mission-02-q8",
@@ -495,9 +497,10 @@
       "kind": "own",
       "ref": "mission_02_space_detectives.json#Q8"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3eng-mission-02-q9",
@@ -615,9 +618,10 @@
       "kind": "own",
       "ref": "mission_02_space_detectives.json#Q9"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3eng-mission-02-q10",

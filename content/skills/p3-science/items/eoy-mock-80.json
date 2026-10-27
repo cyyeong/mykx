@@ -128,9 +128,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E3"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-eoy-mock-80-e4",
@@ -287,9 +288,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E7"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-eoy-mock-80-e8",
@@ -358,9 +360,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E8"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-eoy-mock-80-e9",
@@ -465,9 +468,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E11"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-eoy-mock-80-e12",
@@ -508,9 +512,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E12"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-eoy-mock-80-e13",
@@ -630,9 +635,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E15"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-eoy-mock-80-e16",
@@ -694,9 +700,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E16"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-eoy-mock-80-e17",
@@ -811,9 +818,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E18"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-eoy-mock-80-e19",
@@ -876,9 +884,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E19"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-eoy-mock-80-e20",
@@ -998,9 +1007,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E21"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-eoy-mock-80-e22",
@@ -1100,9 +1110,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E23"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-eoy-mock-80-e24",
@@ -1254,9 +1265,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E26(a)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-eoy-mock-80-e26b",
@@ -1313,9 +1325,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E26(b)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-eoy-mock-80-e26c",
@@ -1369,9 +1382,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E26(c)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-eoy-mock-80-e27a",
@@ -1398,9 +1412,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E27(a)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-eoy-mock-80-e27b",
@@ -1433,9 +1448,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E27(b)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-eoy-mock-80-e27c",
@@ -1465,9 +1481,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E27(c)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-eoy-mock-80-e28a",
@@ -1507,9 +1524,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E28(a)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-eoy-mock-80-e28b",
@@ -1549,9 +1567,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E28(b)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-eoy-mock-80-e28c",
@@ -1591,9 +1610,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E28(c)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it.",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder.",
     "accept": [
       "warmth"
     ]
@@ -1636,9 +1656,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E29(a)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-eoy-mock-80-e29b",
@@ -1681,9 +1702,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E29(b)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-eoy-mock-80-e30a",
@@ -1775,9 +1797,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E31(a)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-eoy-mock-80-e31b",
@@ -1806,9 +1829,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E31(b)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-eoy-mock-80-e31c",
@@ -1839,9 +1863,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E31(c)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-eoy-mock-80-e32a",
@@ -1888,9 +1913,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E32(a)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-eoy-mock-80-e32b",
@@ -1939,9 +1965,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E32(b)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-eoy-mock-80-e33a",
@@ -1995,9 +2022,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E33(a)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-eoy-mock-80-e33b",
@@ -2053,9 +2081,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E33(b)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-eoy-mock-80-e33c",
@@ -2109,9 +2138,10 @@
       "kind": "own",
       "ref": "eoy_mock_80.json#E33(c)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it.",
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder.",
     "accept": [
       "nickel",
       "cobalt"

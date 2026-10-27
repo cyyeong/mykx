@@ -91,8 +91,9 @@ describe("demo items", () => {
     expect(demo.filter((i) => i.skill === "s2-science" && i.topic === "physics.electrical")).toHaveLength(3);
   });
 
-  it.each(demo.map((i) => [i.id, i] as const))("%s is a draft with two hints, worked answer and distractor notes", (_id, item) => {
-    expect(item.status).toBe("draft");
+  it.each(demo.map((i) => [i.id, i] as const))("%s is founder-reviewed, with two hints, worked answer and distractor notes", (_id, item) => {
+    expect(item.status).toBe("reviewed");
+    expect(item.reviewed_by).toBeTruthy();
     expect(item.hints).toHaveLength(2);
     expect(item.working?.length).toBeGreaterThan(0);
     if (item.type === "mcq") {

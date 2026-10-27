@@ -74,9 +74,10 @@
       "kind": "own",
       "ref": "mission_magnets_01.json#M1"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-mission-magnets-01-m2",
@@ -132,9 +133,10 @@
       "kind": "own",
       "ref": "mission_magnets_01.json#M2"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-mission-magnets-01-m3",
@@ -194,9 +196,10 @@
       "kind": "own",
       "ref": "mission_magnets_01.json#M3"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-mission-magnets-01-m4",
@@ -284,9 +287,10 @@
       "kind": "own",
       "ref": "mission_magnets_01.json#M5"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-mission-magnets-01-m6",
@@ -358,9 +362,10 @@
       "kind": "own",
       "ref": "mission_magnets_01.json#M6"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-mission-magnets-01-m7a",
@@ -421,9 +426,10 @@
       "kind": "own",
       "ref": "mission_magnets_01.json#M7(a)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-mission-magnets-01-m7b",
@@ -485,9 +491,10 @@
       "kind": "own",
       "ref": "mission_magnets_01.json#M7(b)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-mission-magnets-01-m8a",
@@ -568,9 +575,10 @@
       "kind": "own",
       "ref": "mission_magnets_01.json#M9(a)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3sci-mission-magnets-01-m9b",
@@ -599,8 +607,9 @@
       "kind": "own",
       "ref": "mission_magnets_01.json#M9(b)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   }
 ]

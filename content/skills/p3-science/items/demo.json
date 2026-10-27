@@ -34,10 +34,11 @@
       "kind": "generated",
       "ref": "demo: drafted from references/question-generation.md (synthesis recipe)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
     "demo": true,
-    "notes": "Demo path item, drafted by Claude Code; founder review pending."
+    "notes": "Demo path item, drafted by Claude Code; founder review pending. Approved by the founder."
   },
   {
     "id": "p3sci-demo-02",
@@ -73,10 +74,11 @@
       "kind": "generated",
       "ref": "demo: drafted from references/content-cycles.md (stage features)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
     "demo": true,
-    "notes": "Demo path item, drafted by Claude Code; reworded 27 Oct so it no longer copies bank item e20 (soak report). Founder review pending."
+    "notes": "Demo path item, drafted by Claude Code; reworded 27 Oct so it no longer copies bank item e20 (soak report). Founder review pending. Approved by the founder."
   },
   {
     "id": "p3sci-demo-03",
@@ -113,10 +115,11 @@
       "kind": "generated",
       "ref": "demo: drafted from references/question-generation.md (compare two cycles)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
     "demo": true,
-    "notes": "Demo path item, drafted by Claude Code; founder review pending."
+    "notes": "Demo path item, drafted by Claude Code; founder review pending. Approved by the founder."
   },
   {
     "id": "p3sci-demo-04",
@@ -153,10 +156,11 @@
       "kind": "generated",
       "ref": "demo: drafted from references/answering-cer.md (do you agree?)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
     "demo": true,
-    "notes": "Demo path item, drafted by Claude Code; founder review pending."
+    "notes": "Demo path item, drafted by Claude Code; founder review pending. Approved by the founder."
   },
   {
     "id": "p3sci-demo-05",
@@ -193,9 +197,10 @@
       "kind": "generated",
       "ref": "demo: drafted from references/content-cycles.md (graphs and tables of stage lengths)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
     "demo": true,
-    "notes": "Demo path item, drafted by Claude Code; founder review pending."
+    "notes": "Demo path item, drafted by Claude Code; founder review pending. Approved by the founder."
   }
 ]

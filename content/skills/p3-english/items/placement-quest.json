@@ -1021,9 +1021,10 @@
       "kind": "own",
       "ref": "placement_quest.json#Q35"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3eng-placement-quest-q36",
@@ -1141,9 +1142,10 @@
       "kind": "own",
       "ref": "placement_quest.json#Q36"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3eng-placement-quest-q37",
@@ -1261,9 +1263,10 @@
       "kind": "own",
       "ref": "placement_quest.json#Q37"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3eng-placement-quest-q38",
@@ -1381,9 +1384,10 @@
       "kind": "own",
       "ref": "placement_quest.json#Q38"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p3eng-placement-quest-q39",

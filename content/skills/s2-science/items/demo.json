@@ -31,11 +31,15 @@
       "Now trace the loop through lamp Q. A switch that every loop passes through controls every lamp."
     ],
     "figure": "figures/e2_parallel_switch.svg",
-    "source": { "kind": "generated", "ref": "demo: drafted from references/question-generation.md (re-skinning open-one-branch)" },
-    "status": "draft",
+    "source": {
+      "kind": "generated",
+      "ref": "demo: drafted from references/question-generation.md (re-skinning open-one-branch)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
     "demo": true,
-    "notes": "Demo path item, drafted by Claude Code; reuses the pack's original circuit figure. Founder review pending."
+    "notes": "Demo path item, drafted by Claude Code; reuses the pack's original circuit figure. Founder review pending. Approved by the founder."
   },
   {
     "id": "s2sci-demo-02",
@@ -70,11 +74,15 @@
       "Energy in kWh = power in kW × time in hours for all 30 days. Then multiply by the price of one kWh."
     ],
     "figure": "figures/e8_appliances.svg",
-    "source": { "kind": "generated", "ref": "demo: drafted from references/electrical-systems.md (the kWh calculation, step by step)" },
-    "status": "draft",
+    "source": {
+      "kind": "generated",
+      "ref": "demo: drafted from references/electrical-systems.md (the kWh calculation, step by step)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
     "demo": true,
-    "notes": "Demo path item, drafted by Claude Code; reuses the pack's original bar chart. Founder review pending."
+    "notes": "Demo path item, drafted by Claude Code; reuses the pack's original bar chart. Founder review pending. Approved by the founder."
   },
   {
     "id": "s2sci-demo-03",
@@ -109,10 +117,14 @@
       "R and L are in the same loop, so whatever happens to the current through R also happens through L."
     ],
     "figure": "figures/e4_variable_resistor.svg",
-    "source": { "kind": "generated", "ref": "demo: drafted from references/electrical-systems.md (model answers)" },
-    "status": "draft",
+    "source": {
+      "kind": "generated",
+      "ref": "demo: drafted from references/electrical-systems.md (model answers)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
     "demo": true,
-    "notes": "Demo path item, drafted by Claude Code; reuses the pack's original circuit figure. Founder review pending."
+    "notes": "Demo path item, drafted by Claude Code; reuses the pack's original circuit figure. Founder review pending. Approved by the founder."
   }
 ]

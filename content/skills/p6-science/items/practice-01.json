@@ -85,9 +85,10 @@
       "kind": "own",
       "ref": "example_paper.json#Q2"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p6sci-practice-01-q3",
@@ -176,9 +177,10 @@
       "kind": "own",
       "ref": "example_paper.json#Q3"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p6sci-practice-01-q4",
@@ -270,9 +272,10 @@
       "kind": "own",
       "ref": "example_paper.json#Q4"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p6sci-practice-01-q5",
@@ -323,9 +326,10 @@
       "kind": "own",
       "ref": "example_paper.json#Q5"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p6sci-practice-01-q6",
@@ -397,9 +401,10 @@
       "kind": "own",
       "ref": "example_paper.json#Q6"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p6sci-practice-01-q7",
@@ -439,9 +444,10 @@
       "kind": "own",
       "ref": "example_paper.json#Q7"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p6sci-practice-01-q8",
@@ -485,9 +491,10 @@
       "kind": "own",
       "ref": "example_paper.json#Q8"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p6sci-practice-01-q31a",
@@ -584,9 +591,10 @@
       "kind": "own",
       "ref": "example_paper.json#Q31(a)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p6sci-practice-01-q31b",
@@ -683,9 +691,10 @@
       "kind": "own",
       "ref": "example_paper.json#Q31(b)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p6sci-practice-01-q32a",
@@ -768,9 +777,10 @@
       "kind": "own",
       "ref": "example_paper.json#Q32(a)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   },
   {
     "id": "p6sci-practice-01-q32b",
@@ -853,8 +863,9 @@
       "kind": "own",
       "ref": "example_paper.json#Q32(b)"
     },
-    "status": "draft",
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
-    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+    "notes": "Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it. Approved by the founder."
   }
 ]

@@ -9,6 +9,7 @@ import { currentKid, currentParent, getStore, grownUpLabel, toDoor, toKidMe } fr
 import { doorsFor } from "./flows.ts";
 import type { CookieJar } from "./http.ts";
 import { isId, type Door, type DoorsResult, type KidMe } from "./schemas.ts";
+import { DEMO_HOUSEHOLD_ID } from "./demo-family.ts";
 
 async function readOnlyJar(): Promise<CookieJar> {
   // Sign-in state is request-time only: lockouts and sessions read the clock, which a (runtime) prerender can't.
@@ -59,4 +60,13 @@ export async function getGrownUp(): Promise<{ name: string; isAdmin: boolean } |
   if (!store) return null;
   const parent = await currentParent(store, jar);
   return parent ? { name: grownUpLabel(parent), isAdmin: parent.isAdmin } : null;
+}
+
+/** Whether the signed-in household is the synthetic demo family (AGENTS.md rule 8: label synthetic data). */
+export async function isDemoFamily(): Promise<boolean> {
+  const jar = await readOnlyJar();
+  const store = getStore();
+  if (!store) return false;
+  const parent = await currentParent(store, jar);
+  return parent?.householdId === DEMO_HOUSEHOLD_ID;
 }

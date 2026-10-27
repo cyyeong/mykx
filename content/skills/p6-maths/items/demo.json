@@ -30,11 +30,15 @@
       "When Jun gives stamps to Kai, what stays the same?",
       "If they end up equal, each has half of the total. How many units is that, and how many units did Jun give away?"
     ],
-    "source": { "kind": "generated", "ref": "demo: drafted from references/heuristics.md §2 (Type 2, total unchanged)" },
-    "status": "draft",
+    "source": {
+      "kind": "generated",
+      "ref": "demo: drafted from references/heuristics.md §2 (Type 2, total unchanged)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
     "demo": true,
-    "notes": "Demo path item, drafted by Claude Code; founder review pending."
+    "notes": "Demo path item, drafted by Claude Code; founder review pending. Approved by the founder."
   },
   {
     "id": "p6math-demo-02",
@@ -68,11 +72,15 @@
       "As the years go by, what never changes between Lina and her mother?",
       "Write 1 : 3 as parts. How many parts is the age gap, and how many years is the age gap?"
     ],
-    "source": { "kind": "generated", "ref": "demo: drafted from references/heuristics.md §2 (Type 1, difference unchanged)" },
-    "status": "draft",
+    "source": {
+      "kind": "generated",
+      "ref": "demo: drafted from references/heuristics.md §2 (Type 1, difference unchanged)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
     "demo": true,
-    "notes": "Demo path item, drafted by Claude Code; founder review pending."
+    "notes": "Demo path item, drafted by Claude Code; founder review pending. Approved by the founder."
   },
   {
     "id": "p6math-demo-03",
@@ -106,11 +114,15 @@
       "Which colour was not touched?",
       "Make the untouched colour the same number of units before and after. How many units of red were taken out?"
     ],
-    "source": { "kind": "generated", "ref": "demo: drafted from references/heuristics.md §2 (Type 3, one quantity unchanged)" },
-    "status": "draft",
+    "source": {
+      "kind": "generated",
+      "ref": "demo: drafted from references/heuristics.md §2 (Type 3, one quantity unchanged)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
     "demo": true,
-    "notes": "Demo path item, drafted by Claude Code; founder review pending."
+    "notes": "Demo path item, drafted by Claude Code; founder review pending. Approved by the founder."
   },
   {
     "id": "p6math-demo-04",
@@ -143,10 +155,14 @@
       "Did anything stay the same? If not, write each person's 'after' amount using units.",
       "The 'after' amounts are in the ratio 3 : 2, so 2 × (Amir after) = 3 × (Ben after). Solve for 1 unit."
     ],
-    "source": { "kind": "generated", "ref": "demo: drafted from references/heuristics.md §2 (Type 4, both quantities change)" },
-    "status": "draft",
+    "source": {
+      "kind": "generated",
+      "ref": "demo: drafted from references/heuristics.md §2 (Type 4, both quantities change)"
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (demo and figure review)",
     "version_added": "1.0.0",
     "demo": true,
-    "notes": "Demo path item, drafted by Claude Code; founder review pending."
+    "notes": "Demo path item, drafted by Claude Code; founder review pending. Approved by the founder."
   }
 ]
