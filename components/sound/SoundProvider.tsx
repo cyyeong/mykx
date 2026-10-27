@@ -3,7 +3,7 @@
 import { Suspense, createContext, useCallback, useContext, useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { useTheme } from "@/components/theme/ThemeRoot";
-import type { PackId } from "@/components/theme/packs";
+import type { Band, PackId } from "@/components/theme/packs";
 import { PACK_SOUNDS, defaultMusicOn, defaultSoundOn, type PropSound, type SoundEvent } from "@/lib/sound/palette";
 import { moodForPath } from "@/lib/sound/music/mood";
 import type { ThemeMood } from "@/lib/sound/music/schema";
@@ -50,8 +50,27 @@ export function useSound(): SoundContextValue {
   return value;
 }
 
-export function SoundProvider({ children }: { children: ReactNode }) {
-  const { pack, band } = useTheme();
+export function SoundProvider({ children, kidArea = false }: { children: ReactNode; kidArea?: boolean }) {
+  const { pack, band: themeBand } = useTheme();
+  // ThemeRoot still opens junior everywhere (its Day-3 profile wiring is a
+  // later task's); sound defaults read the signed-in kid's real band instead.
+  const [meBand, setMeBand] = useState<Band | null>(null);
+  useEffect(() => {
+    // Grown-up and door screens have no kid session; asking would only 401.
+    if (!kidArea) return;
+    let live = true;
+    fetch("/api/me", { credentials: "same-origin" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((body: unknown) => {
+        const band = (body as { kid?: { band?: unknown } } | null)?.kid?.band;
+        if (live && (band === "junior" || band === "teen")) setMeBand(band);
+      })
+      .catch(() => {});
+    return () => {
+      live = false;
+    };
+  }, [kidArea]);
+  const band = meBand ?? themeBand;
   const prefs = parsePrefs(useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot));
   const on = prefs.on ?? defaultSoundOn(band);
   const ambienceOn = prefs.ambience ?? false;
