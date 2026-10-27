@@ -37,12 +37,19 @@ describe("submitAttempt", () => {
     expect(r.starsToday).toBe(0);
   });
 
-  it("marks wrong answers kindly: no stars, still stored", async () => {
+  it("marks wrong answers kindly: no stars, still stored, Kix explains", async () => {
     const r = await submitAttempt(store, DEMO_HOUSEHOLD_ID, ARI_ID, input({ response: 1, explanation: null }));
     expect(r.correct).toBe(false);
     expect(r.marks).toBe(0);
     expect(r.awards).toEqual([]);
+    expect(r.note).toContain("tadpole comes first");
+    expect(r.working).toBeNull();
     expect(await store.learn.attempts(DEMO_HOUSEHOLD_ID, ARI_ID)).toHaveLength(1);
+  });
+
+  it("shows the worked solution on a revealed submit", async () => {
+    const r = await submitAttempt(store, DEMO_HOUSEHOLD_ID, ARI_ID, input({ response: null, revealed: true }));
+    expect(r.working).toEqual(expect.arrayContaining([expect.stringContaining("frogspawn")]));
   });
 
   it("pays +3 for an explained retry", async () => {

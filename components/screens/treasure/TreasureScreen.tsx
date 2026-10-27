@@ -1,20 +1,59 @@
-// Treasure Realm (Junior, Dreamlight), ported from docs/design/boards/Treasure.dc.html: scripts/port-board.ts, then
-// by hand. Static port with the board's fixture cards. Day 4 reads the cards from the reward ledger.
+// Treasure Realm (Junior, Dreamlight): every entry here was earned (nothing is
+// random). Cards come from the reward ledger; the constellation lights up only
+// on fresh evidence. Task 2 wires the data; the visual spec stays the board's.
 import type { CSSProperties } from "react";
+import Link from "next/link";
 import { Critters } from "@/components/scene/Critters";
 import { LivingArt } from "@/components/scene/LivingArt";
 import { Art } from "@/components/ui/Art";
+import { ButtonLink } from "@/components/ui/Button";
 import { GlassPanel } from "@/components/ui/GlassPanel";
-import { HoloCard, type HoloCardProps } from "@/components/ui/HoloCard";
+import type { LedgerEntry } from "@/lib/domain/rewards";
 import type { LivingArtData } from "@/lib/scene/livingArt";
 import treasureLiving from "@/public/art/living/treasure-vault.json";
 import "./treasureScreen.css";
 
-/** Every card here was earned (deterministic ledger); the note says when and why. */
-const CARDS: (HoloCardProps & { id: string })[] = [
-  { id: "kix", art: "/art/kix/dreamlight", alt: "Kix in Dreamlight style, waving", chip: "Sidekick", title: "Kix, Dreamlight", note: "Earned 20 Oct: made your sidekick" },
-  { id: "shadows", art: "/art/cards/light-and-shadows", alt: "Kix making a rabbit shadow with a torch", chip: "P4 Science", title: "Light and shadows", note: "Earned 27 Oct: solved a fresh question with no hints" },
-];
+/** One earned ledger entry, in the child's own words of when and why. */
+export interface TreasureCard {
+  id: string;
+  title: string;
+  note: string;
+}
+
+/** One constellation node per quest stop: lit only with fresh evidence. */
+export interface TreasureNode {
+  label: string;
+  lit: boolean;
+  current: boolean;
+}
+
+export interface TreasureProps {
+  nickname: string;
+  stars: number;
+  starsToday: number;
+  evidenceLabel: string;
+  cards: TreasureCard[];
+  nodes: TreasureNode[];
+  questHref: string;
+  questTitle: string;
+}
+
+const RULE_TITLES: Record<string, string> = {
+  first_attempt: "First try",
+  retry_revised: "Revised retry",
+  fresh_transfer: "Fresh transfer",
+};
+
+/** One card per paid-out ledger entry (cap notes pay 0, so they never show). */
+export function cardsFromLedger(entries: readonly LedgerEntry[]): TreasureCard[] {
+  return entries
+    .filter((e) => e.amount > 0)
+    .map((e) => ({
+      id: e.key,
+      title: RULE_TITLES[e.rule] ?? e.rule,
+      note: `${e.at.slice(0, 10)} · +${e.amount} stars${e.ref ? ` · ${e.ref}` : ""}`,
+    }));
+}
 
 /** Rising lanterns: horizontal position and start offset (hidden under reduced motion). */
 const LANTERNS = [
@@ -29,10 +68,15 @@ const LANTERNS = [
 ] as const;
 
 const PANEL_TITLE: CSSProperties = { margin: 0, fontFamily: "var(--font-display)", fontWeight: 600, fontSize: 24, lineHeight: "28px" };
-const POLAROID: CSSProperties = { width: 84, height: 100, flex: "none", boxSizing: "border-box", padding: "8px 8px 22px", borderRadius: 6, background: "#F4F1FF", boxShadow: "var(--shadow-raised)" };
-const TEXT_BTN: CSSProperties = { alignSelf: "flex-start" };
 
-export function TreasureScreen() {
+const NODE_X = [24, 92, 168, 236, 298];
+
+export function TreasureScreen({ nickname, stars, starsToday, evidenceLabel, cards, nodes, questHref, questTitle }: TreasureProps) {
+  const litPath = nodes
+    .map((n, i) => ({ ...n, i }))
+    .filter((n) => n.lit)
+    .map((n) => n.i);
+  const solid = litPath.length > 1 ? `M${litPath.map((i) => `${NODE_X[i]} 70`).join(" L")}` : null;
   return (
     <div
       data-theme="dreamlight"
@@ -60,7 +104,7 @@ export function TreasureScreen() {
           <GlassPanel as="header" className="tr-head" style={{ display: "flex", flexDirection: "column", gap: 10, padding: "20px 26px" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/brand/wordmark-on-dark.svg" alt="myKx" style={{ height: 24, width: "auto", alignSelf: "flex-start" }} />
-            <h1 className="tr-title" style={{ margin: 0, fontFamily: "var(--font-display)", fontWeight: 600 }}>Ari&apos;s Treasure</h1>
+            <h1 className="tr-title" style={{ margin: 0, fontFamily: "var(--font-display)", fontWeight: 600 }}>{nickname}&apos;s Treasure</h1>
             <p className="tr-lede" style={{ margin: 0, fontWeight: 600, color: "var(--ink-muted)" }}>Every card here was earned. Nothing is random.</p>
           </GlassPanel>
 
@@ -69,22 +113,39 @@ export function TreasureScreen() {
               <svg viewBox="0 0 24 24" aria-hidden="true" style={{ width: 22, height: 22 }}>
                 <path fill="currentColor" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z" />
               </svg>
-              91 stars
+              {stars} stars
             </span>
-            <span style={{ fontSize: 14, lineHeight: "20px", fontWeight: 700, color: "var(--ink-muted)" }}>Today 7 of 15</span>
+            <span style={{ fontSize: 14, lineHeight: "20px", fontWeight: 700, color: "var(--ink-muted)" }}>Today {starsToday} of 15</span>
           </GlassPanel>
         </div>
 
         <div className="tr-cards">
-          {CARDS.map(({ id, ...card }) => (
-            <HoloCard key={id} className="tr-card" sizes="(max-width: 599px) 50vw, (max-width: 1023px) 33vw, 248px" {...card} />
-          ))}
+          {cards.length ? (
+            cards.map((card) => (
+              <GlassPanel key={card.id} className="tr-card" radius="xl" blur={12} style={{ boxSizing: "border-box", padding: "18px 20px", display: "flex", flexDirection: "column", gap: 6 }}>
+                <svg viewBox="0 0 24 24" aria-hidden="true" style={{ width: 40, height: 40, color: "var(--reward)" }}>
+                  <path fill="currentColor" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z" />
+                </svg>
+                <span style={{ fontFamily: "var(--font-display)", fontSize: 22, lineHeight: "26px" }}>{card.title}</span>
+                <span className="tr-slot-note" style={{ fontWeight: 600, color: "var(--ink-muted)" }}>{card.note}</span>
+              </GlassPanel>
+            ))
+          ) : (
+            <GlassPanel className="tr-card" radius="xl" blur={12} style={{ boxSizing: "border-box", padding: "18px 20px", display: "flex", flexDirection: "column", gap: 10 }}>
+              <span style={{ fontFamily: "var(--font-display)", fontSize: 22, lineHeight: "26px" }}>Your first card is waiting in your first quest</span>
+              <ButtonLink href={questHref} variant="secondary" style={{ alignSelf: "flex-start" }}>
+                Start today&apos;s quest
+              </ButtonLink>
+            </GlassPanel>
+          )}
           <GlassPanel className="tr-slot" ring="control" radius="xl" blur={12} style={{ boxSizing: "border-box" }}>
             <svg viewBox="0 0 24 24" aria-hidden="true" style={{ width: 56, height: 56, color: "var(--ink-muted)" }}>
               <path fill="none" stroke="currentColor" strokeWidth="1.4" strokeDasharray="2 2" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z" />
             </svg>
-            <span style={{ fontFamily: "var(--font-display)", fontSize: 22, lineHeight: "26px" }}>Shadow size</span>
-            <span className="tr-slot-note" style={{ fontWeight: 600, color: "var(--ink-muted)" }}>Finish the Shadow size stop on your quest to earn this card.</span>
+            <span style={{ fontFamily: "var(--font-display)", fontSize: 22, lineHeight: "26px" }}>Next card</span>
+            <span className="tr-slot-note" style={{ fontWeight: 600, color: "var(--ink-muted)" }}>
+              Finish the next stop on <Link href={questHref} style={{ color: "var(--accent)", fontWeight: 800 }}>{questTitle}</Link> to earn it.
+            </span>
           </GlassPanel>
         </div>
 
@@ -92,56 +153,33 @@ export function TreasureScreen() {
           <GlassPanel as="section" className="tr-panel tr-cons" aria-label="Your constellation" style={{ boxSizing: "border-box", padding: "20px 24px", display: "flex", gap: 20 }}>
             <div className="tr-cons-text" style={{ display: "flex", flexDirection: "column", gap: 6 }}>
               <h2 style={PANEL_TITLE}>Your constellation</h2>
-              <p className="tr-cons-p" style={{ margin: 0, fontWeight: 600, color: "var(--ink-muted)" }}>A new line appears when a skill gets fresh evidence.</p>
+              <p className="tr-cons-p" style={{ margin: 0, fontWeight: 600, color: "var(--ink-muted)" }}>A new line appears when a skill gets fresh evidence. {evidenceLabel}</p>
             </div>
-            <svg className="tr-cons-svg" viewBox="0 0 320 150" role="img" aria-label="Light and shadows constellation: two skills mastered, Shadows in progress, two to go" style={{ overflow: "visible" }}>
-              <path d="M24 118 L92 70 L168 92" fill="none" stroke="#FFE38A" strokeWidth="3" strokeLinecap="round" />
-              <path d="M168 92 L236 40 L298 74" fill="none" stroke="#8F87CF" strokeWidth="2" strokeDasharray="4 6" strokeLinecap="round" />
-              <circle cx="24" cy="118" r="9" fill="#FFE38A" />
-              <circle cx="92" cy="70" r="9" fill="#FFE38A" />
-              <circle cx="168" cy="92" r="11" fill="#B9A7F5" stroke="#FFE38A" strokeWidth="3" />
-              <circle cx="236" cy="40" r="6" fill="#8F87CF" />
-              <circle cx="298" cy="74" r="6" fill="#8F87CF" />
-              <text x="24" y="144" fill="#C6BFEE" fontSize="12" fontWeight="700" textAnchor="middle" fontFamily="Nunito, sans-serif">Sources</text>
-              <text x="92" y="52" fill="#C6BFEE" fontSize="12" fontWeight="700" textAnchor="middle" fontFamily="Nunito, sans-serif">Lines</text>
-              <text x="168" y="124" fill="#F4F1FF" fontSize="13" fontWeight="800" textAnchor="middle" fontFamily="Nunito, sans-serif">Shadows</text>
-              <text x="236" y="22" fill="#C6BFEE" fontSize="12" fontWeight="700" textAnchor="middle" fontFamily="Nunito, sans-serif">See-through</text>
-              <text x="298" y="100" fill="#C6BFEE" fontSize="12" fontWeight="700" textAnchor="middle" fontFamily="Nunito, sans-serif">Size</text>
+            <svg className="tr-cons-svg" viewBox="0 0 320 150" role="img" aria-label={`${questTitle} constellation: ${nodes.filter((n) => n.lit).length} of ${nodes.length} stops with fresh evidence`} style={{ overflow: "visible" }}>
+              <path d="M24 70 L92 70 L168 70 L236 70 L298 70" fill="none" stroke="var(--border-control)" strokeWidth="2" strokeDasharray="4 6" strokeLinecap="round" />
+              {solid && <path d={solid} fill="none" stroke="var(--reward)" strokeWidth="3" strokeLinecap="round" />}
+              {nodes.slice(0, NODE_X.length).map((n, i) => (
+                <g key={n.label}>
+                  <circle
+                    cx={NODE_X[i]}
+                    cy="70"
+                    r={n.current ? 11 : 9}
+                    fill={n.lit ? "var(--reward)" : "var(--border-control)"}
+                    {...(n.current ? { stroke: "var(--reward)", strokeWidth: 3 } : {})}
+                  />
+                  <text x={NODE_X[i]} y="100" fill="var(--ink-muted)" fontSize="12" fontWeight="700" textAnchor="middle" fontFamily="Nunito, sans-serif">
+                    Stop {i + 1}
+                  </text>
+                </g>
+              ))}
             </svg>
           </GlassPanel>
 
           <GlassPanel as="section" className="tr-panel" aria-label="Your creations" style={{ boxSizing: "border-box", padding: "20px 24px", display: "flex", flexDirection: "column", gap: 12 }}>
             <h2 style={PANEL_TITLE}>Your creations</h2>
-            <div className="tr-shelf">
-              <div style={{ display: "flex", gap: 14, alignItems: "center" }}>
-                <div aria-hidden="true" style={{ ...POLAROID, transform: "rotate(-4deg)" }}>
-                  <div style={{ height: "100%", borderRadius: 3, background: "var(--surface-raised)", display: "flex", flexDirection: "column", gap: 5, padding: 6, boxSizing: "border-box" }}>
-                    <span style={{ height: 6, width: "70%", borderRadius: 3, background: "var(--accent)" }} />
-                    <span style={{ height: 6, width: "90%", borderRadius: 3, background: "var(--line)" }} />
-                    <span style={{ height: 6, width: "60%", borderRadius: 3, background: "var(--accent-2)" }} />
-                    <span style={{ height: 6, width: "80%", borderRadius: 3, background: "var(--line)" }} />
-                  </div>
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 4, minWidth: 0 }}>
-                  <span style={{ fontSize: 18, lineHeight: "24px", fontWeight: 800 }}>Revision planner</span>
-                  <span className="tr-cap" style={{ fontWeight: 600, color: "var(--ink-muted)" }}>Version 2 · shared with Mum</span>
-                  {/* Day 5: share and revoke. */}
-                  <button className="tr-text-btn" type="button" style={TEXT_BTN}>Stop sharing</button>
-                </div>
-              </div>
-              <div style={{ display: "flex", gap: 14, alignItems: "center" }}>
-                <div aria-hidden="true" style={{ ...POLAROID, transform: "rotate(3deg)" }}>
-                  <div style={{ height: "100%", borderRadius: 3, overflow: "hidden" }}>
-                    <Art base="/art/cards/light-and-shadows" alt="" sizes="68px" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-                  </div>
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 4, minWidth: 0 }}>
-                  <span style={{ fontSize: 18, lineHeight: "24px", fontWeight: 800 }}>Shadow flashcards</span>
-                  <span className="tr-cap" style={{ fontWeight: 600, color: "var(--ink-muted)" }}>Version 1 · only you</span>
-                  <button className="tr-text-btn" type="button" style={TEXT_BTN}>Share with family</button>
-                </div>
-              </div>
-            </div>
+            <p className="tr-cap" style={{ margin: 0, fontWeight: 600, color: "var(--ink-muted)" }}>
+              Things you make in Vibe Zone will live here. Vibe Zone opens in a later quest.
+            </p>
           </GlassPanel>
         </div>
       </div>

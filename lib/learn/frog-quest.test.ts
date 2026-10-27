@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { attempt } from "../domain/test-helpers.ts";
-import { FROG_QUEST, loadFrogItems, nextPickId, questStops, questSummary, sessionPicks } from "./frog-quest.ts";
+import { FROG_QUEST, loadFrogItems, nextPickId, questEvidence, questStops, questSummary, sessionPicks } from "./frog-quest.ts";
 
 const NOW = "2026-10-28T19:00:00+08:00";
 
@@ -69,6 +69,14 @@ describe("nextPickId", () => {
     expect(nextPickId(picks, afterB, b)).toBe(c);
     const afterC = [...afterB, attempt({ itemId: c, family: picks[2].family, at: NOW })];
     expect(nextPickId(picks, afterC, c)).toBeNull();
+  });
+});
+
+describe("questEvidence", () => {
+  it("starts with no evidence and stays limited on thin data", () => {
+    expect(questEvidence([]).label).toContain("No evidence yet");
+    const one = [attempt({ itemId: "p3sci-demo-01", family: "p3sci-demo-01", at: NOW })];
+    expect(questEvidence(one).label).toBe("Limited evidence: one question family so far.");
   });
 });
 

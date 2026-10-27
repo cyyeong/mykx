@@ -33,6 +33,10 @@ export interface SubmitResult {
   firstTry: boolean;
   /** Honest mastery label for the item's subskill, e.g. "57/100; limited evidence: two families". */
   mastery: string;
+  /** Kix's kind explanation for a wrong answer (the matched distractor, else a generic line). */
+  note: string | null;
+  /** Worked solution, only on a revealed "show me how" submit. */
+  working: string[] | null;
   /** What this submission paid (rules, amounts, cap notes). */
   awards: { rule: LedgerEntry["rule"]; amount: number; note?: string }[];
   starsToday: number;
@@ -91,6 +95,8 @@ export async function submitAttempt(
     // child to say it again in their own words); copying a reveal never pays.
     ...(!firstTry && explanationText && !input.revealed ? { explanationRevised: true } : {}),
   };
+  const note = mark.correct ? null : wrongNote(item, input.response);
+  const working = input.revealed ? (item.working ?? []) : null;
   const stored: StoredAttempt = {
     ...attempt,
     idempotencyKey: input.key,
@@ -118,10 +124,20 @@ export async function submitAttempt(
     maxMarks: mark.maxMarks,
     firstTry,
     mastery,
+    note,
+    working,
     awards: fresh.map((e) => ({ rule: e.rule, amount: e.amount, ...(e.note ? { note: e.note } : {}) })),
     starsToday,
     capReached: starsToday >= DAILY_CAP,
   };
+}
+
+/** Kix explains a wrong answer kindly: the matched distractor, else a generic line. Never the answer. */
+function wrongNote(item: SkillItem, response: number | string | null): string {
+  const key = String(response ?? "").trim();
+  const matched = item.distractors?.[key];
+  if (matched) return `${matched} Try again.`;
+  return "Not quite. Have another look and try again.";
 }
 
 /** Recomputed state for a resubmitted key: same result, no new awards. */
@@ -140,6 +156,8 @@ async function submitState(store: AuthStore, householdId: string, kidId: string,
     maxMarks: attempt.maxMarks,
     firstTry: attempt.firstTry,
     mastery,
+    note: null,
+    working: null,
     awards: [],
     starsToday,
     capReached: starsToday >= DAILY_CAP,

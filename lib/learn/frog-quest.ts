@@ -7,7 +7,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { familyOf, isIndependentSuccess, subskillKey, type AttemptEvent } from "../domain/attempts.ts";
-import { recompute } from "../domain/mastery.ts";
+import { familyContributions, recompute } from "../domain/mastery.ts";
 import { selectNext, type PracticePick } from "../domain/selection.ts";
 import type { Iso } from "../domain/time.ts";
 import { SkillItemSchema } from "../skills/schema.ts";
@@ -153,6 +153,34 @@ export function nextPickId(picks: readonly PracticePick[], attempts: readonly At
     return pick.items[0].id;
   }
   return null;
+}
+
+export interface QuestEvidence {
+  /** Distinct families with evidence behind the quest. */
+  families: number;
+  /** Distinct Singapore dates behind the quest. */
+  dates: number;
+  /** Honest label, e.g. "Limited evidence: two question families". */
+  label: string;
+}
+
+/** Quest-wide evidence tone for the map and Treasure: counts only, never a score. */
+export function questEvidence(attempts: readonly AttemptEvent[]): QuestEvidence {
+  const mine = attempts.filter((a) => a.skill === FROG_QUEST.skill && (FROG_QUEST.topics as readonly string[]).includes(a.topic));
+  const families = new Set<string>();
+  const dates = new Set<string>();
+  for (const c of familyContributions(mine)) {
+    families.add(c.family);
+    dates.add(c.date);
+  }
+  const n = families.size;
+  const label =
+    n === 0
+      ? "No evidence yet — today's quest will be the first."
+      : n < 5 || dates.size < 2
+        ? `Limited evidence: ${n === 1 ? "one" : n === 2 ? "two" : n === 3 ? "three" : n === 4 ? "four" : `${n}`} question ${n === 1 ? "family" : "families"} so far.`
+        : `Developing evidence: ${n} question families.`;
+  return { families: n, dates: dates.size, label };
 }
 
 export interface QuestSummary {
