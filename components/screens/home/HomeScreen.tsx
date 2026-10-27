@@ -1,7 +1,6 @@
 // Home (Junior, Terrarium), ported from docs/design/boards/Home.dc.html: scripts/port-board.ts, then by hand.
 // Static port with the board's fixture data. Day 3 reads the profile, today's quest, Pip and the squadron from data.
 import type { CSSProperties } from "react";
-import Link from "next/link";
 import { KidAvatarMenu } from "@/components/nav/KidAvatarMenu";
 import { Greeting } from "@/components/scene/Greeting";
 import { KixHero } from "@/components/scene/KixHero";
@@ -14,29 +13,6 @@ import { ROUTES } from "../routes";
 import "./homeScreen.css";
 
 const SPARKLE = "M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z";
-
-const TABS: { label: string; icon: string; href: string | null }[] = [
-  { label: "Home", icon: "M12 3l9 8h-3v9h-5v-6h-2v6H6v-9H3z", href: ROUTES.home },
-  { label: "Learn", icon: "M4 5h7a2 2 0 0 1 2 2v13a3 3 0 0 0-3-3H4zm16 0h-5a2 2 0 0 0-2 2v13a3 3 0 0 1 3-3h4z", href: ROUTES.quest },
-  { label: "Treasure", icon: "M3 9l2-4h14l2 4v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1zm2.3 0h13.4l-1-2H6.3zM5 11v8h14v-8h-5v2h-4v-2z", href: ROUTES.treasure },
-  // Day 5: Vibe Zone gets its route.
-  { label: "Vibe Zone", icon: SPARKLE, href: null },
-];
-
-const TAB: CSSProperties = {
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
-  gap: 2,
-  border: 0,
-  borderRadius: "var(--radius-pill)",
-  font: "800 13px/16px var(--font-text)",
-  textDecoration: "none",
-  background: "transparent",
-  color: "var(--ink)",
-};
-const TAB_ON: CSSProperties = { ...TAB, background: "var(--accent)", color: "var(--on-accent)" };
 
 /** Frog life cycle, one frame of the sprite sheet each: spawn done, tadpole now, froglet next, frog later. */
 const LIFE_CYCLE: { frame: string; style: CSSProperties }[] = [
@@ -171,34 +147,7 @@ export function HomeScreen({ nickname = "Ari" }: { nickname?: string }) {
             </GlassPanel>
           </div>
 
-          <GlassPanel
-            as="nav"
-            className="hm-nav"
-            aria-label="Main"
-            raised
-            style={{ boxSizing: "border-box", display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: 6 }}
-          >
-            {TABS.map((tab) => {
-              const current = tab.href === ROUTES.home;
-              const inner = (
-                <>
-                  <svg viewBox="0 0 24 24" aria-hidden="true" style={{ width: 22, height: 22 }}>
-                    <path fill="currentColor" d={tab.icon} />
-                  </svg>
-                  <span>{tab.label}</span>
-                </>
-              );
-              return tab.href ? (
-                <Link key={tab.label} href={tab.href} className="hm-tab" aria-current={current ? "page" : undefined} style={current ? TAB_ON : TAB}>
-                  {inner}
-                </Link>
-              ) : (
-                <button key={tab.label} type="button" className="hm-tab" style={TAB}>
-                  {inner}
-                </button>
-              );
-            })}
-          </GlassPanel>
+          {/* Kid navigation lives in the shared shell (components/nav/KidNav.tsx), mounted in app/(kid)/layout.tsx. */}
         </div>
       </div>
       <TerrariumScene className="hm-scene" />
