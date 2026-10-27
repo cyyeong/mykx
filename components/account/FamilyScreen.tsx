@@ -1,17 +1,19 @@
 "use client";
 
 // "Your family" for grown-ups, ported from the FamilyAccounts board (canvas row 8): a card per kid with their world
-// behind an open door, reset and remove that expand in place, limits and voice, "Add a kid" (level sets the look),
-// and sign out everywhere. Data: /api/family/kids (docs/prd/ACCOUNTS.md §3). No optimistic writes: each change
-// waits for the server, then the list is read again. Codes and passwords are never shown or kept here.
+// behind an open door, reset and remove that expand in place, limits, voice and the focus camera, "Focus this week"
+// notes, "Add a kid" (level sets the look), and sign out everywhere. Data: /api/family/kids (docs/prd/ACCOUNTS.md §3)
+// and /api/signals/focus (PARENT_INSIGHTS.md §1). No optimistic writes: each change waits for the server, then the
+// list is read again. Codes and passwords are never shown or kept here.
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type ReactNode } from "react";
 import { kixSprite } from "@/components/signin/looks";
 import { PACKS, type PackId } from "@/components/theme/packs";
 import type { FailReason, FamilyKid, FamilyResult, Level, SecretKind } from "@/lib/auth/schemas";
+import type { FocusNote, FocusNotesResult } from "@/lib/signals/schemas";
 import { api, type ApiResult } from "./api";
-import { dayLabel, whenLabel } from "./format";
+import { dayLabel, upperFirst, whenLabel } from "./format";
 import { Switch } from "./Switch";
 import { DOOR_GLOW, WORLD_SCENE, WORLD_SWATCH } from "./worlds";
 import "./family.css";
@@ -25,6 +27,8 @@ const LIMITS: readonly (number | null)[] = [15, 30, 45, 60, 90, null];
 const BACK = { href: "/doors", label: "Back to the doors" };
 const TRY_AGAIN = "That didn't work. Try again in a moment.";
 const KIDS_URL = "/api/family/kids";
+const FOCUS_URL = "/api/signals/focus";
+const CONFIDENCE_LEVEL = { low: 1, medium: 2, high: 3 } as const;
 
 const ICON = {
   pictures: "M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z",
@@ -38,6 +42,7 @@ const ICON = {
   plus: "M12 5v14M5 12h14",
   close: "M6 6l12 12M18 6L6 18",
   bin: "M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 11v6M14 11v6",
+  camera: "M3 8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM15 10.5l5-3v9l-5-3",
 };
 const LOOK = {
   junior: { name: "Junior look", note: "Bigger buttons and words. Kix guides every step." },
@@ -171,6 +176,64 @@ function DoorStage({ pack, className, style, children }: { pack: PackId; classNa
   );
 }
 
+/** "Medium confidence" with a three-step meter (the words carry it; the bars only echo them). */
+function ConfidenceTag({ level }: { level: FocusNote["confidence"] }) {
+  const n = CONFIDENCE_LEVEL[level];
+  return (
+    <span className="fa-conf">
+      <span aria-hidden="true" className="fa-conf-bars">
+        {[1, 2, 3].map((i) => (
+          <span key={i} data-on={i <= n ? "true" : "false"} style={{ height: 4 + i * 3 }} />
+        ))}
+      </span>
+      {upperFirst(level)} confidence
+    </span>
+  );
+}
+
+/** "Focus this week": the focus camera's "possibly losing focus" notes for one kid, with the evidence behind each. */
+function FocusCard({ kid, notes, onRemove, busyId }: { kid: FamilyKid; notes: FocusNote[] | null; onRemove: (n: FocusNote) => void; busyId: string | null }) {
+  const mine = notes?.filter((n) => n.kidId === kid.id).slice(0, 3) ?? null;
+  return (
+    <section className="fa-focus" aria-labelledby={`fa-focus-h-${kid.id}`} style={{ ...innerPanel, gap: 10 }}>
+      <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "6px 8px" }}>
+        <h4 id={`fa-focus-h-${kid.id}`} style={{ margin: 0, fontSize: 16, lineHeight: "22px", fontWeight: 700, whiteSpace: "nowrap" }}>
+          Focus this week
+        </h4>
+        <span className="fa-cam-state" data-on={kid.cameraEnabled ? "true" : "false"}>
+          <Icon d={ICON.camera} size={15} />
+          {kid.cameraEnabled ? "Camera on" : "Camera off"}
+        </span>
+      </div>
+      {mine === null ? (
+        <span style={hint(false)}>Loading…</span>
+      ) : mine.length === 0 ? (
+        <span style={hint(false)}>No notes yet.</span>
+      ) : (
+        <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 10 }}>
+          {mine.map((n) => (
+            <li key={n.id} className="fa-note">
+              <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "4px 8px" }}>
+                <strong style={{ fontSize: 15, lineHeight: "20px", fontWeight: 700 }}>Possibly losing focus</strong>
+                {n.synthetic && <span className="fa-sample">Sample</span>}
+              </div>
+              <span style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "2px 10px", fontSize: 13, lineHeight: "18px", fontWeight: 600, color: "var(--ink-muted)" }}>
+                <span>{upperFirst(whenLabel(n.from) ?? "")}</span>
+                <ConfidenceTag level={n.confidence} />
+              </span>
+              <p style={{ margin: 0, fontSize: 14, lineHeight: "20px" }}>{n.evidence}</p>
+              <button className="fa-click fa-note-rm" type="button" onClick={() => onRemove(n)} disabled={busyId !== null} aria-label={`Remove this note about ${kid.nickname}`}>
+                {busyId === n.id ? "Removing…" : "Remove"}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+      <span style={{ ...hint(false), fontSize: 13, lineHeight: "18px" }}>Against {kid.nickname}&apos;s own usual. A possibility, never a diagnosis.</span>
+    </section>
+  );
+}
+
 function KidSkeleton() {
   return (
     <div className="fa-kid fa-skel" aria-hidden="true" style={{ position: "relative", minWidth: 0, borderRadius: "var(--radius-md)", background: "var(--surface-raised)", boxShadow: "var(--shadow-raised)", overflow: "hidden" }}>
@@ -199,6 +262,8 @@ export function FamilyScreen() {
   const [confirmText, setConfirmText] = useState("");
   const [panelError, setPanelError] = useState("");
   const [cardNotes, setCardNotes] = useState<Record<string, CardNote>>({});
+  const [focusNotes, setFocusNotes] = useState<FocusNote[] | null>(null);
+  const [noteBusy, setNoteBusy] = useState<string | null>(null);
   const [removedNotes, setRemovedNotes] = useState<string[]>([]);
 
   // Add a kid: closed -> form -> done.
@@ -234,9 +299,16 @@ export function FamilyScreen() {
   }, []);
   const refresh = useCallback(async () => apply(await api<FamilyResult>("GET", KIDS_URL)), [apply]);
 
+  const loadFocus = useCallback(async () => {
+    const r = await api<FocusNotesResult>("GET", FOCUS_URL);
+    // A failed read shows "No notes yet." rather than an error: the notes are extra, the family page isn't.
+    setFocusNotes(r.ok && r.data?.notes ? r.data.notes : []);
+  }, []);
+
   useEffect(() => {
     let live = true;
     void api<FamilyResult>("GET", KIDS_URL).then((r) => live && apply(r));
+    void api<FocusNotesResult>("GET", FOCUS_URL).then((r) => live && setFocusNotes(r.ok && r.data?.notes ? r.data.notes : []));
     return () => {
       live = false;
     };
@@ -305,7 +377,16 @@ export function FamilyScreen() {
     setBusy(null);
   };
 
-  const setLimits = async (k: FamilyKid, patch: { voiceEnabled?: boolean; dailyLimitMin?: number | null }) => {
+  const removeFocusNote = async (n: FocusNote) => {
+    if (noteBusy) return;
+    setNoteBusy(n.id);
+    const r = await api("DELETE", FOCUS_URL, { id: n.id });
+    if (r.ok || r.status === 404) await loadFocus();
+    else if (signedOut(r)) setLoad({ phase: "signin" });
+    setNoteBusy(null);
+  };
+
+  const setLimits = async (k: FamilyKid, patch: { voiceEnabled?: boolean; cameraEnabled?: boolean; dailyLimitMin?: number | null }) => {
     if (busy) return;
     setBusy(`${k.id}:limits`);
     setPanelError("");
@@ -441,6 +522,12 @@ export function FamilyScreen() {
           </Link>
           <h1 style={{ margin: 0, fontFamily: "var(--font-display)", fontSize: "clamp(28px, 1vw + 20px, 36px)", lineHeight: 1.2, fontWeight: 800 }}>Your family</h1>
           <span style={muted16}>{familyLine}</span>
+          <Link href="/papers" className="mk-btn mk-btn--secondary" style={{ marginTop: 10, textDecoration: "none" }}>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v7H6z" />
+            </svg>
+            Practice papers to print
+          </Link>
         </div>
 
         {/* Kids: one card per child, each with their world behind an open door */}
@@ -547,12 +634,13 @@ export function FamilyScreen() {
                         </Note>
                       )}
                     </div>
+                    <FocusCard kid={k} notes={focusNotes} onRemove={(fn) => void removeFocusNote(fn)} busyId={noteBusy} />
                     <div className="fa-acts" style={{ display: "flex", gap: 8 }}>
                       <button className="mk-btn mk-btn--secondary fa-act fa-reset fa-click" type="button" onClick={() => togglePanel(resetKey)} aria-expanded={resetOpen} aria-controls={`fa-panel-${k.id}`}>
                         {pics ? "Reset code" : "Reset password"}
                       </button>
                       <button className="mk-btn mk-btn--secondary fa-act fa-reset fa-click" type="button" onClick={() => togglePanel(limitsKey)} aria-expanded={limitsOpen} aria-controls={`fa-panel-${k.id}`}>
-                        Limits and voice
+                        Limits, voice, camera
                       </button>
                       <button
                         className="fa-act fa-rm fa-click"
@@ -634,7 +722,7 @@ export function FamilyScreen() {
                       {limitsOpen && (
                         <div className="fa-panel fa-in" role="group" aria-labelledby={`fa-lim-h-${k.id}`} aria-busy={busy === limitsKey} style={innerPanel}>
                           <h4 id={`fa-lim-h-${k.id}`} style={{ margin: 0, fontSize: 17, lineHeight: "24px", fontWeight: 700 }}>
-                            Limits and voice for {k.nickname}
+                            Limits, voice and camera for {k.nickname}
                           </h4>
                           <div style={{ display: "flex", alignItems: "center", gap: 12, minHeight: 52 }}>
                             <span style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: 2 }}>
@@ -644,6 +732,19 @@ export function FamilyScreen() {
                               <span style={hint(false)}>{k.voiceEnabled ? "Kix can talk and listen. Audio is never kept." : "Kix uses text only."}</span>
                             </span>
                             <Switch className="fa-click" on={k.voiceEnabled} labelledBy={`fa-voice-${k.id}`} onToggle={() => setLimits(k, { voiceEnabled: !k.voiceEnabled })} disabled={busy !== null} />
+                          </div>
+                          <div style={{ display: "flex", alignItems: "center", gap: 12, minHeight: 52, paddingTop: 10, boxShadow: "inset 0 1px 0 var(--line)" }}>
+                            <span style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: 2 }}>
+                              <span id={`fa-cam-${k.id}`} style={label16}>
+                                Focus camera (stays on this device)
+                              </span>
+                              <span style={hint(false)}>
+                                {k.cameraEnabled
+                                  ? "On while learning. You get notes with counts; pictures never leave the device."
+                                  : "Off. When on, it counts looks away, sleepy eyes and yawns while learning, on the device only."}
+                              </span>
+                            </span>
+                            <Switch className="fa-click" on={k.cameraEnabled} labelledBy={`fa-cam-${k.id}`} onToggle={() => setLimits(k, { cameraEnabled: !k.cameraEnabled })} disabled={busy !== null} />
                           </div>
                           <div style={{ display: "flex", flexDirection: "column", gap: 8, paddingTop: 10, boxShadow: "inset 0 1px 0 var(--line)" }}>
                             <span id={`fa-time-${k.id}`} style={label16}>
@@ -960,7 +1061,7 @@ export function FamilyScreen() {
                       ? `Next: pick ${added.nickname}'s 4-picture code together when ${added.nickname} first opens their door.`
                       : `Tell ${added.nickname} the starting password in person. ${added.nickname} can change it in Me.`}
                   </span>
-                  {!added.voiceSaved && <Note tone="warn">Voice is still on. Turn it off in {added.nickname}&apos;s Limits and voice.</Note>}
+                  {!added.voiceSaved && <Note tone="warn">Voice is still on. Turn it off in {added.nickname}&apos;s Limits, voice, camera.</Note>}
                 </div>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                   <button

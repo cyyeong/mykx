@@ -101,6 +101,7 @@ export function toKidMe(p: Profile): KidMe {
     pack: p.pack ?? "dreamlight",
     secretKind: p.secretKind,
     voiceEnabled: p.voiceEnabled,
+    cameraEnabled: p.cameraEnabled,
     dailyLimitMin: p.dailyLimitMin,
     synthetic: p.synthetic,
   };
@@ -118,6 +119,7 @@ export function toFamilyKid(p: Profile, now = Date.now()): FamilyKid {
     secretEvent: p.secretEvent,
     lastSignInAt: p.lastSignInAt,
     voiceEnabled: p.voiceEnabled,
+    cameraEnabled: p.cameraEnabled,
     dailyLimitMin: p.dailyLimitMin,
     locked: lockRemainingSec(p.lockedUntil, now) > 0,
     needsSetup: !p.secretHash,

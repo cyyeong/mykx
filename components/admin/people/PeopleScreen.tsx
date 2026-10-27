@@ -5,6 +5,7 @@
 // POST /api/admin/people/[id] (docs/prd/ACCOUNTS.md §3-4). Admins see account details only: never a child's
 // messages, Notebook, answers or secrets. Every action is a server route that writes the audit log.
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { api, type ApiResult } from "@/components/account/api";
 import { whenLabel, upperFirst } from "@/components/account/format";
@@ -47,9 +48,10 @@ const FILTERS: readonly [Filter, string][] = [
   ["admins", "Admins"],
   ["locked", "Locked"],
 ];
+// Skills and Add knowledge are designed (canvas) but not built yet: shown as "Soon" rather than linking to a 404.
 const NAV = [
-  { href: "/admin/skills", label: "Skills" },
-  { href: "/admin/upload", label: "Add knowledge" },
+  { href: "/admin/skills", label: "Skills", soon: true },
+  { href: "/admin/upload", label: "Add knowledge", soon: true },
   { href: "/admin/people", label: "People", current: true },
 ];
 
@@ -185,6 +187,7 @@ function flatten(data: PeopleResult): Row[] {
 }
 
 export function PeopleScreen() {
+  const router = useRouter();
   const [load, setLoad] = useState<Load>({ phase: "loading" });
   const [q, setQ] = useState("");
   const [filter, setFilter] = useState<Filter>("all");
@@ -525,7 +528,13 @@ export function PeopleScreen() {
             <span style={{ padding: "2px 8px", borderRadius: "var(--radius-pill)", background: "var(--ink)", color: "var(--surface)", fontSize: 11, lineHeight: "18px", fontWeight: 700, letterSpacing: ".04em" }}>ADMIN</span>
           </div>
           <div className="ap-navlist">
-            {NAV.map((n) => (
+            {NAV.map((n) =>
+              n.soon ? (
+                <span key={n.href} className="ap-navi" aria-disabled="true" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, padding: 12, borderRadius: "var(--radius-sm)", fontSize: 16, lineHeight: "20px", fontWeight: 600, color: "var(--ink-muted)", opacity: 0.6 }}>
+                  {n.label}
+                  <small style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".04em" }}>SOON</small>
+                </span>
+              ) : (
               <Link
                 key={n.href}
                 href={n.href}
@@ -535,7 +544,24 @@ export function PeopleScreen() {
               >
                 {n.label}
               </Link>
-            ))}
+              ),
+            )}
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+            <Link href="/family" className="ap-navi" style={{ display: "block", padding: 12, borderRadius: "var(--radius-sm)", fontSize: 15, lineHeight: "20px", fontWeight: 600, color: "var(--ink-muted)" }}>
+              ← Back to my family
+            </Link>
+            <button
+              type="button"
+              className="ap-navi"
+              onClick={async () => {
+                await fetch("/api/auth/signout", { method: "POST" }).catch(() => null);
+                router.replace("/signin");
+              }}
+              style={{ display: "block", width: "100%", padding: 12, border: 0, borderRadius: "var(--radius-sm)", background: "transparent", textAlign: "left", font: "600 15px/20px var(--font-text)", color: "var(--ink-muted)", cursor: "pointer" }}
+            >
+              Sign out
+            </button>
           </div>
           <div className="ap-who" hidden={load.phase !== "ready"} style={{ padding: 12, borderRadius: "var(--radius-sm)", background: "var(--surface)", boxShadow: "inset 0 0 0 1px var(--line)", fontSize: 13, lineHeight: "18px", color: "var(--ink-muted)" }}>
             {(() => {

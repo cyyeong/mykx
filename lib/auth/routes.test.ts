@@ -11,6 +11,7 @@ import * as signoutRoute from "@/app/api/auth/signout/route";
 import * as familyKid from "@/app/api/family/kids/[id]/route";
 import * as family from "@/app/api/family/kids/route";
 import * as me from "@/app/api/me/route";
+import * as focus from "@/app/api/signals/focus/route";
 import { authMode } from "./context.ts";
 import { ARI_ID, DEMO_HOUSEHOLD_ID, DEMO_PARENT_ID, KAI_ID, MEI_ID, OTHER_PARENT_EMAIL, OTHER_PARENT_ID } from "./demo-family.ts";
 import { resetRateLimits } from "./lockout.ts";
@@ -219,7 +220,7 @@ describe("Your family", () => {
     const { body } = await browser.call(family.GET, "/api/family/kids");
     expect(body.household).toEqual({ id: DEMO_HOUSEHOLD_ID, name: "Demo family" });
     expect(Object.keys(body.kids[0]).sort()).toEqual(
-      ["band", "dailyLimitMin", "disabled", "id", "lastSignInAt", "level", "locked", "needsSetup", "nickname", "pack", "secretEvent", "secretKind", "secretSetAt", "synthetic", "voiceEnabled"].sort(),
+      ["band", "cameraEnabled", "dailyLimitMin", "disabled", "id", "lastSignInAt", "level", "locked", "needsSetup", "nickname", "pack", "secretEvent", "secretKind", "secretSetAt", "synthetic", "voiceEnabled"].sort(),
     );
   });
 
@@ -271,6 +272,105 @@ describe("Me", () => {
   it("is 401 without a kid session", async () => {
     await browser.signIn();
     expect((await browser.call(me.GET, "/api/me")).status).toBe(401);
+  });
+});
+
+describe("focus camera (AGENTS.md rule 12)", () => {
+  const base = Math.floor(Date.now() / 60_000) * 60_000 - 40 * 60_000;
+  const at = (i: number) => new Date(base + i * 60_000).toISOString();
+  const calm = (i: number) => ({ minute: at(i), awaySeconds: 3, eyesClosedEvents: 0, yawns: 0, facePresentRatio: 1 });
+  const drifting = (i: number) => ({ minute: at(i), awaySeconds: 35, eyesClosedEvents: 1, yawns: 1, facePresentRatio: 1 });
+  const post = (body: unknown) => browser.call(focus.POST, "/api/signals/focus", { body });
+  const cameraOn = (on: boolean) => browser.call(familyKid.PATCH, `/api/family/kids/${ARI_ID}`, { method: "PATCH", id: ARI_ID, body: { cameraEnabled: on } });
+
+  it("is off by default; the grown-up switches it per kid", async () => {
+    await browser.signIn();
+    expect((await browser.call(family.GET, "/api/family/kids")).body.kids.every((k: { cameraEnabled: boolean }) => k.cameraEnabled === false)).toBe(true);
+    expect((await cameraOn(true)).body.kid).toMatchObject({ id: ARI_ID, cameraEnabled: true, voiceEnabled: true });
+    expect(store.auditLog.at(-1)).toMatchObject({ action: "kid.update", detail: { fields: ["camera_enabled"] } });
+    expect((await cameraOn(false)).body.kid.cameraEnabled).toBe(false);
+  });
+
+  it("takes counts only from a signed-in kid whose camera is on", async () => {
+    expect((await post({ minutes: [calm(0)] })).status).toBe(401);
+    await browser.signIn();
+    expect((await post({ minutes: [calm(0)] })).body.reason).toBe("no-kid");
+    await browser.kidSignIn(ARI_ID, { kind: "pictures", code: ARI_CODE });
+    expect((await post({ minutes: [calm(0)] })).body).toMatchObject({ ok: false, reason: "not-allowed" });
+    expect(store.focusMinuteRows.size).toBe(0);
+  });
+
+  it("refuses anything that isn't counts: images, frames, landmarks, odd minutes, stale batches", async () => {
+    await browser.signIn();
+    await cameraOn(true);
+    await browser.kidSignIn(ARI_ID, { kind: "pictures", code: ARI_CODE });
+    for (const body of [
+      { minutes: [calm(0)], image: "data:image/jpeg;base64,/9j/4AAQ" },
+      { minutes: [{ ...calm(0), frame: "AAAA" }] },
+      { minutes: [{ ...calm(0), landmarks: [[0.1, 0.2, 0.3]] }] },
+      { minutes: [{ ...calm(0), minute: new Date(base + 1234).toISOString() }] },
+      { minutes: [{ ...calm(0), awaySeconds: 61 }] },
+      { minutes: [{ ...calm(0), minute: new Date(base - 7 * 3_600_000).toISOString() }] },
+      { minutes: [] },
+      { minutes: Array.from({ length: 11 }, (_, i) => calm(i)) },
+    ]) {
+      expect((await post(body)).status).toBe(400);
+    }
+    expect(store.focusMinuteRows.size).toBe(0);
+  });
+
+  it("stores the minutes, returns the kid's usual, and checks a dip itself before keeping its own words", async () => {
+    await browser.signIn();
+    await cameraOn(true);
+    await browser.kidSignIn(ARI_ID, { kind: "pictures", code: ARI_CODE });
+    const first = await post({ minutes: Array.from({ length: 10 }, (_, i) => calm(i)) });
+    expect(first.body).toMatchObject({ ok: true, saved: 10, noted: false, baseline: { fromDefault: false, minutes: 10, score: 98 } });
+
+    // A reading the counts don't support is dropped.
+    const unsupported = { level: "watch", evidence: "Ari is lazy.", confidence: "high", from: at(10), to: at(13) };
+    expect((await post({ minutes: [calm(10), calm(11), calm(12)], signal: unsupported })).body.noted).toBe(false);
+
+    // A real dip is kept, in the server's words, not the browser's.
+    const reading = { level: "watch", evidence: "Ari is lazy.", confidence: "high", from: at(13), to: at(16) };
+    const res = await post({ minutes: [drifting(13), drifting(14), drifting(15)], signal: reading });
+    expect(res.body).toMatchObject({ ok: true, saved: 3, noted: true });
+    const notes = (await browser.call(focus.GET, "/api/signals/focus")).body.notes;
+    const mine = notes.find((n: { synthetic: boolean }) => !n.synthetic);
+    expect(mine).toMatchObject({ kidId: ARI_ID, from: at(13), to: at(16), synthetic: false });
+    expect(mine.evidence).toMatch(/^In 3 minutes: looked away 1 min 45 s/);
+    expect(mine.evidence).not.toContain("lazy");
+    expect(store.focusMinuteRows.size).toBe(16);
+    // Resending the same minutes doesn't double them, and the same dip isn't noted twice.
+    expect((await post({ minutes: [drifting(13), drifting(14), drifting(15)], signal: reading })).body.noted).toBe(false);
+    expect(store.focusMinuteRows.size).toBe(16);
+    // Nothing but counts was kept for a minute.
+    expect(Object.keys([...store.focusMinuteRows.values()][0].minute).sort()).toEqual(["awaySeconds", "eyesClosedEvents", "facePresentRatio", "minute", "yawns"]);
+  });
+
+  it("stops the camera when the grown-up switches it off mid-session", async () => {
+    await browser.signIn();
+    await cameraOn(true);
+    await browser.kidSignIn(ARI_ID, { kind: "pictures", code: ARI_CODE });
+    expect((await post({ minutes: [calm(0)] })).status).toBe(200);
+    await cameraOn(false);
+    expect((await post({ minutes: [calm(1)] })).status).toBe(403);
+  });
+
+  it("shows notes to the kid's own grown-up only (with Ari's labelled sample), who can remove one", async () => {
+    await browser.signIn();
+    const notes = (await browser.call(focus.GET, "/api/signals/focus")).body.notes;
+    expect(notes).toEqual([expect.objectContaining({ kidId: ARI_ID, synthetic: true, confidence: "medium" })]);
+    const sampleId = notes[0].id;
+
+    const other = new Browser();
+    await other.signIn(OTHER_PARENT_EMAIL);
+    expect((await other.call(focus.GET, "/api/signals/focus")).body.notes).toEqual([]);
+    expect((await other.call(focus.DELETE, "/api/signals/focus", { method: "DELETE", body: { id: sampleId } })).status).toBe(404);
+
+    expect((await browser.call(focus.DELETE, "/api/signals/focus", { method: "DELETE", body: { id: sampleId } })).body).toEqual({ ok: true });
+    expect((await browser.call(focus.GET, "/api/signals/focus")).body.notes).toEqual([]);
+    expect(store.auditLog.at(-1)).toMatchObject({ action: "signal.remove", target: ARI_ID, detail: { kind: "focus-watch" } });
+    expect((await new Browser().call(focus.GET, "/api/signals/focus")).status).toBe(401);
   });
 });
 

@@ -444,6 +444,12 @@ export function MeScreen() {
                 {me.nickname} · {me.level}
               </span>
             </span>
+            <Link href="/me/papers" className="mk-btn mk-btn--secondary km2-signout" aria-label="Print a practice paper" style={{ textDecoration: "none" }}>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v7H6z" />
+              </svg>
+              <span className="km2-signout-label">Practice paper</span>
+            </Link>
             <button className="mk-btn mk-btn--secondary km2-signout" type="button" onClick={() => void signOut()} disabled={leaving} aria-label="Sign out">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4M10 16l-4-4 4-4M6 12h10" />

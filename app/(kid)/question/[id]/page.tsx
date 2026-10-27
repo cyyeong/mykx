@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
 import { QuestionScreen } from "@/components/screens/question/QuestionScreen";
 import { DEMO_QUESTION } from "@/components/screens/routes";
+import { getSignedInKid } from "@/lib/auth/server";
 
 export const metadata: Metadata = { title: "Question · myKx" };
 
@@ -13,6 +14,7 @@ export function generateStaticParams() {
 
 async function Question({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
+  if (!(await getSignedInKid())) redirect("/doors");
   if (id !== DEMO_QUESTION) notFound();
   return <QuestionScreen />;
 }

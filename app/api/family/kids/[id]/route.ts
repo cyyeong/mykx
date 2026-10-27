@@ -1,5 +1,5 @@
 // One kid in "Your family". PATCH: reset the code (`secret: { kind: "pictures" }` clears it so the kid
-// chooses a new one at their door; a password sets a temporary one), daily limit, voice, world.
+// chooses a new one at their door; a password sets a temporary one), daily limit, voice, focus camera, world.
 // DELETE: remove the kid and everything they made, with `{ confirm: <their nickname> }`.
 import { currentParent, toFamilyKid, withAuth } from "@/lib/auth/context";
 import { nowIso } from "@/lib/auth/flows";
@@ -29,6 +29,10 @@ export async function PATCH(request: Request, { params }: Ctx) {
     if (body.voiceEnabled !== undefined) {
       patch.voiceEnabled = body.voiceEnabled;
       fields.push("voice_enabled");
+    }
+    if (body.cameraEnabled !== undefined) {
+      patch.cameraEnabled = body.cameraEnabled;
+      fields.push("camera_enabled");
     }
     if (body.dailyLimitMin !== undefined) {
       patch.dailyLimitMin = body.dailyLimitMin;

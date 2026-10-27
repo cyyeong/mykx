@@ -2,6 +2,7 @@
 // Static port with the board's fixture data. Day 3 reads the profile, today's quest, Pip and the squadron from data.
 import type { CSSProperties } from "react";
 import Link from "next/link";
+import { KidAvatarMenu } from "@/components/nav/KidAvatarMenu";
 import { Greeting } from "@/components/scene/Greeting";
 import { KixHero } from "@/components/scene/KixHero";
 import { TerrariumScene } from "@/components/scene/rooms/TerrariumScene";
@@ -79,13 +80,7 @@ export function HomeScreen({ nickname = "Ari" }: { nickname?: string }) {
             </svg>
             91 stars
           </span>
-          <Link
-            href="/doors"
-            aria-label={`Switch profile, ${nickname}`}
-            style={{ display: "grid", placeItems: "center", width: 56, height: 56, flex: "none", borderRadius: "var(--radius-pill)", background: "var(--accent)", color: "var(--on-accent)", font: "800 22px/1 var(--font-display)", textDecoration: "none" }}
-          >
-            {nickname.slice(0, 1).toUpperCase()}
-          </Link>
+          <KidAvatarMenu nickname={nickname} />
         </header>
 
         <div className="hm-main">

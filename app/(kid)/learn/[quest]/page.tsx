@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
 import { QuestMapScreen } from "@/components/screens/quest-map/QuestMapScreen";
 import { DEMO_QUEST } from "@/components/screens/routes";
+import { getSignedInKid } from "@/lib/auth/server";
 
 export const metadata: Metadata = { title: "Quest map · myKx" };
 
@@ -13,6 +14,7 @@ export function generateStaticParams() {
 
 async function QuestMap({ params }: { params: Promise<{ quest: string }> }) {
   const { quest } = await params;
+  if (!(await getSignedInKid())) redirect("/doors");
   if (quest !== DEMO_QUEST) notFound();
   return <QuestMapScreen />;
 }

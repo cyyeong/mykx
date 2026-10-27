@@ -3,8 +3,10 @@
 // household query filters by the caller's household id explicitly. Keys never leave the server.
 import { createServerClient } from "@supabase/ssr";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import type { FocusMinute } from "../signals/focus.ts";
+import type { FocusNote } from "../signals/schemas.ts";
 import type { CookieJar } from "./http.ts";
-import type { AuditEntry, AuthStore, AuthUser, Household, NewKid, Profile, ProfilePatch } from "./store.ts";
+import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch } from "./store.ts";
 import { NicknameTakenError } from "./store.ts";
 
 export interface SupabaseEnv {
@@ -14,7 +16,7 @@ export interface SupabaseEnv {
 }
 
 const COLUMNS =
-  "id, household_id, user_id, role, is_admin, nickname, band, level, pack, voice_enabled, daily_limit_min, synthetic, secret_kind, secret_hash, secret_set_at, secret_event, failed_attempts, locked_until, disabled_at, last_sign_in_at, created_at";
+  "id, household_id, user_id, role, is_admin, nickname, band, level, pack, voice_enabled, camera_enabled, daily_limit_min, synthetic, secret_kind, secret_hash, secret_set_at, secret_event, failed_attempts, locked_until, disabled_at, last_sign_in_at, created_at";
 
 type Row = Record<string, unknown>;
 
@@ -30,6 +32,7 @@ function toProfile(r: Row): Profile {
     level: (r.level as Profile["level"]) ?? null,
     pack: (r.pack as Profile["pack"]) ?? null,
     voiceEnabled: Boolean(r.voice_enabled),
+    cameraEnabled: Boolean(r.camera_enabled),
     dailyLimitMin: (r.daily_limit_min as number | null) ?? null,
     synthetic: Boolean(r.synthetic),
     secretKind: (r.secret_kind as Profile["secretKind"]) ?? null,
@@ -48,6 +51,7 @@ const PATCH_COLUMNS: Record<keyof ProfilePatch, string> = {
   nickname: "nickname",
   pack: "pack",
   voiceEnabled: "voice_enabled",
+  cameraEnabled: "camera_enabled",
   dailyLimitMin: "daily_limit_min",
   secretKind: "secret_kind",
   secretHash: "secret_hash",
@@ -72,6 +76,36 @@ function check(error: DbError) {
   if (!error) return;
   if (error.code === "23505" && /nickname/.test(error.message ?? "")) throw new NicknameTakenError();
   throw new Error(`accounts store: ${error.code ?? "error"}`); // no row data in the message
+}
+
+// The `signals` table (supabase/schema.sql). Camera minutes keep the four counts in `counts`; notes keep their
+// window, evidence and confidence. Nothing else exists to be stored.
+const MINUTE_KIND = "camera-minute";
+const NOTE_KIND = "focus-watch";
+const NOTE_COLUMNS = "id, profile_id, minute, until, evidence, confidence, synthetic";
+
+function toFocusMinute(r: Row): FocusMinute {
+  const c = (r.counts ?? {}) as Record<string, unknown>;
+  const n = (v: unknown) => (typeof v === "number" && Number.isFinite(v) ? v : 0);
+  return {
+    minute: new Date(r.minute as string).toISOString(),
+    awaySeconds: n(c.awaySeconds),
+    eyesClosedEvents: n(c.eyesClosedEvents),
+    yawns: n(c.yawns),
+    facePresentRatio: n(c.facePresentRatio),
+  };
+}
+
+function toFocusNote(r: Row): FocusNote {
+  return {
+    id: r.id as string,
+    kidId: r.profile_id as string,
+    from: new Date(r.minute as string).toISOString(),
+    to: new Date(r.until as string).toISOString(),
+    evidence: (r.evidence as string) ?? "",
+    confidence: (r.confidence as FocusNote["confidence"]) ?? "low",
+    synthetic: Boolean(r.synthetic),
+  };
 }
 
 /** `%`, `_` and `\` are wildcards to ilike; match them literally. */
@@ -199,6 +233,85 @@ export class SupabaseStore implements AuthStore {
     });
     check(error);
   }
+
+  // Wellbeing signals. The service role bypasses RLS, so each query filters by household; writes check the kid
+  // is in it first.
+
+  private async ownsKid(householdId: string, kidId: string) {
+    return (await this.kid(householdId, kidId)) !== null;
+  }
+
+  readonly signals = {
+    saveFocusMinutes: async (householdId: string, kidId: string, minutes: readonly FocusMinute[]) => {
+      if (!minutes.length || !(await this.ownsKid(householdId, kidId))) return;
+      const rows = minutes.map((m) => ({
+        household_id: householdId,
+        profile_id: kidId,
+        kind: MINUTE_KIND,
+        minute: m.minute,
+        counts: { awaySeconds: m.awaySeconds, eyesClosedEvents: m.eyesClosedEvents, yawns: m.yawns, facePresentRatio: m.facePresentRatio },
+      }));
+      const { error } = await this.db.from("signals").upsert(rows, { onConflict: "profile_id,kind,minute" });
+      check(error);
+    },
+    focusMinutes: async (householdId: string, kidId: string, sinceIso: string) => {
+      const { data, error } = await this.db
+        .from("signals")
+        .select("minute, counts")
+        .eq("household_id", householdId)
+        .eq("profile_id", kidId)
+        .eq("kind", MINUTE_KIND)
+        .gte("minute", sinceIso)
+        .order("minute")
+        .limit(5000);
+      check(error);
+      return (data ?? []).map(toFocusMinute);
+    },
+    latestFocusNote: async (householdId: string, kidId: string) => {
+      const { data, error } = await this.db
+        .from("signals")
+        .select(NOTE_COLUMNS)
+        .eq("household_id", householdId)
+        .eq("profile_id", kidId)
+        .eq("kind", NOTE_KIND)
+        .order("minute", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      check(error);
+      return data ? toFocusNote(data) : null;
+    },
+    saveFocusNote: async (householdId: string, kidId: string, note: NewFocusNote) => {
+      if (!(await this.ownsKid(householdId, kidId))) return null;
+      const { data, error } = await this.db
+        .from("signals")
+        .upsert(
+          { household_id: householdId, profile_id: kidId, kind: NOTE_KIND, minute: note.from, until: note.to, evidence: note.evidence, confidence: note.confidence },
+          { onConflict: "profile_id,kind,minute", ignoreDuplicates: true },
+        )
+        .select(NOTE_COLUMNS);
+      check(error);
+      const row = (data ?? [])[0];
+      return row ? toFocusNote(row) : null;
+    },
+    focusNotes: async (householdId: string, sinceIso: string) => {
+      const { data, error } = await this.db
+        .from("signals")
+        .select(NOTE_COLUMNS)
+        .eq("household_id", householdId)
+        .eq("kind", NOTE_KIND)
+        .or(`minute.gte."${sinceIso}",synthetic.is.true`)
+        .order("minute", { ascending: false })
+        .limit(50);
+      check(error);
+      return (data ?? []).map(toFocusNote);
+    },
+    removeFocusNote: async (householdId: string, noteId: string) => {
+      if (!UUID.test(noteId)) return null;
+      const { data, error } = await this.db.from("signals").delete().eq("household_id", householdId).eq("kind", NOTE_KIND).eq("id", noteId).select("profile_id");
+      check(error);
+      return ((data ?? [])[0]?.profile_id as string | undefined) ?? null;
+    },
+  };
 
   // Admin
 

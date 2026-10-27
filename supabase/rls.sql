@@ -24,6 +24,7 @@ alter table shares enable row level security;
 alter table summaries enable row level security;
 alter table model_runs enable row level security;
 alter table audit_log enable row level security;
+alter table signals enable row level security;
 
 create policy households_own on households for select to authenticated using (id = my_household());
 
@@ -44,6 +45,11 @@ create policy model_runs_read on model_runs for select to authenticated
 -- changes are in here too, but `detail` never holds child content.
 create policy audit_log_admin_read on audit_log for select to authenticated using (i_am_admin());
 
+-- Wellbeing signals: the household's grown-ups read them and may delete one (PARENT_INSIGHTS §4.5); only the
+-- server writes them, after validation, so a browser can't add a signal or change a count.
+create policy signals_read on signals for select to authenticated using (household_id = my_household());
+create policy signals_delete on signals for delete to authenticated using (household_id = my_household());
+
 -- Creations and shares stay inside the household.
 create policy creations_all on creations for all to authenticated
   using (household_id = my_household()) with check (household_id = my_household());
@@ -56,16 +62,17 @@ create policy shares_all on shares for all to authenticated
 
 -- Supabase grants every role everything on new public tables by default, so start from nothing and
 -- grant exactly what the browser needs. RLS still scopes every row by household.
-revoke all on households, profiles, attempts, ledger, creations, shares, summaries, model_runs, audit_log from anon, authenticated;
+revoke all on households, profiles, attempts, ledger, creations, shares, summaries, model_runs, audit_log, signals from anon, authenticated;
 grant usage on schema public to authenticated;
 grant select on households, attempts, ledger, summaries, model_runs, audit_log to authenticated;
 -- Every profile column except secret_hash (kid secrets are checked by the server only).
 grant select (
   id, household_id, user_id, role, is_admin, nickname, band, level, pack, interests, kix_url,
-  voice_enabled, camera_signals, daily_limit_min, synthetic, secret_kind, secret_set_at, secret_event,
+  voice_enabled, camera_enabled, daily_limit_min, synthetic, secret_kind, secret_set_at, secret_event,
   failed_attempts, locked_until, disabled_at, last_sign_in_at, created_at
 ) on profiles to authenticated;
 -- Settings a parent may change directly. Nicknames, secrets, locks and the admin flag go through
 -- server routes (app/api/family, app/api/me, app/api/admin), which write the audit log.
-grant update (pack, interests, kix_url, voice_enabled, camera_signals, daily_limit_min) on profiles to authenticated;
+grant update (pack, interests, kix_url, voice_enabled, camera_enabled, daily_limit_min) on profiles to authenticated;
 grant select, insert, update, delete on creations, shares to authenticated;
+grant select, delete on signals to authenticated;

@@ -2,6 +2,8 @@
 // real deployments; an in-memory demo store (./store-demo.ts) for `npm run dev` before Supabase keys
 // exist. Every household method takes the caller's household id and must scope by it.
 import type { CookieJar } from "./http.ts";
+import type { FocusMinute } from "../signals/focus.ts";
+import type { FocusNote } from "../signals/schemas.ts";
 import type { Band, Level, Pack, SecretEvent, SecretKind } from "./schemas.ts";
 
 /** A profiles row, server side. Holds the secret hash: never send one of these to a client as is. */
@@ -16,6 +18,8 @@ export interface Profile {
   level: Level | null;
   pack: Pack | null;
   voiceEnabled: boolean;
+  /** The focus camera (on-device counts only), switched on by a grown-up. Off by default (rule 12). */
+  cameraEnabled: boolean;
   dailyLimitMin: number | null;
   synthetic: boolean;
   secretKind: SecretKind | null;
@@ -36,6 +40,7 @@ export type ProfilePatch = Partial<
     | "nickname"
     | "pack"
     | "voiceEnabled"
+    | "cameraEnabled"
     | "dailyLimitMin"
     | "secretKind"
     | "secretHash"
@@ -81,6 +86,9 @@ export interface AuthUser {
   email: string | null;
 }
 
+/** A new "possibly losing focus" note, already checked by the server against the counts it holds. */
+export type NewFocusNote = Pick<FocusNote, "from" | "to" | "evidence" | "confidence">;
+
 /** Thrown when a write hits the one-nickname-per-family rule. */
 export class NicknameTakenError extends Error {
   constructor() {
@@ -110,6 +118,23 @@ export interface AuthStore {
   addKid(householdId: string, kid: NewKid): Promise<Profile>;
   removeKid(householdId: string, kidId: string): Promise<boolean>;
   audit(entry: AuditEntry): Promise<void>;
+
+  // Wellbeing signals (the `signals` table), household-scoped like everything above. Counts and notes only:
+  // there is nowhere to put an image, a frame or a landmark (AGENTS.md rule 12).
+  signals: {
+    /** Stores a kid's per-minute camera counts. Idempotent per minute: a resent minute replaces the first. */
+    saveFocusMinutes(householdId: string, kidId: string, minutes: readonly FocusMinute[]): Promise<void>;
+    /** The kid's camera minutes since `sinceIso`, oldest first. */
+    focusMinutes(householdId: string, kidId: string, sinceIso: string): Promise<FocusMinute[]>;
+    /** The kid's most recent note, or null. */
+    latestFocusNote(householdId: string, kidId: string): Promise<FocusNote | null>;
+    /** Null when a note for the same minute already exists. */
+    saveFocusNote(householdId: string, kidId: string, note: NewFocusNote): Promise<FocusNote | null>;
+    /** The household's notes from `sinceIso` on, plus any sample notes, newest first. */
+    focusNotes(householdId: string, sinceIso: string): Promise<FocusNote[]>;
+    /** Removes one note; returns the kid it was about, or null when it isn't in the household. */
+    removeFocusNote(householdId: string, noteId: string): Promise<string | null>;
+  };
 
   // Admin only: callers check the admin flag first (lib/auth/context.ts requireAdmin).
   admin: {

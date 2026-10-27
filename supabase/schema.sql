@@ -27,7 +27,7 @@ create table profiles (
   interests text[] not null default '{}',
   kix_url text,
   voice_enabled boolean not null default false,
-  camera_signals boolean not null default false,
+  camera_enabled boolean not null default false, -- focus camera: on-device counts only, off until a grown-up turns it on
   daily_limit_min integer check (daily_limit_min between 5 and 240),
   synthetic boolean not null default false, -- demo data, labelled in the UI (hard rule 8)
   -- Kid sign-in (ACCOUNTS.md §5). The hash is scrypt, written only by the server (lib/auth/secrets.ts)
@@ -152,6 +152,32 @@ create table model_runs (
   check (model not like '%contributor%') -- hard rule 1, enforced in the database too
 );
 create index model_runs_household_time on model_runs (household_id, created_at desc);
+
+-- Wellbeing signals, shown to grown-ups only (docs/prd/PARENT_INSIGHTS.md, AGENTS.md rule 12). Today: the focus
+-- camera's per-minute counts ('camera-minute') and its "possibly losing focus" notes ('focus-watch'), written by
+-- the server after validation (app/api/signals/focus). Counts only: no column can hold an image, a video frame or
+-- a landmark, and `counts` accepts just the four count keys. Signals never change mastery or rewards. Stream D
+-- adds its kinds here. Migration for an existing database: supabase/migrations/20261028_focus_camera.sql.
+create table signals (
+  id uuid primary key default gen_random_uuid(),
+  household_id uuid not null references households (id) on delete cascade,
+  profile_id uuid not null references profiles (id) on delete cascade, -- the kid
+  kind text not null check (kind in ('camera-minute', 'focus-watch')),
+  minute timestamptz not null, -- start of the minute; for a note, the start of its first minute
+  until timestamptz, -- a note's end
+  counts jsonb not null default '{}'::jsonb check (
+    jsonb_typeof(counts) = 'object'
+    and counts - array['awaySeconds', 'eyesClosedEvents', 'yawns', 'facePresentRatio'] = '{}'::jsonb
+  ),
+  evidence text check (char_length(evidence) <= 400), -- plain words, "possibly …" against the kid's own usual
+  confidence text check (confidence in ('low', 'medium', 'high')),
+  synthetic boolean not null default false, -- sample data, labelled in the UI (hard rule 8)
+  created_at timestamptz not null default now(),
+  unique (profile_id, kind, minute), -- a resent minute replaces the first; one note per run
+  check (kind <> 'camera-minute' or (until is null and evidence is null and confidence is null)),
+  check (kind <> 'focus-watch' or (until > minute and evidence is not null and confidence is not null))
+);
+create index signals_household_kind_time on signals (household_id, kind, minute desc);
 
 -- Account actions: admin actions (always), family changes and kid lockouts. Append-only, written by
 -- the server's service role; readable by admins (rls.sql). `detail` holds field names and reasons,

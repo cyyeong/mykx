@@ -4,7 +4,16 @@ const nextConfig: NextConfig = {
   /* config options here */
   cacheComponents: true,
   // The Studio transform reads Kix's base image from disk; Vercel functions don't ship public/ by default.
-  outputFileTracingIncludes: { "/api/studio/transform": ["./public/art/kix/kix-base.webp"] },
+  // Printable papers read skill packs from content/skills at request time (lib/print/bank.ts).
+  outputFileTracingIncludes: {
+    "/api/studio/transform": ["./public/art/kix/kix-base.webp"],
+    ...Object.fromEntries(
+      ["/papers", "/papers/[pack]", "/me/papers", "/me/papers/[pack]"].map((route) => [
+        route,
+        ["./content/skills/*/skill.json", "./content/skills/*/items/*.json", "./content/skills/*/figures/*"],
+      ]),
+    ),
+  },
   partialPrefetching: true,
   turbopack: {
     rules: {

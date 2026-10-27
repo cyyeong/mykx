@@ -83,6 +83,7 @@ export const updateKidBody = z
     secret: parentSecretSchema.optional(), // { kind: "pictures" } clears the code; a password sets a temporary one
     dailyLimitMin: z.number().int().min(5).max(240).nullable().optional(),
     voiceEnabled: z.boolean().optional(),
+    cameraEnabled: z.boolean().optional(), // the focus camera: on-device counts only (AGENTS.md rule 12)
     pack: z.enum(PACKS).optional(),
   })
   .refine((b) => Object.values(b).some((v) => v !== undefined), "Nothing to change");
@@ -123,6 +124,8 @@ export interface KidMe {
   pack: Pack;
   secretKind: SecretKind | null;
   voiceEnabled: boolean;
+  /** The focus camera runs on this kid's pages (counts only, on the device). */
+  cameraEnabled: boolean;
   dailyLimitMin: number | null;
   synthetic: boolean;
 }
@@ -140,6 +143,7 @@ export interface FamilyKid {
   secretEvent: SecretEvent | null;
   lastSignInAt: string | null;
   voiceEnabled: boolean;
+  cameraEnabled: boolean;
   dailyLimitMin: number | null;
   locked: boolean;
   needsSetup: boolean;

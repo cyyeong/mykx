@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+import { FocusWatch } from "@/components/camera/FocusWatch";
 import { SoundProvider } from "@/components/sound/SoundProvider";
 import { SoundToggle } from "@/components/sound/SoundToggle";
 import { ThemeRoot } from "@/components/theme/ThemeRoot";
@@ -11,6 +13,11 @@ export default function KidLayout({ children }: LayoutProps<"/">) {
         {children}
         <SoundToggle />
         <DemoLabel />
+        {/* Focus camera: learning screens only, when a grown-up turned it on (renders nothing otherwise). It reads
+            the current path, so it sits in its own Suspense boundary and never blocks a page. */}
+        <Suspense fallback={null}>
+          <FocusWatch />
+        </Suspense>
       </SoundProvider>
     </ThemeRoot>
   );

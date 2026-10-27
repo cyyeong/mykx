@@ -77,3 +77,15 @@ export const OTHER_PARENT_EMAIL = "other@demo.mykx";
 export const KAI_ID = "00000000-0000-4000-8000-000000000021";
 export const KAI_SECRET = { kind: "pictures", code: ["hint", "toon-pop", "pilot", "idle"] } as const;
 export const KAI_SECRET_HASH = "scrypt$16384$8$1$v9aJ6aH62nn1sWeGi9aMzQ$w0F0puCpJprtV14NMTX5flss9EuY1ICeUsTtupLEeiw";
+
+/**
+ * Ari's sample "possibly losing focus" note (synthetic; Your family labels it "Sample"), dated yesterday at
+ * 4:12 pm Singapore time. Same id and words as supabase/seed.sql; lib/signals/focus.test.ts checks the words are
+ * what the focus rule writes for SAMPLE_FOCUS_MINUTES against SAMPLE_FOCUS_BASELINE.
+ */
+export const ARI_SAMPLE_FOCUS_NOTE = {
+  id: "00000000-0000-4000-8000-0000000000f1",
+  evidence:
+    "In 3 minutes: looked away 1 min 50 s (usually about 15 s), eyes closed 3 times (usually none), 2 yawns (usually none). Focus about 55, against a usual 86.",
+  confidence: "medium",
+} as const;

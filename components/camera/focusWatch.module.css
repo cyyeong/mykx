@@ -1,0 +1,277 @@
+/* The focus camera's indicator and Kix's break suggestion. The indicator is honesty chrome like the demo label: a
+   slim dark tab hanging from the top edge, the same in every world and above every screen's header, so "camera
+   on" always reads the same. The red dot is the universal camera-on sign. */
+.dock {
+  --rec: #ff4d5e;
+  --chrome: rgba(20, 16, 48, 0.86);
+  --chrome-ink: #f4f1ff;
+  position: fixed;
+  top: env(safe-area-inset-top, 0px);
+  left: 50%;
+  z-index: 45;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: max-content;
+  max-width: calc(100vw - 32px);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.dock > * { pointer-events: auto; }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 24px;
+  padding: 3px 16px 4px 12px;
+  border: 0;
+  border-radius: 0 0 14px 14px;
+  background: var(--chrome);
+  color: var(--chrome-ink);
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.16), 0 4px 14px rgba(8, 6, 30, 0.26);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  font: 700 12px/1.25 var(--font-text, system-ui);
+  letter-spacing: 0.01em;
+  cursor: pointer;
+}
+.chip:focus-visible,
+.textBtn:focus-visible,
+.iconBtn:focus-visible,
+.close:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+.chip { position: relative; }
+
+.dot {
+  position: relative;
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #b9b2d8;
+}
+.chip[data-live="true"] .dot {
+  background: var(--rec);
+  box-shadow: 0 0 0 3px rgba(255, 77, 94, 0.28);
+}
+.chip[data-live="true"] .dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--rec);
+  animation: rec-pulse 2.4s var(--ease-soft, ease-out) infinite;
+}
+@keyframes rec-pulse {
+  from { transform: scale(1); opacity: 0.6; }
+  to { transform: scale(2.6); opacity: 0; }
+}
+
+.chipText { white-space: nowrap; }
+.chipSub { font-weight: 600; opacity: 0.86; }
+
+.explain {
+  box-sizing: border-box;
+  width: min(340px, calc(100vw - 32px));
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: var(--chrome);
+  color: var(--chrome-ink);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18), 0 10px 28px rgba(8, 6, 30, 0.35);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  animation: drop var(--duration-base, 240ms) var(--ease-soft, ease-out) both;
+}
+.explainLine {
+  display: flex;
+  gap: 10px;
+  margin: 0;
+  font: 600 14px/1.4 var(--font-text, system-ui);
+}
+.explainActs {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+  margin: 6px -8px -6px 0;
+}
+.textBtn {
+  min-height: 44px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--chrome-ink);
+  font: 800 14px/1 var(--font-text, system-ui);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.textBtn:hover { background: rgba(255, 255, 255, 0.1); }
+
+.notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 4px 4px 4px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--chrome);
+  color: var(--chrome-ink);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18);
+  font: 700 13px/1.3 var(--font-text, system-ui);
+  animation: drop var(--duration-base, 240ms) var(--ease-soft, ease-out) both;
+}
+.iconBtn {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.icon { width: 18px; height: 18px; flex: none; }
+
+.video {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 2px;
+  height: 2px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Kix's break suggestion: beside the question on wide screens, under the header on phones. */
+.nudge {
+  position: fixed;
+  right: max(24px, env(safe-area-inset-right));
+  bottom: max(24px, env(safe-area-inset-bottom));
+  z-index: 44;
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  width: min(420px, calc(100vw - 32px));
+  animation: rise var(--duration-hero, 600ms) var(--ease-bounce, ease-out) both;
+}
+.kix {
+  flex: none;
+  width: 96px;
+  height: auto;
+  margin-bottom: -6px;
+  filter: drop-shadow(0 8px 14px rgba(14, 12, 43, 0.3));
+}
+.bubble {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  padding: 16px 44px 16px 18px;
+  border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 6px;
+  background: var(--surface-raised);
+  color: var(--ink);
+  box-shadow: inset 0 0 0 3px var(--border-control), var(--shadow-raised);
+}
+.line {
+  margin: 0;
+  font: 700 18px/1.35 var(--font-text, system-ui);
+}
+[data-band="teen"] .line { font-size: 16px; }
+.acts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+.close {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink-muted);
+  cursor: pointer;
+}
+
+.timer {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.ring {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: conic-gradient(var(--accent) calc(var(--left, 1) * 360deg), var(--line) 0);
+  transition: background var(--duration-base, 240ms) linear;
+}
+.count {
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--surface-raised);
+  font: 800 22px/1 var(--font-text, system-ui);
+  font-variant-numeric: tabular-nums;
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@keyframes drop {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(16px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Compact: a smaller tab that still fits above the header's corner buttons at 344 px; Kix's suggestion drops in
+   under the header, clear of the answer bar at the bottom. */
+@media (max-width: 599px) {
+  .chip { gap: 6px; padding: 2px 12px 3px 10px; font-size: 11px; }
+  .dot { width: 8px; height: 8px; }
+  .nudge {
+    top: calc(env(safe-area-inset-top, 0px) + 84px);
+    right: 16px;
+    bottom: auto;
+    left: 16px;
+    width: auto;
+    animation-name: drop;
+  }
+  .nudge { align-items: center; }
+  .kix { width: 56px; margin-bottom: 0; }
+  .line { font-size: 17px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chip[data-live="true"] .dot::after { animation: none; opacity: 0; }
+  .explain,
+  .notice,
+  .nudge { animation: none; }
+  .ring { transition: none; }
+}

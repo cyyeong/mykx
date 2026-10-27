@@ -1,0 +1,1410 @@
+[
+  {
+    "id": "p6math-original-01-q1",
+    "skill": "p6-maths",
+    "topic": "number.fractions",
+    "subskill": "fraction_operations",
+    "archetype": "FR-CORE",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Find the value of 3/4 ÷ 6.",
+    "options": [
+      "4 1/2",
+      "1/8",
+      "3/10",
+      "8"
+    ],
+    "answer": 2,
+    "working": [
+      "Dividing by 6 is the same as multiplying by 1/6 (Keep, Change, Flip).",
+      "3/4 × 1/6 = 3/24.",
+      "3/24 = 1/8 in its simplest form (divide the top and bottom by 3)."
+    ],
+    "distractors": {
+      "1": "Multiplied by 6 instead of dividing. Sharing 3/4 into 6 parts makes each part smaller, not bigger.",
+      "3": "Added 6 to the denominator. To divide by 6, multiply by 1/6 instead.",
+      "4": "Worked out 6 ÷ 3/4 instead. The order of a division matters: here 3/4 is being shared into 6 parts."
+    },
+    "hints": [
+      "Dividing by a whole number is the same as multiplying by one over that number.",
+      "Write 6 as 6/1, flip it, multiply, then simplify your answer."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q2",
+    "skill": "p6-maths",
+    "topic": "number.fractions",
+    "subskill": "fraction_of_quantity",
+    "archetype": "FR-UNITS",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "short",
+    "stem": "Siti had $120. She spent 2/5 of her money on a pair of shoes and 1/4 of her money on a book. How much money did she have left?",
+    "answer": "$42",
+    "working": [
+      "Shoes: 2/5 × $120 = $48.",
+      "Book: 1/4 × $120 = $30.",
+      "Left: $120 − $48 − $30 = $42.",
+      "Check with fractions: 1 − 2/5 − 1/4 = 7/20, and 7/20 × $120 = $42 ✓"
+    ],
+    "hints": [
+      "Find how much she spent on each item. Both fractions are fractions of the whole $120.",
+      "Work out 2/5 of $120 and 1/4 of $120, then take both amounts away from $120."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q3",
+    "skill": "p6-maths",
+    "topic": "number.fractions",
+    "subskill": "remainder_concept",
+    "archetype": "FR-REM",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "Hakim had some marbles. He gave 1/3 of them to his brother and 3/5 of the remainder to his cousin. He had 24 marbles left. How many marbles did Hakim have at first?",
+    "answer": "90",
+    "unit": "marbles",
+    "working": [
+      "After giving away 1/3, he had 2/3 of his marbles left (the remainder).",
+      "The cousin got 3/5 of the remainder, so 2/5 of the remainder was left.",
+      "2/5 of the remainder = 24 → 1/5 of the remainder = 12 → the remainder = 60 marbles.",
+      "The remainder is 2/3 of all the marbles: 2/3 = 60 → 1/3 = 30 → at first = 90 marbles.",
+      "Check: 90 − 30 = 60; 3/5 × 60 = 36; 60 − 36 = 24 ✓"
+    ],
+    "hints": [
+      "After he gives 1/3 away, draw a new bar for the remainder and cut it into 5 equal parts.",
+      "The 24 marbles left are 2 of those 5 parts. Work back to the remainder first, then to the whole."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q4",
+    "skill": "p6-maths",
+    "topic": "number.fractions",
+    "subskill": "fraction_word_problems",
+    "archetype": "FR-UNITS",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "At a fruit stall, 2/5 of the fruits are apples and 1/3 of the fruits are pears. The rest are 48 oranges. How many more apples than pears are there?",
+    "options": [
+      "72",
+      "180",
+      "12",
+      "60"
+    ],
+    "answer": 3,
+    "working": [
+      "Use 15 units for all the fruits (15 is the LCM of 5 and 3).",
+      "Apples = 2/5 × 15 = 6 units. Pears = 1/3 × 15 = 5 units. Oranges = 15 − 6 − 5 = 4 units.",
+      "4 units = 48 → 1 unit = 12.",
+      "Apples − pears = 6 units − 5 units = 1 unit = 12. Check: 72 apples, 60 pears and 48 oranges make 180 fruits ✓"
+    ],
+    "distractors": {
+      "1": "That is the number of apples. The question asks how many MORE apples than pears.",
+      "2": "That is the total number of fruits at the stall.",
+      "4": "That is the number of pears. Compare it with the number of apples."
+    },
+    "hints": [
+      "Choose a number of units for all the fruits that both 5 and 3 divide into.",
+      "Find how many units the oranges are, then how many units more apples there are than pears."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q5",
+    "skill": "p6-maths",
+    "topic": "number.fractions",
+    "subskill": "fraction_operations",
+    "archetype": "FR-CORE",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Find the value of 2 3/8 − 1 3/4.",
+    "answer": "5/8",
+    "accept": [
+      "0.625"
+    ],
+    "working": [
+      "Make the denominators the same: 1 3/4 = 1 6/8.",
+      "3/8 is smaller than 6/8, so rename 2 3/8 as 1 11/8.",
+      "1 11/8 − 1 6/8 = 5/8.",
+      "Or use improper fractions: 19/8 − 14/8 = 5/8."
+    ],
+    "hints": [
+      "Change 3/4 into eighths first.",
+      "You cannot take 6/8 from 3/8, so borrow 1 whole from the 2 (or turn both into improper fractions)."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q6",
+    "skill": "p6-maths",
+    "topic": "number.ratio",
+    "subskill": "ratio_basics",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "A jug contains 750 ml of juice. A bottle contains 2 ℓ of juice. What is the ratio of the volume of juice in the jug to the volume of juice in the bottle? Give the ratio in its simplest form.",
+    "options": [
+      "375 : 1",
+      "8 : 3",
+      "3 : 11",
+      "3 : 8"
+    ],
+    "answer": 4,
+    "working": [
+      "Use the same units first: 2 ℓ = 2000 ml.",
+      "Jug : bottle = 750 : 2000.",
+      "Divide both by 250 → 3 : 8."
+    ],
+    "distractors": {
+      "1": "Divided 750 by 2 without changing ℓ to ml. Both amounts must be in the same unit.",
+      "2": "The order is reversed. The jug is named first, so it comes first.",
+      "3": "That compares the jug with the TOTAL of both (750 ml + 2000 ml), not with the bottle."
+    },
+    "hints": [
+      "Before writing a ratio, both amounts must be in the same unit.",
+      "Change 2 ℓ to millilitres, then divide both numbers by the same number until you cannot any more."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q7",
+    "skill": "p6-maths",
+    "topic": "number.ratio",
+    "subskill": "repeated_identity",
+    "archetype": "RATIO-REP-ID",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "The ratio of Arjun's stickers to Bala's stickers is 2 : 3. The ratio of Bala's stickers to Wen Hui's stickers is 4 : 5. They have 280 stickers altogether. How many stickers does Wen Hui have?",
+    "answer": "120",
+    "unit": "stickers",
+    "working": [
+      "Bala is in both ratios, so make his number of units the same in both (12 units, the LCM of 3 and 4).",
+      "Arjun : Bala = 2 : 3 = 8 : 12. Bala : Wen Hui = 4 : 5 = 12 : 15.",
+      "Arjun : Bala : Wen Hui = 8 : 12 : 15, which is 35 units altogether.",
+      "35 units = 280 → 1 unit = 8.",
+      "Wen Hui = 15 × 8 = 120 stickers. Check: 64 + 96 + 120 = 280 ✓"
+    ],
+    "hints": [
+      "Bala appears in both ratios. Make his number of units the same in both.",
+      "Bala is 3 units in one ratio and 4 units in the other. Change both ratios so that Bala is 12 units."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q8",
+    "skill": "p6-maths",
+    "topic": "number.ratio",
+    "subskill": "ratio_word_problems",
+    "archetype": "RATIO-CORE",
+    "difficulty": 4,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "To make one tray of muffins, Nurul mixes flour and sugar in the ratio 5 : 2. Each tray uses 250 g of flour. She has 2 kg of flour and 900 g of sugar. What is the greatest number of trays of muffins she can make?",
+    "options": [
+      "8",
+      "9",
+      "3",
+      "11"
+    ],
+    "answer": 1,
+    "working": [
+      "Flour : sugar = 5 : 2, and 5 units = 250 g → 1 unit = 50 g. Each tray needs 2 × 50 g = 100 g of sugar.",
+      "The flour is enough for 2000 g ÷ 250 g = 8 trays.",
+      "The sugar is enough for 900 g ÷ 100 g = 9 trays.",
+      "The flour runs out first, so the greatest number she can make is 8 trays."
+    ],
+    "distractors": {
+      "2": "That is how many trays the sugar alone allows. Check the flour too: the ingredient that runs out first decides.",
+      "3": "Used 250 g of sugar for each tray. The 250 g is the flour; use the ratio to find the sugar for one tray.",
+      "4": "Added the flour and the sugar together. Each ingredient has to be checked on its own."
+    },
+    "hints": [
+      "How much sugar does ONE tray need? Use the ratio and the 250 g of flour.",
+      "Work out how many trays the flour allows and how many trays the sugar allows. Which runs out first?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q9",
+    "skill": "p6-maths",
+    "topic": "number.percentage",
+    "subskill": "percentage_change",
+    "archetype": "PCT-CORE",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "The price of a bicycle went up from $240 to $276. Find the percentage increase.",
+    "answer": "15%",
+    "working": [
+      "Increase = $276 − $240 = $36.",
+      "Percentage increase = 36/240 × 100% = 15%."
+    ],
+    "hints": [
+      "Find how much the price went up by first.",
+      "Divide the increase by the ORIGINAL price, then multiply by 100%."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q10",
+    "skill": "p6-maths",
+    "topic": "number.percentage",
+    "subskill": "find_original",
+    "archetype": "PCT-BACK",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "During a sale, a rice cooker was sold at a 20% discount. Divya paid $68 for it. What was the price of the rice cooker before the discount?",
+    "options": [
+      "$81.60",
+      "$85",
+      "$88",
+      "$340"
+    ],
+    "answer": 2,
+    "working": [
+      "After a 20% discount, Divya paid 100% − 20% = 80% of the usual price.",
+      "80% = $68 → 1% = $0.85 → 100% = $85.",
+      "Check: 20% of $85 = $17, and $85 − $17 = $68 ✓"
+    ],
+    "distractors": {
+      "1": "Added 20% of $68 to $68. The 20% is a percentage of the price BEFORE the discount, not of the sale price.",
+      "3": "Added $20. The discount is 20 per cent, not $20.",
+      "4": "Treated $68 as 20% of the price. She PAID 80% of the price; the 20% was taken off."
+    },
+    "hints": [
+      "After a 20% discount, what percentage of the usual price does she pay?",
+      "That percentage of the usual price is $68. Find 1% first."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q11",
+    "skill": "p6-maths",
+    "topic": "number.percentage",
+    "subskill": "discount_gst",
+    "archetype": "PCT-CORE",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "A fan costs $160 before GST. During a sale, the shop gives a 25% discount. Then 9% GST is charged on the sale price. How much does a customer pay for the fan?",
+    "answer": "$130.80",
+    "working": [
+      "Sale price = 75% of $160 = $120.",
+      "GST = 9% of $120 = $10.80.",
+      "Amount paid = $120 + $10.80 = $130.80."
+    ],
+    "hints": [
+      "Take the discount off first: how much is the fan after 25% off?",
+      "GST is 9% of the SALE price. Work it out and add it on."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q12",
+    "skill": "p6-maths",
+    "topic": "number.percentage",
+    "subskill": "percentage_word_problems",
+    "archetype": "PCT-REM",
+    "difficulty": 4,
+    "marks": 3,
+    "type": "short",
+    "stem": "Kumar spent 30% of his money on a game. He then spent 40% of the remaining money on a book. He had $63 left. How much money did he have at first?",
+    "answer": "$150",
+    "working": [
+      "After the game, 100% − 30% = 70% of his money was left.",
+      "The book cost 40% of that 70%: 40/100 × 70% = 28% of his money.",
+      "Money left = 70% − 28% = 42% of his money = $63.",
+      "1% = $63 ÷ 42 = $1.50 → 100% = $150.",
+      "Check: game $45, remaining $105, book $42, left $105 − $42 = $63 ✓"
+    ],
+    "hints": [
+      "The 40% is a percentage of the REMAINING money, not of all his money.",
+      "Work out what percentage of ALL his money was left at the end, then use the $63."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q13",
+    "skill": "p6-maths",
+    "topic": "measurement.rate",
+    "subskill": "unit_rate",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "A machine fills 45 bottles in 3 minutes. At this rate, how many bottles can it fill in 20 minutes?",
+    "options": [
+      "900",
+      "15",
+      "135",
+      "300"
+    ],
+    "answer": 4,
+    "working": [
+      "In 1 minute: 45 ÷ 3 = 15 bottles.",
+      "In 20 minutes: 15 × 20 = 300 bottles."
+    ],
+    "distractors": {
+      "1": "Multiplied 45 by 20, but 45 bottles take 3 minutes, not 1 minute.",
+      "2": "That is the number of bottles filled in 1 minute. Now work out 20 minutes' worth.",
+      "3": "Multiplied 45 by 3. Divide by 3 to find the number for 1 minute."
+    },
+    "hints": [
+      "How many bottles does the machine fill in 1 minute?",
+      "Once you know the number for 1 minute, multiply it by the number of minutes."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q14",
+    "skill": "p6-maths",
+    "topic": "measurement.rate",
+    "subskill": "charges_tables",
+    "archetype": "RATE-TABLE",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "The table shows the parking charges at a car park.\n\n| Duration | Charge |\n| --- | --- |\n| First hour | $2.50 |\n| Every additional 30 min or part thereof | $1.20 |\n\nMrs Lim parked her car from 9.40 a.m. to 1.15 p.m. How much did she pay?",
+    "answer": "$9.70",
+    "working": [
+      "Time parked: 9.40 a.m. to 1.15 p.m. = 3 h 35 min.",
+      "After the first hour: 3 h 35 min − 1 h = 2 h 35 min = 155 min.",
+      "155 min ÷ 30 min = 5 full blocks with 5 min left over. 'Part thereof' means the 5 min is charged as 1 more block → 6 blocks.",
+      "Charge = $2.50 + 6 × $1.20 = $2.50 + $7.20 = $9.70."
+    ],
+    "hints": [
+      "Find how long the car was parked, then take away the first hour.",
+      "Count the 30-minute blocks in the time that is left. A part of a block is charged as a full block."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q15",
+    "skill": "p6-maths",
+    "topic": "measurement.rate",
+    "subskill": "best_buy",
+    "archetype": "RATE-CORE",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "A shop sells the same pens in two packet sizes: 3 pens for $2.40, or 8 pens for $5.60. Rizwan needs exactly 24 pens and can only buy whole packets. What is the least amount of money he can pay?",
+    "options": [
+      "$16.80",
+      "$19.20",
+      "$18.00",
+      "$8.00"
+    ],
+    "answer": 1,
+    "working": [
+      "Price of 1 pen: small packet $2.40 ÷ 3 = $0.80; big packet $5.60 ÷ 8 = $0.70.",
+      "The big packet is cheaper per pen, and 24 ÷ 8 = 3, so 3 big packets give exactly 24 pens.",
+      "3 × $5.60 = $16.80."
+    ],
+    "distractors": {
+      "2": "That is the cost using only 3-pen packets. Compare the price of ONE pen in each packet first.",
+      "3": "Used the average of the two prices per pen. He can choose the cheaper packet for every pen.",
+      "4": "That is the cost of one packet of each size, which is only 11 pens."
+    },
+    "hints": [
+      "Find the cost of ONE pen in each packet size.",
+      "Check whether 24 pens can be made using only the cheaper packets."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q16",
+    "skill": "p6-maths",
+    "topic": "algebra.expressions",
+    "subskill": "form_expression",
+    "archetype": "ALG-CORE",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Aisyah bought 4 notebooks at $y each. She paid with a $20 note. How much change did she get? Give your answer in terms of y.",
+    "options": [
+      "$(4y − 20)",
+      "$(20 − y)",
+      "$(20 − 4y)",
+      "$16y"
+    ],
+    "answer": 3,
+    "working": [
+      "Cost of 4 notebooks = 4 × $y = $4y.",
+      "Change = money paid − cost = $(20 − 4y)."
+    ],
+    "distractors": {
+      "1": "This takes the $20 away from the cost: the wrong way round. Change = money handed over − cost.",
+      "2": "That is the change if she bought only ONE notebook.",
+      "4": "Took 4 from 20 and joined the y on. 4y means 4 × y, so it cannot be taken from 20 like a plain number."
+    },
+    "hints": [
+      "First write the cost of the 4 notebooks using y.",
+      "Change = the money she handed over − the cost."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q17",
+    "skill": "p6-maths",
+    "topic": "algebra.expressions",
+    "subskill": "simplify_evaluate",
+    "archetype": "ALG-CORE",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Simplify 9k + 14 − 3k − 5.",
+    "answer": "6k + 9",
+    "accept": [
+      "6k+9",
+      "9 + 6k",
+      "9+6k"
+    ],
+    "working": [
+      "Collect the k terms: 9k − 3k = 6k.",
+      "Collect the numbers: 14 − 5 = 9.",
+      "So 9k + 14 − 3k − 5 = 6k + 9."
+    ],
+    "hints": [
+      "Put the k terms together and the plain numbers together.",
+      "Each sign belongs to the term right after it: the 3k is taken away, and so is the 5."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q18",
+    "skill": "p6-maths",
+    "topic": "algebra.expressions",
+    "subskill": "simplify_evaluate",
+    "archetype": "ALG-CORE",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Find the value of (5p + 6) ÷ 3 − p when p = 9.",
+    "options": [
+      "14",
+      "38",
+      "17",
+      "8"
+    ],
+    "answer": 4,
+    "working": [
+      "Replace p with 9: (5 × 9 + 6) ÷ 3 − 9.",
+      "Brackets first: 45 + 6 = 51.",
+      "Then divide: 51 ÷ 3 = 17.",
+      "Then subtract: 17 − 9 = 8."
+    ],
+    "distractors": {
+      "1": "Took away p before dividing. Work out the brackets, then divide by 3, then take away p.",
+      "2": "Divided only the 6 by 3. The whole bracket (5p + 6) is divided by 3.",
+      "3": "Stopped one step early: the expression still has − p at the end."
+    },
+    "hints": [
+      "Replace p with 9 everywhere, then follow the order: brackets, divide, subtract.",
+      "Work out 5 × 9 + 6 first, then divide the whole bracket by 3."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q19",
+    "skill": "p6-maths",
+    "topic": "algebra.expressions",
+    "subskill": "simple_equations",
+    "archetype": "ALG-CORE",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "short",
+    "stem": "Irfan thinks of a whole number n. He multiplies it by 7 and then subtracts 12. The answer is 51. Find n.",
+    "answer": "9",
+    "working": [
+      "Write the equation: 7n − 12 = 51.",
+      "Add 12 to both sides: 7n = 63.",
+      "Divide both sides by 7: n = 9.",
+      "Check: 7 × 9 − 12 = 63 − 12 = 51 ✓"
+    ],
+    "hints": [
+      "Write what Irfan did as an equation using n.",
+      "Undo the steps in reverse order: add back the 12 first, then divide by 7."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q20",
+    "skill": "p6-maths",
+    "topic": "geometry.area_perimeter",
+    "subskill": "triangle_area",
+    "archetype": "AREA-CORE",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "ABCD is a rectangle with AB = 16 cm and BC = 10 cm. E is a point on side DC. Find the area of triangle ABE.",
+    "options": [
+      "80 cm²",
+      "160 cm²",
+      "40 cm²",
+      "52 cm²"
+    ],
+    "answer": 1,
+    "working": [
+      "Take AB = 16 cm as the base.",
+      "The height is the perpendicular distance from E to AB. Wherever E is on DC, that distance is the width of the rectangle, 10 cm.",
+      "Area = ½ × 16 × 10 = 80 cm²."
+    ],
+    "distractors": {
+      "2": "That is the area of the whole rectangle. A triangle on the same base and between the same lines is half of it.",
+      "3": "Used 8 cm as the base, as if E were the middle point. The base is the whole of AB.",
+      "4": "That is the perimeter of the rectangle in cm, not an area."
+    },
+    "hints": [
+      "Use AB as the base. How far is side DC from side AB?",
+      "Area of a triangle = ½ × base × height, and the height is the same wherever E is on DC."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q21",
+    "skill": "p6-maths",
+    "topic": "geometry.area_perimeter",
+    "subskill": "composite_area",
+    "archetype": "AREA-CORE",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "A rectangular garden is 18 m long and 12 m wide. A path 2 m wide runs along the inside of all four edges of the garden. The rest of the garden is grass. Find the area of the grass.",
+    "answer": "112",
+    "unit": "m²",
+    "working": [
+      "The path is on both sides, so it takes 2 m from each end of the length and each end of the width.",
+      "Grass length = 18 − 2 − 2 = 14 m. Grass width = 12 − 2 − 2 = 8 m.",
+      "Area of grass = 14 × 8 = 112 m²."
+    ],
+    "hints": [
+      "Picture the grass as a smaller rectangle in the middle. The path is on BOTH sides of it.",
+      "Take 2 m off each end of the length and each end of the width, then multiply."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q22",
+    "skill": "p6-maths",
+    "topic": "geometry.area_perimeter",
+    "subskill": "perimeter",
+    "archetype": "AREA-CORE",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "A square piece of paper has an area of 144 cm². It is cut into 2 identical rectangles. Find the perimeter of one rectangle.",
+    "answer": "36",
+    "unit": "cm",
+    "working": [
+      "12 × 12 = 144, so each side of the square is 12 cm.",
+      "Cutting the square into 2 identical rectangles gives rectangles 12 cm long and 6 cm wide.",
+      "Perimeter of one rectangle = 2 × (12 + 6) = 36 cm."
+    ],
+    "hints": [
+      "What is the length of one side of the square?",
+      "Each rectangle is half the square. Find its length and width, then add all four sides."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q23",
+    "skill": "p6-maths",
+    "topic": "geometry.circles",
+    "subskill": "circumference",
+    "archetype": "CIRC-CORE",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "A circular plate has a diameter of 28 cm. Find its circumference. (Take π = 22/7)",
+    "options": [
+      "44 cm",
+      "88 cm",
+      "176 cm",
+      "616 cm"
+    ],
+    "answer": 2,
+    "working": [
+      "Circumference = π × diameter.",
+      "= 22/7 × 28 = 22 × 4 = 88 cm."
+    ],
+    "distractors": {
+      "1": "Multiplied π by the radius only (π × 14). Circumference = π × diameter, or 2 × π × radius.",
+      "3": "Used 28 cm as the radius: 2 × π × 28. The 28 cm is the diameter.",
+      "4": "That is the area (π × 14 × 14), not the distance around the plate."
+    },
+    "hints": [
+      "Which circumference formula uses the diameter directly?",
+      "Circumference = π × d. 28 ÷ 7 is a whole number, so cancel the 7 first."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q24",
+    "skill": "p6-maths",
+    "topic": "geometry.circles",
+    "subskill": "circle_area",
+    "archetype": "CIRC-CORE",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "short",
+    "stem": "The circumference of a circle is 62.8 cm. Find the area of the circle. (Take π = 3.14)",
+    "answer": "314",
+    "unit": "cm²",
+    "working": [
+      "Diameter = circumference ÷ π = 62.8 ÷ 3.14 = 20 cm.",
+      "Radius = 20 ÷ 2 = 10 cm.",
+      "Area = π × r × r = 3.14 × 10 × 10 = 314 cm²."
+    ],
+    "hints": [
+      "Use the circumference to find the diameter first.",
+      "The area needs the RADIUS: halve the diameter, then use π × r × r."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q25",
+    "skill": "p6-maths",
+    "topic": "geometry.circles",
+    "subskill": "composite_circles",
+    "archetype": "CIRC-CORE",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "A semicircle has a diameter of 20 cm. Find its perimeter. (Take π = 3.14)",
+    "options": [
+      "31.4 cm",
+      "62.8 cm",
+      "51.4 cm",
+      "41.4 cm"
+    ],
+    "answer": 3,
+    "working": [
+      "Curved edge = ½ × π × d = ½ × 3.14 × 20 = 31.4 cm.",
+      "Straight edge = the diameter = 20 cm.",
+      "Perimeter = 31.4 + 20 = 51.4 cm."
+    ],
+    "distractors": {
+      "1": "That is only the curved edge. The perimeter also includes the straight edge.",
+      "2": "That is the circumference of the WHOLE circle.",
+      "4": "Added the radius for the straight edge. The straight edge of a semicircle is the whole diameter."
+    },
+    "hints": [
+      "Trace around the semicircle with your finger. How many edges does it have?",
+      "Add half of the full circle's circumference to the length of the straight edge."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q26",
+    "skill": "p6-maths",
+    "topic": "geometry.circles",
+    "subskill": "composite_circles",
+    "archetype": "CIRC-CORE",
+    "difficulty": 4,
+    "marks": 2,
+    "type": "short",
+    "stem": "A square has sides of 14 cm. A quarter circle with a radius of 14 cm is drawn inside the square, with its centre at one corner of the square. Find the area of the part of the square that is outside the quarter circle. (Take π = 22/7)",
+    "answer": "42",
+    "unit": "cm²",
+    "working": [
+      "Area of the square = 14 × 14 = 196 cm².",
+      "Area of the quarter circle = ¼ × 22/7 × 14 × 14 = 154 cm².",
+      "Area outside the quarter circle = 196 − 154 = 42 cm²."
+    ],
+    "hints": [
+      "This is a 'square minus quarter circle' shape. Find each area separately.",
+      "A quarter circle has ¼ of the area of the full circle, π × r × r, with r = 14 cm."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q27",
+    "skill": "p6-maths",
+    "topic": "measurement.volume",
+    "subskill": "cuboid_volume",
+    "archetype": "VOL-CORE",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "A cube has a volume of 216 cm³. Find the total length of all its edges.",
+    "options": [
+      "6 cm",
+      "24 cm",
+      "72 cm",
+      "36 cm"
+    ],
+    "answer": 3,
+    "working": [
+      "6 × 6 × 6 = 216, so each edge is 6 cm.",
+      "A cube has 12 edges.",
+      "Total length = 12 × 6 = 72 cm."
+    ],
+    "distractors": {
+      "1": "That is the length of ONE edge. Now count all the edges of a cube.",
+      "2": "That is only the four edges around one face.",
+      "4": "Counted 6 edges, one for each face. A cube has more edges than faces."
+    },
+    "hints": [
+      "Which number multiplied by itself three times gives 216?",
+      "Count the edges of a cube: 4 on the top, 4 on the bottom and 4 standing upright."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q28",
+    "skill": "p6-maths",
+    "topic": "measurement.volume",
+    "subskill": "liquid_in_tanks",
+    "archetype": "VOL-CORE",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "short",
+    "stem": "A rectangular tank is 40 cm long and 30 cm wide. It contains 18 ℓ of water. Find the height of the water in the tank.",
+    "answer": "15",
+    "unit": "cm",
+    "working": [
+      "18 ℓ = 18 × 1000 cm³ = 18 000 cm³.",
+      "Base area = 40 × 30 = 1200 cm².",
+      "Height of water = 18 000 ÷ 1200 = 15 cm."
+    ],
+    "hints": [
+      "Change litres to cm³ first: 1 ℓ = 1000 cm³.",
+      "Height of water = volume of water ÷ area of the base."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q29",
+    "skill": "p6-maths",
+    "topic": "measurement.volume",
+    "subskill": "liquid_in_tanks",
+    "archetype": "VOL-UNITS",
+    "difficulty": 4,
+    "marks": 3,
+    "type": "short",
+    "stem": "Tank A is 50 cm long and 30 cm wide. It contains water to a height of 36 cm. Tank B is empty, and its base is 40 cm long and 30 cm wide. Some water is poured from Tank A into Tank B until the water in both tanks is at the same height. No water overflows. Find the height of the water in each tank.",
+    "answer": "20",
+    "unit": "cm",
+    "working": [
+      "Water is only moved, so the total stays the same: 50 × 30 × 36 = 54 000 cm³.",
+      "Base areas: Tank A = 50 × 30 = 1500 cm², Tank B = 40 × 30 = 1200 cm². Together = 2700 cm².",
+      "Same height in both: height = 54 000 ÷ 2700 = 20 cm.",
+      "Check: Tank A holds 1500 × 20 = 30 000 cm³ and Tank B holds 1200 × 20 = 24 000 cm³; 30 000 + 24 000 = 54 000 ✓"
+    ],
+    "hints": [
+      "Water is only moved, not lost. Find the total volume of water first.",
+      "When the heights are equal, the water stands on both bases together. Add the two base areas."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q30",
+    "skill": "p6-maths",
+    "topic": "measurement.volume",
+    "subskill": "tank_rates",
+    "archetype": "VOL-RATE",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "An empty rectangular tank is 60 cm long, 40 cm wide and 50 cm high. Water flows into it from a tap at 8 ℓ per minute. How long does it take to fill the tank to a height of 30 cm?",
+    "options": [
+      "15 min",
+      "6 min",
+      "9000 min",
+      "9 min"
+    ],
+    "answer": 4,
+    "working": [
+      "Volume needed = 60 × 40 × 30 = 72 000 cm³ = 72 ℓ.",
+      "Time = 72 ℓ ÷ 8 ℓ per minute = 9 minutes."
+    ],
+    "distractors": {
+      "1": "That is the time to fill the WHOLE tank, 50 cm high. The water only needs to reach 30 cm.",
+      "2": "That is the time for the top 20 cm of the tank. The tank starts empty and fills from the bottom.",
+      "3": "Divided cm³ by litres per minute. Change the volume to litres first (1 ℓ = 1000 cm³)."
+    },
+    "hints": [
+      "Find the volume of water needed for a height of 30 cm, in litres.",
+      "1 ℓ = 1000 cm³. Then divide by the 8 ℓ that flow in each minute."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q31",
+    "skill": "p6-maths",
+    "topic": "geometry.angles",
+    "subskill": "isosceles_equilateral",
+    "archetype": "ANG-CORE",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "In triangle PQR, PQ = PR and ∠QPR = 48°. Find ∠PQR.",
+    "options": [
+      "66°",
+      "48°",
+      "84°",
+      "132°"
+    ],
+    "answer": 1,
+    "working": [
+      "PQ = PR, so triangle PQR is isosceles and the angles opposite the equal sides, ∠PQR and ∠PRQ, are equal.",
+      "∠PQR + ∠PRQ = 180° − 48° = 132°.",
+      "∠PQR = 132° ÷ 2 = 66°."
+    ],
+    "distractors": {
+      "2": "The 48° angle sits between the two equal sides. The two equal angles are the other two.",
+      "3": "Made two of the angles 48°. The 48° angle is the odd one out.",
+      "4": "That is the two equal angles together. Share it equally between them."
+    },
+    "hints": [
+      "Which two angles are equal in an isosceles triangle? Look opposite the two equal sides.",
+      "The two equal angles share what is left of 180° after the 48° angle."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q32",
+    "skill": "p6-maths",
+    "topic": "geometry.angles",
+    "subskill": "quadrilateral_properties",
+    "archetype": "ANG-CORE",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "ABCD is a rhombus and ∠ABC = 124°. The diagonal AC is drawn. Find ∠BAC.",
+    "answer": "28°",
+    "accept": [
+      "28 degrees"
+    ],
+    "working": [
+      "All four sides of a rhombus are equal, so AB = BC and triangle ABC is isosceles.",
+      "∠BAC = ∠BCA = (180° − 124°) ÷ 2 = 56° ÷ 2 = 28°.",
+      "Another way: ∠BAD = 180° − 124° = 56° (angles between parallel sides), and the diagonal AC cuts ∠BAD in half."
+    ],
+    "hints": [
+      "In a rhombus, all four sides are equal. What kind of triangle is ABC?",
+      "The angles in triangle ABC add up to 180°, and the angles at A and C in that triangle are equal."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q33",
+    "skill": "p6-maths",
+    "topic": "geometry.angles",
+    "subskill": "parallel_perpendicular",
+    "archetype": "ANG-CORE",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "Lines AB and CD are parallel. A straight line cuts AB at G and CD at H. Points A and C are on the same side of line GH. ∠AGH = 72°. Find ∠GHC.",
+    "answer": "108°",
+    "accept": [
+      "108 degrees"
+    ],
+    "working": [
+      "∠AGH and ∠GHC both lie between the parallel lines AB and CD, on the same side of GH.",
+      "Angles like these add up to 180°, so ∠GHC = 180° − 72° = 108°.",
+      "Watch out: ∠GHD (on the other side of GH) is equal to ∠AGH, because they make a Z shape. The question asks for ∠GHC."
+    ],
+    "hints": [
+      "Draw it: two parallel lines across the page, a slanted line crossing both, and A and C at the left ends.",
+      "∠AGH and ∠GHC are on the same side of GH, between the parallel lines. What do such angles add up to?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q34",
+    "skill": "p6-maths",
+    "topic": "geometry.angles",
+    "subskill": "symmetry",
+    "archetype": "ANG-CORE",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which shape has exactly 2 lines of symmetry?",
+    "options": [
+      "A square",
+      "A rectangle that is not a square",
+      "An equilateral triangle",
+      "An isosceles trapezium"
+    ],
+    "answer": 2,
+    "working": [
+      "A rectangle that is not a square has 2 lines of symmetry: one through the middles of its long sides and one through the middles of its short sides.",
+      "Its diagonals are not lines of symmetry: folding along a diagonal does not make the two halves match.",
+      "A square has 4 lines of symmetry, an equilateral triangle has 3 and an isosceles trapezium has 1."
+    ],
+    "distractors": {
+      "1": "A square has 4 lines of symmetry: 2 through the middles of the sides and 2 along the diagonals.",
+      "3": "An equilateral triangle has 3 lines of symmetry, one from each corner to the middle of the opposite side.",
+      "4": "An isosceles trapezium has only 1 line of symmetry, through the middles of its two parallel sides."
+    },
+    "hints": [
+      "Imagine folding each shape so that the two halves match exactly. How many different folds work?",
+      "Folding along a diagonal only works when all four sides are equal."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q35",
+    "skill": "p6-maths",
+    "topic": "statistics.data",
+    "subskill": "pie_charts",
+    "archetype": "DATA-PCT",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "A pie chart shows how 360 pupils travel to school. The sector for Bus is a right angle. Car takes up 1/3 of the pie chart and MRT takes up 15% of it. The rest of the pupils walk. How many pupils walk to school?",
+    "options": [
+      "90",
+      "108",
+      "264",
+      "96"
+    ],
+    "answer": 4,
+    "working": [
+      "Bus: a right angle is 1/4 of the circle → 1/4 × 360 = 90 pupils.",
+      "Car: 1/3 × 360 = 120 pupils.",
+      "MRT: 15% × 360 = 54 pupils.",
+      "Walk: 360 − 90 − 120 − 54 = 96 pupils."
+    ],
+    "distractors": {
+      "1": "That is the number of pupils who take the bus.",
+      "2": "Took 1/3 as 30%. One third of 360 is more than 30% of 360.",
+      "3": "That is the number of pupils who do NOT walk. Take it away from the total."
+    },
+    "hints": [
+      "A right angle is what fraction of a whole circle?",
+      "Find the number of pupils for Bus, Car and MRT, then take them all away from 360."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q36",
+    "skill": "p6-maths",
+    "topic": "statistics.data",
+    "subskill": "read_tables_graphs",
+    "archetype": "DATA-CORE",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "short",
+    "stem": "The table shows the number of books a library lent out on four days.\n\n| Day | Monday | Tuesday | Wednesday | Thursday |\n| --- | --- | --- | --- | --- |\n| Books lent out | 128 | 96 | 144 | 112 |\n\nWhat percentage of the books lent out over the four days were lent out on Wednesday?",
+    "answer": "30%",
+    "working": [
+      "Total over four days = 128 + 96 + 144 + 112 = 480 books.",
+      "Wednesday: 144/480 × 100% = 30%."
+    ],
+    "hints": [
+      "Find the total number of books lent out over the four days first.",
+      "Percentage = Wednesday's books ÷ total books × 100%."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q37",
+    "skill": "p6-maths",
+    "topic": "statistics.data",
+    "subskill": "true_false_npt",
+    "archetype": "DATA-REASON",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Pie chart X shows the favourite fruits of the pupils in Class A. Pie chart Y shows the favourite fruits of the pupils in Class B. In pie chart X, 40% of the pupils chose mango. In pie chart Y, 30% of the pupils chose mango. The number of pupils in each class is not given. Which statement must be true?",
+    "options": [
+      "More pupils in Class A chose mango than in Class B.",
+      "Class A has more pupils than Class B.",
+      "A greater fraction of the pupils in Class A chose mango than in Class B.",
+      "Altogether, 70% of the pupils in the two classes chose mango."
+    ],
+    "answer": 3,
+    "working": [
+      "A pie chart shows the parts of ONE whole. Without the class sizes, only the fractions of each class can be compared, not the numbers of pupils.",
+      "40% is more than 30%, so a greater fraction of Class A chose mango: this must be true.",
+      "Watch out: if Class A had 20 pupils and Class B had 40, then 8 pupils in Class A and 12 pupils in Class B chose mango. So 'more pupils in Class A' cannot be told."
+    ],
+    "distractors": {
+      "1": "Not possible to tell: 40% of a small class can be fewer pupils than 30% of a big class.",
+      "2": "Not possible to tell: the pie charts show parts of each class, not how big each class is.",
+      "4": "Percentages of two different wholes cannot be added. The combined percentage depends on the class sizes and is between 30% and 40%."
+    },
+    "hints": [
+      "A pie chart shows fractions of one whole. Do you know how big each whole is?",
+      "Which statements need the number of pupils in each class? Cross those out."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q38",
+    "skill": "p6-maths",
+    "topic": "statistics.average",
+    "subskill": "average_total",
+    "archetype": "AVG-CORE",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "The average mass of 5 parcels is 3.2 kg. What is the total mass of the 5 parcels?",
+    "options": [
+      "16 kg",
+      "0.64 kg",
+      "8.2 kg",
+      "160 kg"
+    ],
+    "answer": 1,
+    "working": [
+      "Total = average × number of parcels.",
+      "3.2 kg × 5 = 16 kg."
+    ],
+    "distractors": {
+      "2": "Divided by 5. The average is the total shared out equally, so multiply to get the total back.",
+      "3": "Added 5 instead of multiplying by 5.",
+      "4": "The decimal point slipped: 32 × 5 = 160, but 3.2 has one decimal place."
+    },
+    "hints": [
+      "Average = total ÷ number of parcels. Turn that around.",
+      "Total = average × number of parcels."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q39",
+    "skill": "p6-maths",
+    "topic": "statistics.average",
+    "subskill": "missing_item",
+    "archetype": "AVG-CORE",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "short",
+    "stem": "Hui Min took four spelling tests. Her average score was 17. Her scores for the first three tests were 15, 18 and 16. What was her score for the fourth test?",
+    "answer": "19",
+    "working": [
+      "Total of all four tests = 17 × 4 = 68.",
+      "Total of the first three tests = 15 + 18 + 16 = 49.",
+      "Fourth test = 68 − 49 = 19."
+    ],
+    "hints": [
+      "Average? Go to the TOTAL first.",
+      "Find the total of all four scores, then take away the three scores you know."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  },
+  {
+    "id": "p6math-original-01-q40",
+    "skill": "p6-maths",
+    "topic": "statistics.average",
+    "subskill": "combined_average",
+    "archetype": "AVG-CORE",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "The average height of 12 boys is 148 cm. The average height of 8 girls is 143 cm. Find the average height of all 20 children.",
+    "options": [
+      "2920 cm",
+      "146 cm",
+      "145.5 cm",
+      "291 cm"
+    ],
+    "answer": 2,
+    "working": [
+      "Total height of the boys = 12 × 148 = 1776 cm.",
+      "Total height of the girls = 8 × 143 = 1144 cm.",
+      "Average of all 20 = (1776 + 1144) ÷ 20 = 2920 ÷ 20 = 146 cm."
+    ],
+    "distractors": {
+      "1": "That is the total height of all the children. Divide it by the number of children.",
+      "3": "Took the average of the two averages. There are more boys than girls, so the boys count for more.",
+      "4": "Added the two averages together."
+    },
+    "hints": [
+      "You cannot just average the two averages, because the two groups are different sizes.",
+      "Find the total height of the boys and of the girls, then share the grand total among all the children."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "founder (P6 Maths review)",
+    "version_added": "1.0.0",
+    "notes": "Approved by the founder."
+  }
+]

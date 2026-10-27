@@ -88,3 +88,20 @@
   .fa-door{width:132px;height:156px;border-radius:66px 66px 0 0}
   .fa-sprite{height:124px}
 }
+/* Focus this week: the focus camera's notes on each kid's card (PARENT_INSIGHTS.md §1). Calm, editorial, no alarm colours. */
+.fa-focus{margin:14px 16px 0}
+.fa-cam-state{display:inline-flex;align-items:center;gap:6px;flex:none;padding:3px 10px;border-radius:var(--radius-pill);font-size:13px;line-height:18px;font-weight:700;color:var(--ink-muted);box-shadow:inset 0 0 0 1.5px var(--line)}
+.fa-cam-state[data-on="true"]{color:var(--accent);box-shadow:inset 0 0 0 1.5px var(--accent)}
+.fa-note{display:flex;flex-direction:column;gap:4px;padding:10px 12px 4px;border-radius:var(--radius-sm);background:var(--surface-raised);box-shadow:inset 3px 0 0 var(--accent-2)}
+.fa-sample{padding:1px 8px;border-radius:var(--radius-pill);background:var(--ink);color:var(--surface-raised);font-size:11px;line-height:18px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.fa-conf{display:inline-flex;align-items:center;gap:6px}
+.fa-conf-bars{display:inline-flex;align-items:flex-end;gap:2px;height:13px}
+.fa-conf-bars > span{width:4px;border-radius:2px;background:var(--line)}
+.fa-conf-bars > span[data-on="true"]{background:var(--ink-muted)}
+.fa-note-rm{align-self:flex-start;min-height:44px;margin-left:-10px;padding:0 10px;border:0;border-radius:var(--radius-pill);background:transparent;color:var(--accent);font:600 14px/1 var(--font-text)}
+.fa-note-rm:hover{background:var(--surface)}
+.fa-note-rm:disabled{opacity:.5;cursor:not-allowed}
+@media (max-width: 599px){
+  .fa-kid{grid-template-areas:"stage info" "focus focus" "acts acts" "panel panel"}
+  .fa-focus{grid-area:focus;margin:14px 14px 0}
+}

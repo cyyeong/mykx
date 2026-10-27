@@ -184,3 +184,108 @@ describe("accounts (ACCOUNTS.md §5)", () => {
     await expect(db.query(`insert into audit_log (actor_role, action) values ('admin', 'Drop Table')`)).rejects.toThrow(/check constraint/);
   });
 });
+
+describe("focus camera signals (AGENTS.md rule 12)", () => {
+  const SAMPLE_NOTE = "00000000-0000-4000-8000-0000000000f1";
+
+  it("keeps the camera off by default, and a parent may switch their own kid's on", async () => {
+    const off = await db.query<{ camera_enabled: boolean }>(`select camera_enabled from profiles where role = 'child'`);
+    expect(off.rows.every((r) => r.camera_enabled === false)).toBe(true);
+    const mine = await as(PARENT_A, () => db.query(`update profiles set camera_enabled = true where id = $1`, [ARI]));
+    expect(mine.affectedRows).toBe(1);
+    const theirs = await as(PARENT_A, () => db.query(`update profiles set camera_enabled = true where id = $1`, [KID_B]));
+    expect(theirs.affectedRows).toBe(0);
+    await db.query(`update profiles set camera_enabled = false where id = $1`, [ARI]);
+  });
+
+  it("shows a household's signals to its own grown-ups only, and never to anonymous visitors", async () => {
+    await db.query(`insert into signals (household_id, profile_id, kind, minute, counts) values ($1, $2, 'camera-minute', '2026-10-28T08:00:00Z', '{"awaySeconds":3,"eyesClosedEvents":0,"yawns":0,"facePresentRatio":1}')`, [HOUSE_B, KID_B]);
+    const a = await as(PARENT_A, () => db.query<{ id: string; synthetic: boolean }>("select id, synthetic from signals"));
+    expect(a.rows).toEqual([{ id: SAMPLE_NOTE, synthetic: true }]);
+    const b = await as(PARENT_B, () => db.query<{ kind: string }>("select kind from signals"));
+    expect(b.rows.map((r) => r.kind)).toEqual(["camera-minute"]);
+    await expect(as(null, () => db.query("select * from signals"))).rejects.toThrow(/permission denied/);
+  });
+
+  it("lets only the server write signals; a grown-up may delete their own", async () => {
+    await expect(
+      as(PARENT_A, () => db.query(`insert into signals (household_id, profile_id, kind, minute, counts) values ($1, $2, 'camera-minute', now(), '{}')`, [HOUSE_A, ARI])),
+    ).rejects.toThrow(/permission denied/);
+    await expect(as(PARENT_A, () => db.query(`update signals set confidence = 'high'`))).rejects.toThrow(/permission denied/);
+    const theirs = await as(PARENT_B, () => db.query(`delete from signals where id = $1`, [SAMPLE_NOTE]));
+    expect(theirs.affectedRows).toBe(0);
+    const mine = await as(PARENT_A, () => db.query(`delete from signals where id = $1`, [SAMPLE_NOTE]));
+    expect(mine.affectedRows).toBe(1);
+  });
+
+  it("holds counts only: no other keys, and notes need their evidence", async () => {
+    const minute = (counts: string, extra = "", values = "") =>
+      db.query(`insert into signals (household_id, profile_id, kind, minute, counts${extra}) values ($1, $2, 'camera-minute', now(), $3${values})`, [HOUSE_A, ARI, counts]);
+    await expect(minute('{"image":"data:image/png;base64,AAAA"}')).rejects.toThrow(/check constraint/);
+    await expect(minute('{"awaySeconds":1,"landmarks":[[0.1,0.2]]}')).rejects.toThrow(/check constraint/);
+    await expect(minute("[]")).rejects.toThrow(/check constraint/);
+    await expect(minute('{"yawns":1}', ", evidence", ", 'words'")).rejects.toThrow(/check constraint/);
+    await expect(
+      db.query(`insert into signals (household_id, profile_id, kind, minute, until, confidence) values ($1, $2, 'focus-watch', now(), now() + interval '3 minutes', 'low')`, [HOUSE_A, ARI]),
+    ).rejects.toThrow(/check constraint/);
+    await expect(db.query(`insert into signals (household_id, profile_id, kind, minute) values ($1, $2, 'face-photo', now())`, [HOUSE_A, ARI])).rejects.toThrow(/check constraint/);
+  });
+
+  it("stores each minute once per kid", async () => {
+    const insert = () =>
+      db.query(`insert into signals (household_id, profile_id, kind, minute, counts) values ($1, $2, 'camera-minute', '2026-10-28T09:00:00Z', '{"yawns":0}')`, [HOUSE_A, ARI]);
+    await insert();
+    await expect(insert()).rejects.toThrow(/duplicate key/);
+  });
+});
+
+describe("migrations/20261028_focus_camera.sql", () => {
+  /** A database as the founder had it before this migration: camera_signals, no signals table. */
+  async function before(): Promise<PGlite> {
+    const old = new PGlite();
+    for (const f of ["test-auth-stub.sql", "schema.sql", "rls.sql"]) await old.exec(sql(f));
+    await old.exec(`drop table signals; alter table profiles rename column camera_enabled to camera_signals;`);
+    await old.exec(sql("seed.sql").replace("camera_enabled", "camera_signals").split("-- A sample")[0]);
+    await old.exec(`update profiles set camera_signals = true where id = '${ARI}'`);
+    return old;
+  }
+
+  it("renames the old column (keeping its value), adds signals with RLS and the sample note, and can run twice", async () => {
+    const old = await before();
+    try {
+      const migration = sql("migrations/20261028_focus_camera.sql");
+      await old.exec(migration);
+      await old.exec(migration);
+      const cols = await old.query<{ column_name: string }>(
+        `select column_name from information_schema.columns where table_name = 'profiles' and column_name like 'camera%'`,
+      );
+      expect(cols.rows.map((r) => r.column_name)).toEqual(["camera_enabled"]);
+      const ari = await old.query<{ camera_enabled: boolean }>(`select camera_enabled from profiles where id = $1`, [ARI]);
+      expect(ari.rows[0].camera_enabled).toBe(true);
+      const notes = await old.query<{ synthetic: boolean }>(`select synthetic from signals`);
+      expect(notes.rows).toEqual([{ synthetic: true }]);
+      const rls = await old.query<{ relrowsecurity: boolean }>(`select relrowsecurity from pg_class where relname = 'signals'`);
+      expect(rls.rows[0].relrowsecurity).toBe(true);
+      await old.exec(`insert into auth.users (id) values ('${PARENT_A}'); update profiles set user_id = '${PARENT_A}' where id = '00000000-0000-4000-8000-000000000010';`);
+      await old.query(`select set_config('request.jwt.claim.sub', $1, false)`, [PARENT_A]);
+      await old.exec("set role authenticated");
+      const seen = await old.query("select id from signals");
+      expect(seen.rows).toHaveLength(1);
+      await expect(old.query(`insert into signals (household_id, profile_id, kind, minute) values ($1, $2, 'camera-minute', now())`, [HOUSE_A, ARI])).rejects.toThrow(/permission denied/);
+      await old.exec("reset role");
+    } finally {
+      await old.close();
+    }
+  });
+
+  it("is a no-op on a fresh install", async () => {
+    const fresh = new PGlite();
+    try {
+      for (const f of ["test-auth-stub.sql", "schema.sql", "rls.sql", "seed.sql", "migrations/20261028_focus_camera.sql"]) await fresh.exec(sql(f));
+      const notes = await fresh.query(`select id from signals`);
+      expect(notes.rows).toHaveLength(1);
+    } finally {
+      await fresh.close();
+    }
+  });
+});

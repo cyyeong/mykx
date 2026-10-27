@@ -2,7 +2,11 @@
 // family (lib/auth/demo-family.ts). Any email and password opens the demo parent (the design preview);
 // other@demo.mykx opens a second, non-admin family. Refuses to exist in a production build.
 import { randomUUID } from "node:crypto";
+import type { FocusMinute } from "../signals/focus.ts";
+import type { FocusNote } from "../signals/schemas.ts";
 import {
+  ARI_ID,
+  ARI_SAMPLE_FOCUS_NOTE,
   DEMO_HOUSEHOLD_ID,
   DEMO_KIDS,
   DEMO_PARENT_EMAIL,
@@ -16,11 +20,13 @@ import {
   OTHER_PARENT_USER_ID,
 } from "./demo-family.ts";
 import type { CookieJar } from "./http.ts";
-import type { AuditEntry, AuthStore, AuthUser, Household, NewKid, Profile, ProfilePatch } from "./store.ts";
+import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch } from "./store.ts";
 import { NicknameTakenError } from "./store.ts";
 import { sessionSecret, signToken, verifyToken } from "./tokens.ts";
 
 export const DEMO_PARENT_COOKIE = "mykx_demo_parent";
+/** Bump when the store's shape changes: a running dev server then rebuilds it on the next request (see demoStore). */
+const DEMO_STORE_SHAPE = 2; // 2: focus camera (cameraEnabled, signals)
 const DEMO_TTL_SEC = 7 * 24 * 60 * 60;
 const LABEL = "demo-parent";
 
@@ -46,6 +52,7 @@ function profile(p: Partial<Profile> & Pick<Profile, "id" | "householdId" | "rol
     level: null,
     pack: null,
     voiceEnabled: false,
+    cameraEnabled: false,
     dailyLimitMin: null,
     synthetic: true,
     secretKind: null,
@@ -61,6 +68,14 @@ function profile(p: Partial<Profile> & Pick<Profile, "id" | "householdId" | "rol
   };
 }
 
+/** Yesterday at 4:12 pm Singapore time (UTC+8, no daylight saving), for Ari's sample focus note. */
+function yesterdayAfternoonSg(now = Date.now()): number {
+  const sg = new Date(now + 8 * 3_600_000);
+  return Date.UTC(sg.getUTCFullYear(), sg.getUTCMonth(), sg.getUTCDate() - 1, 8, 12);
+}
+
+type StoredNote = FocusNote & { householdId: string };
+
 interface DemoPayload {
   u: string;
   g: number; // generation: "sign out everywhere" bumps it
@@ -69,9 +84,13 @@ interface DemoPayload {
 
 export class DemoStore implements AuthStore {
   readonly mode = "demo" as const;
+  readonly shape = DEMO_STORE_SHAPE;
   readonly households = new Map<string, Household>();
   readonly profiles = new Map<string, Profile>();
   readonly auditLog: (AuditEntry & { createdAt: string })[] = [];
+  /** Camera minutes by `${kidId}|${minute ms}`: counts only. */
+  readonly focusMinuteRows = new Map<string, { householdId: string; kidId: string; minute: FocusMinute }>();
+  readonly focusNoteRows: StoredNote[] = [];
   private readonly emails = new Map<string, string>(); // auth user id → email
   private readonly banned = new Set<string>();
   private readonly generation = new Map<string, number>();
@@ -118,6 +137,15 @@ export class DemoStore implements AuthStore {
       }),
     ];
     for (const r of rows) this.profiles.set(r.id, r);
+    const from = yesterdayAfternoonSg();
+    this.focusNoteRows.push({
+      ...ARI_SAMPLE_FOCUS_NOTE,
+      householdId: DEMO_HOUSEHOLD_ID,
+      kidId: ARI_ID,
+      from: new Date(from).toISOString(),
+      to: new Date(from + 3 * 60_000).toISOString(),
+      synthetic: true,
+    });
   }
 
   private secret(): Buffer {
@@ -212,12 +240,61 @@ export class DemoStore implements AuthStore {
 
   async removeKid(householdId: string, kidId: string) {
     const p = await this.kid(householdId, kidId);
-    return p ? this.profiles.delete(kidId) : false;
+    if (!p) return false;
+    // Same as the database's on delete cascade: their signals go with them.
+    for (const [key, row] of this.focusMinuteRows) if (row.kidId === kidId) this.focusMinuteRows.delete(key);
+    this.focusNoteRows.splice(0, this.focusNoteRows.length, ...this.focusNoteRows.filter((n) => n.kidId !== kidId));
+    return this.profiles.delete(kidId);
   }
 
   async audit(entry: AuditEntry) {
     this.auditLog.push({ ...entry, createdAt: nowIso() });
   }
+
+  // Wellbeing signals
+
+  private ownsKid(householdId: string, kidId: string) {
+    const p = this.profiles.get(kidId);
+    return Boolean(p && p.householdId === householdId && p.role === "child");
+  }
+
+  readonly signals = {
+    saveFocusMinutes: async (householdId: string, kidId: string, minutes: readonly FocusMinute[]) => {
+      if (!this.ownsKid(householdId, kidId)) return;
+      for (const m of minutes) this.focusMinuteRows.set(`${kidId}|${Date.parse(m.minute)}`, { householdId, kidId, minute: { ...m } });
+    },
+    focusMinutes: async (householdId: string, kidId: string, sinceIso: string) => {
+      const since = Date.parse(sinceIso);
+      return [...this.focusMinuteRows.values()]
+        .filter((r) => r.householdId === householdId && r.kidId === kidId && Date.parse(r.minute.minute) >= since)
+        .map((r) => ({ ...r.minute }))
+        .sort((a, b) => Date.parse(a.minute) - Date.parse(b.minute));
+    },
+    latestFocusNote: async (householdId: string, kidId: string) => {
+      const mine = this.focusNoteRows.filter((n) => n.householdId === householdId && n.kidId === kidId);
+      const latest = mine.sort((a, b) => Date.parse(b.from) - Date.parse(a.from))[0];
+      return latest ? publicNote(latest) : null;
+    },
+    saveFocusNote: async (householdId: string, kidId: string, note: NewFocusNote) => {
+      if (!this.ownsKid(householdId, kidId)) return null;
+      if (this.focusNoteRows.some((n) => n.kidId === kidId && Date.parse(n.from) === Date.parse(note.from))) return null;
+      const row: StoredNote = { id: randomUUID(), householdId, kidId, ...note, synthetic: false };
+      this.focusNoteRows.push(row);
+      return publicNote(row);
+    },
+    focusNotes: async (householdId: string, sinceIso: string) => {
+      const since = Date.parse(sinceIso);
+      return this.focusNoteRows
+        .filter((n) => n.householdId === householdId && (n.synthetic || Date.parse(n.from) >= since))
+        .sort((a, b) => Date.parse(b.from) - Date.parse(a.from))
+        .map(publicNote);
+    },
+    removeFocusNote: async (householdId: string, noteId: string) => {
+      const i = this.focusNoteRows.findIndex((n) => n.id === noteId && n.householdId === householdId);
+      if (i < 0) return null;
+      return this.focusNoteRows.splice(i, 1)[0].kidId;
+    },
+  };
 
   // Admin
 
@@ -249,12 +326,20 @@ export class DemoStore implements AuthStore {
   };
 }
 
+function publicNote({ id, kidId, from, to, evidence, confidence, synthetic }: StoredNote): FocusNote {
+  return { id, kidId, from, to, evidence, confidence, synthetic };
+}
+
 const g = globalThis as typeof globalThis & { __mykxDemoStore?: DemoStore };
 
-/** One demo store per server process (shared across route bundles and hot reloads). */
+/**
+ * One demo store per server process (shared across route bundles and hot reloads). A store left over from before
+ * a shape change is replaced once (sessions survive: their cookies are signed, not stored).
+ */
 export function demoStore(): DemoStore {
   assertNotProduction();
-  return (g.__mykxDemoStore ??= new DemoStore());
+  if (g.__mykxDemoStore?.shape !== DEMO_STORE_SHAPE) g.__mykxDemoStore = new DemoStore();
+  return g.__mykxDemoStore;
 }
 
 /** Tests only: a fresh demo family. */
