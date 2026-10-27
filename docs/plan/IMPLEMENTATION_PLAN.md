@@ -1,6 +1,6 @@
 # myKx implementation plan
 
-**Written:** Tue 27 Oct 2026, 10:30 SGT (Day 1). **Replaces** the day plan in `docs/prd/PRD_REVIEW.md` §5 and tightens its scope table (§4). **Updated** 27 Oct, 11:45: Claude Code is the only coding agent (was Claude Code + Muse Code). 27 Oct, 12:45: voice and sound added to the core, Study Song added as the first stretch (PRD_REVIEW E5, E6, E10). Designs: [myKx Screens](https://claude.ai/artifact/8crEyKVQm9QxCHLDqPXioP) · [myKx design system](https://claude.ai/artifact/Jyr5pven8EDiRRfqAZDYuX).
+**Written:** Tue 27 Oct 2026, 10:30 SGT (Day 1). **Replaces** the day plan in `docs/prd/PRD_REVIEW.md` §5 and tightens its scope table (§4). **Updated** 27 Oct, 11:45: Claude Code is the only coding agent (was Claude Code + Muse Code). 27 Oct, 12:00: voice and sound added to the core, Study Song added as the first stretch (PRD_REVIEW E5, E6, E10). Designs: [myKx Screens](https://claude.ai/artifact/8crEyKVQm9QxCHLDqPXioP) · [myKx design system](https://claude.ai/artifact/Jyr5pven8EDiRRfqAZDYuX).
 
 ## 0. The budget
 
