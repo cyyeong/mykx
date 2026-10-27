@@ -41,7 +41,8 @@ Dates are SGT. "Agent" is who did the work; "Tools" are the models and services 
 | 28 Oct | On-device focus camera (counts only; parent note) | Claude Code | Face landmarks in the browser (MediaPipe) | `6f66a24` | Kix suggests a break |
 | 28 Oct | Navigation fixes: sign-in checks, not-found and error pages, admin sidebar, kid avatar menu | Claude Code | — | `6f66a24` | |
 | 28 Oct | Handover to Muse Code: all canvas boards and game-board sources in the repo (canvas v41), private material outside the repo, `.museignore`, this trail, music brief | Claude Code | Claude Design | `ac1d1eb` | How myKx was built |
-| 28 Oct | Licences: code MIT; art, Kix and skill packs CC BY-NC 4.0; font and icon notices | Claude Code | — | (this commit) | |
+| 28 Oct | Licences: code MIT; art, Kix and skill packs CC BY-NC 4.0; font and icon notices | Claude Code | — | 85ead93 | |
+| 28 Oct | One kid navigation shell on every kid page: bottom bar under 600 px, side rail from 600 px (Home, Learn, Play, Treasure, Vibe; Play and Vibe show Soon until the Arcade and Vibe Zone land); hidden inside questions and Arcade rounds; Home's local tab bar removed; honesty label clears the bar | Muse Code | Muse Spark | a4fe3ed | |
 
 ## How to add a row
 

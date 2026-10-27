@@ -666,7 +666,7 @@ Checked on 28 Oct against the stories above. Severity: **blocker** (breaks the d
 
 ### 8.4 Top 10 fixes, in priority order
 
-1. **One kid navigation shell on every kid browsing page** (tab bar under 600 px, rail from 600 px, avatar menu with Me and Switch profile). Today Treasure, the quest map, the teen study deck and Studio have no way out but the browser's Back, and nothing links to Me. (K-15, K-16)
+1. **One kid navigation shell on every kid browsing page** (tab bar under 600 px, rail from 600 px, avatar menu with Me and Switch profile). Today Treasure, the quest map, the teen study deck and Studio have no way out but the browser's Back, and nothing links to Me. (K-15, K-16) — **Built** on `muse/kid-nav`: shell on all kid pages via `app/(kid)/layout.tsx`, hidden on task screens; Play and Vibe are Soon tabs until fixes 3 and 6 land their screens.
 2. **Finish the learning loop in the question player:** **Next question**, a quest-complete page (`/learn/[quest]/done`) with **Back to the map**, **See my Treasure** and **Home**, a confirm on ✕, and a Treasure icon for the card to fly to. The flow now ends at "Correct". (K-25 to K-28)
 3. **Wire Home's dead ends:** "See the squadron" → `/squadron`, "Make something" and the Vibe tab → `/vibe`, Pip's card → `/critters`, add Play → `/arcade`, and point Learn at `/learn` instead of a fixed quest id. (K-11 to K-14, K-21)
 4. **Make Studio reachable and finishable:** first visit after a new door goes to `/studio`; Me → "Change my Kix"; ✕ on the picker; Keep → Adopt Pip → **Go to my Home**; save the Kix to the profile. (K-19, K-43 to K-46)
