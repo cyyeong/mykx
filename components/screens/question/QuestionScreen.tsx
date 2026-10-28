@@ -12,6 +12,9 @@ import { Art } from "@/components/ui/Art";
 import { Button, ButtonLink } from "@/components/ui/Button";
 import { KixBubble } from "@/components/ui/KixBubble";
 import { CareCard, type Care } from "@/components/guardian/CareCard";
+import { useTheme } from "@/components/theme/ThemeRoot";
+import { TalkButton } from "@/components/voice/TalkButton";
+import { useKixVoice } from "@/components/voice/useKixVoice";
 import "./questionScreen.css";
 
 export interface PlayerItem {
@@ -112,6 +115,15 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
     shownAt.current = performance.now();
   }, []);
   const cardRef = useRef<HTMLDivElement>(null);
+  // Kix Tutor (/api/kix/tutor): streamed hints and answers to "why?", from the question's skill pack.
+  const { band } = useTheme();
+  const { speak, speaking, wordIndex } = useKixVoice(band);
+  const [tutor, setTutor] = useState<string | null>(null);
+  const [tutorBusy, setTutorBusy] = useState(false);
+  const [skill, setSkill] = useState<string | null>(null);
+  const [askText, setAskText] = useState("");
+  const [spoken, setSpoken] = useState<string | null>(null);
+  const [askCare, setAskCare] = useState<Care | null>(null);
 
   const isMcq = item.options.length > 0;
   const resolved = phase === "correct" || phase === "revealed";
@@ -119,7 +131,19 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
   const kix = KIX[mood];
   const nextHref = nextId ? `/question/${nextId}` : `/learn/${questSlug}/done`;
 
+  const say = (text: string) => {
+    setSpoken(text);
+    speak(text);
+  };
   const bubble: ReactNode = (() => {
+    if (speaking && spoken) {
+      return spoken.split(/\s+/).map((w, i) => (
+        <span key={i} className={i === wordIndex ? "qp-now" : undefined}>
+          {w}{" "}
+        </span>
+      ));
+    }
+    if (phase === "answering" && tutor !== null) return tutor || "Kix is thinking…";
     if (phase === "correct") return outcome?.awards.length ? "Yes! That's it. Collect your card." : "Yes! That's it.";
     if (phase === "revealed") return "Here's how it works. Read it over, then keep going.";
     if (phase === "wrong" && outcome?.note) return outcome.note;
@@ -128,6 +152,7 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
   })();
 
   async function send(revealed: boolean) {
+    setTutor(null);
     setPhase("checking");
     setFailed(false);
     let data: AttemptOutcome & { ok: boolean };
@@ -165,10 +190,55 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
     }
   }
 
+  /** Asks Kix Tutor; every ask counts as a hint (a helped answer is never mastery evidence). */
+  async function streamTutor(hint: number, ask?: string, readAloud = false) {
+    setTutorBusy(true);
+    setTutor("");
+    setAskCare(null);
+    let text = "";
+    try {
+      const res = await fetch("/api/kix/tutor", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ itemId: item.id, hint, ...(ask ? { ask } : {}) }) });
+      setSkill(res.headers.get("x-kix-skill"));
+      if (res.headers.get("content-type")?.includes("application/json")) {
+        const data = (await res.json()) as { care?: Care };
+        if (data.care) {
+          setAskCare(data.care);
+          text = data.care.reply;
+        }
+      } else if (res.body) {
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        for (;;) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          text += decoder.decode(value, { stream: true });
+          setTutor(text);
+        }
+      }
+    } catch {
+      text = item.hints[Math.min(hint, item.hints.length) - 1] ?? "";
+    }
+    setTutor(text || item.hints[Math.min(hint, item.hints.length) - 1] || "");
+    setTutorBusy(false);
+    if (readAloud && text) say(text);
+  }
+
   function askHint() {
-    if (hintIdx >= item.hints.length) return;
-    setHintIdx((h) => h + 1);
+    if (hintIdx >= item.hints.length || tutorBusy) return;
+    const next = hintIdx + 1;
+    setHintIdx(next);
     play("hint");
+    void streamTutor(next);
+  }
+
+  function askWhy(text: string, byVoice: boolean) {
+    const q = text.trim();
+    if (!q || tutorBusy) return;
+    const next = hintIdx + 1;
+    setHintIdx(next);
+    setAskText("");
+    play("hint");
+    void streamTutor(next, q, byVoice);
   }
 
   /** The reward card flies to the Treasure icon in the header (600 ms arc); a fade when motion is reduced. */
@@ -286,10 +356,31 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
               <span style={{ padding: "3px 12px", borderRadius: "var(--radius-pill)", background: "var(--surface)", color: "var(--ink)", fontSize: 14, lineHeight: "22px", fontWeight: 800, boxShadow: "inset 0 0 0 2px var(--line)" }}>
                 Fresh question
               </span>
+              {skill && (
+                <span className="qp-skill" title={`Kix is teaching from the ${skill} skill pack`}>
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5zM9 7h7M9 11h5" />
+                  </svg>
+                  {skill.startsWith("p3-science") ? "P3 Science" : skill.split("@")[0]} skill loaded
+                </span>
+              )}
             </div>
-            <h1 className="qp-q" style={{ margin: 0, fontFamily: "var(--font-display)", fontWeight: 400, whiteSpace: "pre-line" }}>
-              {item.stem}
-            </h1>
+            <div className="qp-qrow">
+              <h1 className="qp-q" style={{ margin: 0, fontFamily: "var(--font-display)", fontWeight: 400, whiteSpace: "pre-line" }}>
+                {item.stem}
+              </h1>
+              <button
+                type="button"
+                className="qp-read"
+                aria-label="Read the question aloud"
+                title="Kix reads it with your device's voice"
+                onClick={() => say([item.stem, ...item.options.map((o, i) => `${String.fromCharCode(65 + i)}. ${o}`)].join(". "))}
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M4 9v6h4l5 4V5L8 9H4zM16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" />
+                </svg>
+              </button>
+            </div>
             {isMcq ? (
               <div className="qp-options" role="group" aria-label="Answer options">
                 {item.options.map((label, i) => {
@@ -350,6 +441,27 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
               >
                 {bubble}
               </KixBubble>
+              {!resolved && phase !== "checking" && (
+                <form
+                  className="qp-ask"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    askWhy(askText, false);
+                  }}
+                >
+                  <TalkButton onTranscript={(text) => askWhy(text, true)} />
+                  <label htmlFor="qp-ask-input" className="qp-sr">
+                    Ask Kix why
+                  </label>
+                  <input id="qp-ask-input" value={askText} maxLength={300} onChange={(e) => setAskText(e.target.value)} placeholder="Ask Kix why…" disabled={tutorBusy} />
+                  <button type="submit" className="qp-ask-send" disabled={!askText.trim() || tutorBusy} aria-label="Ask Kix">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
+                    </svg>
+                  </button>
+                </form>
+              )}
+              {askCare && <CareCard care={askCare} />}
               <div className="q-kix qp-kix" style={{ position: "relative" }}>
                 <Art
                   base={kix.art}

@@ -86,6 +86,16 @@ export function teachingNotes(level: string | null, root = process.cwd()): strin
   return parts.join("\n\n");
 }
 
+/** One pack's teaching notes (SKILL.md and its method references), trimmed. Server only. */
+export function packNotes(pack: string, root = process.cwd()): string {
+  const dir = join(root, "content", "skills", pack);
+  const read = (f: string, max: number) => {
+    const p = join(dir, f);
+    return existsSync(p) ? readFileSync(p, "utf8").slice(0, max) : "";
+  };
+  return [read("SKILL.md", 4000), ...(METHOD_REFS[pack] ?? []).map((f) => read(join("references", f), 3000))].join("\n");
+}
+
 const STAGE_RULES: Record<Stage, string> = {
   hint: "Stage HINT: restate what the question asks, name the method, give ONE hint that starts the child off, and a memory hook. No steps beyond the first, no answer. finalAnswer null.",
   steps: "Stage STEPS: the method as numbered steps the child can follow, with a bar model (maths word problems) or a CER frame (science explanations) where it helps. Stop before the last calculation or the final sentence; finalAnswer null.",

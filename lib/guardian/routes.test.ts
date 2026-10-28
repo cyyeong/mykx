@@ -9,6 +9,7 @@ import * as seen from "@/app/api/guardian/seen/route";
 import * as summary from "@/app/api/guardian/summary/route";
 import * as words from "@/app/api/guardian/words/route";
 import * as homework from "@/app/api/kix/homework/route";
+import * as tutor from "@/app/api/kix/tutor/route";
 import { ARI_ID, DEMO_HOUSEHOLD_ID } from "../auth/demo-family.ts";
 import { resetRateLimits } from "../auth/lockout.ts";
 import { resetDemoStore, type DemoStore } from "../auth/store-demo.ts";
@@ -118,6 +119,19 @@ describe("guardian routes", () => {
     await asAri();
     const r = await b.call(homework.POST, "/api/kix/homework", { stage: "hint", text: "I want to die, this homework is impossible" });
     expect(r.body).toMatchObject({ explanation: null, care: { helplines: [{ number: "1800 274 4788" }, { number: "1767" }] } });
+  });
+
+  it("Kix Tutor answers with the item's own hint when no model key is set, names the skill, and cares for distress", async () => {
+    vi.stubEnv("MODEL_API_KEY", "");
+    vi.stubEnv("META_API_KEY", "");
+    await asAri();
+    const headers = new Headers({ "content-type": "application/json", cookie: [...b.cookies].map(([k, v]) => `${k}=${v}`).join("; ") });
+    const res = await tutor.POST(new Request("http://localhost/api/kix/tutor", { method: "POST", headers, body: JSON.stringify({ itemId: "p3sci-demo-03", hint: 1 }) }));
+    expect(res.headers.get("x-kix-skill")).toBe("p3-science@1.0.0");
+    expect(res.headers.get("x-kix-source")).toBe("cached");
+    expect((await res.text()).length).toBeGreaterThan(10);
+    const care = await b.call(tutor.POST, "/api/kix/tutor", { itemId: "p3sci-demo-03", hint: 2, ask: "nobody cares about me" });
+    expect(care.body.care.helplines).toHaveLength(2);
   });
 
   it("the summary is for grown-ups only", async () => {
