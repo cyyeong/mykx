@@ -62,3 +62,17 @@ describe("latest and decisions", () => {
     expect(decide({ ...base, level: null, subject: null, year: null, type: null, school: null }, { pageRobots: open, fileRobots: null, termsBlock: "no reuse." }).fetch).toBe("skip");
   });
 });
+
+describe("Drive connector helpers", async () => {
+  const { driveFileId, driveMediaUrl, isHumanGate } = await import("./drive.ts");
+  it("finds the Drive file id on an sgexam paper page", () => {
+    expect(driveFileId(`<a href="https://drive.google.com/uc?export=download&#038;id=1n33rgMcj_JHsPoal6TL3It6o3hXB5dos">Download</a>`)).toBe("1n33rgMcj_JHsPoal6TL3It6o3hXB5dos");
+    expect(driveFileId(`<a href="https://drive.google.com/file/d/1AbCdEfGhIjKlMnOpQrStUvWx/view">x</a>`)).toBe("1AbCdEfGhIjKlMnOpQrStUvWx");
+    expect(driveFileId("<p>no file</p>")).toBeNull();
+    expect(driveMediaUrl("abc", "k")).toBe("https://www.googleapis.com/drive/v3/files/abc?alt=media&supportsAllDrives=true&key=k");
+  });
+  it("recognises a CAPTCHA or sign-in page, which is never automated past", () => {
+    expect(isHumanGate(`<script src="https://www.google.com/recaptcha/api.js"></script>`)).toBe(true);
+    expect(isHumanGate(`<a href="/subject/science/x">paper</a>`)).toBe(false);
+  });
+});
