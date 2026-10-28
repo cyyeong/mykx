@@ -64,7 +64,11 @@ interface AttemptOutcome {
 
 /** Kix's feedback on the child's reason (/api/kix/reason): narration only, never the stars. */
 type Coach = { verdict: "good" | "partly" | "not-yet"; feedback: string; better: string | null };
-const COACH_LABEL: Record<Coach["verdict"], string> = { good: "Strong reason", partly: "Good start", "not-yet": "Your reason needs work" };
+/** The opening line, from code: the answer's result and the reason's verdict, said plainly and apart. */
+function coachLead(correct: boolean, verdict: Coach["verdict"]): string {
+  if (correct) return verdict === "good" ? "Right answer, and a strong reason!" : verdict === "partly" ? "Right answer! Your reason is on the right track:" : "Right answer! But your reason needs work:";
+  return verdict === "not-yet" ? "Not this answer yet, and your reason needs work too:" : "Not this answer yet. Your reason uses some science:";
+}
 const COACH_RING: Record<Coach["verdict"], string> = { good: "var(--success)", partly: "var(--reward)", "not-yet": "var(--warn)" };
 
 type Mood = "idle" | "hint" | "thinking" | "cheer";
@@ -179,6 +183,15 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
     return () => clearTimeout(t);
   }, [phase]);
 
+  // Kix's note on the reason, once it arrives, comes into view too (the bubble points to it).
+  useEffect(() => {
+    if (!coach) return;
+    const t = setTimeout(() => {
+      document.getElementById("qp-coach")?.scrollIntoView({ block: "nearest", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    }, 350);
+    return () => clearTimeout(t);
+  }, [coach]);
+
   /** A new try after a wrong answer: a fresh submission key and timer, back to "Check my answer". */
   function startRetry() {
     if (tries >= 2) return;
@@ -233,12 +246,12 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
     const reason = explanation.trim();
     const better = data.reason?.better ?? null;
     if (!reason) {
-      setCoach(data.correct ? { verdict: "not-yet", feedback: "You didn't say why. Next time, give a reason in your own words: it earns stars.", better } : null);
+      setCoach(data.correct ? { verdict: "not-yet", feedback: "You didn't give a reason yet. Next time, say why in your own words: it earns stars.", better } : null);
       return;
     }
     // The check in code answers at once; Kix's own words replace it when they arrive.
     const quality = data.reason?.quality;
-    setCoach(quality === "on-topic" ? null : { verdict: "not-yet", feedback: `"${reason.slice(0, 60)}" doesn't explain the science yet.`, better });
+    setCoach(quality === "on-topic" ? null : { verdict: "not-yet", feedback: `Your reason, "${reason.slice(0, 60)}", doesn't explain the science yet.`, better });
     setCoachBusy(true);
     try {
       const res = await fetch("/api/kix/reason", {
@@ -517,8 +530,9 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
                   <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path fill="currentColor" d={coach?.verdict === "good" ? "M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" : SPARKLE} />
                   </svg>
-                  {coach ? COACH_LABEL[coach.verdict] : "Kix is reading your reason…"}
+                  {coach ? "Kix on your answer" : "Kix is reading your reason…"}
                 </p>
+                {coach && outcome && outcome.correct !== null && <p className="qp-coach-lead">{coachLead(outcome.correct, coach.verdict)}</p>}
                 {coach && <p className="qp-coach-text">{coach.feedback}</p>}
                 {coach?.better && (
                   <div className="qp-better">
