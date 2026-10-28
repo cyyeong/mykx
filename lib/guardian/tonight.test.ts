@@ -33,6 +33,10 @@ describe("Tonight's facts", () => {
 
   it("falls back to the rules' own words, attention first", () => {
     expect(fallbackTonight(input())).toBe("2 things to look at: Ari: Possibly tired in the evening; Watch: arguing in the Living room at 17:08 (checked: not right). Ari arrived at Home 15:41. On myKx today: Ari 34 min (over the limit). This weekend: Saturday 9:00–11:00: Cycle the riverside.");
+    // A flag that already starts with the child's nickname isn't prefixed again.
+    const named = input();
+    named.kids[0].flags = ["Ari seemed tired in 3 evening sessions"];
+    expect(fallbackTonight(named)).toContain("to look at: Ari seemed tired in 3 evening sessions;");
     expect(fallbackTonight({ kids: [], home: null, plans: [] })).toBe("Nothing needs a look tonight.");
   });
 });

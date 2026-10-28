@@ -1,0 +1,23 @@
+{
+  "name": "mykx-home-link",
+  "version": "0.1.0",
+  "private": true,
+  "description": "myKx Home Link: sends a picture from your home cameras to myKx when a room changes.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node home-link.ts",
+    "fake-camera": "node dev/fake-camera.ts",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "sharp": "0.35.5"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "vitest": "5.0.5"
+  }
+}

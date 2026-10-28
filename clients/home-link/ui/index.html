@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>myKx Home Link</title>
+<style>
+/* Anime Sky tokens, copied from docs/design/boards/ds/mykx/tokens.css. No fonts or files are fetched from anywhere. */
+:root {
+  --surface: #F6F8FF; --surface-raised: #FFFFFF; --surface-glass: #FFFFFFC7; --ink: #1B2350; --ink-muted: #4A5482;
+  --accent: #1F66C1; --on-accent: #FFFFFF; --line: #DCE3F5; --border-control: #7680AD; --focus-ring: #1F66C1;
+  --success: #23774D; --warn: #B45A1E; --warn-wash: #FFF1E6; --shadow-raised: 0 8px 24px rgba(27, 35, 80, 0.14);
+  --radius-sm: 10px; --radius-md: 16px; --radius-pill: 999px; --target: 44px;
+  --font-text: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: ui-rounded, "SF Pro Rounded", "Hiragino Maru Gothic ProN", "Segoe UI", system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--surface); color: var(--ink); font: 400 15px/22px var(--font-text); }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+[hidden] { display: none !important; }
+h1, h2, h3, p { margin: 0; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: var(--target); padding: 0 20px; border: 0; border-radius: var(--radius-pill); font: 800 15px/1 var(--font-text); white-space: nowrap; transition: transform 120ms ease; }
+.btn:active { transform: scale(0.97); }
+.btn[disabled] { opacity: 0.45; cursor: not-allowed; transform: none; }
+.btn-primary { background: var(--accent); color: var(--on-accent); box-shadow: var(--shadow-raised); }
+.btn-secondary { background: var(--surface-glass); color: var(--ink); box-shadow: inset 0 0 0 2px var(--border-control); }
+.btn-link { min-height: var(--target); padding: 0 8px; border: 0; background: none; color: var(--accent); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.btn-link.danger { color: var(--warn); }
+
+.app { display: grid; min-height: 100vh; grid-template-columns: 240px minmax(0, 1fr) 360px; grid-template-rows: auto minmax(0, 1fr); grid-template-areas: "rail wall side" "rail log side"; }
+.app[data-side="no"] { grid-template-columns: 240px minmax(0, 1fr); grid-template-areas: "rail wall" "rail log"; }
+.rail { grid-area: rail; display: flex; flex-direction: column; gap: 18px; padding: 22px 18px; background: var(--surface-raised); box-shadow: 1px 0 0 var(--line); }
+.wall { grid-area: wall; display: flex; flex-direction: column; gap: 16px; padding: 24px; min-width: 0; }
+.side { grid-area: side; display: flex; flex-direction: column; gap: 14px; padding: 22px 20px; background: var(--surface-raised); box-shadow: -1px 0 0 var(--line); overflow: auto; }
+.log { grid-area: log; align-self: start; padding: 0 24px 20px; min-width: 0; }
+
+.wordmark { display: block; font: 800 22px/22px var(--font-display); letter-spacing: -0.01em; color: var(--accent); }
+.product { margin-top: 4px; font: 800 20px/26px var(--font-display); }
+.status { display: flex; flex-direction: column; gap: 4px; padding: 12px; border-radius: var(--radius-sm); background: var(--surface); font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.status b { display: inline-flex; align-items: center; gap: 6px; font-weight: 800; color: var(--success); }
+.status b i { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.status.idle b { color: var(--warn); }
+.nav { display: flex; flex-direction: column; gap: 4px; }
+.nav button { min-height: var(--target); padding: 0 12px; border: 0; border-radius: var(--radius-sm); background: none; color: var(--ink-muted); font-weight: 600; text-align: left; }
+.nav button[aria-current="page"] { background: var(--surface); color: var(--ink); font-weight: 800; }
+.promise { margin-top: auto; font-size: 12px; line-height: 17px; color: var(--ink-muted); }
+
+.head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+h1 { font: 800 28px/34px var(--font-display); }
+h1 small { font-size: inherit; font-weight: 600; color: var(--ink-muted); }
+.sub { margin-top: 4px; font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+
+.notice { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 12px 14px; border-radius: var(--radius-sm); background: var(--warn-wash); box-shadow: inset 4px 0 0 var(--warn); font-size: 14px; line-height: 20px; }
+
+.grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.slot { position: relative; display: block; width: 100%; aspect-ratio: 16 / 11; padding: 0; border: 0; border-radius: 12px; overflow: hidden; background: #0E1230; text-align: left; }
+.slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.slot[aria-pressed="true"] { box-shadow: 0 0 0 3px var(--surface), 0 0 0 6px var(--accent); }
+.slot .tag, .tag { position: absolute; left: 6px; top: 6px; padding: 2px 6px; border-radius: 4px; background: #0E1230B3; color: #fff; font: 600 11px/14px var(--font-text); font-variant-numeric: tabular-nums; }
+.slot .cap { position: absolute; inset: auto 0 0 0; display: flex; flex-direction: column; padding: 18px 8px 6px; background: linear-gradient(transparent, #0E1230E6); color: #fff; font-size: 13px; line-height: 17px; font-weight: 700; }
+.slot .cap span { font-size: 11px; line-height: 15px; font-weight: 500; color: #C9D3F5; }
+.slot.bad .cap span { color: #FFC9A3; }
+.slot.bad:not(:has(img)) { background: #1B2350; }
+.slot.empty { background: repeating-linear-gradient(135deg, transparent 0 8px, rgba(31, 102, 193, 0.05) 8px 16px); box-shadow: inset 0 0 0 2px var(--line); color: var(--ink-muted); }
+.slot.empty span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field > label, .field > .lab { font-size: 13px; font-weight: 700; }
+.input { min-height: 44px; width: 100%; padding: 0 12px; border: 0; border-radius: var(--radius-sm); background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--border-control); font-weight: 500; }
+.input[readonly] { color: var(--ink-muted); }
+.hint { font-size: 12px; line-height: 17px; color: var(--ink-muted); }
+.seg { display: grid; gap: 4px; padding: 4px; border-radius: var(--radius-sm); background: var(--surface); }
+.seg button { min-height: 44px; border: 0; border-radius: 8px; background: transparent; color: var(--ink-muted); font-weight: 700; font-size: 13px; }
+.seg button[aria-checked="true"] { background: var(--surface-raised); color: var(--ink); box-shadow: var(--shadow-raised); }
+.check { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; align-items: start; padding: 12px; border-radius: var(--radius-sm); background: var(--surface); font-size: 14px; line-height: 20px; cursor: pointer; }
+.check input { width: 22px; height: 22px; margin: 0; accent-color: var(--accent); }
+.check.plain { padding: 8px 12px; align-items: center; }
+.fig { position: relative; margin: 0; aspect-ratio: 16 / 10; border-radius: 12px; overflow: hidden; background: #0E1230; display: flex; align-items: center; justify-content: center; text-align: center; color: #C9D3F5; font-size: 13px; padding: 12px; }
+.fig img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.msg { font-size: 14px; line-height: 20px; }
+.msg.err { padding: 10px 12px; border-radius: var(--radius-sm); background: var(--warn-wash); box-shadow: inset 4px 0 0 var(--warn); }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+.actions .btn { flex: 1 1 140px; }
+
+.card { display: flex; flex-direction: column; gap: 16px; max-width: 560px; padding: 24px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: var(--shadow-raised); }
+.card h2 { font: 800 22px/28px var(--font-display); }
+.card ol, .card ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+.code-input { font: 800 26px/1 var(--font-display); letter-spacing: 0.12em; text-transform: uppercase; min-height: 56px; text-align: center; }
+details summary { min-height: var(--target); display: flex; align-items: center; gap: 8px; font-weight: 700; cursor: pointer; list-style: none; }
+details summary::-webkit-details-marker { display: none; }
+details summary::before { content: "▸"; color: var(--ink-muted); }
+details[open] summary::before { content: "▾"; }
+
+.logbox { padding: 12px 14px; border-radius: var(--radius-md); background: #1B2350; color: #E9EDFB; font-size: 13px; line-height: 21px; font-variant-numeric: tabular-nums; }
+.logbox ol { margin: 0; padding: 0; list-style: none; }
+.logbox li { display: grid; grid-template-columns: 62px minmax(0, 1fr); gap: 8px; }
+.logbox time { color: #9FB0E8; }
+.logbox li.none { display: block; color: #9FB0E8; }
+.logbox a, .logbox button { color: #C9D3F5; }
+.more { margin-top: 6px; min-height: 36px; padding: 0; border: 0; background: none; color: #C9D3F5; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+
+.wall-only, .pairing-only { display: contents; }
+#app[data-view="activity"] .wall-only, #app[data-view="pairing"] .wall-only { display: none; }
+#app:not([data-view="activity"]) .activity-only { display: none; }
+#app:not([data-view="pairing"]) .pairing-only { display: none; }
+#app[data-side="no"] .side { display: none; }
+#app[data-view="activity"] .app-log, #app[data-view="pairing"] .app-log, #app[data-empty="yes"] .app-log { display: none; }
+#app[data-paired="no"] .wall { align-items: center; }
+#app[data-paired="no"] .wall > .card { width: 100%; margin-top: 8px; }
+
+@media (max-width: 1100px) {
+  .app, .app[data-side="no"] { grid-template-columns: 200px minmax(0, 1fr); grid-template-areas: "rail wall" "rail side" "rail log"; }
+  .app[data-side="no"] { grid-template-areas: "rail wall" "rail log"; }
+  .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .side { box-shadow: 0 -1px 0 var(--line); }
+}
+@media (max-width: 700px) {
+  .app, .app[data-side="no"] { grid-template-columns: minmax(0, 1fr); grid-template-areas: "rail" "wall" "side" "log"; }
+  .app[data-side="no"] { grid-template-areas: "rail" "wall" "log"; }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rail { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 14px 16px; box-shadow: 0 1px 0 var(--line); }
+  .rail .brand { flex: 1 1 140px; }
+  .rail .status { flex: 1 1 100%; order: 3; }
+  .rail .nav { flex-direction: row; width: 100%; order: 4; overflow-x: auto; }
+  .rail .nav button { white-space: nowrap; }
+  .rail .promise { margin: 0; width: 100%; order: 5; }
+  .wall { padding: 16px; }
+  h1 { font-size: 24px; line-height: 30px; }
+  .log { padding: 0 16px 16px; }
+  .card { padding: 18px; }
+}
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+</style>
+</head>
+<body>
+<div class="app" id="app" data-view="cameras" data-paired="no">
+  <aside class="rail">
+    <div class="brand"><span class="wordmark">myKx</span><p class="product">Home Link</p></div>
+    <div class="status idle" id="pairStatus" aria-live="polite"></div>
+    <nav class="nav" aria-label="Home Link" id="nav">
+      <button type="button" data-view="cameras" aria-current="page">Cameras</button>
+      <button type="button" data-view="activity">Activity</button>
+      <button type="button" data-view="pairing">Schedule and pairing</button>
+    </nav>
+    <p class="promise">Camera passwords stay on this computer. Home Link only sends pictures out; myKx never connects into your home.</p>
+  </aside>
+
+  <main class="wall" id="main">
+    <!-- Not paired: the pairing card replaces the wall. -->
+    <section class="card" id="pairCard" aria-labelledby="pairH" hidden>
+      <h2 id="pairH">Pair this computer with your family</h2>
+      <p class="notice" id="pairNotice" role="status" hidden></p>
+      <ol>
+        <li>In myKx, go to Your family → Location and home cameras.</li>
+        <li>Under Pair a computer, choose Show a pairing code.</li>
+        <li>Type the code here. It works once and runs out after 15 minutes.</li>
+      </ol>
+      <form id="pairForm" class="field" style="gap: 12px" novalidate>
+        <div class="field"><label for="code">Pairing code</label><input id="code" class="input code-input" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="14" placeholder="K7Q4-MZ2P" inputmode="text"></div>
+        <details><summary>Server address (advanced)</summary>
+          <div class="field"><label for="server">myKx server</label><input id="server" class="input" autocomplete="off" spellcheck="false" inputmode="url"><p class="hint">Leave this as it is unless you are testing. Only https:// is allowed, apart from this computer (localhost).</p></div>
+        </details>
+        <p class="msg err" id="pairErr" role="alert" hidden></p>
+        <button class="btn btn-primary" type="submit" id="pairBtn">Pair this computer</button>
+      </form>
+      <p class="hint">Nothing is sent to myKx until this computer is paired and you have saved a camera.</p>
+    </section>
+
+    <section class="card" id="tokenCard" hidden>
+      <h2>Open the address from the terminal</h2>
+      <p>This page needs the code at the end of the address Home Link printed when it started (it looks like http://127.0.0.1:4747/#t=…). Open that address instead.</p>
+    </section>
+
+    <!-- Paired: the wall. -->
+    <div class="wall-only" id="wallView" hidden>
+      <div class="head">
+        <div>
+          <h1>Cameras <small id="count"></small></h1>
+          <p class="sub">A picture goes to myKx only when the room changes, plus one every 10 minutes. Your family’s camera hours are set in myKx.</p>
+        </div>
+        <button class="btn btn-secondary" type="button" id="addBtn">Add by address</button>
+      </div>
+      <div class="notice" id="notice" role="status" hidden><span id="noticeText"></span><button class="btn-link" type="button" id="noticeBtn" hidden>Pair again</button></div>
+      <ul class="grid" id="grid" aria-label="Cameras"></ul>
+    </div>
+
+    <section class="activity-only" aria-labelledby="actH">
+      <h1 id="actH">Activity</h1>
+      <p class="sub">The last 100 things Home Link did. This list lives in memory only and is gone when you stop the program.</p>
+      <div class="logbox" style="margin-top: 16px"><ol id="logFull" aria-label="Activity"></ol></div>
+    </section>
+
+    <section class="pairing-only" aria-labelledby="schH">
+      <div class="card" id="schCard">
+        <h2 id="schH">Schedule and pairing</h2>
+        <p><b id="schName"></b> is paired with your family, sending to <b id="schHost"></b>.</p>
+        <p>Which days and hours the cameras run, and “Pause for an hour”, are set in myKx under Your family → Location and home cameras. Outside those hours Home Link keeps quiet and checks again every 5 minutes.</p>
+        <ul>
+          <li>Pictures leave this computer only when the room changes, plus one every 10 minutes.</li>
+          <li>Camera passwords stay in this computer’s settings file. They are never sent or shown.</li>
+          <li>No camera may look at a bathroom or any bedroom.</li>
+          <li>Home Link never records or sends sound.</li>
+        </ul>
+        <div><button class="btn btn-secondary" type="button" id="unpairBtn">Remove the pairing from this computer</button></div>
+      </div>
+    </section>
+  </main>
+
+  <aside class="side" id="side" aria-label="Camera settings"></aside>
+
+  <section class="log app-log" aria-label="Recent activity">
+    <div class="logbox">
+      <ol id="logShort" aria-label="Recent activity"></ol>
+      <button class="more" type="button" id="moreBtn">See all activity</button>
+    </div>
+  </section>
+</div>
+
+<script>
+"use strict";
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const ROOMS = ["Living room", "Kitchen", "Study", "Entrance", "Dining area"];
+  const INTERVALS = [[10, "10 s"], [30, "30 s"], [60, "60 s"], [300, "5 min"]];
+  const REASONS = { first: "first picture", changed: "changed", "big-change": "changed a lot", heartbeat: "still there" };
+
+  let token = null;
+  try {
+    const m = /[#&]t=([\w-]+)/.exec(location.hash);
+    if (m) { token = m[1]; sessionStorage.setItem("hl-token", token); history.replaceState(null, "", location.pathname); }
+    else token = sessionStorage.getItem("hl-token");
+  } catch { /* private window: the token stays in memory */ }
+
+  const ui = { view: "cameras", selected: null, state: null, draft: null, test: null, thumbs: new Map(), thumbAt: new Map() };
+
+  // Build elements without ever putting text through innerHTML: room names and log lines are user text.
+  function h(tag, attrs, ...kids) {
+    const el = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs || {})) {
+      if (v === false || v == null) continue;
+      if (k === "class") el.className = v;
+      else if (k.startsWith("on")) el.addEventListener(k.slice(2), v);
+      else el.setAttribute(k, v === true ? "" : v);
+    }
+    for (const kid of kids.flat()) if (kid != null && kid !== false) el.append(kid);
+    return el;
+  }
+  const clock = (iso) => (iso ? new Date(iso).toLocaleTimeString("en-GB", { hour12: false }) : "");
+  const hm = (iso) => (iso ? new Date(iso).toLocaleTimeString("en-GB", { hour12: false, hour: "2-digit", minute: "2-digit" }) : "");
+
+  async function api(method, path, body) {
+    const res = await fetch(path, { method, headers: { "x-hl-token": token || "", ...(body ? { "content-type": "application/json" } : {}) }, body: body ? JSON.stringify(body) : undefined });
+    if (path.startsWith("/api/thumb/")) return res;
+    const data = await res.json().catch(() => ({ ok: false, message: "Home Link didn't answer properly." }));
+    if (res.status === 401 && data.reason === "token") { token = null; render(); }
+    return data;
+  }
+
+  /* ---------- rail, wall, log ---------- */
+  // Re-draw a region only when what it shows has changed, so polling never flickers pictures or re-reads aloud.
+  function changed(el, sig) {
+    if (el._sig === sig) return false;
+    el._sig = sig;
+    return true;
+  }
+
+  function renderRail(s) {
+    const box = $("pairStatus");
+    if (changed(box, JSON.stringify([s.paired, s.deviceName, s.serverHost]))) {
+    box.className = s.paired ? "status" : "status idle";
+    box.replaceChildren(
+      ...(s.paired
+        ? [h("b", {}, h("i"), "Paired with your family"), h("span", {}, `This computer is “${s.deviceName || "this computer"}” · Sending to ${s.serverHost}`)]
+        : [h("b", {}, h("i"), "Not paired yet"), h("span", {}, "Nothing is sent until you pair this computer.")]),
+    );
+    }
+    for (const b of $("nav").children) if (b.dataset.view === ui.view) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
+  }
+
+  function slotText(c) {
+    if (c.status === "off") return "Off";
+    if (c.status === "unreachable") return `Can’t reach it since ${hm(c.unreachableSince)}`;
+    if (c.status === "sent") return `Sent ${clock(c.lastSentAt)} · ${REASONS[c.lastReason] || "sent"}`;
+    if (c.status === "no-change") return c.lastSentAt ? `No change · last sent ${hm(c.lastSentAt)}` : "No change yet";
+    return "Waiting for the first picture";
+  }
+
+  async function loadThumb(c) {
+    if (!c.thumbAt || ui.thumbAt.get(c.key) === c.thumbAt) return;
+    ui.thumbAt.set(c.key, c.thumbAt);
+    const res = await api("GET", `/api/thumb/${encodeURIComponent(c.key)}`);
+    if (!res.ok) return;
+    const old = ui.thumbs.get(c.key);
+    ui.thumbs.set(c.key, URL.createObjectURL(await res.blob()));
+    if (old) URL.revokeObjectURL(old);
+    renderGrid();
+    if (ui.selected === c.key && ui.draft && !ui.test) renderFigure();
+  }
+
+  function renderGrid() {
+    const s = ui.state;
+    if (!s) return;
+    $("count").textContent = `${s.cameras.length} of ${s.max}`;
+    if (!changed($("grid"), JSON.stringify([s.cameras.map((c) => [c.key, c.room, c.status, c.lastSentAt, c.lastReason, c.unreachableSince, c.thumbAt, ui.thumbs.get(c.key)]), ui.selected, s.max]))) return;
+    const items = [];
+    for (let i = 0; i < s.max; i++) {
+      const c = s.cameras[i];
+      if (!c) {
+        items.push(h("li", {}, h("button", { class: "slot empty", type: "button", "aria-label": `Empty slot ${i + 1} of ${s.max}: add a camera`, "aria-pressed": "false", onclick: () => openCamera("new", true) }, h("span", {}, "Add camera"))));
+        continue;
+      }
+      const src = ui.thumbs.get(c.key);
+      const bad = c.status === "unreachable";
+      items.push(h("li", {}, h("button", { class: `slot${bad ? " bad" : ""}`, type: "button", "aria-pressed": String(ui.selected === c.key), "aria-label": `${c.room}: ${slotText(c)}`, onclick: () => openCamera(c.key, true) },
+        src && !bad ? [h("img", { src, alt: "" }), h("span", { class: "tag" }, clock(c.thumbAt))] : null,
+        h("span", { class: "cap" }, c.room, h("span", {}, slotText(c))))));
+    }
+    $("grid").replaceChildren(...items);
+  }
+
+  function renderLog(s) {
+    if (!changed($("logFull"), JSON.stringify([s.log.length, s.log[0] && s.log[0].at, s.log[0] && s.log[0].text]))) return;
+    const line = (l) => h("li", {}, h("time", { datetime: l.at }, clock(l.at)), h("span", {}, l.text));
+    const empty = () => h("li", { class: "none" }, "Nothing yet. What Home Link does shows up here.");
+    $("logShort").replaceChildren(...(s.log.length ? s.log.slice(0, 6).map(line) : [empty()]));
+    $("logFull").replaceChildren(...(s.log.length ? s.log.map(line) : [empty()]));
+    $("moreBtn").hidden = s.log.length <= 6;
+  }
+
+  function renderNotice(s) {
+    const n = $("notice");
+    n.hidden = !s.notice;
+    if (s.notice) {
+      $("noticeText").textContent = s.notice.message;
+      $("noticeBtn").hidden = s.notice.kind !== "revoked";
+    }
+  }
+
+  function render() {
+    const s = ui.state;
+    const app = $("app");
+    app.dataset.view = ui.view;
+    const noToken = !token;
+    $("tokenCard").hidden = !noToken;
+    if (noToken || !s) {
+      app.dataset.paired = "no";
+      app.dataset.side = "no";
+      app.dataset.empty = "yes";
+      $("pairCard").hidden = true;
+      $("wallView").hidden = true;
+      return;
+    }
+    app.dataset.paired = s.paired ? "yes" : "no";
+    app.dataset.side = s.paired && ui.view === "cameras" ? "yes" : "no";
+    app.dataset.empty = s.log.length ? "no" : "yes";
+    renderRail(s);
+    const showPair = !s.paired && ui.view !== "activity" && ui.view !== "pairing";
+    $("pairCard").hidden = !showPair;
+    $("wallView").hidden = !s.paired;
+    $("schCard").hidden = !s.paired;
+    $("unpairBtn").hidden = !s.paired;
+    $("schName").textContent = s.deviceName || "This computer";
+    $("schHost").textContent = s.serverHost;
+    if (!$("server").value) $("server").value = s.server;
+    if (!s.paired && ui.view === "pairing") $("pairCard").hidden = false;
+    renderNotice(s);
+    $("pairNotice").hidden = !s.notice;
+    $("pairNotice").textContent = s.notice ? s.notice.message : "";
+    renderGrid();
+    renderLog(s);
+    for (const c of s.cameras) void loadThumb(c);
+    if (s.paired && ui.selected === null) openCamera(s.cameras.length ? s.cameras[0].key : "new");
+    $("addBtn").disabled = s.cameras.length >= s.max;
+  }
+
+  /* ---------- the camera panel ---------- */
+  function openCamera(key, scroll) {
+    const s = ui.state;
+    ui.selected = key;
+    ui.test = null;
+    const cam = key === "new" ? null : s.cameras.find((c) => c.key === key);
+    const room = cam ? cam.room : "";
+    const known = ROOMS.includes(room);
+    ui.draft = {
+      key: cam ? cam.key : null, room: room, choice: cam ? (known ? room : "other") : "", custom: cam && !known ? room : "",
+      address: "", changing: !cam, interval: cam ? cam.intervalSec : 60, enabled: cam ? cam.enabled : true, privacy: cam ? cam.privacyConfirmed : false,
+      error: null, field: null, busy: false, testMsg: null,
+    };
+    renderGrid();
+    renderSide();
+    const wall = $("side");
+    if (scroll && matchMedia("(max-width: 1100px)").matches) wall.scrollIntoView({ block: "start" });
+  }
+
+  const roomName = (d) => (d.choice === "other" ? d.custom.trim() : d.choice);
+
+  function renderFigure() {
+    const d = ui.draft;
+    const cam = ui.state.cameras.find((c) => c.key === d.key);
+    const fig = $("fig");
+    if (!fig) return;
+    const src = ui.test ? ui.test.dataUrl : d.key ? ui.thumbs.get(d.key) : null;
+    const tag = ui.test ? `Test picture · ${clock(ui.test.at)}` : cam && cam.thumbAt ? `Last picture · ${clock(cam.thumbAt)}` : "";
+    fig.replaceChildren(
+      ...(src ? [h("img", { src, alt: `${ui.test ? "Test picture" : "Last picture"} from the ${roomName(d) || "new"} camera` }), h("span", { class: "tag" }, tag)] : [h("span", {}, "No picture yet. Press “Take a test picture”.")]),
+    );
+  }
+
+  function renderSide() {
+    const s = ui.state;
+    const d = ui.draft;
+    const side = $("side");
+    if (!d) { side.replaceChildren(); return; }
+    const cam = d.key ? s.cameras.find((c) => c.key === d.key) : null;
+    const title = cam ? `${cam.room} camera` : "New camera";
+    const sourceText = cam ? (cam.source === "rtsp" ? "RTSP stream (needs ffmpeg on this computer)" : "Snapshot address (a still picture over HTTP)") : "Detected from the address you paste";
+
+    const addressField = h("div", { class: "field" });
+    const drawAddress = () => {
+      addressField.replaceChildren(...[
+        h("label", { for: "address" }, "Stream address"),
+        d.changing
+          ? h("input", { id: "address", class: "input", value: d.address, autocomplete: "off", spellcheck: "false", inputmode: "url", placeholder: "http://192.168.1.23/snapshot.jpg or rtsp://user:password@192.168.1.23:554/stream1", "aria-describedby": "addrHint", oninput: (e) => { d.address = e.target.value; } })
+          : h("input", { id: "address", class: "input", value: cam.address, readonly: true, "aria-describedby": "addrHint" }),
+        h("p", { class: "hint", id: "addrHint" }, d.changing ? "A user name and password can go in the address. They stay on this computer and are never sent to myKx." : "The password is hidden here and stays in this computer’s settings file."),
+        !d.changing ? h("div", {}, h("button", { class: "btn-link", type: "button", onclick: () => { d.changing = true; drawAddress(); $("address").focus(); } }, "Change address")) : null,
+      ].filter(Boolean));
+    };
+
+    const customRoom = h("div", { class: "field", hidden: d.choice !== "other" },
+      h("label", { for: "customRoom" }, "Room name"),
+      h("input", { id: "customRoom", class: "input", value: d.custom, maxlength: "40", autocomplete: "off", oninput: (e) => { d.custom = e.target.value; } }));
+    const select = h("select", { id: "room", class: "input", "aria-describedby": "roomHint", onchange: (e) => { d.choice = e.target.value; customRoom.hidden = d.choice !== "other"; if (d.choice === "other") $("customRoom").focus(); } },
+      h("option", { value: "", disabled: true, selected: d.choice === "" }, "Choose a room"),
+      ROOMS.map((r) => h("option", { value: r, selected: d.choice === r }, r)),
+      h("option", { value: "other", selected: d.choice === "other" }, "Something else…"));
+
+    const options = INTERVALS.some(([sec]) => sec === d.interval) ? INTERVALS : [...INTERVALS, [d.interval, d.interval % 60 === 0 ? `${d.interval / 60} min` : `${d.interval} s`]];
+    const seg = h("div", { class: "seg", role: "radiogroup", "aria-label": "Check every", style: `grid-template-columns: repeat(${options.length}, 1fr)` });
+    const drawSeg = () => {
+      seg.replaceChildren(...options.map(([sec, label]) => h("button", {
+        type: "button", role: "radio", "aria-checked": String(d.interval === sec), tabindex: d.interval === sec ? "0" : "-1",
+        onclick: () => { d.interval = sec; drawSeg(); },
+        onkeydown: (e) => {
+          const i = options.findIndex(([x]) => x === d.interval);
+          const n = e.key === "ArrowRight" || e.key === "ArrowDown" ? i + 1 : e.key === "ArrowLeft" || e.key === "ArrowUp" ? i - 1 : null;
+          if (n === null) return;
+          e.preventDefault();
+          d.interval = options[(n + options.length) % options.length][0];
+          drawSeg();
+          seg.querySelector('[aria-checked="true"]').focus();
+        },
+      }, label)));
+    };
+    drawSeg();
+
+    const err = h("p", { class: "msg err", id: "formErr", role: "alert", hidden: true });
+    const camStatus = h("p", { class: "msg", id: "camStatus", hidden: true });
+    const saveBtn = h("button", { class: "btn btn-primary", type: "button", id: "saveBtn" }, "Save");
+    const testBtn = h("button", { class: "btn btn-secondary", type: "button", id: "testBtn" }, "Take a test picture");
+    const showError = (message, field) => {
+      d.error = message; d.field = field || null;
+      err.hidden = !message;
+      err.textContent = message || "";
+    };
+
+    saveBtn.addEventListener("click", async () => {
+      showError(null);
+      if (!roomName(d)) return showError("Choose which room this camera is in.", "room");
+      if (d.changing && !d.address.trim()) return showError("Paste the camera’s address.", "url");
+      if (!d.privacy) return showError("Tick the box to confirm where this camera looks. Home Link doesn’t save a camera without it.", "privacyConfirmed");
+      saveBtn.disabled = true;
+      const r = await api("POST", "/api/camera", { key: d.key, room: roomName(d), url: d.changing ? d.address.trim() : undefined, intervalSec: d.interval, enabled: d.enabled, privacyConfirmed: d.privacy });
+      saveBtn.disabled = false;
+      if (!r.ok) {
+        showError(r.message || "That didn’t save.", r.field);
+        if (r.field === "room") (d.choice === "other" ? $("customRoom") : $("room")).focus();
+        else if (r.field === "url") $("address").focus();
+        else if (r.field === "privacyConfirmed") $("privacy").focus();
+        return;
+      }
+      await refresh();
+      openCamera(r.camera.key);
+      const ok = $("camStatus");
+      ok.hidden = false;
+      ok.textContent = "Saved. The first picture goes to myKx in a moment.";
+    });
+
+    testBtn.addEventListener("click", async () => {
+      showError(null);
+      camStatus.hidden = true;
+      if (d.changing && !d.address.trim()) return showError("Paste the camera’s address first.", "url");
+      testBtn.disabled = true;
+      testBtn.textContent = "Taking a picture…";
+      const r = await api("POST", `/api/test/${encodeURIComponent(d.key || "new")}`, d.changing ? { address: d.address.trim() } : {});
+      testBtn.disabled = false;
+      testBtn.textContent = "Take a test picture";
+      if (!r.ok) return showError(r.message || "That didn’t work.", "url");
+      ui.test = { dataUrl: r.dataUrl, at: r.at };
+      renderFigure();
+    });
+
+    side.replaceChildren(...[
+      h("h2", { style: "font: 800 20px/26px var(--font-display)" }, title),
+      h("figure", { class: "fig", id: "fig" }),
+      h("div", { class: "field" }, h("span", { class: "lab" }, "Source"), h("span", {}, sourceText)),
+      addressField,
+      h("div", { class: "field" }, h("label", { for: "room" }, "Room"), select, h("p", { class: "hint", id: "roomHint" }, "No camera may look at a bathroom or any bedroom."), customRoom),
+      h("div", { class: "field" }, h("span", { class: "lab", id: "everyLab" }, "Check every"), seg),
+      cam && cam.error ? h("p", { class: "msg err" }, cam.error) : null,
+      h("label", { class: "check plain" }, h("input", { type: "checkbox", checked: d.enabled, onchange: (e) => { d.enabled = e.target.checked; } }), h("span", {}, "Send pictures from this camera")),
+      h("label", { class: "check" },
+        h("input", { type: "checkbox", id: "privacy", checked: d.privacy, onchange: (e) => { d.privacy = e.target.checked; } }),
+        h("span", {}, h("b", {}, "This camera doesn’t see a bathroom or any bedroom, or anywhere someone changes."), " Everyone at home knows it’s here.")),
+      err, camStatus,
+      h("div", { class: "actions" }, saveBtn, testBtn),
+      cam ? h("div", {}, h("button", { class: "btn-link danger", type: "button", onclick: removeFlow }, "Remove this camera")) : null,
+    ].filter(Boolean));
+    drawAddress();
+    renderFigure();
+    if (d.error) showError(d.error, d.field);
+
+    async function removeFlow(e) {
+      const btn = e.currentTarget;
+      if (btn.dataset.sure !== "yes") { btn.dataset.sure = "yes"; btn.textContent = `Really remove ${cam.room}? Press again.`; return; }
+      await api("DELETE", `/api/camera/${encodeURIComponent(cam.key)}`);
+      ui.selected = null;
+      ui.draft = null;
+      await refresh();
+    }
+  }
+
+  /* ---------- pairing and navigation ---------- */
+  $("pairForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const err = $("pairErr");
+    err.hidden = true;
+    const btn = $("pairBtn");
+    btn.disabled = true;
+    btn.textContent = "Pairing…";
+    const r = await api("POST", "/api/pair", { code: $("code").value, server: $("server").value });
+    btn.disabled = false;
+    btn.textContent = "Pair this computer";
+    if (!r.ok) {
+      err.textContent = r.message || "That code didn’t work. It works once and runs out after 15 minutes.";
+      err.hidden = false;
+      $("code").focus();
+      return;
+    }
+    $("code").value = "";
+    ui.view = "cameras";
+    ui.selected = null;
+    await refresh();
+  });
+
+  $("unpairBtn").addEventListener("click", async (e) => {
+    const btn = e.currentTarget;
+    if (btn.dataset.sure !== "yes") { btn.dataset.sure = "yes"; btn.textContent = "Really remove it? Press again."; return; }
+    btn.dataset.sure = "";
+    btn.textContent = "Remove the pairing from this computer";
+    await api("POST", "/api/unpair");
+    ui.view = "cameras";
+    await refresh();
+  });
+
+  for (const b of $("nav").children) b.addEventListener("click", () => { ui.view = b.dataset.view; render(); });
+  $("moreBtn").addEventListener("click", () => { ui.view = "activity"; render(); });
+  $("addBtn").addEventListener("click", () => { ui.view = "cameras"; openCamera("new", true); });
+  $("noticeBtn").addEventListener("click", () => { ui.view = "pairing"; render(); });
+  $("code").addEventListener("input", (e) => {
+    const raw = e.target.value.toUpperCase().replace(/[^0-9A-Z]/g, "").slice(0, 8);
+    e.target.value = raw.length > 4 ? `${raw.slice(0, 4)}-${raw.slice(4)}` : raw;
+  });
+
+  async function refresh() {
+    if (!token) { render(); return; }
+    const s = await api("GET", "/api/state");
+    if (!s || s.ok === false) return;
+    ui.state = s;
+    render();
+  }
+
+  render();
+  void refresh();
+  setInterval(() => { if (!document.hidden) void refresh(); }, 2000);
+})();
+</script>
+</body>
+</html>

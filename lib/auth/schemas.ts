@@ -196,6 +196,7 @@ export type FailReason =
   | "wrong" // wrong email/password or code (401)
   | "locked" // too many tries, or an admin lock (423)
   | "slow-down" // per-IP rate limit (429)
+  | "daily-limit" // a device's frame budget for the day is spent (429; retryAfterSec is the time to Singapore midnight)
   | "no-parent" // no parent session on this device (401/403)
   | "no-kid" // no valid kid session (401)
   | "no-account" // signed in, but no myKx profile (403)

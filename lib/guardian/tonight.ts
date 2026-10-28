@@ -61,7 +61,7 @@ export const TONIGHT_PROMPT = [
 /** The same facts in words without a model (rule 7). */
 export function fallbackTonight(i: TonightInput): string {
   const parts: string[] = [];
-  const attention = [...i.kids.flatMap((k) => k.flags.map((f) => `${k.nickname}: ${f}`)), ...(i.home?.notes ?? [])];
+  const attention = [...i.kids.flatMap((k) => k.flags.map((f) => (f.startsWith(k.nickname) ? f : `${k.nickname}: ${f}`))), ...(i.home?.notes ?? [])];
   parts.push(attention.length ? `${attention.length === 1 ? "One thing" : `${attention.length} things`} to look at: ${attention.join("; ")}.` : "Nothing needs a look tonight.");
   if (i.home?.arrivals.length) parts.push(`${i.home.arrivals.join("; ")}.`);
   const screen = i.kids.filter((k) => k.screenMin > 0).map((k) => `${k.nickname} ${k.screenMin} min${k.over ? " (over the limit)" : ""}`);

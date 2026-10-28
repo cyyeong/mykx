@@ -11,6 +11,7 @@ import { withAuth } from "@/lib/auth/context";
 import { fail, ok } from "@/lib/auth/http";
 import { requireDevice } from "@/lib/home-watch/device-auth";
 import { alertFor } from "@/lib/home-watch/flags";
+import { sgMidnightIso } from "@/lib/home-watch/device-auth";
 import { DAILY_FRAMES, KEEP_FRAMES_MS, camerasOn, imageKind, sgDay } from "@/lib/home-watch/home-watch";
 import { PACK_COLOUR, outlineChildren } from "@/lib/home-watch/outline";
 import { readTick, shrink } from "@/lib/home-watch/read";
@@ -32,7 +33,7 @@ export async function POST(request: Request) {
     if (!form || !meta.success) return fail(400, "invalid");
     const now = new Date();
     const prefs = await store.homeWatch.prefs(device.householdId);
-    if (!camerasOn(prefs, now)) return ok({ accepted: 0, camerasOn: false });
+    if (!camerasOn(prefs, now)) return ok({ accepted: 0, camerasOn: false, why: prefs.camsPausedUntil && Date.parse(prefs.camsPausedUntil) > now.getTime() ? "paused" : "hours" });
     const cameras = (await store.homeWatch.cameras(device.householdId)).filter((c) => c.deviceId === device.id && c.enabled);
     const frames: { cameraId: string; at: string; burst: number; bytes: Uint8Array; kind: "jpeg" | "png" | "webp" }[] = [];
     let total = 0;
@@ -50,7 +51,7 @@ export async function POST(request: Request) {
       frames.push({ cameraId: camera.id, at: f.at, burst: f.burst, bytes, kind });
     }
     if (total > MAX_TOTAL) return fail(413, "too-large");
-    if (!(await store.homeWatch.spendFrames(device.id, sgDay(now), frames.length, DAILY_FRAMES[device.kind], now.toISOString()))) return fail(429, "slow-down");
+    if (!(await store.homeWatch.spendFrames(device.id, sgDay(now), frames.length, DAILY_FRAMES[device.kind], now.toISOString()))) return fail(429, "daily-limit", { retryAfterSec: Math.max(60, Math.ceil((Date.parse(sgMidnightIso(now)) + 24 * 3_600_000 - now.getTime()) / 1000)) });
     const hh = device.householdId;
     await store.homeWatch.touchCameras(hh, [...new Set(frames.map((f) => f.cameraId))], now.toISOString());
 
