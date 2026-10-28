@@ -29,7 +29,7 @@ import { sessionSecret, signToken, verifyToken } from "./tokens.ts";
 
 export const DEMO_PARENT_COOKIE = "mykx_demo_parent";
 /** Bump when the store's shape changes: a running dev server then rebuilds it on the next request (see demoStore). */
-const DEMO_STORE_SHAPE = 4; // 4: Ari's synthetic earlier history (attempts, ledger)
+const DEMO_STORE_SHAPE = 5; // 5: parent PIN hash on profiles
 const DEMO_TTL_SEC = 7 * 24 * 60 * 60;
 const LABEL = "demo-parent";
 
@@ -60,6 +60,7 @@ function profile(p: Partial<Profile> & Pick<Profile, "id" | "householdId" | "rol
     synthetic: true,
     secretKind: null,
     secretHash: null,
+    pinHash: null,
     secretSetAt: null,
     secretEvent: null,
     failedAttempts: 0,

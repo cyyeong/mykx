@@ -2,6 +2,7 @@
 // chooses a new one at their door; a password sets a temporary one), daily limit, voice, focus camera, world.
 // DELETE: remove the kid and everything they made, with `{ confirm: <their nickname> }`.
 import { currentParent, toFamilyKid, withAuth } from "@/lib/auth/context";
+import { pinLockedResponse } from "@/lib/auth/pin";
 import { nowIso } from "@/lib/auth/flows";
 import { fail, ok, readBody } from "@/lib/auth/http";
 import { isId, removeKidBody, updateKidBody } from "@/lib/auth/schemas";
@@ -13,6 +14,8 @@ type Ctx = { params: Promise<{ id: string }> };
 export async function PATCH(request: Request, { params }: Ctx) {
   const { id } = await params;
   return withAuth(request, async ({ store, jar }) => {
+    const locked = await pinLockedResponse(store, jar);
+    if (locked) return locked;
     const parent = await currentParent(store, jar);
     if (!parent) return fail(401, "no-parent");
     const kid = isId(id) ? await store.kid(parent.householdId, id) : null;
@@ -62,6 +65,8 @@ export async function PATCH(request: Request, { params }: Ctx) {
 export async function DELETE(request: Request, { params }: Ctx) {
   const { id } = await params;
   return withAuth(request, async ({ store, jar }) => {
+    const locked = await pinLockedResponse(store, jar);
+    if (locked) return locked;
     const parent = await currentParent(store, jar);
     if (!parent) return fail(401, "no-parent");
     const kid = isId(id) ? await store.kid(parent.householdId, id) : null;

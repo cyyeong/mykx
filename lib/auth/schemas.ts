@@ -68,11 +68,21 @@ const id = z.guid();
 export const isId = (value: string) => id.safeParse(value).success;
 
 // Request bodies (the routes validate with these; the UI may reuse them for forms).
-export const parentSignInBody = z.object({ email: z.string().trim().min(1).max(320), password: z.string().min(1).max(256) });
+export const parentSignInBody = z.object({
+  email: z.string().trim().min(1).max(320),
+  password: z.string().min(1).max(256),
+  /** Where to land after sign-in; the server allowlists it (USER_STORIES §8.4 fix 6). */
+  next: z.string().max(256).optional(),
+});
 export const signOutBody = z.object({ everywhere: z.boolean().optional() });
 export const resetBody = z.object({ email: z.string().trim().min(1).max(320) });
 /** `setup: true` sets the first code (only when none is set) and signs in. */
 export const kidSignInBody = z.object({ kidId: id, secret: secretAttemptSchema, setup: z.boolean().optional() });
+
+/** The 4-digit parent PIN: set once in Your family, asked on grown-up pages while a kid is signed in. */
+export const pinSchema = z.string().regex(/^\d{4}$/);
+export const pinSetupBody = z.object({ pin: pinSchema });
+export const pinVerifyBody = z.object({ pin: z.string().min(1).max(32) });
 export const mePatchBody = z
   .object({ nickname: nicknameSchema.optional(), secret: z.object({ old: secretAttemptSchema, new: secretSchema }).optional() })
   .refine((b) => b.nickname !== undefined || b.secret !== undefined, "Nothing to change");

@@ -1,6 +1,7 @@
 // "Your family": the parent lists their kids and adds one. Level sets the band. A picture-code kid can
 // be added without a code (chosen with the kid at their door); a password kid needs a starting one.
 import { currentParent, toFamilyKid, withAuth } from "@/lib/auth/context";
+import { pinLockedResponse } from "@/lib/auth/pin";
 import { nowIso } from "@/lib/auth/flows";
 import { fail, ok, readBody } from "@/lib/auth/http";
 import { addKidBody, DEFAULT_SECRET_KIND, LEVEL_BAND } from "@/lib/auth/schemas";
@@ -11,6 +12,8 @@ const MAX_KIDS = 8;
 
 export async function GET(request: Request) {
   return withAuth(request, async ({ store, jar }) => {
+    const locked = await pinLockedResponse(store, jar);
+    if (locked) return locked;
     const parent = await currentParent(store, jar);
     if (!parent) return fail(401, "no-parent");
     const [household, kids] = await Promise.all([store.household(parent.householdId), store.kids(parent.householdId)]);
@@ -20,6 +23,8 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   return withAuth(request, async ({ store, jar }) => {
+    const locked = await pinLockedResponse(store, jar);
+    if (locked) return locked;
     const parent = await currentParent(store, jar);
     if (!parent) return fail(401, "no-parent");
     const body = await readBody(request, addKidBody);

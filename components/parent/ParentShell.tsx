@@ -1,0 +1,190 @@
+"use client";
+
+// The parent dashboard shell (USER_STORIES §8.4 fix 6): Today, Messages,
+// Notebook and Family under one bar (bottom on phones, rail from 600 px),
+// a Kids' doors button to hand the device over, and an account menu with
+// sign out here, sign out everywhere, and the admin entry for admins.
+// Today is real household data; Messages and Notebook say honestly that they
+// arrive with the parent dashboard (their backends land in a later task).
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { api } from "@/components/account/api";
+import "./parent.css";
+
+type Tab = "today" | "messages" | "notebook" | "family";
+
+type Kid = { id: string; nickname: string; level: string | null; band: string | null };
+type KidsReply = { household?: { name?: string }; kids?: Kid[] };
+
+const TABS: { id: Tab; label: string }[] = [
+  { id: "today", label: "Today" },
+  { id: "messages", label: "Messages" },
+  { id: "notebook", label: "Notebook" },
+  { id: "family", label: "Family" },
+];
+
+export function ParentShell({ name, isAdmin }: { name: string | null; isAdmin: boolean }) {
+  const router = useRouter();
+  const [tab, setTab] = useState<Tab>("today");
+  const [kids, setKids] = useState<Kid[] | null>(null);
+  const [household, setHousehold] = useState("Your family");
+  const [signedOut, setSignedOut] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const menuBox = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let live = true;
+    void api<KidsReply>("GET", "/api/family/kids").then((r) => {
+      if (!live) return;
+      if (r.status === 401 || r.status === 403) {
+        setSignedOut(true);
+        return;
+      }
+      if (r.ok && r.data) {
+        setKids(r.data.kids ?? []);
+        if (r.data.household?.name) setHousehold(r.data.household.name);
+      }
+    });
+    return () => {
+      live = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const close = (e: PointerEvent | KeyboardEvent) => {
+      if (e instanceof KeyboardEvent ? e.key === "Escape" : !menuBox.current?.contains(e.target as Node)) setMenuOpen(false);
+    };
+    window.addEventListener("pointerdown", close);
+    window.addEventListener("keydown", close);
+    return () => {
+      window.removeEventListener("pointerdown", close);
+      window.removeEventListener("keydown", close);
+    };
+  }, [menuOpen]);
+
+  const signOut = useCallback(
+    async (everywhere: boolean) => {
+      setBusy(true);
+      const r = await api("POST", "/api/auth/signout", everywhere ? { everywhere: true } : {});
+      setBusy(false);
+      setMenuOpen(false);
+      if (r.ok) router.replace("/signin");
+    },
+    [router],
+  );
+
+  return (
+    <div className="pshell" data-theme="anime-sky" data-band="teen">
+      <header className="pshell-top">
+        <div>
+          <p className="pshell-eyebrow">myKx parents</p>
+          <h1 className="pshell-title">{household}</h1>
+        </div>
+        <div className="pshell-actions">
+          <Link className="mk-btn mk-btn--secondary pshell-doors" href="/doors">
+            Kids&apos; doors
+          </Link>
+          <div className="pshell-menu" ref={menuBox}>
+            <button type="button" className="pshell-avatar" aria-haspopup="menu" aria-expanded={menuOpen} aria-label={name ? `${name}: account menu` : "Account menu"} onClick={() => setMenuOpen((o) => !o)}>
+              {(name ?? "?").slice(0, 1).toUpperCase()}
+            </button>
+            {menuOpen && (
+              <div className="pshell-dropdown" role="menu" aria-label="Account">
+                {isAdmin && (
+                  <Link role="menuitem" className="pshell-item" href="/admin/people" onClick={() => setMenuOpen(false)}>
+                    Admin · People
+                  </Link>
+                )}
+                <button role="menuitem" type="button" className="pshell-item" disabled={busy} onClick={() => void signOut(false)}>
+                  Sign out here
+                </button>
+                <button role="menuitem" type="button" className="pshell-item" disabled={busy} onClick={() => void signOut(true)}>
+                  Sign out everywhere
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </header>
+
+      <main className="pshell-main">
+        {signedOut ? (
+          <section className="pshell-card" aria-label="Sign in">
+            <h2 className="pshell-h2">Sign in to see your family</h2>
+            <p className="pshell-p">This device isn&apos;t signed in as a grown-up right now.</p>
+            <Link className="mk-btn mk-btn--primary" href="/signin?next=/parent">
+              Sign in
+            </Link>
+          </section>
+        ) : tab === "today" ? (
+          <section aria-label="Today">
+            <h2 className="pshell-h2">Today</h2>
+            {kids === null ? (
+              <p className="pshell-p">Loading your family…</p>
+            ) : kids.length === 0 ? (
+              <div className="pshell-card">
+                <p className="pshell-p">No kids yet. Add one in Your family to get started.</p>
+                <Link className="mk-btn mk-btn--primary" href="/family">
+                  Open Your family
+                </Link>
+              </div>
+            ) : (
+              <ul className="pshell-kids">
+                {kids.map((k) => (
+                  <li key={k.id} className="pshell-card pshell-kid">
+                    <div>
+                      <p className="pshell-kidname">{k.nickname}</p>
+                      <p className="pshell-p">
+                        {[k.level, k.band === "teen" ? "Teen" : k.band === "junior" ? "Junior" : null].filter(Boolean).join(" · ")}
+                      </p>
+                    </div>
+                    <Link className="mk-btn mk-btn--secondary" href={`/doors/${k.id}`}>
+                      Open door
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+        ) : tab === "messages" ? (
+          <section className="pshell-card" aria-label="Messages">
+            <h2 className="pshell-h2">Messages</h2>
+            <p className="pshell-p">Family messages arrive here with the parent dashboard — flags from Kix, threads with your kids, and the evening summary. Nothing to read yet.</p>
+          </section>
+        ) : tab === "notebook" ? (
+          <section className="pshell-card" aria-label="Notebook">
+            <h2 className="pshell-h2">Notebook</h2>
+            <p className="pshell-p">What Kix remembers about your family lands here — one line per insight, editable, with the full history. Nothing written yet.</p>
+          </section>
+        ) : (
+          <section aria-label="Family">
+            <h2 className="pshell-h2">Family</h2>
+            <div className="pshell-card">
+              <p className="pshell-p">Codes and passwords, limits, the parent PIN, and removing a kid all live in Your family.</p>
+              <Link className="mk-btn mk-btn--primary" href="/family">
+                Open Your family
+              </Link>
+            </div>
+          </section>
+        )}
+      </main>
+
+      <nav className="pshell-bar" aria-label="Parent">
+        {TABS.map((t) => (
+          <button
+            key={t.id}
+            type="button"
+            className="pshell-tab"
+            aria-current={tab === t.id ? "page" : undefined}
+            onClick={() => setTab(t.id)}
+          >
+            {t.label}
+          </button>
+        ))}
+      </nav>
+    </div>
+  );
+}

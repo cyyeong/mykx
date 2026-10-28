@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
+import { GrownUpGate } from "@/components/account/GrownUpGate";
 import { PapersIndex } from "@/components/papers/PapersIndex";
 import { getDoors } from "@/lib/auth/server";
 import { listPrintPacks } from "@/lib/print/bank";
@@ -12,14 +13,16 @@ async function Papers() {
   const doors = await getDoors();
   if (!doors.signedIn) redirect("/signin");
   return (
-    <PapersIndex
+    <GrownUpGate>
+      <PapersIndex
       kids={doors.kids.map((k) => ({ id: k.id, nickname: k.nickname, level: k.level }))}
       packs={listPrintPacks()}
       base="/papers"
       back={{ href: "/family", label: "Your family" }}
       audience="parent"
       theme={{ pack: "anime-sky", band: "teen" }}
-    />
+      />
+    </GrownUpGate>
   );
 }
 

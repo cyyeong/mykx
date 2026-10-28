@@ -6,6 +6,7 @@ import * as adminPeople from "@/app/api/admin/people/route";
 import * as kidRoute from "@/app/api/auth/kid/route";
 import * as kidsRoute from "@/app/api/auth/kids/route";
 import * as parentRoute from "@/app/api/auth/parent/route";
+import * as pinRoute from "@/app/api/auth/pin/route";
 import * as resetRoute from "@/app/api/auth/reset/route";
 import * as signoutRoute from "@/app/api/auth/signout/route";
 import * as familyKid from "@/app/api/family/kids/[id]/route";
@@ -53,6 +54,18 @@ class Browser {
   kidSignIn(kidId: string, secret: unknown, setup?: boolean) {
     return this.call(kidRoute.POST, "/api/auth/kid", { body: { kidId, secret, ...(setup ? { setup } : {}) } });
   }
+
+  kidSignOut() {
+    return this.call(kidRoute.DELETE, "/api/auth/kid", { method: "DELETE" });
+  }
+
+  pinSetup(pin: string) {
+    return this.call(pinRoute.POST, "/api/auth/pin", { body: { action: "setup", pin } });
+  }
+
+  pinVerify(pin: string) {
+    return this.call(pinRoute.POST, "/api/auth/pin", { body: { action: "verify", pin } });
+  }
 }
 
 let browser: Browser;
@@ -80,7 +93,7 @@ afterEach(() => {
 describe("grown-up sign-in (demo mode)", () => {
   it("any email and password opens the demo parent, who is an admin", async () => {
     const res = await browser.signIn();
-    expect(res).toMatchObject({ status: 200, body: { ok: true, role: "admin", next: "/admin/skills" } });
+    expect(res).toMatchObject({ status: 200, body: { ok: true, role: "admin", next: "/admin/people" } });
     expect(browser.cookies.has("mykx_demo_parent")).toBe(true);
     expect(res.headers.get("set-cookie")).toMatch(/HttpOnly/i);
   });
@@ -205,6 +218,9 @@ describe("picture code setup at the door", () => {
     expect(await browser.kidSignIn(id, code, true)).toMatchObject({ status: 200, body: { kid: { id, nickname: "Juno" } } });
     expect(await browser.kidSignIn(id, code, true)).toMatchObject({ status: 409, body: { reason: "already-set" } });
     expect((await browser.kidSignIn(id, code)).status).toBe(200);
+    // Grown-up reads wait until the kid signs out (fix 8); the unlock would also do.
+    expect((await browser.call(family.GET, "/api/family/kids")).status).toBe(403);
+    await browser.kidSignOut();
     const kid = (await browser.call(family.GET, "/api/family/kids")).body.kids.find((k: { id: string }) => k.id === id);
     expect(kid).toMatchObject({ needsSetup: false, secretEvent: "set" });
   });
@@ -246,6 +262,9 @@ describe("Your family", () => {
     expect((await browser.kidSignIn(MEI_ID, { kind: "password", password: "frogs123" })).status).toBe(401);
     expect((await browser.kidSignIn(MEI_ID, { kind: "password", password: "temporary1" })).status).toBe(200);
 
+    // The gate fires before the household check; after sign-out the 404 shows through.
+    expect((await browser.call(familyKid.PATCH, `/api/family/kids/${KAI_ID}`, { method: "PATCH", id: KAI_ID, body: { voiceEnabled: false } })).status).toBe(403);
+    await browser.kidSignOut();
     expect((await browser.call(familyKid.PATCH, `/api/family/kids/${KAI_ID}`, { method: "PATCH", id: KAI_ID, body: { voiceEnabled: false } })).status).toBe(404);
     expect((await browser.call(familyKid.DELETE, `/api/family/kids/${MEI_ID}`, { method: "DELETE", id: MEI_ID, body: { confirm: "mei" } })).body.reason).toBe("confirm");
     expect((await browser.call(familyKid.DELETE, `/api/family/kids/${MEI_ID}`, { method: "DELETE", id: MEI_ID, body: { confirm: "Mei" } })).body).toEqual({ ok: true });
@@ -349,9 +368,13 @@ describe("focus camera (AGENTS.md rule 12)", () => {
 
   it("stops the camera when the grown-up switches it off mid-session", async () => {
     await browser.signIn();
+    expect((await browser.pinSetup("4821")).status).toBe(200);
     await cameraOn(true);
     await browser.kidSignIn(ARI_ID, { kind: "pictures", code: ARI_CODE });
     expect((await post({ minutes: [calm(0)] })).status).toBe(200);
+    // The switch-off needs the PIN unlock while Ari is signed in.
+    expect((await cameraOn(false)).status).toBe(403);
+    expect((await browser.pinVerify("4821")).status).toBe(200);
     await cameraOn(false);
     expect((await post({ minutes: [calm(1)] })).status).toBe(403);
   });
@@ -428,6 +451,46 @@ describe("admin People", () => {
       "admin.disable",
       "admin.enable",
     ]);
+  });
+});
+
+describe("grown-up sign-in destinations (fix 6)", () => {
+  it("honours a safe ?next= and falls back on an off-list one", async () => {
+    const safe = await browser.call(parentRoute.POST, "/api/auth/parent", { body: { email: "a@b.c", password: "x", next: "/family" } });
+    expect(safe.body).toMatchObject({ ok: true, next: "/family" });
+    const evil = await browser.call(parentRoute.POST, "/api/auth/parent", { body: { email: "a@b.c", password: "x", next: "https://evil.example" } });
+    expect(evil.body).toMatchObject({ ok: true, next: "/admin/people" });
+    const kid = await browser.call(parentRoute.POST, "/api/auth/parent", { body: { email: "a@b.c", password: "x", next: "/home" } });
+    expect(kid.body).toMatchObject({ ok: true, next: "/admin/people" });
+  });
+});
+
+describe("parent PIN (fix 8)", () => {
+  const pin = (action: string, pin: string) => browser.call(pinRoute.POST, "/api/auth/pin", { body: { action, pin } });
+
+  it("starts unset; setup needs four digits and refuses a second set", async () => {
+    await browser.signIn();
+    expect((await browser.call(pinRoute.GET, "/api/auth/pin")).body).toMatchObject({ ok: true, set: false, kidActive: false, unlocked: false });
+    expect((await pin("setup", "12")).status).toBe(400);
+    expect(await pin("setup", "4821")).toMatchObject({ status: 200, body: { ok: true, set: true } });
+    expect((await pin("setup", "0000")).status).toBe(409);
+  });
+
+  it("setup refuses while a kid is signed in; verify mints the unlock", async () => {
+    await browser.signIn();
+    await pin("setup", "4821");
+    await browser.kidSignIn(ARI_ID, { kind: "pictures", code: ARI_CODE });
+    expect((await browser.call(pinRoute.GET, "/api/auth/pin")).body).toMatchObject({ ok: true, set: true, kidActive: true, unlocked: false });
+    expect((await pin("setup", "0000")).status).toBe(403);
+    expect((await pin("verify", "0000")).status).toBe(401);
+    expect(await pin("verify", "4821")).toMatchObject({ status: 200, body: { ok: true, unlocked: true } });
+    expect(browser.cookies.has("mykx_pinunlock")).toBe(true);
+    expect((await browser.call(pinRoute.GET, "/api/auth/pin")).body).toMatchObject({ unlocked: true });
+  });
+
+  it("needs a grown-up session throughout", async () => {
+    expect((await browser.call(pinRoute.GET, "/api/auth/pin")).status).toBe(401);
+    expect((await pin("verify", "4821")).status).toBe(401);
   });
 });
 

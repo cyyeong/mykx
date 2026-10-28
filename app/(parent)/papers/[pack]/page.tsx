@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
+import { GrownUpGate } from "@/components/account/GrownUpGate";
 import { PaperRoute } from "@/components/papers/PaperRoute";
 import { getDoors } from "@/lib/auth/server";
 import { listPrintPacks, loadPrintBank } from "@/lib/print/bank";
@@ -22,16 +23,18 @@ async function ParentPaper({ params, searchParams }: PageProps<"/papers/[pack]">
   if (!doors.signedIn) redirect("/signin");
   const [{ pack }, search] = await Promise.all([params, searchParams]);
   return (
-    <PaperRoute
-      packId={pack}
-      search={search}
-      base="/papers"
-      defaultGuide="with"
-      elsewhere="/papers"
-      back={{ href: "/papers", label: "Papers" }}
-      audience="parent"
-      theme={{ pack: "anime-sky", band: "teen" }}
-    />
+    <GrownUpGate>
+      <PaperRoute
+        packId={pack}
+        search={search}
+        base="/papers"
+        defaultGuide="with"
+        elsewhere="/papers"
+        back={{ href: "/papers", label: "Papers" }}
+        audience="parent"
+        theme={{ pack: "anime-sky", band: "teen" }}
+      />
+    </GrownUpGate>
   );
 }
 
