@@ -2741,5 +2741,25 @@
     "sha256": "2e20745a12688b0d0ab16a93631c946b1a118fd761fd5880c45706911352abea",
     "cut_by": null,
     "note": "Synthetic home-camera frame for the Home simulator and Guardian designs (GUARDIAN.md §2.3); fictional characters; label as synthetic."
+  },
+  {
+    "id": "sim-living-argument-sam",
+    "path": "public/art/sim/living-argument-sam.webp",
+    "variants": [
+      "public/art/sim/living-argument-sam-640.webp"
+    ],
+    "pack": null,
+    "kind": "sim-frame",
+    "model": "sam-3.1",
+    "route": "api",
+    "prompt": "child",
+    "refs": [
+      "public/art/sim/living-argument.webp"
+    ],
+    "size": "1280x731",
+    "created": "2026-10-28",
+    "sha256": "0a4b4249174fb76b92ce748ccbceccefd9e9232c19dbc7c7d83f1b4745e75460",
+    "cut_by": "sam-3.1",
+    "note": "SAM 3.1 masks for “child” on the synthetic tug-of-war frame, drawn as outlines in each kid's colour (left: Zara, magenta; right: Ari, green) for the Home now alert design (GUARDIAN.md §2.5)."
   }
 ]

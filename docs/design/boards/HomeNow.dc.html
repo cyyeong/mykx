@@ -21,7 +21,7 @@ body{margin:0}
   .hn-cols{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:start;gap:20px}
 }
 @media (min-width: 1024px){ .hn-main{padding:32px max(32px, calc((100% - 1100px) / 2))} }
-.hn-sheet{position:fixed;z-index:11;left:0;right:0;bottom:0;max-height:88vh;overflow:auto;border-radius:24px 24px 0 0}
+.hn-sheet{position:fixed;z-index:31;left:0;right:0;bottom:0;max-height:88vh;overflow:auto;border-radius:24px 24px 0 0}
 @media (min-width: 600px){ .hn-sheet{left:50%;right:auto;bottom:auto;top:50%;transform:translate(-50%,-50%);width:min(560px, calc(100% - 48px));border-radius:24px} }
 .hn-frame{position:relative;border-radius:12px;overflow:hidden;background:#0E1230}
 .hn-frame img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
@@ -40,6 +40,10 @@ body{margin:0}
       <p style="margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-muted)">{{status}}</p>
     </header>
 
+    <section aria-label="Right now" style="display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; border-radius: var(--radius-md); background: #1B2350; color: #FFFFFF">
+      <p style="margin: 0; font-size: 15px; line-height: 22px">{{brief.text}}</p>
+      <p style="margin: 0; font-size: 12px; line-height: 17px; color: #B9C3EA">{{brief.by}}</p>
+    </section>
     <sc-if value="{{alert.show}}" hint-placeholder-val="{{true}}">
       <button class="hn-click" type="button" onClick="{{openAlert}}" style="{{alert.bannerStyle}}">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 1px"><path d="M12 3l9.5 17h-19zM12 10v4M12 17.5h.01"/></svg>
@@ -122,7 +126,7 @@ body{margin:0}
   </div>
 
   <sc-if value="{{sheet.open}}" hint-placeholder-val="{{false}}">
-    <div aria-hidden="true" onClick="{{closeAlert}}" style="position: fixed; inset: 0; z-index: 10; background: var(--scrim)"></div>
+    <div aria-hidden="true" onClick="{{closeAlert}}" style="position: fixed; inset: 0; z-index: 30; background: var(--scrim)"></div>
     <section class="hn-sheet" role="dialog" aria-modal="true" aria-label="{{alert.title}}" style="display: flex; flex-direction: column; gap: 14px; padding: 18px 16px 22px; box-sizing: border-box; background: var(--surface-raised); box-shadow: 0 -12px 32px rgba(27, 35, 80, 0.25)">
       <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px">
         <div>
@@ -136,6 +140,7 @@ body{margin:0}
           <figure class="hn-frame" style="margin: 0"><img src="{{f.src}}" alt="{{f.alt}}"><span class="hn-stamp">{{f.stamp}}</span></figure>
         </sc-for>
       </div>
+      <sc-if value="{{alert.sam}}" hint-placeholder-val="{{true}}"><p style="margin: -6px 0 0; font-size: 12px; line-height: 17px; color: var(--ink-muted)">{{alert.sam}}</p></sc-if>
       <p style="margin: 0; font-size: 15px; line-height: 22px">{{alert.reason}}</p>
       <p style="margin: 0; font-size: 13px; line-height: 18px; color: var(--ink-muted)">{{alert.why}}</p>
       <sc-if value="{{alert.urgent}}" hint-placeholder-val="{{false}}">
@@ -157,7 +162,7 @@ body{margin:0}
     </section>
   </sc-if>
 
-  <nav aria-label="Grown-ups" style="position: fixed; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: repeat(5, 1fr); padding: 6px 4px calc(6px + env(safe-area-inset-bottom)); background: var(--surface-raised); box-shadow: 0 -1px 0 var(--line)">
+  <nav aria-label="Grown-ups" style="position: fixed; z-index: 5; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: repeat(5, 1fr); padding: 6px 4px calc(6px + env(safe-area-inset-bottom)); background: var(--surface-raised); box-shadow: 0 -1px 0 var(--line)">
     <sc-for list="{{tabs}}" as="t" hint-placeholder-count="5">
       <a href="#" aria-current="{{t.current}}" style="{{t.style}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{t.icon}}"/></svg>{{t.label}}</a>
     </sc-for>
@@ -172,7 +177,7 @@ class Component extends DCLogic {
     const sheetOpen = this.state.sheet ?? Boolean(this.props.sheetOpen ?? false);
     const ALERTS = {
       watch: { level: 'Watch', room: 'Living room', at: '17:08', title: 'Possibly a tug-of-war over the TV remote', cta: 'See what Muse saw',
-        frames: [{ src: '/_blob/ba679826e0d97bc5fad524b9399f2372', alt: 'Synthetic frame: two children on the sofa watching TV', stamp: 'LIVING ROOM 17:06:12' }, { src: '/_blob/d87ba190c3e873f5519ab688c80acf33', alt: 'Synthetic frame: two children pulling one TV remote, both frowning', stamp: 'LIVING ROOM 17:08:31' }],
+        frames: [{ src: '/_blob/ba679826e0d97bc5fad524b9399f2372', alt: 'Synthetic frame: two children on the sofa watching TV', stamp: 'LIVING ROOM 17:06:12' }, { src: '/_blob/bab6e4384fe1d9250a67e66eb693cd8d', alt: 'Synthetic frame: two children pulling one TV remote, each outlined by SAM 3.1', stamp: 'LIVING ROOM 17:08:31' }], sam: 'Outlines by SAM 3.1: Zara (likely), magenta · Ari (likely), green',
         reason: 'Two children are pulling on one TV remote and both look upset. A cushion is on the floor. No one looks hurt. Medium confidence.',
         why: 'A watch note: seen in 2 of the last 3 checks. Play-fighting can look like this.', keep: 'These two frames are deleted at 17:08 tomorrow.', urgent: false },
       urgent: { level: 'Urgent', room: 'Living room', at: '16:52', title: 'Possibly a child near an open window with a chair at the ledge', cta: 'See what Muse saw',
@@ -198,6 +203,9 @@ class Component extends DCLogic {
       : [{ name: 'Zara', colour: '#FF3DCB', x: 96, y: 196 }, { name: 'Ari', colour: '#2C7A47', x: 140, y: 214 }, { name: 'Mei', colour: '#1F66C1', x: 228, y: 90 }];
     const ICONS = { Today: 'M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0M12 7v5l3 2', Where: 'M12 21s-7-6.2-7-11.5a7 7 0 1 1 14 0C19 14.8 12 21 12 21zM12 7.5a2.5 2.5 0 1 0 0 5a2.5 2.5 0 0 0 0-5', Home: 'M3 11l9-7 9 7M5 10v10h14V10M10 20v-6h4v6', Messages: 'M4 5h16v11H8l-4 4z', Family: 'M9 11a3 3 0 1 0 0-6a3 3 0 0 0 0 6M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M17 11a2.5 2.5 0 1 0 0-5M21 19c0-2.6-1.7-4.6-4-5.2' };
     return {
+      brief: kind === 'urgent'
+        ? { text: 'Ari is in the living room near a wide-open window with a chair pushed against the ledge. Mei is in the Study. Please call home now; the note below has the pictures.', by: 'Muse Spark · from the cameras and the map · 16:52' }
+        : { text: 'Everyone’s been home since 15:41. Zara and Ari are in the living room, possibly squabbling over the TV remote; Mei is doing homework in the Study. A quick check-in with the younger two may help.', by: 'Muse Spark · from the cameras and the map · 17:09' },
       status: this.state.paused ? 'Paused until 18:10. No pictures are read while paused.' : '4 cameras · checks every 60 s · last check 17:08:40 · on until 19:00',
       pause: { pressed: this.state.paused ? 'true' : 'false', label: this.state.paused ? 'Resume' : 'Pause 1 hour' },
       togglePause: () => this.setState({ paused: !this.state.paused }),

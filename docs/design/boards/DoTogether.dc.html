@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Do something together</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+.dt-click{cursor:pointer}
+.dt-click:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+.dt-main{display:flex;flex-direction:column;gap:16px;padding:16px 16px 88px;max-width:1100px;margin:0 auto;box-sizing:border-box}
+.dt-days{display:flex;flex-direction:column;gap:18px}
+.dt-day{display:flex;flex-direction:column;gap:10px}
+.dt-card{position:relative;display:flex;flex-direction:column;gap:6px;padding:14px 14px 14px 18px;border-radius:var(--radius-md);background:var(--surface-raised);box-shadow:var(--shadow-raised);overflow:hidden}
+.dt-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--band)}
+@media (min-width: 900px){
+  .dt-main{padding:28px 32px 96px}
+  .dt-days{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
+}
+</style>
+</helmet>
+<div data-theme="anime-sky" data-band="teen" style="width: 100%; min-height: 100vh; box-sizing: border-box; background: var(--surface); color: var(--ink); font-family: var(--font-text)">
+  <div class="dt-main">
+    <header style="display: flex; flex-direction: column; gap: 6px">
+      <h1 style="margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 26px; line-height: 32px">Do something together</h1>
+      <p style="margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-muted)">Near Home in Sengkang, within 3 km · Sat 31 Oct and Sun 1 Nov</p>
+    </header>
+
+    <section aria-label="Muse’s read on the weekend" style="display: flex; flex-direction: column; gap: 8px; padding: 14px 16px; border-radius: var(--radius-md); background: #1B2350; color: #FFFFFF">
+      <p style="margin: 0; font-size: 15px; line-height: 22px">This week the younger two spent most afternoons on screens, about 2 hours a day, and Zara has a maths quiz on Monday. Thundery showers are likely after 3 pm on Saturday, so the outdoor ideas are in the morning and the indoor ones after. Everything is within 3 km of home except the festival.</p>
+      <p style="margin: 0; font-size: 12px; line-height: 17px; color: #B9C3EA">Muse Spark, with live web search · 12 searches, 5 places, each with its source · this week’s screen time and plans · NEA’s forecast · 08:00 today</p>
+    </section>
+
+    <div role="group" aria-label="Family interests" style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
+      <sc-for list="{{interests}}" as="i" hint-placeholder-count="5">
+        <button class="dt-click" type="button" aria-pressed="{{i.on}}" onClick="{{i.toggle}}" style="{{i.style}}">{{i.label}}</button>
+      </sc-for>
+      <button class="mk-btn mk-btn--secondary dt-click" type="button" onClick="{{refresh}}" style="min-height: 36px; padding: 0 14px; font-size: 13px; margin-left: auto">{{refreshLabel}}</button>
+    </div>
+
+    <div class="dt-days">
+      <sc-for list="{{days}}" as="d" hint-placeholder-count="2">
+        <section class="dt-day" aria-label="{{d.name}}">
+          <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 800">{{d.name}} <span style="font-weight: 500; color: var(--ink-muted)">· {{d.weather}}</span></h2>
+          <sc-for list="{{d.ideas}}" as="x" hint-placeholder-count="3">
+            <article class="dt-card" style="{{x.band}}">
+              <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px">
+                <span style="font-size: 13px; line-height: 18px; font-weight: 800; color: var(--ink-muted); font-variant-numeric: tabular-nums">{{x.when}}</span>
+                <span style="{{x.tagStyle}}">{{x.tag}}</span>
+              </div>
+              <h3 style="margin: 0; font-size: 17px; line-height: 23px; font-weight: 800">{{x.title}}</h3>
+              <p style="margin: 0; font-size: 14px; line-height: 20px">{{x.where}}</p>
+              <p style="margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-muted)">{{x.facts}}</p>
+              <p style="margin: 2px 0 0; padding: 8px 10px; border-radius: var(--radius-sm); background: var(--surface); font-size: 14px; line-height: 20px"><b>Why this one:</b> {{x.why}}</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 4px">
+                <button class="mk-btn mk-btn--primary dt-click" type="button" onClick="{{x.add}}" style="{{x.addStyle}}">{{x.addLabel}}</button>
+                <button class="mk-btn mk-btn--secondary" type="button" style="min-height: 40px; padding: 0 14px; font-size: 14px">Tell the kids</button>
+                <a href="#" style="margin-left: auto; font-size: 13px; font-weight: 700; color: var(--accent); text-decoration: none">{{x.source}} ↗</a>
+              </div>
+            </article>
+          </sc-for>
+        </section>
+      </sc-for>
+    </div>
+
+    <p style="margin: 0; font-size: 12px; line-height: 17px; color: var(--ink-muted)">Muse searched for family activities near Sengkang with your interests; it never sent your kids’ names or where they are. Opening hours and prices can change, so check the source before you go. “Tell the kids” sends a family message from you.</p>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  state = { off: [], added: ['cycle'], refreshing: false };
+  renderVals() {
+    const BAND = { Cycling: '#2C7A47', Badminton: '#1F66C1', 'Eating out': '#D9822B', Swimming: '#1C8EA8', 'This weekend only': '#C2338F' };
+    const IDEAS = [
+      { id: 'cycle', day: 'Sat', when: '9:00–11:00', tag: 'Cycling', title: 'Cycle the riverside with Ari and Zara', where: 'Sengkang Riverside Park, on the North Eastern Riverine Loop', facts: 'The loop is 26 km and links four parks; try the river stretch. Open 24 hours · 2 km from Home · free', why: 'Ari just finished the frog quest: look for tadpoles in the park’s ponds and ask which stage they’re at.', source: 'nparks.gov.sg' },
+      { id: 'badminton', day: 'Sat', when: '15:30–17:00', tag: 'Badminton', title: 'Family badminton, indoors', where: 'Sengkang Sports Hall, 57 Anchorvale Road', facts: 'About 9 courts; book on ActiveSG · 1.5 km from Home', why: 'Showers are likely after 3 pm, so this one’s indoors. You, Zara and Mei, with Ari taking turns.', source: 'activesgcircle.gov.sg' },
+      { id: 'food', day: 'Sat', when: '17:15', tag: 'Eating out', title: 'Supper at Anchorvale Village Hawker Centre', where: '339 Anchorvale Road, level 2', facts: '30+ stalls, meals from S$3.50 · 3 minutes from Farmway LRT', why: 'Two stops from the sports hall. Let each kid choose one dish for everyone to share.', source: 'lifestyleasia.com' },
+      { id: 'swim', day: 'Sun', when: '8:00–10:00', tag: 'Swimming', title: 'Morning swim and the water slides', where: 'Sengkang Swimming Complex, 57 Anchorvale Road', facts: 'Sunday 8 am–9:30 pm · slides and a teaching pool · 1.5 km from Home', why: 'Early, so Zara has a calm afternoon before Monday’s maths quiz.', source: 'activesgcircle.gov.sg' },
+      { id: 'jewel', day: 'Sun', when: '11:00–20:00', tag: 'This weekend only', title: 'Halloween festival at Jewel', where: 'Changi Experience Studio, Jewel level 4', facts: 'Workshops, trick-or-treating, 35+ local makers · S$20 adult, S$10 child · about 12 km', why: 'A bigger outing if Sunday turns wet: indoors, but it costs more and is further.', source: 'changiairport.com' },
+    ];
+    const off = this.state.off;
+    const INTERESTS = ['Badminton', 'Swimming', 'Cycling', 'Eating out'];
+    const shown = IDEAS.filter((x) => !off.includes(x.tag));
+    const card = (x) => {
+      const added = this.state.added.includes(x.id);
+      return { ...x, band: `--band: ${BAND[x.tag]};`,
+        tagStyle: `padding: 2px 10px; border-radius: 999px; font-size: 12px; line-height: 18px; font-weight: 800; color: #FFFFFF; background: ${BAND[x.tag]};`,
+        addLabel: added ? 'In our plan ✓' : 'Add to our plan',
+        addStyle: 'min-height: 40px; padding: 0 14px; font-size: 14px;' + (added ? ' background: var(--success);' : ''),
+        add: () => this.setState({ added: added ? this.state.added.filter((a) => a !== x.id) : [...this.state.added, x.id] }) };
+    };
+    return {
+      interests: [...INTERESTS.map((label) => ({ label, on: off.includes(label) ? 'false' : 'true', toggle: () => this.setState({ off: off.includes(label) ? off.filter((o) => o !== label) : [...off, label] }),
+        style: 'min-height: 36px; padding: 0 14px; border: 0; border-radius: 999px; font: 700 13px var(--font-text);' + (off.includes(label) ? ' background: var(--surface-raised); color: var(--ink-muted); box-shadow: inset 0 0 0 1.5px var(--line);' : ' background: var(--ink); color: var(--surface-raised);') })),
+        { label: '+ Add', on: 'false', toggle: () => {}, style: 'min-height: 36px; padding: 0 14px; border: 0; border-radius: 999px; font: 700 13px var(--font-text); background: transparent; color: var(--accent); box-shadow: inset 0 0 0 1.5px var(--accent);' }],
+      refreshLabel: this.state.refreshing ? 'Muse is searching…' : 'Ask Muse again',
+      refresh: () => this.setState({ refreshing: !this.state.refreshing }),
+      days: [['Sat', 'Saturday 31 Oct', 'showers likely after 3 pm'], ['Sun', 'Sunday 1 Nov', 'mostly fair']].map(([key, name, weather]) => ({ name, weather, ideas: shown.filter((x) => x.day === key).map(card) })),
+    };
+  }
+}
+</script>
+</body>
+</html>

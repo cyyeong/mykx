@@ -36,6 +36,7 @@ body{margin:0}
       <h1 style="margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 26px; line-height: 32px">Where they are</h1>
       <span style="font-size: 13px; line-height: 18px; color: var(--ink-muted)">Today, 15:43</span>
     </div>
+    <p style="margin: 0; padding: 10px 12px; border-radius: var(--radius-sm); background: #1B2350; color: #FFFFFF; font-size: 14px; line-height: 20px">Ari is walking home from the playground, about 4 minutes away. Zara is at school for CCA until 17:30. Mei paused sharing at home until 16:40. <span style="display: block; margin-top: 2px; font-size: 12px; line-height: 16px; color: #B9C3EA">Muse Spark · from the map and your places · 15:43</span></p>
     <div role="group" aria-label="Choose a child" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px">
       <sc-for list="{{kids}}" as="k" hint-placeholder-count="3">
         <button class="gm-click" type="button" onClick="{{k.pick}}" aria-pressed="{{k.pressed}}" style="{{k.style}}">

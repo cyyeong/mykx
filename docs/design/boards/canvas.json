@@ -1402,6 +1402,15 @@
    "page": "devices",
    "is_interactive": true,
    "title": "Home now · Desktop 1600 × 1000"
+  },
+  "DoTogether.dc.html": {
+   "x": 6120,
+   "y": 12388,
+   "w": 390,
+   "h": 844,
+   "is_interactive": true,
+   "expand": "fill",
+   "title": "Parent: do something together (Muse Spark + web search)"
   }
  },
  "createdOnFiles": {
@@ -1719,7 +1728,7 @@
   },
   "row11": {
    "kind": "title1",
-   "maxW": 6120,
+   "maxW": 6510,
    "text": "Guardian (PRD 2): where they are, Home now, settings, the kid’s view, Home Link, the mobile app and the Home simulator. All frames and routes are synthetic",
    "w": 240,
    "x": 0,
@@ -1898,7 +1907,8 @@
   "HomeNow-phone.dc.html",
   "HomeNow-fold.dc.html",
   "HomeNow-tabp.dc.html",
-  "HomeNow-desk.dc.html"
+  "HomeNow-desk.dc.html",
+  "DoTogether.dc.html"
  ],
  "pages": [
   {

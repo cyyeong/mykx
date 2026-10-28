@@ -94,6 +94,19 @@ body{margin:0}
       </div>
     </section>
 
+    <section class="gs-card" aria-label="Things to do together">
+      <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 800">Things to do together</h2>
+      <div class="gs-row" style="padding: 8px 12px; border-radius: var(--radius-sm); background: var(--surface)"><span><span style="display: block; font-size: 15px; line-height: 20px; font-weight: 700">Home area</span><span style="display: block; font-size: 13px; line-height: 18px; color: var(--ink-muted)">Sengkang · ideas within {{radius}}</span></span><a href="#" style="font-size: 14px; font-weight: 700; color: var(--accent); text-decoration: none">Change</a></div>
+      <div class="gs-seg" role="radiogroup" aria-label="How far" style="grid-template-columns: repeat(3, minmax(0, 1fr))">
+        <sc-for list="{{radii}}" as="r" hint-placeholder-count="3"><button class="gs-click" type="button" role="radio" aria-checked="{{r.on}}" onClick="{{r.pick}}" style="{{r.style}}">{{r.label}}</button></sc-for>
+      </div>
+      <p style="margin: 0; font-size: 14px; line-height: 20px; font-weight: 700">What your family likes</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px">
+        <sc-for list="{{likes}}" as="l" hint-placeholder-count="8"><button class="gs-click" type="button" aria-pressed="{{l.on}}" onClick="{{l.toggle}}" style="{{l.style}}">{{l.label}}</button></sc-for>
+      </div>
+      <p style="margin: 0; font-size: 13px; line-height: 18px; color: var(--ink-muted)">Each morning Muse Spark searches the web for places and events near your home area that fit these, and plans them around the weather and the kids’ week. It searches with the area and your interests only, never the kids’ names or where they are.</p>
+    </section>
+
     <section class="gs-card" aria-label="How Muse tells your kids apart">
       <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 800">How Muse tells your kids apart</h2>
       <p style="margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-muted)">A few words each, in your own words. There’s no face matching. Grown-ups, helpers and visitors are never named.</p>
@@ -121,7 +134,7 @@ body{margin:0}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
 class Component extends DCLogic {
-  state = { kid: 'Ari', share: { Ari: true, Zara: true, Mei: true }, mode: { Ari: 'Balanced', Zara: 'School hours', Mei: 'Balanced' }, cams: true, code: false };
+  state = { radius: '3 km', likes: ['Badminton', 'Swimming', 'Cycling', 'Eating out'], kid: 'Ari', share: { Ari: true, Zara: true, Mei: true }, mode: { Ari: 'Balanced', Zara: 'School hours', Mei: 'Balanced' }, cams: true, code: false };
   renderVals() {
     const id = this.state.kid;
     const NOTES = { Live: 'Every 30 s while moving, every 5 min while still. Uses the most battery.', Balanced: 'Every 2 min while moving, every 15 min while still.', Saver: 'Every 10 min while moving, every 30 min while still.', 'School hours': 'Balanced on weekdays from the end of school to 19:00, off at other times.' };
@@ -130,6 +143,12 @@ class Component extends DCLogic {
       knob: 'position: absolute; top: 4px; left: 4px; width: 22px; height: 22px; border-radius: 50%; transition: transform var(--duration-snappy) var(--ease-soft);' + (on ? ' transform: translateX(22px); background: var(--on-accent);' : ' background: var(--border-control);') });
     const dot = (ok) => 'display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700;' + (ok ? ' color: var(--success);' : ' color: var(--warn);');
     return {
+      radius: this.state.radius,
+      radii: ['1 km', '3 km', '5 km'].map((label) => ({ label, on: this.state.radius === label ? 'true' : 'false', pick: () => this.setState({ radius: label }),
+        style: 'min-height: 40px; border: 0; border-radius: 8px; font: 700 13px var(--font-text);' + (this.state.radius === label ? ' background: var(--surface-raised); color: var(--ink); box-shadow: var(--shadow-raised);' : ' background: transparent; color: var(--ink-muted);') })),
+      likes: ['Badminton', 'Swimming', 'Cycling', 'Eating out', 'Nature walks', 'Museums', 'Libraries', 'Board games'].map((label) => { const on = this.state.likes.includes(label); return { label, on: on ? 'true' : 'false',
+        toggle: () => this.setState({ likes: on ? this.state.likes.filter((x) => x !== label) : [...this.state.likes, label] }),
+        style: 'min-height: 40px; padding: 0 14px; border: 0; border-radius: 999px; font: 700 13px var(--font-text);' + (on ? ' background: var(--ink); color: var(--surface-raised);' : ' background: var(--surface); color: var(--ink-muted); box-shadow: inset 0 0 0 1.5px var(--line);') }; }),
       kid: id, isTeen: id === 'Mei',
       kids: ['Ari', 'Zara', 'Mei'].map((name) => ({ name, pressed: name === id ? 'true' : 'false', pick: () => this.setState({ kid: name }),
         style: 'min-height: 44px; padding: 0 16px; border: 0; border-radius: var(--radius-pill); font: 700 14px var(--font-text);' + (name === id ? ' background: var(--ink); color: var(--surface-raised);' : ' background: var(--surface); color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line);') })),
