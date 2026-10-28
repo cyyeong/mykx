@@ -57,3 +57,6 @@ insert into kid_location (profile_id, household_id, enabled, mode) values
   ('00000000-0000-4000-8000-000000000012', '00000000-0000-4000-8000-000000000001', true, 'school'),
   ('00000000-0000-4000-8000-000000000013', '00000000-0000-4000-8000-000000000001', true, 'balanced')
 on conflict (profile_id) do nothing;
+insert into guardian_prefs (household_id, descriptions) values
+  ('00000000-0000-4000-8000-000000000001', '{"00000000-0000-4000-8000-000000000011": "Youngest, about 9, short straight black hair, often a light blue T-shirt", "00000000-0000-4000-8000-000000000012": "About 12, curly chin-length hair, often a mustard-yellow T-shirt", "00000000-0000-4000-8000-000000000013": "About 14, long black ponytail and round glasses, often a grey hoodie"}')
+on conflict (household_id) do nothing;

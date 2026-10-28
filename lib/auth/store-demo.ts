@@ -30,7 +30,7 @@ import type { KnowledgeUpload, Review, SkillUpdate } from "../knowledge/knowledg
 import { findFields, findKey, runCounts, type FindStatus, type PaperFind, type ScoutRun } from "../papers/finds.ts";
 import type { ScoutRow } from "../papers/scan.ts";
 import { KEEP_POINTS_DAYS, type KidLocationSettings, type Place, type PlaceEvent, type StoredPoint } from "../location/location.ts";
-import { DEFAULT_PREFS, KEEP_STATUS_DAYS, type DeviceKind, type GuardianPrefs, type HomeCamera, type HomeDevice, type HomeStatus, type RoomKind } from "../home-watch/home-watch.ts";
+import { DEFAULT_PREFS, KEEP_STATUS_DAYS, type DeviceKind, type GuardianPrefs, type HomeAlert, type HomeCamera, type HomeDevice, type HomeStatus, type RoomKind } from "../home-watch/home-watch.ts";
 import type { FlashcardSpec } from "../vibe/flashcards.ts";
 import type { FamilyMessage, Sticker } from "../family/messages.ts";
 import type { PageSlug } from "../notebook/notebook.ts";
@@ -138,6 +138,9 @@ export class DemoStore implements AuthStore {
   readonly deviceRows = new Map<string, HomeDevice & { tokenHash: string | null; pairCodeHash: string | null; framesDay: string | null; framesCount: number }>();
   readonly cameraRows = new Map<string, HomeCamera & { householdId: string }>();
   readonly statusRows: (HomeStatus & { householdId: string })[] = [];
+  readonly alertRows: (HomeAlert & { householdId: string })[] = [];
+  /** Flagged frames as data URLs by path (the demo's stand-in for the private Storage bucket). */
+  readonly alertFrameRows = new Map<string, string>();
   /** Vibe Zone creations by id, with the household and the shared recipients. */
   readonly creationRows = new Map<string, Creation & { householdId: string; sharedWith: string[] }>();
   readonly runRows: StoredRun[] = [];
@@ -740,6 +743,37 @@ export class DemoStore implements AuthStore {
     },
     statuses: async (householdId: string, sinceIso: string) =>
       this.statusRows.filter((r) => r.householdId === householdId && r.at >= sinceIso).sort((a, b) => b.at.localeCompare(a.at)).map((r) => structuredClone(withoutHousehold(r))),
+    addAlert: async (householdId: string, alert: Omit<HomeAlert, "id" | "verdict" | "seenAt">) => {
+      const row = { ...structuredClone(alert), id: randomUUID(), verdict: null, seenAt: null, householdId };
+      this.alertRows.push(row);
+      return structuredClone(withoutHousehold(row));
+    },
+    alerts: async (householdId: string, sinceIso: string) =>
+      this.alertRows.filter((r) => r.householdId === householdId && r.at >= sinceIso).sort((a, b) => b.at.localeCompare(a.at)).map((r) => structuredClone(withoutHousehold(r))),
+    setAlertVerdict: async (householdId: string, id: string, verdict: HomeAlert["verdict"]) => {
+      const row = this.alertRows.find((r) => r.id === id && r.householdId === householdId);
+      if (!row) return null;
+      row.verdict = verdict;
+      row.seenAt ??= new Date().toISOString();
+      return structuredClone(withoutHousehold(row));
+    },
+    saveAlertFrames: async (householdId: string, alertKey: string, frames: readonly Uint8Array[]) =>
+      frames.map((bytes, i) => {
+        const path = `${householdId}/${alertKey}/${i}.webp`;
+        this.alertFrameRows.set(path, `data:image/webp;base64,${Buffer.from(bytes).toString("base64")}`);
+        return path;
+      }),
+    alertFrameUrls: async (householdId: string, paths: readonly string[]) => paths.filter((p) => p.startsWith(`${householdId}/`)).flatMap((p) => (this.alertFrameRows.has(p) ? [this.alertFrameRows.get(p)!] : [])),
+    purgeAlertFrames: async (nowIso: string) => {
+      let n = 0;
+      for (const a of this.alertRows) {
+        if (!a.framesExpireAt || a.framesExpireAt > nowIso || !a.framePaths.length) continue;
+        for (const p of a.framePaths) this.alertFrameRows.delete(p);
+        a.framePaths = [];
+        n += 1;
+      }
+      return n;
+    },
   };
 
   private publicDevice(d: HomeDevice & { tokenHash: string | null; pairCodeHash: string | null; framesDay: string | null; framesCount: number }): HomeDevice {
@@ -923,6 +957,7 @@ export function seedDemoHistory(store: DemoStore): void {
   // Guardian: the demo family's Home and School pins in Sengkang (synthetic), and who shares (same as supabase/seed.sql).
   for (const p of DEMO_PLACES) store.placeRows.set(p.id, { ...p, householdId: DEMO_HOUSEHOLD_ID });
   for (const [kidId, mode] of [[ARI_ID, "balanced"], [ZARA_ID, "school"], [MEI_ID, "balanced"]] as const) store.locationSettingRows.set(kidId, { kidId, enabled: true, mode, pausedUntil: null, householdId: DEMO_HOUSEHOLD_ID });
+  store.guardianPrefRows.set(DEMO_HOUSEHOLD_ID, { ...DEFAULT_PREFS, descriptions: DEMO_DESCRIPTIONS });
 }
 
 /** A copy of a row without its household id (the store contract's shapes don't carry it). */
@@ -931,6 +966,13 @@ function withoutHousehold<T extends { householdId: string }>(row: T): Omit<T, "h
   delete out.householdId;
   return out as Omit<T, "householdId">;
 }
+
+/** The demo family's descriptions, in a parent's words, matching the synthetic camera frames' cast (public/art/sim). */
+export const DEMO_DESCRIPTIONS: Record<string, string> = {
+  [ARI_ID]: "Youngest, about 9, short straight black hair, often a light blue T-shirt",
+  [ZARA_ID]: "About 12, curly chin-length hair, often a mustard-yellow T-shirt",
+  [MEI_ID]: "About 14, long black ponytail and round glasses, often a grey hoodie",
+};
 
 /** The demo family's synthetic pins (GUARDIAN §2.1): a block near Sengkang's riverside and a primary school about 1.6 km away. */
 export const DEMO_PLACES: readonly Place[] = [

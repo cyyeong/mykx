@@ -59,7 +59,7 @@ Many Singapore children go home on their own after school while both parents wor
 | Running | 2.2–4.5 m/s, or accelerometer cadence over 150 steps a minute |
 | Cycling or scooter | 4.5–7 m/s sustained for 1 min |
 | In a vehicle | over 7 m/s, or bus-like stop-start patterns |
-| **Active in one place (maybe playing)** | high accelerometer variance with < 40 m moved in 5 min; foreground only, since it needs `DeviceMotionEvent` |
+| **Active in one place (maybe playing)** | high accelerometer variance while most of the last three fixes (within 10 min) are within 40 m of here; reads as walking on arrival and as playing about four minutes later on Balanced; needs `DeviceMotionEvent`, so the simulator and, later, the app send it |
 
 Android's Activity Recognition API and iOS Core Motion would be more accurate, but they need a small native plugin of our own: roadmap. Free Capacitor plugins don't expose them, and the one that does (Transistorsoft) needs a paid licence for Android release builds.
 
@@ -244,7 +244,7 @@ Guardian is a reassurance tool, not a guarantee, and the settings page says so i
 |---|---|---|---|
 | **M0 Design** | Wed 28 Oct, done | the seven boards above, the Devices wrappers, eight synthetic frames | the founder reviews the boards; the video beat is storyboarded from them |
 | **M1 Data and ingest** | Wed evening | F1 (plus home area, radius and interests) | locations, places, home status and outing settings go in and come out per household; the cross-household test passes |
-| **M2 Muse reads the home** | Thu | F4 Home Reader, F11 Who's who (SAM), F7 simulator with Send now | the simulator in production produces room statuses and a watch flag with SAM outlines through the real API |
+| **M2 Muse reads the home** | done 28 Oct (locally, live Muse and SAM); production needs the migration and the second Vercel project (HANDOFF) | F4 Home Reader, F11 Who's who (SAM), F7 simulator with Send now | the simulator produces room statuses and a watch flag with SAM outlines through the real API |
 | **M3 Parent screens and the brief** | Fri | F5 Home now, F3 map, settings, F10 Guardian Brief | Home now and the map show live room statuses and Muse's "Right now" at phone and desktop sizes |
 | **M4 Do together and Home Link** | Sat | F14 Outing Scout and Planner, F6 Home Link (pasted RTSP or snapshot) | a live refresh shows sourced ideas for Sengkang; Home Link pairs and sends from a test camera |
 | **M5 Proof and polish** | Sun | F12 evening summary, F13 Under the hood, the device pass, the video take | Under the hood shows all six Guardian agents with live calls; a clean take of the beat; then the plan's freeze on Mon 22:00 |

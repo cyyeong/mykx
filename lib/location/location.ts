@@ -92,7 +92,12 @@ export function motionOf(p: LocationPoint, recent: readonly LocationPoint[]): Mo
   const prev = recent.length ? recent[recent.length - 1] : null;
   const t = Date.parse(p.at);
   const window = recent.filter((r) => t - Date.parse(r.at) <= 5 * 60_000);
-  if ((p.activity ?? 0) >= PLAYING_ACTIVITY && window.length && window.every((r) => distanceM(r, p) < PLAYING_SPREAD_M)) return "playing";
+  // Lively but staying put: most of the last three fixes (within ten minutes) are within 40 m of here. "Most", not
+  // "all": GPS wobbles, and a kid who has just arrived still has the walk there in the window; on the Balanced mode
+  // that reads as walking at first and as playing about four minutes after arriving.
+  const lastFew = recent.filter((r) => t - Date.parse(r.at) <= 10 * 60_000).slice(-3);
+  const near = lastFew.filter((r) => distanceM(r, p) < PLAYING_SPREAD_M).length;
+  if ((p.activity ?? 0) >= PLAYING_ACTIVITY && near >= 1 && near > lastFew.length / 2) return "playing";
   let speed = p.speed;
   if (speed === null && prev) {
     const dt = (t - Date.parse(prev.at)) / 1000;

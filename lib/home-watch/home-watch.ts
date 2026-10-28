@@ -31,17 +31,47 @@ export interface HomeCamera {
   lastStatusAt: string | null;
 }
 
-/** What the Home Reader saw in one camera's frame (M2 writes these; see lib/home-watch/reader.ts). */
+/** One person the Home Reader saw, left to right. Adults never get a name or a cue (rule 15). */
+export interface SeenPerson {
+  who: "child" | "adult" | "unknown";
+  /** A household kid's nickname, only from the parent's own descriptions; null otherwise. */
+  likely: string | null;
+  confidence: number;
+  /** A child's visible behaviour ("crying", "smiling or laughing"…), never an inner feeling. */
+  cue: string | null;
+}
+
+/** What the Home Reader saw in one camera's frame (lib/home-watch/reader.ts). Words only, never the picture. */
 export interface RoomReading {
-  people: { who: "child" | "adult" | "unknown"; likely: string | null; confidence: number }[];
+  people: SeenPerson[];
   activity: string;
   note: string;
+  /** The room's most notable child cue, worked out by code from `people`. */
   cue: string | null;
   hazard: string;
   concern: Concern;
   reason: string;
   confidence: number;
+  /** "live" from Muse Spark, or "cached" from an earlier live read of the same synthetic frame (rule 7). */
+  source: "live" | "cached";
 }
+
+export interface HomeAlert {
+  id: string;
+  cameraId: string;
+  at: string;
+  level: "watch" | "urgent";
+  kind: string;
+  reason: string;
+  confidence: number;
+  framePaths: string[];
+  framesExpireAt: string | null;
+  verdict: "right" | "not-right" | null;
+  seenAt: string | null;
+}
+
+/** Flagged frames live 24 h (rule 15). */
+export const KEEP_FRAMES_MS = 24 * 3_600_000;
 
 export interface HomeStatus {
   id: string;

@@ -1,0 +1,6 @@
+{
+  "name": "mykx-home-simulator",
+  "private": true,
+  "type": "module",
+  "description": "The Home simulator for myKx Guardian: synthetic camera frames and a scripted route sent to myKx's real APIs (docs/prd/GUARDIAN.md §2.3). Deployed as its own Vercel project with root directory sim/."
+}

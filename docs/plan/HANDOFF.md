@@ -64,6 +64,13 @@ Today `lib/sound/engine.ts` plays short synthesised effects and, for some worlds
   - `SIM_HOME_LINK_TOKEN` and `SIM_PASSCODE` on `mykx-sim`, with the passcode also in `.env.local`.
 
   Values are never printed in chat or committed.
+- **Going live, by hand if the CLI isn't signed in** (about 10 minutes, nothing here is secret in chat):
+  1. Run `supabase/migrations/20261028_guardian.sql` in the Supabase SQL editor (the Storage bucket `home-alerts` is made by the server on first use).
+  2. Vercel main project → Settings → Environment Variables: `CRON_SECRET` (any long random string; already needed for the paper scout). Redeploy.
+  3. In myKx (signed in as the demo parent on production): Your family → Location and home cameras → "Pair a computer" → a code. (Until that screen is built in M3, `POST /api/home/devices` with `{"name":"Home simulator","kind":"simulator"}` returns the code once.) Swap it for a token with `POST /api/home/pair` `{"code":"…","name":"sim"}`: the token is shown once.
+  4. Vercel → Add New Project → the same repo → Root Directory `sim` → Framework "Other". Environment variables for it: `SIM_HOME_LINK_TOKEN` (the token from step 3), `SIM_PASSCODE` (8+ characters of your choice), `MYKX_URL` (https://mykx.vercel.app).
+  5. Open the simulator's address, type the passcode, press Play or Send now.
+  Locally: `SIM_HOME_LINK_TOKEN=… SIM_PASSCODE=… MYKX_URL=http://localhost:3200 node sim/dev.mjs` serves it on port 3300.
 - **Database:** the same production Supabase. The simulator has no database; it posts to myKx's routes as the demo family. If `SUPABASE_DB_URL` is in `.env.local`, `scripts/db-migrate.ts` runs migrations; otherwise the founder pastes the SQL.
 
 ## Things only the founder or Claude Code do

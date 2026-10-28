@@ -19,7 +19,7 @@ import type { GameProgress } from "../games/progress.ts";
 import { findFields, findKey, runCounts, type FindStatus, type PaperFind, type ScoutRun } from "../papers/finds.ts";
 import type { ScoutRow } from "../papers/scan.ts";
 import { KEEP_POINTS_DAYS, type KidLocationSettings, type Motion, type Place, type PlaceEvent, type StoredPoint } from "../location/location.ts";
-import { DEFAULT_PREFS, KEEP_STATUS_DAYS, type DeviceKind, type GuardianPrefs, type HomeCamera, type HomeDevice, type HomeStatus, type RoomKind } from "../home-watch/home-watch.ts";
+import { DEFAULT_PREFS, KEEP_STATUS_DAYS, type DeviceKind, type GuardianPrefs, type HomeAlert, type HomeCamera, type HomeDevice, type HomeStatus, type RoomKind } from "../home-watch/home-watch.ts";
 import { NicknameTakenError } from "./store.ts";
 
 export interface SupabaseEnv {
@@ -131,6 +131,9 @@ const iso = (v: unknown) => (v ? new Date(v as string).toISOString() : null);
 const toDevice = (r: Record<string, unknown>): HomeDevice => ({ id: r.id as string, householdId: r.household_id as string, name: r.name as string, kind: r.kind as DeviceKind, createdAt: iso(r.created_at)!, lastSeenAt: iso(r.last_seen_at), revokedAt: iso(r.revoked_at), paired: Boolean(r.token_hash), pairExpiresAt: iso(r.pair_expires_at) });
 const toCamera = (r: Record<string, unknown>): HomeCamera => ({ id: r.id as string, deviceId: r.device_id as string, key: r.key as string, room: r.room as string, roomKind: r.room_kind as RoomKind, enabled: Boolean(r.enabled), lastFrameAt: iso(r.last_frame_at), lastStatusAt: iso(r.last_status_at) });
 const toStatus = (r: Record<string, unknown>): HomeStatus => ({ id: String(r.id), cameraId: r.camera_id as string, at: iso(r.at)!, reading: r.reading as HomeStatus["reading"] });
+const toAlert = (r: Record<string, unknown>): HomeAlert => ({ id: r.id as string, cameraId: r.camera_id as string, at: iso(r.at)!, level: r.level as HomeAlert["level"], kind: r.kind as string, reason: r.reason as string, confidence: Number(r.confidence), framePaths: (r.frame_paths as string[]) ?? [], framesExpireAt: iso(r.frames_expire_at), verdict: (r.verdict as HomeAlert["verdict"]) ?? null, seenAt: iso(r.seen_at) });
+/** The private Storage bucket for flagged frames (24 h, rule 15). Made on first use. */
+const ALERT_BUCKET = "home-alerts";
 const toPrefs = (r: Record<string, unknown>): GuardianPrefs => ({
   homeArea: r.home_area as string,
   radiusKm: Number(r.radius_km) as GuardianPrefs["radiusKm"],
@@ -1136,7 +1139,66 @@ export class SupabaseStore implements AuthStore {
       check(error);
       return (data ?? []).map(toStatus);
     },
+    addAlert: async (householdId: string, a: Omit<HomeAlert, "id" | "verdict" | "seenAt">): Promise<HomeAlert> => {
+      const { data, error } = await this.db.from("home_alerts").insert({ household_id: householdId, camera_id: a.cameraId, at: a.at, level: a.level, kind: a.kind, reason: a.reason.slice(0, 300), confidence: a.confidence, frame_paths: a.framePaths, frames_expire_at: a.framesExpireAt }).select("*").single();
+      check(error);
+      return toAlert(data!);
+    },
+    alerts: async (householdId: string, sinceIso: string): Promise<HomeAlert[]> => {
+      const { data, error } = await this.db.from("home_alerts").select("*").eq("household_id", householdId).gte("at", sinceIso).order("at", { ascending: false }).limit(200);
+      check(error);
+      return (data ?? []).map(toAlert);
+    },
+    setAlertVerdict: async (householdId: string, id: string, verdict: HomeAlert["verdict"]): Promise<HomeAlert | null> => {
+      const now = new Date().toISOString();
+      const { data, error } = await this.db.from("home_alerts").update({ verdict, verdict_at: verdict ? now : null, seen_at: now }).eq("id", id).eq("household_id", householdId).select("*").maybeSingle();
+      check(error);
+      return data ? toAlert(data) : null;
+    },
+    saveAlertFrames: async (householdId: string, alertKey: string, frames: readonly Uint8Array[]): Promise<string[]> => {
+      await this.ensureAlertBucket();
+      const paths: string[] = [];
+      for (const [i, bytes] of frames.entries()) {
+        const path = `${householdId}/${alertKey}/${i}.webp`;
+        const { error } = await this.db.storage.from(ALERT_BUCKET).upload(path, bytes, { contentType: "image/webp", upsert: true });
+        check(error);
+        paths.push(path);
+      }
+      return paths;
+    },
+    alertFrameUrls: async (householdId: string, paths: readonly string[]): Promise<string[]> => {
+      const mine = paths.filter((p) => p.startsWith(`${householdId}/`));
+      if (!mine.length) return [];
+      const { data, error } = await this.db.storage.from(ALERT_BUCKET).createSignedUrls(mine, 600);
+      check(error);
+      return (data ?? []).flatMap((d) => (d.signedUrl ? [d.signedUrl] : []));
+    },
+    purgeAlertFrames: async (nowIso: string): Promise<number> => {
+      const { data, error } = await this.db.from("home_alerts").select("id, frame_paths").lte("frames_expire_at", nowIso).neq("frame_paths", "{}").limit(500);
+      check(error);
+      const paths = (data ?? []).flatMap((r) => (r.frame_paths as string[]) ?? []);
+      if (paths.length) {
+        const { error: e1 } = await this.db.storage.from(ALERT_BUCKET).remove(paths);
+        check(e1);
+      }
+      if (data?.length) {
+        const { error: e2 } = await this.db.from("home_alerts").update({ frame_paths: [] }).in("id", data.map((r) => r.id as string));
+        check(e2);
+      }
+      return data?.length ?? 0;
+    },
   };
+
+  private alertBucketReady = false;
+  private async ensureAlertBucket(): Promise<void> {
+    if (this.alertBucketReady) return;
+    const { error } = await this.db.storage.getBucket(ALERT_BUCKET);
+    if (error) {
+      const made = await this.db.storage.createBucket(ALERT_BUCKET, { public: false, fileSizeLimit: "2MB", allowedMimeTypes: ["image/webp", "image/jpeg"] });
+      if (made.error && !/exists/i.test(made.error.message)) check(made.error);
+    }
+    this.alertBucketReady = true;
+  }
 
   // The weekly paper scout (paper_finds, scout_runs): platform content; the cron or admin route writes.
   readonly papers = {

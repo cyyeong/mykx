@@ -15,7 +15,7 @@ import type { GameProgress } from "../games/progress.ts";
 import type { FindStatus, PaperFind, ScoutRun } from "../papers/finds.ts";
 import type { ScoutRow } from "../papers/scan.ts";
 import type { KidLocationSettings, Place, PlaceEvent, StoredPoint } from "../location/location.ts";
-import type { DeviceKind, GuardianPrefs, HomeCamera, HomeDevice, HomeStatus, RoomKind } from "../home-watch/home-watch.ts";
+import type { DeviceKind, GuardianPrefs, HomeAlert, HomeCamera, HomeDevice, HomeStatus, RoomKind } from "../home-watch/home-watch.ts";
 import type { Band, Level, Pack, SecretEvent, SecretKind } from "./schemas.ts";
 
 /** A profiles row, server side. Holds the secret hash: never send one of these to a client as is. */
@@ -403,6 +403,16 @@ export interface AuthStore {
     saveStatuses(householdId: string, rows: readonly Omit<HomeStatus, "id">[]): Promise<void>;
     /** Statuses since `sinceIso`, newest first. */
     statuses(householdId: string, sinceIso: string): Promise<HomeStatus[]>;
+    addAlert(householdId: string, alert: Omit<HomeAlert, "id" | "verdict" | "seenAt">): Promise<HomeAlert>;
+    /** Alerts since `sinceIso`, newest first. */
+    alerts(householdId: string, sinceIso: string): Promise<HomeAlert[]>;
+    setAlertVerdict(householdId: string, id: string, verdict: HomeAlert["verdict"]): Promise<HomeAlert | null>;
+    /** Keeps an alert's frames privately (24 h); returns their storage paths. */
+    saveAlertFrames(householdId: string, alertKey: string, frames: readonly Uint8Array[]): Promise<string[]>;
+    /** Short-lived links to an alert's frames, for the parent's page (empty once they've expired). */
+    alertFrameUrls(householdId: string, paths: readonly string[]): Promise<string[]>;
+    /** Deletes frames past their 24 h and clears their paths; returns how many alerts it touched. */
+    purgeAlertFrames(nowIso: string): Promise<number>;
   };
 
   // Admin only: callers check the admin flag first (lib/auth/context.ts requireAdmin).

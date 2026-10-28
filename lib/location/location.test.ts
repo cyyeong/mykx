@@ -29,6 +29,13 @@ describe("where they are", () => {
     const here = pt("2026-10-30T07:00:00Z", 1.39, 103.89);
     expect(motionOf(pt("2026-10-30T07:03:00Z", 1.39005, 103.89, { activity: 6, speed: 0.5 }), [here])).toBe("playing");
     expect(motionOf(pt("2026-10-30T07:03:00Z", 1.392, 103.89, { activity: 6, speed: 0.5 }), [here])).toBe("walking");
+    // Just arrived: the walk there is still in the window, so the first fix isn't "playing", the next ones are.
+    const walk = [pt("2026-10-30T07:00:00Z", 1.3921, 103.8952, { speed: 1.3 }), pt("2026-10-30T07:01:00Z", 1.3923, 103.8954, { speed: 1.3 })];
+    const first = pt("2026-10-30T07:02:00Z", 1.3949, 103.8907, { activity: 7, speed: 0.6 });
+    expect(motionOf(first, walk)).toBe("walking");
+    const second = pt("2026-10-30T07:02:40Z", 1.39491, 103.89071, { activity: 7, speed: 0.6 });
+    expect(motionOf(second, [...walk, first])).toBe("walking"); // 1 of the last 3 is nearby
+    expect(motionOf(pt("2026-10-30T07:03:20Z", 1.39492, 103.89072, { activity: 7, speed: 0.6 }), [...walk, first, second])).toBe("playing"); // 2 of 3
   });
 
   it("places a fix, allowing for its accuracy, and turns moves into arrived and left", () => {

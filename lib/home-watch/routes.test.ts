@@ -12,6 +12,7 @@ import * as pause from "@/app/api/location/pause/route";
 import * as places from "@/app/api/location/places/route";
 import * as settings from "@/app/api/location/settings/route";
 import { ARI_ID, KAI_ID, MEI_ID, OTHER_PARENT_EMAIL } from "../auth/demo-family.ts";
+import sharp from "sharp";
 import { resetRateLimits } from "../auth/lockout.ts";
 import { resetDemoStore } from "../auth/store-demo.ts";
 
@@ -40,7 +41,7 @@ class Client {
   }
 }
 
-const JPEG = new Uint8Array([0xff, 0xd8, 0xff, 0xe0, 0, 16, 74, 70, 73, 70, 0, 1]);
+const JPEG = new Uint8Array(await sharp({ create: { width: 64, height: 36, channels: 3, background: "#8090a0" } }).jpeg().toBuffer());
 const frameForm = (items: { camera: string; bytes: Uint8Array<ArrayBuffer>; burst?: number }[]) => {
   const form = new FormData();
   form.set("meta", JSON.stringify({ frames: items.map((f) => ({ camera: f.camera, at: new Date().toISOString(), burst: f.burst ?? 0 })) }));
