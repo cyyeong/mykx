@@ -14,6 +14,8 @@ import { FROG_QUEST, loadFrogItems } from "@/lib/learn/frog-quest";
 import { hasMetaApiKey } from "@/lib/meta/client";
 import { sparkStructured } from "@/lib/meta/spark";
 import { logRunsFor } from "@/lib/runs/log";
+import { getStore } from "@/lib/auth/context";
+import { refreshSkillOverrides } from "@/lib/skills/overrides";
 
 const body = z.strictObject({
   itemId: z.string().min(1).max(100),
@@ -37,6 +39,7 @@ export async function POST(request: Request) {
   if (checkWords(input.reason).distress) return ok({ coach: null });
   const fallback = fallbackCoach(item, input.reason, input.correct);
   if (!hasMetaApiKey() || !input.reason.trim()) return ok({ coach: fallback, source: "code" });
+  await refreshSkillOverrides(getStore()); // the pack's published version (lib/skills/overrides.ts)
 
   const right = item.type === "mcq" && typeof item.answer === "number" ? (item.options?.[item.answer - 1] ?? "") : String(item.answer);
   const system = [

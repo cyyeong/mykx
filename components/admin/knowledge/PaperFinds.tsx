@@ -17,7 +17,7 @@ const when = (iso: string) => new Date(iso).toLocaleString("en-SG", { weekday: "
 const label = (f: PaperFind) => [f.year, f.type, f.school].filter(Boolean).join(" · ") || f.title;
 const subjectName = (s: string | null) => (s ? s.split("-").map((w) => w[0].toUpperCase() + w.slice(1)).join(" ") : "Other");
 
-export function PaperFinds({ onRead }: { onRead: () => void }) {
+export function PaperFinds({ onRead, sessionId = null }: { onRead: () => void; sessionId?: string | null }) {
   const [data, setData] = useState<Listing | null>(null);
   const [version, setVersion] = useState(0);
   const [scanning, setScanning] = useState(false);
@@ -68,7 +68,7 @@ export function PaperFinds({ onRead }: { onRead: () => void }) {
 
   const read = async (f: PaperFind) => {
     setReading((s) => ({ ...s, [f.id]: { state: "reading", note: "Downloading and reading… about a minute" } }));
-    const r = await api<{ upload: KnowledgeUpload; find: PaperFind }>("POST", "/api/admin/papers/read", { id: f.id });
+    const r = await api<{ upload: KnowledgeUpload; find: PaperFind }>("POST", "/api/admin/papers/read", { id: f.id, ...(sessionId ? { sessionId } : {}) });
     const u = r.data?.upload;
     const done = r.ok && u?.status === "ready";
     setReading((s) => ({ ...s, [f.id]: done ? { state: "done", note: `Read → ${u.pack ?? "no pack"}. Review it below.` } : { state: "failed", note: u?.error ?? (r.reason === "download-failed" ? "Couldn't download it from the site (it may have moved). Open the page and upload it by hand." : r.reason === "download-by-hand" ? "This one has to be downloaded by hand." : "Couldn't read it.") } }));

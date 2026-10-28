@@ -7,7 +7,8 @@ import type { LedgerEntry } from "../domain/rewards.ts";
 import type { FocusMinute } from "../signals/focus.ts";
 import type { FocusNote } from "../signals/schemas.ts";
 import type { Beat, GuardianSettings } from "../guardian/screen-time.ts";
-import type { KnowledgeUpload, Review, SkillUpdate } from "../knowledge/knowledge.ts";
+import type { KnowledgeSession, KnowledgeUpload, Review, SkillUpdate, UploadState } from "../knowledge/knowledge.ts";
+import type { SkillVersion, SkillVersionMeta } from "../skills/versions.ts";
 import type { FlashcardSpec } from "../vibe/flashcards.ts";
 import type { FamilyMessage, Sticker } from "../family/messages.ts";
 import type { PageSlug } from "../notebook/notebook.ts";
@@ -121,6 +122,14 @@ export interface StoredAttempt extends AttemptEvent {
   explanationText: string | null;
   /** Pack version the item came from. */
   skillVersion: string;
+}
+
+/** Thrown when skill versions or review sessions are written before their migration (20261030_skill_versions.sql). */
+export class SkillTablesMissingError extends Error {
+  constructor() {
+    super("Skill versions need supabase/migrations/20261030_skill_versions.sql in the database.");
+    this.name = "SkillTablesMissingError";
+  }
 }
 
 /** Thrown when a write hits the one-nickname-per-family rule. */
@@ -367,6 +376,32 @@ export interface AuthStore {
     saveUpdate(update: SkillUpdate): Promise<void>;
     /** Published updates, oldest first; one pack's when `pack` is given. */
     updates(pack?: string): Promise<SkillUpdate[]>;
+    // Review sessions (29 Oct, migration 20261030_skill_versions.sql). Until it is applied, sessions are empty and
+    // saving one throws SkillTablesMissingError.
+    upload(id: string): Promise<KnowledgeUpload | null>;
+    /** Changes an unpublished upload's session, review state or marks; null when it isn't there or is published. */
+    updateUpload(id: string, patch: { sessionId?: string | null; state?: UploadState; review?: Review }): Promise<KnowledgeUpload | null>;
+    /** Newest first. */
+    sessions(): Promise<KnowledgeSession[]>;
+    session(id: string): Promise<KnowledgeSession | null>;
+    /** Inserts or replaces a session. */
+    saveSession(session: KnowledgeSession): Promise<void>;
+  };
+
+  // Skill versions (skill_versions, migration 20261030_skill_versions.sql): admin edits, Muse enhancements, imports,
+  // knowledge refinements and restores of a pack. The pack on disk is the default and never a row. Platform content,
+  // server only; the admin routes check the flag first. Until the migration is applied, reads are empty and writes
+  // throw SkillTablesMissingError.
+  skillVersions: {
+    /** One pack's versions (or every pack's), newest first, without files; deleted rows too (deletedAt set). */
+    list(packId?: string): Promise<SkillVersionMeta[]>;
+    get(id: string): Promise<SkillVersion | null>;
+    /** Each pack's published version: its newest non-deleted published row (by publishedAt). */
+    published(): Promise<SkillVersion[]>;
+    save(version: SkillVersion): Promise<void>;
+    update(id: string, patch: Partial<Pick<SkillVersion, "files" | "status" | "publishedAt" | "note">>): Promise<SkillVersion | null>;
+    /** Soft-deletes rows; returns how many changed. */
+    remove(ids: readonly string[], atIso: string): Promise<number>;
   };
 
   // The weekly past-paper scout's finds (links and decisions, never papers) and runs: platform content; the cron

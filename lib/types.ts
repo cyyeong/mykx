@@ -9,8 +9,12 @@
 
 export type SkillSubject = "science" | "maths" | "english" | "chinese";
 
-/** MVP levels: Primary 3, Primary 6 and Secondary 2. */
-export type SkillLevel = "P3" | "P6" | "Sec 2";
+/** The levels a pack can be for. Kids are P3, P6 or Sec 2 in the MVP; an admin may import a pack, or route a paper,
+ *  for another level, and it waits in the catalogue until a kid at that level exists. */
+export type SkillLevel = "P1" | "P2" | "P3" | "P4" | "P5" | "P6" | "Sec 1" | "Sec 2" | "Sec 3" | "Sec 4";
+
+/** A paper's tier: PSLE Standard or Foundation, or a secondary subject level (G1 to G3). */
+export type SkillTier = "standard" | "foundation" | "g1" | "g2" | "g3";
 
 export type SkillStatus = "draft" | "published" | "retired";
 
@@ -48,6 +52,10 @@ export interface Archetype {
   /** Approximate share of exam marks carried by this pattern, 0–1. */
   exam_weight: number;
   subskill?: string;
+  /** Marks a question of this pattern carries in reviewed papers (added by the knowledge agent). */
+  marks?: number;
+  /** How many questions in reviewed papers followed it (added by the knowledge agent). */
+  seen?: number;
 }
 
 /** A reference file an agent reads section by section (## headings are sections). */
@@ -74,6 +82,7 @@ export interface SkillManifest {
   description: string;
   subject: SkillSubject;
   level: SkillLevel;
+  tier?: SkillTier;
   syllabus: string;
   /** BCP 47 language of the content, e.g. "en" or "zh-Hans". */
   language: string;

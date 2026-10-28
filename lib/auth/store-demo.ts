@@ -26,7 +26,8 @@ import type { LedgerEntry } from "../domain/rewards.ts";
 import { sgDate } from "../domain/time.ts";
 import { BEAT_MS } from "../guardian/screen-time.ts";
 import { sampleGuardianWeek } from "../guardian/sample.ts";
-import type { KnowledgeUpload, Review, SkillUpdate } from "../knowledge/knowledge.ts";
+import type { KnowledgeSession, KnowledgeUpload, Review, SkillUpdate, UploadState } from "../knowledge/knowledge.ts";
+import { metaOf, type SkillVersion } from "../skills/versions.ts";
 import { findFields, findKey, runCounts, type FindStatus, type PaperFind, type ScoutRun } from "../papers/finds.ts";
 import type { ScoutRow } from "../papers/scan.ts";
 import { DEMO_OUTINGS } from "../outings/sample.ts";
@@ -44,7 +45,7 @@ import { sessionSecret, signToken, verifyToken } from "./tokens.ts";
 
 export const DEMO_PARENT_COOKIE = "mykx_demo_parent";
 /** Bump when the store's shape changes: a running dev server then rebuilds it on the next request (see demoStore). */
-const DEMO_STORE_SHAPE = 11; // 9: game progress; 10: paper scout; 11: Guardian
+const DEMO_STORE_SHAPE = 14; // 9: game progress; 10: paper scout; 11: Guardian; 12: magic names; 13: agent versions; 14: skill versions and review sessions
 const DEMO_TTL_SEC = 7 * 24 * 60 * 60;
 const LABEL = "demo-parent";
 
@@ -128,6 +129,9 @@ export class DemoStore implements AuthStore {
   /** Knowledge uploads by id, and published pack updates (platform content). */
   readonly knowledgeRows = new Map<string, KnowledgeUpload>();
   readonly skillUpdateRows: SkillUpdate[] = [];
+  /** Skill versions (admin edits, imports, knowledge) and knowledge review sessions. */
+  readonly skillVersionRows = new Map<string, SkillVersion>();
+  readonly knowledgeSessionRows = new Map<string, KnowledgeSession>();
   /** The paper scout's finds by key (findKey), and its runs. */
   readonly paperFindRows = new Map<string, PaperFind>();
   readonly scoutRunRows: ScoutRun[] = [];
@@ -604,6 +608,68 @@ export class DemoStore implements AuthStore {
       this.skillUpdateRows.push(structuredClone(update));
     },
     updates: async (pack?: string) => this.skillUpdateRows.filter((u) => !pack || u.pack === pack).map((u) => structuredClone(u)),
+    upload: async (id: string) => {
+      const u = this.knowledgeRows.get(id);
+      return u ? structuredClone(u) : null;
+    },
+    updateUpload: async (id: string, patch: { sessionId?: string | null; state?: UploadState; review?: Review }) => {
+      const u = this.knowledgeRows.get(id);
+      if (!u || u.publishedIn) return null;
+      if (patch.sessionId !== undefined) u.sessionId = patch.sessionId;
+      if (patch.state) u.state = structuredClone(patch.state);
+      if (patch.review) u.review = { ...patch.review };
+      return structuredClone(u);
+    },
+    sessions: async () => [...this.knowledgeSessionRows.values()].sort((a, b) => b.createdAt.localeCompare(a.createdAt)).map((s) => structuredClone(s)),
+    session: async (id: string) => {
+      const s = this.knowledgeSessionRows.get(id);
+      return s ? structuredClone(s) : null;
+    },
+    saveSession: async (s: KnowledgeSession) => {
+      this.knowledgeSessionRows.set(s.id, structuredClone(s));
+    },
+  };
+
+  readonly skillVersions = {
+    list: async (packId?: string) =>
+      [...this.skillVersionRows.values()]
+        .filter((v) => !packId || v.packId === packId)
+        .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+        .map(metaOf),
+    get: async (id: string) => {
+      const v = this.skillVersionRows.get(id);
+      return v ? structuredClone(v) : null;
+    },
+    published: async () => {
+      const best = new Map<string, SkillVersion>();
+      for (const v of this.skillVersionRows.values()) {
+        if (v.status !== "published" || v.deletedAt) continue;
+        const had = best.get(v.packId);
+        if (!had || (v.publishedAt ?? v.createdAt) > (had.publishedAt ?? had.createdAt)) best.set(v.packId, v);
+      }
+      return [...best.values()].map((v) => structuredClone(v));
+    },
+    save: async (v: SkillVersion) => {
+      if ([...this.skillVersionRows.values()].some((r) => r.packId === v.packId && r.version === v.version)) throw new Error(`${v.packId} v${v.version} exists`);
+      this.skillVersionRows.set(v.id, structuredClone(v));
+    },
+    update: async (id: string, patch: Partial<Pick<SkillVersion, "files" | "status" | "publishedAt" | "note">>) => {
+      const v = this.skillVersionRows.get(id);
+      if (!v || v.deletedAt) return null;
+      Object.assign(v, structuredClone(patch));
+      return structuredClone(v);
+    },
+    remove: async (ids: readonly string[], atIso: string) => {
+      let n = 0;
+      for (const id of ids) {
+        const v = this.skillVersionRows.get(id);
+        if (v && !v.deletedAt) {
+          v.deletedAt = atIso;
+          n += 1;
+        }
+      }
+      return n;
+    },
   };
 
   readonly papers = {

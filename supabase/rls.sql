@@ -146,3 +146,8 @@ grant select, delete on locations, home_status, home_alerts to authenticated;
 grant select, delete on family_messages, notebook_pages, session_reads to authenticated;
 grant select on notebook_revisions to authenticated;
 grant select, delete on game_progress to authenticated;
+
+-- Skill versions and knowledge review sessions (20261030_skill_versions.sql): server only, no policies.
+alter table skill_versions enable row level security;
+alter table knowledge_sessions enable row level security;
+revoke all on skill_versions, knowledge_sessions from anon, authenticated;

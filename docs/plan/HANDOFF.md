@@ -88,6 +88,13 @@ Today `lib/sound/engine.ts` plays short synthesised effects and, for some worlds
 - The Kix Tutor and Ask Kix call tools (`lib/skills/runtime.ts`; design in `docs/ARCHITECTURE.md` §4.10). Tool results and the policy are code; the model only chooses.
 - **The founder runs one SQL:** `supabase/migrations/20261029_skill_events.sql` in Supabase's SQL editor. Until then the agents work, but nothing is logged and Under the hood's Skill Engine card stays empty.
 
+## Skills you can edit, and knowledge that refines a skill (29 Oct, batch items D and E)
+
+- **The founder runs one SQL:** `supabase/migrations/20261030_skill_versions.sql` in Supabase's SQL editor (adds `skill_versions`, `knowledge_sessions`, and `session_id` and `state` on `knowledge_uploads`; safe to run twice). Until then Kix reads the packs on disk as before, Admin → Skills shows the defaults and refuses saves with a note naming this file, and Add knowledge uploads and publishes the old way (no sessions, pairing or edits; publishing writes `skill_updates` only).
+- **Admin → Skills:** Edit skill (`/admin/skills/[pack]`): files, Save draft, Publish, Versions (Diff, Restore, Delete; the default on disk has a lock), Enhance with Muse; Import skill (`.zip`/`.skill`, scripts dropped). Every pack reader goes through `lib/skills/overrides.ts`; a route that reads packs calls `refreshSkillOverrides(store)` first.
+- **Admin → Add knowledge** is review sessions: add PDFs in any order, Muse pairs and cross-checks, the admin overrides level, subject and tier and edits anything, Kix writes its own questions, and publishing makes the pack's next skill version (blocked while a key and Muse disagree).
+- In the demo store (`npm run dev` without Supabase) versions and sessions live in memory: a server restart, or a change to `DEMO_STORE_SHAPE`, starts them fresh.
+
 ## Founder's batch, 29 Oct (design on the canvas first, then build; freeze Mon 2 Nov 22:00)
 
 Order: designs (canvas page "Admin and sign-in, 29 Oct") → B → C → A → F → D → E → docs and video stories.

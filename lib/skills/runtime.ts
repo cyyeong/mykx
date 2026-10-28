@@ -4,14 +4,13 @@
 // Notebook page. A deterministic policy decides what may load, and every load, refusal and tool call becomes a
 // skill event for Under the hood (ids and names only, never a child's words). No RAG: sections are chosen by id
 // from an index the agent sees. Server only.
-import { existsSync, readdirSync, readFileSync } from "node:fs";
-import { join } from "node:path";
 import type { ChatCompletionMessageToolCall, ChatCompletionTool } from "openai/resources/chat/completions";
 import type { NotebookPage, StoredSkillEvent } from "../auth/store.ts";
 import { markItem } from "../domain/marking.ts";
 import type { SparkMessage, SparkToolsRequest, SparkToolsResult } from "../meta/spark.ts";
 import { PAGES } from "../notebook/notebook.ts";
 import type { SkillItem, SkillManifest } from "../types.ts";
+import { allPackIds, overridesGeneration, packFile, packFilesIn } from "./overrides.ts";
 import { SkillItemSchema, SkillManifestSchema } from "./schema.ts";
 
 export type SkillAgent = "tutor" | "ask-kix";
@@ -46,26 +45,27 @@ export interface Pack {
 
 const cache = new Map<string, Pack | null>();
 
-/** One published pack with its section index and reviewed items, or null. */
+/** One published pack with its section index and reviewed items, or null. Reads the pack's published version when
+ *  an admin has published one (lib/skills/overrides.ts), else the pack on disk. */
 export function loadPack(id: string, root = process.cwd()): Pack | null {
-  const key = `${root}|${id}`;
+  const key = `${overridesGeneration()}|${root}|${id}`;
   if (cache.has(key)) return cache.get(key) ?? null;
-  const dir = join(root, "content", "skills", id);
+  if (cache.size > 200) cache.clear();
   let pack: Pack | null = null;
   try {
-    const parsed = SkillManifestSchema.safeParse(JSON.parse(readFileSync(join(dir, "skill.json"), "utf8")));
-    if (parsed.success && parsed.data.status === "published") {
+    const manifestText = packFile(id, "skill.json", root);
+    const parsed = manifestText === null ? null : SkillManifestSchema.safeParse(JSON.parse(manifestText));
+    if (parsed?.success && parsed.data.status === "published") {
       const m = parsed.data as SkillManifest;
       const sections = m.references.flatMap((r) => {
         const stem = r.file.replace(/^references\//, "").replace(/\.md$/, "");
         return (r.sections ?? []).map((title, i) => ({ id: `${m.id}/${stem}#${i + 1}`, title, file: r.file }));
       });
       const items: SkillItem[] = [];
-      const itemsDir = join(dir, "items");
-      for (const f of existsSync(itemsDir) ? readdirSync(itemsDir).filter((x) => x.endsWith(".json")).sort() : []) {
+      for (const f of packFilesIn(id, "items", root)) {
         let raw: unknown;
         try {
-          raw = JSON.parse(readFileSync(join(itemsDir, f), "utf8"));
+          raw = JSON.parse(packFile(id, f, root) ?? "[]");
         } catch {
           continue;
         }
@@ -74,7 +74,7 @@ export function loadPack(id: string, root = process.cwd()): Pack | null {
           if (item.success && item.data.status === "reviewed" && item.data.skill === m.id) items.push(item.data as SkillItem);
         }
       }
-      const core = existsSync(join(dir, "SKILL.md")) ? readFileSync(join(dir, "SKILL.md"), "utf8").slice(0, 1600) : "";
+      const core = (packFile(id, "SKILL.md", root) ?? "").slice(0, 1600);
       pack = { id: m.id, title: m.title, level: m.level, subject: m.subject, version: m.version, sections, items, core };
     }
   } catch {
@@ -84,14 +84,10 @@ export function loadPack(id: string, root = process.cwd()): Pack | null {
   return pack;
 }
 
-/** The packs a child at this level may load ("P3" → p3-*, "Sec 2" → s2-*), published only. */
+/** The packs a child at this level may load ("P3" → p3-*, "Sec 2" → s2-*), published only: on disk, or imported. */
 export function packsForChild(level: string | null, root = process.cwd()): string[] {
   const prefix = level?.startsWith("Sec") ? `s${level.slice(4).trim()}-` : `${(level ?? "P3").toLowerCase()}-`;
-  const dir = join(root, "content", "skills");
-  if (!existsSync(dir)) return [];
-  return readdirSync(dir)
-    .filter((p) => p.startsWith(prefix) && loadPack(p, root))
-    .sort();
+  return allPackIds(root).filter((p) => p.startsWith(prefix) && loadPack(p, root));
 }
 
 /** One section's text: from its heading to the next heading of the same or a higher level, trimmed. */
@@ -100,7 +96,7 @@ export function readSection(sectionId: string, root = process.cwd()): { section:
   const pack = loadPack(packId, root);
   const section = pack?.sections.find((s) => s.id === sectionId);
   if (!section) return null;
-  const lines = readFileSync(join(root, "content", "skills", packId, section.file), "utf8").split("\n");
+  const lines = (packFile(packId, section.file, root) ?? "").split("\n");
   const start = lines.findIndex((l) => /^#{1,4}\s/.test(l) && l.replace(/^#+\s*/, "").trim() === section.title);
   if (start < 0) return null;
   const level = (lines[start].match(/^#+/) ?? ["#"])[0].length;

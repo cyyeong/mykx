@@ -2,9 +2,10 @@
 // topics, items and which agents may load them; the agents themselves (what each reads, which model, what it may
 // never do); every model call from `model_runs`, summed per model; and the art manifest. Ids and numbers only: no
 // child's words, answers or Notebook ever reach these pages (rule 13).
-import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import type { StoredRun, StoredSkillEvent } from "../auth/store.ts";
+import { allPackIds, hasDiskPack, packFile, packFilesIn, skillOverride } from "../skills/overrides.ts";
 
 export interface PackCard {
   id: string;
@@ -23,47 +24,57 @@ export interface PackCard {
   references: number;
   agents: Record<string, string>;
   tools: string[];
+  /** Where the published pack comes from: the built-in default on disk, or a published version (skill_versions). */
+  source: "default" | "version";
+  /** An imported pack: it has no built-in default. */
+  imported: boolean;
+  tier: string | null;
 }
 
-type SkillJson = { id: string; title?: string; level?: string; subject?: string; version: string; status?: string; description?: string; topics?: { id: string; title?: string }[]; references?: unknown[]; agents?: Record<string, string>; tools?: string[] };
+type SkillJson = { id: string; title?: string; level?: string; subject?: string; tier?: string; version: string; status?: string; description?: string; topics?: { id: string; title?: string }[]; references?: unknown[]; agents?: Record<string, string>; tools?: string[] };
 type Item = { topic?: string; status?: string };
 
+/** The catalogue: every pack as Kix sees it now, its published version or the default (lib/skills/overrides.ts). */
 export function packCards(root = process.cwd()): PackCard[] {
-  const dir = join(root, "content", "skills");
-  if (!existsSync(dir)) return [];
-  return readdirSync(dir)
-    .filter((d) => existsSync(join(dir, d, "skill.json")))
-    .map((d) => {
-      const m = JSON.parse(readFileSync(join(dir, d, "skill.json"), "utf8")) as SkillJson;
-      const itemsDir = join(dir, d, "items");
-      const items: Item[] = existsSync(itemsDir)
-        ? readdirSync(itemsDir)
-            .filter((f) => f.endsWith(".json"))
-            .flatMap((f) => {
-              const j = JSON.parse(readFileSync(join(itemsDir, f), "utf8")) as Item[] | { items?: Item[] };
-              return Array.isArray(j) ? j : (j.items ?? []);
-            })
-        : [];
-      const topics = (m.topics ?? []).map((t) => ({ id: t.id, title: t.title ?? t.id, items: items.filter((i) => i.topic === t.id || i.topic?.startsWith(`${t.id}.`)).length }));
-      return {
-        id: m.id,
-        title: m.title ?? m.id,
-        level: m.level ?? "",
-        subject: m.subject ?? "",
-        version: m.version,
-        status: m.status ?? "draft",
-        description: m.description ?? "",
-        topics,
-        items: items.length,
-        reviewed: items.filter((i) => i.status === "reviewed").length,
-        drafts: items.filter((i) => i.status !== "reviewed").length,
-        coverage: topics.length ? Math.round((topics.filter((t) => t.items > 0).length / topics.length) * 100) : 0,
-        references: (m.references ?? []).length,
-        agents: m.agents ?? {},
-        tools: m.tools ?? [],
-      };
-    })
-    .sort((a, b) => a.id.localeCompare(b.id));
+  const cards: PackCard[] = [];
+  for (const d of allPackIds(root)) {
+    let m: SkillJson;
+    try {
+      m = JSON.parse(packFile(d, "skill.json", root) ?? "") as SkillJson;
+    } catch {
+      continue;
+    }
+    const items: Item[] = packFilesIn(d, "items", root).flatMap((f) => {
+      try {
+        const j = JSON.parse(packFile(d, f, root) ?? "[]") as Item[] | { items?: Item[] };
+        return Array.isArray(j) ? j : (j.items ?? []);
+      } catch {
+        return [];
+      }
+    });
+    const topics = (m.topics ?? []).map((t) => ({ id: t.id, title: t.title ?? t.id, items: items.filter((i) => i.topic === t.id || i.topic?.startsWith(`${t.id}.`)).length }));
+    cards.push({
+      id: m.id,
+      title: m.title ?? m.id,
+      level: m.level ?? "",
+      subject: m.subject ?? "",
+      version: m.version,
+      status: m.status ?? "draft",
+      description: m.description ?? "",
+      topics,
+      items: items.length,
+      reviewed: items.filter((i) => i.status === "reviewed").length,
+      drafts: items.filter((i) => i.status !== "reviewed").length,
+      coverage: topics.length ? Math.round((topics.filter((t) => t.items > 0).length / topics.length) * 100) : 0,
+      references: (m.references ?? []).length,
+      agents: m.agents ?? {},
+      tools: m.tools ?? [],
+      source: skillOverride(d) ? "version" : "default",
+      imported: !hasDiskPack(d, root),
+      tier: m.tier ?? null,
+    });
+  }
+  return cards.sort((a, b) => a.id.localeCompare(b.id));
 }
 
 export interface Agent {
@@ -82,7 +93,8 @@ export const AGENTS: readonly Agent[] = [
   { id: "ask-kix", name: "Ask Kix (homework)", route: "ask-kix", models: ["muse-spark-1.3"], reads: "A typed question or a photo (face-checked on the device, never stored); a research step loads the right pack and reads its method sections with tools; published updates; the Notebook", never: "Keeps the photo, loads a pack outside the child's level, or skips the guide-first steps" },
   { id: "memory-keeper", name: "Memory Keeper", route: "memory-keeper", models: ["muse-spark-1.3"], reads: "The child's own words to Kix after a session, the session's numbers, the Notebook", never: "Labels or diagnoses (refused in code), reads family messages, or touches mastery" },
   { id: "vibe", name: "Vibe Zone maker", route: "vibe", models: ["muse-spark-1.3"], reads: "The child's brief and the level's pack notes", never: "Writes code: it returns a validated spec drawn by trusted components" },
-  { id: "curator", name: "Content Curator (knowledge agent)", route: "knowledge-agent", models: ["muse-spark-1.3"], reads: "Admin-uploaded PDFs (read as files)", never: "Keeps a school paper's questions: patterns only, and an admin approves before anything is published" },
+  { id: "curator", name: "Content Curator (knowledge agent)", route: "knowledge-agent", models: ["muse-spark-1.3"], reads: "Admin-uploaded PDFs in a review session (read as files: what each is, its patterns, traps and cues, every question's number, marks and answers); a separate call cross-checks each answer and spelling; another writes Kix's own questions from approved patterns", never: "Keeps a school paper's questions (patterns, statistics and Kix's own questions only), or publishes: an admin approves every entry, and a mismatch blocks publishing until it's resolved" },
+  { id: "skill-editor", name: "Skill Editor (Enhance with Muse)", route: "skill-editor", models: ["muse-spark-1.3"], reads: "One skill pack's SKILL.md, references and manifest, and the admin's request; for an imported skill, its SKILL.md and references to propose a manifest", never: "Changes skill.json or existing items, sees any child's data (packs hold none), or saves anything: it proposes a diff the admin accepts into a draft, and its new questions stay drafts until reviewed" },
   { id: "studio", name: "Sidekick Studio", route: "studio", models: ["muse-image-1.0", "sam-3.1"], reads: "The picked world and interests (chips only)", never: "Takes a child's photo or free text" },
   { id: "voice", name: "Talk to Kix (voice in)", route: "voice", models: ["muse-voice-transcribe-1.0"], reads: "A push-to-talk clip of up to 30 s", never: "Stores or logs audio: the transcript only" },
   { id: "guardian", name: "Guardian (screen time and learning)", route: null, models: [], reads: "Heartbeats, answers, the child's words to Kix, the parent's settings", never: "Calls a model, diagnoses, or changes rewards: deterministic rules only" },

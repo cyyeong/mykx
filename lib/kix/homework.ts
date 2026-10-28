@@ -3,9 +3,9 @@
 // short visual lesson with a memory hook. Guide first: a hint, then the steps, and the full working only when the
 // child asks after trying. The model returns a validated JSON spec that trusted components draw (rule 4); it
 // never writes markup or code. Standard model only (rule 1); the photo is read once and never stored.
-import { existsSync, readFileSync } from "node:fs";
-import { join } from "node:path";
 import { z } from "zod";
+import { packFile, packFilesIn } from "../skills/overrides.ts";
+import { packsForChild } from "../skills/runtime.ts";
 
 export const STAGES = ["hint", "steps", "full"] as const;
 export type Stage = (typeof STAGES)[number];
@@ -66,34 +66,36 @@ const METHOD_REFS: Record<string, string[]> = {
   "s2-science": ["coaching-playbook.md"],
 };
 
-/** The packs at a level ("P3" → p3-*, "Sec 2" → s2-*). */
-export function packsForLevel(level: string | null): string[] {
-  const prefix = level?.startsWith("Sec") ? `s${level.slice(4)}-` : `${(level ?? "P3").toLowerCase()}-`;
-  return Object.keys(METHOD_REFS).filter((p) => p.startsWith(prefix));
+/** The packs at a level ("P3" → p3-*, "Sec 2" → s2-*): the built-in ones in teaching order, then any other
+ *  published pack at the level (an imported one, lib/skills/overrides.ts). */
+export function packsForLevel(level: string | null, root = process.cwd()): string[] {
+  const prefix = level?.startsWith("Sec") ? `s${level.slice(4).trim()}-` : `${(level ?? "P3").toLowerCase()}-`;
+  const builtIn = Object.keys(METHOD_REFS).filter((p) => p.startsWith(prefix));
+  return [...builtIn, ...packsForChild(level, root).filter((p) => !builtIn.includes(p))];
 }
 
-/** The teaching notes Kix reads for this level, trimmed so one call stays small. Server only. */
+/** A pack's method references: the built-in list where the file is still there, else its first two references. */
+function methodRefs(pack: string, root: string): string[] {
+  const refs = packFilesIn(pack, "references", root);
+  const known = (METHOD_REFS[pack] ?? []).map((f) => `references/${f}`).filter((f) => refs.includes(f));
+  return known.length ? known : refs.slice(0, 2);
+}
+
+/** The teaching notes Kix reads for this level, trimmed so one call stays small. Reads each pack's published version
+ *  (or the default on disk). Server only. */
 export function teachingNotes(level: string | null, root = process.cwd()): string {
   const parts: string[] = [];
-  for (const pack of packsForLevel(level)) {
-    const dir = join(root, "content", "skills", pack);
-    const read = (f: string, max: number) => {
-      const p = join(dir, f);
-      return existsSync(p) ? readFileSync(p, "utf8").slice(0, max) : "";
-    };
-    parts.push(`## Pack ${pack}\n${read("SKILL.md", 3500)}\n${METHOD_REFS[pack].map((f) => read(join("references", f), 2500)).join("\n")}`);
+  for (const pack of packsForLevel(level, root)) {
+    const read = (f: string, max: number) => (packFile(pack, f, root) ?? "").slice(0, max);
+    parts.push(`## Pack ${pack}\n${read("SKILL.md", 3500)}\n${methodRefs(pack, root).map((f) => read(f, 2500)).join("\n")}`);
   }
   return parts.join("\n\n");
 }
 
-/** One pack's teaching notes (SKILL.md and its method references), trimmed. Server only. */
+/** One pack's teaching notes (SKILL.md and its method references), trimmed; its published version. Server only. */
 export function packNotes(pack: string, root = process.cwd()): string {
-  const dir = join(root, "content", "skills", pack);
-  const read = (f: string, max: number) => {
-    const p = join(dir, f);
-    return existsSync(p) ? readFileSync(p, "utf8").slice(0, max) : "";
-  };
-  return [read("SKILL.md", 4000), ...(METHOD_REFS[pack] ?? []).map((f) => read(join("references", f), 3000))].join("\n");
+  const read = (f: string, max: number) => (packFile(pack, f, root) ?? "").slice(0, max);
+  return [read("SKILL.md", 4000), ...methodRefs(pack, root).map((f) => read(f, 3000))].join("\n");
 }
 
 const STAGE_RULES: Record<Stage, string> = {

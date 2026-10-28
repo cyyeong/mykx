@@ -13,6 +13,7 @@ import { FROG_QUEST, loadFrogItems } from "@/lib/learn/frog-quest";
 import { notebookNotes } from "@/lib/notebook/notebook";
 import { hasMetaApiKey } from "@/lib/meta/client";
 import { sparkTools } from "@/lib/meta/spark";
+import { refreshSkillOverrides } from "@/lib/skills/overrides";
 import { loadPack, publicTrace, runSkillAgent } from "@/lib/skills/runtime";
 import { logRunsFor } from "@/lib/runs/log";
 
@@ -38,6 +39,7 @@ export async function POST(request: Request) {
   const kid = family.kid;
   if (!kid) return fail(401, "no-kid");
   logRunsFor("tutor", family.householdId, kid.id);
+  await refreshSkillOverrides(getStore()); // the packs' published versions (lib/skills/overrides.ts)
   const input = await readBody(request, body);
   if (!input) return fail(400, "invalid");
   const item = loadFrogItems().find((i) => i.id === input.itemId);
