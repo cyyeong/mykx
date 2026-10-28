@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Kids sign out and the idle card</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>body{margin:0} .bd{width:1280px;height:800px;position:relative;overflow:hidden;box-sizing:border-box;font-family:var(--font-text);background:var(--surface);color:var(--ink)} .bd *{box-sizing:border-box} .bd h1,.bd h2,.bd h3,.bd p{margin:0}
+
+.bd{background:#0E0B2E}
+.so-shot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.9)}
+.so-dim{position:absolute;inset:0;background:rgba(14,11,46,.45)}
+.so-menu{position:absolute;right:28px;top:76px;width:280px;padding:10px;border-radius:22px;background:#fff;box-shadow:0 20px 50px rgba(10,8,40,.45)}
+.so-menu a{display:flex;align-items:center;gap:10px;min-height:52px;padding:0 14px;border-radius:14px;color:#1D3324;font:800 17px var(--font-text);text-decoration:none}
+.so-menu a.out{background:#FFF1E8;color:#9A3A12;box-shadow:inset 0 0 0 2px #F6C8AE;margin-top:6px}
+.so-menu svg{width:20px;height:20px}
+.so-idle{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:440px;padding:26px 28px 24px;border-radius:30px;background:#fff;text-align:center;box-shadow:0 0 0 4px #FFE38A,0 30px 80px rgba(10,8,40,.6)}
+.so-idle img{width:120px;height:120px;border-radius:50%;object-fit:cover;background:#EEF5E4;margin:0 auto}
+.so-idle h2{margin-top:10px;font:600 30px/36px var(--font-display);color:#1D3324}
+.so-idle p{margin-top:6px;font:700 17px/25px var(--font-text);color:#3F6B4C}
+.so-ring{width:92px;height:92px;margin:14px auto 0;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#2C7A47 0 72%,#E3EEDB 72% 100%);font:600 24px var(--font-display);color:#1D3324}
+.so-ring span{display:grid;place-items:center;width:72px;height:72px;border-radius:50%;background:#fff}
+.so-btns{display:flex;gap:10px;margin-top:16px}
+.so-btns span{flex:1;min-height:56px;border-radius:999px;display:flex;align-items:center;justify-content:center;font:800 18px var(--font-text)}
+.so-here{background:#2C7A47;color:#fff}
+.so-now{box-shadow:inset 0 0 0 2.5px #2C7A47;color:#1D3324}
+.so-note{position:absolute;left:28px;bottom:24px;width:420px;padding:14px 16px;border-radius:18px;background:rgba(22,20,62,.85);color:#E4DFFF;font:700 14px/20px var(--font-text)}
+.so-note b{color:#FFE38A}
+</style>
+</helmet>
+<div class="bd" data-theme="terrarium">
+
+<img class="so-shot" src="/_blob/d9e74b6cfd4c6545c846a803a120ecc7" alt="Jordan's home in myKx"><div class="so-dim"></div>
+<div class="so-menu"><a><svg viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px;fill:currentColor;flex:none"><path d="M12 0c.8 6.4 5.6 11.2 12 12-6.4.8-11.2 5.6-12 12-.8-6.4-5.6-11.2-12-12C6.4 11.2 11.2 6.4 12 0z"/></svg> What my grown-ups see</a><a><svg viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px;fill:currentColor;flex:none"><path d="M12 0c.8 6.4 5.6 11.2 12 12-6.4.8-11.2 5.6-12 12-.8-6.4-5.6-11.2-12-12C6.4 11.2 11.2 6.4 12 0z"/></svg> My Kix and my world</a><a class="out"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h11"/></svg>Sign out</a></div>
+<div class="so-idle"><img src="/_blob/02f791d67e720a2bf4fdb268ff6b6b8a" alt=""><h2>Still there, Jordan?</h2><p>Kix will sign you out soon so nobody else can use your account.</p><div class="so-ring"><span>0:52</span></div><div class="so-btns"><span class="so-here">I'm here!</span><span class="so-now">Sign out now</span></div></div>
+<p class="so-note"><b>Rule:</b> any tap, key or scroll resets the clock. At 14 minutes idle this card appears; at 15 the kid is signed out and the door closes. Sign out is always in the kid's menu.</p>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

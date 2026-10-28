@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Kids&#x27; magic name sign-in</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>body{margin:0} .bd{width:1280px;height:800px;position:relative;overflow:hidden;box-sizing:border-box;font-family:var(--font-text);background:var(--surface);color:var(--ink)} .bd *{box-sizing:border-box} .bd h1,.bd h2,.bd h3,.bd p{margin:0}
+
+.mn-head{position:absolute;left:40px;top:28px;right:40px;display:flex;justify-content:space-between;align-items:flex-end}
+.mn-head h1{font:600 30px/36px var(--font-display);color:#fff}
+.mn-head p{font:700 15px/22px var(--font-text);color:#D9D3FF;max-width:560px;text-align:right}
+.bd{background:#16143E}
+.mn-grid{position:absolute;left:40px;right:40px;top:104px;bottom:28px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:18px}
+.mn-f{position:relative;border-radius:22px;overflow:hidden;background:#000;box-shadow:0 0 0 1px rgba(185,167,245,.3)}
+.mn-f > img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.mn-cap{position:absolute;left:14px;top:12px;z-index:9;display:flex;align-items:center;gap:8px;padding:5px 12px 5px 6px;border-radius:999px;background:rgba(22,20,62,.78);color:#fff;font:800 14px/18px var(--font-text)}
+.mn-cap b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#FFE38A;color:#1C1B4A;font:800 13px/1 var(--font-text)}
+.mn-card{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);width:400px;padding:16px 18px;border-radius:24px;background:rgba(255,255,255,.94);box-shadow:0 18px 40px rgba(10,8,40,.35)}
+.mn-card h3{font:600 20px/26px var(--font-display);color:#1B2350}
+.mn-row{display:flex;gap:8px;margin-top:10px}
+.mn-in{flex:1;height:40px;border-radius:12px;box-shadow:inset 0 0 0 2px #D8D3F5;padding:0 12px;display:flex;align-items:center;color:#8C87C4;font:700 14px var(--font-text)}
+.mn-btn{height:40px;padding:0 16px;border-radius:999px;background:#1F66C1;color:#fff;display:flex;align-items:center;font:800 14px var(--font-text)}
+.mn-kids{margin-top:12px;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:18px;background:linear-gradient(120deg,#2B2A5C,#3D2F7A);color:#fff;cursor:pointer;box-shadow:0 0 0 2px rgba(255,227,138,.6),0 0 22px rgba(255,227,138,.35)}
+.mn-kids img{width:44px;height:44px;border-radius:50%;object-fit:cover;flex:none;background:#B9A7F5}
+.mn-kids p{font:700 14px/19px var(--font-text)}
+.mn-kids p b{color:#FFE38A;font-weight:800}
+.mn-bubble{position:absolute;left:50%;top:50%;transform:translate(-50%,-46%);width:420px;padding:18px 20px 16px;border-radius:26px 26px 26px 8px;background:#fff;box-shadow:0 0 0 3px #FFE38A,0 24px 60px rgba(10,8,40,.5)}
+.mn-bubble .who{display:flex;align-items:center;gap:10px}
+.mn-bubble .who img{width:52px;height:52px;border-radius:50%;object-fit:cover;background:#EEF5E4}
+.mn-bubble .who p{font:600 18px/24px var(--font-display);color:#2B2A5C}
+.mn-name{margin-top:14px;height:56px;border-radius:16px;box-shadow:inset 0 0 0 3px #7C5CFF;padding:0 16px;display:flex;align-items:center;justify-content:space-between;font:700 22px var(--font-display);color:#2B2A5C}
+.mn-name i{width:2px;height:28px;background:#7C5CFF;animation:mn-caret 1s steps(1) infinite}
+.mn-cont{margin-top:12px;height:52px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(90deg,#7C5CFF,#FF7EB6);color:#fff;font:800 18px var(--font-text);box-shadow:0 8px 22px rgba(124,92,255,.45)}
+.mn-hint{margin-top:8px;font:700 12px/16px var(--font-text);color:#6C66B0;text-align:center}
+.mn-dim{position:absolute;inset:0;background:rgba(14,11,46,.55);backdrop-filter:blur(2px)}
+/* frame 3: alive */
+.mn-morph{position:absolute;inset:0;animation:mn-morph 6s ease-in-out infinite}
+.mn-door{position:absolute;left:50%;top:50%;width:150px;height:280px;margin:-140px 0 0 -75px;display:flex;animation:mn-fly 6s cubic-bezier(.2,.8,.2,1) infinite;filter:drop-shadow(0 0 18px rgba(255,227,138,.85))}
+.mn-door img{width:50%;height:100%;object-fit:cover}
+.mn-trail{position:absolute;left:62%;top:8%;width:320px;height:6px;border-radius:6px;background:linear-gradient(90deg,rgba(255,227,138,0),rgba(255,227,138,.95));transform:rotate(152deg);transform-origin:0 50%;animation:mn-trail 6s ease-out infinite}
+.mn-mote{position:absolute;width:8px;height:8px;border-radius:50%;background:#FFF6B8;box-shadow:0 0 10px 3px rgba(255,227,138,.8);animation:mn-mote 3.6s ease-in-out infinite}
+.mn-leaf{position:absolute;width:22px;height:12px;border-radius:12px 0;background:#5FBF6E;animation:mn-leaf 4.8s linear infinite;opacity:.9}
+.mn-say{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);padding:8px 16px;border-radius:999px;background:rgba(22,20,62,.8);color:#FFE38A;font:800 14px var(--font-text);white-space:nowrap}
+/* frame 4 */
+.mn-door4{position:absolute;left:50%;top:44px;width:170px;height:300px;margin-left:-85px;display:flex;filter:drop-shadow(0 0 16px rgba(255,227,138,.7))}
+.mn-door4 img{width:50%;height:100%;object-fit:cover}
+.mn-pad{position:absolute;right:26px;top:70px;width:236px;padding:14px;border-radius:22px;background:rgba(255,255,255,.95);box-shadow:0 16px 40px rgba(10,8,40,.4)}
+.mn-pad h3{font:600 18px/22px var(--font-display);color:#1D3324}
+.mn-pad p{font:700 12px/16px var(--font-text);color:#3F6B4C;margin-top:2px}
+.mn-slots{display:flex;gap:8px;margin:10px 0}
+.mn-slots span{width:20px;height:20px;border-radius:50%;box-shadow:inset 0 0 0 2.5px #9DBF9F}
+.mn-slots span.on{background:#2C7A47;box-shadow:none}
+.mn-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.mn-tiles i{display:block;aspect-ratio:1;border-radius:50%;background:#EEF5E4 center/cover}
+@keyframes mn-caret{50%{opacity:0}}
+@keyframes mn-morph{0%,18%{opacity:0}45%,100%{opacity:1}}
+@keyframes mn-fly{0%{transform:translate(380px,-260px) scale(.18) rotate(-24deg);opacity:0}12%{opacity:1}55%{transform:translate(-20px,10px) scale(1.06) rotate(4deg)}68%{transform:translate(0,0) scale(.98) rotate(-2deg)}78%,100%{transform:translate(0,0) scale(1) rotate(0)}}
+@keyframes mn-trail{0%,8%{opacity:0;width:0}30%{opacity:1;width:320px}60%,100%{opacity:0;width:420px}}
+@keyframes mn-mote{0%,100%{transform:translateY(0);opacity:.3}50%{transform:translateY(-26px);opacity:1}}
+@keyframes mn-leaf{0%{transform:translate(0,-30px) rotate(0)}100%{transform:translate(-120px,420px) rotate(540deg)}}
+@media (prefers-reduced-motion: reduce){.mn-door,.mn-morph,.mn-trail,.mn-mote,.mn-leaf{animation:none}.mn-morph{opacity:1}}
+</style>
+</helmet>
+<div class="bd" data-theme="dreamlight">
+
+<div class="mn-head"><h1>Kids' magic name: the door comes to you</h1><p>No email for kids: a unique magic name the parent sets, then the child's own door flies in and their world replaces the city. Then the picture code or password, then the tunnel.</p></div>
+<div class="mn-grid">
+  <div class="mn-f"><img class="bg" src="/_blob/f3fd52715c2e2bb9ef9c063b0011465a" alt=""><span class="mn-cap"><b>1</b>The kids' line is a little dialogue with Kix</span><div class="mn-card"><h3>Welcome back</h3><div class="mn-row"><span class="mn-in">Email</span><span class="mn-in">Password</span><span class="mn-btn">Open</span></div>
+<div class="mn-kids"><img src="/_blob/edfd9859b1135de333b54095f6c8d1b6" alt=""><p><b>Kids:</b> tell me your magic name, and I shall bring your magical door</p></div></div></div>
+  <div class="mn-f"><img class="bg" src="/_blob/f3fd52715c2e2bb9ef9c063b0011465a" alt=""><div class="mn-dim"></div><span class="mn-cap"><b>2</b>Tap it: Kix asks for the magic name</span>
+    <div class="mn-bubble"><div class="who"><img src="/_blob/edfd9859b1135de333b54095f6c8d1b6" alt=""><p>Tell me your magic name, and I shall bring your magical door!</p></div><div class="mn-name">starry-jordan<i></i></div><div class="mn-cont"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px;fill:currentColor;flex:none"><path d="M12 0c.8 6.4 5.6 11.2 12 12-6.4.8-11.2 5.6-12 12-.8-6.4-5.6-11.2-12-12C6.4 11.2 11.2 6.4 12 0z"/></svg>Bring my door</div><p class="mn-hint">Your grown-up set your magic name. Forgot it? Ask them, or use Kids' doors on their phone.</p></div></div>
+  <div class="mn-f"><img class="bg" src="/_blob/f3fd52715c2e2bb9ef9c063b0011465a" alt=""><div class="mn-morph"><img class="bg" src="/_blob/42a1d142037c7463131ff440b4e5f999" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div><i class="mn-leaf" style="left:30%;top:-4%;animation-delay:-0s"></i><i class="mn-leaf" style="left:58%;top:-4%;animation-delay:-1.6s"></i><i class="mn-leaf" style="left:78%;top:-4%;animation-delay:-3.1s"></i><i class="mn-leaf" style="left:90%;top:-4%;animation-delay:-0.8s"></i><i class="mn-mote" style="left:14%;top:60%;animation-delay:-0s"></i><i class="mn-mote" style="left:24%;top:30%;animation-delay:-1.1s"></i><i class="mn-mote" style="left:70%;top:22%;animation-delay:-2.2s"></i><i class="mn-mote" style="left:82%;top:64%;animation-delay:-0.6s"></i><i class="mn-mote" style="left:46%;top:18%;animation-delay:-1.7s"></i><i class="mn-mote" style="left:60%;top:74%;animation-delay:-2.9s"></i><i class="mn-trail"></i>
+    <div class="mn-door"><img src="/_blob/9c763bd90b5c79dc3a1785d6edbe12c1" alt=""><img src="/_blob/d33aa23a3dbd8b858357dfcaaca61238" alt=""></div><span class="mn-cap"><b>3</b>Continue: Jordan's door flies in as the terrarium grows over the city</span><span class="mn-say">Here it comes, Jordan!</span></div>
+  <div class="mn-f"><img class="bg" src="/_blob/42a1d142037c7463131ff440b4e5f999" alt=""><i class="mn-mote" style="left:14%;top:60%;animation-delay:-0s"></i><i class="mn-mote" style="left:24%;top:30%;animation-delay:-1.1s"></i><i class="mn-mote" style="left:70%;top:22%;animation-delay:-2.2s"></i><i class="mn-mote" style="left:82%;top:64%;animation-delay:-0.6s"></i><i class="mn-mote" style="left:46%;top:18%;animation-delay:-1.7s"></i><i class="mn-mote" style="left:60%;top:74%;animation-delay:-2.9s"></i><span class="mn-cap"><b>4</b>The door waits: picture code, then the time tunnel</span>
+    <div class="mn-door4"><img src="/_blob/9c763bd90b5c79dc3a1785d6edbe12c1" alt=""><img src="/_blob/d33aa23a3dbd8b858357dfcaaca61238" alt=""></div>
+    <div class="mn-pad"><h3>Hello, Jordan!</h3><p>Tap your four pictures</p><div class="mn-slots"><span class="on"></span><span class="on"></span><span></span><span></span></div><div class="mn-tiles"><i style="background-image:url(/_blob/02f791d67e720a2bf4fdb268ff6b6b8a)"></i><i style="background-image:url(/_blob/f506e58a602297834bce49cc9565bca7)"></i><i style="background-image:url(/_blob/f2b604acfbcb01359f6fc041e9c051b4)"></i><i style="background-image:url(/_blob/bb08e7ec23418f8b39ef9322df1f30f6)"></i><i style="background-image:url(/_blob/02f791d67e720a2bf4fdb268ff6b6b8a)"></i><i style="background-image:url(/_blob/f506e58a602297834bce49cc9565bca7)"></i></div></div></div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

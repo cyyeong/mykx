@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Skills: import a standard agent skill</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>body{margin:0} .bd{width:1440px;height:900px;position:relative;overflow:hidden;box-sizing:border-box;font-family:var(--font-text);background:var(--surface);color:var(--ink)} .bd *{box-sizing:border-box} .bd h1,.bd h2,.bd h3,.bd p{margin:0}
+
+.bd{background:var(--surface)}
+.ad-nav{position:absolute;left:0;top:0;bottom:0;width:220px;padding:22px 14px;box-shadow:inset -1px 0 0 var(--line);display:flex;flex-direction:column;gap:4px}
+.ad-nav img{height:30px;align-self:flex-start;margin:0 8px 16px}
+.ad-nav a{display:block;padding:9px 12px;border-radius:12px;color:var(--ink-muted);font:700 14px var(--font-text)}
+.ad-nav a.on{background:var(--surface-raised);color:var(--ink);box-shadow:inset 3px 0 0 var(--accent)}
+.ad-main{position:absolute;left:220px;right:0;top:0;bottom:0;padding:24px 28px}
+.ad-h1{font:800 26px/32px var(--font-display)}
+.ad-sub{margin-top:4px;font:600 14px/20px var(--font-text);color:var(--ink-muted)}
+.chip{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:999px;font:800 12px/1 var(--font-text);white-space:nowrap}
+.c-pub{background:#DDF3E4;color:#1F5E37}.c-draft{background:#FFF1D6;color:#8A5A00}.c-def{background:#E8E6F7;color:#3B3780}.c-flag{background:#FFE3E3;color:#A21C1C}.c-warn{background:#FFF1D6;color:#8A5A00}.c-ok{background:#DDF3E4;color:#1F5E37}.c-muse{background:#B9A7F5;color:#1C1B4A}.c-over{background:#1F66C1;color:#fff}
+.btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:999px;font:800 13px var(--font-text);white-space:nowrap}
+.b-pri{background:var(--accent);color:var(--on-accent)}.b-sec{box-shadow:inset 0 0 0 2px var(--line);color:var(--ink)}.b-muse{background:#2B2A5C;color:#fff}.b-del{color:#A21C1C;box-shadow:inset 0 0 0 2px #F3C4C4}
+.card{border-radius:20px;background:var(--surface-raised);box-shadow:inset 0 0 0 1px var(--line);padding:16px}
+.h2{font:800 16px/22px var(--font-display)}
+.mono{font:500 12.5px/20px ui-monospace,SFMono-Regular,Menlo,monospace}
+.diff-add{background:#E6F6EA;color:#1F5E37;display:block;padding:0 8px}.diff-del{background:#FDE8E8;color:#A21C1C;display:block;padding:0 8px;text-decoration:line-through}.diff-ctx{display:block;padding:0 8px;color:var(--ink-muted)}
+.vrow{display:grid;grid-template-columns:70px 1fr auto;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.vrow b{font:800 14px var(--font-text)}
+.vrow small{display:block;font:600 12px/16px var(--font-text);color:var(--ink-muted)}
+.acts{display:flex;gap:6px}
+
+.im-back{position:absolute;inset:0;background:rgba(15,20,48,.45)}
+.im-sheet{position:absolute;left:50%;top:60px;transform:translateX(-50%);width:760px;padding:22px 24px;border-radius:26px;background:var(--surface-raised);box-shadow:0 30px 80px rgba(10,8,40,.45)}
+.im-drop{margin-top:14px;padding:18px;border-radius:18px;box-shadow:inset 0 0 0 2px var(--accent);background:var(--surface);display:flex;align-items:center;gap:14px}
+.im-drop b{font:800 15px var(--font-text)}
+.im-list{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:8px}
+.im-list li{display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:center;font:700 13.5px/19px var(--font-text)}
+.im-form{margin-top:14px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.im-f{border-radius:12px;box-shadow:inset 0 0 0 2px var(--line);padding:8px 10px}
+.im-f small{display:block;font:700 11px var(--font-text);color:var(--ink-muted)}
+.im-f b{font:800 14px var(--font-text)}
+.im-f.over{box-shadow:inset 0 0 0 2px #1F66C1}
+</style>
+</helmet>
+<div class="bd" data-theme="anime-sky">
+<nav class="ad-nav"><img src="/_blob/f52e18857979369421011da66fdb9de3" alt="myKx"><a class="on">Skills</a><a class="">Add knowledge</a><a class="">People</a><a class="">Under the hood</a></nav>
+<main class="ad-main"><h1 class="ad-h1">Skills</h1><p class="ad-sub">Seven packs for P3, P6 and Sec 2.</p></main>
+<div class="im-back"></div>
+<section class="im-sheet"><div style="display:flex;justify-content:space-between;align-items:center"><h2 class="ad-h1" style="font-size:22px">Import a skill</h2><span class="btn b-sec">Close</span></div>
+ <p class="ad-sub">A standard agent skill: a folder with SKILL.md and its references, as a .zip or a .skill file. myKx keeps text only and never keeps or runs scripts.</p>
+ <div class="im-drop"><span class="chip c-def">.skill</span><span><b>p5-maths-fractions.skill</b><small style="display:block;font:600 12px var(--font-text);color:var(--ink-muted)">184 KB, 9 files</small></span><span class="btn b-sec" style="margin-left:auto">Choose another</span></div>
+ <ul class="im-list">
+  <li><span class="chip c-ok">Found</span>SKILL.md with a name and description in its front matter</li>
+  <li><span class="chip c-ok">Kept</span>4 references (fractions-model.md, traps.md, word-problems.md, exam-format.md) and 1 items file (24 questions)</li>
+  <li><span class="chip c-warn">Removed</span>scripts/make_paper.py and scripts/render.js: scripts are never kept or run</li>
+  <li><span class="chip c-flag">Check</span>A child's first name ("Kai") appears 3 times in SKILL.md. Packs never name a child. Replace it with a generic name or remove it before importing.</li>
+  <li><span class="chip c-muse"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px;fill:currentColor;flex:none"><path d="M12 0c.8 6.4 5.6 11.2 12 12-6.4.8-11.2 5.6-12 12-.8-6.4-5.6-11.2-12-12C6.4 11.2 11.2 6.4 12 0z"/></svg>Muse</span>Proposed the manifest from SKILL.md: level, subject, topics and which agents may load it. Edit anything below.</li>
+ </ul>
+ <div class="im-form"><div class="im-f"><small>Pack id</small><b>p5-maths</b></div><div class="im-f over"><small>Level (changed by you)</small><b>P5</b></div><div class="im-f"><small>Subject</small><b>Maths</b></div><div class="im-f"><small>Tier</small><b>Standard</b></div></div>
+ <div class="im-form" style="grid-template-columns:1fr 1fr"><div class="im-f"><small>Topics</small><b>Fractions of a set, fraction word problems, remainder concept</b></div><div class="im-f"><small>Agents</small><b>Kix Tutor auto · Ask Kix on demand · Vibe on demand</b></div></div>
+ <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px"><span class="btn b-sec">Cancel</span><span class="btn b-pri">Import as draft v1.0</span></div>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

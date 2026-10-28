@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Under the hood: edit an agent</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>body{margin:0} .bd{width:1440px;height:900px;position:relative;overflow:hidden;box-sizing:border-box;font-family:var(--font-text);background:var(--surface);color:var(--ink)} .bd *{box-sizing:border-box} .bd h1,.bd h2,.bd h3,.bd p{margin:0}
+
+.bd{background:var(--surface)}
+.ad-nav{position:absolute;left:0;top:0;bottom:0;width:220px;padding:22px 14px;box-shadow:inset -1px 0 0 var(--line);display:flex;flex-direction:column;gap:4px}
+.ad-nav img{height:30px;align-self:flex-start;margin:0 8px 16px}
+.ad-nav a{display:block;padding:9px 12px;border-radius:12px;color:var(--ink-muted);font:700 14px var(--font-text)}
+.ad-nav a.on{background:var(--surface-raised);color:var(--ink);box-shadow:inset 3px 0 0 var(--accent)}
+.ad-main{position:absolute;left:220px;right:0;top:0;bottom:0;padding:24px 28px}
+.ad-h1{font:800 26px/32px var(--font-display)}
+.ad-sub{margin-top:4px;font:600 14px/20px var(--font-text);color:var(--ink-muted)}
+.chip{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:999px;font:800 12px/1 var(--font-text);white-space:nowrap}
+.c-pub{background:#DDF3E4;color:#1F5E37}.c-draft{background:#FFF1D6;color:#8A5A00}.c-def{background:#E8E6F7;color:#3B3780}.c-flag{background:#FFE3E3;color:#A21C1C}.c-warn{background:#FFF1D6;color:#8A5A00}.c-ok{background:#DDF3E4;color:#1F5E37}.c-muse{background:#B9A7F5;color:#1C1B4A}.c-over{background:#1F66C1;color:#fff}
+.btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:999px;font:800 13px var(--font-text);white-space:nowrap}
+.b-pri{background:var(--accent);color:var(--on-accent)}.b-sec{box-shadow:inset 0 0 0 2px var(--line);color:var(--ink)}.b-muse{background:#2B2A5C;color:#fff}.b-del{color:#A21C1C;box-shadow:inset 0 0 0 2px #F3C4C4}
+.card{border-radius:20px;background:var(--surface-raised);box-shadow:inset 0 0 0 1px var(--line);padding:16px}
+.h2{font:800 16px/22px var(--font-display)}
+.mono{font:500 12.5px/20px ui-monospace,SFMono-Regular,Menlo,monospace}
+.diff-add{background:#E6F6EA;color:#1F5E37;display:block;padding:0 8px}.diff-del{background:#FDE8E8;color:#A21C1C;display:block;padding:0 8px;text-decoration:line-through}.diff-ctx{display:block;padding:0 8px;color:var(--ink-muted)}
+.vrow{display:grid;grid-template-columns:70px 1fr auto;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.vrow b{font:800 14px var(--font-text)}
+.vrow small{display:block;font:600 12px/16px var(--font-text);color:var(--ink-muted)}
+.acts{display:flex;gap:6px}
+
+.ag-list{position:absolute;left:28px;top:112px;width:300px;bottom:22px}
+.ag-list a{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:12px;font:700 14px var(--font-text);color:var(--ink)}
+.ag-list a.on{background:var(--surface);box-shadow:inset 0 0 0 2px var(--accent)}
+.ag-list small{font:700 11px var(--font-text);color:var(--ink-muted)}
+.ag-pane{position:absolute;left:344px;right:28px;top:112px;bottom:22px;display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:16px}
+.ag-tabs{display:flex;gap:6px}
+.ag-tabs span{padding:7px 14px;border-radius:999px;font:800 13px var(--font-text);box-shadow:inset 0 0 0 2px var(--line)}
+.ag-tabs span.on{background:var(--ink);color:var(--surface);box-shadow:none}
+.ag-text{margin-top:10px;border-radius:14px;background:#0F1430;color:#DCE3FF;padding:14px 16px;height:330px;overflow:hidden}
+.ag-var{background:#2B3A80;color:#FFE38A;border-radius:6px;padding:0 4px}
+.ag-guard{margin-top:12px;border-radius:14px;background:var(--surface);box-shadow:inset 0 0 0 2px var(--line);padding:12px 14px}
+.ag-guard li{font:700 13px/19px var(--font-text);color:var(--ink-muted)}
+</style>
+</helmet>
+<div class="bd" data-theme="anime-sky">
+<nav class="ad-nav"><img src="/_blob/f52e18857979369421011da66fdb9de3" alt="myKx"><a class="">Skills</a><a class="">Add knowledge</a><a class="">People</a><a class="on">Under the hood</a></nav>
+<main class="ad-main">
+ <div style="display:flex;justify-content:space-between;align-items:flex-start"><div><h1 class="ad-h1">Under the hood: agents</h1><p class="ad-sub">Click an agent to read and edit its instructions. Every change is a version; the built-in default can't be deleted.</p></div><span class="chip c-muse">13 agents on Meta Muse · 2 rules only</span></div>
+ <div class="card ag-list"><a class="on">Kix Tutor<small>v3 · edited</small></a><a class="">Ask Kix<small>default</small></a><a class="">Memory Keeper<small>default</small></a><a class="">Vibe Zone maker<small>v2</small></a><a class="">Content Curator<small>default</small></a><a class="">Home Reader<small>default</small></a><a class="">Guardian Brief<small>default</small></a><a class="">Outing Scout<small>default</small></a><a class="">Outing Planner<small>default</small></a><a class="">Tonight<small>v2</small></a></div>
+ <div class="ag-pane">
+  <div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><div><span class="h2">Kix Tutor</span> <span class="chip c-pub">Published v3</span> <span class="chip c-draft">Editing a draft</span></div><div style="display:flex;gap:6px"><span class="btn b-sec">Try it</span><span class="btn b-sec">Save draft</span><span class="btn b-pri">Publish v4</span></div></div>
+   <div class="ag-tabs" style="margin-top:12px"><span class="on">Instructions</span><span>Guardrails <svg viewBox="0 0 24 24" aria-hidden="true" style="width:13px;height:13px;flex:none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M6 11h12v9H6zM8.5 11V8a3.5 3.5 0 0 1 7 0v3"/></svg></span><span>Tools</span></div>
+   <div class="ag-text mono">You are Kix, <span class="ag-var">{{nickname}}</span>'s friendly study sidekick (Singapore <span class="ag-var">{{level}}</span>).<br>You are helping with one question during a quest.<br><br>Answer in at most two short sentences a 9-year-old can read aloud.<br>Warm, concrete, no baby talk.<br><span class="diff-add">If the child sounds frustrated, start with one kind line before the hint.</span><br>Point to the thinking: what to notice, what to compare, the next small step.<br>Use the pack's method (claim, evidence, reasoning for science explanations).<br>Read a section before explaining a method you need to get right.</div>
+   <div class="ag-guard"><span class="h2"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:13px;height:13px;flex:none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M6 11h12v9H6zM8.5 11V8a3.5 3.5 0 0 1 7 0v3"/></svg> Guardrails (fixed in code, always added)</span><ul style="margin:6px 0 0;padding-left:18px"><li>Never say the answer, which option is right, or the final number.</li><li>Never check the child's current question with a tool.</li><li>Distress words skip the model and bring the caring reply and helplines.</li><li>Every ask counts as a hint; a helped answer never raises mastery.</li></ul></div></div>
+  <div class="card"><span class="h2">Versions</span>
+   <div class="vrow"><b>v4</b><span>Draft <small>Kind first line, 29 Oct 11:20</small></span><span class="acts"><span class="btn b-sec">Diff</span><span class="btn b-del">Delete</span></span></div>
+   <div class="vrow"><b>v3</b><span><span class="chip c-pub">Published</span><small>Shorter hints, 28 Oct</small></span><span class="acts"><span class="btn b-sec">Diff</span></span></div>
+   <div class="vrow"><b>v2</b><span>Earlier <small>Junior tone, 27 Oct</small></span><span class="acts"><span class="btn b-sec">Diff</span><span class="btn b-sec">Restore</span><span class="btn b-del">Delete</span></span></div>
+   <div class="vrow"><b>v1</b><span><span class="chip c-def"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:13px;height:13px;flex:none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M6 11h12v9H6zM8.5 11V8a3.5 3.5 0 0 1 7 0v3"/></svg>Default</span><small>Built into myKx; can't be deleted</small></span><span class="acts"><span class="btn b-sec">Diff</span><span class="btn b-sec">Restore</span></span></div>
+   <div style="margin-top:14px" class="h2">Diff: v3 → draft v4</div>
+   <div class="mono" style="margin-top:6px;border-radius:12px;overflow:hidden;box-shadow:inset 0 0 0 1px var(--line)"><span class="diff-ctx">Warm, concrete, no baby talk.</span><span class="diff-add">+ If the child sounds frustrated, start with one kind line before the hint.</span><span class="diff-ctx">Point to the thinking: what to notice…</span></div>
+  </div>
+ </div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Skills: edit, enhance and versions</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>body{margin:0} .bd{width:1440px;height:900px;position:relative;overflow:hidden;box-sizing:border-box;font-family:var(--font-text);background:var(--surface);color:var(--ink)} .bd *{box-sizing:border-box} .bd h1,.bd h2,.bd h3,.bd p{margin:0}
+
+.bd{background:var(--surface)}
+.ad-nav{position:absolute;left:0;top:0;bottom:0;width:220px;padding:22px 14px;box-shadow:inset -1px 0 0 var(--line);display:flex;flex-direction:column;gap:4px}
+.ad-nav img{height:30px;align-self:flex-start;margin:0 8px 16px}
+.ad-nav a{display:block;padding:9px 12px;border-radius:12px;color:var(--ink-muted);font:700 14px var(--font-text)}
+.ad-nav a.on{background:var(--surface-raised);color:var(--ink);box-shadow:inset 3px 0 0 var(--accent)}
+.ad-main{position:absolute;left:220px;right:0;top:0;bottom:0;padding:24px 28px}
+.ad-h1{font:800 26px/32px var(--font-display)}
+.ad-sub{margin-top:4px;font:600 14px/20px var(--font-text);color:var(--ink-muted)}
+.chip{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:999px;font:800 12px/1 var(--font-text);white-space:nowrap}
+.c-pub{background:#DDF3E4;color:#1F5E37}.c-draft{background:#FFF1D6;color:#8A5A00}.c-def{background:#E8E6F7;color:#3B3780}.c-flag{background:#FFE3E3;color:#A21C1C}.c-warn{background:#FFF1D6;color:#8A5A00}.c-ok{background:#DDF3E4;color:#1F5E37}.c-muse{background:#B9A7F5;color:#1C1B4A}.c-over{background:#1F66C1;color:#fff}
+.btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:999px;font:800 13px var(--font-text);white-space:nowrap}
+.b-pri{background:var(--accent);color:var(--on-accent)}.b-sec{box-shadow:inset 0 0 0 2px var(--line);color:var(--ink)}.b-muse{background:#2B2A5C;color:#fff}.b-del{color:#A21C1C;box-shadow:inset 0 0 0 2px #F3C4C4}
+.card{border-radius:20px;background:var(--surface-raised);box-shadow:inset 0 0 0 1px var(--line);padding:16px}
+.h2{font:800 16px/22px var(--font-display)}
+.mono{font:500 12.5px/20px ui-monospace,SFMono-Regular,Menlo,monospace}
+.diff-add{background:#E6F6EA;color:#1F5E37;display:block;padding:0 8px}.diff-del{background:#FDE8E8;color:#A21C1C;display:block;padding:0 8px;text-decoration:line-through}.diff-ctx{display:block;padding:0 8px;color:var(--ink-muted)}
+.vrow{display:grid;grid-template-columns:70px 1fr auto;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.vrow b{font:800 14px var(--font-text)}
+.vrow small{display:block;font:600 12px/16px var(--font-text);color:var(--ink-muted)}
+.acts{display:flex;gap:6px}
+
+.se-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.se-tools{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.se-grid{position:absolute;left:28px;right:28px;top:118px;bottom:24px;display:grid;grid-template-columns:230px minmax(0,1fr) 380px;gap:16px}
+.se-files a{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;border-radius:10px;font:700 13px var(--font-text);color:var(--ink)}
+.se-files a.on{background:var(--surface);box-shadow:inset 0 0 0 2px var(--accent)}
+.se-files small{font:600 11px var(--font-text);color:var(--ink-muted)}
+.se-files h3{font:800 12px var(--font-text);color:var(--ink-muted);margin:10px 10px 4px}
+.se-ed{display:flex;flex-direction:column;gap:10px}
+.se-text{flex:1;min-height:0;border-radius:14px;background:#0F1430;color:#DCE3FF;padding:14px 16px;overflow:hidden}
+.se-text .k{color:#8CCBFF}.se-text .h{color:#FFE38A}
+.se-side{display:flex;flex-direction:column;gap:12px;min-height:0}
+.se-ask{border-radius:14px;box-shadow:inset 0 0 0 2px #B9A7F5;padding:10px 12px;font:600 13px/19px var(--font-text);color:var(--ink);min-height:74px;background:var(--surface)}
+.se-prop li{display:flex;gap:8px;align-items:flex-start;font:700 13px/18px var(--font-text);padding:5px 0}
+.se-prop ul{list-style:none;margin:8px 0 0;padding:0}
+.se-vers{padding:10px 16px}
+.se-vers .vrow{grid-template-columns:56px 1fr auto;padding:6px 0}
+</style>
+</helmet>
+<div class="bd" data-theme="anime-sky">
+<nav class="ad-nav"><img src="/_blob/f52e18857979369421011da66fdb9de3" alt="myKx"><a class="on">Skills</a><a class="">Add knowledge</a><a class="">People</a><a class="">Under the hood</a></nav>
+<main class="ad-main">
+ <div class="se-top"><div><h1 class="ad-h1">P6 Maths (PSLE)</h1><p class="ad-sub">Kix Tutor, Ask Kix and the Vibe Zone read the published version. <span class="chip c-pub">Published v1.2</span> <span class="chip c-draft">Draft v1.3</span> <span class="chip c-def"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:13px;height:13px;flex:none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M6 11h12v9H6zM8.5 11V8a3.5 3.5 0 0 1 7 0v3"/></svg>Default v1.0 (built in)</span></p></div>
+ <div class="se-tools"><span class="btn b-sec">Import skill (.zip, .skill)</span><span class="btn b-muse"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px;fill:currentColor;flex:none"><path d="M12 0c.8 6.4 5.6 11.2 12 12-6.4.8-11.2 5.6-12 12-.8-6.4-5.6-11.2-12-12C6.4 11.2 11.2 6.4 12 0z"/></svg>Enhance with Muse</span><span class="btn b-sec">Save draft</span><span class="btn b-pri">Publish v1.3</span></div></div>
+ <div class="se-grid">
+  <div class="card se-files"><h3>Pack files</h3><a>skill.json <small>manifest</small></a><a class="on">SKILL.md <small>edited</small></a><h3>References</h3><a>heuristics.md <small>+2 sections</small></a><a>tutoring-method.md</a><a>exam-patterns.md <small>from knowledge</small></a><h3>Items</h3><a>original-01.json <small>40</small></a><a>enhance-v1.3.json <small>+6 new</small></a></div>
+  <div class="se-ed"><div class="card" style="padding:10px 14px;display:flex;justify-content:space-between;align-items:center"><span class="h2">SKILL.md</span><span class="ad-sub" style="margin:0">Editing the draft. The default stays untouched.</span></div>
+   <div class="se-text mono"><span class="h"># P6 Maths (PSLE) tutor</span><br><br><span class="k">## How Kix teaches</span><br>1. Read the question twice; underline what stays the same.<br>2. Pick the heuristic: model drawing, before-and-after, units and parts, guess and check.<br>3. Draw it before you calculate. Ask: what is one unit?<br><span class="diff-add">4. For before-and-after with a total that stays the same, draw both bars to the same length first.</span><br><br><span class="k">## Common traps</span><br>- Mixing up "more than" and "times as many".<br>- Forgetting units in the final answer.<br><span class="diff-add">- Treating a transfer as a change in the total (it isn't).</span></div>
+   <div class="card se-vers"><span class="h2">Versions</span>
+    <div class="vrow"><b>v1.3</b><span>Draft <small>Enhance with Muse, 29 Oct 10:42, demo@mykx.ai</small></span><span class="acts"><span class="btn b-sec">Diff</span><span class="btn b-del">Delete</span></span></div>
+    <div class="vrow"><b>v1.2</b><span><span class="chip c-pub">Published</span> <small>Knowledge: 2025 SA2 papers, 28 Oct</small></span><span class="acts"><span class="btn b-sec">Diff</span></span></div>
+    <div class="vrow"><b>v1.1</b><span>Earlier <small>Edited SKILL.md, 27 Oct</small></span><span class="acts"><span class="btn b-sec">Diff</span><span class="btn b-sec">Restore</span><span class="btn b-del">Delete</span></span></div>
+    <div class="vrow"><b>v1.0</b><span><span class="chip c-def"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:13px;height:13px;flex:none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M6 11h12v9H6zM8.5 11V8a3.5 3.5 0 0 1 7 0v3"/></svg>Default</span> <small>Built into myKx; can't be deleted</small></span><span class="acts"><span class="btn b-sec">Diff</span><span class="btn b-sec">Restore</span></span></div></div></div>
+  <div class="se-side">
+   <div class="card"><span class="h2"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px;fill:currentColor;flex:none"><path d="M12 0c.8 6.4 5.6 11.2 12 12-6.4.8-11.2 5.6-12 12-.8-6.4-5.6-11.2-12-12C6.4 11.2 11.2 6.4 12 0z"/></svg> Enhance with Muse</span><p class="ad-sub">Tell Muse what to improve. It proposes changes as a draft you review; nothing is published by itself.</p><div class="se-ask" style="margin-top:10px">Add practice on before-and-after with the total unchanged, and the trap where children change the total. Six questions, PSLE style, two of them 4 marks.</div><div style="display:flex;justify-content:flex-end;margin-top:8px"><span class="btn b-muse"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px;fill:currentColor;flex:none"><path d="M12 0c.8 6.4 5.6 11.2 12 12-6.4.8-11.2 5.6-12 12-.8-6.4-5.6-11.2-12-12C6.4 11.2 11.2 6.4 12 0z"/></svg>Ask Muse</span></div>
+    <ul class="se-prop"><li><span class="chip c-muse">+1</span>Teaching step in SKILL.md</li><li><span class="chip c-muse">+2</span>Sections in heuristics.md</li><li><span class="chip c-muse">+6</span>New questions with worked answers, checked by Muse</li><li><span class="chip c-warn">1 to check</span>Question 4's answer used a different method: review it</li></ul><div style="display:flex;gap:6px;margin-top:6px"><span class="btn b-sec">Review diff</span><span class="btn b-pri">Accept into draft</span></div></div>
+
+  </div>
+ </div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

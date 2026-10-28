@@ -88,6 +88,18 @@ Today `lib/sound/engine.ts` plays short synthesised effects and, for some worlds
 - The Kix Tutor and Ask Kix call tools (`lib/skills/runtime.ts`; design in `docs/ARCHITECTURE.md` §4.10). Tool results and the policy are code; the model only chooses.
 - **The founder runs one SQL:** `supabase/migrations/20261029_skill_events.sql` in Supabase's SQL editor. Until then the agents work, but nothing is logged and Under the hood's Skill Engine card stays empty.
 
+## Founder's batch, 29 Oct (design on the canvas first, then build; freeze Mon 2 Nov 22:00)
+
+Order: designs (canvas page "Admin and sign-in, 29 Oct") → B → C → A → F → D → E → docs and video stories.
+
+- **A. Kids' magic name.** Every kid gets a unique `username` (the magic name, set by the parent; lowercase letters, digits, hyphens). The sign-in card's kids line becomes a dialogue: "Kids: tell me your magic name, and I shall bring your magical door". Tapping it pops a name input; Continue flies the kid's own door in while the city gives way to their world (living, moving pieces), then the door asks for the picture code or password. This is a **solo kid session**: signed like today but bound to the kid's household and secret version instead of a parent session, so it ends when a parent resets the code. Lookup is rate-limited per IP and shows only the door's look. Kid doors on a parent's device stay.
+- **B. Smooth time tunnel.** The CSS tunnel animates 190–320 vmax layers with gradients and masks (about 4,600 px squares on a laptop), which flickers. Replace it with one canvas at screen size (DPR ≤ 2) drawn at 60 fps: vortex art pre-decoded, rings, streaks, flash.
+- **C. Kids sign out.** A sign-out in the kid's avatar menu; after 14 minutes idle a "Still there?" card counts down, and at 15 minutes the kid is signed out.
+- **D. Skills you can edit.** Skill versions in the database (`skill_versions`): the pack on disk is the default and can't be deleted. Admin can edit files, ask Muse to enhance (a proposed diff to accept), import a standard agent skill (`.zip` or `.skill`; scripts are never kept or run, rule 10), and restore, diff or delete versions. The runtime reads the published version, else the default.
+- **E. Knowledge refines a skill.** A review session holds several PDFs (a question paper now, its answer sheet later); Muse pairs them, sorts papers by subject and level (admin can override level, subject and tier), cross-checks answers and spelling and flags anything unusual; every entry is editable. Publishing makes a new skill version (D). School papers still give patterns plus Kix's own new questions, never their own questions (rule 10); our own or licensed material may keep its questions.
+- **F. Agents you can edit.** Under the hood: click an agent to see its instructions; edit and publish versions; diff, restore and delete; the built-in default can't be deleted. Safety guardrails stay fixed in code and are shown read-only.
+- Then: ARCHITECTURE, SKILL_ENGINE, ACCOUNTS, PROGRESS, the video beat sheet.
+
 ## Things only the founder or Claude Code do
 
 - Publish to the Claude Design canvas (Claude Code); copy boards back into `docs/design/boards/` after.

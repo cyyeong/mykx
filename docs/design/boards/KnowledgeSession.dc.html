@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Add knowledge: a review session that refines a skill</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>body{margin:0} .bd{width:1440px;height:900px;position:relative;overflow:hidden;box-sizing:border-box;font-family:var(--font-text);background:var(--surface);color:var(--ink)} .bd *{box-sizing:border-box} .bd h1,.bd h2,.bd h3,.bd p{margin:0}
+
+.bd{background:var(--surface)}
+.ad-nav{position:absolute;left:0;top:0;bottom:0;width:220px;padding:22px 14px;box-shadow:inset -1px 0 0 var(--line);display:flex;flex-direction:column;gap:4px}
+.ad-nav img{height:30px;align-self:flex-start;margin:0 8px 16px}
+.ad-nav a{display:block;padding:9px 12px;border-radius:12px;color:var(--ink-muted);font:700 14px var(--font-text)}
+.ad-nav a.on{background:var(--surface-raised);color:var(--ink);box-shadow:inset 3px 0 0 var(--accent)}
+.ad-main{position:absolute;left:220px;right:0;top:0;bottom:0;padding:24px 28px}
+.ad-h1{font:800 26px/32px var(--font-display)}
+.ad-sub{margin-top:4px;font:600 14px/20px var(--font-text);color:var(--ink-muted)}
+.chip{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:999px;font:800 12px/1 var(--font-text);white-space:nowrap}
+.c-pub{background:#DDF3E4;color:#1F5E37}.c-draft{background:#FFF1D6;color:#8A5A00}.c-def{background:#E8E6F7;color:#3B3780}.c-flag{background:#FFE3E3;color:#A21C1C}.c-warn{background:#FFF1D6;color:#8A5A00}.c-ok{background:#DDF3E4;color:#1F5E37}.c-muse{background:#B9A7F5;color:#1C1B4A}.c-over{background:#1F66C1;color:#fff}
+.btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:999px;font:800 13px var(--font-text);white-space:nowrap}
+.b-pri{background:var(--accent);color:var(--on-accent)}.b-sec{box-shadow:inset 0 0 0 2px var(--line);color:var(--ink)}.b-muse{background:#2B2A5C;color:#fff}.b-del{color:#A21C1C;box-shadow:inset 0 0 0 2px #F3C4C4}
+.card{border-radius:20px;background:var(--surface-raised);box-shadow:inset 0 0 0 1px var(--line);padding:16px}
+.h2{font:800 16px/22px var(--font-display)}
+.mono{font:500 12.5px/20px ui-monospace,SFMono-Regular,Menlo,monospace}
+.diff-add{background:#E6F6EA;color:#1F5E37;display:block;padding:0 8px}.diff-del{background:#FDE8E8;color:#A21C1C;display:block;padding:0 8px;text-decoration:line-through}.diff-ctx{display:block;padding:0 8px;color:var(--ink-muted)}
+.vrow{display:grid;grid-template-columns:70px 1fr auto;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.vrow b{font:800 14px var(--font-text)}
+.vrow small{display:block;font:600 12px/16px var(--font-text);color:var(--ink-muted)}
+.acts{display:flex;gap:6px}
+
+.ks-grid{position:absolute;left:28px;right:28px;top:112px;bottom:22px;display:grid;grid-template-columns:330px minmax(0,1fr) 300px;gap:16px}
+.ks-file{padding:12px;border-radius:16px;background:var(--surface);box-shadow:inset 0 0 0 1px var(--line);margin-top:10px}
+.ks-file.on{box-shadow:inset 0 0 0 2px var(--accent)}
+.ks-file b{font:800 13.5px/18px var(--font-text)}
+.ks-file small{display:block;font:600 12px/16px var(--font-text);color:var(--ink-muted);margin-top:2px}
+.ks-pair{display:flex;align-items:center;gap:6px;margin-top:8px;font:800 12px var(--font-text);color:#1F5E37}
+.ks-sel{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
+.ks-sel span{border-radius:10px;box-shadow:inset 0 0 0 1.5px var(--line);padding:5px 8px;font:800 12px var(--font-text)}
+.ks-sel span.over{box-shadow:inset 0 0 0 2px #1F66C1;color:#1F66C1}
+.ks-rule{padding:10px 12px;border-radius:14px;background:#FFF7E0;color:#6B4A00;font:700 12.5px/18px var(--font-text)}
+table.ks{width:100%;border-collapse:collapse;font:600 13px/18px var(--font-text)}
+table.ks th{text-align:left;font:800 12px var(--font-text);color:var(--ink-muted);padding:6px 8px;border-bottom:1px solid var(--line)}
+table.ks td{padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
+table.ks tr.flag td{background:#FFF4F4}
+table.ks tr.warn td{background:#FFFBEF}
+.ks-sum li{display:flex;gap:8px;align-items:center;font:700 13px/18px var(--font-text);padding:4px 0}
+.ks-sum ul{list-style:none;margin:8px 0;padding:0}
+</style>
+</helmet>
+<div class="bd" data-theme="anime-sky">
+<nav class="ad-nav"><img src="/_blob/f52e18857979369421011da66fdb9de3" alt="myKx"><a class="">Skills</a><a class="on">Add knowledge</a><a class="">People</a><a class="">Under the hood</a></nav>
+<main class="ad-main">
+ <div style="display:flex;justify-content:space-between;align-items:flex-start"><div><h1 class="ad-h1">Review session: 29 Oct papers</h1><p class="ad-sub">Add papers in any order: a question paper now, its answer sheet later. Muse pairs them, sorts them by subject and level, and checks every answer. You can change anything.</p></div><span class="btn b-pri">Add PDFs</span></div>
+ <div class="ks-grid">
+  <div class="card" style="overflow:hidden"><span class="h2">Papers in this session</span>
+   <div class="ks-file on"><b>2025 P6 Maths SA2, Paper 2 (questions)</b><small>School paper, private reference · 18 pages · 17 questions</small><div class="ks-pair"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px;fill:currentColor;flex:none"><path d="M12 0c.8 6.4 5.6 11.2 12 12-6.4.8-11.2 5.6-12 12-.8-6.4-5.6-11.2-12-12C6.4 11.2 11.2 6.4 12 0z"/></svg>Paired with: answer sheet (added 11:05)</div><div class="ks-sel"><span>P6</span><span>Maths</span><span class="over">Foundation ✎</span></div></div>
+   <div class="ks-file"><b>2025 P6 Maths SA2, answer sheet</b><small>Uploaded 11:05 · matched by school, year and paper · 2 pages</small></div>
+   <div class="ks-file"><b>Fractions worksheet B (ours)</b><small>Our own material · questions and answers · 12 questions</small><div class="ks-sel"><span class="over">P5 ✎</span><span>Maths</span><span>Standard</span></div></div>
+   <div class="ks-file"><b>Science WA1 practice</b><small>Sorted to P3 Science by Muse · no answer sheet yet</small><div class="ks-sel"><span>P3</span><span>Science</span><span>—</span></div></div>
+   <p class="ks-rule" style="margin-top:12px">A school paper teaches Kix its patterns, traps and marking. Its questions are never kept or shown to children; Kix writes its own new questions from them.</p>
+  </div>
+  <div class="card" style="overflow:hidden"><div style="display:flex;justify-content:space-between;align-items:center"><span class="h2">What Muse found: 2025 P6 Maths SA2, Paper 2</span><span class="ad-sub" style="margin:0"><span class="chip c-flag">1 mismatch</span> <span class="chip c-warn">3 to check</span></span></div>
+   <table class="ks" style="margin-top:8px"><thead><tr><th>Q</th><th>Pattern</th><th>Answer (from the sheet)</th><th>Muse's check</th><th></th></tr></thead><tbody><tr class=""><td><b>Q12</b></td><td>Before-and-after, total unchanged (4 marks)</td><td>Ali 60, Ben 20</td><td><span class="chip c-ok">Checks out</span></td><td><span class="btn b-sec" style="height:28px">Edit</span></td></tr><tr class="flag"><td><b>Q13</b></td><td>Speed: two journeys, same distance</td><td>1 h 36 min</td><td><span class="chip c-flag">Mismatch</span><br><small>Key: 1 h 36 min. Muse works out 1 h 26 min. Check the key.</small></td><td><span class="btn b-sec" style="height:28px">Edit</span></td></tr><tr class="warn"><td><b>Q14</b></td><td>Area of composite figure with quarter circles</td><td>77 cm²</td><td><span class="chip c-warn">Spelling</span><br><small>"perimter" in the key → "perimeter"</small></td><td><span class="btn b-sec" style="height:28px">Edit</span></td></tr><tr class="warn"><td><b>Q15</b></td><td>Ratio with a fixed part (3 marks)</td><td>no answer yet</td><td><span class="chip c-warn">Waiting</span><br><small>Not on the answer sheet's page 2</small></td><td><span class="btn b-sec" style="height:28px">Edit</span></td></tr><tr class="warn"><td><b>Q16</b></td><td>Percentage discount then GST</td><td>S$ 107.00</td><td><span class="chip c-warn">Unusual</span><br><small>5 marks for a one-step question</small></td><td><span class="btn b-sec" style="height:28px">Edit</span></td></tr></tbody></table>
+   <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center"><span class="h2"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px;fill:currentColor;flex:none"><path d="M12 0c.8 6.4 5.6 11.2 12 12-6.4.8-11.2 5.6-12 12-.8-6.4-5.6-11.2-12-12C6.4 11.2 11.2 6.4 12 0z"/></svg> Kix's own questions from these patterns (8)</span><span class="btn b-sec">Review all</span></div>
+   <table class="ks" style="margin-top:6px"><tbody><tr><td><b>N1</b></td><td>Mei Ling had 4 times as many beads as Sam. After she gave Sam 36 beads, they had the same. How many beads did Mei Ling have at first?</td><td>72</td><td><span class="chip c-ok">Worked twice</span></td><td><span class="btn b-sec" style="height:28px">Edit</span></td></tr></tbody></table>
+  </div>
+  <div class="card ks-sum"><span class="h2">This refines P6 Maths</span><p class="ad-sub">Publishing makes a new version of the skill; the old one can be restored.</p>
+   <ul><li><span class="chip c-muse">+7</span>question patterns, with marks</li><li><span class="chip c-muse">+3</span>traps, from the answer sheet</li><li><span class="chip c-muse">+5</span>marking cues</li><li><span class="chip c-muse">+8</span>new questions by Kix, answers checked</li><li><span class="chip c-muse">+1</span>topic in scope: speed (two journeys)</li></ul>
+   <p class="ks-rule">Resolve the mismatch on Q13 before publishing, or mark it "key is right".</p>
+   <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px"><span class="btn b-sec" style="justify-content:center">Save as draft v1.3</span><span class="btn b-pri" style="justify-content:center;opacity:.55">Publish to P6 Maths</span></div></div>
+ </div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
