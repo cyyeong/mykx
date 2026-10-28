@@ -5,6 +5,7 @@
 // notes, "Add a kid" (level sets the look), and sign out everywhere. Data: /api/family/kids (docs/prd/ACCOUNTS.md §3)
 // and /api/signals/focus (PARENT_INSIGHTS.md §1). No optimistic writes: each change waits for the server, then the
 // list is read again. Codes and passwords are never shown or kept here.
+import { PinSetupCard } from "./PinSetupCard";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type ReactNode } from "react";
@@ -1090,6 +1091,9 @@ export function FamilyScreen() {
               </>
             )}
           </section>
+
+          {/* The parent PIN: inside the page's theme, after Add a kid */}
+          <PinSetupCard />
 
           {/* Your account */}
           <section aria-labelledby="fa-acct-h" style={{ ...card, gap: 2 }}>

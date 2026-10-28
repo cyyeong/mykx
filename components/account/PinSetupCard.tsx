@@ -96,18 +96,18 @@ export function PinSetupCard() {
       <p style={body}>
         {changing
           ? "Choose a new 4-digit PIN, somewhere the kids can't watch."
-          : "Four digits, asked on grown-up pages once a kid has signed in on this device. Set it somewhere the kids can't watch."}
+          : "A 4-digit code that keeps kids out of grown-up pages (like this one) after they've used this device. Type it twice to make sure it's right, somewhere the kids can't watch."}
       </p>
       <form onSubmit={(e) => void submit(e)} style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-        <div style={{ display: "flex", gap: 8 }}>
-          <label htmlFor="pin-new" style={hidden}>
-            New 4-digit PIN
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+          <label htmlFor="pin-new" style={fieldBox}>
+            <span style={label}>New PIN</span>
+            <input id="pin-new" className="fa-input" type="password" inputMode="numeric" autoComplete="new-password" maxLength={4} value={pin} onChange={(e) => setPin(e.target.value.replace(/\D/g, "").slice(0, 4))} style={field} />
           </label>
-          <input id="pin-new" className="fa-input" inputMode="numeric" autoComplete="off" maxLength={4} placeholder="••••" value={pin} onChange={(e) => setPin(e.target.value.replace(/\D/g, "").slice(0, 4))} style={field} />
-          <label htmlFor="pin-again" style={hidden}>
-            Repeat the PIN
+          <label htmlFor="pin-again" style={fieldBox}>
+            <span style={label}>Type it again</span>
+            <input id="pin-again" className="fa-input" type="password" inputMode="numeric" autoComplete="new-password" maxLength={4} value={again} onChange={(e) => setAgain(e.target.value.replace(/\D/g, "").slice(0, 4))} style={field} />
           </label>
-          <input id="pin-again" className="fa-input" inputMode="numeric" autoComplete="off" maxLength={4} placeholder="••••" value={again} onChange={(e) => setAgain(e.target.value.replace(/\D/g, "").slice(0, 4))} style={field} />
         </div>
         {error && (
           <p role="alert" style={{ margin: 0, fontSize: 15, lineHeight: "21px", color: "var(--warn)" }}>
@@ -122,8 +122,9 @@ export function PinSetupCard() {
   );
 }
 
-const card: CSSProperties = { display: "flex", flexDirection: "column", gap: 10, padding: 18, borderRadius: "var(--radius-md)", background: "var(--surface-raised)", boxShadow: "var(--shadow-raised)" };
-const title: CSSProperties = { margin: 0, font: "600 18px/1.3 var(--font-display)" };
+const card: CSSProperties = { display: "flex", flexDirection: "column", gap: 10, padding: 18, borderRadius: "var(--radius-md)", background: "var(--surface-raised)", color: "var(--ink)", boxShadow: "var(--shadow-raised)" };
+const title: CSSProperties = { margin: 0, font: "700 20px/1.3 var(--font-display)", color: "var(--ink)" };
 const body: CSSProperties = { margin: 0, fontSize: 16, lineHeight: "23px", color: "var(--ink-muted)" };
-const field: CSSProperties = { flex: 1, minWidth: 0, minHeight: 56, padding: "0 16px", borderRadius: "var(--radius-sm)", border: 0, background: "var(--surface)", color: "var(--ink)", font: "600 20px/1 var(--font-text)", letterSpacing: ".35em", textAlign: "center" };
-const hidden: CSSProperties = { position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)" };
+const fieldBox: CSSProperties = { flex: "1 1 120px", minWidth: 0, display: "flex", flexDirection: "column", gap: 6 };
+const label: CSSProperties = { fontSize: 14, lineHeight: "20px", fontWeight: 700, color: "var(--ink)" };
+const field: CSSProperties = { width: "100%", boxSizing: "border-box", minHeight: 52, padding: "0 16px", borderRadius: "var(--radius-sm)", border: 0, background: "var(--surface)", boxShadow: "inset 0 0 0 1.5px var(--border-control)", color: "var(--ink)", font: "600 20px/1 var(--font-text)", letterSpacing: ".3em", textAlign: "center" };
