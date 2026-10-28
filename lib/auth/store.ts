@@ -261,6 +261,8 @@ export interface AuthStore {
     focusNotes(householdId: string, sinceIso: string): Promise<FocusNote[]>;
     /** Removes one note; returns the kid it was about, or null when it isn't in the household. */
     removeFocusNote(householdId: string, noteId: string): Promise<string | null>;
+    /** A grown-up's check on a note; returns the kid it was about, or null when it isn't in the household. */
+    setFocusVerdict(householdId: string, noteId: string, verdict: "right" | "not-right" | null): Promise<string | null>;
   };
 
   // The guardian (screen_beats, kix_messages, guardian_settings, flags_seen), household-scoped like everything

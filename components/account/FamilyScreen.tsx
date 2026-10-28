@@ -13,6 +13,10 @@ import { kixSprite } from "@/components/signin/looks";
 import { PACKS, type PackId } from "@/components/theme/packs";
 import type { FailReason, FamilyKid, FamilyResult, Level, SecretKind } from "@/lib/auth/schemas";
 import type { FocusNote, FocusNotesResult } from "@/lib/signals/schemas";
+import { FaceReplay } from "@/components/camera/FaceReplay";
+import { LiveCheck } from "@/components/camera/LiveCheck";
+import { replayFor } from "@/components/camera/replayStore";
+import { sampleReplay, type NoteReplay } from "@/lib/signals/replay";
 import { api, type ApiResult } from "./api";
 import { dayLabel, upperFirst, whenLabel } from "./format";
 import { Switch } from "./Switch";
@@ -192,8 +196,16 @@ function ConfidenceTag({ level }: { level: FocusNote["confidence"] }) {
 }
 
 /** "Focus this week": the focus camera's "possibly losing focus" notes for one kid, with the evidence behind each. */
-function FocusCard({ kid, notes, onRemove, busyId }: { kid: FamilyKid; notes: FocusNote[] | null; onRemove: (n: FocusNote) => void; busyId: string | null }) {
+function FocusCard({ kid, notes, onRemove, onVerdict, busyId }: { kid: FamilyKid; notes: FocusNote[] | null; onRemove: (n: FocusNote) => void; onVerdict: (n: FocusNote, v: "right" | "not-right" | null) => void; busyId: string | null }) {
   const mine = notes?.filter((n) => n.kidId === kid.id).slice(0, 3) ?? null;
+  // The face-free replay lives on the device the note happened on (components/camera/replayStore.ts).
+  const [open, setOpen] = useState<{ id: string; replay: NoteReplay | null } | null>(null);
+  const [live, setLive] = useState(false);
+  const showReplay = async (n: FocusNote) => {
+    if (open?.id === n.id) return setOpen(null);
+    // The demo family's sample note gets a replay drawn from shapes, labelled as a sample (rule 8).
+    setOpen({ id: n.id, replay: n.synthetic ? sampleReplay(n.from, n.to) : await replayFor(n) });
+  };
   return (
     <section className="fa-focus" aria-labelledby={`fa-focus-h-${kid.id}`} style={{ ...innerPanel, gap: 10 }}>
       <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "6px 8px" }}>
@@ -222,14 +234,51 @@ function FocusCard({ kid, notes, onRemove, busyId }: { kid: FamilyKid; notes: Fo
                 <ConfidenceTag level={n.confidence} />
               </span>
               <p style={{ margin: 0, fontSize: 14, lineHeight: "20px" }}>{n.evidence}</p>
-              <button className="fa-click fa-note-rm" type="button" onClick={() => onRemove(n)} disabled={busyId !== null} aria-label={`Remove this note about ${kid.nickname}`}>
-                {busyId === n.id ? "Removing…" : "Remove"}
-              </button>
+              {n.verdict && (
+                <span className="fa-verdict" data-v={n.verdict}>
+                  {n.verdict === "right" ? "You checked it: right" : `You checked it: not right. Kix is now a little more forgiving with ${kid.nickname}.`}
+                </span>
+              )}
+              <div className="fa-note-acts">
+                <button className="fa-click fa-note-btn" type="button" aria-expanded={open?.id === n.id} onClick={() => void showReplay(n)}>
+                  {open?.id === n.id ? "Hide replay" : "Watch the replay"}
+                </button>
+                <span className="fa-note-check" role="group" aria-label="Was this note right?">
+                  <button className="fa-click fa-note-btn" type="button" aria-pressed={n.verdict === "right"} disabled={busyId !== null} onClick={() => onVerdict(n, n.verdict === "right" ? null : "right")}>
+                    Right
+                  </button>
+                  <button className="fa-click fa-note-btn" type="button" aria-pressed={n.verdict === "not-right"} disabled={busyId !== null} onClick={() => onVerdict(n, n.verdict === "not-right" ? null : "not-right")}>
+                    Not right
+                  </button>
+                </span>
+                <button className="fa-click fa-note-rm" type="button" onClick={() => onRemove(n)} disabled={busyId !== null} aria-label={`Remove this note about ${kid.nickname}`}>
+                  {busyId === n.id ? "Removing…" : "Remove"}
+                </button>
+              </div>
+              {open?.id === n.id &&
+                (open.replay ? (
+                  <>
+                    {n.synthetic && <span className="fa-sample" style={{ alignSelf: "flex-start" }}>Sample replay, drawn for the demo</span>}
+                    <FaceReplay replay={open.replay} />
+                  </>
+                ) : (
+                  <span style={{ ...hint(false), fontSize: 13, lineHeight: "18px" }}>
+                    {n.synthetic ? "Sample note: there is no replay for sample data." : `The replay stays on the device ${kid.nickname} learns on (face-mesh points only, never a picture). Open Your family on that device to watch it.`}
+                  </span>
+                ))}
             </li>
           ))}
         </ul>
       )}
       <span style={{ ...hint(false), fontSize: 13, lineHeight: "18px" }}>Against {kid.nickname}&apos;s own usual. A possibility, never a diagnosis.</span>
+      {kid.cameraEnabled &&
+        (live ? (
+          <LiveCheck onClose={() => setLive(false)} />
+        ) : (
+          <button className="fa-click fa-note-btn" type="button" style={{ alignSelf: "flex-start" }} onClick={() => setLive(true)}>
+            See what Kix sees (live, nothing recorded)
+          </button>
+        ))}
     </section>
   );
 }
@@ -382,6 +431,16 @@ export function FamilyScreen() {
     setNoteBusy(n.id);
     const r = await api("DELETE", FOCUS_URL, { id: n.id });
     if (r.ok || r.status === 404) await loadFocus();
+    else if (signedOut(r)) setLoad({ phase: "signin" });
+    setNoteBusy(null);
+  };
+
+  /** The grown-up's check on a note after the replay: "not right" stops it counting and eases the threshold. */
+  const setFocusVerdict = async (n: FocusNote, verdict: "right" | "not-right" | null) => {
+    if (noteBusy) return;
+    setNoteBusy(n.id);
+    const r = await api("PATCH", FOCUS_URL, { id: n.id, verdict });
+    if (r.ok) setFocusNotes((list) => list?.map((x) => (x.id === n.id ? { ...x, verdict } : x)) ?? list);
     else if (signedOut(r)) setLoad({ phase: "signin" });
     setNoteBusy(null);
   };
@@ -635,7 +694,7 @@ export function FamilyScreen() {
                         </Note>
                       )}
                     </div>
-                    <FocusCard kid={k} notes={focusNotes} onRemove={(fn) => void removeFocusNote(fn)} busyId={noteBusy} />
+                    <FocusCard kid={k} notes={focusNotes} onRemove={(fn) => void removeFocusNote(fn)} onVerdict={(fn, v) => void setFocusVerdict(fn, v)} busyId={noteBusy} />
                     <div className="fa-acts" style={{ display: "flex", gap: 8 }}>
                       <button className="mk-btn mk-btn--secondary fa-act fa-reset fa-click" type="button" onClick={() => togglePanel(resetKey)} aria-expanded={resetOpen} aria-controls={`fa-panel-${k.id}`}>
                         {pics ? "Reset code" : "Reset password"}

@@ -1,13 +1,17 @@
 // One run of the focus camera while a learning screen is open (docs/prd/PARENT_INSIGHTS.md §1, AGENTS.md rule 12).
 // Opens the webcam into a hidden <video>, runs Face Landmarker on about 3 frames a second, and hands each frame
-// straight to the per-minute counter (lib/signals/camera.ts). No frame is drawn, kept or sent. Finished minutes
-// go to /api/signals/focus with the browser's own "possibly losing focus" reading; that's all that leaves.
+// straight to the per-minute counter (lib/signals/camera.ts). No frame image is drawn, kept or sent. Finished
+// minutes go to /api/signals/focus with the browser's own "possibly losing focus" reading; that's all that leaves.
+// Around each counted moment the face-mesh points (numbers, never a picture) are kept on this device for 7 days,
+// so a grown-up can replay them as a line drawing and check the note (lib/signals/replay.ts, replayStore.ts).
 // The camera closes while the tab is hidden and reopens when it's back; the run ends when the screen does.
 import type { FaceLandmarker } from "@mediapipe/tasks-vision";
-import { FocusCounter, readFace } from "@/lib/signals/camera";
+import { FocusCounter, largestFaceIndex, readFace } from "@/lib/signals/camera";
+import { ReplayRecorder } from "@/lib/signals/replay";
 import { DEFAULT_BASELINE, canNudge, detectFocusDip, type FocusBaseline, type FocusMinute, type FocusSignal } from "@/lib/signals/focus";
 import { MAX_MINUTES_PER_POST, type FocusPostResult } from "@/lib/signals/schemas";
 import { loadFaceLandmarker } from "./mediapipe";
+import { saveReplay } from "./replayStore";
 
 const URL_FOCUS = "/api/signals/focus";
 /** Frame spacing: about 3.5 a second, easing to 2 and then 1 on a device that takes long per frame. */
@@ -48,6 +52,7 @@ export class FocusSession {
   private landmarker: FaceLandmarker | null = null;
   private stream: MediaStream | null = null;
   private readonly counter = new FocusCounter();
+  private readonly replay = new ReplayRecorder();
   private queue: FocusMinute[] = [];
   private signal: FocusSignal | null = null;
   private sending = false;
@@ -174,8 +179,11 @@ export class FocusSession {
       let reading = null;
       try {
         const t0 = performance.now();
-        reading = readFace(this.landmarker.detectForVideo(this.video, now));
+        const result = this.landmarker.detectForVideo(this.video, now);
+        reading = readFace(result);
         this.pace(performance.now() - t0);
+        const face = largestFaceIndex(result.faceLandmarks);
+        this.replay.push(face >= 0 ? result.faceLandmarks[face] : null, reading, Date.now());
       } catch {
         reading = null; // a dropped frame reads as no face; the counter needs 20 s of frames to keep a minute
       }
@@ -202,6 +210,9 @@ export class FocusSession {
     if (found) {
       m.lastSignalTo = found.to; // once per run of low minutes
       this.signal = found;
+      // The moments behind the note, as face-mesh points, kept on this device only for the grown-up's check.
+      const clips = this.replay.clipsBetween(found.from, found.to);
+      if (clips.length) void saveReplay({ from: found.from, to: found.to, savedAt: new Date().toISOString(), clips });
       const now = Date.now();
       const someoneThere = this.counter.lastFaceAt !== null && now - this.counter.lastFaceAt < PRESENT_MS;
       if (!this.stopped && someoneThere && canNudge(m.lastNudgeAt, now)) {

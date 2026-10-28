@@ -33,6 +33,9 @@ export const focusPostBody = z.strictObject({
   signal: focusSignalSchema.optional(),
 });
 export const focusDeleteBody = z.strictObject({ id: z.guid() });
+/** PATCH /api/signals/focus: a grown-up's check on a note after the replay (null clears it). */
+export const focusVerdictBody = z.strictObject({ id: z.guid(), verdict: z.enum(["right", "not-right"]).nullable() });
+export type FocusVerdict = "right" | "not-right";
 
 /** A "possibly losing focus" note, as the grown-up sees it in Your family. */
 export interface FocusNote {
@@ -44,6 +47,8 @@ export interface FocusNote {
   confidence: Confidence;
   /** Sample data for the demo family (labelled "Sample" in the UI, AGENTS.md rule 8). */
   synthetic: boolean;
+  /** The grown-up's check after watching the replay: "not-right" stops it counting as a flag. */
+  verdict: FocusVerdict | null;
 }
 
 /** POST /api/signals/focus. `baseline`: the child's usual, for the browser's next check. */

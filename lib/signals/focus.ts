@@ -193,3 +193,12 @@ export function detectFocusDip(minutes: readonly FocusMinute[], baseline: FocusB
 export function canNudge(lastNudgeAtMs: number | null, nowMs: number): boolean {
   return lastNudgeAtMs === null || nowMs - lastNudgeAtMs >= NUDGE_GAP_MS;
 }
+
+/** Each note a grown-up marked "not right" in the last two weeks makes the child's threshold 5 points more forgiving,
+ *  up to 15: their check tunes the camera to this child, by a fixed rule (never a model). */
+export const CORRECTION_POINTS = 5;
+export const MAX_CORRECTION = 15;
+export function withCorrections(baseline: FocusBaseline, notRight: number): FocusBaseline {
+  const ease = Math.min(MAX_CORRECTION, Math.max(0, notRight) * CORRECTION_POINTS);
+  return ease ? { ...baseline, score: baseline.score - ease } : baseline;
+}

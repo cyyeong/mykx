@@ -175,6 +175,8 @@ create table signals (
   evidence text check (char_length(evidence) <= 400), -- plain words, "possibly …" against the kid's own usual
   confidence text check (confidence in ('low', 'medium', 'high')),
   synthetic boolean not null default false, -- sample data, labelled in the UI (hard rule 8)
+  verdict text check (verdict in ('right', 'not-right')), -- a grown-up's check on a note, after the face-free replay
+  verdict_at timestamptz,
   created_at timestamptz not null default now(),
   unique (profile_id, kind, minute), -- a resent minute replaces the first; one note per run
   check (kind <> 'camera-minute' or (until is null and evidence is null and confidence is null)),

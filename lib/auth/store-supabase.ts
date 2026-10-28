@@ -93,7 +93,7 @@ function check(error: DbError) {
 // window, evidence and confidence. Nothing else exists to be stored.
 const MINUTE_KIND = "camera-minute";
 const NOTE_KIND = "focus-watch";
-const NOTE_COLUMNS = "id, profile_id, minute, until, evidence, confidence, synthetic";
+const NOTE_COLUMNS = "id, profile_id, minute, until, evidence, confidence, synthetic, verdict";
 
 function toFocusMinute(r: Row): FocusMinute {
   const c = (r.counts ?? {}) as Record<string, unknown>;
@@ -180,6 +180,7 @@ function toFocusNote(r: Row): FocusNote {
     evidence: (r.evidence as string) ?? "",
     confidence: (r.confidence as FocusNote["confidence"]) ?? "low",
     synthetic: Boolean(r.synthetic),
+    verdict: r.verdict === "right" || r.verdict === "not-right" ? r.verdict : null,
   };
 }
 
@@ -483,6 +484,18 @@ export class SupabaseStore implements AuthStore {
     removeFocusNote: async (householdId: string, noteId: string) => {
       if (!UUID.test(noteId)) return null;
       const { data, error } = await this.db.from("signals").delete().eq("household_id", householdId).eq("kind", NOTE_KIND).eq("id", noteId).select("profile_id");
+      check(error);
+      return ((data ?? [])[0]?.profile_id as string | undefined) ?? null;
+    },
+    setFocusVerdict: async (householdId: string, noteId: string, verdict: "right" | "not-right" | null) => {
+      if (!UUID.test(noteId)) return null;
+      const { data, error } = await this.db
+        .from("signals")
+        .update({ verdict, verdict_at: verdict ? new Date().toISOString() : null })
+        .eq("household_id", householdId)
+        .eq("kind", NOTE_KIND)
+        .eq("id", noteId)
+        .select("profile_id");
       check(error);
       return ((data ?? [])[0]?.profile_id as string | undefined) ?? null;
     },

@@ -5,14 +5,16 @@
 //           browser's. Refused when the grown-up has the camera off, so switching it off stops the camera too.
 //   GET:    the grown-up's notes from the last 7 days, for Your family.
 //   DELETE: a grown-up removes a note (PARENT_INSIGHTS §4.5).
-// Images, video and landmarks never arrive here: the browser keeps them. Signals never touch mastery or rewards.
+//   PATCH:  a grown-up's check on a note after the face-free replay: "right" or "not-right". Each "not-right" in the
+//           last two weeks makes this child's threshold more forgiving (withCorrections), by a fixed rule.
+// Images, video and landmarks never arrive here: the browser keeps them (the replay lives on the device only). Signals never touch mastery or rewards.
 import { currentParent, withAuth } from "@/lib/auth/context";
 import { pinLockedResponse } from "@/lib/auth/pin";
 import { requireFamily } from "@/lib/auth/guard";
 import { fail, ok, readBody } from "@/lib/auth/http";
 import type { AuthStore } from "@/lib/auth/store";
-import { DIP_MINUTES, MINUTE_MS, canNudge, detectFocusDip, focusBaseline, type FocusMinute } from "@/lib/signals/focus";
-import { focusDeleteBody, focusPostBody, type FocusNotesResult, type FocusPostResult } from "@/lib/signals/schemas";
+import { DIP_MINUTES, MINUTE_MS, canNudge, detectFocusDip, focusBaseline, withCorrections, type FocusBaseline, type FocusMinute } from "@/lib/signals/focus";
+import { focusDeleteBody, focusPostBody, focusVerdictBody, type FocusNotesResult, type FocusPostResult } from "@/lib/signals/schemas";
 import type { z } from "zod";
 
 const DAY_MS = 86_400_000;
@@ -28,12 +30,19 @@ const PER_MINUTE = 12;
 type Reading = NonNullable<z.infer<typeof focusPostBody>["signal"]>;
 
 /** Stores a note only if the server's own counts show the same dip, at least 10 minutes after the last note. */
+/** The child's baseline, eased by the grown-up's "not right" checks from the last two weeks. */
+async function corrected(store: AuthStore, householdId: string, kidId: string, base: FocusBaseline): Promise<FocusBaseline> {
+  const since = new Date(Date.now() - BASELINE_DAYS * DAY_MS).toISOString();
+  const notes = await store.signals.focusNotes(householdId, since).catch(() => []);
+  return withCorrections(base, notes.filter((n) => n.kidId === kidId && n.verdict === "not-right").length);
+}
+
 async function noteIfConfirmed(store: AuthStore, householdId: string, kidId: string, history: FocusMinute[], reading: Reading): Promise<boolean> {
   const from = Date.parse(reading.from);
   const to = Date.parse(reading.to);
   if (to - from !== DIP_MINUTES * MINUTE_MS) return false;
   const run = history.filter((m) => Date.parse(m.minute) < to);
-  const found = detectFocusDip(run, focusBaseline(history, reading.from), { after: reading.from });
+  const found = detectFocusDip(run, await corrected(store, householdId, kidId, focusBaseline(history, reading.from)), { after: reading.from });
   if (!found || Date.parse(found.from) !== from) return false;
   const latest = await store.signals.latestFocusNote(householdId, kidId);
   if (latest && !canNudge(Date.parse(latest.from), from)) return false;
@@ -60,7 +69,7 @@ export async function POST(request: Request) {
     await store.signals.saveFocusMinutes(family.householdId, kid.id, body.minutes);
     const history = await store.signals.focusMinutes(family.householdId, kid.id, new Date(now - BASELINE_DAYS * DAY_MS).toISOString());
     const noted = body.signal ? await noteIfConfirmed(store, family.householdId, kid.id, history, body.signal) : false;
-    return ok({ saved: body.minutes.length, noted, baseline: focusBaseline(history) } satisfies FocusPostResult);
+    return ok({ saved: body.minutes.length, noted, baseline: await corrected(store, family.householdId, kid.id, focusBaseline(history)) } satisfies FocusPostResult);
   });
 }
 
@@ -87,6 +96,21 @@ export async function DELETE(request: Request) {
     const kidId = await store.signals.removeFocusNote(parent.householdId, body.id);
     if (!kidId) return fail(404, "not-found");
     await store.audit({ actor: parent.profile.id, actorRole: "parent", action: "signal.remove", target: kidId, householdId: parent.householdId, detail: { kind: "focus-watch" } });
+    return ok({});
+  });
+}
+
+export async function PATCH(request: Request) {
+  return withAuth(request, async ({ store, jar }) => {
+    const parent = await currentParent(store, jar);
+    if (!parent) return fail(401, "no-parent");
+    const locked = await pinLockedResponse(store, jar);
+    if (locked) return locked;
+    const body = await readBody(request, focusVerdictBody);
+    if (!body) return fail(400, "invalid");
+    const kidId = await store.signals.setFocusVerdict(parent.householdId, body.id, body.verdict);
+    if (!kidId) return fail(404, "not-found");
+    await store.audit({ actor: parent.profile.id, actorRole: "parent", action: "signal.verdict", target: kidId, householdId: parent.householdId, detail: { kind: "focus-watch", verdict: body.verdict ?? "cleared" } });
     return ok({});
   });
 }

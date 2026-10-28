@@ -172,3 +172,12 @@ describe("boundaries", () => {
     expect(detectFocusDip(minutes, focusBaseline(minutes, at(30)))).toEqual(detectFocusDip(minutes, focusBaseline(minutes, at(30))));
   });
 });
+
+describe("the grown-up's checks", () => {
+  it("eases the threshold 5 points per 'not right', up to 15", async () => {
+    const { withCorrections, DEFAULT_BASELINE } = await import("./focus.ts");
+    expect(withCorrections(DEFAULT_BASELINE, 0)).toBe(DEFAULT_BASELINE);
+    expect(withCorrections(DEFAULT_BASELINE, 1).score).toBe(DEFAULT_BASELINE.score - 5);
+    expect(withCorrections(DEFAULT_BASELINE, 9).score).toBe(DEFAULT_BASELINE.score - 15);
+  });
+});

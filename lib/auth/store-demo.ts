@@ -177,6 +177,7 @@ export class DemoStore implements AuthStore {
     for (const r of rows) this.profiles.set(r.id, r);
     const from = yesterdayAfternoonSg();
     this.focusNoteRows.push({
+      verdict: null,
       ...ARI_SAMPLE_FOCUS_NOTE,
       householdId: DEMO_HOUSEHOLD_ID,
       kidId: ARI_ID,
@@ -373,7 +374,7 @@ export class DemoStore implements AuthStore {
     saveFocusNote: async (householdId: string, kidId: string, note: NewFocusNote) => {
       if (!this.ownsKid(householdId, kidId)) return null;
       if (this.focusNoteRows.some((n) => n.kidId === kidId && Date.parse(n.from) === Date.parse(note.from))) return null;
-      const row: StoredNote = { id: randomUUID(), householdId, kidId, ...note, synthetic: false };
+      const row: StoredNote = { id: randomUUID(), householdId, kidId, ...note, synthetic: false, verdict: null };
       this.focusNoteRows.push(row);
       return publicNote(row);
     },
@@ -388,6 +389,12 @@ export class DemoStore implements AuthStore {
       const i = this.focusNoteRows.findIndex((n) => n.id === noteId && n.householdId === householdId);
       if (i < 0) return null;
       return this.focusNoteRows.splice(i, 1)[0].kidId;
+    },
+    setFocusVerdict: async (householdId: string, noteId: string, verdict: "right" | "not-right" | null) => {
+      const n = this.focusNoteRows.find((x) => x.id === noteId && x.householdId === householdId);
+      if (!n) return null;
+      n.verdict = verdict;
+      return n.kidId;
     },
   };
 
@@ -590,8 +597,8 @@ export class DemoStore implements AuthStore {
   };
 }
 
-function publicNote({ id, kidId, from, to, evidence, confidence, synthetic }: StoredNote): FocusNote {
-  return { id, kidId, from, to, evidence, confidence, synthetic };
+function publicNote({ id, kidId, from, to, evidence, confidence, synthetic, verdict }: StoredNote): FocusNote {
+  return { id, kidId, from, to, evidence, confidence, synthetic, verdict: verdict ?? null };
 }
 
 /** Strips one `${kidId}:` storage prefix back to the award key. */

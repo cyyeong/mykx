@@ -5,7 +5,8 @@
 // switched the camera on (checked with /api/me each time learning starts). While the camera runs, a chip with a
 // red dot says so the whole time; tapping it explains, and the kid can turn it off for now. When the counts show
 // focus well below the kid's usual for 3 minutes, Kix suggests a short break: once per dip, at most every 10
-// minutes. No pictures are kept or sent; the parent sees "possibly losing focus" notes, never the kid's face.
+// minutes. No pictures are kept or sent; the parent sees "possibly losing focus" notes, never the kid's face (a
+// line-drawing replay of the face-mesh points can be checked on this device only, lib/signals/replay.ts).
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { kixSprite } from "@/components/signin/looks";
@@ -172,7 +173,7 @@ export function FocusWatch() {
             <div id="focus-cam-explain" className={s.explain} role="dialog" aria-label="About the focus camera">
               <p className={s.explainLine}>
                 <CameraIcon />
-                <span>It counts looks away, sleepy eyes and yawns right here. No pictures are saved or sent; your grown-up sees only the counts.</span>
+                <span>It counts looks away, sleepy eyes and yawns right here. No pictures are saved or sent. So your grown-up can check it, a line drawing of your face shape from those few seconds stays on this device for a week.</span>
               </p>
               <div className={s.explainActs}>
                 <button type="button" className={s.textBtn} onClick={turnOffForNow}>

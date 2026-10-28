@@ -45,7 +45,8 @@ export async function loadGuardianView(store: AuthStore, householdId: string, ki
     beats,
     attempts,
     messages,
-    notes: notes.filter((n) => n.kidId === kid.id),
+    // A note the grown-up checked and marked "not right" no longer counts.
+    notes: notes.filter((n) => n.kidId === kid.id && n.verdict !== "not-right"),
     reads,
     seen,
     offer,
@@ -73,7 +74,7 @@ export async function loadKidStatus(store: AuthStore, householdId: string, kid: 
   ]);
   const settings = settingsFor(kid.band, kid.dailyLimitMin, saved);
   const day = screenTimeByDay(beats, [today], settings)[0];
-  const note = notes.find((n) => n.kidId === kid.id && !n.synthetic);
+  const note = notes.find((n) => n.kidId === kid.id && !n.synthetic && n.verdict !== "not-right");
   const mood = moodFromWords(messages.map((m) => m.text))?.mood ?? null;
   const sinceBreakMin = minutesSinceBreak(beats, now);
   const next = nextStep({
