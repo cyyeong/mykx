@@ -89,7 +89,7 @@ export interface GuardianPrefs {
   camFrom: string;
   camTo: string;
   camsPausedUntil: string | null;
-  /** The parent's own words for each kid, so the Home Reader can say "likely Ari" (no face templates). */
+  /** The parent's own words for each kid, so the Home Reader can say "likely Jordan" (no face templates). */
   descriptions: Record<string, string>;
 }
 

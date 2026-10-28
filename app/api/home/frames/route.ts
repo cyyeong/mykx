@@ -55,7 +55,7 @@ export async function POST(request: Request) {
     const hh = device.householdId;
     await store.homeWatch.touchCameras(hh, [...new Set(frames.map((f) => f.cameraId))], now.toISOString());
 
-    // 1. Read. The kids' nicknames and the parent's own words let Muse say "likely Ari"; nothing else about them.
+    // 1. Read. The kids' nicknames and the parent's own words let Muse say "likely Jordan"; nothing else about them.
     logRunsFor("home-reader", hh, null);
     const kids = await store.kids(hh);
     const reader = kids.map((k) => ({ nickname: k.nickname, band: k.band ?? "junior", description: prefs.descriptions[k.id] ?? null }));

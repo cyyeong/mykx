@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>myKx README: the learning loop</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#1C1B4A}
+.rd{width:1600px;height:900px;position:relative;overflow:hidden;font-family:"Nunito",system-ui,sans-serif;color:#2B2A5C;background:#F4F1FF;box-sizing:border-box}
+.rd *{box-sizing:border-box}
+.rd.dark{background:#1C1B4A;color:#F4F1FF}
+.rd h1,.rd h2,.rd h3,.rd p{margin:0}
+.rd-h1{font-family:"Fredoka",system-ui,sans-serif;font-weight:600;font-size:80px;line-height:86px;letter-spacing:-0.5px}
+.rd-h2{font-family:"Fredoka",system-ui,sans-serif;font-weight:600;font-size:62px;line-height:68px;letter-spacing:-0.3px}
+.rd-lede{font-size:26px;line-height:37px;font-weight:600;color:#4B4880}
+.dark .rd-lede{color:#D9D3FF}
+.rd-spark{width:16px;height:16px;fill:currentColor;flex:none}
+.rd-m{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 14px;border-radius:999px;background:#B9A7F5;color:#1C1B4A;font:800 17px/1 "Nunito",sans-serif;white-space:nowrap}
+.rd-r{display:inline-flex;align-items:center;height:34px;padding:0 14px;border-radius:999px;box-shadow:inset 0 0 0 2px #2C7A47;color:#1F5E37;font:800 17px/1 "Nunito",sans-serif;white-space:nowrap}
+.dark .rd-r{box-shadow:inset 0 0 0 2px #A8F0D4;color:#A8F0D4}
+.rd-chips{display:flex;flex-wrap:wrap;gap:8px}
+.rd-phone{background:#0F0E2A;border-radius:46px;padding:9px;box-shadow:0 28px 60px rgba(28,27,74,.35)}
+.rd-phone img{display:block;width:100%;border-radius:38px}
+.rd-shot{border-radius:16px;overflow:hidden;box-shadow:0 0 0 1px rgba(185,167,245,.35),0 24px 50px rgba(10,8,40,.35);background:#0F0E2A}
+.rd-shot img{display:block;width:100%}
+.rd-thread{position:absolute;inset:0;pointer-events:none}
+.rd-thread path{fill:none;stroke:#FFE38A;stroke-width:3;stroke-linecap:round;filter:drop-shadow(0 0 6px rgba(255,227,138,.9))}
+.rd-foot{position:absolute;left:88px;bottom:40px;font:700 18px/26px "Nunito",sans-serif;color:#8C87C4}
+.dark .rd-foot{color:#9D97D6}
+
+.l-head{position:absolute;left:88px;top:68px;width:1420px;display:flex;justify-content:space-between;align-items:flex-end;gap:40px}
+.l-head .rd-lede{width:520px;font-size:23px;line-height:33px}
+.l-grid{position:absolute;left:88px;right:88px;top:250px;display:grid;grid-template-columns:repeat(3,1fr);gap:50px 40px}
+.l-step{position:relative;padding:26px 28px 24px;border-radius:26px;background:#FFFFFF;box-shadow:inset 0 0 0 2px #E2DCFF;min-height:240px;display:flex;flex-direction:column}
+.l-step.muse{background:#2B2A5C;color:#F4F1FF;box-shadow:none}
+.l-num{position:absolute;top:-22px;left:24px;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:#FFE38A;color:#2B2A5C;font:600 24px/1 "Fredoka",sans-serif;box-shadow:0 0 0 5px #F4F1FF}
+.l-step h3{font:600 30px/36px "Fredoka",sans-serif;margin-top:6px}
+.l-step p{margin-top:10px;font:700 19px/28px "Nunito",sans-serif;color:#4B4880;flex:1}
+.l-step.muse p{color:#D9D3FF}
+.l-step .rd-chips{margin-top:14px}
+.l-step.muse .rd-r{box-shadow:inset 0 0 0 2px #A8F0D4;color:#A8F0D4}
+.l-back{position:absolute;right:88px;bottom:34px;font:800 18px/24px "Nunito",sans-serif;color:#6C66B0}
+</style>
+</helmet>
+<div class="rd">
+
+<div class="l-head">
+  <h1 class="rd-h2" style="width:860px">From past papers to the next right question.</h1>
+  <p class="rd-lede">Specialist agents keep learning what Singapore exams ask, and what each child still finds hard.</p>
+</div>
+<div class="l-grid"><div class="l-step"><span class="l-num">1</span><h3>Past-paper scout</h3><p>Every Monday it checks approved Singapore paper sites, within each site's robots rules, for new papers.</p><div class="rd-chips"><span class="rd-r">Rules</span></div></div><div class="l-step muse"><span class="l-num">2</span><h3>Content Curator</h3><p>Reads new papers for patterns, traps and how often a topic comes up. It never keeps a school's questions, and an admin approves every change.</p><div class="rd-chips"><span class="rd-m"><svg class="rd-spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0c.8 6.4 5.6 11.2 12 12-6.4.8-11.2 5.6-12 12-.8-6.4-5.6-11.2-12-12C6.4 11.2 11.2 6.4 12 0z"/></svg>Muse Spark</span></div></div><div class="l-step"><span class="l-num">3</span><h3>Seven skill packs</h3><p>P3 English, Maths, Science and Chinese; P6 Maths and Science; Sec 2 Science. Original questions in each exam's format.</p><div class="rd-chips"><span class="rd-r">Reviewed by the founder</span></div></div><div class="l-step muse"><span class="l-num">4</span><h3>Kix Tutor</h3><p>Picks the next question on the child's weakest sub-skill and gives hints that never hand over the answer.</p><div class="rd-chips"><span class="rd-m"><svg class="rd-spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0c.8 6.4 5.6 11.2 12 12-6.4.8-11.2 5.6-12 12-.8-6.4-5.6-11.2-12-12C6.4 11.2 11.2 6.4 12 0z"/></svg>Muse Spark</span><span class="rd-r">Selection rules</span></div></div><div class="l-step"><span class="l-num">5</span><h3>Mastery and Treasure</h3><p>Scores and rewards are plain code: a holographic card, a critter that grows, a jet that unlocks. No loot boxes, no rankings, no money.</p><div class="rd-chips"><span class="rd-r">Rules</span></div></div><div class="l-step muse"><span class="l-num">6</span><h3>Memory Keeper</h3><p>Writes Kix's Notebook: how this child asks, slips and wins, so tomorrow starts where today ended. The parent can edit or wipe it.</p><div class="rd-chips"><span class="rd-m"><svg class="rd-spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0c.8 6.4 5.6 11.2 12 12-6.4.8-11.2 5.6-12 12-.8-6.4-5.6-11.2-12-12C6.4 11.2 11.2 6.4 12 0z"/></svg>Muse Spark</span></div></div></div>
+<p class="l-back">Steps 4 to 6 repeat every session, so the questions follow the child.</p>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1600,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

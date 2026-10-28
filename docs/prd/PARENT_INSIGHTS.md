@@ -32,7 +32,7 @@ Each flag shows **what we saw** (the evidence), **what it may mean** (uncertain 
 
 - Parent ↔ child inside the household only. The parent writes or picks an encouragement and can add a **Kix sticker**. The child sees "Message from Mum" delivered by Kix on Home and replies with quick replies, stickers, a short text or a voice note (transcribed).
 - **Stickers instead of GIF services:** our own animated Kix sticker pack. Muse Image stills are animated with CSS: cheer, high five, hug, proud, you've got this, sleepy, star, party, rest time, heart. There's no third-party GIF service, so kids aren't tracked and there's no unsafe content. Standard emoji are allowed in text.
-- When a flag fires, Kix suggests a message ("Ari found Wednesday tricky. Send a hug?").
+- When a flag fires, Kix suggests a message ("Jordan found Wednesday tricky. Send a hug?").
 - **Family messages are private:** Kix, the Memory Keeper and every language model never read them, and they aren't used for mood. A voice reply goes through Muse Voice Transcribe like any voice input (Standard, audio discarded) and only its text is sent.
 
 ## 4. Rules

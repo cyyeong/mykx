@@ -1,4 +1,4 @@
-// Quest map (Junior, Dreamlight): Ari's frog life cycle from task 2. The stops,
+// Quest map (Junior, Dreamlight): Jordan's frog life cycle from task 2. The stops,
 // their states and the panel all come from the server (real mastery and the
 // ledger); this component only renders them.
 import type { CSSProperties } from "react";

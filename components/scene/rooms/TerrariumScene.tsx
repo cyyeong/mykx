@@ -1,6 +1,6 @@
 "use client";
 
-// Ari's terrarium (art: /art/scenes/terrarium). Rustle the fern, tap the glass (sometimes it fogs up and a
+// Jordan's terrarium (art: /art/scenes/terrarium). Rustle the fern, tap the glass (sometimes it fogs up and a
 // smiley gets drawn in it), fireflies sing notes and a dragonfly loops when caught.
 import type { CSSProperties } from "react";
 import { useSound } from "@/components/sound/SoundProvider";

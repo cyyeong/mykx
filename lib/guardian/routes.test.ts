@@ -12,7 +12,7 @@ import * as homework from "@/app/api/kix/homework/route";
 import * as tutor from "@/app/api/kix/tutor/route";
 import * as vibe from "@/app/api/vibe/route";
 import * as sharedRoute from "@/app/api/family/shared/route";
-import { ARI_ID, DEMO_HOUSEHOLD_ID } from "../auth/demo-family.ts";
+import { JORDAN_ID, DEMO_HOUSEHOLD_ID } from "../auth/demo-family.ts";
 import { resetRateLimits } from "../auth/lockout.ts";
 import { resetDemoStore, type DemoStore } from "../auth/store-demo.ts";
 
@@ -52,7 +52,7 @@ afterEach(() => {
 
 const asAri = async () => {
   await b.call(parentRoute.POST, "/api/auth/parent", { email: "parent@demo.mykx", password: "x" });
-  await b.call(kidRoute.POST, "/api/auth/kid", { kidId: ARI_ID, secret: { kind: "pictures", code: ["idle", "cheer", "pilot", "dreamlight"] } });
+  await b.call(kidRoute.POST, "/api/auth/kid", { kidId: JORDAN_ID, secret: { kind: "pictures", code: ["idle", "cheer", "pilot", "dreamlight"] } });
 };
 
 describe("guardian routes", () => {
@@ -67,7 +67,7 @@ describe("guardian routes", () => {
     expect(r.body.next.kind).toBe("learn");
     expect(r.body.left).toBe(30);
     await b.call(beat.POST, "/api/guardian/beat", { kind: "learn", idle: false });
-    expect(await store.guardian.beats(DEMO_HOUSEHOLD_ID, ARI_ID, "2000-01-01T00:00:00Z")).toHaveLength(1);
+    expect(await store.guardian.beats(DEMO_HOUSEHOLD_ID, JORDAN_ID, "2000-01-01T00:00:00Z")).toHaveLength(1);
     expect((await b.call(beat.POST, "/api/guardian/beat", { kind: "nap", idle: false })).status).toBe(400);
   });
 
@@ -106,9 +106,9 @@ describe("guardian routes", () => {
     });
     expect(r.status).toBe(200);
     expect(r.body.care.reply).toMatch(/Tinkle Friend/);
-    const said = await store.guardian.messages(DEMO_HOUSEHOLD_ID, ARI_ID, "2000-01-01T00:00:00Z");
+    const said = await store.guardian.messages(DEMO_HOUSEHOLD_ID, JORDAN_ID, "2000-01-01T00:00:00Z");
     expect(said).toMatchObject([{ source: "reason", distress: true }]);
-    expect((await store.learn.attempts(DEMO_HOUSEHOLD_ID, ARI_ID))[0].durationMs).toBe(2_000);
+    expect((await store.learn.attempts(DEMO_HOUSEHOLD_ID, JORDAN_ID))[0].durationMs).toBe(2_000);
   });
 
   it("Ask Kix answers with the labelled sample when no model key is set, and keeps the answer back until 'full'", async () => {
@@ -156,7 +156,7 @@ describe("guardian routes", () => {
     expect(shared.body.creation.sharedVersion).toBe(2);
     await b.call(kidRoute.DELETE, "/api/auth/kid", null);
     const forParent = await b.call(sharedRoute.GET, "/api/family/shared");
-    expect(forParent.body.shared).toMatchObject([{ kid: "Ari", version: 2, title: "Frog life cycle flashcards" }]);
+    expect(forParent.body.shared).toMatchObject([{ kid: "Jordan", version: 2, title: "Frog life cycle flashcards" }]);
     await store.creations.revoke(DEMO_HOUSEHOLD_ID, first.body.creation.id);
     expect((await b.call(sharedRoute.GET, "/api/family/shared")).body.shared).toEqual([]);
   });

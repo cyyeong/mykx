@@ -3,11 +3,11 @@ import { ago, briefDigest, briefFacts, fallbackBrief, hasAnything, type BriefInp
 
 const base = (): BriefInput => ({
   kids: [
-    { nickname: "Ari", sharing: "on", place: null, motion: "walking", minutesAgo: 1, lastEvent: "left School 15:12" },
-    { nickname: "Zara", sharing: "on", place: "School", motion: "still", minutesAgo: 6, lastEvent: null },
-    { nickname: "Mei", sharing: "paused", place: "Home", motion: "still", minutesAgo: 40, lastEvent: null },
+    { nickname: "Jordan", sharing: "on", place: null, motion: "walking", minutesAgo: 1, lastEvent: "left School 15:12" },
+    { nickname: "Abby", sharing: "on", place: "School", motion: "still", minutesAgo: 6, lastEvent: null },
+    { nickname: "Leonard", sharing: "paused", place: "Home", motion: "still", minutesAgo: 40, lastEvent: null },
   ],
-  rooms: [{ room: "Living room", who: ["Zara", "Ari"], activity: "arguing", cue: "frowning", concern: "watch", minutesAgo: 1 }, { room: "Kitchen", who: [], activity: "nobody here", cue: null, concern: "none", minutesAgo: 3 }],
+  rooms: [{ room: "Living room", who: ["Abby", "Jordan"], activity: "arguing", cue: "frowning", concern: "watch", minutesAgo: 1 }, { room: "Kitchen", who: [], activity: "nobody here", cue: null, concern: "none", minutesAgo: 3 }],
   alerts: [{ level: "watch", kind: "conflict", room: "Living room", minutesAgo: 1 }],
   camerasOn: true,
 });
@@ -15,8 +15,8 @@ const base = (): BriefInput => ({
 describe("the Guardian Brief's facts", () => {
   it("carries names, places, motion and times, and never a coordinate", () => {
     const f = briefFacts(base());
-    expect(f).toContain("Ari: out and about, possibly walking (just now). Latest: left School 15:12.");
-    expect(f).toContain("Mei: paused location sharing");
+    expect(f).toContain("Jordan: out and about, possibly walking (just now). Latest: left School 15:12.");
+    expect(f).toContain("Leonard: paused location sharing");
     expect(f).toContain("Unchecked watch note: conflict in the Living room");
     expect(f).not.toMatch(/\d\.\d{3,}/);
   });
@@ -32,8 +32,8 @@ describe("the Guardian Brief's facts", () => {
   });
 
   it("writes a fallback in the rules' own words, putting notes first, and knows when there is nothing", () => {
-    expect(fallbackBrief(base())).toBe("One note needs a look: conflict in the Living room. Ari is possibly walking, Zara is at School. Living room: Zara and Ari (arguing).");
-    expect(hasAnything({ kids: [{ nickname: "Ari", sharing: "on", place: null, motion: null, minutesAgo: null, lastEvent: null }], rooms: [], alerts: [], camerasOn: false })).toBe(false);
+    expect(fallbackBrief(base())).toBe("One note needs a look: conflict in the Living room. Jordan is possibly walking, Abby is at School. Living room: Abby and Jordan (arguing).");
+    expect(hasAnything({ kids: [{ nickname: "Jordan", sharing: "on", place: null, motion: null, minutesAgo: null, lastEvent: null }], rooms: [], alerts: [], camerasOn: false })).toBe(false);
     expect(hasAnything(base())).toBe(true);
   });
 });

@@ -9,7 +9,7 @@ type Variant = "pill" | "bar";
 async function Label({ variant }: { variant: Variant }) {
   if (!(await isDemoFamily())) return null;
   return (
-    <p className={variant === "bar" ? "kidnav-demo" : "demo-label"} title="Ari, Zara and Mei are made-up learners. Their progress is sample data.">
+    <p className={variant === "bar" ? "kidnav-demo" : "demo-label"} title="Jordan, Abby and Leonard are sample learners: their progress, messages and readings are made up.">
       Demo family · synthetic data
     </p>
   );

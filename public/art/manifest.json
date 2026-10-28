@@ -2761,5 +2761,27 @@
     "sha256": "0a4b4249174fb76b92ce748ccbceccefd9e9232c19dbc7c7d83f1b4745e75460",
     "cut_by": "sam-3.1",
     "note": "SAM 3.1 masks for “child” on the synthetic tug-of-war frame, drawn as outlines in each kid's colour (left: Zara, magenta; right: Ari, green) for the Home now alert design (GUARDIAN.md §2.5)."
+  },
+  {
+    "id": "readme-hero",
+    "path": "public/art/readme/hero.webp",
+    "variants": [
+      "public/art/readme/hero-960.webp"
+    ],
+    "pack": null,
+    "kind": "background",
+    "model": "muse-image-1.0",
+    "route": "api",
+    "prompt": "The three reference images show the same original character, Kix: a round, soft five-point star-shaped sprite with a glowing four-point sparkle on its forehead, big friendly dark eyes with highlights, small rosy cheeks, gentle smile, stubby arms, soft lavender body fading to mint at the bottom. Keep its shape, proportions and face identical.\n\nMake one wide cinematic illustration with exactly three of these characters, one in each outfit from the references (the explorer with the safari hat, magnifying glass and leaf garland; the performer with the holographic jacket and star wand; the pilot with the flight suit and helmet), and no other copies or creatures. They stand close together on the right half of the frame on a glowing path of golden starlight that curves in from the left, waving and cheerful.\n\nBehind each one, a hint of its own world melts into the next: lush moss, ferns and a little pond behind the explorer; soft magenta and cyan stage beams and confetti behind the performer; a dusk sky with light rays and a small original sleek display jet trailing glitter behind the pilot. Far behind them, a calm twilight city skyline of tall residential apartment blocks with warm lit windows, under a gentle lavender and mint aurora.\n\nThe left 45 percent of the image is calm, dark twilight sky with a few soft stars: uncluttered negative space for a headline. Dreamy magical twilight fantasy illustration, pastel lavender, mint and peach light, star gold highlights, soft bokeh, painterly soft 3D, premium and warm. No people, no text, no letters, no numbers, no logos, no watermark, no flags.",
+    "refs": [
+      "public/art/kix/terrarium.webp",
+      "public/art/kix/idol-stage.webp",
+      "public/art/kix/pilot.webp"
+    ],
+    "size": "1792x1024",
+    "created": "2026-10-28",
+    "sha256": "609183217326a6fad78ea2780ff6697d6e6b9044593d6ecc222ca8e2ce09b1f3",
+    "cut_by": null,
+    "note": "README and video hero: the three sample kids' Kix (Jordan's explorer, Abby's performer, Leonard's pilot). Candidate 2 of 3, chosen 28 Oct."
   }
 ]

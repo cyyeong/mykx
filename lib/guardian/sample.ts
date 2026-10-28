@@ -1,4 +1,4 @@
-// Ari's synthetic week for the guardian (sample data, labelled in the UI, AGENTS.md rule 8). It tells the parent
+// Jordan's synthetic week for the guardian (sample data, labelled in the UI, AGENTS.md rule 8). It tells the parent
 // dashboard's story from the design board: three tired evening sessions, one day over the limit, a curious
 // question. Times are relative to `now`, so the demo always shows "this week". The demo store seeds it, and
 // scripts/guardian-sample-sql.ts prints the same rows for Supabase.

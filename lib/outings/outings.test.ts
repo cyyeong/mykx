@@ -15,7 +15,7 @@ describe("outings", () => {
     const p = scoutPrompt({ area: "Sengkang", radiusKm: 3, interests: ["badminton", "cycling"], dates: ["2026-10-31", "2026-11-01"] });
     expect(p).toContain("near Sengkang, Singapore, within about 3 km");
     expect(p).toContain("badminton, cycling");
-    expect(p).not.toMatch(/\b(Ari|Zara|Mei)\b|\bage\b|\bchild/i);
+    expect(p).not.toMatch(/\b(Jordan|Abby|Leonard)\b|\bage\b|\bchild/i);
   });
 
   it("keeps only ideas for the asked dates whose source the Scout really cited, once each", () => {

@@ -12,7 +12,7 @@ import { learnContext, questData } from "@/lib/learn/server";
 
 export const metadata: Metadata = { title: "Question · myKx" };
 
-// The frog quest's reviewed items (Ari's quest from task 2).
+// The frog quest's reviewed items (Jordan's quest from task 2).
 export function generateStaticParams() {
   return loadFrogItems().map((item) => ({ id: item.id }));
 }

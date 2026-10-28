@@ -1,5 +1,5 @@
 {
-  "_note": "Canvas (myKx Screens) upload id \u2192 repo art path without extension (pass to <Art base=\u2026>). Derived from each board's alt text and usage on 27 Oct; ids marked * are inferred from which board uses them as a background.",
+  "_note": "Canvas (myKx Screens) upload id → repo art path without extension (pass to <Art base=…>). Derived from each board's alt text and usage on 27 Oct; ids marked * are inferred from which board uses them as a background.",
   "1be0285c83fc5de9a8d666fbb5e6c403": "/art/kix/dreamlight",
   "02b5a70e7404562cef8d3aaba98b9e32": "/art/kix/anime-sky",
   "37653891e49ec872cab5610d9f2e71d3": "/art/kix/toon-pop",
@@ -165,5 +165,6 @@
   "45de2e9922ee7c35f6da121f055cc7f4": "/art/sim/living-window",
   "4ac7cd844d252b0d6b104423614f6cce": "/art/sim/entrance-arrive",
   "c0f522b2d5481fa60060cf1be2edcee1": "/art/sim/kitchen-empty",
-  "bab6e4384fe1d9250a67e66eb693cd8d": "/art/sim/living-argument-sam"
+  "bab6e4384fe1d9250a67e66eb693cd8d": "/art/sim/living-argument-sam",
+  "fbacb8392f6ac1a1ddd4feb3fe248aa0": "/art/readme/hero"
 }

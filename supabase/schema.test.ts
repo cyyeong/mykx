@@ -50,9 +50,9 @@ afterAll(async () => {
 describe("household isolation (row-level security)", () => {
   it("a parent sees only their own household's profiles and attempts", async () => {
     const names = await as(PARENT_A, () => db.query<{ nickname: string }>("select nickname from profiles order by nickname"));
-    expect(names.rows.map((r) => r.nickname)).toEqual(["Ari", "Demo Parent", "Mei", "Zara"]);
+    expect(names.rows.map((r) => r.nickname)).toEqual(["Abby", "Demo Parent", "Jordan", "Leonard"]);
     const attempts = await as(PARENT_A, () => db.query<{ idempotency_key: string }>("select idempotency_key from attempts"));
-    // Ari's synthetic seed history (seed.sql) plus the row this file inserts.
+    // Jordan's synthetic seed history (seed.sql) plus the row this file inserts.
     expect(attempts.rows.map((r) => r.idempotency_key)).toEqual(["seed:ari:p3sci-demo-01", "seed:ari:p3sci-demo-02-try1", "seed:ari:p3sci-demo-02-try2", "a-1"]);
   });
 
@@ -138,9 +138,9 @@ describe("accounts (ACCOUNTS.md §5)", () => {
       ),
     );
     expect(rows.rows.map((r) => [r.nickname, r.secret_kind])).toEqual([
-      ["Ari", "pictures"],
-      ["Mei", "password"],
-      ["Zara", "password"],
+      ["Abby", "password"],
+      ["Jordan", "pictures"],
+      ["Leonard", "password"],
     ]);
   });
 
@@ -177,7 +177,7 @@ describe("accounts (ACCOUNTS.md §5)", () => {
     await expect(kid("   ")).rejects.toThrow(/check constraint/);
     await expect(kid("Boss", ", is_admin", ", true")).rejects.toThrow(/check constraint/);
     await expect(kid("Hashonly", ", secret_hash", ", 'scrypt$1$1$1$a$b'")).rejects.toThrow(/check constraint/);
-    await expect(kid("ari")).rejects.toThrow(/duplicate key/); // one door per name, any case
+    await expect(kid("jordan")).rejects.toThrow(/duplicate key/); // one door per name, any case
     await expect(
       db.query(`insert into profiles (household_id, role, nickname, secret_kind) values ($1, 'parent', 'Grown Up', 'password')`, [HOUSE_A]),
     ).rejects.toThrow(/check constraint/);

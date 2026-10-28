@@ -47,7 +47,7 @@ export interface HomeData {
 }
 
 const SAMPLE: HomeData = {
-  nickname: "Ari",
+  nickname: "Jordan",
   stars: 0,
   quest: { title: "The frog life cycle", href: ROUTES.quest, mastered: 0, total: 5, questions: 3, minutes: 9, evidence: "No evidence yet", started: false },
   pip: { stage: 0, name: "frogspawn", next: { name: "tadpole", needs: "answer your first question" } },

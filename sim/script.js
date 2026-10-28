@@ -26,20 +26,20 @@ export const SPOTS = {
 };
 
 /** Roles in the script; the server maps them to the paired family's kids (by nickname, else youngest first). */
-export const ROLES = { A: "Ari", B: "Zara", C: "Mei" };
+export const ROLES = { A: "Jordan", B: "Abby", C: "Leonard" };
 
 /** The afternoon, in script minutes from 15:00. Each beat is a location or camera frames. */
 export const BEATS = [
-  { min: 5, label: "Ari leaves School, walking", send: { type: "location", role: "A", spot: "School" } },
-  { min: 12, label: "Ari walking", send: { type: "location", role: "A", spot: "Walking home" } },
+  { min: 5, label: "Jordan leaves School, walking", send: { type: "location", role: "A", spot: "School" } },
+  { min: 12, label: "Jordan walking", send: { type: "location", role: "A", spot: "Walking home" } },
   { min: 20, label: "Playground: maybe playing", send: { type: "location", role: "A", spot: "Playground" } },
   { min: 26, label: "Still at the playground", send: { type: "location", role: "A", spot: "Playground" } },
-  { min: 37, label: "Zara still at School", send: { type: "location", role: "B", spot: "School" } },
-  { min: 38, label: "Ari walking home", send: { type: "location", role: "A", spot: "Walking home" } },
-  { min: 41, label: "Ari home: Entrance camera", send: { type: "location", role: "A", spot: "Home", frames: [{ frame: "entrance-arrive", room: "Entrance" }] } },
+  { min: 37, label: "Abby still at School", send: { type: "location", role: "B", spot: "School" } },
+  { min: 38, label: "Jordan walking home", send: { type: "location", role: "A", spot: "Walking home" } },
+  { min: 41, label: "Jordan home: Entrance camera", send: { type: "location", role: "A", spot: "Home", frames: [{ frame: "entrance-arrive", room: "Entrance" }] } },
   { min: 45, label: "Kitchen: noodles", send: { type: "frames", frames: [{ frame: "kitchen-snack", room: "Kitchen" }] } },
-  { min: 65, label: "Living room: TV with Zara", send: { type: "frames", frames: [{ frame: "living-tv", room: "Living room" }, { frame: "kitchen-empty", room: "Kitchen" }] } },
-  { min: 90, label: "Study: Mei’s homework", send: { type: "frames", frames: [{ frame: "study-homework", room: "Study" }] } },
+  { min: 65, label: "Living room: TV with Abby", send: { type: "frames", frames: [{ frame: "living-tv", room: "Living room" }, { frame: "kitchen-empty", room: "Kitchen" }] } },
+  { min: 90, label: "Study: Leonard’s homework", send: { type: "frames", frames: [{ frame: "study-homework", room: "Study" }] } },
   { min: 112, label: "Open window (urgent)", send: { type: "frames", burst: true, frames: [{ frame: "living-window", room: "Living room" }] } },
   { min: 126, label: "Remote tug-of-war, 1 of 3", send: { type: "frames", frames: [{ frame: "living-argument", room: "Living room" }] } },
   { min: 127, label: "Still arguing, 2 of 3", send: { type: "frames", frames: [{ frame: "living-argument", room: "Living room" }] } },

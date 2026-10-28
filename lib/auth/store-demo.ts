@@ -5,7 +5,7 @@ import { randomUUID } from "node:crypto";
 import type { FocusMinute } from "../signals/focus.ts";
 import type { FocusNote } from "../signals/schemas.ts";
 import {
-  ARI_ID,
+  JORDAN_ID,
   ARI_SAMPLE_FOCUS_NOTE,
   DEMO_HOUSEHOLD_ID,
   DEMO_KIDS,
@@ -14,12 +14,12 @@ import {
   DEMO_PARENT_USER_ID,
   KAI_ID,
   KAI_SECRET_HASH,
-  MEI_ID,
+  LEONARD_ID,
   OTHER_HOUSEHOLD_ID,
   OTHER_PARENT_EMAIL,
   OTHER_PARENT_ID,
   OTHER_PARENT_USER_ID,
-  ZARA_ID,
+  ABBY_ID,
 } from "./demo-family.ts";
 import type { AttemptEvent } from "../domain/attempts.ts";
 import type { LedgerEntry } from "../domain/rewards.ts";
@@ -87,7 +87,7 @@ function profile(p: Partial<Profile> & Pick<Profile, "id" | "householdId" | "rol
   };
 }
 
-/** Yesterday at 4:12 pm Singapore time (UTC+8, no daylight saving), for Ari's sample focus note. */
+/** Yesterday at 4:12 pm Singapore time (UTC+8, no daylight saving), for Jordan's sample focus note. */
 function yesterdayAfternoonSg(now = Date.now()): number {
   const sg = new Date(now + 8 * 3_600_000);
   return Date.UTC(sg.getUTCFullYear(), sg.getUTCMonth(), sg.getUTCDate() - 1, 8, 12);
@@ -204,7 +204,7 @@ export class DemoStore implements AuthStore {
       verdict: null,
       ...ARI_SAMPLE_FOCUS_NOTE,
       householdId: DEMO_HOUSEHOLD_ID,
-      kidId: ARI_ID,
+      kidId: JORDAN_ID,
       from: new Date(from).toISOString(),
       to: new Date(from + 3 * 60_000).toISOString(),
       synthetic: true,
@@ -884,7 +884,7 @@ export function resetDemoStore(): DemoStore {
 }
 
 /**
- * Ari's synthetic earlier history (yesterday afternoon, SG): two answered frog
+ * Jordan's synthetic earlier history (yesterday afternoon, SG): two answered frog
  * stops, so Treasure opens earned, not empty. Same rows as supabase/seed.sql.
  * Dev only — tests use resetDemoStore (unseeded) — called by demoStore().
  */
@@ -903,7 +903,7 @@ export function seedDemoHistory(store: DemoStore): void {
       ...base,
       id: "00000000-0000-4000-8000-00000000a101",
       householdId: DEMO_HOUSEHOLD_ID,
-      kidId: ARI_ID,
+      kidId: JORDAN_ID,
       itemId: "p3sci-demo-01",
       family: "p3sci-demo-01",
       subskill: "three_stage",
@@ -922,7 +922,7 @@ export function seedDemoHistory(store: DemoStore): void {
       ...base,
       id: "00000000-0000-4000-8000-00000000a102",
       householdId: DEMO_HOUSEHOLD_ID,
-      kidId: ARI_ID,
+      kidId: JORDAN_ID,
       itemId: "p3sci-demo-02",
       family: "p3sci-demo-02",
       subskill: "stage_features",
@@ -940,7 +940,7 @@ export function seedDemoHistory(store: DemoStore): void {
       ...base,
       id: "00000000-0000-4000-8000-00000000a103",
       householdId: DEMO_HOUSEHOLD_ID,
-      kidId: ARI_ID,
+      kidId: JORDAN_ID,
       itemId: "p3sci-demo-02",
       family: "p3sci-demo-02",
       subskill: "stage_features",
@@ -959,17 +959,17 @@ export function seedDemoHistory(store: DemoStore): void {
   ];
   for (const r of rows) store.attemptRows.set(r.idempotencyKey, r);
   const entries: StoredLedgerEntry[] = [
-    { key: `${ARI_ID}:first_attempt:p3sci-demo-01`, kind: "stars", rule: "first_attempt", amount: 2, ref: "p3sci-demo-01", at: at(0), day, householdId: DEMO_HOUSEHOLD_ID, kidId: ARI_ID },
-    { key: `${ARI_ID}:retry_revised:p3sci-demo-02`, kind: "stars", rule: "retry_revised", amount: 3, ref: "p3sci-demo-02", at: at(4), day, householdId: DEMO_HOUSEHOLD_ID, kidId: ARI_ID },
+    { key: `${JORDAN_ID}:first_attempt:p3sci-demo-01`, kind: "stars", rule: "first_attempt", amount: 2, ref: "p3sci-demo-01", at: at(0), day, householdId: DEMO_HOUSEHOLD_ID, kidId: JORDAN_ID },
+    { key: `${JORDAN_ID}:retry_revised:p3sci-demo-02`, kind: "stars", rule: "retry_revised", amount: 3, ref: "p3sci-demo-02", at: at(4), day, householdId: DEMO_HOUSEHOLD_ID, kidId: JORDAN_ID },
   ];
   for (const e of entries) store.ledgerRows.set(e.key, e);
-  // Ari's synthetic guardian week (lib/guardian/sample.ts): screen time and a few words to Kix, labelled "Sample".
+  // Jordan's synthetic guardian week (lib/guardian/sample.ts): screen time and a few words to Kix, labelled "Sample".
   const week = sampleGuardianWeek();
-  for (const b of week.beats) store.beatRows.set(`${ARI_ID}|${Date.parse(b.at)}`, { ...b, householdId: DEMO_HOUSEHOLD_ID, kidId: ARI_ID });
-  for (const m of week.messages) store.kixMessageRows.push({ ...m, householdId: DEMO_HOUSEHOLD_ID, kidId: ARI_ID });
+  for (const b of week.beats) store.beatRows.set(`${JORDAN_ID}|${Date.parse(b.at)}`, { ...b, householdId: DEMO_HOUSEHOLD_ID, kidId: JORDAN_ID });
+  for (const m of week.messages) store.kixMessageRows.push({ ...m, householdId: DEMO_HOUSEHOLD_ID, kidId: JORDAN_ID });
   // Guardian: the demo family's Home and School pins in Sengkang (synthetic), and who shares (same as supabase/seed.sql).
   for (const p of DEMO_PLACES) store.placeRows.set(p.id, { ...p, householdId: DEMO_HOUSEHOLD_ID });
-  for (const [kidId, mode] of [[ARI_ID, "balanced"], [ZARA_ID, "school"], [MEI_ID, "balanced"]] as const) store.locationSettingRows.set(kidId, { kidId, enabled: true, mode, pausedUntil: null, householdId: DEMO_HOUSEHOLD_ID });
+  for (const [kidId, mode] of [[JORDAN_ID, "balanced"], [ABBY_ID, "school"], [LEONARD_ID, "balanced"]] as const) store.locationSettingRows.set(kidId, { kidId, enabled: true, mode, pausedUntil: null, householdId: DEMO_HOUSEHOLD_ID });
   store.guardianPrefRows.set(DEMO_HOUSEHOLD_ID, { ...DEFAULT_PREFS, descriptions: DEMO_DESCRIPTIONS });
 }
 
@@ -982,9 +982,9 @@ function withoutHousehold<T extends { householdId: string }>(row: T): Omit<T, "h
 
 /** The demo family's descriptions, in a parent's words, matching the synthetic camera frames' cast (public/art/sim). */
 export const DEMO_DESCRIPTIONS: Record<string, string> = {
-  [ARI_ID]: "Youngest, about 9, short straight black hair, often a light blue T-shirt",
-  [ZARA_ID]: "About 12, curly chin-length hair, often a mustard-yellow T-shirt",
-  [MEI_ID]: "About 14, long black ponytail and round glasses, often a grey hoodie",
+  [JORDAN_ID]: "Youngest, about 9, short straight black hair, often a light blue T-shirt",
+  [ABBY_ID]: "About 12, curly chin-length hair, often a mustard-yellow T-shirt",
+  [LEONARD_ID]: "About 14, long black ponytail and round glasses, often a grey hoodie",
 };
 
 /** The demo family's synthetic pins (GUARDIAN §2.1): a block near Sengkang's riverside and a primary school about 1.6 km away. */

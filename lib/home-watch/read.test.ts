@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { readTick } from "./read.ts";
 import type { ReaderKid } from "./reader.ts";
 
-const KIDS: ReaderKid[] = [{ nickname: "Ari", band: "junior", description: null }, { nickname: "Zara", band: "junior", description: null }];
+const KIDS: ReaderKid[] = [{ nickname: "Jordan", band: "junior", description: null }, { nickname: "Abby", band: "junior", description: null }];
 afterEach(() => vi.unstubAllEnvs());
 
 describe("the cached fallback for the simulator's synthetic frames (rule 7)", () => {

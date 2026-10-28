@@ -63,7 +63,7 @@ Many Singapore children go home on their own after school while both parents wor
 
 Android's Activity Recognition API and iOS Core Motion would be more accurate, but they need a small native plugin of our own: roadmap. Free Capacitor plugins don't expose them, and the one that does (Transistorsoft) needs a paid licence for Android release builds.
 
-**Places.** The parent drops pins for Home and School, each with a radius of 50–300 m. The app records *arrived* and *left* events: "Ari left school 15:12 · walking · arrived home 15:41". There's an optional watch flag: "not home by 16:30 on a school day". Place names come from the parent's pins, so no reverse-geocoding service sees the child's position.
+**Places.** The parent drops pins for Home and School, each with a radius of 50–300 m. The app records *arrived* and *left* events: "Jordan left school 15:12 · walking · arrived home 15:41". There's an optional watch flag: "not home by 16:30 on a school day". Place names come from the parent's pins, so no reverse-geocoding service sees the child's position.
 
 **The parent map.** Leaflet 1.9.4 (installed with `npm --save-exact`, not a CDN) with **OneMap** tiles, the Singapore Land Authority's official basemap. It uses `Default` tiles in light mode and `Night` in dark mode, with the required OneMap logo and attribution. Each kid gets a marker ringed in their Kix colour, an accuracy circle, today's trail fading with age, a motion chip, "updated 2 min ago" (amber after 15 min, grey after an hour) and battery level (native app only). It's phone-first, with a bottom sheet for each kid.
 
@@ -78,7 +78,7 @@ Android's Activity Recognition API and iOS Core Motion would be more accurate, b
 
 **Data.** A `locations` table holds household, kid, time, lat, lng, accuracy, speed, heading, motion, source (`web`/`android`/`sim`) and battery. Points are kept **30 days**, and the parent can choose 7. A `places` table holds the parent's pins, and `place_events` the arrived and left events. Row-level security works by household, like every other table. The kid's session writes for web; a device token writes for Android and the simulator.
 
-**The child knows.** A chip on Home and in the kid menu says "Sharing where you are with your grown-ups" with the mode. Teens can open "What my grown-ups see", and **a teen can pause sharing for 30 minutes** at a time (founder, 28 Oct): the parent sees "Mei paused sharing until 16:40" at once, and the map shows the last point greyed. Juniors can't pause; the parent can switch it off for any child.
+**The child knows.** A chip on Home and in the kid menu says "Sharing where you are with your grown-ups" with the mode. Teens can open "What my grown-ups see", and **a teen can pause sharing for 30 minutes** at a time (founder, 28 Oct): the parent sees "Leonard paused sharing until 16:40" at once, and the map shows the last point greyed. Juniors can't pause; the parent can switch it off for any child.
 
 Muse Spark reads the place events and motion states in the Guardian brief and the evening summary (§2.5). Raw coordinates never go to a model: only the place names and times.
 
@@ -101,7 +101,7 @@ Muse Spark reads the place events and motion states in the Guardian brief and th
 
 1. Check the device token, the camera ids and the sizes (≤ 10 images, ≤ 1.5 MB each). Frames are held in memory only.
 2. **One Muse Spark call (Standard) per tick** with every changed frame and its room label. A zod-checked JSON schema comes back, one entry per camera:
-   - `people`: each person as `child`, `adult` or `unknown`. A child may be named `likely: "Ari"` with a confidence, only from the parent's own descriptions in settings (age band and, optionally, "usually in the blue PE shirt"). No face templates are made or stored. **Adults are never named.**
+   - `people`: each person as `child`, `adult` or `unknown`. A child may be named `likely: "Jordan"` with a confidence, only from the parent's own descriptions in settings (age band and, optionally, "usually in the blue PE shirt"). No face templates are made or stored. **Adults are never named.**
    - `activity`: one of watching a screen, eating or drinking, reading or homework, playing, talking, resting or sleeping, moving around, arguing, physical conflict, other. Plus a 60-character note.
    - `cue`: for **children only**, a *visible* behaviour: smiling or laughing, calm, frowning, crying, shouting posture, or unclear. Never an inferred inner feeling. "Dreaming" becomes "resting, eyes closed".
    - `hazard`: none, child near a lit stove, child climbing near an open window or ledge (a real high-rise risk in Singapore), child alone with an adult who isn't family (info only), fire or smoke, a child lying still on the floor.
@@ -109,7 +109,7 @@ Muse Spark reads the place events and motion states in the Guardian brief and th
 3. **Deterministic flag rules** (code, tested, like PARENT_INSIGHTS §2):
    - **Urgent:** a hazard of fire, a window or ledge, or a child lying still, on a single frame. Or physical conflict in 2 of the last 3 frames from one camera, or in a burst.
    - **Watch:** physical conflict once, arguing 3 times in 10 minutes, or crying for 5 minutes.
-   - **Info:** arrivals ("Ari is in the living room, 15:42"), a camera offline for over 10 minutes.
+   - **Info:** arrivals ("Jordan is in the living room, 15:42"), a camera offline for over 10 minutes.
 4. **Storage:** only the frames behind an urgent or watch flag are kept, in a private Supabase bucket. The parent gets signed links, and the frames are **deleted after 24 hours**. Every other frame is dropped as soon as Muse has read it. A `home_status` row per camera and tick (text only) is kept 14 days.
 
 **The parent's Home now page**
@@ -126,7 +126,7 @@ Muse Spark reads the place events and motion states in the Guardian brief and th
 
 - **A second Vercel project** on the free plan, from the same repo, `sim/` folder, a small static page. Free accounts can have more than one project. Vercel's scheduler can only fire once a day, so the simulator **runs while its tab is open** (or as `node sim/run.ts`).
 - **What it plays:** a scripted after-school afternoon for the demo family, at real time or 10× speed.
-  - Ari walks from a primary school to a playground (maybe playing), then home.
+  - Jordan walks from a primary school to a playground (maybe playing), then home.
   - Cameras: living room (reading, then TV), kitchen (snack), study (homework), and a staged sibling argument that tips into a shove (a watch flag, then Right / Not right).
   - One hazard frame: a child climbing a chair by an open window (urgent).
 - **The frames:** about 30 **pre-generated** frames from Muse Image. They show fictional characters in a stylised 3D look with a high, wide-angle camera viewpoint; the timestamp is drawn by code, never by the model. They live in `sim/frames/` with manifest entries (rule 6) and are labelled "Synthetic camera frames" (rule 8). If Muse Image refuses a frame (the argument and the hazard), we use a softer version, and the gap is noted.
@@ -193,7 +193,7 @@ All in the [myKx Screens canvas](https://claude.ai/artifact/8crEyKVQm9QxCHLDqPXi
 | `GuardianMap` | the parent's map: each kid's chip, the route with places, the Kix-ringed live dot, and an afternoon timeline ("possibly playing" at the playground, "expected home by 16:30"). Phone, foldable, tablet and desktop on the Devices page. |
 | `HomeNow` | the floor plan of the flat, with rooms lit where the kids are (bedrooms and bathrooms hatched "no camera"), each room's status, and today at home. The alert sheet shows the synthetic frames, Muse's reason, Right / Not right, Call home, and 995/999 when urgent. Props switch between watch, urgent and none. All four device sizes. |
 | `GuardianSettings` | location per kid (mode, places, the teen pause), Home cameras (schedule, cameras from Home Link, the pairing code), how Muse tells the kids apart, and the promises. |
-| `KidSharing` | the kid's "What my grown-ups see": teen (Mei, with Pause for 30 minutes) or junior (Ari) via a prop, plus the Home chips. |
+| `KidSharing` | the kid's "What my grown-ups see": teen (Leonard, with Pause for 30 minutes) or junior (Jordan) via a prop, plus the Home chips. |
 | `HomeLink` | the desktop client: pairing status, the ten-slot camera wall, ONVIF discovery, the camera's settings (source, address, room, interval, privacy check, test picture) and the activity log. |
 | `MobileApp` | the roadmap app on a kid's phone: Kix explains, the phone's permission question, and sharing with its notice. |
 | `HomeSim` | the simulator: scripted afternoon, **Send now** (location and frames), and what myKx answered. |
@@ -291,9 +291,9 @@ Guardian is a reassurance tool, not a guarantee, and the settings page says so i
 
 The parent's phone at 15:41:
 
-1. Muse's "Right now" over the map: "Ari is walking home from the playground, about 4 minutes away…", with Ari's dot moving along the route.
+1. Muse's "Right now" over the map: "Jordan is walking home from the playground, about 4 minutes away…", with Jordan's dot moving along the route.
 2. Home now's floor plan lights up as the kids come in; "Right now" updates.
-3. The simulator jumps ahead, and a watch card arrives: "Possibly a tug-of-war over the TV remote, 17:08, medium confidence". The frames carry SAM 3.1's outlines of Zara and Ari, and the parent taps **Not right** ("they were play-fighting").
+3. The simulator jumps ahead, and a watch card arrives: "Possibly a tug-of-war over the TV remote, 17:08, medium confidence". The frames carry SAM 3.1's outlines of Abby and Jordan, and the parent taps **Not right** ("they were play-fighting").
 4. A 3-second flash of Do something together: "Muse searched the web: badminton at Sengkang Sports Hall, Saturday 15:30, indoors for the showers."
 5. A lower third: "Your cameras, read by Muse Spark and SAM 3.1. Frames deleted after 24 h. Kix never sees them."
 
@@ -314,7 +314,7 @@ The messages beat gets shorter to pay for it (§5 of the plan).
 
 ## 8. Founder decisions (28 Oct, 18:00)
 
-1. Rule changes in §3: **approved as written**, including "likely Ari" from the parent's descriptions.
+1. Rule changes in §3: **approved as written**, including "likely Jordan" from the parent's descriptions.
 2. Pausing location: **teens may pause for 30 minutes**, and the parent is told at once; juniors can't.
 3. Bedrooms: **no camera in any bedroom**, and none in bathrooms.
 4. Android: **no phone this week**, so the background app is roadmap.

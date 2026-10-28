@@ -4,11 +4,11 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import * as attemptsRoute from "./route.ts";
 import * as kidRoute from "@/app/api/auth/kid/route";
 import * as parentRoute from "@/app/api/auth/parent/route";
-import { ARI_ID, DEMO_HOUSEHOLD_ID } from "@/lib/auth/demo-family";
+import { JORDAN_ID, DEMO_HOUSEHOLD_ID } from "@/lib/auth/demo-family";
 import { resetRateLimits } from "@/lib/auth/lockout";
 import { demoStore, resetDemoStore } from "@/lib/auth/store-demo";
 
-const ARI_CODE = ["idle", "cheer", "pilot", "dreamlight"];
+const JORDAN_CODE = ["idle", "cheer", "pilot", "dreamlight"];
 
 class Browser {
   cookies = new Map<string, string>();
@@ -47,7 +47,7 @@ afterEach(() => {
 async function signInAri() {
   const parent = await browser.post(parentRoute.POST, "/api/auth/parent", { email: "anyone@example.com", password: "anything" });
   expect(parent.status).toBe(200);
-  const kid = await browser.post(kidRoute.POST, "/api/auth/kid", { kidId: ARI_ID, secret: { kind: "pictures", code: ARI_CODE } });
+  const kid = await browser.post(kidRoute.POST, "/api/auth/kid", { kidId: JORDAN_ID, secret: { kind: "pictures", code: JORDAN_CODE } });
   expect(kid.status).toBe(200);
 }
 
@@ -82,6 +82,6 @@ describe("POST /api/attempts", () => {
     await signInAri();
     await browser.post(attemptsRoute.POST, "/api/attempts", { itemId: "p3sci-demo-01", response: 2, explanation: "Why", key: crypto.randomUUID() });
     const store = demoStore();
-    expect(await store.learn.attempts(DEMO_HOUSEHOLD_ID, ARI_ID)).toHaveLength(1);
+    expect(await store.learn.attempts(DEMO_HOUSEHOLD_ID, JORDAN_ID)).toHaveLength(1);
   });
 });

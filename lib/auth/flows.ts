@@ -33,7 +33,7 @@ export async function checkKidSecret(store: AuthStore, kid: Profile, attempt: Se
   await store.update(kid.householdId, kid.id, { failedAttempts: outcome.failedAttempts, lockedUntil: outcome.lockedUntil });
   if (outcome.locked) {
     await store.audit({ actor: null, actorRole: "system", action: "kid.lockout", target: kid.id, householdId: kid.householdId, detail: { minutes: 1 } });
-    // TODO(Day 3, stream D): raise an info flag to the parent ("Ari had a few tries at their code").
+    // TODO(Day 3, stream D): raise an info flag to the parent ("Jordan had a few tries at their code").
     return fail(423, "locked", { retryAfterSec: retryAfter(outcome.lockedUntil, now) });
   }
   return fail(401, "wrong", { triesLeft: outcome.triesLeft });

@@ -363,7 +363,7 @@ create table scout_runs (
 
 -- Guardian (docs/prd/GUARDIAN.md): where the kids are, Home watch and the family's preferences (rule 15).
 -- The family's Guardian preferences: outing ideas (home area, radius, interests), camera hours and pause, and the
--- parent's own short description of each kid for the Home Reader ("likely Ari"; no face templates).
+-- parent's own short description of each kid for the Home Reader ("likely Jordan"; no face templates).
 create table guardian_prefs (
   household_id uuid primary key references households (id) on delete cascade,
   home_area text not null default 'Sengkang' check (char_length(home_area) between 2 and 60),

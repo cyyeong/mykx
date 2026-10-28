@@ -51,8 +51,8 @@ describe("sessionReadSchema", () => {
 describe("notebookNotes", () => {
   it("is empty without pages, and strips dates otherwise", async () => {
     const { notebookNotes } = await import("./notebook.ts");
-    expect(notebookNotes("Ari", [])).toBe("");
-    const out = notebookNotes("Ari", [{ slug: "asking", body: "2026-10-29: asks why about animals" }]);
+    expect(notebookNotes("Jordan", [])).toBe("");
+    const out = notebookNotes("Jordan", [{ slug: "asking", body: "2026-10-29: asks why about animals" }]);
     expect(out).toContain("How they ask: asks why about animals");
     expect(out).not.toContain("2026-10-29");
   });

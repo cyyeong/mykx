@@ -22,7 +22,7 @@ vi.mock("./read.ts", async (orig) => {
     ...real,
     readTick: async (fs: { cameraKey: string }[]) => {
       const readings = new Map<string, RoomReading>();
-      for (const f of fs) readings.set(f.cameraKey, { people: [{ who: "child", likely: "Zara", confidence: 0.8, cue: "frowning" }, { who: "child", likely: "Ari", confidence: 0.8, cue: "frowning" }], activity: fake.activity, note: "", cue: "frowning", hazard: fake.hazard, concern: "watch", reason: "Possibly two children pulling one TV remote.", confidence: 0.7, source: "live" });
+      for (const f of fs) readings.set(f.cameraKey, { people: [{ who: "child", likely: "Abby", confidence: 0.8, cue: "frowning" }, { who: "child", likely: "Jordan", confidence: 0.8, cue: "frowning" }], activity: fake.activity, note: "", cue: "frowning", hazard: fake.hazard, concern: "watch", reason: "Possibly two children pulling one TV remote.", confidence: 0.7, source: "live" });
       return { readings, source: "live", error: null };
     },
   };
@@ -100,6 +100,6 @@ describe("the Home watch pipeline", () => {
 
   it("only the simulator may ask for the family's kids", async () => {
     const res = await sim.call(family.GET, "/api/home/family");
-    expect(res.body.kids.map((k: { nickname: string }) => k.nickname).sort()).toEqual(["Ari", "Mei", "Zara"]);
+    expect(res.body.kids.map((k: { nickname: string }) => k.nickname).sort()).toEqual(["Abby", "Jordan", "Leonard"]);
   });
 });

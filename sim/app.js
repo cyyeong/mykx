@@ -59,7 +59,7 @@ function render() {
     const next = BEATS.findIndex((x, j) => !state.done.has(j) && !state.skip.has(j));
     li.dataset.state = state.done.has(i) ? "done" : i === next ? "next" : "";
     li.innerHTML = `<input type="checkbox" ${state.skip.has(i) ? "" : "checked"} aria-label="Include this beat"><b>${clockOf(b.min)}</b><span></span>`;
-    li.lastElementChild.textContent = b.label.replace(/\b(Ari|Zara|Mei)\b/g, (n) => names[Object.keys(ROLES).find((k) => ROLES[k] === n)] ?? n);
+    li.lastElementChild.textContent = b.label.replace(/\b(Jordan|Abby|Leonard)\b/g, (n) => names[Object.keys(ROLES).find((k) => ROLES[k] === n)] ?? n);
     li.firstElementChild.addEventListener("change", (e) => { if (e.target.checked) state.skip.delete(i); else state.skip.add(i); });
     return li;
   }));

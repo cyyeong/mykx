@@ -2,7 +2,7 @@
 
 **Written:** Wed 28 Oct 2026 (Day 2). **Why:** pages lack a clear flow (missing back buttons, dead ends, unclear next steps). This doc lists what every kid, parent and admin needs to do, then checks every page against it. **Code snapshot:** the app as it stood on the morning of 28 Oct (13 pages, 12 API routes) and the 30 canvas boards in [myKx Screens](https://claude.ai/artifact/8crEyKVQm9QxCHLDqPXioP). **Sources:** `AGENTS.md`, `PRD_REVIEW.md` §3–4, `myKx_PRD.md` §4–6, `ACCOUNTS.md`, `PARENT_INSIGHTS.md`, `GAMES.md`, `SKILL_ENGINE.md`, `living-scenes.md`, `IMPLEMENTATION_PLAN.md` §1 and §4–5.
 
-All names are synthetic demo learners (Ari, Zara, Mei) and the "Demo Parent". Never use real children's names in stories, tests or copy.
+All names are synthetic demo learners (Jordan, Abby, Leonard) and the "Demo Parent". Never use real children's names in stories, tests or copy.
 
 **Status words used below**
 
@@ -20,9 +20,9 @@ All names are synthetic demo learners (Ari, Zara, Mei) and the "Demo Parent". Ne
 
 | Persona | Who | Device and setting | Signs in with | Lands on | Must never |
 |---|---|---|---|---|---|
-| **Ari** (Junior) | P3, about 9. Loves frogs, bugs and jets. Short bursts of focus. Reads slowly; likes being read to. | Family tablet, landscape; sometimes the parent's phone | Door, then a 4-picture code | Home (Terrarium world) | see another child's work; meet a dead end with no picture to tap |
-| **Zara** (Teen) | P6, about 12. PSLE year. Music and dance. Wants it to look grown-up. | Laptop with a keyboard, tablet | Door, then a password | Study deck (Idol Stage world) | be shown childish UI; be ranked against anyone |
-| **Mei** (Teen) | Sec 2, about 14. Space and drawing. Self-directed, studies late. | Laptop, phone | Door, then a password | Study deck (Anime Sky world) | be watched without knowing; have her messages read by a model |
+| **Jordan** (Junior) | P3, about 9. Loves frogs, bugs and jets. Short bursts of focus. Reads slowly; likes being read to. | Family tablet, landscape; sometimes the parent's phone | Door, then a 4-picture code | Home (Terrarium world) | see another child's work; meet a dead end with no picture to tap |
+| **Abby** (Teen) | P6, about 12. PSLE year. Music and dance. Wants it to look grown-up. | Laptop with a keyboard, tablet | Door, then a password | Study deck (Idol Stage world) | be shown childish UI; be ranked against anyone |
+| **Leonard** (Teen) | Sec 2, about 14. Space and drawing. Self-directed, studies late. | Laptop, phone | Door, then a password | Study deck (Anime Sky world) | be watched without knowing; have her messages read by a model |
 | **Demo Parent** ("Mum") | Owns the household. Busy; checks in at 8 pm on a phone. Also an admin in the demo. | Phone first; tablet for handing over to a kid | Email and password | Parent dashboard (target) | see a diagnosis or label; lose an urgent safety flag to quiet hours |
 | **Admin** | Platform content and support team. In the demo, the same Demo Parent account with the admin flag. | Laptop | Email and password (same door) | Skills catalogue (target) | see a child's messages, Notebook, answers or secrets |
 
@@ -65,9 +65,9 @@ Each row: **As a … I want … so that …**, then short acceptance criteria (A
 
 | ID | Story | Acceptance criteria | Now |
 |---|---|---|---|
-| K-01 | As **Ari**, I want to find my own door on the family tablet, so that I can start without an email. | `/doors` shows one door per enabled kid (nickname, level, their world's Kix); a tap opens `/doors/[id]`; 56 px targets. | Built |
-| K-02 | As **Ari** on my first visit, I want to pick my 4-picture code with a grown-up, so that only I can open my door. | "Pick 4 pictures", then tap them again; a mismatch restarts calmly; saved hashed; first visit goes on to Sidekick Studio (K-19). | Partial: always lands on `/home` |
-| K-03 | As **Zara or Mei**, I want to open my portal with a password, so that it feels grown-up and private. | Password field with show/hide; Enter submits; success opens the study deck. | Built |
+| K-01 | As **Jordan**, I want to find my own door on the family tablet, so that I can start without an email. | `/doors` shows one door per enabled kid (nickname, level, their world's Kix); a tap opens `/doors/[id]`; 56 px targets. | Built |
+| K-02 | As **Jordan** on my first visit, I want to pick my 4-picture code with a grown-up, so that only I can open my door. | "Pick 4 pictures", then tap them again; a mismatch restarts calmly; saved hashed; first visit goes on to Sidekick Studio (K-19). | Partial: always lands on `/home` |
+| K-03 | As **Abby or Leonard**, I want to open my portal with a password, so that it feels grown-up and private. | Password field with show/hide; Enter submits; success opens the study deck. | Built |
 | K-04 | As **a kid who gets it wrong**, I want a calm message and another try, so that I don't feel told off. | Door rattles; "That's not it. Try again, or ask a grown-up."; no sound; the 5th wrong try starts a 1-minute rest with a visible countdown on the door and on `/doors`; the parent gets an info note. | Partial: no visible countdown; parent not told (TODO in `lib/auth/flows.ts`) |
 | K-05 | As **a kid at the wrong door**, I want "Not you?", so that I can go back and pick mine. | Link on both looks goes to `/doors`. | Built |
 | K-06 | As **a kid on a shared tablet**, I want "Switch profile" to close my session, so that my sibling can't press Back into my world. | Avatar → Switch profile ends the kid session, then `/doors`; Back from `/doors` does not reopen my Home. | Partial: goes to `/doors` but keeps the session |
@@ -78,46 +78,46 @@ Each row: **As a … I want … so that …**, then short acceptance criteria (A
 
 | ID | Story | Acceptance criteria | Now |
 |---|---|---|---|
-| K-10 | As **Ari**, I want Home to show today's quest with one big button, so that I know what to do next. | Quest name, length and honest mastery label from data; "Start today's quest" opens the quest map. | Partial: fixture "Shadows" |
-| K-11 | As **Ari**, I want to tap Pip's card, so that I can visit Pip in the Critter Lab. | Card links to `/critters`; progress text matches the ledger. | Partial: card not a link |
-| K-12 | As **Ari**, I want "See the squadron" to open my jets. | Button links to `/squadron`. | Partial: dead button |
-| K-13 | As **Ari**, I want "Make something" and the Make tab to open Vibe Zone. | Both link to `/vibe`. | Partial: dead button and tab |
+| K-10 | As **Jordan**, I want Home to show today's quest with one big button, so that I know what to do next. | Quest name, length and honest mastery label from data; "Start today's quest" opens the quest map. | Partial: fixture "Shadows" |
+| K-11 | As **Jordan**, I want to tap Pip's card, so that I can visit Pip in the Critter Lab. | Card links to `/critters`; progress text matches the ledger. | Partial: card not a link |
+| K-12 | As **Jordan**, I want "See the squadron" to open my jets. | Button links to `/squadron`. | Partial: dead button |
+| K-13 | As **Jordan**, I want "Make something" and the Make tab to open Vibe Zone. | Both link to `/vibe`. | Partial: dead button and tab |
 | K-14 | As **a kid**, I want to reach the Arcade from Home and the study deck. | Play tab (or Home card) links to `/arcade`. | Board (Arcade only) |
 | K-15 | As **a kid**, I want the same navigation on every browsing page, so that I can always get home. | Tab bar under 600 px, rail from 600 px; current item marked; hidden on task screens (§2.2). | Partial: Home only, three working tabs |
 | K-16 | As **a kid**, I want to reach Me from anywhere. | Avatar menu → Me on every kid page. | Partial: nothing links to `/me` |
-| K-17 | As **Ari**, I want to poke the living scene, so that Home feels alive. | Cosmetic only: no stars, cards or mastery; hotspots after the content in tab order; still under reduced motion. | Built |
-| K-18 | As **Zara or Mei**, I want my study deck to show my subjects, my next session and Kix, with buttons that work. | Deck reads my level (P6 Maths and Science; Sec 2 Science); "Start session" opens the first question; "25 min focus" starts a timer; "Ask Kix" opens Talk to Kix; global nav present. | Partial: Sec 3 Physics fixture for both; all three buttons dead; no nav |
+| K-17 | As **Jordan**, I want to poke the living scene, so that Home feels alive. | Cosmetic only: no stars, cards or mastery; hotspots after the content in tab order; still under reduced motion. | Built |
+| K-18 | As **Abby or Leonard**, I want my study deck to show my subjects, my next session and Kix, with buttons that work. | Deck reads my level (P6 Maths and Science; Sec 2 Science); "Start session" opens the first question; "25 min focus" starts a timer; "Ask Kix" opens Talk to Kix; global nav present. | Partial: Sec 3 Physics fixture for both; all three buttons dead; no nav |
 | K-19 | As **a new kid with no Kix yet**, I want my first visit to start in Sidekick Studio, so that Kix is mine from day one. | Kid sign-in returns `next=/studio` while the profile has no Kix; after Studio, Home. | Partial: sign-in always returns `/home` |
 
 ### 3.3 Kids: learn (quest map → question → hint → result → reward)
 
 | ID | Story | Acceptance criteria | Now |
 |---|---|---|---|
-| K-20 | As **Ari**, I want the quest map to show which stops I've mastered and why today's stop was picked. | Stop states from mastery; "limited evidence" label; reason line; "Start today's quest"; global nav. | Partial: fixture; no nav |
+| K-20 | As **Jordan**, I want the quest map to show which stops I've mastered and why today's stop was picked. | Stop states from mastery; "limited evidence" label; reason line; "Start today's quest"; global nav. | Partial: fixture; no nav |
 | K-21 | As **a kid with several quests**, I want the Learn tab to list them, so that I can choose. | `/learn` lists quests by subject; with one quest it goes straight to its map. | Partial: tab hard-wired to `/learn/shadows` |
-| K-22 | As **Ari**, I want one question per screen with "question 2 of 3", so that it never feels long. | Progress bar; question from the quest's published skill. | Partial: one fixture question |
-| K-23 | As **Ari**, I want to ask Kix for a hint, so that I get unstuck without the answer. | Streamed hint from the Kix Tutor; after 10 s the item's reviewed hint; "Hint 1 of 2"; the parent sees hint use. | Partial: canned text |
-| K-24 | As **Ari**, I want to check my answer and try again kindly if wrong, so that mistakes feel safe. | Server marks deterministically; wrong: Kix explains, "Try again", no sound; only the first try counts toward mastery. | Partial: marked in the browser |
-| K-25 | As **Ari**, I want a reward card when I get it right, so that I can see what I earned and why. | Kix cheers; card shows the ledger reason (+2, +3 or +5; 15 a day cap); "Collect card" flies it to a Treasure icon in the header. | Partial: no flight; fixed numbers |
-| K-26 | As **Ari**, I want a "Next question" button, so that I know how to keep going. | Shows after correct, or after a second wrong try with "Show me how". | Partial: missing, flow ends at "Correct" |
-| K-27 | As **Ari**, I want a quest-complete screen, so that the quest has an ending. | Summary: questions, hints, mastery before and after with its evidence label; card earned; Pip's progress; buttons: **Back to the map** (primary), **See my Treasure**, **Home**. | New |
-| K-28 | As **Ari**, I want to leave mid-quest safely, so that I don't lose work. | ✕ asks "Leave the quest? Your answers so far are saved." → quest map. | Partial: leaves at once, nothing saved |
-| K-29 | As **Ari**, I want Kix to read the question aloud and to ask "why?" by voice. | Read-aloud with captions and word highlight ("Kix speaks with your device's voice"); hold-to-talk on the Kix bubble; typed box always there. | Partial: only in the `/talk` sandbox |
-| K-30 | As **Zara or Mei**, I want a focused study session, so that I can work through fresh questions fast. | Same engine, teen look, small HUD Kix, focus timer, "limited evidence" labels, session summary at the end. | Spec |
+| K-22 | As **Jordan**, I want one question per screen with "question 2 of 3", so that it never feels long. | Progress bar; question from the quest's published skill. | Partial: one fixture question |
+| K-23 | As **Jordan**, I want to ask Kix for a hint, so that I get unstuck without the answer. | Streamed hint from the Kix Tutor; after 10 s the item's reviewed hint; "Hint 1 of 2"; the parent sees hint use. | Partial: canned text |
+| K-24 | As **Jordan**, I want to check my answer and try again kindly if wrong, so that mistakes feel safe. | Server marks deterministically; wrong: Kix explains, "Try again", no sound; only the first try counts toward mastery. | Partial: marked in the browser |
+| K-25 | As **Jordan**, I want a reward card when I get it right, so that I can see what I earned and why. | Kix cheers; card shows the ledger reason (+2, +3 or +5; 15 a day cap); "Collect card" flies it to a Treasure icon in the header. | Partial: no flight; fixed numbers |
+| K-26 | As **Jordan**, I want a "Next question" button, so that I know how to keep going. | Shows after correct, or after a second wrong try with "Show me how". | Partial: missing, flow ends at "Correct" |
+| K-27 | As **Jordan**, I want a quest-complete screen, so that the quest has an ending. | Summary: questions, hints, mastery before and after with its evidence label; card earned; Pip's progress; buttons: **Back to the map** (primary), **See my Treasure**, **Home**. | New |
+| K-28 | As **Jordan**, I want to leave mid-quest safely, so that I don't lose work. | ✕ asks "Leave the quest? Your answers so far are saved." → quest map. | Partial: leaves at once, nothing saved |
+| K-29 | As **Jordan**, I want Kix to read the question aloud and to ask "why?" by voice. | Read-aloud with captions and word highlight ("Kix speaks with your device's voice"); hold-to-talk on the Kix bubble; typed box always there. | Partial: only in the `/talk` sandbox |
+| K-30 | As **Abby or Leonard**, I want a focused study session, so that I can work through fresh questions fast. | Same engine, teen look, small HUD Kix, focus timer, "limited evidence" labels, session summary at the end. | Spec |
 | K-31 | As **a kid who has finished every question**, I want an honest message, so that I'm not given made-up work. | "No new questions here yet." Offer delayed review labelled "no new mastery evidence", the Arcade or Vibe Zone. Never invent items or mastery (PRD §6). | Spec |
 
 ### 3.4 Kids: Treasure, Sky Squadron and Critter Lab
 
 | ID | Story | Acceptance criteria | Now |
 |---|---|---|---|
-| K-32 | As **Ari**, I want to see every card I earned with when and why, so that I trust it. | Cards from the ledger; "Every card here was earned. Nothing is random."; my own name. | Partial: fixture, says "Ari" for everyone |
-| K-33 | As **Ari**, I want a locked slot to tell me how to earn it, with a link to that quest stop. | "Finish the Shadow size stop…" links to the map stop. | Partial: text only |
-| K-34 | As **Ari**, I want my constellation to grow when a skill gets fresh evidence. | New line drawn on new evidence only. | Partial: static |
+| K-32 | As **Jordan**, I want to see every card I earned with when and why, so that I trust it. | Cards from the ledger; "Every card here was earned. Nothing is random."; my own name. | Partial: fixture, says "Jordan" for everyone |
+| K-33 | As **Jordan**, I want a locked slot to tell me how to earn it, with a link to that quest stop. | "Finish the Shadow size stop…" links to the map stop. | Partial: text only |
+| K-34 | As **Jordan**, I want my constellation to grow when a skill gets fresh evidence. | New line drawn on new evidence only. | Partial: static |
 | K-35 | As **a kid**, I want to share a creation with family and stop sharing it. | "Share with family" and "Stop sharing" work; revoked versions vanish for Mum. | Partial: dead buttons |
-| K-36 | As **Ari**, I want to open Sky Squadron and Critter Lab from Treasure. | Collection tabs or tiles link to `/squadron` and `/critters`. | New |
-| K-37 | As **Ari**, I want to flip my earned jets for an insect fact and a flight idea. | Flip on tap; locked jets show "3 fresh questions away" with a link to today's quest; back to Treasure. | Board (no back) |
-| K-38 | As **Ari**, I want to see Pip's stage and what grows it next. | Stage from the ledger; "Pip never gets sick or sad if you take a break"; mealworm tab display-only. | Board |
-| K-39 | As **Ari**, I want to start a critter quest from the Lab. | "Start: order the life cycle" opens the question player. | Board (no target, no back) |
+| K-36 | As **Jordan**, I want to open Sky Squadron and Critter Lab from Treasure. | Collection tabs or tiles link to `/squadron` and `/critters`. | New |
+| K-37 | As **Jordan**, I want to flip my earned jets for an insect fact and a flight idea. | Flip on tap; locked jets show "3 fresh questions away" with a link to today's quest; back to Treasure. | Board (no back) |
+| K-38 | As **Jordan**, I want to see Pip's stage and what grows it next. | Stage from the ledger; "Pip never gets sick or sad if you take a break"; mealworm tab display-only. | Board |
+| K-39 | As **Jordan**, I want to start a critter quest from the Lab. | "Start: order the life cycle" opens the question player. | Board (no target, no back) |
 
 ### 3.5 Kids: Sidekick Studio
 
@@ -127,7 +127,7 @@ Each row: **As a … I want … so that …**, then short acceptance criteria (A
 | K-41 | As **a kid**, I want to watch Kix transform with clear steps, so that the wait is fun. | Steps: Muse Image, SAM 3.1, colours; "Show me now"; after 35 s a ready-made look, labelled. | Built |
 | K-42 | As **a kid**, I want to keep the Kix I like, or try again. | Two variants to choose from; Keep; "Try again (2 left today)". | Partial: one result, no limit shown |
 | K-43 | As **a kid**, I want my Kix saved, so that it's there tomorrow and my first card is in Treasure. | Saved to my profile (`kix_url`); first card in Treasure. | Partial: kept only until reload |
-| K-44 | As **Ari** (loves bugs), I want to adopt Pip the tadpole or a mealworm. | Adopt step after Keep; Pip appears in the Critter Lab. | Board |
+| K-44 | As **Jordan** (loves bugs), I want to adopt Pip the tadpole or a mealworm. | Adopt step after Keep; Pip appears in the Critter Lab. | Board |
 | K-45 | As **a kid**, I want a clear finish and a way out, so that I'm never stuck in Studio. | ✕ on the picker (back to where I came from); after Adopt, **Go to my Home**. | Partial: no exit anywhere |
 | K-46 | As **a kid**, I want to change my world later. | Me → "Change my Kix" opens Studio. | New |
 
@@ -135,9 +135,9 @@ Each row: **As a … I want … so that …**, then short acceptance criteria (A
 
 | ID | Story | Acceptance criteria | Now |
 |---|---|---|---|
-| K-47 | As **Ari**, I want to hold a button and talk, so that I don't have to type. | Push-to-talk only, up to 30 s; level ring; "Listening…". | Built (sandbox) |
-| K-48 | As **Ari**, I want to see what Kix heard before it answers. | "I heard: …" with **That's right** and **Say it again**. | Built (sandbox) |
-| K-49 | As **Ari**, I want Kix to talk back with captions. | Device voice with word highlight; label "Kix speaks with your device's voice". | Built (sandbox) |
+| K-47 | As **Jordan**, I want to hold a button and talk, so that I don't have to type. | Push-to-talk only, up to 30 s; level ring; "Listening…". | Built (sandbox) |
+| K-48 | As **Jordan**, I want to see what Kix heard before it answers. | "I heard: …" with **That's right** and **Say it again**. | Built (sandbox) |
+| K-49 | As **Jordan**, I want Kix to talk back with captions. | Device voice with word highlight; label "Kix speaks with your device's voice". | Built (sandbox) |
 | K-50 | As **a kid whose mic is blocked**, I want to type instead. | "Your mic is blocked. You can type instead."; typed box always visible. | Built |
 | K-51 | As **a kid whose parent turned voice off**, I want to know before I try. | Mic hidden; "Voice is off. A grown-up can turn it on." shown up front; typing works. | Partial: refusal only after recording |
 | K-52 | As **a kid**, I want voice where I need it: hints, the Vibe brief, "Ask Kix" on the deck. | Talk button in Question, Vibe Zone and the study deck. | Partial: sandbox only |
@@ -146,11 +146,11 @@ Each row: **As a … I want … so that …**, then short acceptance criteria (A
 
 | ID | Story | Acceptance criteria | Now |
 |---|---|---|---|
-| K-53 | As **Ari**, I want to say or type what I keep forgetting, so that Kix makes something to help. | Brief by voice or text; Kix asks "Flashcards or a planner?" (planner shown as coming soon). | Board |
-| K-54 | As **Ari**, I want to make flashcards and flip them. | "Make it" → deck from a checked template; fixture deck if the model fails; tap to flip. | Board |
-| K-55 | As **Ari**, I want to change something and keep my first version. | "Make them harder" → version 2; version 1 kept. | Board |
-| K-56 | As **Ari**, I want to save it and share it with Mum. | Save to Treasure (+5, within the daily cap); Share with Mum; Stop sharing. | Board |
-| K-57 | As **Ari**, I want a way back when I'm done. | ✕/‹ to Home; "See it in Treasure" after saving. | Board (no exit) |
+| K-53 | As **Jordan**, I want to say or type what I keep forgetting, so that Kix makes something to help. | Brief by voice or text; Kix asks "Flashcards or a planner?" (planner shown as coming soon). | Board |
+| K-54 | As **Jordan**, I want to make flashcards and flip them. | "Make it" → deck from a checked template; fixture deck if the model fails; tap to flip. | Board |
+| K-55 | As **Jordan**, I want to change something and keep my first version. | "Make them harder" → version 2; version 1 kept. | Board |
+| K-56 | As **Jordan**, I want to save it and share it with Mum. | Save to Treasure (+5, within the daily cap); Share with Mum; Stop sharing. | Board |
+| K-57 | As **Jordan**, I want a way back when I'm done. | ✕/‹ to Home; "See it in Treasure" after saving. | Board (no exit) |
 
 ### 3.8 Kids: Game Arcade
 
@@ -158,9 +158,9 @@ Each row: **As a … I want … so that …**, then short acceptance criteria (A
 |---|---|---|---|
 | K-58 | As **a kid**, I want an Arcade with games for my level. | Only games for my band and level; syllabus tag, stage, stars, Continue; "coming soon" cabinets not tappable. | Board |
 | K-59 | As **a kid**, I want to see my time today. | "Today: 18 of 30 min"; counts toward the daily limit. | Board |
-| K-60 | As **Ari**, I want Star Typer with ghost hands, so that I learn which finger to use. | Right finger glows and reaches; bolts only on right keys; wrong keys: no sound, no penalty; calm mode. | Board |
-| K-61 | As **Ari**, I want a calm Word Garden where words grow flowers. | No timer; tap to play on touch screens. | Board |
-| K-62 | As **Zara or Mei**, I want Neon Strike: type the answer to fire, with combos and speed. | Reviewed items; challenge mode; "Run it back"; never changes mastery. | Board |
+| K-60 | As **Jordan**, I want Star Typer with ghost hands, so that I learn which finger to use. | Right finger glows and reaches; bolts only on right keys; wrong keys: no sound, no penalty; calm mode. | Board |
+| K-61 | As **Jordan**, I want a calm Word Garden where words grow flowers. | No timer; tap to play on touch screens. | Board |
+| K-62 | As **Abby or Leonard**, I want Neon Strike: type the answer to fire, with combos and speed. | Reviewed items; challenge mode; "Run it back"; never changes mastery. | Board |
 | K-63 | As **a kid**, I want my stars to be fair. | ★ finish, ★★ 90 %, ★★★ 96 % (teens also need speed). Same play, same stars. | Board |
 | K-64 | As **a kid**, I want to go to the next level or replay. | Level-clear screen: **Next level** (plays the next level of the same game) and **Play again**; "My typing path" link. | Board (Next level opens the path) |
 | K-65 | As **a kid**, I want my typing path and the keys I slip on. | Stages, stars, slips to practise; **Play next level** returns to the game I came from. | Board (always Star Typer) |
@@ -173,12 +173,12 @@ Each row: **As a … I want … so that …**, then short acceptance criteria (A
 | ID | Story | Acceptance criteria | Now |
 |---|---|---|---|
 | K-70 | As **a kid**, I want to change what Kix calls me. | Up to 20 characters; tip "Use a nickname, not your full name"; warning on two words. | Built |
-| K-71 | As **Ari**, I want to change my picture code. | Old code → new → tap again; never shown again. | Built |
-| K-72 | As **Zara or Mei**, I want to change my password. | Current, new, confirm; strength hint. | Built |
+| K-71 | As **Jordan**, I want to change my picture code. | Old code → new → tap again; never shown again. | Built |
+| K-72 | As **Abby or Leonard**, I want to change my password. | Current, new, confirm; strength hint. | Built |
 | K-73 | As **a kid**, I want to know what my grown-up can see. | Me lists in plain words: summary, signals, camera on or off, voice on or off, messages are private. | New |
-| K-74 | As **Ari**, I want Mum's message delivered by Kix on Home. | Kix bubble "Message from Mum" opens the sheet; Read it to me. | Board |
-| K-75 | As **Ari**, I want to reply with a quick reply, sticker, short text or voice note. | Voice is transcribed, audio discarded; "Only you and Mum can read this". | Board |
-| K-76 | As **Ari**, I want a clear way back after replying. | **Back to Home**, **Send another**, ✕ at any time. | Board |
+| K-74 | As **Jordan**, I want Mum's message delivered by Kix on Home. | Kix bubble "Message from Mum" opens the sheet; Read it to me. | Board |
+| K-75 | As **Jordan**, I want to reply with a quick reply, sticker, short text or voice note. | Voice is transcribed, audio discarded; "Only you and Mum can read this". | Board |
+| K-76 | As **Jordan**, I want a clear way back after replying. | **Back to Home**, **Send another**, ✕ at any time. | Board |
 | K-77 | As **a kid who tells Kix something worrying**, I want a kind answer and real help. | Kix answers with care and points to a trusted adult; helpline card: Tinkle Friend 1800 274 4788, SOS 1767; the parent gets an urgent flag at once. Kix never promises secrecy. | Spec |
 | K-78 | As **a kid at my daily limit**, I want a kind goodbye that lets me finish. | Warning 5 minutes before; I finish the current question; Kix says goodnight; nothing lost. | Spec |
 | K-79 | As **a kid past today's star cap**, I want to keep learning without confusion. | "You've earned today's 15 stars. Your learning still counts." | Spec |
@@ -203,8 +203,8 @@ Each row: **As a … I want … so that …**, then short acceptance criteria (A
 |---|---|---|---|
 | P-10 | As **the parent**, I want a card per kid with level, world, last visit and sign-in status. | Card shows locked state in words, not colour only. | Built |
 | P-11 | As **the parent**, I want to add a kid. | Nickname (tip), level sets the look, world, picture code or starting password, voice; never a full name or email. | Built |
-| P-12 | As **the parent**, I want a clear next step after adding. | "Open Ari's door now" link, or "Tell Zara the starting password in person". | Partial: text only, no door link |
-| P-13 | As **the parent**, I want to reset a code or password. | Old one stops at once; "Open Ari's door" link to set the new code together. | Built |
+| P-12 | As **the parent**, I want a clear next step after adding. | "Open Jordan's door now" link, or "Tell Abby the starting password in person". | Partial: text only, no door link |
+| P-13 | As **the parent**, I want to reset a code or password. | Old one stops at once; "Open Jordan's door" link to set the new code together. | Built |
 | P-14 | As **the parent**, I want to remove a kid safely. | Type the nickname to confirm. | Built |
 | P-15 | As **the parent**, I want to know when a kid was locked out. | Card note plus an info flag on the dashboard. | Partial: card only |
 | P-16 | As **the parent**, I want a daily limit per kid that the app respects. | 15 to 90 min or none; kid sees time left; K-78 behaviour. | Partial: saved, not enforced |
@@ -233,13 +233,13 @@ Each row: **As a … I want … so that …**, then short acceptance criteria (A
 
 | ID | Story | Acceptance criteria | Now |
 |---|---|---|---|
-| P-32 | As **the parent**, I want urgent flags at once, even in quiet hours. | Quote, time, Kix's reply, helplines; **Message Ari**; **We talked**. | Board |
-| P-33 | As **the parent**, I want watch flags with what we saw, what it may mean and what may help. | Evidence list; uncertain wording; **Message Ari**; **Mark as seen**. | Board |
+| P-32 | As **the parent**, I want urgent flags at once, even in quiet hours. | Quote, time, Kix's reply, helplines; **Message Jordan**; **We talked**. | Board |
+| P-33 | As **the parent**, I want watch flags with what we saw, what it may mean and what may help. | Evidence list; uncertain wording; **Message Jordan**; **Mark as seen**. | Board |
 | P-34 | As **the parent**, I want info flags for plan, limit and lockouts. | Listed under the plan. | Board |
 | P-35 | As **the parent**, I want "Mark as seen" to tidy, not erase. | Moves to history; deleting is a separate choice. | Spec |
 | P-36 | As **the parent**, I want one thread per kid, and a way back. | List ↔ thread; back to the dashboard from the list. | Board (no way back from the list) |
-| P-37 | As **the parent**, I want to send text, a quick encouragement or a Kix sticker. | Sticker tray; "Ari will see it on Home". | Board |
-| P-38 | As **the parent**, I want Kix to suggest a message when a flag fires. | "Ari found Wednesday tricky. Send a hug?" with **Not now**. | Board (a "should") |
+| P-37 | As **the parent**, I want to send text, a quick encouragement or a Kix sticker. | Sticker tray; "Jordan will see it on Home". | Board |
+| P-38 | As **the parent**, I want Kix to suggest a message when a flag fires. | "Jordan found Wednesday tricky. Send a hug?" with **Not now**. | Board (a "should") |
 | P-39 | As **the parent**, I want to see my kid's replies. | Text, sticker or transcribed voice. | Board |
 | P-40 | As **the parent**, I want messages kept private. | Never read by Kix or any model; inside the household only. | Spec |
 | P-41 | As **the parent**, I want to read what Kix remembers about each kid. | Pages per kid; progress numbers quoted with a date from the records. | Board |
@@ -302,11 +302,11 @@ Each row: **As a … I want … so that …**, then short acceptance criteria (A
 | Per frame | Head pose (yaw, pitch) from the transformation matrix; `eyeBlinkLeft/Right` and `jawOpen` blendshapes; a quick brightness check of the downscaled frame. |
 | Per minute | `validSec`, `towardSec` (face present, head within about 30° yaw and 25° pitch, eyes open), `awaySec`, `noFaceSec`, `eyesClosedEvents` (both eyes closed over 1.5 s), `yawns` (jaw open over 1.5 s), `multiFaceSec`, `lowLightSec`, `fps`. |
 | Minute score | `focus = 100 × towardSec / validSec`. A minute with under 50 % valid seconds has no reading. |
-| Baseline | The kid's median minute score (and spread) over the last 14 days, per device class (tablet and laptop cameras sit at different angles). Needs at least 60 valid minutes over 3 sessions. Until then: "Building Ari's baseline", and no notes. |
+| Baseline | The kid's median minute score (and spread) over the last 14 days, per device class (tablet and laptop cameras sit at different angles). Needs at least 60 valid minutes over 3 sessions. Until then: "Building Jordan's baseline", and no notes. |
 | Drop | 3 valid minutes in a row with focus below `median − max(15, 2 × spread)`, or 3 or more eyes-closed events a minute for 2 minutes. |
 | Nudge | At the next natural pause (after an answer is checked, or between game rounds), never mid-question or mid-word: Kix says "You've been working hard. Want a 3-minute stretch? I'll keep your place." **Take a break** / **Keep going**. At most once every 15 minutes and twice a session. |
 | Break | A calm break screen: Kix stretches, a 3-minute timer, **I'm back**. The session clock pauses; break time is shown to the parent as a break, not as learning time. |
-| Parent note | In that session's wellbeing row: "**Possibly losing focus** after 7:50 pm" or "**Possibly sleepy**", with what we saw ("Looked away about 22 s a minute for 4 minutes; Ari's usual is about 6 s"; "Kix suggested a break; Ari took it"), confidence (high, medium, low from valid minutes and the size of the drop) and the source "Camera, this device only". |
+| Parent note | In that session's wellbeing row: "**Possibly losing focus** after 7:50 pm" or "**Possibly sleepy**", with what we saw ("Looked away about 22 s a minute for 4 minutes; Jordan's usual is about 6 s"; "Kix suggested a break; Jordan took it"), confidence (high, medium, low from valid minutes and the size of the drop) and the source "Camera, this device only". |
 | Watch flag | Focus well below baseline in 3 sessions within a week raises the existing watch flag (`PARENT_INSIGHTS.md` §2). |
 | Data | `signals` rows (kind `camera_focus`, per-minute counts as JSON, confidence). Kept 4 weeks for the baseline, then dropped. The parent can delete them any time. |
 
@@ -315,26 +315,26 @@ Each row: **As a … I want … so that …**, then short acceptance criteria (A
 | ID | Story | Acceptance criteria |
 |---|---|---|
 | F-01 | As **the parent**, I want to turn focus help on for one kid, so that Kix can suggest breaks when they're flagging. | Toggle per kid, off by default; plain text: "Uses the camera on this device to notice looking away, eyes closing and yawns. No pictures or video are kept or sent."; takes effect at the kid's next focus task, never mid-question. |
-| F-02 | As **Ari**, I want to be told before the camera starts, so that nothing happens behind my back. | First time: a sheet "Your grown-up turned on focus help…" with **Allow camera** and **Not now**, before the browser's own prompt. |
-| F-03 | As **Ari**, I want to see when the camera is on. | Camera dot plus the words "Focus help on" in the HUD whenever frames are read; screen-reader label; not colour alone. |
-| F-04 | As **Ari**, I want to pause it. | Tap the dot → "Pause for this session"; the camera stops at once; the parent sees "paused this session", with no blame. |
-| F-05 | As **Ari**, I want Kix to offer a break when I'm flagging, not tell me off. | Nudge rules in §4.2; Kix never says "I saw you yawn"; **Keep going** is always fine. |
+| F-02 | As **Jordan**, I want to be told before the camera starts, so that nothing happens behind my back. | First time: a sheet "Your grown-up turned on focus help…" with **Allow camera** and **Not now**, before the browser's own prompt. |
+| F-03 | As **Jordan**, I want to see when the camera is on. | Camera dot plus the words "Focus help on" in the HUD whenever frames are read; screen-reader label; not colour alone. |
+| F-04 | As **Jordan**, I want to pause it. | Tap the dot → "Pause for this session"; the camera stops at once; the parent sees "paused this session", with no blame. |
+| F-05 | As **Jordan**, I want Kix to offer a break when I'm flagging, not tell me off. | Nudge rules in §4.2; Kix never says "I saw you yawn"; **Keep going** is always fine. |
 | F-06 | As **the parent**, I want a "possibly losing focus" note with evidence and confidence. | Note in the session row and tonight's summary; "possibly"; against the kid's own baseline; source labelled. |
-| F-07 | As **the parent**, I want no notes until there's a fair baseline. | "Building Ari's baseline (23 of 60 minutes)". |
+| F-07 | As **the parent**, I want no notes until there's a fair baseline. | "Building Jordan's baseline (23 of 60 minutes)". |
 | F-08 | As **the parent**, I want to see and delete camera signals. | Listed with other signals; delete one or all; turning the toggle off offers "Also delete past camera signals?". |
 | F-09 | As **the parent**, I want proof it never affects learning records. | Dashboard note: "Focus help never changes scores, stars or cards." Tests assert it. |
-| F-10 | As **Ari**, I want Me to explain it in plain words. | Me → What my grown-up can see → "Focus help: on. The camera counts looking away, eyes closing and yawns. No pictures are saved." |
+| F-10 | As **Jordan**, I want Me to explain it in plain words. | Me → What my grown-up can see → "Focus help: on. The camera counts looking away, eyes closing and yawns. No pictures are saved." |
 | F-11 | As **the parent**, I want to know when it couldn't run, and why. | "No camera found", "Camera not allowed", "Too dark to read", "This device is too slow" in the session row. |
 | F-12 | As **the parent**, I want a safety switch for the whole feature. | Turning it off stops a running camera within 30 s (next heartbeat), the dot disappears, and no more counts are written. |
 
 ### 4.4 Scenario
 
-1. Mum opens the dashboard, Controls, **Camera signals** for Ari, and switches it on. The sub-line says "On, this device only. No image or video leaves it."
-2. Next evening Ari opens the frog quest. Before question 1 a sheet explains focus help. Ari taps **Allow camera**; the browser asks; Ari allows.
-3. The HUD shows the camera dot, "Focus help on". Ari answers two questions.
-4. Around 7:50 pm Ari keeps looking away. After 3 low minutes, once question 3 is checked, Kix offers a stretch. Ari taps **Take a break**; a 3-minute break screen runs; **I'm back** returns to the quest at the same place.
-5. Ari finishes. The camera stops and the dot goes away. The session's per-minute counts are sent with the session close.
-6. At 8 pm Mum's summary says: "Possibly losing focus after 7:50 pm. Looked away about 22 s a minute for 4 minutes (Ari's usual is about 6 s). Kix suggested a break and Ari took it. Confidence: medium. Camera, this device only." Stars, cards and mastery are unchanged.
+1. Mum opens the dashboard, Controls, **Camera signals** for Jordan, and switches it on. The sub-line says "On, this device only. No image or video leaves it."
+2. Next evening Jordan opens the frog quest. Before question 1 a sheet explains focus help. Jordan taps **Allow camera**; the browser asks; Jordan allows.
+3. The HUD shows the camera dot, "Focus help on". Jordan answers two questions.
+4. Around 7:50 pm Jordan keeps looking away. After 3 low minutes, once question 3 is checked, Kix offers a stretch. Jordan taps **Take a break**; a 3-minute break screen runs; **I'm back** returns to the quest at the same place.
+5. Jordan finishes. The camera stops and the dot goes away. The session's per-minute counts are sent with the session close.
+6. At 8 pm Mum's summary says: "Possibly losing focus after 7:50 pm. Looked away about 22 s a minute for 4 minutes (Jordan's usual is about 6 s). Kix suggested a break and Jordan took it. Confidence: medium. Camera, this device only." Stars, cards and mastery are unchanged.
 
 ### 4.5 Edge cases
 
@@ -367,58 +367,58 @@ Each row: **As a … I want … so that …**, then short acceptance criteria (A
 | # | Beat | Page | Works today? |
 |---|---|---|---|
 | 1 | Demo Parent signs in (off camera) | `/signin` → tunnel → `/doors` | Yes |
-| 2 | Ari taps their door and 4 pictures; the door opens into the tunnel | `/doors/[ari]` | Yes |
+| 2 | Jordan taps their door and 4 pictures; the door opens into the tunnel | `/doors/[ari]` | Yes |
 | 3 | First visit: Studio. Terrarium, bugs and critters, jets → Transform → reveal → Keep → Adopt Pip → **Go to my Home** | `/studio` | No: not reachable; no adopt; no finish |
 | 4 | Home: today's quest, Pip, the squadron (cut to phone and foldable) | `/home` | Partly: fixture data; Pip and squadron cards dead |
 | 5 | Learn: quest map, "P3 Science skill loaded" chip, Start | `/learn/[quest]` | Partly: shows P4 "Light and shadows", not the P3 frog life cycle |
-| 6 | Kix reads the question aloud; Ari asks "why?" by voice; streamed hint; correct; Kix cheers; card flies; "57, limited evidence" | `/question/[id]` | Partly: no read-aloud, voice or flight |
+| 6 | Kix reads the question aloud; Jordan asks "why?" by voice; streamed hint; correct; Kix cheers; card flies; "57, limited evidence" | `/question/[id]` | Partly: no read-aloud, voice or flight |
 | 7 | Quest complete → See my Treasure | `/learn/[quest]/done` | No: page missing |
 | 8 | Treasure → Sky Squadron card flip → Critter Lab, Pip grows | `/treasure`, `/squadron`, `/critters` | Partly: Treasure only, no exits |
 | 9 | Vibe Zone: says "I keep forgetting the frog life cycle" → flashcards → Save → Share with Mum | `/vibe` | No |
-| 10 | Parent phone: "Ari seemed tired in 3 evening sessions", screen time → Message Ari with a sticker | `/parent`, `/parent/messages` | No |
-| 11 | Tablet: Ari's Home shows "Message from Mum" → reply with a sticker | `/home` sheet | No |
+| 10 | Parent phone: "Jordan seemed tired in 3 evening sessions", screen time → Message Jordan with a sticker | `/parent`, `/parent/messages` | No |
+| 11 | Tablet: Jordan's Home shows "Message from Mum" → reply with a sticker | `/home` sheet | No |
 | 12 | Flash of What Kix remembers | `/parent/notebook` | No |
 | 13 | Admin: catalogue → Add knowledge → upload → six questions extracted → approve → version 1.1 published | `/admin/skills`, `/admin/upload` | No (links 404) |
 | 14 | Under the hood: trace and model runs | `/under-the-hood` | No |
 
-### J2. Ari's first day (new kid)
+### J2. Jordan's first day (new kid)
 
-1. Parent: `/family` → **Add a kid**: "Ari", P3 (junior look), Terrarium, picture code, voice on → **Add kid** → success card → **Open Ari's door now** (P-12).
+1. Parent: `/family` → **Add a kid**: "Jordan", P3 (junior look), Terrarium, picture code, voice on → **Add kid** → success card → **Open Jordan's door now** (P-12).
 2. `/doors/[ari]`: "Pick 4 pictures" → tap again → saved → tunnel → **`/studio`** (K-19).
 3. Studio → Keep → Adopt Pip → **Go to my Home**.
 4. Home shows "Start today's quest". Empty-state copy everywhere else ("Your first card is waiting in your first quest").
 
-### J3. Ari's normal evening
+### J3. Jordan's normal evening
 
-`/doors` → Ari's door → code → `/home` → Kix: "Message from Mum" → reply with a sticker → **Back to Home** → **Start today's quest** → map → 3 questions (hint on one) → quest complete → **See my Treasure** → new card → Home → avatar → **Switch profile** (session ends) → `/doors`.
+`/doors` → Jordan's door → code → `/home` → Kix: "Message from Mum" → reply with a sticker → **Back to Home** → **Start today's quest** → map → 3 questions (hint on one) → quest complete → **See my Treasure** → new card → Home → avatar → **Switch profile** (session ends) → `/doors`.
 
-### J4. Zara's study session (P6, teen)
+### J4. Abby's study session (P6, teen)
 
-`/doors` → Zara's portal → password → study deck (P6 Maths: before-and-after ratio) → **Start session** → 3 fresh questions; on one she taps **Ask Kix** and types "why is the total the same?" → session summary with "limited evidence" → Play tab → **Neon Strike** → round clear → **Save and share** → typing path → **Send my card** → avatar → Me → **Sign out**.
+`/doors` → Abby's portal → password → study deck (P6 Maths: before-and-after ratio) → **Start session** → 3 fresh questions; on one she taps **Ask Kix** and types "why is the total the same?" → session summary with "limited evidence" → Play tab → **Neon Strike** → round clear → **Save and share** → typing path → **Send my card** → avatar → Me → **Sign out**.
 
-### J5. Mei with the mic blocked
+### J5. Leonard with the mic blocked
 
-Mei opens Vibe Zone on her laptop, holds the mic, the browser blocks it → "Your mic is blocked. You can type instead." → she types the brief → flashcards → Save → the deck shows on her Treasure shelf. Later Mum turns voice off for Mei; next time the mic is hidden and the note says "Voice is off. A grown-up can turn it on."
+Leonard opens Vibe Zone on her laptop, holds the mic, the browser blocks it → "Your mic is blocked. You can type instead." → she types the brief → flashcards → Save → the deck shows on her Treasure shelf. Later Mum turns voice off for Leonard; next time the mic is hidden and the note says "Voice is off. A grown-up can turn it on."
 
-### J6. Ari's typing practice
+### J6. Jordan's typing practice
 
 Home → Play → Arcade (only P3 games; "Today: 18 of 30 min") → **Star Typer** → posture card → level → level clear ★★★ → **Next level** → … → **My typing path** → slips "B and N" → **Send my card** → Mum sees it in messages and replies with a sticker.
 
 ### J7. Wrong code and lockout
 
-Ari taps the wrong pictures 5 times. Each time: rattle, calm line. On the 5th: "Let's take a short break. Try again in a minute, or ask a grown-up." with a 60-second countdown; Ari's door on `/doors` shows "Resting · 0:42". Mum's dashboard gets an info note: "Ari had a few tries at their code at 6:12 pm". If Ari has forgotten it, Mum: `/family` → **Reset code** → **Open Ari's door** → they pick a new one together.
+Jordan taps the wrong pictures 5 times. Each time: rattle, calm line. On the 5th: "Let's take a short break. Try again in a minute, or ask a grown-up." with a 60-second countdown; Jordan's door on `/doors` shows "Resting · 0:42". Mum's dashboard gets an info note: "Jordan had a few tries at their code at 6:12 pm". If Jordan has forgotten it, Mum: `/family` → **Reset code** → **Open Jordan's door** → they pick a new one together.
 
 ### J8. Parent evening check-in
 
-Phone: `/signin` → `/parent` → watch flag "Ari seemed tired in 3 evening sessions" (what we saw, may mean, may help) → **Message Ari** → thread → Proud of you sticker → back → Today → Tonight card for Ari → do the torch activity → **We did this** → Notebook → edit the line "Rushes MCQs" → done → account menu → **Sign out**.
+Phone: `/signin` → `/parent` → watch flag "Jordan seemed tired in 3 evening sessions" (what we saw, may mean, may help) → **Message Jordan** → thread → Proud of you sticker → back → Today → Tonight card for Jordan → do the torch activity → **We did this** → Notebook → edit the line "Rushes MCQs" → done → account menu → **Sign out**.
 
 ### J9. Parent sets controls
 
-`/parent` → Controls: Zara's daily limit 45 min; quiet hours 8:30 pm to 7 am; voice off for Mei; camera on for Ari (§4.4). Every change saves at once and says so.
+`/parent` → Controls: Abby's daily limit 45 min; quiet hours 8:30 pm to 7 am; voice off for Leonard; camera on for Jordan (§4.4). Every change saves at once and says so.
 
 ### J10. Safety path (urgent flag)
 
-Mei types to Kix late at night: "I feel like giving up on everything." Kix replies with care, suggests talking to a trusted adult, and shows Tinkle Friend 1800 274 4788 and SOS 1767. The parent's dashboard shows an urgent flag at once, even in quiet hours: the quote, the time, Kix's reply, the helplines, **Message Mei** and **We talked**. Nothing changes Mei's mastery or rewards.
+Leonard types to Kix late at night: "I feel like giving up on everything." Kix replies with care, suggests talking to a trusted adult, and shows Tinkle Friend 1800 274 4788 and SOS 1767. The parent's dashboard shows an urgent flag at once, even in quiet hours: the quote, the time, Kix's reply, the helplines, **Message Leonard** and **We talked**. Nothing changes Leonard's mastery or rewards.
 
 ### J11. Focus help
 
@@ -426,19 +426,19 @@ See §4.4.
 
 ### J12. Switching kids on one tablet
 
-Ari finishes → avatar → **Switch profile** → session ends → `/doors` → Zara opens her portal. Pressing Back shows the doors, not Ari's Home. Ari's camera (if on) stopped at Switch profile; Zara's world, sound default (off for teens) and voice setting take over.
+Jordan finishes → avatar → **Switch profile** → session ends → `/doors` → Abby opens her portal. Pressing Back shows the doors, not Jordan's Home. Jordan's camera (if on) stopped at Switch profile; Abby's world, sound default (off for teens) and voice setting take over.
 
 ### J13. Kid session expires
 
-Ari leaves the tablet on Home overnight. Next morning (over 12 h) Ari taps **Start today's quest** → `/doors` with Ari's door highlighted → code → straight back to the quest map Ari asked for.
+Jordan leaves the tablet on Home overnight. Next morning (over 12 h) Jordan taps **Start today's quest** → `/doors` with Jordan's door highlighted → code → straight back to the quest map Jordan asked for.
 
 ### J14. Admin publishes knowledge
 
-Admin signs in → `/admin/skills` → filter P3 → P3 Science card → **Add knowledge** → upload a worksheet (rights: own material) → extraction progress → review 6 items side by side, edit one, reject one → **Publish 1.1** → **View in catalogue** → Activity: the trace shows Kix loading v1.1 in Ari's next session.
+Admin signs in → `/admin/skills` → filter P3 → P3 Science card → **Add knowledge** → upload a worksheet (rights: own material) → extraction progress → review 6 items side by side, edit one, reject one → **Publish 1.1** → **View in catalogue** → Activity: the trace shows Kix loading v1.1 in Jordan's next session.
 
 ### J15. Admin support and audit
 
-People → search "Zara" → detail → **Start code reset** → confirm → audit row → **See the full audit log** → filter by today.
+People → search "Abby" → detail → **Start code reset** → confirm → audit row → **See the full audit log** → filter by today.
 
 ### J16. Non-admin at an admin link
 
@@ -446,7 +446,7 @@ Demo Parent without the admin flag opens `/admin/people` → "This page is for a
 
 ### J17. Offline mid-quest
 
-Ari's Wi-Fi drops on question 2. A banner: "You're offline. Your answer is safe; Kix will check it when you're back." **Check my answer** waits; on reconnect the answer is sent once (idempotent ledger key), marked, and the flow continues.
+Jordan's Wi-Fi drops on question 2. A banner: "You're offline. Your answer is safe; Kix will check it when you're back." **Check my answer** waits; on reconnect the answer is sent once (idempotent ledger key), marked, and the flow continues.
 
 ---
 
@@ -461,7 +461,7 @@ Ari's Wi-Fi drops on question 2. A banner: "You're offline. Your answer is safe;
 | Front door | `/` | Built | typed URL | redirect to `/signin` (target: signed-in kid → `/home`, grown-up → landing) | — | — |
 | Sign in (grown-ups) | `/signin` · Login | Built | `/`, signed-out gates, Switch grown-up, sign out | **Sign in** → tunnel → `/parent` or `/admin/skills` (today `/doors`) | "Kids: find your door" → `/doors` | sound HUD |
 | Who's learning? | `/doors` · KidDoors | Built | grown-up sign-in, Switch profile, Me sign out, "Not you?", Family back | tap a door → `/doors/[kid]` | Switch grown-up → `/signin`; Manage family → `/family`; (target) Parent dashboard | sound HUD, demo label |
-| Kid door | `/doors/[kid]` · LoginJunior, LoginTeen | Built | `/doors`, Family "Open Ari's door" | code or password → tunnel → `/home` (first visit: `/studio`) | "Not you?" → `/doors` | sound HUD |
+| Kid door | `/doors/[kid]` · LoginJunior, LoginTeen | Built | `/doors`, Family "Open Jordan's door" | code or password → tunnel → `/home` (first visit: `/studio`) | "Not you?" → `/doors` | sound HUD |
 | Home (junior) | `/home` · Home | Partial | kid sign-in, Home tab, Me back, quest complete, message sheet | **Start today's quest** → `/learn/[quest]` | avatar → Me / Switch profile | kid tab bar or rail |
 | Study deck (teen Home) | `/home` (teen) · StudyDeck | Partial | kid sign-in, Home tab, Me back | **Start session** → first question | avatar → Me / Switch profile | kid tab bar or rail (teen look) |
 | Message from Mum | sheet on `/home` · KidMessage | Board | Kix bubble on Home | **Send** reply | ✕ and **Back to Home** | none (sheet) |
@@ -490,7 +490,7 @@ Ari's Wi-Fi drops on question 2. A banner: "You're offline. Your answer is safe;
 |---|---|---|---|---|---|---|
 | Parent dashboard (Today) | `/parent` · ParentDash | Board | grown-up sign-in, Family back, admin "Back to my family" | act on the top flag | Kids' doors; account menu | parent bar or rail |
 | Tonight's summary | card on `/parent` · Parent | Board | dashboard, 8 pm notice | **We did this** | (card) | parent nav |
-| Family messages | `/parent/messages` · FamilyChat | Board | Messages tab, "Message Ari", "Open messages" | send | list ↔ thread; Today tab | parent nav |
+| Family messages | `/parent/messages` · FamilyChat | Board | Messages tab, "Message Jordan", "Open messages" | send | list ↔ thread; Today tab | parent nav |
 | What Kix remembers | `/parent/notebook` · Notebook | Board | Notebook tab | read, edit, undo | Today tab | parent nav |
 | Your family | `/family` · FamilyAccounts | Built | Family tab, doors "Manage your family", "Add a kid" | add or manage a kid | ‹ Back (today `/doors`; target `/parent`) | parent nav |
 | Skills catalogue | `/admin/skills` · AdminSkills | Board | admin sign-in, sidebar | open a skill; **Add knowledge** | sidebar | admin sidebar |
@@ -597,7 +597,7 @@ Checked on 28 Oct against the stories above. Severity: **blocker** (breaks the d
 |---|---|---|
 | `/signin` | Family and People gates, Switch grown-up, sign out everywhere | Yes |
 | `/doors` | Home avatar, sign-in links (3), Me gate and sign out, Family back | Yes |
-| `/doors/[id]` | doors, Family "Open Ari's door" | Yes |
+| `/doors/[id]` | doors, Family "Open Jordan's door" | Yes |
 | `/family` | doors "Add a kid", "Manage your family" | Yes |
 | `/home` | kid sign-in `next`, Me back (2), Home tab | Yes |
 | `/learn/shadows` | Home Learn tab and quest CTA, Question ✕ | Yes (only this slug) |
@@ -622,11 +622,11 @@ Checked on 28 Oct against the stories above. Severity: **blocker** (breaks the d
 | `/home` (teen deck) | subject tabs, living room | no navigation at all (K-15); Start session, focus timer, Ask Kix dead (K-18); Sec 3 Physics shown to P6 and Sec 2 | **blocker** | Add the kid nav in the teen look; wire Start session to the question player, Ask Kix to voice, the timer to a focus clock; read level and subjects from data. |
 | `/learn/[quest]` | stops, Start CTA | no back or nav (K-20); one slug only, others 404 (K-21); P4 shadows, not the P3 frog quest the video needs; no sign-in check | **blocker** | Add kid nav; `/learn` list; switch the demo quest to P3 life cycles; guard. |
 | `/question/[id]` | ✕ → map, options, hint, check, try again, collect → Treasure link | no next question (K-26); no quest complete (K-27); ✕ without confirm (K-28); no read-aloud or voice (K-29); no flight to a Treasure icon (K-25); no sign-in check | **blocker** | Next question and `/learn/[quest]/done`; confirm on leave; Talk button and read-aloud; Treasure icon in the header as the flight target. |
-| `/treasure` | cards, locked slot, constellation, shelf | no way back (K-15); no Squadron or Critter Lab (K-36); share buttons dead (K-35); says "Ari" for everyone (K-32); no sign-in check | **blocker** | Kid nav; collection tabs; wire share; read from the ledger; guard. |
+| `/treasure` | cards, locked slot, constellation, shelf | no way back (K-15); no Squadron or Critter Lab (K-36); share buttons dead (K-35); says "Jordan" for everyone (K-32); no sign-in check | **blocker** | Kid nav; collection tabs; wire share; read from the ledger; guard. |
 | `/studio` | worlds, interests, transform, Show me now, Keep, Try again, close | unreachable (K-19, K-46); no exit or finish (K-45); Kix lost on reload (K-43); no adopt (K-44) | **blocker** | First-visit route and Me "Change my Kix"; ✕ on the picker; Keep → Adopt → Go to my Home; save `kix_url`. |
 | `/talk` | hold to talk, confirm, typed box, voice label | orphaned, no exit (K-52); voice-off known only after recording (K-51) | nice | Move the Talk button into Question, Vibe Zone and the deck; read `voiceEnabled` from `/api/me` and hide the mic. |
 | `/me` | ‹ Home, Sign out, nickname, code, password, signed-out gate | no inbound link (K-16); "What my grown-up can see" (K-73); "Change my Kix" (K-46) | should | Avatar menu link; add the two sections. |
-| `/family` | ‹ to doors, cards, reset, limits and voice, remove, add, change password, sign out everywhere, gate | back goes to doors (P-22); no plain sign out (P-06); no quiet hours, camera or Arcade controls (P-17, P-19, P-20); no door link after add (P-12); no admin entry (A-03); open to kids on the device (P-08) | should | Back to `/parent`; account menu; controls; "Open Ari's door now"; grown-up re-check. |
+| `/family` | ‹ to doors, cards, reset, limits and voice, remove, add, change password, sign out everywhere, gate | back goes to doors (P-22); no plain sign out (P-06); no quiet hours, camera or Arcade controls (P-17, P-19, P-20); no door link after add (P-12); no admin entry (A-03); open to kids on the device (P-08) | should | Back to `/parent`; account menu; controls; "Open Jordan's door now"; grown-up re-check. |
 | `/admin/people` | sidebar, search, filters, detail, actions, session log, gates | Skills and Add knowledge 404 (A-02); no Agents, Activity or Under the hood; no back to family or sign out (A-03, A-04); forbidden gate only offers sign-in (A-05); full audit log (A-13) | **blocker** (404s on the video path) | Build or hide the links; add the sidebar footer; "Back to your family" on the forbidden gate; `/admin/activity`. |
 | (none) | — | `not-found.tsx`, `error.tsx` | should | Add both with "Take me home" by role. |
 
@@ -656,7 +656,7 @@ Checked on 28 Oct against the stories above. Severity: **blocker** (breaks the d
 | KidMessage | ✕ and Back to Home → Home; Send another | — | — | Good model for every sheet. |
 | FamilyAccounts | Back to dashboard → ParentDash; Limits and voice → ParentDash | Change email, Change password, Sign out everywhere, "Start" have no target; no plain sign out | should | Wire them; add the account menu. |
 | Parent (Tonight's summary) | kid switcher, We did this | no way to the dashboard (it becomes a dashboard card per the plan) | nice | Fold into ParentDash as the Today card. |
-| ParentDash | kid switcher, flag toggles, Camera and Voice switches | Message Ari and Open messages have no target; Edit plan and See or delete signals are `#`; Daily limit and Quiet hours open nothing; no nav to Family, Notebook, Messages; no sign out or Kids' doors | **blocker** | Parent bar (§2.2); link Message → FamilyChat; add plan and signals sheets. |
+| ParentDash | kid switcher, flag toggles, Camera and Voice switches | Message Jordan and Open messages have no target; Edit plan and See or delete signals are `#`; Daily limit and Quiet hours open nothing; no nav to Family, Notebook, Messages; no sign out or Kids' doors | **blocker** | Parent bar (§2.2); link Message → FamilyChat; add plan and signals sheets. |
 | FamilyChat | list ↔ thread; Kix suggestion; stickers | no back to the dashboard from the list | should | Parent nav. |
 | Notebook | kid and page switchers | See the full history is `#`; Edit line and Wipe have no target; no back | should | Parent nav; history sheet; edit and wipe confirms. |
 | AdminSkills | level and skill pickers; matrix toggles; trace | sidebar items are not links; Add knowledge has no target; no skill detail board | **blocker** | Make the sidebar links; Add knowledge → AdminUpload; design skill detail. |

@@ -13,7 +13,7 @@ import * as mine from "@/app/api/location/mine/route";
 import * as pause from "@/app/api/location/pause/route";
 import * as places from "@/app/api/location/places/route";
 import * as settings from "@/app/api/location/settings/route";
-import { ARI_ID, KAI_ID, MEI_ID, OTHER_PARENT_EMAIL } from "../auth/demo-family.ts";
+import { JORDAN_ID, KAI_ID, LEONARD_ID, OTHER_PARENT_EMAIL } from "../auth/demo-family.ts";
 import sharp from "sharp";
 import { resetRateLimits } from "../auth/lockout.ts";
 import { resetDemoStore } from "../auth/store-demo.ts";
@@ -106,8 +106,8 @@ describe("Home watch pairing, cameras and frames", () => {
   });
 
   it("keeps preferences per household and checks the kids' descriptions", async () => {
-    const saved = await parent.call(prefs.PATCH, "/api/home/prefs", { method: "PATCH", body: { homeArea: "Sengkang", radiusKm: 5, interests: ["Badminton", "badminton", "nature walks"], descriptions: { [ARI_ID]: "youngest, light blue T-shirt" } } });
-    expect(saved.body.prefs).toMatchObject({ radiusKm: 5, interests: ["badminton", "nature walks"], descriptions: { [ARI_ID]: "youngest, light blue T-shirt" } });
+    const saved = await parent.call(prefs.PATCH, "/api/home/prefs", { method: "PATCH", body: { homeArea: "Sengkang", radiusKm: 5, interests: ["Badminton", "badminton", "nature walks"], descriptions: { [JORDAN_ID]: "youngest, light blue T-shirt" } } });
+    expect(saved.body.prefs).toMatchObject({ radiusKm: 5, interests: ["badminton", "nature walks"], descriptions: { [JORDAN_ID]: "youngest, light blue T-shirt" } });
     expect((await parent.call(prefs.PATCH, "/api/home/prefs", { method: "PATCH", body: { descriptions: { [KAI_ID]: "not ours" } } })).status).toBe(404);
     const other = new Client();
     await other.call(parentRoute.POST, "/api/auth/parent", { body: { email: OTHER_PARENT_EMAIL, password: "x" } });
@@ -125,20 +125,20 @@ describe("where they are", () => {
       { at: at(20), lat: 1.3935, lng: 103.893, accuracyM: 10, speed: 1.3 },
       { at: at(2), lat: 1.3895, lng: 103.9003, accuracyM: 8, speed: 0.1 },
     ];
-    expect((await device.call(location.POST, "/api/location", { body: { kidId: ARI_ID, points: pts } })).status).toBe(403);
-    await parent.call(settings.PATCH, "/api/location/settings", { method: "PATCH", body: { kidId: ARI_ID, enabled: true, mode: "balanced" } });
+    expect((await device.call(location.POST, "/api/location", { body: { kidId: JORDAN_ID, points: pts } })).status).toBe(403);
+    await parent.call(settings.PATCH, "/api/location/settings", { method: "PATCH", body: { kidId: JORDAN_ID, enabled: true, mode: "balanced" } });
     await parent.call(places.POST, "/api/location/places", { body: { name: "Home", kind: "home", lat: 1.3895, lng: 103.9003, radiusM: 150 } });
     await parent.call(places.POST, "/api/location/places", { body: { name: "School", kind: "school", lat: 1.3966, lng: 103.8865, radiusM: 200 } });
-    const sent = await device.call(location.POST, "/api/location", { body: { kidId: ARI_ID, points: pts } });
+    const sent = await device.call(location.POST, "/api/location", { body: { kidId: JORDAN_ID, points: pts } });
     expect(sent.body).toMatchObject({ stored: 3, mode: "balanced", intervals: { movingSec: 120 }, motion: "still" });
     expect(sent.body.events.map((e: { kind: string; place: string }) => `${e.kind} ${e.place}`)).toEqual(["arrived School", "left School", "arrived Home"]);
     // A retry stores nothing twice.
-    expect((await device.call(location.POST, "/api/location", { body: { kidId: ARI_ID, points: pts } })).body.stored).toBe(0);
+    expect((await device.call(location.POST, "/api/location", { body: { kidId: JORDAN_ID, points: pts } })).body.stored).toBe(0);
     // Another household's kid is refused.
     expect((await device.call(location.POST, "/api/location", { body: { kidId: KAI_ID, points: pts } })).status).toBe(404);
 
     const view = await parent.call(location.GET, "/api/location");
-    const ari = view.body.kids.find((k: { id: string }) => k.id === ARI_ID);
+    const ari = view.body.kids.find((k: { id: string }) => k.id === JORDAN_ID);
     expect(ari.latest).toMatchObject({ motion: "still" });
     expect(ari.today.map((p: { motion: string }) => p.motion)).toEqual(["still", "walking", "still"]);
     expect(ari.events[0]).toMatchObject({ kind: "arrived", placeName: "Home" });
@@ -147,30 +147,30 @@ describe("where they are", () => {
 
   it("lets a teen pause for 30 minutes, and nothing is stored meanwhile; juniors can't", async () => {
     await pairSimulator();
-    await parent.call(settings.PATCH, "/api/location/settings", { method: "PATCH", body: { kidId: MEI_ID, enabled: true } });
-    await parent.call(kidRoute.POST, "/api/auth/kid", { body: { kidId: MEI_ID, secret: { kind: "password", password: "frogs123" } } });
+    await parent.call(settings.PATCH, "/api/location/settings", { method: "PATCH", body: { kidId: LEONARD_ID, enabled: true } });
+    await parent.call(kidRoute.POST, "/api/auth/kid", { body: { kidId: LEONARD_ID, secret: { kind: "password", password: "frogs123" } } });
     const paused = await parent.call(pause.POST, "/api/location/pause", { body: { minutes: 30 } });
     expect(paused.status).toBe(200);
     expect(Date.parse(paused.body.pausedUntil) - Date.now()).toBeGreaterThan(29 * 60_000);
-    const sent = await device.call(location.POST, "/api/location", { body: { kidId: MEI_ID, points: [{ at: new Date().toISOString(), lat: 1.39, lng: 103.9, accuracyM: 10 }] } });
+    const sent = await device.call(location.POST, "/api/location", { body: { kidId: LEONARD_ID, points: [{ at: new Date().toISOString(), lat: 1.39, lng: 103.9, accuracyM: 10 }] } });
     expect(sent.body).toMatchObject({ stored: 0, pausedUntil: paused.body.pausedUntil });
   });
 
   it("shows a kid only their own state, refuses a junior's pause, and lets a teen pause and resume", async () => {
     await pairSimulator();
-    await parent.call(settings.PATCH, "/api/location/settings", { method: "PATCH", body: { kidId: MEI_ID, enabled: true } });
-    await parent.call(settings.PATCH, "/api/location/settings", { method: "PATCH", body: { kidId: ARI_ID, enabled: true } });
+    await parent.call(settings.PATCH, "/api/location/settings", { method: "PATCH", body: { kidId: LEONARD_ID, enabled: true } });
+    await parent.call(settings.PATCH, "/api/location/settings", { method: "PATCH", body: { kidId: JORDAN_ID, enabled: true } });
     await parent.call(cameras.PUT, "/api/home/cameras", { method: "PUT", body: { cameras: [{ key: "study", room: "Study" }] } }); // the parent's cookie isn't a device: refused
     await device.call(cameras.PUT, "/api/home/cameras", { method: "PUT", body: { cameras: [{ key: "study", room: "Study" }] } });
     await parent.call(prefs.PATCH, "/api/home/prefs", { method: "PATCH", body: { camDays: [1, 2, 3, 4, 5, 6, 7], camFrom: "00:00", camTo: "23:59" } });
 
-    await parent.call(kidRoute.POST, "/api/auth/kid", { body: { kidId: ARI_ID, secret: { kind: "pictures", code: ["idle", "cheer", "pilot", "dreamlight"] } } });
+    await parent.call(kidRoute.POST, "/api/auth/kid", { body: { kidId: JORDAN_ID, secret: { kind: "pictures", code: ["idle", "cheer", "pilot", "dreamlight"] } } });
     const junior = await parent.call(mine.GET, "/api/location/mine");
-    expect(junior.body).toMatchObject({ nickname: "Ari", band: "junior", sharing: { enabled: true, paused: false, canPause: false }, cameras: { on: true, rooms: ["Study"] } });
+    expect(junior.body).toMatchObject({ nickname: "Jordan", band: "junior", sharing: { enabled: true, paused: false, canPause: false }, cameras: { on: true, rooms: ["Study"] } });
     expect(JSON.stringify(junior.body)).not.toMatch(/lat|lng|reading|activity/);
     expect((await parent.call(pause.POST, "/api/location/pause", { body: { minutes: 30 } })).status).toBe(403);
 
-    await parent.call(kidRoute.POST, "/api/auth/kid", { body: { kidId: MEI_ID, secret: { kind: "password", password: "frogs123" } } });
+    await parent.call(kidRoute.POST, "/api/auth/kid", { body: { kidId: LEONARD_ID, secret: { kind: "password", password: "frogs123" } } });
     expect((await parent.call(mine.GET, "/api/location/mine")).body.sharing).toMatchObject({ canPause: true, paused: false });
     await parent.call(pause.POST, "/api/location/pause", { body: { minutes: 30 } });
     expect((await parent.call(mine.GET, "/api/location/mine")).body.sharing).toMatchObject({ paused: true, on: true });
@@ -181,12 +181,12 @@ describe("where they are", () => {
   it("writes the Right now brief from facts with the rules' own words when Muse isn't there, and says nothing when there's nothing", async () => {
     expect((await parent.call(brief.GET, "/api/guardian/brief")).body.brief).toBeNull();
     await pairSimulator();
-    await parent.call(settings.PATCH, "/api/location/settings", { method: "PATCH", body: { kidId: ARI_ID, enabled: true } });
+    await parent.call(settings.PATCH, "/api/location/settings", { method: "PATCH", body: { kidId: JORDAN_ID, enabled: true } });
     await parent.call(places.POST, "/api/location/places", { body: { name: "School", kind: "school", lat: 1.3966, lng: 103.8865, radiusM: 200 } });
-    await device.call(location.POST, "/api/location", { body: { kidId: ARI_ID, points: [{ at: new Date(Date.now() - 60_000).toISOString(), lat: 1.3966, lng: 103.8865, accuracyM: 8, speed: 0 }] } });
+    await device.call(location.POST, "/api/location", { body: { kidId: JORDAN_ID, points: [{ at: new Date(Date.now() - 60_000).toISOString(), lat: 1.3966, lng: 103.8865, accuracyM: 8, speed: 0 }] } });
     const r = await parent.call(brief.GET, "/api/guardian/brief");
     expect(r.body.brief).toMatchObject({ source: "fallback", cached: false });
-    expect(r.body.brief.text).toContain("Ari is at School");
+    expect(r.body.brief.text).toContain("Jordan is at School");
     expect(r.body.brief.text).not.toMatch(/\d\.\d{3}/);
     expect((await parent.call(brief.GET, "/api/guardian/brief")).body.brief.cached).toBe(true);
   });

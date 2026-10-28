@@ -20,8 +20,8 @@ outing ideas were recorded from a real Muse Spark web search.
 
 | Time | You do | On screen |
 |---|---|---|
-| 0:00 | In the simulator, press **Send location** for Ari at School, then Walking home, then Playground twice. On the parent's phone, stay on Where. | Muse Spark's "Right now" over the map; Ari's Kix dot walks home along its trail; "Possibly playing" at the playground |
-| 0:05 | Send Ari at Home, then the Kitchen and Study frames. Tap **Home**. | The floor plan lights up, Kix avatars appear in their rooms |
+| 0:00 | In the simulator, press **Send location** for Jordan at School, then Walking home, then Playground twice. On the parent's phone, stay on Where. | Muse Spark's "Right now" over the map; Jordan's Kix dot walks home along its trail; "Possibly playing" at the playground |
+| 0:05 | Send Jordan at Home, then the Kitchen and Study frames. Tap **Home**. | The floor plan lights up, Kix avatars appear in their rooms |
 | 0:10 | Send the tug-of-war frame three times (about 4 s each), one at a time. | A watch note arrives; the banner and "Right now" change |
 | 0:13 | Tap the banner: the alert sheet opens. | Three frames, the last with SAM 3.1's colour outline on each child; "Was Muse right?" |
 | 0:16 | Tap **Not right**. | "Thanks. This camera now needs one more matching check…" |

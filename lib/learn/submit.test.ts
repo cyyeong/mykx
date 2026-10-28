@@ -1,7 +1,7 @@
 // submitAttempt against the demo store (synthetic data only).
 import { randomUUID } from "node:crypto";
 import { beforeEach, describe, expect, it } from "vitest";
-import { ARI_ID, DEMO_HOUSEHOLD_ID } from "../auth/demo-family.ts";
+import { JORDAN_ID, DEMO_HOUSEHOLD_ID } from "../auth/demo-family.ts";
 import { resetDemoStore, type DemoStore } from "../auth/store-demo.ts";
 import { sgDate } from "../domain/time.ts";
 import { submitAttempt, type AttemptInput } from "./submit.ts";
@@ -20,7 +20,7 @@ beforeEach(() => {
 
 describe("submitAttempt", () => {
   it("marks a correct first try, pays +2 and labels mastery honestly", async () => {
-    const r = await submitAttempt(store, DEMO_HOUSEHOLD_ID, ARI_ID, input());
+    const r = await submitAttempt(store, DEMO_HOUSEHOLD_ID, JORDAN_ID, input());
     expect(r.correct).toBe(true);
     expect(r.marks).toBe(2);
     expect(r.firstTry).toBe(true);
@@ -31,30 +31,30 @@ describe("submitAttempt", () => {
   });
 
   it("pays nothing without an explanation", async () => {
-    const r = await submitAttempt(store, DEMO_HOUSEHOLD_ID, ARI_ID, input({ explanation: null }));
+    const r = await submitAttempt(store, DEMO_HOUSEHOLD_ID, JORDAN_ID, input({ explanation: null }));
     expect(r.correct).toBe(true);
     expect(r.awards).toEqual([]);
     expect(r.starsToday).toBe(0);
   });
 
   it("marks wrong answers kindly: no stars, still stored, Kix explains", async () => {
-    const r = await submitAttempt(store, DEMO_HOUSEHOLD_ID, ARI_ID, input({ response: 1, explanation: null }));
+    const r = await submitAttempt(store, DEMO_HOUSEHOLD_ID, JORDAN_ID, input({ response: 1, explanation: null }));
     expect(r.correct).toBe(false);
     expect(r.marks).toBe(0);
     expect(r.awards).toEqual([]);
     expect(r.note).toContain("tadpole comes first");
     expect(r.working).toBeNull();
-    expect(await store.learn.attempts(DEMO_HOUSEHOLD_ID, ARI_ID)).toHaveLength(1);
+    expect(await store.learn.attempts(DEMO_HOUSEHOLD_ID, JORDAN_ID)).toHaveLength(1);
   });
 
   it("shows the worked solution on a revealed submit", async () => {
-    const r = await submitAttempt(store, DEMO_HOUSEHOLD_ID, ARI_ID, input({ response: null, revealed: true }));
+    const r = await submitAttempt(store, DEMO_HOUSEHOLD_ID, JORDAN_ID, input({ response: null, revealed: true }));
     expect(r.working).toEqual(expect.arrayContaining([expect.stringContaining("frogspawn")]));
   });
 
   it("pays +3 for an explained retry", async () => {
-    await submitAttempt(store, DEMO_HOUSEHOLD_ID, ARI_ID, input({ response: 1, explanation: null }));
-    const r = await submitAttempt(store, DEMO_HOUSEHOLD_ID, ARI_ID, input({ response: 2, explanation: "Tadpoles come from eggs" }));
+    await submitAttempt(store, DEMO_HOUSEHOLD_ID, JORDAN_ID, input({ response: 1, explanation: null }));
+    const r = await submitAttempt(store, DEMO_HOUSEHOLD_ID, JORDAN_ID, input({ response: 2, explanation: "Tadpoles come from eggs" }));
     expect(r.firstTry).toBe(false);
     expect(r.awards).toEqual([{ rule: "retry_revised", amount: 3 }]);
     expect(r.starsToday).toBe(3);
@@ -62,28 +62,28 @@ describe("submitAttempt", () => {
 
   it("a resubmitted key returns the stored result without paying twice", async () => {
     const key = randomUUID();
-    const first = await submitAttempt(store, DEMO_HOUSEHOLD_ID, ARI_ID, input({ key }));
-    const second = await submitAttempt(store, DEMO_HOUSEHOLD_ID, ARI_ID, input({ key }));
+    const first = await submitAttempt(store, DEMO_HOUSEHOLD_ID, JORDAN_ID, input({ key }));
+    const second = await submitAttempt(store, DEMO_HOUSEHOLD_ID, JORDAN_ID, input({ key }));
     expect(second.attemptId).toBe(first.attemptId);
     expect(second.correct).toBe(true);
     expect(second.marks).toBe(2);
     expect(second.firstTry).toBe(true);
     expect(second.awards).toEqual([]);
     expect(second.starsToday).toBe(first.starsToday);
-    expect(await store.learn.attempts(DEMO_HOUSEHOLD_ID, ARI_ID)).toHaveLength(1);
+    expect(await store.learn.attempts(DEMO_HOUSEHOLD_ID, JORDAN_ID)).toHaveLength(1);
   });
 
   it("caps at 15 stars a day and says learning still counts", async () => {
-    await store.learn.saveLedgerEntries(DEMO_HOUSEHOLD_ID, ARI_ID, [
+    await store.learn.saveLedgerEntries(DEMO_HOUSEHOLD_ID, JORDAN_ID, [
       { key: "seed", kind: "stars", rule: "first_attempt", amount: 15, at: new Date().toISOString(), day: NOW_DAY },
     ]);
-    const r = await submitAttempt(store, DEMO_HOUSEHOLD_ID, ARI_ID, input({ itemId: "p3sci-demo-02" }));
+    const r = await submitAttempt(store, DEMO_HOUSEHOLD_ID, JORDAN_ID, input({ itemId: "p3sci-demo-02" }));
     expect(r.capReached).toBe(true);
     expect(r.starsToday).toBe(15);
     expect(r.awards).toEqual([{ rule: "first_attempt", amount: 0, note: "daily cap reached" }]);
   });
 
   it("rejects unknown items", async () => {
-    await expect(submitAttempt(store, DEMO_HOUSEHOLD_ID, ARI_ID, input({ itemId: "nope" }))).rejects.toThrow("unknown-item");
+    await expect(submitAttempt(store, DEMO_HOUSEHOLD_ID, JORDAN_ID, input({ itemId: "nope" }))).rejects.toThrow("unknown-item");
   });
 });

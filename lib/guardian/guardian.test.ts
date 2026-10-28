@@ -103,11 +103,11 @@ describe("session focus", () => {
 });
 
 describe("guardian flags", () => {
-  const base = { nickname: "Ari", now: "2026-10-28T13:00:00Z", settings: S, messages: [], sessions: [], days: [] };
+  const base = { nickname: "Jordan", now: "2026-10-28T13:00:00Z", settings: S, messages: [], sessions: [], days: [] };
 
   it("raises an urgent flag with the words and the helplines for distress", () => {
     const [f] = guardianFlags({ ...base, messages: [{ at: "2026-10-28T11:42:00Z", text: "I feel like giving up on everything" }] });
-    expect(f).toMatchObject({ level: "urgent", kind: "distress", quote: "I feel like giving up on everything", helplines: true, title: "Ari wrote something worrying to Kix" });
+    expect(f).toMatchObject({ level: "urgent", kind: "distress", quote: "I feel like giving up on everything", helplines: true, title: "Jordan wrote something worrying to Kix" });
   });
 
   it("watches tired evenings: three sessions after 8 pm with tired signs", () => {
@@ -117,7 +117,7 @@ describe("guardian flags", () => {
     expect(isEvening(evenings[0].start, S)).toBe(true);
     const f = guardianFlags({ ...base, sessions: evenings }).find((x) => x.kind === "tired-evenings");
     expect(f?.level).toBe("watch");
-    expect(f?.title).toBe("Ari seemed tired in 3 evening sessions");
+    expect(f?.title).toBe("Jordan seemed tired in 3 evening sessions");
     expect(f?.saw).toHaveLength(3);
   });
 
@@ -131,7 +131,7 @@ describe("guardian flags", () => {
 describe("next step", () => {
   const today = screenTimeByDay(beats("17:00", 10, "learn"), ["2026-10-28"], S)[0];
   const input: NextStepInput = {
-    nickname: "Ari",
+    nickname: "Jordan",
     now: "2026-10-28T17:20:00+08:00",
     settings: S,
     today,
@@ -151,7 +151,7 @@ describe("next step", () => {
     expect(nextStep({ ...input, today: full }).kind).toBe("rest");
   });
 
-  it("suggests a break after the break interval, or sooner when focus dips or Ari seems sleepy", () => {
+  it("suggests a break after the break interval, or sooner when focus dips or Jordan seems sleepy", () => {
     expect(nextStep({ ...input, sinceBreakMin: 20 }).kind).toBe("break");
     expect(nextStep({ ...input, sinceBreakMin: 9, focusDip: true }).why).toMatch(/focus dipped/);
     expect(nextStep({ ...input, sleepy: true }).kind).toBe("break");

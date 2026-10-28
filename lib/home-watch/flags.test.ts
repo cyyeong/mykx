@@ -3,8 +3,8 @@ import { alertFor } from "./flags.ts";
 import type { HomeStatus, RoomReading } from "./home-watch.ts";
 import { settleReading, type ReaderKid } from "./reader.ts";
 
-const KIDS: ReaderKid[] = [{ nickname: "Ari", band: "junior", description: "youngest, light blue T-shirt" }, { nickname: "Zara", band: "junior", description: "curly hair, yellow T-shirt" }];
-const reading = (o: Partial<RoomReading> = {}): RoomReading => ({ people: [{ who: "child", likely: "Ari", confidence: 0.8, cue: "calm" }], activity: "reading or homework", note: "", cue: "calm", hazard: "none", concern: "none", reason: "Ari is reading.", confidence: 0.8, source: "live", ...o });
+const KIDS: ReaderKid[] = [{ nickname: "Jordan", band: "junior", description: "youngest, light blue T-shirt" }, { nickname: "Abby", band: "junior", description: "curly hair, yellow T-shirt" }];
+const reading = (o: Partial<RoomReading> = {}): RoomReading => ({ people: [{ who: "child", likely: "Jordan", confidence: 0.8, cue: "calm" }], activity: "reading or homework", note: "", cue: "calm", hazard: "none", concern: "none", reason: "Jordan is reading.", confidence: 0.8, source: "live", ...o });
 const status = (minAgo: number, r: Partial<RoomReading>): HomeStatus => ({ id: String(minAgo), cameraId: "c", at: new Date(Date.parse(AT) - minAgo * 60_000).toISOString(), reading: reading(r) });
 const AT = "2026-10-30T09:08:00Z";
 const base = { at: AT, recent: [] as HomeStatus[], burst: false, softened: new Set<string>(), lastAlerts: [] };
@@ -12,11 +12,11 @@ const base = { at: AT, recent: [] as HomeStatus[], burst: false, softened: new S
 describe("the Home Reader's guards (rule 15)", () => {
   it("never names an adult or gives them a cue, and names only this family's kids", () => {
     const r = settleReading(
-      { camera: "living", people: [{ who: "adult", likely: "Mum", confidence: 0.9, cue: "frowning" }, { who: "child", likely: "zara", confidence: 0.7, cue: "crying" }, { who: "child", likely: "Kai", confidence: 0.9, cue: "calm" }, { who: "child", likely: "Ari", confidence: 0.3, cue: "smiling or laughing" }], activity: "talking", note: "n", hazard: "none", concern: "watch", reason: "r", confidence: 0.7 },
+      { camera: "living", people: [{ who: "adult", likely: "Mum", confidence: 0.9, cue: "frowning" }, { who: "child", likely: "abby", confidence: 0.7, cue: "crying" }, { who: "child", likely: "Kai", confidence: 0.9, cue: "calm" }, { who: "child", likely: "Jordan", confidence: 0.3, cue: "smiling or laughing" }], activity: "talking", note: "n", hazard: "none", concern: "watch", reason: "r", confidence: 0.7 },
       KIDS,
       "live",
     );
-    expect(r.people.map((p) => [p.who, p.likely, p.cue])).toEqual([["adult", null, null], ["child", "Zara", "crying"], ["child", null, "calm"], ["child", null, "smiling or laughing"]]);
+    expect(r.people.map((p) => [p.who, p.likely, p.cue])).toEqual([["adult", null, null], ["child", "Abby", "crying"], ["child", null, "calm"], ["child", null, "smiling or laughing"]]);
     expect(r.cue).toBe("crying");
   });
 
@@ -47,7 +47,7 @@ describe("alert rules", () => {
     expect(alertFor({ ...base, reading: reading(argue), recent: [status(3, argue)] })).toBeNull();
     expect(alertFor({ ...base, reading: reading(argue), recent: [status(3, argue), status(7, argue)] })).toMatchObject({ level: "watch", kind: "arguing" });
     expect(alertFor({ ...base, reading: reading(argue), recent: [status(3, argue), status(7, argue)], lastAlerts: [{ kind: "arguing", at: status(4, {}).at }] })).toBeNull();
-    const cry = { people: [{ who: "child" as const, likely: "Ari", confidence: 0.8, cue: "crying" }] };
+    const cry = { people: [{ who: "child" as const, likely: "Jordan", confidence: 0.8, cue: "crying" }] };
     expect(alertFor({ ...base, reading: reading(cry), recent: [status(2, cry)] })).toBeNull();
     expect(alertFor({ ...base, reading: reading(cry), recent: [status(6, cry)] })).toMatchObject({ kind: "crying" });
   });

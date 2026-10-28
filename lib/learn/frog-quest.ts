@@ -1,4 +1,4 @@
-// Ari's quest: the P3 frog life cycle (HANDOFF task 2, founder decision 28 Oct).
+// Jordan's quest: the P3 frog life cycle (HANDOFF task 2, founder decision 28 Oct).
 //
 // The map stops and the questions come from the reviewed P3 Science life-cycles
 // items (`content/skills/p3-science/items/demo.json`) through `selectNext`

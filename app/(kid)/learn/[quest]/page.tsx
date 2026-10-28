@@ -10,7 +10,7 @@ import { learnContext, questData } from "@/lib/learn/server";
 
 export const metadata: Metadata = { title: "Quest map · myKx" };
 
-// Ari's quest from task 2: the reviewed P3 frog life cycle.
+// Jordan's quest from task 2: the reviewed P3 frog life cycle.
 export function generateStaticParams() {
   return [{ quest: FROG_QUEST.slug }];
 }

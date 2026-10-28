@@ -14,11 +14,11 @@ import * as family from "@/app/api/family/kids/route";
 import * as me from "@/app/api/me/route";
 import * as focus from "@/app/api/signals/focus/route";
 import { authMode } from "./context.ts";
-import { ARI_ID, DEMO_HOUSEHOLD_ID, DEMO_PARENT_ID, KAI_ID, MEI_ID, OTHER_PARENT_EMAIL, OTHER_PARENT_ID } from "./demo-family.ts";
+import { JORDAN_ID, DEMO_HOUSEHOLD_ID, DEMO_PARENT_ID, KAI_ID, LEONARD_ID, OTHER_PARENT_EMAIL, OTHER_PARENT_ID } from "./demo-family.ts";
 import { resetRateLimits } from "./lockout.ts";
 import { DemoStore, demoStore, resetDemoStore } from "./store-demo.ts";
 
-const ARI_CODE = ["idle", "cheer", "pilot", "dreamlight"];
+const JORDAN_CODE = ["idle", "cheer", "pilot", "dreamlight"];
 const WRONG_CODE = ["idle", "cheer", "pilot", "hint"];
 
 /** A browser: keeps cookies between calls and remembers every reply body. */
@@ -109,9 +109,9 @@ describe("grown-up sign-in (demo mode)", () => {
     const { body } = await browser.call(kidsRoute.GET, "/api/auth/kids");
     expect(body.grownUp).toBe("Demo Parent");
     expect(body.kids.map((d: { nickname: string; band: string; secretKind: string; needsSetup: boolean; locked: boolean }) => [d.nickname, d.band, d.secretKind, d.needsSetup, d.locked])).toEqual([
-      ["Ari", "junior", "pictures", false, false],
-      ["Zara", "teen", "password", false, false],
-      ["Mei", "teen", "password", false, false],
+      ["Jordan", "junior", "pictures", false, false],
+      ["Abby", "teen", "password", false, false],
+      ["Leonard", "teen", "password", false, false],
     ]);
   });
 
@@ -122,7 +122,7 @@ describe("grown-up sign-in (demo mode)", () => {
 
 describe("kid sign-in", () => {
   it("needs a grown-up signed in on the device", async () => {
-    expect(await browser.kidSignIn(ARI_ID, { kind: "pictures", code: ARI_CODE })).toMatchObject({ status: 403, body: { ok: false, reason: "no-parent" } });
+    expect(await browser.kidSignIn(JORDAN_ID, { kind: "pictures", code: JORDAN_CODE })).toMatchObject({ status: 403, body: { ok: false, reason: "no-parent" } });
   });
 
   it("can't open another household's kid", async () => {
@@ -130,26 +130,26 @@ describe("kid sign-in", () => {
     expect(await browser.kidSignIn(KAI_ID, { kind: "pictures", code: ["hint", "toon-pop", "pilot", "idle"] })).toMatchObject({ status: 403, body: { reason: "not-found" } });
   });
 
-  it("opens Ari's door with her picture code and Mei's with her password", async () => {
+  it("opens Jordan's door with her picture code and Leonard's with her password", async () => {
     await browser.signIn();
-    const res = await browser.kidSignIn(ARI_ID, { kind: "pictures", code: ARI_CODE });
-    expect(res).toMatchObject({ status: 200, body: { ok: true, kid: { id: ARI_ID, nickname: "Ari", band: "junior", pack: "terrarium" }, next: "/home" } });
+    const res = await browser.kidSignIn(JORDAN_ID, { kind: "pictures", code: JORDAN_CODE });
+    expect(res).toMatchObject({ status: 200, body: { ok: true, kid: { id: JORDAN_ID, nickname: "Jordan", band: "junior", pack: "terrarium" }, next: "/home" } });
     const cookie = res.headers.getSetCookie().find((c) => c.startsWith("mykx_kid="))!;
     expect(cookie).toMatch(/HttpOnly/i);
     expect(cookie).toMatch(/SameSite=Lax/i);
     expect(cookie).toMatch(/Max-Age=43200/i);
     expect(cookie).toMatch(/Path=\//i);
-    expect((await browser.call(me.GET, "/api/me")).body).toMatchObject({ ok: true, kid: { id: ARI_ID, nickname: "Ari", secretKind: "pictures" } });
+    expect((await browser.call(me.GET, "/api/me")).body).toMatchObject({ ok: true, kid: { id: JORDAN_ID, nickname: "Jordan", secretKind: "pictures" } });
 
-    expect((await browser.kidSignIn(MEI_ID, { kind: "password", password: "frogs123" })).status).toBe(200);
-    expect((await browser.call(me.GET, "/api/me")).body.kid.nickname).toBe("Mei");
+    expect((await browser.kidSignIn(LEONARD_ID, { kind: "password", password: "frogs123" })).status).toBe(200);
+    expect((await browser.call(me.GET, "/api/me")).body.kid.nickname).toBe("Leonard");
   });
 
   it("rejects a disabled kid and a picture code on a password door", async () => {
     await browser.signIn();
-    expect((await browser.kidSignIn(MEI_ID, { kind: "pictures", code: ARI_CODE })).body.reason).toBe("wrong-kind");
-    store.profiles.set(MEI_ID, { ...store.profiles.get(MEI_ID)!, disabledAt: new Date().toISOString() });
-    expect(await browser.kidSignIn(MEI_ID, { kind: "password", password: "frogs123" })).toMatchObject({ status: 403, body: { reason: "disabled" } });
+    expect((await browser.kidSignIn(LEONARD_ID, { kind: "pictures", code: JORDAN_CODE })).body.reason).toBe("wrong-kind");
+    store.profiles.set(LEONARD_ID, { ...store.profiles.get(LEONARD_ID)!, disabledAt: new Date().toISOString() });
+    expect(await browser.kidSignIn(LEONARD_ID, { kind: "password", password: "frogs123" })).toMatchObject({ status: 403, body: { reason: "disabled" } });
   });
 
   it("locks after 5 wrong tries, unlocks after a minute, and a success resets the count", async () => {
@@ -158,31 +158,31 @@ describe("kid sign-in", () => {
     await browser.signIn();
     const left = [];
     for (let i = 0; i < 4; i++) {
-      const res = await browser.kidSignIn(ARI_ID, { kind: "pictures", code: WRONG_CODE });
+      const res = await browser.kidSignIn(JORDAN_ID, { kind: "pictures", code: WRONG_CODE });
       expect(res.status).toBe(401);
       left.push(res.body.triesLeft);
     }
     expect(left).toEqual([4, 3, 2, 1]);
-    expect(await browser.kidSignIn(ARI_ID, { kind: "pictures", code: WRONG_CODE })).toMatchObject({ status: 423, body: { ok: false, reason: "locked", retryAfterSec: 60 } });
-    expect(store.auditLog.filter((a) => a.action === "kid.lockout")).toMatchObject([{ actorRole: "system", target: ARI_ID, householdId: DEMO_HOUSEHOLD_ID }]);
+    expect(await browser.kidSignIn(JORDAN_ID, { kind: "pictures", code: WRONG_CODE })).toMatchObject({ status: 423, body: { ok: false, reason: "locked", retryAfterSec: 60 } });
+    expect(store.auditLog.filter((a) => a.action === "kid.lockout")).toMatchObject([{ actorRole: "system", target: JORDAN_ID, householdId: DEMO_HOUSEHOLD_ID }]);
 
     // Locked: even the right code waits, and the door shows it.
     vi.setSystemTime(new Date("2026-10-27T08:00:30Z"));
-    expect(await browser.kidSignIn(ARI_ID, { kind: "pictures", code: ARI_CODE })).toMatchObject({ status: 423, body: { retryAfterSec: 30 } });
-    expect((await browser.call(kidsRoute.GET, "/api/auth/kids")).body.kids[0]).toMatchObject({ id: ARI_ID, locked: true });
+    expect(await browser.kidSignIn(JORDAN_ID, { kind: "pictures", code: JORDAN_CODE })).toMatchObject({ status: 423, body: { retryAfterSec: 30 } });
+    expect((await browser.call(kidsRoute.GET, "/api/auth/kids")).body.kids[0]).toMatchObject({ id: JORDAN_ID, locked: true });
 
     // A minute on: open again. Two wrong, then right, then the count starts over.
     vi.setSystemTime(new Date("2026-10-27T08:01:01Z"));
-    expect((await browser.kidSignIn(ARI_ID, { kind: "pictures", code: WRONG_CODE })).body.triesLeft).toBe(4);
-    expect((await browser.kidSignIn(ARI_ID, { kind: "pictures", code: WRONG_CODE })).body.triesLeft).toBe(3);
-    expect((await browser.kidSignIn(ARI_ID, { kind: "pictures", code: ARI_CODE })).status).toBe(200);
-    expect(store.profiles.get(ARI_ID)!.failedAttempts).toBe(0);
-    expect((await browser.kidSignIn(ARI_ID, { kind: "pictures", code: WRONG_CODE })).body.triesLeft).toBe(4);
+    expect((await browser.kidSignIn(JORDAN_ID, { kind: "pictures", code: WRONG_CODE })).body.triesLeft).toBe(4);
+    expect((await browser.kidSignIn(JORDAN_ID, { kind: "pictures", code: WRONG_CODE })).body.triesLeft).toBe(3);
+    expect((await browser.kidSignIn(JORDAN_ID, { kind: "pictures", code: JORDAN_CODE })).status).toBe(200);
+    expect(store.profiles.get(JORDAN_ID)!.failedAttempts).toBe(0);
+    expect((await browser.kidSignIn(JORDAN_ID, { kind: "pictures", code: WRONG_CODE })).body.triesLeft).toBe(4);
   });
 
   it("ends with the grown-up: sign-out clears it, and another grown-up can't use it", async () => {
     await browser.signIn();
-    await browser.kidSignIn(ARI_ID, { kind: "pictures", code: ARI_CODE });
+    await browser.kidSignIn(JORDAN_ID, { kind: "pictures", code: JORDAN_CODE });
     const kidCookie = browser.cookies.get("mykx_kid")!;
 
     const other = new Browser();
@@ -253,22 +253,22 @@ describe("Your family", () => {
 
   it("resets codes, changes settings and removes a kid with a confirm step", async () => {
     await browser.signIn();
-    const reset = await browser.call(familyKid.PATCH, `/api/family/kids/${ARI_ID}`, { method: "PATCH", id: ARI_ID, body: { secret: { kind: "pictures" }, dailyLimitMin: 20 } });
+    const reset = await browser.call(familyKid.PATCH, `/api/family/kids/${JORDAN_ID}`, { method: "PATCH", id: JORDAN_ID, body: { secret: { kind: "pictures" }, dailyLimitMin: 20 } });
     expect(reset.body.kid).toMatchObject({ needsSetup: true, secretEvent: "reset", dailyLimitMin: 20 });
-    expect((await browser.kidSignIn(ARI_ID, { kind: "pictures", code: ARI_CODE })).body.reason).toBe("needs-setup");
+    expect((await browser.kidSignIn(JORDAN_ID, { kind: "pictures", code: JORDAN_CODE })).body.reason).toBe("needs-setup");
 
-    const temp = await browser.call(familyKid.PATCH, `/api/family/kids/${MEI_ID}`, { method: "PATCH", id: MEI_ID, body: { secret: { kind: "password", password: "temporary1" } } });
+    const temp = await browser.call(familyKid.PATCH, `/api/family/kids/${LEONARD_ID}`, { method: "PATCH", id: LEONARD_ID, body: { secret: { kind: "password", password: "temporary1" } } });
     expect(temp.body.kid).toMatchObject({ needsSetup: false, secretEvent: "reset" });
-    expect((await browser.kidSignIn(MEI_ID, { kind: "password", password: "frogs123" })).status).toBe(401);
-    expect((await browser.kidSignIn(MEI_ID, { kind: "password", password: "temporary1" })).status).toBe(200);
+    expect((await browser.kidSignIn(LEONARD_ID, { kind: "password", password: "frogs123" })).status).toBe(401);
+    expect((await browser.kidSignIn(LEONARD_ID, { kind: "password", password: "temporary1" })).status).toBe(200);
 
     // The gate fires before the household check; after sign-out the 404 shows through.
     expect((await browser.call(familyKid.PATCH, `/api/family/kids/${KAI_ID}`, { method: "PATCH", id: KAI_ID, body: { voiceEnabled: false } })).status).toBe(403);
     await browser.kidSignOut();
     expect((await browser.call(familyKid.PATCH, `/api/family/kids/${KAI_ID}`, { method: "PATCH", id: KAI_ID, body: { voiceEnabled: false } })).status).toBe(404);
-    expect((await browser.call(familyKid.DELETE, `/api/family/kids/${MEI_ID}`, { method: "DELETE", id: MEI_ID, body: { confirm: "mei" } })).body.reason).toBe("confirm");
-    expect((await browser.call(familyKid.DELETE, `/api/family/kids/${MEI_ID}`, { method: "DELETE", id: MEI_ID, body: { confirm: "Mei" } })).body).toEqual({ ok: true });
-    expect(store.profiles.has(MEI_ID)).toBe(false);
+    expect((await browser.call(familyKid.DELETE, `/api/family/kids/${LEONARD_ID}`, { method: "DELETE", id: LEONARD_ID, body: { confirm: "mei" } })).body.reason).toBe("confirm");
+    expect((await browser.call(familyKid.DELETE, `/api/family/kids/${LEONARD_ID}`, { method: "DELETE", id: LEONARD_ID, body: { confirm: "Leonard" } })).body).toEqual({ ok: true });
+    expect(store.profiles.has(LEONARD_ID)).toBe(false);
     expect(store.auditLog.map((a) => a.action)).toEqual(expect.arrayContaining(["kid.secret-reset", "kid.remove"]));
   });
 });
@@ -276,16 +276,16 @@ describe("Your family", () => {
 describe("Me", () => {
   it("changes nickname and code (old one first)", async () => {
     await browser.signIn();
-    await browser.kidSignIn(ARI_ID, { kind: "pictures", code: ARI_CODE });
+    await browser.kidSignIn(JORDAN_ID, { kind: "pictures", code: JORDAN_CODE });
     expect((await browser.call(me.PATCH, "/api/me", { method: "PATCH", body: { nickname: "x".repeat(21) } })).status).toBe(400);
-    expect((await browser.call(me.PATCH, "/api/me", { method: "PATCH", body: { nickname: "  Ari the Bold " } })).body.kid.nickname).toBe("Ari the Bold");
+    expect((await browser.call(me.PATCH, "/api/me", { method: "PATCH", body: { nickname: "  Jordan the Bold " } })).body.kid.nickname).toBe("Jordan the Bold");
 
     const newCode = { kind: "pictures", code: ["toon-pop", "pilot", "pilot", "cheer"] };
     const wrong = await browser.call(me.PATCH, "/api/me", { method: "PATCH", body: { secret: { old: { kind: "pictures", code: WRONG_CODE }, new: newCode } } });
     expect(wrong).toMatchObject({ status: 401, body: { reason: "wrong", triesLeft: 4 } });
-    expect((await browser.call(me.PATCH, "/api/me", { method: "PATCH", body: { secret: { old: { kind: "pictures", code: ARI_CODE }, new: newCode } } })).status).toBe(200);
-    expect(store.profiles.get(ARI_ID)).toMatchObject({ secretEvent: "changed", failedAttempts: 0 });
-    expect((await browser.kidSignIn(ARI_ID, newCode)).status).toBe(200);
+    expect((await browser.call(me.PATCH, "/api/me", { method: "PATCH", body: { secret: { old: { kind: "pictures", code: JORDAN_CODE }, new: newCode } } })).status).toBe(200);
+    expect(store.profiles.get(JORDAN_ID)).toMatchObject({ secretEvent: "changed", failedAttempts: 0 });
+    expect((await browser.kidSignIn(JORDAN_ID, newCode)).status).toBe(200);
   });
 
   it("is 401 without a kid session", async () => {
@@ -300,12 +300,12 @@ describe("focus camera (AGENTS.md rule 12)", () => {
   const calm = (i: number) => ({ minute: at(i), awaySeconds: 3, eyesClosedEvents: 0, yawns: 0, facePresentRatio: 1 });
   const drifting = (i: number) => ({ minute: at(i), awaySeconds: 35, eyesClosedEvents: 1, yawns: 1, facePresentRatio: 1 });
   const post = (body: unknown) => browser.call(focus.POST, "/api/signals/focus", { body });
-  const cameraOn = (on: boolean) => browser.call(familyKid.PATCH, `/api/family/kids/${ARI_ID}`, { method: "PATCH", id: ARI_ID, body: { cameraEnabled: on } });
+  const cameraOn = (on: boolean) => browser.call(familyKid.PATCH, `/api/family/kids/${JORDAN_ID}`, { method: "PATCH", id: JORDAN_ID, body: { cameraEnabled: on } });
 
   it("is off by default; the grown-up switches it per kid", async () => {
     await browser.signIn();
     expect((await browser.call(family.GET, "/api/family/kids")).body.kids.every((k: { cameraEnabled: boolean }) => k.cameraEnabled === false)).toBe(true);
-    expect((await cameraOn(true)).body.kid).toMatchObject({ id: ARI_ID, cameraEnabled: true, voiceEnabled: true });
+    expect((await cameraOn(true)).body.kid).toMatchObject({ id: JORDAN_ID, cameraEnabled: true, voiceEnabled: true });
     expect(store.auditLog.at(-1)).toMatchObject({ action: "kid.update", detail: { fields: ["camera_enabled"] } });
     expect((await cameraOn(false)).body.kid.cameraEnabled).toBe(false);
   });
@@ -314,7 +314,7 @@ describe("focus camera (AGENTS.md rule 12)", () => {
     expect((await post({ minutes: [calm(0)] })).status).toBe(401);
     await browser.signIn();
     expect((await post({ minutes: [calm(0)] })).body.reason).toBe("no-kid");
-    await browser.kidSignIn(ARI_ID, { kind: "pictures", code: ARI_CODE });
+    await browser.kidSignIn(JORDAN_ID, { kind: "pictures", code: JORDAN_CODE });
     expect((await post({ minutes: [calm(0)] })).body).toMatchObject({ ok: false, reason: "not-allowed" });
     expect(store.focusMinuteRows.size).toBe(0);
   });
@@ -322,7 +322,7 @@ describe("focus camera (AGENTS.md rule 12)", () => {
   it("refuses anything that isn't counts: images, frames, landmarks, odd minutes, stale batches", async () => {
     await browser.signIn();
     await cameraOn(true);
-    await browser.kidSignIn(ARI_ID, { kind: "pictures", code: ARI_CODE });
+    await browser.kidSignIn(JORDAN_ID, { kind: "pictures", code: JORDAN_CODE });
     for (const body of [
       { minutes: [calm(0)], image: "data:image/jpeg;base64,/9j/4AAQ" },
       { minutes: [{ ...calm(0), frame: "AAAA" }] },
@@ -341,16 +341,16 @@ describe("focus camera (AGENTS.md rule 12)", () => {
   it("stores the minutes, returns the kid's usual, and checks a dip itself before keeping its own words", async () => {
     await browser.signIn();
     await cameraOn(true);
-    await browser.kidSignIn(ARI_ID, { kind: "pictures", code: ARI_CODE });
+    await browser.kidSignIn(JORDAN_ID, { kind: "pictures", code: JORDAN_CODE });
     const first = await post({ minutes: Array.from({ length: 10 }, (_, i) => calm(i)) });
     expect(first.body).toMatchObject({ ok: true, saved: 10, noted: false, baseline: { fromDefault: false, minutes: 10, score: 98 } });
 
     // A reading the counts don't support is dropped.
-    const unsupported = { level: "watch", evidence: "Ari is lazy.", confidence: "high", from: at(10), to: at(13) };
+    const unsupported = { level: "watch", evidence: "Jordan is lazy.", confidence: "high", from: at(10), to: at(13) };
     expect((await post({ minutes: [calm(10), calm(11), calm(12)], signal: unsupported })).body.noted).toBe(false);
 
     // A real dip is kept, in the server's words, not the browser's.
-    const reading = { level: "watch", evidence: "Ari is lazy.", confidence: "high", from: at(13), to: at(16) };
+    const reading = { level: "watch", evidence: "Jordan is lazy.", confidence: "high", from: at(13), to: at(16) };
     const res = await post({ minutes: [drifting(13), drifting(14), drifting(15)], signal: reading });
     expect(res.body).toMatchObject({ ok: true, saved: 3, noted: true });
     // The notes are the grown-up's: the kid signed in on the device can't read them.
@@ -359,7 +359,7 @@ describe("focus camera (AGENTS.md rule 12)", () => {
     await grownUp.signIn();
     const notes = (await grownUp.call(focus.GET, "/api/signals/focus")).body.notes;
     const mine = notes.find((n: { synthetic: boolean }) => !n.synthetic);
-    expect(mine).toMatchObject({ kidId: ARI_ID, from: at(13), to: at(16), synthetic: false });
+    expect(mine).toMatchObject({ kidId: JORDAN_ID, from: at(13), to: at(16), synthetic: false });
     expect(mine.evidence).toMatch(/^In 3 minutes: looked away 1 min 45 s/);
     expect(mine.evidence).not.toContain("lazy");
     expect(store.focusMinuteRows.size).toBe(16);
@@ -374,19 +374,19 @@ describe("focus camera (AGENTS.md rule 12)", () => {
     await browser.signIn();
     expect((await browser.pinSetup("4821")).status).toBe(200);
     await cameraOn(true);
-    await browser.kidSignIn(ARI_ID, { kind: "pictures", code: ARI_CODE });
+    await browser.kidSignIn(JORDAN_ID, { kind: "pictures", code: JORDAN_CODE });
     expect((await post({ minutes: [calm(0)] })).status).toBe(200);
-    // The switch-off needs the PIN unlock while Ari is signed in.
+    // The switch-off needs the PIN unlock while Jordan is signed in.
     expect((await cameraOn(false)).status).toBe(403);
     expect((await browser.pinVerify("4821")).status).toBe(200);
     await cameraOn(false);
     expect((await post({ minutes: [calm(1)] })).status).toBe(403);
   });
 
-  it("shows notes to the kid's own grown-up only (with Ari's labelled sample), who can remove one", async () => {
+  it("shows notes to the kid's own grown-up only (with Jordan's labelled sample), who can remove one", async () => {
     await browser.signIn();
     const notes = (await browser.call(focus.GET, "/api/signals/focus")).body.notes;
-    expect(notes).toEqual([expect.objectContaining({ kidId: ARI_ID, synthetic: true, confidence: "medium" })]);
+    expect(notes).toEqual([expect.objectContaining({ kidId: JORDAN_ID, synthetic: true, confidence: "medium" })]);
     const sampleId = notes[0].id;
 
     const other = new Browser();
@@ -396,7 +396,7 @@ describe("focus camera (AGENTS.md rule 12)", () => {
 
     expect((await browser.call(focus.DELETE, "/api/signals/focus", { method: "DELETE", body: { id: sampleId } })).body).toEqual({ ok: true });
     expect((await browser.call(focus.GET, "/api/signals/focus")).body.notes).toEqual([]);
-    expect(store.auditLog.at(-1)).toMatchObject({ action: "signal.remove", target: ARI_ID, detail: { kind: "focus-watch" } });
+    expect(store.auditLog.at(-1)).toMatchObject({ action: "signal.remove", target: JORDAN_ID, detail: { kind: "focus-watch" } });
     expect((await new Browser().call(focus.GET, "/api/signals/focus")).status).toBe(401);
   });
 });
@@ -406,8 +406,8 @@ describe("admin People", () => {
     expect((await browser.call(adminPeople.GET, "/api/admin/people")).status).toBe(403);
     await browser.signIn(OTHER_PARENT_EMAIL);
     expect(await browser.call(adminPeople.GET, "/api/admin/people?q=demo")).toMatchObject({ status: 403, body: { ok: false } });
-    expect((await browser.call(adminPerson.POST, `/api/admin/people/${ARI_ID}`, { id: ARI_ID, body: { action: "lock" } })).status).toBe(403);
-    expect(store.profiles.get(ARI_ID)!.lockedUntil).toBeNull();
+    expect((await browser.call(adminPerson.POST, `/api/admin/people/${JORDAN_ID}`, { id: JORDAN_ID, body: { action: "lock" } })).status).toBe(403);
+    expect(store.profiles.get(JORDAN_ID)!.lockedUntil).toBeNull();
   });
 
   it("searches accounts: role, status, last sign-in; parents' emails; nothing else", async () => {
@@ -484,7 +484,7 @@ describe("parent PIN (fix 8)", () => {
   it("Switch profile doesn't open grown-up pages: the PIN stays until the grown-up's password", async () => {
     await browser.signIn();
     await pin("setup", "4821");
-    await browser.kidSignIn(ARI_ID, { kind: "pictures", code: ARI_CODE });
+    await browser.kidSignIn(JORDAN_ID, { kind: "pictures", code: JORDAN_CODE });
     expect((await browser.call(family.GET, "/api/family/kids")).status).toBe(403);
     await browser.kidSignOut();
     expect(browser.cookies.has("mykx_kidshere")).toBe(true);
@@ -508,7 +508,7 @@ describe("parent PIN (fix 8)", () => {
 
   it("without a PIN, a kid-free moment opens the pages so the grown-up can set one", async () => {
     await browser.signIn();
-    await browser.kidSignIn(ARI_ID, { kind: "pictures", code: ARI_CODE });
+    await browser.kidSignIn(JORDAN_ID, { kind: "pictures", code: JORDAN_CODE });
     expect((await browser.call(family.GET, "/api/family/kids")).status).toBe(403);
     await browser.kidSignOut();
     expect((await browser.call(family.GET, "/api/family/kids")).status).toBe(200);
@@ -519,7 +519,7 @@ describe("parent PIN (fix 8)", () => {
   it("pauses after 5 wrong PINs without locking the grown-up or the kid out", async () => {
     await browser.signIn();
     await pin("setup", "4821");
-    await browser.kidSignIn(ARI_ID, { kind: "pictures", code: ARI_CODE });
+    await browser.kidSignIn(JORDAN_ID, { kind: "pictures", code: JORDAN_CODE });
     for (let i = 0; i < 5; i++) expect((await pin("verify", "0000")).status).toBe(401);
     expect((await pin("verify", "4821")).status).toBe(423);
     expect((await browser.call(me.GET, "/api/me")).status).toBe(200);
@@ -531,7 +531,7 @@ describe("parent PIN (fix 8)", () => {
   it("setup refuses while a kid is signed in; verify mints the unlock", async () => {
     await browser.signIn();
     await pin("setup", "4821");
-    await browser.kidSignIn(ARI_ID, { kind: "pictures", code: ARI_CODE });
+    await browser.kidSignIn(JORDAN_ID, { kind: "pictures", code: JORDAN_CODE });
     expect((await browser.call(pinRoute.GET, "/api/auth/pin")).body).toMatchObject({ ok: true, set: true, kidActive: true, unlocked: false });
     expect((await pin("setup", "0000")).status).toBe(403);
     expect((await pin("verify", "0000")).status).toBe(401);
@@ -563,7 +563,7 @@ describe("demo mode never runs in production", () => {
     vi.stubEnv("NODE_ENV", "production");
     for (const res of [
       await browser.signIn(),
-      await browser.kidSignIn(ARI_ID, { kind: "pictures", code: ARI_CODE }),
+      await browser.kidSignIn(JORDAN_ID, { kind: "pictures", code: JORDAN_CODE }),
       await browser.call(kidsRoute.GET, "/api/auth/kids"),
       await browser.call(adminPeople.GET, "/api/admin/people"),
     ]) {
