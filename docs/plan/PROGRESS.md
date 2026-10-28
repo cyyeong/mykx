@@ -8,7 +8,7 @@ Who built what, with which tool, and where it landed. Every agent adds a row whe
 |---|---|---|
 | **Claude Code** (Opus) | Anthropic | Coding agent from 27 Oct: app, API, database, tests, scripts, docs; drives the Claude Design canvas and the Meta model calls below |
 | **Claude Design** (canvas) | Anthropic | Screen designs and prototypes, about 30 boards ([canvas](https://claude.ai/artifact/8crEyKVQm9QxCHLDqPXioP), private; copies in `docs/design/boards/`) |
-| **Muse Code** | Meta | Art-direction round on 27 Oct (31 images); coding agent from 28 Oct |
+| **Muse Code** | Meta | Tried twice, then retired: an art-direction round on 27 Oct (31 images), and a coding trial on 28 Oct that built four branches (kid nav, learning loop, first music, grown-ups and the parent PIN; see the trail). Claude Code reviewed every branch, fixed what it found on main (a PIN bypass, retries counting as mastered, music that kept playing after mute) and has built everything since. See "Muse Code trial" below |
 | **Muse Image 1.0** | Meta | All original art: backgrounds, Kix in five styles, cards, jets, critters, doors (44 images) |
 | **SAM 3.1** | Meta | Kix cutouts in the Studio transform; living-art layers (leaves, clouds, islands, waterfalls, critter eyes); 68 cutouts |
 | **Muse Spark** | Meta | Smoke tests; the planned tutor hints, evening summary and Notebook (Standard mode only) |
@@ -16,6 +16,14 @@ Who built what, with which tool, and where it landed. Every agent adds a row whe
 | sharp | open source | Living-art layers from the art's own pixels (neon lines, stars, haze), and the filled-sky plates (40 files, no model) |
 | Supabase, Vercel | — | Sign-in, database with row-level security; hosting at https://mykx.vercel.app |
 | Playwright | open source | Screenshots, frame-difference motion checks, flicker traces, PDF checks |
+
+## Muse Code trial (28 Oct)
+
+Muse Code (Meta's coding agent) was tried as a second builder on 28 Oct. The founder gave it the handover in `docs/plan/HANDOFF.md`; it worked on `muse/<topic>` branches and opened pull requests #1–#4, which the founder merged. Claude Code then reviewed all four.
+
+- **What it built:** the kid navigation shell, the learning loop for the P3 frog life cycle (attempts, marking, ledger, question player, done page), the first background-music engine with five themes composed by Muse Code, and the grown-up area with a parent PIN.
+- **What the review found and fixed** (`f364358`, `d50df86`, `63e63e7`, `aab5838`): the PIN could be skipped through Switch profile; a retry could master a stop; cards appeared without stars; Treasure lost its holographic cards; the music played outside its volume bus, kept playing after mute and hard-cut between pages; the demo label showed for every family.
+- **Outcome:** the structure was useful and fast, but each branch needed review fixes. On 28 Oct the founder retired Muse Code, and Claude Code builds everything from then on. The music themes were recomposed by Claude Code (`aab5838`).
 
 ## Trail
 
@@ -49,8 +57,8 @@ Dates are SGT. "Agent" is who did the work; "Tools" are the models and services 
 | 28 Oct | Review of Muse Code's PRs, fixes on main: parent PIN can no longer be skipped through Switch profile (kids-here cookie, wrong-PIN pause from the audit log, PIN change flow); kids' focus notes need the PIN | Claude Code | — | f364358 | |
 | 28 Oct | Review fixes for the kid nav and learning loop: demo line only for the demo family, quest button rides above the phone bar, a retry never masters a stop, cards only when stars are paid, HoloCards back in Treasure titled by their stop, quest-complete page redesigned (card reveal, Pip's growth track, each stop before → after) | Claude Code | — | d50df86 | The reward moment |
 | 28 Oct | Map, done page and HUD polish: play glyph on untried stops, slimmer Pip track, header room for three sound buttons | Claude Code | — | 63e63e7 | |
-| 28 Oct | Fit to screen on tablets and laptops: from 1024 px landscape every kid screen fills the window with no page scroll (quest map as a centred 16:10 stage over a blurred copy of its art, Home cards in one row, Treasure as a shelf whose cards size to the room left, done page in three columns, Studio, Me and the question page spaced by height); windows shorter than 720 px zoom the whole shell down instead; phones and portrait tablets still scroll | Claude Code | — | (this commit) | Same screen at 1280, 1440 and 2000 px |
-| 28 Oct | Music engine fixed and the five world themes recomposed (32-bar forms, own progression per world, seeded variation); every note plays from the score on the beat grid, crossfades between worlds, bar-line mood changes, silent at once on mute; ambience is texture only (no random notes); a gentle Beat that follows the page (none while learning, energetic in games) with its own switch; the sound controls dock in the rail, and fold behind one Sound button on phones | Claude Code | — | (this commit) | The worlds' music |
+| 28 Oct | Fit to screen on tablets and laptops: from 1024 px landscape every kid screen fills the window with no page scroll (quest map as a centred 16:10 stage over a blurred copy of its art, Home cards in one row, Treasure as a shelf whose cards size to the room left, done page in three columns, Studio, Me and the question page spaced by height); windows shorter than 720 px zoom the whole shell down instead; phones and portrait tablets still scroll | Claude Code | — | aab5838 | Same screen at 1280, 1440 and 2000 px |
+| 28 Oct | Music engine fixed and the five world themes recomposed (32-bar forms, own progression per world, seeded variation); every note plays from the score on the beat grid, crossfades between worlds, bar-line mood changes, silent at once on mute; ambience is texture only (no random notes); a gentle Beat that follows the page (none while learning, energetic in games) with its own switch; the sound controls dock in the rail, and fold behind one Sound button on phones | Claude Code | — | aab5838 | The worlds' music |
 
 ## How to add a row
 
