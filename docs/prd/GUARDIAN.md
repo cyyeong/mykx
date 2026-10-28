@@ -135,7 +135,7 @@ Muse Spark reads the place events and motion states in the Guardian brief and th
   - **Camera frames:** tick any of the synthetic frames, set each one's room (living room, kitchen, study, entrance), choose a single picture or a burst of 3, then press **Send frames**.
   - What myKx answered (status, timing and Muse's reading) lists every send, newest first.
 - **Keys, set up automatically** (founder, 28 Oct). After the founder's one-time `npx vercel@65.1.0 login`, a setup script handles the rest:
-  - creates the `mykx-sim` project from this repo (root `sim`);
+  - creates the `mykx-sim` project and deploys the repo's `sim/` folder to it with the CLI (done 28 Oct; no git connection needed);
   - mints the simulator's Home Link device for the demo family in production and stores its token only as a server-side setting on `mykx-sim` (`SIM_HOME_LINK_TOKEN`);
   - generates `SIM_PASSCODE`, also kept in `.env.local`;
   - sets `CRON_SECRET` on the main project.

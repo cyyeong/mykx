@@ -64,13 +64,14 @@ Today `lib/sound/engine.ts` plays short synthesised effects and, for some worlds
   - `SIM_HOME_LINK_TOKEN` and `SIM_PASSCODE` on `mykx-sim`, with the passcode also in `.env.local`.
 
   Values are never printed in chat or committed.
-- **Going live, by hand if the CLI isn't signed in** (about 10 minutes, nothing here is secret in chat):
-  1. Run `supabase/migrations/20261028_guardian.sql` in the Supabase SQL editor (the Storage bucket `home-alerts` is made by the server on first use).
-  2. Vercel main project → Settings → Environment Variables: `CRON_SECRET` (any long random string; already needed for the paper scout). Redeploy.
-  3. In myKx (signed in as the demo parent on production): Your family → Location and home cameras → "Pair a computer" → a code. (Until that screen is built in M3, `POST /api/home/devices` with `{"name":"Home simulator","kind":"simulator"}` returns the code once.) Swap it for a token with `POST /api/home/pair` `{"code":"…","name":"sim"}`: the token is shown once.
-  4. Vercel → Add New Project → the same repo → Root Directory `sim` → Framework "Other". Environment variables for it: `SIM_HOME_LINK_TOKEN` (the token from step 3), `SIM_PASSCODE` (8+ characters of your choice), `MYKX_URL` (https://mykx.vercel.app).
-  5. Open the simulator's address, type the passcode, press Play or Send now.
-  Locally: `SIM_HOME_LINK_TOKEN=… SIM_PASSCODE=… MYKX_URL=http://localhost:3200 node sim/dev.mjs` serves it on port 3300.
+- **Done on 28 Oct (the founder signed the CLI in; Claude Code did the rest):**
+  - `CRON_SECRET` is set on `mykx` (the founder added it; both cron routes answer 401 without it).
+  - The second project is `mykx-sim` (team `my-kx`), live at https://mykx-sim.vercel.app. It is deployed straight from the `sim/` folder, so a change to `sim/` goes live with `cd sim && npx vercel@65.1.0 deploy --prod`. It isn't connected to git. Vercel sign-in protection is on, so opening it asks for the founder's Vercel login, and then for the passcode.
+  - Its settings are `SIM_PASSCODE`, `SIM_HOME_LINK_TOKEN` and `MYKX_URL`, all production, with the first two marked sensitive. The passcode is in the Claude Code scratchpad (`sim-pass-prod.txt`); copy it with `pbcopy < <path>`.
+  - Production's demo household is set up for it by `scripts/guardian/setup-sim.ts`: Home and School pins, each kid's sharing, the parent's descriptions, camera hours open all day and every day, and a simulator device. It only touches the household if every profile in it is synthetic.
+  - Tested end to end against production: a location and a live Muse Spark reading of a camera frame.
+- **Re-pairing the simulator** (a lost token can't be shown again): from `sim/`, with the token going into a file and never the screen, `umask 077; node --env-file=../.env.local ../scripts/guardian/setup-sim.ts --rotate > /tmp/t; npx vercel@65.1.0 env add SIM_HOME_LINK_TOKEN production --sensitive < /tmp/t; rm /tmp/t`, then redeploy. Never pipe it with `|` in zsh next to a redirect: zsh's MULTIOS copies stdout to both.
+- **Locally:** `SIM_HOME_LINK_TOKEN=… SIM_PASSCODE=… MYKX_URL=http://localhost:3200 node sim/dev.mjs` serves it on port 3300.
 - **Database:** the same production Supabase. The simulator has no database; it posts to myKx's routes as the demo family. If `SUPABASE_DB_URL` is in `.env.local`, `scripts/db-migrate.ts` runs migrations; otherwise the founder pastes the SQL.
 
 ## Things only the founder or Claude Code do

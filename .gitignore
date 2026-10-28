@@ -35,3 +35,4 @@ npm-debug.log*
 
 # generated soak-test output (docs/plan/soak-report.md is the summary)
 scripts/soak/out/
+.env*
