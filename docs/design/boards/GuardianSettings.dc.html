@@ -19,6 +19,12 @@ body{margin:0}
 .gs-row{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px}
 .gs-seg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding:4px;border-radius:var(--radius-sm);background:var(--surface)}
 @media (min-width: 600px){ .gs-main{padding:24px} }
+/* Expanded and desktop: two columns of cards, the header across both. */
+@media (min-width: 1024px){
+  .gs-main{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;max-width:1200px;gap:20px;padding:32px}
+  .gs-main > header{grid-column:1 / -1}
+}
+@media (min-width: 1600px){ .gs-main{max-width:1400px;gap:24px;padding:48px} }
 </style>
 </helmet>
 <div data-theme="anime-sky" data-band="teen" style="width: 100%; min-height: 100vh; box-sizing: border-box; background: var(--surface); color: var(--ink); font-family: var(--font-text)">

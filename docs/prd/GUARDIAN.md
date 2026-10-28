@@ -188,6 +188,8 @@ All in the [myKx Screens canvas](https://claude.ai/artifact/8crEyKVQm9QxCHLDqPXi
 | `HomeSim` | the simulator: scripted afternoon, **Send now** (location and frames), and what myKx answered. |
 | `DoTogether` | Muse's read on the weekend, the interest chips, ideas for Saturday and Sunday from the live 28 Oct search, each with "why this one" and its source, plus Add to our plan and Tell the kids. |
 
+**Every board has phone (390 × 844), foldable (720 × 840), tablet portrait (820 × 1180) and desktop (1600 × 1000) versions on the Devices page** (founder, 28 Oct). Settings and the kid's view go to two or three columns on desktop, Home Link's rail becomes a top bar with tabs on phones, and the simulator puts Send now first and stacks below 760 px.
+
 Home now and the map now open with Muse's "Right now" brief. The alert's second frame carries real SAM 3.1 outlines (`public/art/sim/living-argument-sam.webp`). Settings gains "Things to do together" (home area, radius, interests).
 
 The eight synthetic frames are in `public/art/sim/` (Muse Image, in the manifest). Two first prompts, a shove and a child kneeling at an open window, were refused by Muse Image's content filter, as expected. Their softer versions (a tug-of-war over the remote, and a chair by an open window with the child walking toward it) were generated and are still honest tests of "possibly".

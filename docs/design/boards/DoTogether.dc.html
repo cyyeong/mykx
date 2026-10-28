@@ -19,6 +19,7 @@ body{margin:0}
 .dt-day{display:flex;flex-direction:column;gap:10px}
 .dt-card{position:relative;display:flex;flex-direction:column;gap:6px;padding:14px 14px 14px 18px;border-radius:var(--radius-md);background:var(--surface-raised);box-shadow:var(--shadow-raised);overflow:hidden}
 .dt-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--band)}
+@media (min-width: 1600px){ .dt-main{max-width:1300px;padding:40px 48px 96px} }
 @media (min-width: 900px){
   .dt-main{padding:28px 32px 96px}
   .dt-days{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}

@@ -1411,6 +1411,222 @@
    "is_interactive": true,
    "expand": "fill",
    "title": "Parent: do something together (Muse Spark + web search)"
+  },
+  "GuardianSettings-phone.dc.html": {
+   "x": 0,
+   "y": 46760,
+   "w": 390,
+   "h": 844,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "Location and home cameras settings · Phone 390 × 844"
+  },
+  "GuardianSettings-fold.dc.html": {
+   "x": 470,
+   "y": 46760,
+   "w": 720,
+   "h": 840,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "Location and home cameras settings · Foldable 720 × 840"
+  },
+  "GuardianSettings-tabp.dc.html": {
+   "x": 1270,
+   "y": 46760,
+   "w": 820,
+   "h": 1180,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "Location and home cameras settings · Tablet portrait 820 × 1180"
+  },
+  "GuardianSettings-desk.dc.html": {
+   "x": 2170,
+   "y": 46760,
+   "w": 1600,
+   "h": 1000,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "Location and home cameras settings · Desktop 1600 × 1000"
+  },
+  "KidSharing-phone.dc.html": {
+   "x": 0,
+   "y": 48360,
+   "w": 390,
+   "h": 844,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "What my grown-ups see (kid) · Phone 390 × 844"
+  },
+  "KidSharing-fold.dc.html": {
+   "x": 470,
+   "y": 48360,
+   "w": 720,
+   "h": 840,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "What my grown-ups see (kid) · Foldable 720 × 840"
+  },
+  "KidSharing-tabp.dc.html": {
+   "x": 1270,
+   "y": 48360,
+   "w": 820,
+   "h": 1180,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "What my grown-ups see (kid) · Tablet portrait 820 × 1180"
+  },
+  "KidSharing-desk.dc.html": {
+   "x": 2170,
+   "y": 48360,
+   "w": 1600,
+   "h": 1000,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "What my grown-ups see (kid) · Desktop 1600 × 1000"
+  },
+  "DoTogether-phone.dc.html": {
+   "x": 0,
+   "y": 49960,
+   "w": 390,
+   "h": 844,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "Do something together · Phone 390 × 844"
+  },
+  "DoTogether-fold.dc.html": {
+   "x": 470,
+   "y": 49960,
+   "w": 720,
+   "h": 840,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "Do something together · Foldable 720 × 840"
+  },
+  "DoTogether-tabp.dc.html": {
+   "x": 1270,
+   "y": 49960,
+   "w": 820,
+   "h": 1180,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "Do something together · Tablet portrait 820 × 1180"
+  },
+  "DoTogether-desk.dc.html": {
+   "x": 2170,
+   "y": 49960,
+   "w": 1600,
+   "h": 1000,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "Do something together · Desktop 1600 × 1000"
+  },
+  "HomeLink-phone.dc.html": {
+   "x": 0,
+   "y": 51560,
+   "w": 390,
+   "h": 844,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "Home Link (desktop client) · Phone 390 × 844"
+  },
+  "HomeLink-fold.dc.html": {
+   "x": 470,
+   "y": 51560,
+   "w": 720,
+   "h": 840,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "Home Link (desktop client) · Foldable 720 × 840"
+  },
+  "HomeLink-tabp.dc.html": {
+   "x": 1270,
+   "y": 51560,
+   "w": 820,
+   "h": 1180,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "Home Link (desktop client) · Tablet portrait 820 × 1180"
+  },
+  "HomeLink-desk.dc.html": {
+   "x": 2170,
+   "y": 51560,
+   "w": 1600,
+   "h": 1000,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "Home Link (desktop client) · Desktop 1600 × 1000"
+  },
+  "HomeSim-phone.dc.html": {
+   "x": 0,
+   "y": 53160,
+   "w": 390,
+   "h": 844,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "Home simulator · Phone 390 × 844"
+  },
+  "HomeSim-fold.dc.html": {
+   "x": 470,
+   "y": 53160,
+   "w": 720,
+   "h": 840,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "Home simulator · Foldable 720 × 840"
+  },
+  "HomeSim-tabp.dc.html": {
+   "x": 1270,
+   "y": 53160,
+   "w": 820,
+   "h": 1180,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "Home simulator · Tablet portrait 820 × 1180"
+  },
+  "HomeSim-desk.dc.html": {
+   "x": 2170,
+   "y": 53160,
+   "w": 1600,
+   "h": 1000,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "Home simulator · Desktop 1600 × 1000"
+  },
+  "MobileApp-phone.dc.html": {
+   "x": 0,
+   "y": 54760,
+   "w": 390,
+   "h": 844,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "myKx mobile app (roadmap) · Phone 390 × 844"
+  },
+  "MobileApp-fold.dc.html": {
+   "x": 470,
+   "y": 54760,
+   "w": 720,
+   "h": 840,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "myKx mobile app (roadmap) · Foldable 720 × 840"
+  },
+  "MobileApp-tabp.dc.html": {
+   "x": 1270,
+   "y": 54760,
+   "w": 820,
+   "h": 1180,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "myKx mobile app (roadmap) · Tablet portrait 820 × 1180"
+  },
+  "MobileApp-desk.dc.html": {
+   "x": 2170,
+   "y": 54760,
+   "w": 1600,
+   "h": 1000,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "myKx mobile app (roadmap) · Desktop 1600 × 1000"
   }
  },
  "createdOnFiles": {
@@ -1749,6 +1965,54 @@
    "text": "Home now: phone · foldable · tablet portrait · desktop",
    "maxW": 3770,
    "page": "devices"
+  },
+  "dev-GuardianSettings": {
+   "kind": "title1",
+   "x": 0,
+   "y": 46460,
+   "text": "Location and home cameras settings: phone · foldable · tablet portrait · desktop",
+   "maxW": 3770,
+   "page": "devices"
+  },
+  "dev-KidSharing": {
+   "kind": "title1",
+   "x": 0,
+   "y": 48060,
+   "text": "What my grown-ups see (kid): phone · foldable · tablet portrait · desktop",
+   "maxW": 3770,
+   "page": "devices"
+  },
+  "dev-DoTogether": {
+   "kind": "title1",
+   "x": 0,
+   "y": 49660,
+   "text": "Do something together: phone · foldable · tablet portrait · desktop",
+   "maxW": 3770,
+   "page": "devices"
+  },
+  "dev-HomeLink": {
+   "kind": "title1",
+   "x": 0,
+   "y": 51260,
+   "text": "Home Link (desktop client): phone · foldable · tablet portrait · desktop",
+   "maxW": 3770,
+   "page": "devices"
+  },
+  "dev-HomeSim": {
+   "kind": "title1",
+   "x": 0,
+   "y": 52860,
+   "text": "Home simulator: phone · foldable · tablet portrait · desktop",
+   "maxW": 3770,
+   "page": "devices"
+  },
+  "dev-MobileApp": {
+   "kind": "title1",
+   "x": 0,
+   "y": 54460,
+   "text": "myKx mobile app (roadmap): phone · foldable · tablet portrait · desktop",
+   "maxW": 3770,
+   "page": "devices"
   }
  },
  "order": [
@@ -1908,7 +2172,31 @@
   "HomeNow-fold.dc.html",
   "HomeNow-tabp.dc.html",
   "HomeNow-desk.dc.html",
-  "DoTogether.dc.html"
+  "DoTogether.dc.html",
+  "GuardianSettings-phone.dc.html",
+  "GuardianSettings-fold.dc.html",
+  "GuardianSettings-tabp.dc.html",
+  "GuardianSettings-desk.dc.html",
+  "KidSharing-phone.dc.html",
+  "KidSharing-fold.dc.html",
+  "KidSharing-tabp.dc.html",
+  "KidSharing-desk.dc.html",
+  "DoTogether-phone.dc.html",
+  "DoTogether-fold.dc.html",
+  "DoTogether-tabp.dc.html",
+  "DoTogether-desk.dc.html",
+  "HomeLink-phone.dc.html",
+  "HomeLink-fold.dc.html",
+  "HomeLink-tabp.dc.html",
+  "HomeLink-desk.dc.html",
+  "HomeSim-phone.dc.html",
+  "HomeSim-fold.dc.html",
+  "HomeSim-tabp.dc.html",
+  "HomeSim-desk.dc.html",
+  "MobileApp-phone.dc.html",
+  "MobileApp-fold.dc.html",
+  "MobileApp-tabp.dc.html",
+  "MobileApp-desk.dc.html"
  ],
  "pages": [
   {
