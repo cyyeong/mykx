@@ -1,8 +1,9 @@
 // Reads skill packs from content/skills/ for printable papers (server only: node:fs). Items are checked
 // with the pack schema; anything that fails is left out, and only reviewed items are ever printed.
 // Figures are inlined as data URIs with their natural size, so the paper prints without extra requests.
-import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { allPackIds, packFile, packFilesIn } from "../skills/overrides.ts";
 import { SkillItemSchema, SkillManifestSchema } from "../skills/schema.ts";
 import type { SkillItem, SkillLevel, SkillManifest, SkillSubject } from "../types.ts";
 import { buildBlocks, blockQuestions } from "./blocks.ts";
@@ -21,14 +22,17 @@ export interface PackSummary {
   questions: number;
 }
 
-function readJson(path: string): unknown {
-  return JSON.parse(readFileSync(path, "utf8"));
-}
-
 function readManifest(id: string): PackInfo | null {
-  const path = join(SKILLS, id, "skill.json");
-  if (!PACK_ID.test(id) || !existsSync(path)) return null;
-  const raw = readJson(path);
+  if (!PACK_ID.test(id)) return null;
+  // The pack's published version when an admin has published one, else the pack on disk (lib/skills/overrides.ts).
+  const text = packFile(id, "skill.json");
+  if (text === null) return null;
+  let raw: unknown;
+  try {
+    raw = JSON.parse(text);
+  } catch {
+    return null;
+  }
   const parsed = SkillManifestSchema.safeParse(raw);
   // A manifest that gained a field the schema doesn't know yet still prints, as long as the basics are there.
   const m = (parsed.success ? parsed.data : raw) as Partial<SkillManifest>;
@@ -45,13 +49,11 @@ function readManifest(id: string): PackInfo | null {
 }
 
 function readItems(id: string): SkillItem[] {
-  const dir = join(SKILLS, id, "items");
-  if (!existsSync(dir)) return [];
   const items: SkillItem[] = [];
-  for (const file of readdirSync(dir).filter((f) => f.endsWith(".json")).sort()) {
+  for (const file of packFilesIn(id, "items")) {
     let raw: unknown;
     try {
-      raw = readJson(join(dir, file));
+      raw = JSON.parse(packFile(id, file) ?? "[]");
     } catch {
       continue; // a file mid-edit; skip it rather than break the page
     }
@@ -72,16 +74,13 @@ export function loadPrintBank(id: string): PrintBank | null {
 
 /** Every published pack, with how many printable questions it has. */
 export function listPrintPacks(): PackSummary[] {
-  if (!existsSync(SKILLS)) return [];
-  return readdirSync(SKILLS)
-    .sort()
-    .flatMap((id) => {
-      const bank = loadPrintBank(id);
-      if (!bank) return [];
-      const { manifest } = bank;
-      const questions = buildBlocks(bank.items).reduce((s, b) => s + blockQuestions(b), 0);
-      return [{ id, title: manifest.title, subject: manifest.subject, level: manifest.level, language: manifest.language, questions }];
-    });
+  return allPackIds().flatMap((id) => {
+    const bank = loadPrintBank(id);
+    if (!bank) return [];
+    const { manifest } = bank;
+    const questions = buildBlocks(bank.items).reduce((s, b) => s + blockQuestions(b), 0);
+    return [{ id, title: manifest.title, subject: manifest.subject, level: manifest.level, language: manifest.language, questions }];
+  });
 }
 
 // ─── Figures ───────────────────────────────────────────────────────────────

@@ -12,7 +12,8 @@ import type { LedgerEntry } from "../domain/rewards.ts";
 import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt, StoredBeat, StoredGuardianSettings, StoredKixMessage, Creation, NotebookPage, NotebookRevision, StoredSessionRead, StoredRun, StoredSkillEvent } from "./store.ts";
 import { AgentVersionsMissingError, type StoredAgentVersion } from "./store.ts";
 import { BEAT_MS, type ActivityKind } from "../guardian/screen-time.ts";
-import type { Extraction, KnowledgeUpload, Review, Rights, SkillUpdate } from "../knowledge/knowledge.ts";
+import type { Extraction, KnowledgeSession, KnowledgeUpload, Review, Rights, SkillUpdate, UploadState } from "../knowledge/knowledge.ts";
+import type { PackFiles, SkillVersion, SkillVersionMeta } from "../skills/versions.ts";
 import type { FlashcardSpec } from "../vibe/flashcards.ts";
 import type { FamilyMessage, Sticker } from "../family/messages.ts";
 import type { PageSlug } from "../notebook/notebook.ts";
@@ -22,7 +23,7 @@ import type { ScoutRow } from "../papers/scan.ts";
 import type { OutingRun } from "../outings/outings.ts";
 import { KEEP_POINTS_DAYS, type KidLocationSettings, type Motion, type Place, type PlaceEvent, type StoredPoint } from "../location/location.ts";
 import { DEFAULT_PREFS, KEEP_STATUS_DAYS, type DeviceKind, type GuardianPrefs, type HomeAlert, type HomeCamera, type HomeDevice, type HomeStatus, type RoomKind } from "../home-watch/home-watch.ts";
-import { NicknameTakenError, UsernameTakenError } from "./store.ts";
+import { NicknameTakenError, SkillTablesMissingError, UsernameTakenError } from "./store.ts";
 
 export interface SupabaseEnv {
   url: string;
@@ -151,6 +152,48 @@ const toPrefs = (r: Record<string, unknown>): GuardianPrefs => ({
 
 /** Postgres or PostgREST saying a table isn't there yet (a migration not applied). */
 const tableMissing = (e: { code?: string }) => e.code === "42P01" || e.code === "PGRST205";
+/** …or a column (knowledge_uploads.session_id and state, from 20261030_skill_versions.sql). */
+const columnMissing = (e: { code?: string }) => e.code === "42703" || e.code === "PGRST204";
+
+const toUpload = (r: Record<string, unknown>): KnowledgeUpload => ({
+  id: r.id as string,
+  uploadedBy: r.uploaded_by as string,
+  fileName: r.file_name as string,
+  bytes: Number(r.bytes),
+  rights: r.rights as Rights,
+  sourceUrl: (r.source_url as string | null) ?? null,
+  status: r.status as KnowledgeUpload["status"],
+  pack: (r.pack as string | null) ?? null,
+  packIsNew: Boolean(r.pack_is_new),
+  extraction: (r.extraction as Extraction | null) ?? null,
+  review: (r.review as Review) ?? {},
+  publishedIn: (r.published_in as string | null) ?? null,
+  error: (r.error as string | null) ?? null,
+  createdAt: new Date(r.created_at as string).toISOString(),
+  sessionId: (r.session_id as string | null | undefined) ?? null,
+  state: (r.state as UploadState | null | undefined) ?? {},
+});
+
+const toSession = (r: Record<string, unknown>): KnowledgeSession => {
+  const s = (r.state as Partial<KnowledgeSession> | null) ?? {};
+  return { id: r.id as string, title: r.title as string, createdBy: (r.created_by as string | null) ?? "", createdAt: new Date(r.created_at as string).toISOString(), kixItems: s.kixItems ?? {}, published: s.published ?? [] };
+};
+
+const toVersionFields = (r: Record<string, unknown>): Omit<SkillVersion, "files"> => ({
+  id: r.id as string,
+  packId: r.pack_id as string,
+  version: r.version as string,
+  status: r.status as SkillVersion["status"],
+  source: r.source as SkillVersion["source"],
+  note: (r.note as string | null) ?? null,
+  createdBy: (r.created_by as string | null) ?? null,
+  createdAt: iso(r.created_at)!,
+  publishedAt: iso(r.published_at),
+  deletedAt: iso(r.deleted_at),
+});
+/** A listing doesn't fetch the files, so their count and size aren't known there (0). */
+const toVersionMeta = (r: Record<string, unknown>): SkillVersionMeta => ({ ...toVersionFields(r), fileCount: 0, bytes: 0 });
+const toVersion = (r: Record<string, unknown>): SkillVersion => ({ ...toVersionFields(r), files: (r.files as PackFiles) ?? {} });
 
 const AGENT_VERSION_COLUMNS = "id, agent_id, version, instructions, note, status, created_by, created_at, deleted_at";
 const toAgentVersion = (r: Record<string, unknown>): StoredAgentVersion => ({
@@ -969,7 +1012,7 @@ export class SupabaseStore implements AuthStore {
   // The knowledge agent (knowledge_uploads, skill_updates): platform content; the route checks the admin flag.
   readonly knowledge = {
     saveUpload: async (u: KnowledgeUpload) => {
-      const { error } = await this.db.from("knowledge_uploads").insert({
+      const row = {
         id: u.id,
         uploaded_by: u.uploadedBy,
         file_name: u.fileName.slice(0, 200),
@@ -984,28 +1027,50 @@ export class SupabaseStore implements AuthStore {
         published_in: u.publishedIn,
         error: u.error?.slice(0, 300) ?? null,
         created_at: u.createdAt,
-      });
-      check(error);
+      };
+      const { error } = await this.db.from("knowledge_uploads").insert({ ...row, session_id: u.sessionId, state: u.state });
+      // Before 20261030_skill_versions.sql the session columns aren't there: keep the upload without them.
+      if (error && columnMissing(error)) check((await this.db.from("knowledge_uploads").insert(row)).error);
+      else check(error);
     },
     uploads: async (): Promise<KnowledgeUpload[]> => {
       const { data, error } = await this.db.from("knowledge_uploads").select("*").order("created_at", { ascending: false }).limit(200);
       check(error);
-      return (data ?? []).map((r) => ({
-        id: r.id as string,
-        uploadedBy: r.uploaded_by as string,
-        fileName: r.file_name as string,
-        bytes: Number(r.bytes),
-        rights: r.rights as Rights,
-        sourceUrl: (r.source_url as string | null) ?? null,
-        status: r.status as KnowledgeUpload["status"],
-        pack: (r.pack as string | null) ?? null,
-        packIsNew: Boolean(r.pack_is_new),
-        extraction: (r.extraction as Extraction | null) ?? null,
-        review: (r.review as Review) ?? {},
-        publishedIn: (r.published_in as string | null) ?? null,
-        error: (r.error as string | null) ?? null,
-        createdAt: new Date(r.created_at as string).toISOString(),
-      }));
+      return (data ?? []).map(toUpload);
+    },
+    upload: async (id: string): Promise<KnowledgeUpload | null> => {
+      const { data, error } = await this.db.from("knowledge_uploads").select("*").eq("id", id).maybeSingle();
+      check(error);
+      return data ? toUpload(data) : null;
+    },
+    updateUpload: async (id: string, patch: { sessionId?: string | null; state?: UploadState; review?: Review }): Promise<KnowledgeUpload | null> => {
+      const set: Record<string, unknown> = {};
+      if (patch.sessionId !== undefined) set.session_id = patch.sessionId;
+      if (patch.state) set.state = patch.state;
+      if (patch.review) set.review = patch.review;
+      const { data, error } = await this.db.from("knowledge_uploads").update(set).eq("id", id).is("published_in", null).select("*").maybeSingle();
+      if (error && columnMissing(error)) throw new SkillTablesMissingError();
+      check(error);
+      return data ? toUpload(data) : null;
+    },
+    sessions: async (): Promise<KnowledgeSession[]> => {
+      const { data, error } = await this.db.from("knowledge_sessions").select("*").order("created_at", { ascending: false }).limit(50);
+      if (error && tableMissing(error)) return [];
+      check(error);
+      return (data ?? []).map(toSession);
+    },
+    session: async (id: string): Promise<KnowledgeSession | null> => {
+      const { data, error } = await this.db.from("knowledge_sessions").select("*").eq("id", id).maybeSingle();
+      if (error && tableMissing(error)) return null;
+      check(error);
+      return data ? toSession(data) : null;
+    },
+    saveSession: async (s: KnowledgeSession) => {
+      const { error } = await this.db
+        .from("knowledge_sessions")
+        .upsert({ id: s.id, title: s.title.slice(0, 120), created_by: s.createdBy || null, created_at: s.createdAt, state: { kixItems: s.kixItems, published: s.published } });
+      if (error && tableMissing(error)) throw new SkillTablesMissingError();
+      check(error);
     },
     setReview: async (id: string, review: Review) => {
       const { error } = await this.db.from("knowledge_uploads").update({ review }).eq("id", id).is("published_in", null);
@@ -1037,6 +1102,72 @@ export class SupabaseStore implements AuthStore {
         const p = r.payload as Pick<SkillUpdate, "archetypes" | "traps" | "markingCues" | "items">;
         return { id: r.id as string, pack: r.pack as string, version: r.version as string, publishedBy: (r.published_by as string | null) ?? "", publishedAt: new Date(r.published_at as string).toISOString(), summary: r.summary as string, archetypes: p.archetypes ?? [], traps: p.traps ?? [], markingCues: p.markingCues ?? [], items: p.items ?? [] };
       });
+    },
+  };
+
+  // skill_versions (migration 20261030_skill_versions.sql). Until it is applied, reads are empty (the packs on disk
+  // stay in charge) and writes throw SkillTablesMissingError, which the admin routes turn into a 503 with the SQL to run.
+  readonly skillVersions = {
+    list: async (packId?: string): Promise<SkillVersionMeta[]> => {
+      let q = this.db.from("skill_versions").select("id, pack_id, version, status, source, note, created_by, created_at, published_at, deleted_at").order("created_at", { ascending: false });
+      if (packId) q = q.eq("pack_id", packId);
+      const { data, error } = await q.limit(300);
+      if (error && tableMissing(error)) return [];
+      check(error);
+      return (data ?? []).map(toVersionMeta);
+    },
+    get: async (id: string): Promise<SkillVersion | null> => {
+      const { data, error } = await this.db.from("skill_versions").select("*").eq("id", id).maybeSingle();
+      if (error && tableMissing(error)) return null;
+      check(error);
+      return data ? toVersion(data) : null;
+    },
+    published: async (): Promise<SkillVersion[]> => {
+      // Ids first (light), then the files of each pack's newest published row only.
+      const { data, error } = await this.db.from("skill_versions").select("id, pack_id, published_at").eq("status", "published").is("deleted_at", null).order("published_at", { ascending: false }).limit(1000);
+      if (error && tableMissing(error)) return [];
+      check(error);
+      const newest = new Map<string, string>();
+      for (const r of data ?? []) if (!newest.has(r.pack_id as string)) newest.set(r.pack_id as string, r.id as string);
+      if (!newest.size) return [];
+      const full = await this.db.from("skill_versions").select("*").in("id", [...newest.values()]);
+      check(full.error);
+      return (full.data ?? []).map(toVersion);
+    },
+    save: async (v: SkillVersion) => {
+      const { error } = await this.db.from("skill_versions").insert({
+        id: v.id,
+        pack_id: v.packId,
+        version: v.version,
+        files: v.files,
+        status: v.status,
+        source: v.source,
+        note: v.note?.slice(0, 300) ?? null,
+        created_by: v.createdBy,
+        created_at: v.createdAt,
+        published_at: v.publishedAt,
+        deleted_at: v.deletedAt,
+      });
+      if (error && tableMissing(error)) throw new SkillTablesMissingError();
+      check(error);
+    },
+    update: async (id: string, patch: Partial<Pick<SkillVersion, "files" | "status" | "publishedAt" | "note">>): Promise<SkillVersion | null> => {
+      const set: Record<string, unknown> = {};
+      if (patch.files) set.files = patch.files;
+      if (patch.status) set.status = patch.status;
+      if (patch.publishedAt !== undefined) set.published_at = patch.publishedAt;
+      if (patch.note !== undefined) set.note = patch.note?.slice(0, 300) ?? null;
+      const { data, error } = await this.db.from("skill_versions").update(set).eq("id", id).is("deleted_at", null).select("*").maybeSingle();
+      if (error && tableMissing(error)) throw new SkillTablesMissingError();
+      check(error);
+      return data ? toVersion(data) : null;
+    },
+    remove: async (ids: readonly string[], atIso: string): Promise<number> => {
+      if (!ids.length) return 0;
+      const { data, error } = await this.db.from("skill_versions").update({ deleted_at: atIso }).in("id", [...ids]).is("deleted_at", null).select("id");
+      if (error && tableMissing(error)) throw new SkillTablesMissingError();
+      check(error);
+      return data?.length ?? 0;
     },
   };
 

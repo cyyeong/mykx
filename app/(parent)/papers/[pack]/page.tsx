@@ -4,7 +4,9 @@ import { Suspense } from "react";
 import { GrownUpGate } from "@/components/account/GrownUpGate";
 import { PaperRoute } from "@/components/papers/PaperRoute";
 import { getDoors } from "@/lib/auth/server";
+import { getStore } from "@/lib/auth/context";
 import { listPrintPacks, loadPrintBank } from "@/lib/print/bank";
+import { refreshSkillOverrides } from "@/lib/skills/overrides";
 
 // Pack ids are known from content/skills, so the route shell prerenders; the paper itself streams per request.
 export function generateStaticParams() {
@@ -22,6 +24,7 @@ async function ParentPaper({ params, searchParams }: PageProps<"/papers/[pack]">
   const doors = await getDoors();
   if (!doors.signedIn) redirect("/signin");
   const [{ pack }, search] = await Promise.all([params, searchParams]);
+  await refreshSkillOverrides(getStore()); // the pack's published version (lib/skills/overrides.ts)
   return (
     <GrownUpGate>
       <PaperRoute

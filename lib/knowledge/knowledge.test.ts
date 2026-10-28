@@ -7,7 +7,9 @@ import { resetDemoStore, type DemoStore } from "../auth/store-demo.ts";
 import { buildUpdate, nextVersion, settle, updateNotes, type Extraction, type KnowledgeUpload } from "./knowledge.ts";
 
 const EXTRACTION: Extraction = {
-  paper: { level: "P3", subject: "science", year: 2025, examType: "EOY", school: "Sample School", pages: 12, questionCount: 30, totalMarks: 100 },
+  paper: { level: "P3", subject: "science", tier: null, year: 2025, examType: "EOY", school: "Sample School", pages: 12, questionCount: 30, totalMarks: 100 },
+  document: { kind: "question-paper", paperNumber: null },
+  questions: [],
   archetypes: [
     { topic: "cycles.animal", pattern: "order the stages of an animal's life cycle from pictures", marks: 2, count: 2, difficulty: 2, format: "mcq", sourcePages: [3] },
     { topic: "magnets.properties", pattern: "predict which way a magnet moves from its poles", marks: 2, count: 1, difficulty: 2, format: "mcq", sourcePages: [5] },
@@ -34,6 +36,8 @@ const upload = (over: Partial<KnowledgeUpload> = {}): KnowledgeUpload => ({
   publishedIn: null,
   error: null,
   createdAt: "2026-10-28T10:00:00Z",
+  sessionId: null,
+  state: {},
   ...over,
 });
 

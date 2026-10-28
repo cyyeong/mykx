@@ -6,12 +6,14 @@ import { randomUUID } from "node:crypto";
 import { publishedInstructions } from "../agents/runtime.ts";
 import { hasMetaApiKey } from "../meta/client.ts";
 import { sparkStructured } from "../meta/spark.ts";
-import { extractionPrompt, extractionSchema, settle, type KnowledgeUpload, type Rights } from "./knowledge.ts";
+import { EXTRACTION_SESSION_RULES, extractionPrompt, extractionSchema, settle, type KnowledgeUpload, type Rights } from "./knowledge.ts";
 import { packsOnDisk } from "./packs.ts";
 
-export async function readPaper(o: { bytes: Uint8Array; fileName: string; rights: Rights; sourceUrl: string | null; uploadedBy: string; signal?: AbortSignal }): Promise<KnowledgeUpload> {
+export async function readPaper(o: { bytes: Uint8Array; fileName: string; rights: Rights; sourceUrl: string | null; uploadedBy: string; sessionId?: string | null; signal?: AbortSignal }): Promise<KnowledgeUpload> {
   const packs = packsOnDisk();
   const base: KnowledgeUpload = {
+    sessionId: o.sessionId ?? null,
+    state: {},
     id: randomUUID(),
     uploadedBy: o.uploadedBy,
     fileName: o.fileName.slice(0, 200),
@@ -32,8 +34,9 @@ export async function readPaper(o: { bytes: Uint8Array; fileName: string; rights
     const { data } = await sparkStructured(
       {
         messages: [
-          // The curator's published instructions (editable in Under the hood) with its fixed guardrails.
-          { role: "system", content: extractionPrompt(o.rights, Object.fromEntries(packs.map((p) => [p.id, p.topics])), (await publishedInstructions("knowledge-agent")).text) },
+          // The curator's published instructions (editable in Under the hood) with its fixed guardrails, then the review
+          // session's rules (what the PDF is, how to match an answer sheet, working each answer out).
+          { role: "system", content: `${extractionPrompt(o.rights, Object.fromEntries(packs.map((p) => [p.id, p.topics])), (await publishedInstructions("knowledge-agent")).text)}\n${EXTRACTION_SESSION_RULES}` },
           {
             role: "user",
             content: [

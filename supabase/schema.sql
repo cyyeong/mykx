@@ -558,3 +558,35 @@ create table agent_versions (
   unique (agent_id, version)
 );
 create index agent_versions_live on agent_versions (agent_id, version desc) where deleted_at is null;
+
+-- Skill versions and knowledge review sessions (migration 20261030_skill_versions.sql; lib/skills/versions.ts,
+-- lib/knowledge/session.ts). A version is a whole snapshot of a pack's text files; the pack on disk is the default
+-- and never a row. Platform content, server only.
+create table skill_versions (
+  id uuid primary key default gen_random_uuid(),
+  pack_id text not null check (pack_id ~ '^[a-z0-9][a-z0-9-]{1,39}$'),
+  version text not null check (version ~ '^[0-9]+\.[0-9]+\.[0-9]+$'),
+  files jsonb not null check (jsonb_typeof(files) = 'object'),
+  status text not null check (status in ('draft', 'published')),
+  source text not null check (source in ('edit', 'enhance', 'import', 'knowledge', 'restore')),
+  note text check (char_length(note) <= 300),
+  created_by uuid references profiles (id) on delete set null,
+  created_at timestamptz not null default now(),
+  published_at timestamptz,
+  deleted_at timestamptz,
+  unique (pack_id, version),
+  check (status = 'draft' or published_at is not null)
+);
+create index skill_versions_pack on skill_versions (pack_id, created_at desc);
+
+create table knowledge_sessions (
+  id uuid primary key default gen_random_uuid(),
+  title text not null check (char_length(title) between 1 and 120),
+  created_by uuid references profiles (id) on delete set null,
+  created_at timestamptz not null default now(),
+  state jsonb not null default '{}'::jsonb -- { kixItems, published }
+);
+alter table knowledge_uploads add column session_id uuid references knowledge_sessions (id) on delete set null;
+-- { overrides, pairWith, edits, checks, checkedAt, resolved }: the admin's review; never a school paper's questions
+alter table knowledge_uploads add column state jsonb not null default '{}'::jsonb;
+create index knowledge_uploads_session on knowledge_uploads (session_id, created_at);

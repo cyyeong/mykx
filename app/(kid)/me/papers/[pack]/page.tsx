@@ -3,7 +3,9 @@ import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { PaperRoute } from "@/components/papers/PaperRoute";
 import { getDoors, getSignedInKid } from "@/lib/auth/server";
+import { getStore } from "@/lib/auth/context";
 import { listPrintPacks, loadPrintBank } from "@/lib/print/bank";
+import { refreshSkillOverrides } from "@/lib/skills/overrides";
 
 // Pack ids are known from content/skills, so the route shell prerenders; the paper itself streams per request.
 export function generateStaticParams() {
@@ -21,6 +23,7 @@ async function KidPaper({ params, searchParams }: PageProps<"/me/papers/[pack]">
   const kid = await getSignedInKid();
   if (!kid) redirect((await getDoors()).signedIn ? "/doors" : "/signin");
   const [{ pack }, search] = await Promise.all([params, searchParams]);
+  await refreshSkillOverrides(getStore()); // the pack's published version (lib/skills/overrides.ts)
   return (
     <PaperRoute
       packId={pack}

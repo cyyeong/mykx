@@ -18,13 +18,39 @@ export const RIGHTS_LABEL: Record<Rights, string> = {
   licensed: "Licensed to us",
 };
 
-const LEVELS = ["P1", "P2", "P3", "P4", "P5", "P6", "Sec 1", "Sec 2", "Sec 3", "Sec 4", "unknown"] as const;
-const SUBJECTS = ["maths", "science", "english", "chinese", "higher-chinese", "tamil", "malay", "other"] as const;
+export const LEVELS = ["P1", "P2", "P3", "P4", "P5", "P6", "Sec 1", "Sec 2", "Sec 3", "Sec 4", "unknown"] as const;
+export const SUBJECTS = ["maths", "science", "english", "chinese", "higher-chinese", "tamil", "malay", "other"] as const;
+export const TIERS = ["standard", "foundation", "g1", "g2", "g3"] as const;
+export type PaperLevel = (typeof LEVELS)[number];
+export type PaperSubject = (typeof SUBJECTS)[number];
+export type Tier = (typeof TIERS)[number];
+export const TIER_LABEL: Record<Tier, string> = { standard: "Standard", foundation: "Foundation", g1: "G1", g2: "G2", g3: "G3" };
+
+/** What a PDF is (founder, 29 Oct): a question paper now, its answer sheet later, or both in one, or notes. */
+export const DOC_KINDS = ["question-paper", "answer-sheet", "both", "notes"] as const;
+export type DocKind = (typeof DOC_KINDS)[number];
+export const DOC_LABEL: Record<DocKind, string> = { "question-paper": "Question paper", "answer-sheet": "Answer sheet", both: "Questions and answers", notes: "Notes" };
+
+/** One question of a paper, by number: its pattern in Muse's own words, never its wording (rule 10). */
+export const questionSchema = z.strictObject({
+  /** "Q13", "13(a)", "B4". */
+  no: z.string().max(12),
+  topic: z.string().max(60),
+  pattern: z.string().max(160),
+  marks: z.number().int().min(0).max(20),
+  /** The answer printed on this document (an answer sheet, or a paper with its answers). */
+  keyAnswer: z.string().max(200).nullable(),
+  /** Muse's own answer, worked out from the question itself when the question is on this document. */
+  workedAnswer: z.string().max(200).nullable(),
+});
+export type PaperQuestion = z.infer<typeof questionSchema>;
 
 export const extractionSchema = z.strictObject({
   paper: z.strictObject({
     level: z.enum(LEVELS),
     subject: z.enum(SUBJECTS),
+    /** PSLE Standard or Foundation, or a secondary subject level; null when the paper doesn't say. */
+    tier: z.enum(TIERS).nullable(),
     year: z.number().int().min(2000).max(2100).nullable(),
     /** WA1, SA2, EOY, Prelim… */
     examType: z.string().max(30).nullable(),
@@ -34,6 +60,14 @@ export const extractionSchema = z.strictObject({
     /** Total marks, when the paper shows them. */
     totalMarks: z.number().int().min(0).max(500).nullable(),
   }),
+  /** What the document is and how to match it with its other half (school, year and exam are in `paper`). */
+  document: z.strictObject({
+    kind: z.enum(DOC_KINDS),
+    /** "1", "2", "Booklet B"; null when the paper has no number. */
+    paperNumber: z.string().max(20).nullable(),
+  }),
+  /** Every question by number, with the answers this document shows and Muse's own. Never question text. */
+  questions: z.array(questionSchema).max(60),
   /** Question patterns, never question text: "before-and-after ratio, total unchanged, 4 marks". */
   archetypes: z
     .array(
@@ -87,6 +121,23 @@ export function settle(e: Extraction, rights: Rights, existingPacks: readonly st
   return { extraction, pack: route?.pack ?? null, packIsNew: route?.isNew ?? false };
 }
 
+/**
+ * What the review session needs on top of the Curator's prompt (founder, 29 Oct): what the document is, its tier,
+ * and every question by number with the answers it shows and Muse's own. Appended after the prompt in read.ts (kept
+ * apart from extractionPrompt, whose text is the editable agent's default).
+ */
+export const EXTRACTION_SESSION_RULES = [
+  "Also, for the review session:",
+  "- document: what this PDF is. question-paper (questions only), answer-sheet (answers or a marking scheme only), both (questions with their answers), or notes. paperNumber: the paper or booklet number if printed (\"1\", \"2\", \"Booklet B\"). For an answer sheet, paper describes the paper it answers, and it has no archetypes.",
+  "- paper.tier: standard or foundation for PSLE, g1/g2/g3 for a secondary subject level, null if not shown.",
+  "- questions: one row per question number as printed (Q1, 13(a), B4): topic, the pattern in your own words (never the question's wording, numbers or names), marks, keyAnswer = the answer printed on THIS document (null if none), workedAnswer = your own answer, worked out yourself from the question when the question is on this document (null for an answer sheet). Short answers only: a number with its unit, an option number, or a few words.",
+].join("\n");
+
+/** Level + subject → the pack (an existing one, or a new pack's id); null when either is unknown. */
+export function routeFor(level: PaperLevel | null | undefined, subject: PaperSubject | null | undefined, existingPacks: readonly string[]) {
+  return packFor(level && level !== "unknown" ? (level as Level) : null, subject && subject !== "other" ? subject : null, existingPacks);
+}
+
 export type ReviewMark = "approved" | "rejected";
 /** Review keys: `a:3` (archetype 3), `t:0` (trap), `c:1` (cue), `i:2` (item). */
 export type Review = Record<string, ReviewMark>;
@@ -107,6 +158,77 @@ export interface KnowledgeUpload {
   publishedIn: string | null;
   error: string | null;
   createdAt: string;
+  /** The review session it belongs to (null for uploads from before sessions, 29 Oct). */
+  sessionId: string | null;
+  /** The admin's side of the review: overrides, pairing, edits, Muse's cross-checks and their resolutions. */
+  state: UploadState;
+}
+
+/** Level, subject and tier as the admin set them; absent fields follow Muse's reading ("changed by you" when set). */
+export interface PaperOverrides {
+  level?: Exclude<PaperLevel, "unknown">;
+  subject?: Exclude<PaperSubject, "other">;
+  tier?: Tier | null;
+}
+
+export const CHECK_STATUSES = ["ok", "mismatch", "spelling", "unusual", "waiting"] as const;
+export type CheckStatus = (typeof CHECK_STATUSES)[number];
+export const CHECK_LABEL: Record<CheckStatus, string> = { ok: "Checks out", mismatch: "Mismatch", spelling: "Spelling", unusual: "Unusual", waiting: "Waiting" };
+
+/** Muse's cross-check of one answer: `q:<no>` (a paper's question) or `i:<n>` (an item). */
+export interface CrossCheck {
+  key: string;
+  status: CheckStatus;
+  /** Muse's own answer, when it differs or was worked. */
+  museAnswer: string | null;
+  /** The corrected text, for a spelling mistake. */
+  fix: string | null;
+  note: string | null;
+}
+
+/** How an admin settled a check: the key is right after all, Muse's answer replaces it, or the spelling fix is used. */
+export type Resolution = "key-right" | "use-muse" | "use-fix";
+
+/** The entries an admin edited, added or removed (removing is a reject, so indexes never move). */
+export type Edits = Partial<Pick<Extraction, "archetypes" | "traps" | "markingCues" | "items" | "questions">>;
+
+export interface UploadState {
+  overrides?: PaperOverrides;
+  /** The admin's pairing: the other half's upload id, or null for "not paired" (stops automatic pairing). */
+  pairWith?: string | null;
+  edits?: Edits;
+  checks?: CrossCheck[];
+  checkedAt?: string;
+  resolved?: Record<string, Resolution>;
+}
+
+/** One of Kix's own new questions, written from a session's approved patterns (never from a paper's wording). */
+export interface KixItem {
+  topic: string;
+  pattern: string;
+  type: "mcq" | "short";
+  stem: string;
+  options: string[] | null;
+  answer: string;
+  working: string[];
+  hints: string[];
+  marks: number;
+  difficulty: number;
+  mark?: ReviewMark;
+  check?: CrossCheck;
+  resolved?: Resolution;
+}
+
+/** A review session (founder, 29 Oct): several PDFs reviewed together, added at any time. */
+export interface KnowledgeSession {
+  id: string;
+  title: string;
+  createdBy: string;
+  createdAt: string;
+  /** Kix's own questions per target pack. */
+  kixItems: Record<string, KixItem[]>;
+  /** What publishing made: a skill version of each pack (feature D). */
+  published: { pack: string; version: string; versionId: string | null; status: "published" | "draft"; at: string }[];
 }
 
 export interface SkillUpdate {

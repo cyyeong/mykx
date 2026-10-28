@@ -155,9 +155,9 @@ The browser never talks to Meta or to Supabase's service role. Keys live in the 
 | `lib/location` | Motion classifier, places, arrived and left events, battery modes |
 | `lib/home-watch` | Device pairing and tokens, cameras, the Home Reader, alert rules, SAM outlines, rollups, the Guardian Brief |
 | `lib/outings` | Outing Scout (web search), Outing Planner, source check, NEA weather |
-| `lib/knowledge` | Content Curator: extraction schema and prompt builder (its wording and guardrails are in `lib/agents`), rights rule, routing, review, publishing |
+| `lib/knowledge` | Content Curator: extraction schema and prompt builder (its wording and guardrails are in `lib/agents`), rights rule, routing, review sessions (pairing, overrides, keys; `session.ts`), Muse's cross-check (`crosscheck.ts`, `review.ts`), Kix's own questions (`kix-questions.ts`), publishing as a skill version (`refine.ts`) |
 | `lib/papers` | Past-paper scout: allowlist, robots.txt, listing parsers, download decisions, finds |
-| `lib/skills` | Pack and item schemas, the safety scanner, trusted SVG figure renderers |
+| `lib/skills` | Pack and item schemas, the safety scanner, trusted SVG figure renderers; the Skill Engine runtime; skill versions (`versions.ts` rules, `service.ts` actions), the override layer every pack reader goes through (`overrides.ts`), skill import (`import.ts`) and Enhance with Muse (`enhance.ts`) |
 | `lib/print` | Deterministic printable papers from reviewed items, with blueprints and answer guides |
 | `lib/games` | Arcade registry, typing engine, scoring, progress |
 | `lib/vibe`, `lib/studio` | Flashcard spec; Studio prompt and the Muse Image plus SAM transform |
@@ -181,6 +181,7 @@ The browser never talks to Meta or to Supabase's service role. Keys live in the 
 | Guardian, home | `api/home` (Home now), `api/home/{pair,devices,cameras,frames,family,prefs,alerts}` | device token or grown-up |
 | Family time | `api/outings` | grown-up |
 | Admin | `api/admin/{people,people/[id],hood,knowledge,knowledge/publish,papers,papers/read}`, `api/admin/agents`, `api/admin/agents/[id]` | admin behind the PIN |
+| Admin, skills and review sessions | `api/admin/skills` (catalogue), `api/admin/skills/[pack]` (files, versions; save, publish, restore, delete), `api/admin/skills/[pack]/enhance`, `api/admin/skills/import`, `api/admin/knowledge/{sessions,check,questions}` | admin behind the PIN |
 | Cron | `api/cron/papers`, `api/cron/guardian` | Vercel scheduler with `CRON_SECRET` |
 
 ---
@@ -198,7 +199,7 @@ All persistence goes through one interface, `AuthStore` in `lib/auth/store.ts`, 
 
 ### 3.2 Tables by domain
 
-All 34 tables are in `supabase/schema.sql`; migrations in `supabase/migrations/` bring an older database up to it and are written to run twice safely.
+All 36 tables are in `supabase/schema.sql`; migrations in `supabase/migrations/` bring an older database up to it and are written to run twice safely.
 
 | Domain | Tables | Notes |
 |---|---|---|
@@ -208,6 +209,7 @@ All 34 tables are in `supabase/schema.sql`; migrations in `supabase/migrations/`
 | Wellbeing and guardian | `screen_beats`, `kix_messages`, `guardian_settings`, `flags_seen`, `signals` | One beat per 30 s slot while a kid page is visible. `kix_messages` is the child's own words to Kix (never family messages), with `distress` and `self_talk` set by the server. Flags are computed on read; only "seen" marks are stored. `signals.counts` may contain only four keys (`awaySeconds`, `eyesClosedEvents`, `yawns`, `facePresentRatio`). |
 | Family | `family_messages`, `creations`, `shares` | Messages are household-only and never read by a model. Creations keep every version of a validated spec; shares can only target the household's own grown-ups (checked in RLS). |
 | Platform content (admin) | `knowledge_uploads`, `skill_updates`, `paper_finds`, `scout_runs` | Uploads keep the extraction and the review marks, never the PDF. `skill_updates` is one row per published pack version (`unique (pack, version)`). Finds hold links and decisions, never papers. |
+| Skills you can edit (admin; migration `20261030_skill_versions.sql`) | `skill_versions`, `knowledge_sessions`; `knowledge_uploads.session_id` and `.state` | A version is a whole snapshot of a pack's text files (`files` jsonb: `skill.json`, `SKILL.md`, `references/*.md`, `items/*.json`) with `status` (`draft`, `published`), `source` (`edit`, `enhance`, `import`, `knowledge`, `restore`), a note, who and when; `unique (pack_id, version)`; delete is a soft delete (`deleted_at`). The pack on disk is the default and never a row. A session groups uploads; an upload's `state` holds the admin's overrides, pairing, edits, Muse's cross-checks and their resolutions, never a school paper's questions. Server only: no browser grants (§3.3). |
 | Guardian, location | `guardian_prefs`, `kid_location`, `locations`, `places`, `place_events` | Points carry motion and source (`web`, `android`, `sim`). Places are the parent's own pins, so no map service sees where a child is. |
 | Guardian, home | `home_devices`, `home_cameras`, `home_status`, `home_alerts` | Devices keep only SHA-256 hashes of the pairing code and token (`char_length = 64`), plus a daily frame counter. `home_status` is words only. Alerts keep frame paths in a private bucket, `frames_expire_at`, and the parent's verdict. |
 | Agents (admin) | `agent_versions` | Versions of each Muse Spark agent's instructions (§4.11): agent id, version (2 and up, unique per agent and never reused; the built-in default is version 1 and is code, not a row), instructions (at most 8,000 characters), note, `draft` or `published`, the admin who saved it, and a soft-delete time. Platform content, never a child's data; the guardrails are code. |
@@ -244,6 +246,8 @@ All 34 tables are in `supabase/schema.sql`; migrations in `supabase/migrations/`
 | Audio | Not at all | `app/api/voice/transcribe/route.ts` holds it in memory for the request |
 | Homework photos | Not at all | `app/api/kix/homework/route.ts` reads it once |
 | Exam-paper PDFs | Not at all on the server | `lib/knowledge/read.ts` |
+| Imported skill archives (.zip, .skill) | Not at all: read in memory; scripts and other files are dropped before anything is kept | `lib/skills/import.ts`, `app/api/admin/skills/import/route.ts` |
+| Skill versions | Until an admin deletes one (a soft delete; the default on disk always stays) | `lib/skills/service.ts` |
 
 Tables without a retention rule yet (`screen_beats`, `kix_messages`, `place_events`, `home_alerts` rows, `model_runs`) are listed in §12.
 
@@ -280,7 +284,8 @@ The structured-output path (`lib/meta/schema.ts`) converts a zod schema to JSON 
 | Ask Kix | Homework help from a typed question or a photo: a research step loads the right pack and reads its method (§4.10), then a visual lesson that guides first | Muse Spark (vision, function tools) | `api/kix/homework` (`ask-kix`) | Built |
 | Memory Keeper | After a quest: a mood reading from the child's words and Notebook patches | Muse Spark | `api/session/close` (`memory-keeper`) | Built |
 | Vibe Zone maker | Flashcard sets from the child's own words, revisable | Muse Spark | `api/vibe` (`vibe`) | Built (flashcards; songs are roadmap) |
-| Content Curator | Reads exam PDFs into patterns, traps and marking cues, routed to a pack | Muse Spark (PDF input) | `api/admin/knowledge`, `api/admin/papers/read` (`knowledge-agent`) | Built |
+| Content Curator | Reads exam PDFs into patterns, traps and marking cues, routed to a pack; cross-checks every answer; writes Kix's own questions from approved patterns | Muse Spark (PDF input; structured) | `api/admin/knowledge`, `api/admin/knowledge/{check,questions}`, `api/admin/papers/read` (`knowledge-agent`) | Built |
+| Skill Editor | Enhance with Muse: proposes changes to a pack and new draft questions; proposes an imported skill's manifest | Muse Spark (structured) | `api/admin/skills/[pack]/enhance`, `api/admin/skills/import` (`skill-editor`) | Built |
 | Sidekick Studio | Restyles Kix for the child's world and cuts it out | Muse Image, SAM 3.1 | `api/studio/transform` (`studio`) | Built |
 | Talk to Kix | Push-to-talk speech to text | Muse Voice Transcribe | `api/voice/transcribe` (`voice`) | Built |
 | Guardian (screen time and learning) | Heartbeats, focus, mood from words, flags, Kix's next step | none: rules | `api/guardian/*` | Built |
@@ -300,7 +305,8 @@ The structured-output path (`lib/meta/schema.ts`) converts a zod schema to JSON 
 | Ask Kix | A typed question or face-checked photo; the sections its research step read (else every pack's method notes for the level); published pack updates for the level; Notebook notes | Keep the photo; give the final answer before the child asks for it | `explanationSchema`; `enforceStage` strips `finalAnswer` and `try-this` before the full stage | `sampleExplanation(stage)`, labelled as a sample |
 | Memory Keeper | Only the child's own words to Kix since the last reading, the session's numbers, the current Notebook | Label or diagnose; quote a score as its own; read family messages; touch mastery | `sessionReadSchema` (at most 5 patches); `applyPatches` refuses label words, dedupes, caps page size; a distress word always sets `concern` | The word-list mood reading; Notebook unchanged |
 | Vibe Zone maker | The child's request (and the set to revise); the level's pack notes | Write code; use pictures it has no art for; name real people, brands or characters | `flashcardSpecSchema` (3 to 8 cards; pictures from a fixed list of four) | `SAMPLE_SET`, labelled |
-| Content Curator | One admin-uploaded PDF (4 MB) or one scout find (20 MB) as a `file` part; each pack's topic ids | Keep a school paper's questions | `extractionSchema`; `settle` empties `items` for `school-private` uploads whatever the model returned; routing is code (`packFor`) | The upload is saved as `failed` with the reason; nothing is published |
+| Content Curator | One admin-uploaded PDF (4 MB) or one scout find (20 MB) as a `file` part; each pack's topic ids. Cross-check: each question's number, pattern, marks, key and Muse's earlier answer (stems only for our own material and Kix's questions). Kix's questions: the approved patterns, traps and cues | Keep a school paper's questions; publish; decide a key is wrong | `extractionSchema`; `settle` empties `items` for `school-private` uploads whatever the model returned; routing and pairing are code (`packFor`, `pairUploads`); `crossCheckSchema`; publishing is blocked by code on an open mismatch; the version passes the pack schemas and the safety scanner | The upload is saved as `failed` with the reason; a failed cross-check falls back to comparing the key with Muse's worked answer (`fallbackCheck`); nothing is published |
+| Skill Editor | One pack's `SKILL.md`, references (trimmed), manifest topics and item counts, and the admin's request; for an import, the archive's `SKILL.md` and references | Change `skill.json` or existing items; save or publish | `enhanceSchema`; code keeps only `SKILL.md` and `references/*.md` changes, makes questions drafts through `SkillItemSchema`, and the cross-check flags answers it can't reproduce; `manifestProposalSchema`, then every field edited by the admin | Nothing changes; the admin edits by hand (an import starts from a guess from the skill's name) |
 | Sidekick Studio | The picked world and up to two interest chips (chips only) | Take a child's photo or free text | SAM masks must exist and touch the body; a 35 s deadline | The world's ready-made Kix (`/art/kix/<pack>-800.webp`) |
 | Talk to Kix | A WAV clip, mono 16-bit PCM, 16 or 24 kHz, at most 30 s | Store or log audio | `checkWav`; "Kicks" normalised to "Kix" | The typed box |
 | Guardian rules | Heartbeats, attempts, words to Kix, focus notes, session readings, the parent's settings | Call a model; diagnose; change rewards | Tested rules | n/a |
@@ -467,7 +473,9 @@ A refresh takes about a minute and was measured at about $0.20 (36 s and 12 sear
 
 **Past-paper scout** (`lib/papers/scan.ts`, `lib/papers/scout.ts`, `app/api/cron/papers/route.ts`; skill `.agents/skills/past-paper-scout`). Weekly, it reads robots.txt for each of five allowlisted sites, then their listing pages for P3, P6 and Sec 2, 1.5 s apart, with an honest user agent. It parses each listing, keeps the latest year per level and subject, and decides per paper (`decide` in `lib/papers/scout.ts`): `skip` when the site's terms forbid reuse, the site has only older papers, or robots.txt disallows the paper's page; `manual` (an admin downloads it by hand, with the reason) when there is no direct file link or robots.txt disallows automated downloads of the file; otherwise `auto`, which the agent may download once an admin asks. It downloads nothing. Problems (a changed layout, a stale site, a pack no site covers) are saved with the run.
 
-**Content Curator** (`lib/knowledge/`, `app/api/admin/knowledge/*`, `app/api/admin/papers/read/route.ts`). §6.1.
+**Content Curator** (`lib/knowledge/`, `app/api/admin/knowledge/*`, `app/api/admin/papers/read/route.ts`). Three Muse Spark (Standard) calls, all logged as `knowledge-agent`: the extraction of each PDF (what it is, its patterns, traps, cues and every question's number, marks, printed answer and Muse's own worked answer), the **cross-check** (`lib/knowledge/crosscheck.ts`, a separate structured call that judges each key: `ok`, `mismatch` with Muse's answer, `spelling` with the fix, `unusual`; code adds `waiting`), and **Kix's own questions** (`lib/knowledge/kix-questions.ts`, written from approved patterns only, then cross-checked). §6.1.
+
+**Skill Editor** (`lib/skills/enhance.ts`, `lib/skills/import.ts`, `app/api/admin/skills/*`; route `skill-editor`). Enhance with Muse: the admin says what to improve; Muse Spark (Standard, structured) returns whole-file replacements or additions, limited in code to `SKILL.md` and `references/*.md`, plus new questions that code turns into `items/enhance-<version>.json` as drafts; the cross-check works each new question out again and flags any it couldn't reproduce. Import: when an archive has no myKx `skill.json`, Muse proposes the manifest (level, subject, tier, topics, which agents may load it) from `SKILL.md`. It proposes only: the admin accepts a diff into a draft or edits every field, and nothing is published by the model. Packs hold no child data, so none reaches it.
 
 ### 4.10 The Skill Engine runtime: agents that load skills and call tools
 
@@ -561,15 +569,26 @@ The figures are drawn by trusted code, not stored as model output: `lib/skills/f
 
 At P3 the teaching notes are about 31,600 characters (about 8,000 tokens); at P6 about 17,000; at Sec 2 about 6,000. These sizes drive cost (§8.5).
 
+**Every consumer above reads the published version** (29 Oct). They read pack files through `lib/skills/overrides.ts` (`packFile`, `packFilesIn`, `allPackIds`): a pack's published version from `skill_versions` when it has one, else the pack on disk; imported packs exist only as versions. Routes call `refreshSkillOverrides(store)` first (the tutor, homework, reason and Vibe routes, the print pages, the admin Skills and knowledge routes): it loads every pack's published files into a cache kept 60 s and refreshed at once after a publish, restore or delete, so the readers stay synchronous. A store without the table, or a failed read, leaves the disk packs in charge. The figures stay on disk (versions carry text only).
+
 ### 5.4 Versions
 
-The pack on disk is the base version (`skill.json` `version`). Published knowledge is a row in `skill_updates` with the next minor version: `nextVersion` takes the highest of the base and earlier updates and adds one to the minor number (`1.0.0` becomes `1.1.0`; a brand-new pack starts at `0.1.0`). Attempts store the pack version their item came from (`attempts.skill_version`), so a later change never rewrites history.
+**Skill versions** (founder, 29 Oct; `lib/skills/versions.ts`, `lib/skills/service.ts`, table `skill_versions`):
+
+- The pack on disk is the **default** version: never a row and never deletable. The **published** version is the newest non-deleted published row (by when it was published), else the default.
+- **Save draft** applies the editor's changes to the version it started from (the default or any version) and writes the pack's one open draft, with the next number: one minor up from the highest of the default and every row, deleted ones too, so a number is never reused (`1.0.0` → `1.1.0`; an imported pack starts at `1.0.0`). **Publish** turns the draft into the published version. **Restore** makes a new published row from an older version or the default. **Delete** soft-deletes a row; deleting the published one falls back to the one before, or the default. An imported pack is deleted entirely only by deleting all its versions, with its id typed to confirm.
+- Every save and publish is checked: allowed paths and sizes, `skill.json` passes `SkillManifestSchema` with the pack's id and a level-matching id prefix (`p5-`, `s2-`), `SKILL.md` has name and description front matter, references exist, items pass `SkillItemSchema` and agree with the manifest (topics, subskills, archetypes, figures on disk, `reviewed_by`), and the **safety scanner** finds nothing. Refusals come back as file, line and reason, shown inline. The manifest's `references` are rewritten from the reference files themselves (`# ` title, `## ` sections), so a new reference is readable by id at once; its `version` follows the row.
+- Every action is audited (`skills.save`, `skills.publish`, `skills.restore`, `skills.delete`, `skills.delete-pack`, `skills.import`, `skills.enhance`; the target is the version's id, the pack's id is in the detail).
+
+Knowledge published before 29 Oct is in `skill_updates`; publishing still writes a row there (the readable history, and what Ask Kix's "latest exam patterns" read), with the same number as the skill version it made. Attempts store the pack version their item came from (`attempts.skill_version`), so a later change never rewrites history.
 
 ### 5.5 How packs are made and kept safe
 
 - **The importer** (`scripts/import-skill.ts`, `scripts/import-skill-lib.ts`, `scripts/import-skill-config.ts`) turns one of the founder's private tutor skills (kept outside the repository) into a public pack. It reads Markdown and JSON as data, runs nothing in the source, follows no instructions in it, maps question sets onto the unified schema, swaps any real name for its stand-in, and writes only scrubbed, original content. Hand-authored files (`items/demo.json`, `items/original-*.json`, `figures/demo-*`) survive a re-import.
 - **The safety scanner** (`lib/skills/safety.ts`) is shared by the importer, which refuses to finish on a match, and by `content/skills.test.ts`, which scans every pack whenever the test suite runs. It looks for child names, diagnoses, school names and codes, paper codes, past-paper site names, exam-paper source phrases ("2025 P3 SA2"), learner notes and traits, exam dates and learner-profile fields. Private places are matched by SHA-256 of each one- to three-word phrase, so the repo never spells them out.
 - **Rights rule:** questions from school or exam papers are never committed or served; only derived archetypes and statistics are (AGENTS.md rule 10). An item's provenance is `own`, `licensed` or `generated`; there is no provenance for a school paper, and the Curator's code enforces the rule for uploads (§6.1).
+- **Importing a standard agent skill** (Admin → Skills → Import; `lib/skills/import.ts`): a `.zip` or `.skill` (a zip) up to 5 MB, read in memory with fflate (names first, then only the files kept). It keeps `SKILL.md` (with name and description front matter), Markdown (as `references/`) and JSON that is a list of questions (normalised to the item schema as **drafts**), and drops everything else with the reason, scripts above all: the app never keeps or runs a script from a skill. The safety scanner runs on everything kept, and the import is refused while it finds a child's name or a private phrase (shown by file and line). The archive's own myKx `skill.json` is the starting manifest; otherwise Muse proposes one (Skill Editor, §4.9). The admin edits every field, including level, subject and tier, before "Import as draft".
+- **Editing in the app** (Admin → Skills → Edit skill): the pack's files in a text editor with live checks (JSON, the manifest and item schemas), Save draft, Publish, versions with Diff (`lib/diff.ts`), Restore and Delete, and Enhance with Muse (§4.9). Drafts never reach a child; new questions stay `draft` until the admin marks them reviewed.
 
 ---
 
@@ -599,11 +618,17 @@ flowchart TD
   FETCH --> CUR["Content Curator<br/>Muse Spark reads the PDF"]
   UPLOAD --> CUR
   CUR --> SETTLE["settle in code: school-private<br/>keeps no items, pack routing by<br/>level and subject"]
-  SETTLE --> UP[("knowledge_uploads<br/>extraction and review marks")]
-  UP --> REVIEW{"Admin approves or rejects<br/>each archetype, trap, cue, item"}
-  REVIEW --> PUBLISH["Publish: buildUpdate merges approved<br/>entries, nextVersion adds a minor version"]
-  PUBLISH --> SU[("skill_updates")]
-  SU --> ASKKIX["Ask Kix reads updateNotes<br/>from the next request"]
+  SETTLE --> UP[("knowledge_uploads in a review session<br/>extraction, overrides, edits, checks")]
+  UP --> PAIR["pairUploads in code: an answer sheet<br/>with its question paper, or by hand"]
+  PAIR --> CHECK["Cross-check: a separate Muse call<br/>ok, mismatch, spelling, unusual; waiting"]
+  CHECK --> REVIEW{"Admin approves, edits, removes, adds;<br/>overrides level, subject, tier;<br/>settles each mismatch"}
+  REVIEW --> KIX["Kix's own questions from approved<br/>patterns, cross-checked"]
+  KIX --> REVIEW
+  REVIEW --> PUBLISH["Publish: blocked while a mismatch is open;<br/>refinePack makes the pack's next version"]
+  PUBLISH --> SV[("skill_versions<br/>manifest archetypes, exam-patterns.md, items")]
+  SV --> RUNTIME["Every pack reader: Kix Tutor, Ask Kix,<br/>Vibe Zone, papers (override layer)"]
+  PUBLISH --> SU[("skill_updates: the history row")]
+  SU --> ASKKIX["Ask Kix's latest exam patterns"]
   PUBLISH --> AUDIT[("audit_log knowledge.publish")]
 ```
 
@@ -613,13 +638,17 @@ What the Curator extracts (`extractionSchema` in `lib/knowledge/knowledge.ts`):
 - `archetypes` (up to 40): topic, pattern in the model's own words, marks, how many questions follow it, difficulty 1 to 4, format and source pages. The prompt says "Never copy a question's wording, numbers or names";
 - `traps` and `markingCues` (up to 15 each): the mistakes the paper is built to catch, and what the answer key rewards;
 - `items` (up to 30): only for own or licensed material. For `school-private`, the prompt asks for an empty array and `settle` empties it anyway;
+- `document` (29 Oct): what the PDF is (`question-paper`, `answer-sheet`, `both`, `notes`) and its paper number; `paper.tier` (`standard`, `foundation`, `g1` to `g3`);
+- `questions` (up to 60): one row per question number with its topic, its pattern in Muse's own words, marks, the answer printed on this document (`keyAnswer`) and Muse's own answer worked out from the question (`workedAnswer`). No question text, so a school paper's rows are numbers, patterns and answers only;
 - a confidence and notes for the reviewer (unreadable pages, missing answer key).
 
-Publishing (`app/api/admin/knowledge/publish/route.ts`) merges the approved archetypes across uploads by topic and pattern, adding their counts, so the pack learns which patterns recur most. The result is stored as the pack's next minor version and the uploads are marked as published in it. Ask Kix sees the newest three updates for the child's level as "latest exam patterns", with each archetype's marks and how often it was seen.
+**Review sessions** (founder, 29 Oct; `lib/knowledge/session.ts`, `lib/knowledge/review.ts`, Admin → Add knowledge). A session groups uploads, added at any time. Code pairs an answer sheet with a question paper of the same level and subject whose school, year, exam and paper number don't conflict and agree the most (a tie is left for the admin); the admin can pair or unpair by hand, and that wins. When a pair completes (either order), when a paper carries its own answers, or when our own material has questions, the **cross-check** runs: a separate Muse call judges each key against Muse's earlier worked answer (school papers, whose questions it never sees again) or solves the item from its stem (own material, Kix's questions). Results: `ok`, `mismatch` (with Muse's answer), `spelling` (with the fix), `unusual` (marks that don't fit, a missing part), and `waiting` from code when there is no key yet. Papers are routed by level and subject as before, and the admin can override level, subject and tier per paper ("changed by you"), which re-routes it. Every pattern, trap, cue, question and key can be edited, removed (rejected) or added. The admin settles a mismatch with "key is right", "use Muse's" (writes it into the key) or by editing the key; **publishing is refused while any approved mismatch is unresolved** (`publishBlockers`). Kix's own questions are written from the approved patterns, traps and cues only (`lib/knowledge/kix-questions.ts`), cross-checked, and approved one by one.
 
-A scout find is always read with the `school-private` rights (`app/api/admin/papers/read/route.ts`), so it can only ever yield patterns. What is automatic: the weekly scan, the download for `auto` finds once an admin presses Read it, the extraction and the routing. What a person decides: whether to read a find, every single entry, and when to publish. Nothing reaches a child without that approval.
+**Publishing refines the skill** (`app/api/admin/knowledge/publish/route.ts`, `lib/knowledge/refine.ts`): a new skill version of the target pack (§5.4), from its published version or default, or a new pack's starting files. Approved patterns join the manifest's `archetypes` (`KN-n`, with marks, `seen` counts and an exam weight; the same pattern again adds to its count); a topic the pack doesn't cover joins its scope; `references/exam-patterns.md` lists the patterns, traps, marking cues and sources (month and level, never a school or paper code); new items go to `items/knowledge-<version>.json` as reviewed by the admin: our own or licensed material's approved questions, and Kix's approved questions (`generated`). A school paper's own questions are never kept, stored or served: its extraction carries none (`settle`), an edit can't add any (refused in the route), `refinePack` takes items only from other rights, and the version is checked by the pack schemas and the safety scanner before it is written. `draft: true` saves it as the pack's draft for the editor instead. A `skill_updates` row with the same number keeps the history readable and feeds Ask Kix's "latest exam patterns"; before the migration, publishing writes that row only, as before.
 
-Where this loop stops today: published items (own or licensed material) are stored in `skill_updates` but not yet served in quests, and the Kix Tutor reads the pack on disk, not the published updates (§12).
+A scout find is always read with the `school-private` rights (`app/api/admin/papers/read/route.ts`), so it can only ever yield patterns; it joins the review session the admin has open. What is automatic: the weekly scan, the download for `auto` finds once an admin presses Read it, the extraction, the routing, the pairing and the cross-check. What a person decides: whether to read a find, level, subject and tier, every single entry, every mismatch, and when to publish. Nothing reaches a child without that approval.
+
+Where this loop stops today: published items are served by `find_items`, printable papers and the catalogue, but quests still serve the frog quest only (§12).
 
 ### 6.2 Loop 2: per-child learning (deterministic adaptation)
 
@@ -1123,8 +1152,10 @@ The specs in `docs/prd/` describe more than the hackathon build does. These are 
 | Agents load and unload skills through `tool_search` and call `read_reference`, `find_items`, `check_answer`; events go to `skill_events` (SKILL_ENGINE §5) | The Kix Tutor and Ask Kix call those tools as plain function tools (plus `load_skill` and `notebook_read`) and log `skill_events`; no `tool_search` namespaces, no unloading, no `skills`, `skill_items` or `agent_policies` tables | §4.10 |
 | The tutor uses the Responses API with a 10 s hint timeout (plan §2) | Chat completions with function tools, not streamed, 12 s a round, up to three tool rounds | `app/api/kix/tutor/route.ts` |
 | Seven Notebook pages with `append`, `replace_section` and `remove_line` (SKILL_ENGINE §5a) | Four pages; `append` and `remove_line` only | `lib/notebook/notebook.ts` |
-| Published updates are read by Kix when it tutors and helps with homework | Ask Kix reads them; the tutor reads the pack on disk | `app/api/kix/homework/route.ts` |
-| Published items join the pack and are served next session (SKILL_ENGINE §6) | Items are stored in `skill_updates` but not yet served in quests | `lib/knowledge/knowledge.ts` |
+| Published updates are read by Kix when it tutors and helps with homework | Both read the pack's published version (its `exam-patterns.md` by `read_reference`); Ask Kix also reads the `skill_updates` rows as "latest exam patterns" | `lib/skills/overrides.ts`, `app/api/kix/homework/route.ts` |
+| Published items join the pack and are served next session (SKILL_ENGINE §6) | They join the pack's next version and are served by `find_items`, printable papers and the catalogue; quests serve the frog quest only | `lib/knowledge/refine.ts` |
+| Skill versions as `skills` and `skill_items` tables (SKILL_ENGINE §3) | One `skill_versions` table of whole-pack snapshots (text files as jsonb); figures stay on disk | `lib/skills/versions.ts` |
+| Muse cross-checks every answer by working it out (founder, 29 Oct) | For a school paper Muse works each answer out when it reads the paper (it never sees the question again); the cross-check call judges the key against that answer | `lib/knowledge/crosscheck.ts` |
 | Quests from every pack | One quest, the P3 frog life cycle, five reviewed items | `lib/learn/frog-quest.ts` |
 | Tonight stored per child per date (`summaries`) | Cached in memory per function instance | `app/api/guardian/tonight/route.ts` |
 | Studio cut-out saved to Storage and the profile's `kix_url` | The cut-out is returned to the browser; the chosen world is saved to the profile through `PATCH /api/me` | `app/api/studio/transform/route.ts` (TODO in the file), `components/studio/StudioPicker.tsx` |

@@ -4,9 +4,16 @@ import type { SkillLevel, SkillSubject } from "@/lib/types";
 export const isChinese = (language: string) => language.startsWith("zh");
 
 const LEVEL: Record<SkillLevel, { en: string; zh: string }> = {
+  P1: { en: "Primary 1", zh: "小一" },
+  P2: { en: "Primary 2", zh: "小二" },
   P3: { en: "Primary 3", zh: "小三" },
+  P4: { en: "Primary 4", zh: "小四" },
+  P5: { en: "Primary 5", zh: "小五" },
   P6: { en: "Primary 6", zh: "小六" },
+  "Sec 1": { en: "Secondary 1", zh: "中一" },
   "Sec 2": { en: "Secondary 2", zh: "中二" },
+  "Sec 3": { en: "Secondary 3", zh: "中三" },
+  "Sec 4": { en: "Secondary 4", zh: "中四" },
 };
 
 const SUBJECT: Record<SkillSubject, { en: string; zh: string }> = {

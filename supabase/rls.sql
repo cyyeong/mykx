@@ -150,3 +150,8 @@ grant select, delete on game_progress to authenticated;
 -- Agents you can edit (migration 20261030_agent_versions.sql): server only, no policies and no grants.
 alter table agent_versions enable row level security;
 revoke all on agent_versions from anon, authenticated;
+
+-- Skill versions and knowledge review sessions (20261030_skill_versions.sql): server only, no policies.
+alter table skill_versions enable row level security;
+alter table knowledge_sessions enable row level security;
+revoke all on skill_versions, knowledge_sessions from anon, authenticated;

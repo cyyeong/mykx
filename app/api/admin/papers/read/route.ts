@@ -9,9 +9,11 @@ import { pinLockedResponse } from "@/lib/auth/pin";
 import { readPaper } from "@/lib/knowledge/read";
 import { fetchPaper } from "@/lib/papers/scan";
 import { logRunsFor } from "@/lib/runs/log";
+import { refreshSkillOverrides } from "@/lib/skills/overrides";
 
 export const maxDuration = 300;
-const body = z.strictObject({ id: z.guid() });
+/** `sessionId`: the review session the admin has open (29 Oct), so the paper joins it. */
+const body = z.strictObject({ id: z.guid(), sessionId: z.guid().optional() });
 
 export async function POST(request: Request) {
   return withAuth(request, async ({ store, jar }) => {
@@ -32,7 +34,9 @@ export async function POST(request: Request) {
     }
     logRunsFor("knowledge-agent");
     const fileName = `${[find.level, find.subject, find.year, find.type, find.school].filter(Boolean).join(" ")}.pdf`.slice(0, 200);
-    const upload = await readPaper({ bytes, fileName, rights: "school-private", sourceUrl: find.pageUrl.slice(0, 500), uploadedBy: admin.profile.id, signal: request.signal });
+    await refreshSkillOverrides(store);
+    const session = parsed.sessionId ? await store.knowledge.session(parsed.sessionId) : null;
+    const upload = await readPaper({ bytes, fileName, rights: "school-private", sourceUrl: find.pageUrl.slice(0, 500), uploadedBy: admin.profile.id, sessionId: session?.id ?? null, signal: request.signal });
     await store.knowledge.saveUpload(upload);
     const updated = upload.status === "ready" ? await store.papers.setFind(find.id, { status: "read", uploadId: upload.id }) : find;
     await store.audit({ actor: admin.profile.id, actorRole: "admin", action: "knowledge.upload", target: upload.id, householdId: admin.householdId, detail: { rights: upload.rights, status: upload.status, pack: upload.pack, from: "scout" } });

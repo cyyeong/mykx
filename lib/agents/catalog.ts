@@ -103,6 +103,7 @@ const READ_ONLY: Record<string, string> = {
   guardian: "No model: heartbeats, focus, mood from words and flags are tested rules in code (lib/guardian).",
   "whos-who": "SAM 3.1 gets one fixed prompt, \"child\", on a flagged frame. It draws outlines; it never identifies anyone (rule 15).",
   scout: "No model: an allowlist of five sites, robots.txt and tested parsers (lib/papers).",
+  "skill-editor": "Its prompt is fixed in code for now (lib/skills/enhance.ts): it proposes changes to a skill as a diff an admin reviews and accepts into a draft; nothing it writes is published by itself.",
 };
 
 export interface AgentListRow {

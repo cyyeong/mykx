@@ -17,6 +17,7 @@ import { caringReply, checkWords, HELPLINES } from "@/lib/guardian/words";
 import { teachingNotes } from "@/lib/kix/homework";
 import { hasMetaApiKey } from "@/lib/meta/client";
 import { sparkStructured } from "@/lib/meta/spark";
+import { refreshSkillOverrides } from "@/lib/skills/overrides";
 import { flashcardSpecSchema, makePrompt, SAMPLE_SET, vibeVars } from "@/lib/vibe/flashcards";
 import { logRunsFor } from "@/lib/runs/log";
 
@@ -49,6 +50,7 @@ export async function POST(request: Request) {
     await store.guardian.saveMessage(family.householdId, kid.id, { at: new Date().toISOString(), text: words.slice(0, 500), source: "talk", ...check }).catch(() => undefined);
     if (check.distress) return ok({ care: { reply: caringReply(kid.nickname), helplines: HELPLINES }, spec: null, sample: false });
     if (!hasMetaApiKey()) return ok({ care: null, spec: SAMPLE_SET, sample: true });
+    await refreshSkillOverrides(store); // the level's packs as published (lib/skills/overrides.ts)
     try {
       const who = { nickname: kid.nickname, level: kid.level, band: kid.band };
       const head = await instructionsFor("vibe", vibeVars(who), { store });

@@ -16,6 +16,9 @@ export const AgentSkillModeSchema = z.enum(["auto", "on_demand", "off"]);
 export const ItemSourceKindSchema = z.enum(["own", "licensed", "generated"]);
 export const ItemTypeSchema = z.enum(["mcq", "short", "open", "card"]);
 export const ItemStatusSchema = z.enum(["draft", "reviewed", "retired"]);
+export const SKILL_LEVELS = ["P1", "P2", "P3", "P4", "P5", "P6", "Sec 1", "Sec 2", "Sec 3", "Sec 4"] as const;
+export const SKILL_SUBJECTS = ["science", "maths", "english", "chinese"] as const;
+export const SKILL_TIERS = ["standard", "foundation", "g1", "g2", "g3"] as const;
 
 export const SkillTopicSchema = z.strictObject({
   id: z.string().regex(/^[a-z0-9_]+(\.[a-z0-9_]+)*$/, "dotted topic id"),
@@ -34,6 +37,8 @@ export const ArchetypeSchema = z.strictObject({
   pattern: z.string().min(3).max(240),
   exam_weight: share,
   subskill: z.string().optional(),
+  marks: z.number().int().min(0).max(20).optional(),
+  seen: z.number().int().min(1).max(10_000).optional(),
 });
 
 export const SkillReferenceSchema = z.strictObject({
@@ -49,8 +54,9 @@ export const SkillManifestSchema = z
     status: z.enum(["draft", "published", "retired"]),
     title: z.string().min(1),
     description: z.string().min(10).max(400),
-    subject: z.enum(["science", "maths", "english", "chinese"]),
-    level: z.enum(["P3", "P6", "Sec 2"]),
+    subject: z.enum(SKILL_SUBJECTS),
+    level: z.enum(SKILL_LEVELS),
+    tier: z.enum(SKILL_TIERS).optional(),
     syllabus: z.string().min(1),
     language: z.string().min(2),
     agents: z.strictObject({

@@ -13,6 +13,7 @@ import { askKixVars, enforceStage, explanationSchema, packsForLevel, sampleExpla
 import { updateNotes } from "@/lib/knowledge/knowledge";
 import { hasMetaApiKey } from "@/lib/meta/client";
 import { sparkStructured, sparkTools } from "@/lib/meta/spark";
+import { refreshSkillOverrides } from "@/lib/skills/overrides";
 import { cleanTitle, packsForChild, publicTrace, readSection, runSkillAgent } from "@/lib/skills/runtime";
 import { getStore } from "@/lib/auth/context";
 import type { NotebookPage } from "@/lib/auth/store";
@@ -47,6 +48,7 @@ export async function POST(request: Request) {
 
   const said = input.text ?? input.question ?? "";
   const store = getStore();
+  await refreshSkillOverrides(store); // the packs' published versions (lib/skills/overrides.ts)
   if (said) {
     const check = checkWords(said);
     await store?.guardian.saveMessage(family.householdId, kid.id, { at: new Date().toISOString(), text: said.slice(0, 500), source: "talk", ...check }).catch(() => undefined);

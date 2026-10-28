@@ -4,7 +4,9 @@ import { Suspense } from "react";
 import { GrownUpGate } from "@/components/account/GrownUpGate";
 import { PapersIndex } from "@/components/papers/PapersIndex";
 import { getDoors } from "@/lib/auth/server";
+import { getStore } from "@/lib/auth/context";
 import { listPrintPacks } from "@/lib/print/bank";
+import { refreshSkillOverrides } from "@/lib/skills/overrides";
 
 export const metadata: Metadata = { title: "Practice papers · myKx" };
 
@@ -12,6 +14,7 @@ export const metadata: Metadata = { title: "Practice papers · myKx" };
 async function Papers() {
   const doors = await getDoors();
   if (!doors.signedIn) redirect("/signin");
+  await refreshSkillOverrides(getStore()); // each pack's published version (lib/skills/overrides.ts)
   return (
     <GrownUpGate>
       <PapersIndex

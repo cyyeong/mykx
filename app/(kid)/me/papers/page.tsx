@@ -3,7 +3,9 @@ import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { PapersIndex } from "@/components/papers/PapersIndex";
 import { getDoors, getSignedInKid } from "@/lib/auth/server";
+import { getStore } from "@/lib/auth/context";
 import { listPrintPacks } from "@/lib/print/bank";
+import { refreshSkillOverrides } from "@/lib/skills/overrides";
 
 export const metadata: Metadata = { title: "Papers to print · myKx" };
 
@@ -11,6 +13,7 @@ export const metadata: Metadata = { title: "Papers to print · myKx" };
 async function KidPapers() {
   const kid = await getSignedInKid();
   if (!kid) redirect((await getDoors()).signedIn ? "/doors" : "/signin");
+  await refreshSkillOverrides(getStore()); // each pack's published version (lib/skills/overrides.ts)
   return (
     <PapersIndex
       kids={[{ id: kid.id, nickname: kid.nickname, level: kid.level }]}

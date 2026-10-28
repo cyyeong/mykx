@@ -415,3 +415,32 @@ describe("migrations/20261030_agent_versions.sql (agents you can edit)", () => {
     }
   });
 });
+
+describe("migrations/20261030_skill_versions.sql", () => {
+  it("adds skill versions and review sessions for the server only, one row per pack version, and runs twice", async () => {
+    const old = new PGlite();
+    try {
+      for (const f of ["test-auth-stub.sql", "schema.sql", "rls.sql", "seed.sql"]) await old.exec(sql(f));
+      await old.exec(`drop table skill_versions; alter table knowledge_uploads drop column session_id, drop column state; drop table knowledge_sessions;`);
+      const migration = sql("migrations/20261030_skill_versions.sql");
+      await old.exec(migration);
+      await old.exec(migration);
+      await old.exec(`insert into skill_versions (pack_id, version, files, status, source, published_at) values ('p6-maths', '1.1.0', '{"SKILL.md":"x"}', 'published', 'edit', now())`);
+      await expect(old.exec(`insert into skill_versions (pack_id, version, files, status, source) values ('p6-maths', '1.1.0', '{}', 'draft', 'edit')`)).rejects.toThrow(/duplicate key/);
+      await expect(old.exec(`insert into skill_versions (pack_id, version, files, status, source) values ('p6-maths', '1.2.0', '{}', 'published', 'edit')`)).rejects.toThrow(/check constraint/);
+      await expect(old.exec(`insert into skill_versions (pack_id, version, files, status, source) values ('P6 Maths', '1.2.0', '{}', 'draft', 'edit')`)).rejects.toThrow(/check constraint/);
+      await old.exec(`insert into knowledge_sessions (title) values ('29 Oct papers')`);
+      const cols = await old.query<{ column_name: string }>(`select column_name from information_schema.columns where table_name = 'knowledge_uploads' and column_name in ('session_id', 'state') order by column_name`);
+      expect(cols.rows.map((r) => r.column_name)).toEqual(["session_id", "state"]);
+      // Not even an admin's browser reads them directly: server routes only.
+      await old.exec(`insert into auth.users (id) values ('${PARENT_A}'); update profiles set user_id = '${PARENT_A}', is_admin = true where id = '00000000-0000-4000-8000-000000000010';`);
+      await old.query(`select set_config('request.jwt.claim.sub', $1, false)`, [PARENT_A]);
+      await old.exec("set role authenticated");
+      await expect(old.query("select id from skill_versions")).rejects.toThrow(/permission denied/);
+      await expect(old.query("select id from knowledge_sessions")).rejects.toThrow(/permission denied/);
+      await old.exec("reset role");
+    } finally {
+      await old.close();
+    }
+  });
+});
