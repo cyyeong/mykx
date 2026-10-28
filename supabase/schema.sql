@@ -182,6 +182,56 @@ create table signals (
 );
 create index signals_household_kind_time on signals (household_id, kind, minute desc);
 
+-- The guardian (docs/prd/PARENT_INSIGHTS.md §1-2, AGENTS.md rule 12): screen time, the kid's own words to Kix,
+-- the parent's limits, and which flags a grown-up has seen. Written by the server after validation only; never
+-- read by a model except the kid's own words, through Standard models. Nothing here touches mastery or rewards.
+-- One heartbeat per 30 s while a kid page is visible: what the kid is doing, and whether they've been idle.
+create table screen_beats (
+  household_id uuid not null references households (id) on delete cascade,
+  profile_id uuid not null references profiles (id) on delete cascade, -- the kid
+  slot timestamptz not null, -- the start of the 30 s slot; a second tab in the same slot changes nothing
+  kind text not null check (kind in ('learn', 'play', 'create', 'other')),
+  idle boolean not null default false, -- no tap or key for a minute or more
+  synthetic boolean not null default false, -- sample data, labelled in the UI (hard rule 8)
+  primary key (profile_id, slot)
+);
+create index screen_beats_household_time on screen_beats (household_id, slot desc);
+
+-- What the kid typed or said to Kix (Talk to Kix, and the "Because…" reasons). Never family messages.
+create table kix_messages (
+  id uuid primary key default gen_random_uuid(),
+  household_id uuid not null references households (id) on delete cascade,
+  profile_id uuid not null references profiles (id) on delete cascade,
+  at timestamptz not null,
+  text text not null check (char_length(text) between 1 and 500),
+  source text not null check (source in ('talk', 'reason')),
+  distress boolean not null default false, -- safety words: Kix's caring reply, helplines and an urgent flag
+  self_talk boolean not null default false, -- "I'm stupid": a watch sign
+  synthetic boolean not null default false
+);
+create index kix_messages_profile_time on kix_messages (profile_id, at desc);
+
+-- The parent's guardian settings for one kid (Your family → Controls); the daily limit stays on profiles.
+-- No row: the band's defaults.
+create table guardian_settings (
+  profile_id uuid primary key references profiles (id) on delete cascade,
+  household_id uuid not null references households (id) on delete cascade,
+  quiet_from_hour integer not null check (quiet_from_hour between 0 and 23),
+  quiet_to_hour integer not null check (quiet_to_hour between 0 and 23),
+  break_every_min integer not null check (break_every_min between 10 and 60),
+  learn_min_min integer not null check (learn_min_min between 0 and 240),
+  play_max_min integer not null check (play_max_min between 0 and 240),
+  updated_at timestamptz not null default now()
+);
+
+-- Flags a grown-up marked as seen (flags themselves are computed from the rows above, never stored).
+create table flags_seen (
+  household_id uuid not null references households (id) on delete cascade,
+  flag_id text not null check (char_length(flag_id) <= 200),
+  seen_at timestamptz not null default now(),
+  primary key (household_id, flag_id)
+);
+
 -- Account actions: admin actions (always), family changes and kid lockouts. Append-only, written by
 -- the server's service role; readable by admins (rls.sql). `detail` holds field names and reasons,
 -- never a child's messages, answers, Notebook, nickname or secrets. No foreign keys, so the trail

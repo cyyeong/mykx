@@ -4,12 +4,13 @@
 // Notebook and Family under one bar (bottom on phones, rail from 600 px),
 // a Kids' doors button to hand the device over, and an account menu with
 // sign out here, sign out everywhere, and the admin entry for admins.
-// Today is real household data; Messages and Notebook say honestly that they
+// Today is the guardian's picture (ParentToday); Messages and Notebook say honestly that they
 // arrive with the parent dashboard (their backends land in a later task).
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { api } from "@/components/account/api";
+import { ParentToday } from "./ParentToday";
 import "./parent.css";
 
 type Tab = "today" | "messages" | "notebook" | "family";
@@ -121,10 +122,7 @@ export function ParentShell({ name, isAdmin }: { name: string | null; isAdmin: b
           </section>
         ) : tab === "today" ? (
           <section aria-label="Today">
-            <h2 className="pshell-h2">Today</h2>
-            {kids === null ? (
-              <p className="pshell-p">Loading your family…</p>
-            ) : kids.length === 0 ? (
+            {kids !== null && kids.length === 0 ? (
               <div className="pshell-card">
                 <p className="pshell-p">No kids yet. Add one in Your family to get started.</p>
                 <Link className="mk-btn mk-btn--primary" href="/family">
@@ -132,21 +130,7 @@ export function ParentShell({ name, isAdmin }: { name: string | null; isAdmin: b
                 </Link>
               </div>
             ) : (
-              <ul className="pshell-kids">
-                {kids.map((k) => (
-                  <li key={k.id} className="pshell-card pshell-kid">
-                    <div>
-                      <p className="pshell-kidname">{k.nickname}</p>
-                      <p className="pshell-p">
-                        {[k.level, k.band === "teen" ? "Teen" : k.band === "junior" ? "Junior" : null].filter(Boolean).join(" · ")}
-                      </p>
-                    </div>
-                    <Link className="mk-btn mk-btn--secondary" href={`/doors/${k.id}`}>
-                      Open door
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              <ParentToday />
             )}
           </section>
         ) : tab === "messages" ? (

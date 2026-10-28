@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { FocusWatch } from "@/components/camera/FocusWatch";
+import { GuardianWatch } from "@/components/guardian/GuardianWatch";
 import { KidNav } from "@/components/nav/KidNav";
 import { SoundProvider } from "@/components/sound/SoundProvider";
 import { SoundToggle } from "@/components/sound/SoundToggle";
@@ -21,6 +22,11 @@ export default function KidLayout({ children }: LayoutProps<"/">) {
           </div>
           {/* Inside the shell so it zooms with the screen when a short window scales it (kid-tabs.css). */}
           <SoundToggle />
+          {/* Kix as guardian: screen-time heartbeats, and a kind break or wind-down when it's time. It reads the
+              path too, so it gets its own Suspense boundary. */}
+          <Suspense fallback={null}>
+            <GuardianWatch />
+          </Suspense>
         </div>
         {/* Focus camera: learning screens only, when a grown-up turned it on (renders nothing otherwise). It reads
             the current path, so it sits in its own Suspense boundary and never blocks a page. */}

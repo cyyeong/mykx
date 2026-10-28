@@ -10,6 +10,7 @@ import { describeMastery, recompute } from "../domain/mastery.ts";
 import { awardsFor, pointsOnDay, DAILY_CAP, type LedgerEntry } from "../domain/rewards.ts";
 import { sgDate } from "../domain/time.ts";
 import { FROG_QUEST, loadFrogItems } from "./frog-quest.ts";
+import { caringReply, checkWords, HELPLINES } from "../guardian/words.ts";
 import type { SkillItem } from "../types.ts";
 
 export interface AttemptInput {
@@ -23,6 +24,8 @@ export interface AttemptInput {
   revealed: boolean;
   /** Client-generated per submission; a resend lands once (J17). */
   key: string;
+  /** Time from the question showing to this submission, for the guardian's focus signal only. */
+  durationMs?: number | null;
 }
 
 export interface SubmitResult {
@@ -42,6 +45,8 @@ export interface SubmitResult {
   starsToday: number;
   /** This submission hit the 15-a-day cap. Learning still counts. */
   capReached: boolean;
+  /** The child's reason held distress or safety words: Kix's caring reply and the helplines (rule 12). */
+  care: { reply: string; helplines: typeof HELPLINES } | null;
 }
 
 const nowIso = () => new Date().toISOString();
@@ -94,6 +99,7 @@ export async function submitAttempt(
     // A retry's fresh explanation is the revised one (the player asks the
     // child to say it again in their own words); copying a reveal never pays.
     ...(!firstTry && explanationText && !input.revealed ? { explanationRevised: true } : {}),
+    ...(typeof input.durationMs === "number" ? { durationMs: Math.max(0, Math.round(input.durationMs)) } : {}),
   };
   const note = mark.correct ? null : wrongNote(item, input.response);
   const working = input.revealed ? (item.working ?? []) : null;
@@ -105,6 +111,13 @@ export async function submitAttempt(
     skillVersion: FROG_QUEST.version,
   };
   await store.learn.saveAttempt(householdId, kidId, stored);
+  // The reason is the child's own words to Kix: the guardian's safety check runs on it like any message.
+  const words = explanationText ? checkWords(explanationText) : null;
+  if (explanationText && words) {
+    // Never lets the guardian's record stop an answer from landing (the caring reply below still shows).
+    await store.guardian.saveMessage(householdId, kidId, { at, text: explanationText.slice(0, 500), source: "reason", ...words }).catch(() => undefined);
+  }
+  const care = words?.distress ? { reply: caringReply((await store.kid(householdId, kidId))?.nickname ?? "friend"), helplines: HELPLINES } : null;
 
   const attempts = await store.learn.attempts(householdId, kidId);
   const ledger = await store.learn.ledger(householdId, kidId);
@@ -129,6 +142,7 @@ export async function submitAttempt(
     awards: fresh.map((e) => ({ rule: e.rule, amount: e.amount, ...(e.note ? { note: e.note } : {}) })),
     starsToday,
     capReached: starsToday >= DAILY_CAP,
+    care,
   };
 }
 
@@ -161,5 +175,6 @@ async function submitState(store: AuthStore, householdId: string, kidId: string,
     awards: [],
     starsToday,
     capReached: starsToday >= DAILY_CAP,
+    care: null, // the first submission already answered with care; a resend doesn't repeat it
   };
 }

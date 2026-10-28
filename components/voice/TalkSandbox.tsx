@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useTheme } from "@/components/theme/ThemeRoot";
+import { CareCard, type Care } from "@/components/guardian/CareCard";
 import { Art } from "@/components/ui/Art";
 import { TalkButton, type TalkPhase } from "./TalkButton";
 import { useKixVoice } from "./useKixVoice";
@@ -21,11 +22,22 @@ export function TalkSandbox() {
   const [heard, setHeard] = useState<string | null>(null);
   const [typed, setTyped] = useState("");
   const [reply, setReply] = useState<string | null>(null);
+  const [care, setCare] = useState<Care | null>(null);
 
-  const confirm = (text: string) => {
-    const line = `I heard you say: ${text}`;
-    setReply(line);
+  // Every message goes through the guardian first: the safety check (caring reply and helplines for distress
+  // words, and an urgent flag for the grown-up) and a first mood reading, so Kix answers the feeling.
+  const confirm = async (text: string) => {
     setHeard(null);
+    let line = `I heard you say: ${text}`;
+    try {
+      const res = await fetch("/api/guardian/words", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ text }) });
+      const data = (await res.json()) as { ok: boolean; reply?: string; care?: Care | null };
+      if (data.ok && data.reply) line = data.reply;
+      setCare(data.ok ? (data.care ?? null) : null);
+    } catch {
+      setCare(null);
+    }
+    setReply(line);
     speak(line);
   };
 
@@ -67,9 +79,11 @@ export function TalkSandbox() {
           </div>
         </div>
 
+        {care && <CareCard care={care} />}
+
         {heard && (
           <div className={s.actions}>
-            <button className="mk-btn mk-btn--primary" type="button" onClick={() => confirm(heard)}>
+            <button className="mk-btn mk-btn--primary" type="button" onClick={() => void confirm(heard)}>
               That&apos;s right
             </button>
             <button className="mk-btn mk-btn--secondary" type="button" onClick={() => setHeard(null)}>
@@ -90,7 +104,7 @@ export function TalkSandbox() {
             className={s.typed}
             onSubmit={(e) => {
               e.preventDefault();
-              if (typed.trim()) confirm(typed.trim());
+              if (typed.trim()) void confirm(typed.trim());
               setTyped("");
             }}
           >

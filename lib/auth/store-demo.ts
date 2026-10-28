@@ -22,14 +22,16 @@ import {
 import type { AttemptEvent } from "../domain/attempts.ts";
 import type { LedgerEntry } from "../domain/rewards.ts";
 import { sgDate } from "../domain/time.ts";
+import { BEAT_MS } from "../guardian/screen-time.ts";
+import { sampleGuardianWeek } from "../guardian/sample.ts";
 import type { CookieJar } from "./http.ts";
-import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt } from "./store.ts";
+import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt, StoredBeat, StoredGuardianSettings, StoredKixMessage } from "./store.ts";
 import { NicknameTakenError } from "./store.ts";
 import { sessionSecret, signToken, verifyToken } from "./tokens.ts";
 
 export const DEMO_PARENT_COOKIE = "mykx_demo_parent";
 /** Bump when the store's shape changes: a running dev server then rebuilds it on the next request (see demoStore). */
-const DEMO_STORE_SHAPE = 5; // 5: parent PIN hash on profiles
+const DEMO_STORE_SHAPE = 6; // 6: guardian beats, words, settings and seen flags
 const DEMO_TTL_SEC = 7 * 24 * 60 * 60;
 const LABEL = "demo-parent";
 
@@ -102,6 +104,11 @@ export class DemoStore implements AuthStore {
   readonly attemptRows = new Map<string, StoredLearnAttempt>();
   /** Ledger entries by entry key: a replay never pays twice. */
   readonly ledgerRows = new Map<string, StoredLedgerEntry>();
+  /** Guardian heartbeats by `${kidId}|${slot ms}`, the kid's words to Kix, settings by kid, and seen flags. */
+  readonly beatRows = new Map<string, StoredBeat & { householdId: string; kidId: string }>();
+  readonly kixMessageRows: (StoredKixMessage & { householdId: string; kidId: string })[] = [];
+  readonly guardianSettingRows = new Map<string, StoredGuardianSettings & { householdId: string }>();
+  readonly seenFlagRows = new Set<string>();
   private readonly emails = new Map<string, string>(); // auth user id → email
   private readonly banned = new Set<string>();
   private readonly generation = new Map<string, number>();
@@ -257,6 +264,9 @@ export class DemoStore implements AuthStore {
     this.focusNoteRows.splice(0, this.focusNoteRows.length, ...this.focusNoteRows.filter((n) => n.kidId !== kidId));
     for (const [key, row] of this.attemptRows) if (row.kidId === kidId) this.attemptRows.delete(key);
     for (const [key, row] of this.ledgerRows) if (row.kidId === kidId) this.ledgerRows.delete(key);
+    for (const [key, row] of this.beatRows) if (row.kidId === kidId) this.beatRows.delete(key);
+    this.kixMessageRows.splice(0, this.kixMessageRows.length, ...this.kixMessageRows.filter((m) => m.kidId !== kidId));
+    this.guardianSettingRows.delete(kidId);
     return this.profiles.delete(kidId);
   }
 
@@ -360,6 +370,46 @@ export class DemoStore implements AuthStore {
     },
   };
 
+  readonly guardian = {
+    saveBeat: async (householdId: string, kidId: string, beat: StoredBeat) => {
+      if (!this.ownsKid(householdId, kidId)) return;
+      const slot = Math.floor(Date.parse(beat.at) / BEAT_MS) * BEAT_MS;
+      const key = `${kidId}|${slot}`;
+      if (!this.beatRows.has(key)) this.beatRows.set(key, { ...beat, at: new Date(slot).toISOString(), householdId, kidId });
+    },
+    beats: async (householdId: string, kidId: string, sinceIso: string) => {
+      const since = Date.parse(sinceIso);
+      return [...this.beatRows.values()]
+        .filter((b) => b.householdId === householdId && b.kidId === kidId && Date.parse(b.at) >= since)
+        .sort((a, b) => Date.parse(a.at) - Date.parse(b.at))
+        .map(({ at, kind, idle, synthetic }) => ({ at, kind, idle, ...(synthetic ? { synthetic } : {}) }));
+    },
+    saveMessage: async (householdId: string, kidId: string, message: StoredKixMessage) => {
+      if (!this.ownsKid(householdId, kidId)) return;
+      this.kixMessageRows.push({ ...message, householdId, kidId });
+    },
+    messages: async (householdId: string, kidId: string, sinceIso: string) => {
+      const since = Date.parse(sinceIso);
+      return this.kixMessageRows
+        .filter((m) => m.householdId === householdId && m.kidId === kidId && Date.parse(m.at) >= since)
+        .sort((a, b) => Date.parse(a.at) - Date.parse(b.at))
+        .map((m) => ({ at: m.at, text: m.text, source: m.source, distress: m.distress, selfTalk: m.selfTalk, ...(m.synthetic ? { synthetic: true } : {}) }));
+    },
+    settings: async (householdId: string, kidId: string) => {
+      const row = this.guardianSettingRows.get(kidId);
+      if (!row || row.householdId !== householdId) return null;
+      return { quietFromHour: row.quietFromHour, quietToHour: row.quietToHour, breakEveryMin: row.breakEveryMin, learnMinMin: row.learnMinMin, playMaxMin: row.playMaxMin };
+    },
+    saveSettings: async (householdId: string, kidId: string, settings: StoredGuardianSettings) => {
+      if (!this.ownsKid(householdId, kidId)) return;
+      this.guardianSettingRows.set(kidId, { ...settings, householdId });
+    },
+    seenFlags: async (householdId: string) => [...this.seenFlagRows].filter((k) => k.startsWith(`${householdId}|`)).map((k) => k.slice(householdId.length + 1)),
+    markSeen: async (householdId: string, flagId: string) => {
+      this.seenFlagRows.add(`${householdId}|${flagId}`);
+    },
+  };
+
   // Admin
 
   readonly admin = {
@@ -419,6 +469,7 @@ function toAttemptEvent(r: StoredLearnAttempt): AttemptEvent {
     ...(r.revisions ? { revisions: r.revisions } : {}),
     ...(r.explanation ? { explanation: r.explanation } : {}),
     ...(r.explanationRevised ? { explanationRevised: r.explanationRevised } : {}),
+    ...(r.durationMs !== undefined ? { durationMs: r.durationMs } : {}),
   };
 }
 
@@ -524,4 +575,8 @@ export function seedDemoHistory(store: DemoStore): void {
     { key: `${ARI_ID}:retry_revised:p3sci-demo-02`, kind: "stars", rule: "retry_revised", amount: 3, ref: "p3sci-demo-02", at: at(4), day, householdId: DEMO_HOUSEHOLD_ID, kidId: ARI_ID },
   ];
   for (const e of entries) store.ledgerRows.set(e.key, e);
+  // Ari's synthetic guardian week (lib/guardian/sample.ts): screen time and a few words to Kix, labelled "Sample".
+  const week = sampleGuardianWeek();
+  for (const b of week.beats) store.beatRows.set(`${ARI_ID}|${Date.parse(b.at)}`, { ...b, householdId: DEMO_HOUSEHOLD_ID, kidId: ARI_ID });
+  for (const m of week.messages) store.kixMessageRows.push({ ...m, householdId: DEMO_HOUSEHOLD_ID, kidId: ARI_ID });
 }

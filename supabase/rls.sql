@@ -25,6 +25,10 @@ alter table summaries enable row level security;
 alter table model_runs enable row level security;
 alter table audit_log enable row level security;
 alter table signals enable row level security;
+alter table screen_beats enable row level security;
+alter table kix_messages enable row level security;
+alter table guardian_settings enable row level security;
+alter table flags_seen enable row level security;
 
 create policy households_own on households for select to authenticated using (id = my_household());
 
@@ -50,6 +54,15 @@ create policy audit_log_admin_read on audit_log for select to authenticated usin
 create policy signals_read on signals for select to authenticated using (household_id = my_household());
 create policy signals_delete on signals for delete to authenticated using (household_id = my_household());
 
+-- The guardian: grown-ups read their household's screen time, their kids' words to Kix, limits and seen flags,
+-- and may delete a beat or a message (PARENT_INSIGHTS §4.5). Only the server writes them.
+create policy screen_beats_read on screen_beats for select to authenticated using (household_id = my_household());
+create policy screen_beats_delete on screen_beats for delete to authenticated using (household_id = my_household());
+create policy kix_messages_read on kix_messages for select to authenticated using (household_id = my_household());
+create policy kix_messages_delete on kix_messages for delete to authenticated using (household_id = my_household());
+create policy guardian_settings_read on guardian_settings for select to authenticated using (household_id = my_household());
+create policy flags_seen_read on flags_seen for select to authenticated using (household_id = my_household());
+
 -- Creations and shares stay inside the household.
 create policy creations_all on creations for all to authenticated
   using (household_id = my_household()) with check (household_id = my_household());
@@ -62,7 +75,7 @@ create policy shares_all on shares for all to authenticated
 
 -- Supabase grants every role everything on new public tables by default, so start from nothing and
 -- grant exactly what the browser needs. RLS still scopes every row by household.
-revoke all on households, profiles, attempts, ledger, creations, shares, summaries, model_runs, audit_log, signals from anon, authenticated;
+revoke all on households, profiles, attempts, ledger, creations, shares, summaries, model_runs, audit_log, signals, screen_beats, kix_messages, guardian_settings, flags_seen from anon, authenticated;
 grant usage on schema public to authenticated;
 grant select on households, attempts, ledger, summaries, model_runs, audit_log to authenticated;
 -- Every profile column except secret_hash and pin_hash (kid secrets and the parent PIN are checked by the server only).
@@ -76,3 +89,5 @@ grant select (
 grant update (pack, interests, kix_url, voice_enabled, camera_enabled, daily_limit_min) on profiles to authenticated;
 grant select, insert, update, delete on creations, shares to authenticated;
 grant select, delete on signals to authenticated;
+grant select, delete on screen_beats, kix_messages to authenticated;
+grant select on guardian_settings, flags_seen to authenticated;

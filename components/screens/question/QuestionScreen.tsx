@@ -6,11 +6,12 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { useSound } from "@/components/sound/SoundProvider";
 import { Art } from "@/components/ui/Art";
 import { Button, ButtonLink } from "@/components/ui/Button";
 import { KixBubble } from "@/components/ui/KixBubble";
+import { CareCard, type Care } from "@/components/guardian/CareCard";
 import "./questionScreen.css";
 
 export interface PlayerItem {
@@ -46,6 +47,8 @@ interface AttemptOutcome {
   awards: { rule: string; amount: number; note?: string }[];
   starsToday: number;
   capReached: boolean;
+  /** The child's reason held distress words: Kix's caring reply and the helplines (rule 12). */
+  care: Care | null;
 }
 
 type Mood = "idle" | "hint" | "thinking" | "cheer";
@@ -103,6 +106,11 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
   const [stars, setStars] = useState(starsToday);
   const [failed, setFailed] = useState(false);
   const key = useRef<string>(crypto.randomUUID());
+  // When this try began, for the guardian's "answered in under 3 s" signal (never mastery evidence).
+  const shownAt = useRef<number>(0);
+  useEffect(() => {
+    shownAt.current = performance.now();
+  }, []);
   const cardRef = useRef<HTMLDivElement>(null);
 
   const isMcq = item.options.length > 0;
@@ -134,6 +142,7 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
           hintsUsed: hintIdx,
           revealed,
           key: key.current,
+          ...(shownAt.current ? { durationMs: Math.round(performance.now() - shownAt.current) } : {}),
         }),
       });
       data = (await res.json()) as AttemptOutcome & { ok: boolean };
@@ -355,6 +364,7 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
                     </svg>
                   ))}
               </div>
+              {outcome?.care && <CareCard care={outcome.care} />}
               {phase === "correct" && outcome && outcome.awards.length > 0 && (
                 <div ref={cardRef} className="q-rise qp-reward" style={{ display: "flex", gap: 16, padding: 14, borderRadius: "var(--radius-lg)", background: "var(--surface-raised)", boxShadow: "inset 0 0 0 3px var(--border-control), var(--shadow-glow)" }}>
                   <div className="qp-card-art" style={{ position: "relative", width: 108, height: 140, flex: "none", borderRadius: "var(--radius-md)", overflow: "hidden", background: "var(--surface)" }}>
@@ -432,6 +442,7 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
                 <Button
                   onClick={() => {
                     key.current = crypto.randomUUID();
+                    shownAt.current = performance.now();
                     setPhase("answering");
                   }}
                 >

@@ -89,5 +89,6 @@
   }
 }
 /* Today's stop carries the evidence line: wrap it rather than run under the quest panel. */
-.qm-label{max-width:340px}
+.qm-label{max-width:250px}
+.qm-label--4{left:-100px}
 @media (max-width: 1023px){.qm-label{max-width:none}}

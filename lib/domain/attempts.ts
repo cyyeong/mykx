@@ -47,6 +47,8 @@ export interface AttemptEvent {
   explanation?: boolean;
   /** On a retry: the child changed their explanation (FR10). */
   explanationRevised?: boolean;
+  /** Time from the question showing to this submission (the guardian's focus signal; never mastery evidence). */
+  durationMs?: number;
 }
 
 /** The item fields the domain code needs, plus an optional explicit family. */

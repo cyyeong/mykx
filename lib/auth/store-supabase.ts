@@ -9,7 +9,8 @@ import type { CookieJar } from "./http.ts";
 import { familyOf, type AttemptEvent } from "../domain/attempts.ts";
 import { sgDate } from "../domain/time.ts";
 import type { LedgerEntry } from "../domain/rewards.ts";
-import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt } from "./store.ts";
+import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt, StoredBeat, StoredGuardianSettings, StoredKixMessage } from "./store.ts";
+import { BEAT_MS, type ActivityKind } from "../guardian/screen-time.ts";
 import { NicknameTakenError } from "./store.ts";
 
 export interface SupabaseEnv {
@@ -122,6 +123,7 @@ function toAttemptEvent(r: Row): AttemptEvent {
     confirmed: true,
     ...(explanationText ? { explanation: true } : {}),
     ...(a.revised === true ? { explanationRevised: true } : {}),
+    ...(r.duration_ms != null ? { durationMs: Number(r.duration_ms) } : {}),
   };
 }
 
@@ -301,7 +303,7 @@ export class SupabaseStore implements AuthStore {
     attempts: async (householdId: string, kidId: string): Promise<AttemptEvent[]> => {
       const { data, error } = await this.db
         .from("attempts")
-        .select("id, item_id, skill_id, topic, subskill, answer, marks, max_marks, first_try, hints_used, revealed, created_at")
+        .select("id, item_id, skill_id, topic, subskill, answer, marks, max_marks, first_try, hints_used, revealed, duration_ms, created_at")
         .eq("household_id", householdId)
         .eq("profile_id", kidId)
         .order("created_at")
@@ -312,7 +314,7 @@ export class SupabaseStore implements AuthStore {
     attemptByKey: async (householdId: string, kidId: string, key: string): Promise<AttemptEvent | null> => {
       const { data, error } = await this.db
         .from("attempts")
-        .select("id, item_id, skill_id, topic, subskill, answer, marks, max_marks, first_try, hints_used, revealed, created_at")
+        .select("id, item_id, skill_id, topic, subskill, answer, marks, max_marks, first_try, hints_used, revealed, duration_ms, created_at")
         .eq("household_id", householdId)
         .eq("profile_id", kidId)
         .eq("idempotency_key", key)
@@ -340,6 +342,7 @@ export class SupabaseStore implements AuthStore {
             first_try: attempt.firstTry,
             hints_used: attempt.hintsBeforeSubmit,
             revealed: attempt.revealed,
+            duration_ms: attempt.durationMs ?? null,
             idempotency_key: attempt.idempotencyKey,
             created_at: attempt.at,
           },
@@ -449,6 +452,105 @@ export class SupabaseStore implements AuthStore {
       const { data, error } = await this.db.from("signals").delete().eq("household_id", householdId).eq("kind", NOTE_KIND).eq("id", noteId).select("profile_id");
       check(error);
       return ((data ?? [])[0]?.profile_id as string | undefined) ?? null;
+    },
+  };
+
+  // The guardian (screen_beats, kix_messages, guardian_settings, flags_seen). Same household filtering.
+  readonly guardian = {
+    saveBeat: async (householdId: string, kidId: string, beat: StoredBeat) => {
+      if (!(await this.ownsKid(householdId, kidId))) return;
+      const slot = new Date(Math.floor(Date.parse(beat.at) / BEAT_MS) * BEAT_MS).toISOString();
+      const { error } = await this.db
+        .from("screen_beats")
+        .upsert({ household_id: householdId, profile_id: kidId, slot, kind: beat.kind, idle: beat.idle }, { onConflict: "profile_id,slot", ignoreDuplicates: true });
+      check(error);
+    },
+    beats: async (householdId: string, kidId: string, sinceIso: string) => {
+      const { data, error } = await this.db
+        .from("screen_beats")
+        .select("slot, kind, idle, synthetic")
+        .eq("household_id", householdId)
+        .eq("profile_id", kidId)
+        .gte("slot", sinceIso)
+        .order("slot")
+        .limit(20000);
+      check(error);
+      return (data ?? []).map((r) => ({
+        at: new Date(r.slot as string).toISOString(),
+        kind: r.kind as ActivityKind,
+        idle: Boolean(r.idle),
+        ...(r.synthetic ? { synthetic: true } : {}),
+      }));
+    },
+    saveMessage: async (householdId: string, kidId: string, m: StoredKixMessage) => {
+      if (!(await this.ownsKid(householdId, kidId))) return;
+      const { error } = await this.db.from("kix_messages").insert({
+        household_id: householdId,
+        profile_id: kidId,
+        at: m.at,
+        text: m.text.slice(0, 500),
+        source: m.source,
+        distress: m.distress,
+        self_talk: m.selfTalk,
+      });
+      check(error);
+    },
+    messages: async (householdId: string, kidId: string, sinceIso: string) => {
+      const { data, error } = await this.db
+        .from("kix_messages")
+        .select("at, text, source, distress, self_talk, synthetic")
+        .eq("household_id", householdId)
+        .eq("profile_id", kidId)
+        .gte("at", sinceIso)
+        .order("at")
+        .limit(2000);
+      check(error);
+      return (data ?? []).map((r) => ({
+        at: new Date(r.at as string).toISOString(),
+        text: r.text as string,
+        source: r.source as StoredKixMessage["source"],
+        distress: Boolean(r.distress),
+        selfTalk: Boolean(r.self_talk),
+        ...(r.synthetic ? { synthetic: true } : {}),
+      }));
+    },
+    settings: async (householdId: string, kidId: string): Promise<StoredGuardianSettings | null> => {
+      const { data, error } = await this.db
+        .from("guardian_settings")
+        .select("quiet_from_hour, quiet_to_hour, break_every_min, learn_min_min, play_max_min")
+        .eq("household_id", householdId)
+        .eq("profile_id", kidId)
+        .maybeSingle();
+      check(error);
+      return data
+        ? { quietFromHour: data.quiet_from_hour, quietToHour: data.quiet_to_hour, breakEveryMin: data.break_every_min, learnMinMin: data.learn_min_min, playMaxMin: data.play_max_min }
+        : null;
+    },
+    saveSettings: async (householdId: string, kidId: string, g: StoredGuardianSettings) => {
+      if (!(await this.ownsKid(householdId, kidId))) return;
+      const { error } = await this.db.from("guardian_settings").upsert(
+        {
+          profile_id: kidId,
+          household_id: householdId,
+          quiet_from_hour: g.quietFromHour,
+          quiet_to_hour: g.quietToHour,
+          break_every_min: g.breakEveryMin,
+          learn_min_min: g.learnMinMin,
+          play_max_min: g.playMaxMin,
+          updated_at: new Date().toISOString(),
+        },
+        { onConflict: "profile_id" },
+      );
+      check(error);
+    },
+    seenFlags: async (householdId: string) => {
+      const { data, error } = await this.db.from("flags_seen").select("flag_id").eq("household_id", householdId).limit(1000);
+      check(error);
+      return (data ?? []).map((r) => r.flag_id as string);
+    },
+    markSeen: async (householdId: string, flagId: string) => {
+      const { error } = await this.db.from("flags_seen").upsert({ household_id: householdId, flag_id: flagId.slice(0, 200) }, { onConflict: "household_id,flag_id", ignoreDuplicates: true });
+      check(error);
     },
   };
 

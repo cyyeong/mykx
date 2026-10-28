@@ -14,6 +14,8 @@ const attemptBody = z.object({
   explanation: z.string().max(500).nullable().optional(),
   hintsUsed: z.number().int().min(0).max(10).default(0),
   revealed: z.boolean().default(false),
+  /** Time from the question showing to this submission (guardian focus only). */
+  durationMs: z.number().int().min(0).max(3_600_000).optional(),
   /** Client-generated per submission; a resend lands once (J17). */
   key: z.string().uuid(),
 });
@@ -36,6 +38,7 @@ export async function POST(request: Request) {
         hintsUsed: body.hintsUsed,
         revealed: body.revealed,
         key: body.key,
+        durationMs: body.durationMs ?? null,
       });
       return ok(result);
     } catch (err) {

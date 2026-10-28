@@ -2,6 +2,8 @@
 
 **Written:** Tue 27 Oct 2026 (Day 1). **Status:** in scope as PRD_REVIEW E12; scheduled in `docs/plan/IMPLEMENTATION_PLAN.md` (stream D). Designs: [myKx Screens](https://claude.ai/artifact/8crEyKVQm9QxCHLDqPXioP), row 7.
 
+**Built (28 Oct):** `lib/guardian` (screen time from 30 s heartbeats, focus from interaction, a first mood reading from the child's words, the three flag levels, Kix's next step for balance), the safety path on Talk to Kix and question reasons, the parent Today view, and Kix's break and wind-down for the child. Still to come: the post-session Muse Spark mood and safety call (it refines the word reading), the learning plan, family messages, and parent controls for quiet hours and balance.
+
 ## 1. What a parent sees
 
 | Area | What it shows | Where it comes from |

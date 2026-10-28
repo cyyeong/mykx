@@ -6,6 +6,7 @@ import type { AttemptEvent } from "../domain/attempts.ts";
 import type { LedgerEntry } from "../domain/rewards.ts";
 import type { FocusMinute } from "../signals/focus.ts";
 import type { FocusNote } from "../signals/schemas.ts";
+import type { Beat, GuardianSettings } from "../guardian/screen-time.ts";
 import type { Band, Level, Pack, SecretEvent, SecretKind } from "./schemas.ts";
 
 /** A profiles row, server side. Holds the secret hash: never send one of these to a client as is. */
@@ -120,6 +121,25 @@ export class NicknameTakenError extends Error {
   }
 }
 
+/** A 30 s heartbeat as stored: what the kid was doing, and whether they'd been idle a minute or more. */
+export interface StoredBeat extends Beat {
+  idle: boolean;
+  synthetic?: boolean;
+}
+
+/** The guardian settings a parent can change, apart from the daily limit (which lives on the profile). */
+export type StoredGuardianSettings = Omit<GuardianSettings, "dailyLimitMin">;
+
+/** Something the kid typed or said to Kix, with the server's safety reading. */
+export interface StoredKixMessage {
+  at: string;
+  text: string;
+  source: "talk" | "reason";
+  distress: boolean;
+  selfTalk: boolean;
+  synthetic?: boolean;
+}
+
 export interface AuthStore {
   readonly mode: "supabase" | "demo";
 
@@ -176,6 +196,24 @@ export interface AuthStore {
     focusNotes(householdId: string, sinceIso: string): Promise<FocusNote[]>;
     /** Removes one note; returns the kid it was about, or null when it isn't in the household. */
     removeFocusNote(householdId: string, noteId: string): Promise<string | null>;
+  };
+
+  // The guardian (screen_beats, kix_messages, guardian_settings, flags_seen), household-scoped like everything
+  // above and written by tested server code only. The kid's own words to Kix live here, never family messages.
+  guardian: {
+    /** Stores one 30 s heartbeat; a second one in the same slot changes nothing. */
+    saveBeat(householdId: string, kidId: string, beat: StoredBeat): Promise<void>;
+    /** The kid's beats since `sinceIso`, oldest first. */
+    beats(householdId: string, kidId: string, sinceIso: string): Promise<StoredBeat[]>;
+    saveMessage(householdId: string, kidId: string, message: StoredKixMessage): Promise<void>;
+    /** The kid's words to Kix since `sinceIso`, oldest first. */
+    messages(householdId: string, kidId: string, sinceIso: string): Promise<StoredKixMessage[]>;
+    /** The parent's guardian settings for the kid, or null for the band's defaults (the daily limit is on the profile). */
+    settings(householdId: string, kidId: string): Promise<StoredGuardianSettings | null>;
+    saveSettings(householdId: string, kidId: string, settings: StoredGuardianSettings): Promise<void>;
+    /** Flag ids a grown-up marked as seen. */
+    seenFlags(householdId: string): Promise<string[]>;
+    markSeen(householdId: string, flagId: string): Promise<void>;
   };
 
   // Admin only: callers check the admin flag first (lib/auth/context.ts requireAdmin).
