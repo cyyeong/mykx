@@ -27,6 +27,7 @@ myKx gives every Singapore student an AI sidekick, **Kix**: learning loops that 
 | `ui-ux-pro-max` | lookups only (never `--design-system`/`--persist`): `python3 .agents/skills/ui-ux-pro-max/scripts/search.py "<q>" --domain <d>` |
 | `muse-image-assets` | generating, editing or cutting out any image; Sidekick Studio code |
 | `meta-model-api` | any code that calls a Meta model; model choice; cost |
+| `past-paper-scout` | crawling, downloading or adding past papers; the paper allowlist; feeding papers into a skill pack |
 
 ## Hard rules
 
