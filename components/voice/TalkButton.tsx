@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSound } from "@/components/sound/SoundProvider";
 import { useRecorder } from "./useRecorder";
 import s from "./voice.module.css";
 
@@ -48,6 +49,12 @@ export function TalkButton({ onTranscript, onPhase }: Props) {
   }
 
   const listening = state === "listening";
+  // The music bed ducks while the mic is open (Music brief).
+  const { duck } = useSound();
+  useEffect(() => {
+    duck(listening);
+    return () => duck(false);
+  }, [listening, duck]);
   const blocked = state === "denied" || state === "unsupported";
   const label = blocked
     ? "Mic is off"

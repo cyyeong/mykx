@@ -3,12 +3,29 @@
 import * as Tone from "tone";
 import type { PackId } from "@/components/theme/packs";
 import { type Ambience, type Effect, type Flourish, type PropSound, type SoundEvent, type Voice, PACK_SOUNDS, planFor } from "./palette";
+import { THEMES } from "./music";
+import { planLoop } from "./music/plan";
+import type { ThemeMood } from "./music/schema";
 
 const MASTER_DB = -12;
+/** The music bed sits well under the effects (Music brief). */
+const MUSIC_DB = -24;
+const DUCK_DB = -10;
 
 let started = false;
 const voices = new Map<PackId, { synth: Tone.PolySynth; reverb: Tone.Freeverb }>();
 let ambience: { pack: PackId; stop: () => void } | null = null;
+
+/** Transport is shared (music loops + the stage-pulse bed); it runs while anyone holds it. */
+const transportHolds = new Set<string>();
+function holdTransport(id: string) {
+  transportHolds.add(id);
+  if (Tone.getTransport().state !== "started") Tone.getTransport().start();
+}
+function releaseTransport(id: string) {
+  transportHolds.delete(id);
+  if (transportHolds.size === 0) Tone.getTransport().stop();
+}
 
 /** Starts the audio context. Call from (or right after) a user gesture. */
 export async function start(): Promise<void> {
@@ -298,13 +315,13 @@ function startAmbience(kind: Ambience, pack: PackId): () => void {
       hat.triggerAttackRelease(0.04, time + beat / 2);
     }, beat).start(0);
     nodes.push(loop);
-    Tone.getTransport().start();
+    holdTransport("ambience");
   }
 
   return () => {
     timers.forEach(clearTimeout);
     nodes.forEach((n) => n.dispose());
-    if (kind === "stage-pulse") Tone.getTransport().stop();
+    if (kind === "stage-pulse") releaseTransport("ambience");
   };
 }
 
@@ -316,4 +333,124 @@ export function setAmbience(pack: PackId | null): void {
   if (!started || !pack) return;
   const kind = PACK_SOUNDS[pack].ambience;
   if (kind) ambience = { pack, stop: startAmbience(kind, pack) };
+}
+
+// --- Background music: the five composed themes, played from their scores. ---
+
+type MusicSession = {
+  pack: PackId;
+  mood: ThemeMood;
+  seed: number;
+  heat: number;
+  bus: Tone.Gain;
+  pad: Tone.PolySynth;
+  bass: Tone.MonoSynth;
+  kick: Tone.MembraneSynth;
+  hat: Tone.NoiseSynth;
+  loop: Tone.Loop;
+  nodes: { dispose: () => unknown }[];
+};
+
+let music: MusicSession | null = null;
+let ducked = false;
+
+function musicBusTarget(): number {
+  return MUSIC_DB + (ducked ? DUCK_DB : 0);
+}
+
+/** Ducks the music bed while Kix speaks or the mic records (Music brief). */
+export function setDucked(on: boolean): void {
+  ducked = on;
+  music?.bus.gain.rampTo(Tone.dbToGain(musicBusTarget()), 0.4);
+}
+
+function startMusicLoop(s: MusicSession): void {
+  const plan = planLoop(THEMES[s.pack], s.mood, s.seed);
+  const transport = Tone.getTransport();
+  transport.bpm.value = plan.bpm;
+  const spb = 60 / plan.bpm;
+  const lead = voiceFor(s.pack);
+  s.loop = new Tone.Loop((time) => {
+    for (const e of plan.events) {
+      const at = time + (e.bar * 4 + e.beat) * spb + e.nudgeMs / 1000;
+      const dur = Math.max(0.05, e.durBeats * spb);
+      if (e.layer === "pad") s.pad.triggerAttackRelease(e.notes, dur, at, e.vel);
+      else if (e.layer === "bass") s.bass.triggerAttackRelease(e.notes[0], dur, at, e.vel);
+      else if (e.layer === "drums") {
+        const vel = e.drum === "kick" ? e.vel * (0.5 + s.heat * 0.5) : e.vel;
+        if (e.drum === "kick") s.kick.triggerAttackRelease("C1", 0.2, at, vel);
+        else s.hat.triggerAttackRelease(0.04, at, vel);
+      } else {
+        // Melody, pulse and sparkle share the pack's voice, so music stays in tune with effects.
+        lead.triggerAttackRelease(e.notes, dur, at, e.vel);
+      }
+    }
+  }, `${plan.bars}m`).start(0);
+}
+
+/** Starts `pack`'s theme in `mood`, fading in. Restarts cleanly when already playing. */
+export function startMusic(pack: PackId, mood: ThemeMood, seed: number): void {
+  if (!started) return;
+  if (music && music.pack === pack && music.mood === mood && music.seed === seed) return;
+  stopMusic(true);
+  const bus = new Tone.Gain(Tone.dbToGain(MUSIC_DB)).toDestination();
+  bus.gain.value = 0;
+  bus.gain.rampTo(Tone.dbToGain(musicBusTarget()), 1.5);
+  const pad = new Tone.PolySynth(Tone.Synth, {
+    oscillator: { type: "triangle" },
+    envelope: { attack: 0.8, decay: 1.5, sustain: 0.6, release: 1.2 },
+  }).connect(bus);
+  pad.volume.value = -4;
+  const bass = new Tone.MonoSynth({
+    oscillator: { type: "sine" },
+    envelope: { attack: 0.01, decay: 0.25, sustain: 0, release: 0.2 },
+  }).connect(bus);
+  bass.volume.value = -6;
+  const kick = new Tone.MembraneSynth({ envelope: { attack: 0.001, decay: 0.3, sustain: 0, release: 0.1 } }).connect(bus);
+  kick.volume.value = -8;
+  const hat = new Tone.NoiseSynth({ noise: { type: "white" }, envelope: { attack: 0.001, decay: 0.04, sustain: 0, release: 0.01 } }).connect(bus);
+  hat.volume.value = -16;
+  const s: MusicSession = { pack, mood, seed, heat: 1, bus, pad, bass, kick, hat, loop: null as unknown as Tone.Loop, nodes: [bus, pad, bass, kick, hat] };
+  startMusicLoop(s);
+  s.nodes.push(s.loop);
+  holdTransport("music");
+  music = s;
+}
+
+/** Switches mood (re-planned from the same seed, faded); no-op when nothing plays. */
+export function setMusicMood(mood: ThemeMood): void {
+  if (!music || music.mood === mood) return;
+  const { pack, seed, heat } = music;
+  startMusic(pack, mood, seed);
+  if (music) music.heat = heat;
+}
+
+/** Arcade heat (0–1): scales the driving drums. For task 6 to call with combo/heat. */
+export function setMusicHeat(heat: number): void {
+  if (music) music.heat = Math.min(1, Math.max(0, heat));
+}
+
+/** Fades the music out and frees its voices. `quick` skips the fade for mood switches. */
+export function stopMusic(quick = false): void {
+  const s = music;
+  music = null;
+  if (!s) return;
+  releaseTransport("music");
+  const free = () => s.nodes.forEach((n) => n.dispose());
+  if (quick || !started) {
+    free();
+    return;
+  }
+  s.bus.gain.rampTo(0, 0.8);
+  setTimeout(free, 900);
+}
+
+/** Pauses the loop when the tab hides (CPUs and ears rest); resumes on return. */
+if (typeof document !== "undefined") {
+  document.addEventListener("visibilitychange", () => {
+    if (!music) return;
+    const transport = Tone.getTransport();
+    if (document.hidden && transport.state === "started") transport.pause();
+    else if (!document.hidden && transportHolds.size > 0 && transport.state !== "started") transport.start();
+  });
 }

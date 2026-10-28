@@ -1,0 +1,37 @@
+{
+  "pack": "anime-sky",
+  "title": "Paper Planes at Dusk",
+  "composer": "Muse Code",
+  "key": "F major",
+  "bpm": { "calm": 72, "dreamy": 62, "bright": 92, "driving": 112 },
+  "bars": 4,
+  "chords": [
+    ["F3", "A3", "C4"],
+    ["C4", "E4", "G4"],
+    ["D4", "F4", "A4"],
+    ["Bb3", "D4", "F4"]
+  ],
+  "bass": ["F2", "C3", "D3", "Bb2"],
+  "motifs": {
+    "a": [
+      { "tone": 0, "len": 1.5 },
+      { "tone": 2, "len": 1 },
+      { "tone": 1, "len": 1 },
+      { "tone": 2, "len": 0.5 }
+    ],
+    "b": [
+      { "tone": 2, "len": 2 },
+      { "tone": 1, "len": 1 },
+      { "tone": 0, "len": 1 }
+    ]
+  },
+  "form": ["a", "b", "a", "b"],
+  "layers": {
+    "pad": ["calm", "dreamy", "bright"],
+    "melody": ["calm", "dreamy", "bright", "driving"],
+    "bass": ["calm", "bright", "driving"],
+    "pulse": ["bright", "driving"],
+    "sparkle": ["dreamy"],
+    "drums": ["driving"]
+  }
+}

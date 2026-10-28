@@ -138,3 +138,8 @@ export function planLength(plan: SoundPlan): number {
 export function defaultSoundOn(band: Band): boolean {
   return band === "junior";
 }
+
+/** Music starts on for Junior (after the first tap unlocks audio) and off for Teen (Music brief). */
+export function defaultMusicOn(band: Band): boolean {
+  return band === "junior";
+}

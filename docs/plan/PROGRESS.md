@@ -44,6 +44,7 @@ Dates are SGT. "Agent" is who did the work; "Tools" are the models and services 
 | 28 Oct | Licences: code MIT; art, Kix and skill packs CC BY-NC 4.0; font and icon notices | Claude Code | — | 85ead93 | |
 | 28 Oct | One kid navigation shell on every kid page: bottom bar under 600 px, side rail from 600 px (Home, Learn, Play, Treasure, Vibe; Play and Vibe show Soon until the Arcade and Vibe Zone land); hidden inside questions and Arcade rounds; Home's local tab bar removed; honesty label clears the bar | Muse Code | Muse Spark | a4fe3ed | |
 | 28 Oct | The learning loop: Ari's quest is the reviewed P3 frog life cycle through selection; attempts route marks deterministically and pays the ledger under the daily cap; question player with next question, quest-complete page, leave confirm and card flight; map and Treasure read real mastery with evidence labels | Muse Code | Muse Spark | 33b6158 | |
+| 28 Oct | Background music, composed by Muse Code as original work: five world themes as JSON scores (melody always on chord tones, per-mood layers and tempos) played by a seeded Tone.js sequencer on a −24 dB bus with fades; calm for learning, dreamy for Treasure, bright for Home, driving for the Arcade; Music switch beside the sound button (on for juniors, off for teens, remembered per device); ducks under Kix and the mic, pauses when hidden | Muse Code | Muse Spark | 0b13139 | Muse composed the music |
 
 ## How to add a row
 

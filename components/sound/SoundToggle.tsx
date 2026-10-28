@@ -26,14 +26,26 @@ function AmbienceIcon() {
   );
 }
 
-/** The HUD sound controls: one mute button, plus the pack's optional ambience bed. */
+function MusicIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className={s.icon}>
+      <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M9 18V6l10-2v11M9 18a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0zM19 15a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+    </svg>
+  );
+}
+
+/** The HUD sound controls: one mute button, the composed theme, plus the pack's optional ambience bed. */
 export function SoundToggle() {
-  const { on, setOn, ambienceOn, setAmbienceOn, ambienceLabel } = useSound();
+  const { on, setOn, musicOn, setMusicOn, ambienceOn, setAmbienceOn, ambienceLabel } = useSound();
   return (
     <div className={s.hud} role="group" aria-label="Sound">
       <button type="button" className={s.btn} aria-pressed={on} title={on ? "Sound on" : "Sound off"} onClick={() => setOn(!on)}>
         <SpeakerIcon on={on} />
         <span className={s.label}>{on ? "Sound on" : "Sound off"}</span>
+      </button>
+      <button type="button" className={s.chip} aria-pressed={on && musicOn} disabled={!on} title="Background music" onClick={() => setMusicOn(!musicOn)}>
+        <MusicIcon />
+        <span className={s.label}>Music</span>
       </button>
       {ambienceLabel && (
         <button type="button" className={s.chip} aria-pressed={on && ambienceOn} disabled={!on} title={ambienceLabel} onClick={() => setAmbienceOn(!ambienceOn)}>

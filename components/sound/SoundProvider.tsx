@@ -1,9 +1,12 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
+import { Suspense, createContext, useCallback, useContext, useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import { useTheme } from "@/components/theme/ThemeRoot";
-import type { PackId } from "@/components/theme/packs";
-import { PACK_SOUNDS, defaultSoundOn, type PropSound, type SoundEvent } from "@/lib/sound/palette";
+import type { Band, PackId } from "@/components/theme/packs";
+import { PACK_SOUNDS, defaultMusicOn, defaultSoundOn, type PropSound, type SoundEvent } from "@/lib/sound/palette";
+import { moodForPath } from "@/lib/sound/music/mood";
+import type { ThemeMood } from "@/lib/sound/music/schema";
 import { getServerSnapshot, getSnapshot, parsePrefs, savePrefs, subscribe } from "@/lib/sound/prefs";
 
 type Engine = typeof import("@/lib/sound/engine");
@@ -14,6 +17,11 @@ type SoundContextValue = {
   setOn: (on: boolean) => void;
   ambienceOn: boolean;
   setAmbienceOn: (on: boolean) => void;
+  /** The composed theme for the current pack. */
+  musicOn: boolean;
+  setMusicOn: (on: boolean) => void;
+  /** Ducks the music bed (mic recording); Kix's speech ducks it automatically. */
+  duck: (on: boolean) => void;
   /** The current pack's ambience name, or null when the pack has none. */
   ambienceLabel: string | null;
   /** Plays a UI sound in the current pack (or `pack`). Silent when sound is off. */
@@ -24,17 +32,54 @@ type SoundContextValue = {
 
 const SoundContext = createContext<SoundContextValue | null>(null);
 
+/**
+ * Reads the route in a Suspense island: `usePathname` blocks static prerender
+ * in a layout-level provider, so the mood resolves client-side after hydration.
+ */
+function PathMood({ onMood }: { onMood: (mood: ThemeMood) => void }) {
+  const pathname = usePathname();
+  useEffect(() => {
+    onMood(moodForPath(pathname ?? "/"));
+  }, [pathname, onMood]);
+  return null;
+}
+
 export function useSound(): SoundContextValue {
   const value = useContext(SoundContext);
   if (!value) throw new Error("useSound must be used inside <SoundProvider>");
   return value;
 }
 
-export function SoundProvider({ children }: { children: ReactNode }) {
-  const { pack, band } = useTheme();
+export function SoundProvider({ children, kidArea = false }: { children: ReactNode; kidArea?: boolean }) {
+  const { pack, band: themeBand } = useTheme();
+  // ThemeRoot still opens junior everywhere (its Day-3 profile wiring is a
+  // later task's); sound defaults read the signed-in kid's real band instead.
+  const [meBand, setMeBand] = useState<Band | null>(null);
+  useEffect(() => {
+    // Grown-up and door screens have no kid session; asking would only 401.
+    if (!kidArea) return;
+    let live = true;
+    fetch("/api/me", { credentials: "same-origin" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((body: unknown) => {
+        const band = (body as { kid?: { band?: unknown } } | null)?.kid?.band;
+        if (live && (band === "junior" || band === "teen")) setMeBand(band);
+      })
+      .catch(() => {});
+    return () => {
+      live = false;
+    };
+  }, [kidArea]);
+  const band = meBand ?? themeBand;
   const prefs = parsePrefs(useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot));
   const on = prefs.on ?? defaultSoundOn(band);
   const ambienceOn = prefs.ambience ?? false;
+  const musicOn = prefs.music ?? defaultMusicOn(band);
+  // Prerender-safe defaults (the island below resolves the real route after
+  // hydration; the seed is minted with the first tap, when audio unlocks).
+  const [mood, setMood] = useState<ThemeMood>("calm");
+  const [seed, setSeed] = useState(0);
+  const [micDuck, setMicDuck] = useState(false);
   const [ready, setReady] = useState(false);
   const engine = useRef<Engine | null>(null);
   const loading = useRef<Promise<Engine> | null>(null);
@@ -56,6 +101,7 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 
   const begin = useCallback((m: Engine) => {
     if (engine.current) return;
+    setSeed((s) => s || Math.floor(Math.random() * 2 ** 31));
     const started = m.start(); // resumes the AudioContext synchronously, inside the gesture when possible
     engine.current = m;
     void started.then(() => {
@@ -103,6 +149,28 @@ export function SoundProvider({ children }: { children: ReactNode }) {
     engine.current?.setAmbience(on && ambienceOn ? pack : null);
   }, [on, ambienceOn, pack, ready]);
 
+  // The composed theme follows the pack and the place (mood); it starts with
+  // the first tap like everything else, because browsers block audio before that.
+  useEffect(() => {
+    if (!ready) return;
+    if (on && musicOn) engine.current?.startMusic(pack, mood, seed);
+    else engine.current?.stopMusic();
+  }, [on, musicOn, pack, mood, seed, ready]);
+
+  // Duck the bed while Kix speaks (device voice) or the mic records.
+  const micDuckRef = useRef(micDuck);
+  useEffect(() => {
+    micDuckRef.current = micDuck;
+    if (!ready || typeof window === "undefined" || !("speechSynthesis" in window)) {
+      engine.current?.setDucked(micDuck);
+      return;
+    }
+    const tick = () => engine.current?.setDucked(window.speechSynthesis.speaking || micDuckRef.current);
+    tick();
+    const handle = window.setInterval(tick, 400);
+    return () => window.clearInterval(handle);
+  }, [ready, micDuck]);
+
   const play = useCallback(
     (event: SoundEvent, target: PackId = pack) => {
       if (!onRef.current) return;
@@ -138,8 +206,21 @@ export function SoundProvider({ children }: { children: ReactNode }) {
     [prefs, load],
   );
 
+  const setMusicOn = useCallback(
+    (next: boolean) => {
+      savePrefs({ ...prefs, music: next });
+      if (next) void load();
+    },
+    [prefs, load],
+  );
+
+  const duck = useCallback((next: boolean) => setMicDuck(next), []);
+
   return (
-    <SoundContext value={{ on, setOn, ambienceOn, setAmbienceOn, ambienceLabel: PACK_SOUNDS[pack].ambienceLabel, play, prop }}>
+    <SoundContext value={{ on, setOn, ambienceOn, setAmbienceOn, musicOn, setMusicOn, duck, ambienceLabel: PACK_SOUNDS[pack].ambienceLabel, play, prop }}>
+      <Suspense fallback={null}>
+        <PathMood onMood={setMood} />
+      </Suspense>
       {children}
     </SoundContext>
   );

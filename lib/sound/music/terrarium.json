@@ -1,0 +1,35 @@
+{
+  "pack": "terrarium",
+  "title": "Pond at Nap Time",
+  "composer": "Muse Code",
+  "key": "D major",
+  "bpm": { "calm": 64, "dreamy": 56, "bright": 84, "driving": 104 },
+  "bars": 4,
+  "chords": [
+    ["D4", "F#4", "A4"],
+    ["B3", "D4", "F#4"],
+    ["G3", "B3", "D4"],
+    ["A3", "C#4", "E4"]
+  ],
+  "bass": ["D3", "B2", "G2", "A2"],
+  "motifs": {
+    "a": [
+      { "tone": 0, "len": 2 },
+      { "tone": 1, "len": 1 },
+      { "tone": 2, "len": 1 }
+    ],
+    "b": [
+      { "tone": 2, "len": 2 },
+      { "tone": 1, "len": 2 }
+    ]
+  },
+  "form": ["a", "b", "a", "b"],
+  "layers": {
+    "pad": ["calm", "dreamy"],
+    "melody": ["calm", "dreamy", "bright", "driving"],
+    "bass": ["calm", "dreamy", "bright"],
+    "pulse": ["bright", "driving"],
+    "sparkle": ["dreamy", "calm"],
+    "drums": ["driving"]
+  }
+}

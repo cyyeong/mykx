@@ -1,0 +1,37 @@
+{
+  "pack": "dreamlight",
+  "title": "Lanterns Over the Mist",
+  "composer": "Muse Code",
+  "key": "C major",
+  "bpm": { "calm": 66, "dreamy": 58, "bright": 88, "driving": 108 },
+  "bars": 4,
+  "chords": [
+    ["C4", "E4", "G4"],
+    ["A3", "C4", "E4"],
+    ["F3", "A3", "C4"],
+    ["G3", "B3", "D4"]
+  ],
+  "bass": ["C3", "A2", "F2", "G2"],
+  "motifs": {
+    "a": [
+      { "tone": 0, "len": 1 },
+      { "tone": 1, "len": 1 },
+      { "tone": 2, "len": 1.5 },
+      { "tone": 1, "len": 0.5 }
+    ],
+    "b": [
+      { "tone": 2, "len": 1 },
+      { "tone": 1, "len": 1 },
+      { "tone": 0, "len": 2 }
+    ]
+  },
+  "form": ["a", "a", "b", "a"],
+  "layers": {
+    "pad": ["calm", "dreamy", "bright"],
+    "melody": ["calm", "dreamy", "bright", "driving"],
+    "bass": ["calm", "bright", "driving"],
+    "pulse": ["bright", "driving"],
+    "sparkle": ["dreamy", "bright"],
+    "drums": ["driving"]
+  }
+}

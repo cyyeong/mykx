@@ -10,7 +10,7 @@ export default function KidLayout({ children }: LayoutProps<"/">) {
   // Day 3: initialPack and initialBand come from the signed-in child's profile.
   return (
     <ThemeRoot>
-      <SoundProvider>
+      <SoundProvider kidArea>
         <div className="kid-shell">
           <KidNav />
           <div className="kid-shell-main">
