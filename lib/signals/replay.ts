@@ -1,4 +1,4 @@
-// The face-free replay (founder, 30 Oct; AGENTS.md rule 12): so a grown-up can check a "possibly losing focus" note,
+// The face-free replay (founder, 28 Oct; AGENTS.md rule 12): so a grown-up can check a "possibly losing focus" note,
 // the device keeps a few seconds of face-mesh POINTS around each moment the camera counted (eyes shut, a yawn, a
 // look away). Only the outline of the face, eyes, brows and lips, as rounded numbers: never a picture, never sent.
 // A parent replays them as a line drawing on the same device and marks the note right or not right. Pure.

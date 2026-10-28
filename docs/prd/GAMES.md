@@ -11,7 +11,7 @@ The first game teaches **touch typing**: a see-through pair of "ghost hands" ove
 ## 2. The Arcade
 
 - **One hub per child** (Junior and Teen looks), reached from Home's tab bar or the study deck. Games are cabinets; each shows its syllabus tag ("P3 English · spelling list 6"), the child's progress (stage, stars) and "Continue".
-- **Game registry** (`lib/games/registry.ts`): each game declares its id, subjects, syllabus tags per level, modes, where its content comes from (skill packs through the Skill Engine's `find_items`, or a built-in curriculum) and its progress shape. **Every game is open to every child** (founder, 29 Oct): only its words, questions and difficulty follow the child's level. Adding a game is adding a registry entry and a screen.
+- **Game registry** (`lib/games/registry.ts`): each game declares its id, subjects, syllabus tags per level, modes, where its content comes from (skill packs through the Skill Engine's `find_items`, or a built-in curriculum) and its progress shape. **Every game is open to every child** (founder, 28 Oct): only its words, questions and difficulty follow the child's level. Adding a game is adding a registry entry and a screen.
 - **First games:** typing, in three looks (below). Next in line: Number Dash (P3 number bonds and times tables), Stroke Quest (P3 Chinese stroke order, from the 420 word cards), Ratio Rescue (P6), Circuit Builder (Sec 2). They show as "coming soon" cabinets.
 - **The Arcade is part of screen time.** It counts toward the daily limit, a parent can switch it off, and it never interrupts a planned learning session.
 

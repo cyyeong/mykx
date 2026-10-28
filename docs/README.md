@@ -13,6 +13,7 @@ One index for humans and agents. If a reference isn't linked here, it isn't cano
 | [prd/SKILL_ENGINE.md](prd/SKILL_ENGINE.md) | **Skill Engine and skills admin.** Skill pack format, unified item schema, agents that load and unload skills via `tool_search`, upload → review → publish, privacy and copyright rules. |
 | [prd/PARENT_INSIGHTS.md](prd/PARENT_INSIGHTS.md) | **Parent dashboard, wellbeing signals, flags and family messages.** Signal sources, flag levels and the safety path, Kix stickers, privacy rules. |
 | [prd/ACCOUNTS.md](prd/ACCOUNTS.md) | **Sign-in and accounts.** Parents and admins by email, kids by door with a picture code or password; the living-city door login and time tunnel; Your family, Me, admin People; rules. |
+| [prd/GUARDIAN.md](prd/GUARDIAN.md) | **PRD 2: Guardian** (proposed 28 Oct): kid location with motion state on a OneMap map, Home watch from the family's RTSP/ONVIF cameras read by Muse Spark, the Home Link desktop client, the Home simulator; rule changes, Meta policy and Singapore law, feasibility and cost |
 | [prd/GAMES.md](prd/GAMES.md) | Game Arcade (proposed): learning games that follow each child's syllabus, starting with a touch-typing game with ghost hands; designs in canvas row 10 |
 | [prd/myKx_PRD.md](prd/myKx_PRD.md) | Original PRD (26 Oct). Still canonical for the mastery maths (§6), reward ethics (FR10), parent summary rules (FR07) and data model (§9). |
 

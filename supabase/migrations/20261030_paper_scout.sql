@@ -1,4 +1,4 @@
--- The weekly past-paper scout (30 Oct 2026): what it found on the admin-approved sites, and each run. Links and
+-- The weekly past-paper scout (28 Oct 2026): what it found on the admin-approved sites, and each run. Links and
 -- download decisions only, never a paper (AGENTS.md rule 10). Platform content: admins read it, only the server
 -- writes. For a database that already ran the earlier migrations; paste into the Supabase SQL editor. Safe to run
 -- more than once.

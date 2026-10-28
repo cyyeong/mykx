@@ -1,4 +1,4 @@
--- Game progress for the Arcade (29 Oct 2026), with row-level security. For a database that already ran the
+-- Game progress for the Arcade (28 Oct 2026), with row-level security. For a database that already ran the
 -- earlier migrations; paste into the Supabase SQL editor. Safe to run more than once.
 
 -- Game progress (GAMES.md §3): one row per kid and game. Best stars per level, the furthest level unlocked, personal

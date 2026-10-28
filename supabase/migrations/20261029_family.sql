@@ -1,4 +1,4 @@
--- Family messages, Kix's Notebook and session readings (29 Oct 2026), with row-level security. For a database
+-- Family messages, Kix's Notebook and session readings (28 Oct 2026), with row-level security. For a database
 -- that already ran the earlier migrations; paste into the Supabase SQL editor. Safe to run more than once.
 
 -- Family messages (PARENT_INSIGHTS §3): grown-up ↔ kid inside the household, words and Kix stickers. Kix, the

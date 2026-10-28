@@ -1,5 +1,5 @@
 // The Game Arcade's registry (GAMES.md §2). Adding a game is adding an entry here and a screen. Every game is open to
-// every child (founder, 29 Oct): only its words, questions and difficulty follow the child's level, so each one
+// every child (founder, 28 Oct): only its words, questions and difficulty follow the child's level, so each one
 // practises their own syllabus.
 
 export type GameBand = "junior" | "teen";
