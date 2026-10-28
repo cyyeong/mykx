@@ -278,10 +278,11 @@ Guardian is a reassurance tool, not a guarantee, and the settings page says so i
 
 The parent's phone at 15:41:
 
-1. The map shows Ari's dot walking home from school, "possibly playing" at the playground on the way.
-2. A notification: "Ari is home." Home now: "Living room: Ari, reading · calm".
-3. The simulator jumps ahead, and a watch card arrives: "Possibly a shove between two children in the living room, 17:08, medium confidence". It shows the synthetic frames, and the parent taps **Not right** ("they were play-fighting").
-4. A lower third: "Your cameras, your phone, read by Muse Spark. Frames deleted after 24 h. Kix never sees them."
+1. Muse's "Right now" over the map: "Ari is walking home from the playground, about 4 minutes away…", with Ari's dot moving along the route.
+2. Home now's floor plan lights up as the kids come in; "Right now" updates.
+3. The simulator jumps ahead, and a watch card arrives: "Possibly a tug-of-war over the TV remote, 17:08, medium confidence". The frames carry SAM 3.1's outlines of Zara and Ari, and the parent taps **Not right** ("they were play-fighting").
+4. A 3-second flash of Do something together: "Muse searched the web: badminton at Sengkang Sports Hall, Saturday 15:30, indoors for the showers."
+5. A lower third: "Your cameras, read by Muse Spark and SAM 3.1. Frames deleted after 24 h. Kix never sees them."
 
 The messages beat gets shorter to pay for it (§5 of the plan).
 
