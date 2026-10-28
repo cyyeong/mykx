@@ -1,6 +1,6 @@
 "use client";
 
-// Word Garden (board WordGarden; GAMES.md §3, the calm Junior look): a life-cycle picture from the Critter Lab and a
+// Word Garden (board WordGarden; GAMES.md §3, the calm look, open to every child; words by grade): a life-cycle picture from the Critter Lab and a
 // clue; type the stage's name and a flower grows in its pot. No shooting and no timer. A wrong key only wobbles the
 // card and shows the next letter (no sound, no penalty beyond accuracy). The terrarium brightens as the flowers
 // bloom. The round runs on the pure engine; the server scores it with the deterministic rules. Practice only.
@@ -24,7 +24,9 @@ import "./wordGarden.css";
 const COLOURS = ["#FF8FB8", "#B9A7F5", "#FFB86B", "#7FD3F0", "#FF8FB8", "#B9A7F5"];
 type Result = { stars: number; accuracy: number; wpm: number; next: { stage: number; level: number } | null; saved: boolean };
 
-export function WordGarden({ prompts, level, band }: { prompts: GardenPrompt[]; level: number; band: "junior" | "teen" }) {
+const TOPIC: Record<string, string> = { P3: "P3 Science: life cycles", P6: "P6 Science: cycles and systems", "Sec 2": "Sec 2 Science: living things" };
+
+export function WordGarden({ prompts, level, band, school }: { prompts: GardenPrompt[]; level: number; band: "junior" | "teen"; school: string }) {
   const { play } = useSound();
   const words = prompts.map((p) => p.word);
   const [s, setS] = useState<TypingState>(() => startRound(words, 1));
@@ -105,7 +107,9 @@ export function WordGarden({ prompts, level, band }: { prompts: GardenPrompt[]; 
         </Link>
         <div className="wg-title">
           <strong>Word Garden</strong>
-          <span>Match it · level {level} of 5 · P3 Science: life cycles</span>
+          <span>
+            Match it · level {level} of 5 · {TOPIC[school] ?? TOPIC.P3}
+          </span>
         </div>
         <span className="wg-pill">
           {bloomed} of {prompts.length} flowers
@@ -168,7 +172,7 @@ export function WordGarden({ prompts, level, band }: { prompts: GardenPrompt[]; 
                 aria-label={`Picture: ${prompt.clue}`}
                 style={{ backgroundImage: `url(${critter.art}-800.webp)`, backgroundSize: `${crop.size}% auto`, backgroundPosition: `${crop.pos}% 50%` } as CSSProperties}
               />
-              <p className="wg-ask">Which stage is this? {prompt.clue}</p>
+              <p className="wg-ask">{school === "P3" ? `Which stage is this? ${prompt.clue}` : prompt.clue}</p>
               <div className="wg-letters" aria-label={`${typedN} of ${prompt.word.length} letters`}>
                 {prompt.word.split("").map((ch, i) => (
                   <span key={`${qi}-${i}`} data-s={i < typedN ? "done" : i === typedN ? "now" : "todo"}>

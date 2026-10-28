@@ -13,14 +13,15 @@ import space from "@/public/art/living/space.json";
 import { SpaceAmbience } from "./SpaceAmbience";
 import "./arcade.css";
 
-const WORDS: Record<string, [string, number, number][]> = {
-  "star-typer": [["frog", 14, 22], ["pond", 58, 40]],
-  "word-garden": [["tadpole", 20, 30]],
-  "neon-strike": [["friction", 30, 34]],
-  "number-dash": [["7 × 8", 36, 30]],
-  "stroke-quest": [["写", 44, 28]],
-  "ratio-rescue": [["3 : 5", 38, 30]],
-  "circuit-builder": [["R = V / I", 26, 30]],
+/** A taste of each game on its cabinet screen, in the child's own level's words. */
+const WORDS: Record<string, Record<string, [string, number, number][]>> = {
+  "star-typer": { P3: [["frog", 14, 22], ["pond", 58, 40]], P6: [["habitat", 12, 22], ["gravity", 56, 40]], "Sec 2": [["voltage", 12, 22], ["element", 56, 40]] },
+  "word-garden": { P3: [["tadpole", 20, 30]], P6: [["germination", 16, 30]], "Sec 2": [["embryo", 26, 30]] },
+  "neon-strike": { P3: [["magnet", 32, 34]], P6: [["friction", 30, 34]], "Sec 2": [["current", 30, 34]] },
+  "number-dash": { P3: [["7 × 8", 36, 30]], P6: [["3/4 of 20", 28, 30]], "Sec 2": [["2x + 5", 34, 30]] },
+  "stroke-quest": { P3: [["写", 44, 28]], P6: [["书", 44, 28]], "Sec 2": [["学", 44, 28]] },
+  "ratio-rescue": { P3: [["12 ÷ 3", 34, 30]], P6: [["3 : 5", 38, 30]], "Sec 2": [["4 : 7", 38, 30]] },
+  "circuit-builder": { P3: [["N  S", 40, 30]], P6: [["bulb", 40, 30]], "Sec 2": [["R = V / I", 26, 30]] },
 };
 
 export function ArcadeHub({ nickname, band, level, cabinets, playMin, allowance }: { nickname: string; band: "junior" | "teen"; level: string; cabinets: Cabinet[]; playMin: number; allowance: number }) {
@@ -71,7 +72,7 @@ export function ArcadeHub({ nickname, band, level, cabinets, playMin, allowance 
                 <div className="ar-marquee">{g.name}</div>
                 <div className="ar-screen">
                   <Art base={g.art} alt="" sizes="(max-width: 599px) 50vw, 300px" />
-                  {(WORDS[g.id] ?? []).map(([t, x, y]) => (
+                  {(WORDS[g.id]?.[level] ?? WORDS[g.id]?.P3 ?? []).map(([t, x, y]) => (
                     <span key={t} className="ar-word" style={{ left: `${x}%`, top: `${y}%` } as CSSProperties}>
                       {t}
                     </span>

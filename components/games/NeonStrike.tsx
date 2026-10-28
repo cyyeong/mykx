@@ -1,6 +1,6 @@
 "use client";
 
-// Neon Strike (board NeonStrike; GAMES.md §3, the Teen look): a science question appears, and typing its answer
+// Neon Strike (board NeonStrike; GAMES.md §3, the neon look, open to every child; questions by grade): a science question appears, and typing its answer
 // fires beams at the drone, one per right key; its ring fills as the word lands. A wrong key holds the shot (a
 // silent "glitch", no penalty beyond accuracy) and resets the combo. Words a minute and the combo show up top; the
 // neon arena heats up with the combo. The round runs on the pure engine (lib/games/typing/session.ts) and the

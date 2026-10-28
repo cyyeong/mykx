@@ -90,8 +90,9 @@ export async function blastRound(ctx: LearnContext, want: { level?: number }) {
 export async function gardenRound(ctx: LearnContext, want: { level?: number }) {
   const kid = await ctx.store.kid(ctx.householdId, ctx.kidId);
   const band = kid ? bandOf(kid) : "junior";
+  const school = schoolLevelOf(kid?.level ?? null);
   const saved = (await ctx.store.games.progress(ctx.householdId, ctx.kidId).catch(() => [] as GameProgress[])).find((x) => x.game === "word-garden");
   const progress = saved ?? emptyProgress("word-garden", 1, new Date().toISOString());
   const level = want.level && isOpen(progress, 1, want.level) && want.level <= LEVELS_PER_STAGE ? want.level : progress.level;
-  return { nickname: ctx.nickname, band, level, prompts: gardenLevel(level) };
+  return { nickname: ctx.nickname, band, school, level, prompts: gardenLevel(level, school) };
 }

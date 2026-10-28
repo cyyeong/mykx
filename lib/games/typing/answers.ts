@@ -5,6 +5,34 @@ import type { SchoolLevel } from "./levels.ts";
 
 export type Blast = { q: string; a: string };
 
+const P3: readonly Blast[] = [
+  { q: "It attracts things made of iron and steel.", a: "magnet" },
+  { q: "An animal with six legs and three body parts.", a: "insect" },
+  { q: "Mushrooms and moulds belong to this group.", a: "fungi" },
+  { q: "A young frog that swims with its tail.", a: "tadpole" },
+  { q: "It grows into a new plant when it gets water, air and warmth.", a: "seed" },
+  { q: "An animal with feathers and a beak.", a: "bird" },
+  { q: "A metal that a magnet attracts.", a: "iron" },
+  { q: "An animal that lives in water and breathes with gills.", a: "fish" },
+  { q: "A see-through material used for windows.", a: "glass" },
+  { q: "The part of a plant that takes in water from the soil.", a: "root" },
+  { q: "A north pole and a south pole placed near each other do this.", a: "attract" },
+  { q: "Two north poles placed near each other do this.", a: "repel" },
+  { q: "An animal with hair or fur that feeds its young on milk.", a: "mammal" },
+  { q: "A stretchy, waterproof material used to make erasers.", a: "rubber" },
+  { q: "The part of a plant that makes food.", a: "leaf" },
+  { q: "The stage between larva and adult in a beetle's life cycle.", a: "pupa" },
+  { q: "The stage after the egg in a mosquito's life cycle.", a: "larva" },
+  { q: "Material from trees, used to make tables and pencils.", a: "wood" },
+  { q: "A strong, light material for bottles. It does not rust or break easily.", a: "plastic" },
+  { q: "An animal with dry, scaly skin, like a lizard.", a: "reptile" },
+  { q: "Tiny living things too small to see. Some make food go bad.", a: "bacteria" },
+  { q: "It uses a magnet to show which way is north.", a: "compass" },
+  { q: "Rubbing a magnet along a steel nail in one direction to make a magnet.", a: "stroke" },
+  { q: "The ends of a magnet, where its pull is strongest.", a: "poles" },
+  { q: "A magnet made with electricity and a coil of wire.", a: "electromagnet" },
+];
+
 const P6: readonly Blast[] = [
   { q: "The force that pulls everything towards the Earth.", a: "gravity" },
   { q: "A material that lets electricity flow through it easily.", a: "conductor" },
@@ -61,9 +89,9 @@ const SEC2: readonly Blast[] = [
   { q: "The tiny pores on a leaf where gases go in and out.", a: "stomata" },
 ];
 
-/** Five questions for an "Answer blast" level (1–5). P3 kids don't play Neon Strike; they get the P6 bank. */
+/** Five questions for an "Answer blast" level (1–5), from the child's own level's bank. */
 export function blastLevel(level: number, school: SchoolLevel): Blast[] {
-  const bank = school === "Sec 2" ? SEC2 : P6;
+  const bank = school === "Sec 2" ? SEC2 : school === "P6" ? P6 : P3;
   const l = Math.min(Math.max(level, 1), 5);
   return bank.slice((l - 1) * 5, l * 5);
 }

@@ -13,7 +13,7 @@ async function Game({ searchParams }: { searchParams: Promise<Record<string, str
   const q = await searchParams;
   const level = typeof q.level === "string" && /^[1-5]$/.test(q.level) ? Number(q.level) : undefined;
   const round = await gardenRound(ctx, { level });
-  return <WordGarden key={round.level} prompts={round.prompts} level={round.level} band={round.band} />;
+  return <WordGarden key={round.level} prompts={round.prompts} level={round.level} band={round.band} school={round.school} />;
 }
 
 export default function WordGardenPage({ searchParams }: PageProps<"/arcade/word-garden">) {

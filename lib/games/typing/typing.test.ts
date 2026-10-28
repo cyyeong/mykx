@@ -92,12 +92,13 @@ describe("curriculum and registry", () => {
     expect(startingStage("teen")).toBe(4);
   });
 
-  it("shows each child only games for their band and level, ready ones first", () => {
-    const ari = gamesFor("junior", "P3").map((g) => g.id);
-    expect(ari.slice(0, 2)).toEqual(["star-typer", "word-garden"]);
-    expect(ari).not.toContain("neon-strike");
+  it("shows every child every game, ready ones first, tagged for their own level", () => {
+    const ari = gamesFor("junior", "P3");
     const mei = gamesFor("teen", "Sec 2");
-    expect(mei.map((g) => g.id)).toContain("neon-strike");
+    expect(ari.map((g) => g.id).sort()).toEqual(GAMES.map((g) => g.id).sort());
+    expect(mei.map((g) => g.id).sort()).toEqual(GAMES.map((g) => g.id).sort());
+    expect(ari.slice(0, 3).every((g) => g.status === "ready")).toBe(true);
+    expect(ari.find((g) => g.id === "neon-strike")?.tagText).toBe("Typing · P3 Science answers");
     expect(mei.find((g) => g.id === "star-typer")?.tagText).toBe("Typing · Sec 2 vocabulary");
     expect(new Set(GAMES.map((g) => g.id)).size).toBe(GAMES.length);
   });

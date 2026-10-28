@@ -1,10 +1,13 @@
-// Word Garden's "Match it" (GAMES.md §3, stage 8): a life-cycle picture from the Critter Lab sheets and a clue;
-// the child types the stage's name and a flower grows. P3 Science life cycles, five levels of six, easiest first.
-// Clues are written for myKx from the catalog's stage notes (lib/critters/catalog.ts). Practice only.
+// Word Garden's "Match it" (GAMES.md §3, stage 8): a life-cycle picture from the Critter Lab sheets and a clue; the
+// child types the word and a flower grows. Every level plays the same pictures; the words follow the child's grade:
+// P3 names the stages (life cycles), P6 names the processes and groups (cycles, systems), Sec 2 uses lower
+// secondary terms (diversity, cells, reproduction, ecology). Five levels of six, easiest first. Clues are written
+// for myKx from each syllabus and the catalog's stage notes (lib/critters/catalog.ts). Practice only.
+import type { SchoolLevel } from "./levels.ts";
 
 export type GardenPrompt = { critter: string; stage: number; word: string; clue: string };
 
-const LEVELS: readonly (readonly GardenPrompt[])[] = [
+const P3: readonly (readonly GardenPrompt[])[] = [
   [
     { critter: "frog", stage: 1, word: "tadpole", clue: "It hatches from frogspawn and swims with its tail." },
     { critter: "mealworm", stage: 1, word: "larva", clue: "The mealworm stage that eats and grows." },
@@ -47,6 +50,94 @@ const LEVELS: readonly (readonly GardenPrompt[])[] = [
   ],
 ];
 
-export function gardenLevel(level: number): GardenPrompt[] {
-  return [...LEVELS[Math.min(Math.max(level, 1), LEVELS.length) - 1]];
+const P6: readonly (readonly GardenPrompt[])[] = [
+  [
+    { critter: "frog", stage: 3, word: "amphibian", clue: "Young in water, adult on land and in water. Which animal group?" },
+    { critter: "butterfly", stage: 2, word: "metamorphosis", clue: "Inside the chrysalis, the body changes completely. This change is called…" },
+    { critter: "bean", stage: 1, word: "germination", clue: "The seed takes in water and its root starts to grow. This is…" },
+    { critter: "cockroach", stage: 2, word: "moulting", clue: "The nymph sheds its old skin to grow bigger. This is called…" },
+    { critter: "bean", stage: 2, word: "photosynthesis", clue: "The young leaves use light to make food. This process is…" },
+    { critter: "chicken", stage: 0, word: "reproduction", clue: "Living things making young of their own kind, like a hen laying eggs." },
+  ],
+  [
+    { critter: "mealworm", stage: 3, word: "insect", clue: "Six legs and three body parts. Which animal group?" },
+    { critter: "chicken", stage: 3, word: "bird", clue: "Feathers, a beak, and eggs with hard shells. Which animal group?" },
+    { critter: "frog", stage: 0, word: "fertilisation", clue: "A sperm joins an egg so it can grow into a tadpole. This is…" },
+    { critter: "bean", stage: 3, word: "pollination", clue: "Pollen reaches the stigma before the flower can make seeds. This is…" },
+    { critter: "mosquito", stage: 1, word: "oxygen", clue: "The wriggler hangs at the surface to take in this gas from the air." },
+    { critter: "butterfly", stage: 3, word: "nectar", clue: "The adult butterfly drinks this sweet liquid from flowers." },
+  ],
+  [
+    { critter: "mosquito", stage: 0, word: "breeding", clue: "Tipping out still water stops mosquitoes from doing this." },
+    { critter: "frog", stage: 1, word: "gills", clue: "A tadpole breathes in water using these." },
+    { critter: "frog", stage: 3, word: "lungs", clue: "An adult frog breathes air using these." },
+    { critter: "cockroach", stage: 1, word: "nymph", clue: "The young of a cockroach: like the adult, but with no wings." },
+    { critter: "butterfly", stage: 1, word: "larva", clue: "The caterpillar is this stage of the butterfly's life cycle." },
+    { critter: "bean", stage: 0, word: "dispersal", clue: "Seeds being carried away from the parent plant. This is…" },
+  ],
+  [
+    { critter: "chicken", stage: 1, word: "hatching", clue: "The young bird breaks out of its shell." },
+    { critter: "mealworm", stage: 2, word: "pupa", clue: "The stage that does not eat while its body changes." },
+    { critter: "bean", stage: 2, word: "chlorophyll", clue: "The green substance in leaves that traps light." },
+    { critter: "chicken", stage: 2, word: "offspring", clue: "The young that parents produce, like this chick." },
+    { critter: "butterfly", stage: 0, word: "complete", clue: "Egg, larva, pupa, adult: a life cycle with four stages is called…" },
+    { critter: "cockroach", stage: 3, word: "incomplete", clue: "Egg, nymph, adult with no pupa: this life cycle is called…" },
+  ],
+  [
+    { critter: "butterfly", stage: 2, word: "metamorphosis", clue: "The big change from larva to adult." },
+    { critter: "bean", stage: 1, word: "germination", clue: "Needs water, air and warmth, but not light." },
+    { critter: "frog", stage: 3, word: "amphibian", clue: "Moist skin, and it starts life in water." },
+    { critter: "cockroach", stage: 2, word: "moulting", clue: "How an insect with a hard outer skin grows bigger." },
+    { critter: "bean", stage: 2, word: "photosynthesis", clue: "Light, water and carbon dioxide make food in the leaves." },
+    { critter: "bean", stage: 3, word: "pollination", clue: "Insects carry pollen from flower to flower." },
+  ],
+];
+
+const SEC2: readonly (readonly GardenPrompt[])[] = [
+  [
+    { critter: "frog", stage: 3, word: "vertebrate", clue: "An animal with a backbone, like this frog." },
+    { critter: "mealworm", stage: 3, word: "invertebrate", clue: "An animal with no backbone, like this beetle." },
+    { critter: "cockroach", stage: 3, word: "exoskeleton", clue: "The hard outer covering that supports and protects an insect." },
+    { critter: "chicken", stage: 0, word: "embryo", clue: "The young chick developing inside the egg." },
+    { critter: "bean", stage: 0, word: "cotyledon", clue: "The seed leaf that stores food for the young plant." },
+    { critter: "bean", stage: 2, word: "chlorophyll", clue: "The green pigment in chloroplasts that absorbs light." },
+  ],
+  [
+    { critter: "butterfly", stage: 2, word: "metamorphosis", clue: "The complete change in body form during the pupa stage." },
+    { critter: "frog", stage: 0, word: "fertilisation", clue: "Male and female gametes fuse, outside the body in frogs." },
+    { critter: "bean", stage: 3, word: "pollination", clue: "The transfer of pollen from anther to stigma." },
+    { critter: "mosquito", stage: 3, word: "vector", clue: "An organism that carries a disease from one host to another." },
+    { critter: "frog", stage: 1, word: "gills", clue: "Organs for gas exchange in water." },
+    { critter: "chicken", stage: 3, word: "omnivore", clue: "It eats both plants and animals, like seeds and insects." },
+  ],
+  [
+    { critter: "cockroach", stage: 2, word: "moulting", clue: "Shedding the exoskeleton so the body can grow." },
+    { critter: "bean", stage: 1, word: "germination", clue: "The seed's embryo starts to grow when conditions are right." },
+    { critter: "bean", stage: 2, word: "photosynthesis", clue: "Light energy is used to make glucose from carbon dioxide and water." },
+    { critter: "mosquito", stage: 1, word: "aquatic", clue: "Living in water, like the mosquito larva." },
+    { critter: "frog", stage: 3, word: "amphibian", clue: "A vertebrate with moist skin that breeds in water." },
+    { critter: "butterfly", stage: 1, word: "consumer", clue: "It gets its energy by eating plants: a primary…" },
+  ],
+  [
+    { critter: "bean", stage: 3, word: "producer", clue: "It makes its own food, so it starts every food chain." },
+    { critter: "butterfly", stage: 3, word: "pollinator", clue: "An animal that carries pollen between flowers as it feeds." },
+    { critter: "chicken", stage: 1, word: "hatching", clue: "The young bird breaks out of the shell." },
+    { critter: "cockroach", stage: 1, word: "nymph", clue: "The young stage of an insect without a pupa." },
+    { critter: "mosquito", stage: 2, word: "pupa", clue: "The non-feeding stage between larva and adult." },
+    { critter: "mealworm", stage: 1, word: "larva", clue: "The feeding stage that hatches from the egg." },
+  ],
+  [
+    { critter: "frog", stage: 3, word: "vertebrate", clue: "It has a backbone." },
+    { critter: "mealworm", stage: 3, word: "invertebrate", clue: "It has no backbone." },
+    { critter: "cockroach", stage: 3, word: "exoskeleton", clue: "Its skeleton is on the outside." },
+    { critter: "chicken", stage: 0, word: "embryo", clue: "What grows inside a fertilised egg." },
+    { critter: "bean", stage: 0, word: "cotyledon", clue: "Food store inside the seed." },
+    { critter: "butterfly", stage: 2, word: "metamorphosis", clue: "From caterpillar to butterfly." },
+  ],
+];
+
+/** Six pictures for a level (1–5), with words for the child's own grade. */
+export function gardenLevel(level: number, school: SchoolLevel = "P3"): GardenPrompt[] {
+  const bank = school === "Sec 2" ? SEC2 : school === "P6" ? P6 : P3;
+  return [...bank[Math.min(Math.max(level, 1), bank.length) - 1]];
 }
