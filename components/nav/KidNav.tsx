@@ -18,6 +18,10 @@ const ICONS: Record<KidTabId, { body: React.ReactNode; fill: boolean }> = {
     fill: false,
     body: <path d="M2 5.5A2.5 2.5 0 0 1 4.5 3H11v15H4.5A2.5 2.5 0 0 0 2 20.5zm20 0A2.5 2.5 0 0 0 19.5 3H13v15h6.5a2.5 2.5 0 0 1 2.5 2.5zM11 3v15" />,
   },
+  ask: {
+    fill: false,
+    body: <path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.9A8 8 0 1 1 21 12zM10 9.5a2.2 2.2 0 1 1 3 2c-.6.3-1 .8-1 1.5M12 15.6h.01" />,
+  },
   play: {
     fill: false,
     body: (

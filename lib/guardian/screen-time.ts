@@ -25,7 +25,7 @@ export function activityForPath(pathname: string): ActivityKind {
   const p = pathname.replace(/\/+$/, "") || "/";
   if (/^\/(arcade|play|games)(\/|$)/.test(p)) return "play";
   if (/^\/(vibe|studio|talk)(\/|$)/.test(p)) return "create";
-  if (/^\/(learn|question|study)(\/|$)/.test(p) || /^\/me\/papers(\/|$)/.test(p)) return "learn";
+  if (/^\/(learn|question|study|ask)(\/|$)/.test(p) || /^\/me\/papers(\/|$)/.test(p)) return "learn";
   return "other";
 }
 

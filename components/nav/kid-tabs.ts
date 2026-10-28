@@ -4,7 +4,7 @@
 // Me and Switch profile stay in the avatar menu (components/nav/KidAvatarMenu.tsx).
 import { DEMO_QUEST } from "@/components/screens/routes";
 
-export type KidTabId = "home" | "learn" | "play" | "treasure" | "vibe";
+export type KidTabId = "home" | "learn" | "ask" | "play" | "treasure" | "vibe";
 
 export type KidTab = { id: KidTabId; label: string; href: string; soon?: true };
 
@@ -12,6 +12,8 @@ export const KID_TABS: readonly KidTab[] = [
   { id: "home", label: "Home", href: "/home" },
   // Day 4–5 repoints Learn at the /learn quest list; until then it opens the demo quest map.
   { id: "learn", label: "Learn", href: `/learn/${DEMO_QUEST}` },
+  // Homework help (founder, 28 Oct): a typed question or a photo, explained the way the syllabus teaches it.
+  { id: "ask", label: "Ask Kix", href: "/ask" },
   // Task 6 builds the Arcade: keep the canonical href and drop `soon` when it lands.
   { id: "play", label: "Play", href: "/arcade", soon: true },
   { id: "treasure", label: "Treasure", href: "/treasure" },
@@ -29,6 +31,7 @@ export function kidNavCurrent(pathname: string): KidTabId | null {
   const path = clean(pathname);
   if (path === "/home" || path.startsWith("/home/")) return "home";
   if (path === "/learn" || path.startsWith("/learn/")) return "learn";
+  if (path === "/ask" || path.startsWith("/ask/")) return "ask";
   if (path === "/arcade" || path.startsWith("/arcade/")) return "play";
   if (path === "/treasure" || path.startsWith("/treasure/")) return "treasure";
   if (path === "/vibe" || path.startsWith("/vibe/")) return "vibe";

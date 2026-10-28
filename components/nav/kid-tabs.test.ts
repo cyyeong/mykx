@@ -2,9 +2,9 @@ import { describe, expect, it } from "vitest";
 import { KID_TABS, isKidNavHidden, kidNavCurrent } from "./kid-tabs";
 
 describe("kid nav tabs", () => {
-  it("has the five founder-decided tabs in order", () => {
-    expect(KID_TABS.map((t) => t.id)).toEqual(["home", "learn", "play", "treasure", "vibe"]);
-    expect(KID_TABS.map((t) => t.label)).toEqual(["Home", "Learn", "Play", "Treasure", "Vibe"]);
+  it("has the founder-decided tabs in order (Ask Kix added 28 Oct for homework help)", () => {
+    expect(KID_TABS.map((t) => t.id)).toEqual(["home", "learn", "ask", "play", "treasure", "vibe"]);
+    expect(KID_TABS.map((t) => t.label)).toEqual(["Home", "Learn", "Ask Kix", "Play", "Treasure", "Vibe"]);
   });
 
   it("points Home and Treasure at built pages", () => {
@@ -15,7 +15,7 @@ describe("kid nav tabs", () => {
 
   it("marks only the unbuilt screens as soon (drop the flag when each screen lands)", () => {
     const soon = Object.fromEntries(KID_TABS.map((t) => [t.id, t.soon ?? false]));
-    expect(soon).toEqual({ home: false, learn: false, play: true, treasure: false, vibe: true });
+    expect(soon).toEqual({ home: false, learn: false, ask: false, play: true, treasure: false, vibe: true });
   });
 
   it("keeps the canonical hrefs on soon tabs so enabling them is a one-flag change", () => {

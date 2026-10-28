@@ -8,6 +8,7 @@ import * as beat from "@/app/api/guardian/beat/route";
 import * as seen from "@/app/api/guardian/seen/route";
 import * as summary from "@/app/api/guardian/summary/route";
 import * as words from "@/app/api/guardian/words/route";
+import * as homework from "@/app/api/kix/homework/route";
 import { ARI_ID, DEMO_HOUSEHOLD_ID } from "../auth/demo-family.ts";
 import { resetRateLimits } from "../auth/lockout.ts";
 import { resetDemoStore, type DemoStore } from "../auth/store-demo.ts";
@@ -99,6 +100,24 @@ describe("guardian routes", () => {
     const said = await store.guardian.messages(DEMO_HOUSEHOLD_ID, ARI_ID, "2000-01-01T00:00:00Z");
     expect(said).toMatchObject([{ source: "reason", distress: true }]);
     expect((await store.learn.attempts(DEMO_HOUSEHOLD_ID, ARI_ID))[0].durationMs).toBe(2_000);
+  });
+
+  it("Ask Kix answers with the labelled sample when no model key is set, and keeps the answer back until 'full'", async () => {
+    vi.stubEnv("MODEL_API_KEY", "");
+    vi.stubEnv("META_API_KEY", "");
+    await asAri();
+    const hint = await b.call(homework.POST, "/api/kix/homework", { stage: "hint", text: "Put the stages of a frog's life cycle in order." });
+    expect(hint.status).toBe(200);
+    expect(hint.body).toMatchObject({ sample: true, care: null, explanation: { stage: "hint", finalAnswer: null } });
+    const full = await b.call(homework.POST, "/api/kix/homework", { stage: "full", question: hint.body.explanation.question });
+    expect(full.body.explanation.finalAnswer).toMatch(/tadpole/);
+    expect((await b.call(homework.POST, "/api/kix/homework", { stage: "hint" })).status).toBe(400);
+  });
+
+  it("Ask Kix takes the caring path for distress words and never calls the model", async () => {
+    await asAri();
+    const r = await b.call(homework.POST, "/api/kix/homework", { stage: "hint", text: "I want to die, this homework is impossible" });
+    expect(r.body).toMatchObject({ explanation: null, care: { helplines: [{ number: "1800 274 4788" }, { number: "1767" }] } });
   });
 
   it("the summary is for grown-ups only", async () => {

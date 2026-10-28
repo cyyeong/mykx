@@ -165,8 +165,20 @@
 
   .kidnav-tab {
     flex-direction: column;
-    gap: 4px;
-    padding: 10px 4px;
+    gap: 3px;
+    padding: 8px 4px;
+  }
+
+  /* Six tabs and the sound pill share the rail: on short windows the tabs tighten up. */
+  @media (max-height: 820px) {
+    .kidnav-list {
+      gap: 2px;
+    }
+
+    .kidnav-tab {
+      min-height: 52px;
+      padding: 6px 4px;
+    }
   }
 
   .kidnav-demo {
@@ -183,7 +195,7 @@
     top: auto;
     right: auto;
     left: 20px;
-    bottom: max(72px, calc(env(safe-area-inset-bottom) + 72px));
+    bottom: max(16px, env(safe-area-inset-bottom));
     z-index: 41; /* above the rail (40) */
     flex-direction: column;
   }

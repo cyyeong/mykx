@@ -62,3 +62,31 @@ export function loadFaceLandmarker(): Promise<FaceLandmarker> {
     });
   return loading;
 }
+
+// --- Homework photos (Ask Kix) -----------------------------------------------------------------------------------
+// A homework photo must show the question, never the child (AGENTS.md rule 2). Before a photo leaves the device,
+// MediaPipe's small face detector looks for a face in it; if it finds one, or can't run, the photo isn't sent.
+
+/** MediaPipe's short-range face detector (BlazeFace), for still images. */
+export const FACE_DETECTOR_URL = "https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_short_range/float16/1/blaze_face_short_range.tflite";
+
+let detecting: Promise<import("@mediapipe/tasks-vision").FaceDetector> | null = null;
+
+function loadFaceDetector() {
+  blockMediapipeMetrics();
+  detecting ??= (async () => {
+    const { FaceDetector, FilesetResolver } = await import("@mediapipe/tasks-vision");
+    const fileset = await FilesetResolver.forVisionTasks(WASM_URL);
+    return FaceDetector.createFromOptions(fileset, { baseOptions: { modelAssetPath: FACE_DETECTOR_URL, delegate: "CPU" }, runningMode: "IMAGE", minDetectionConfidence: 0.5 });
+  })().catch((err: unknown) => {
+    detecting = null;
+    throw err;
+  });
+  return detecting;
+}
+
+/** True when the image shows a face. Throws when the detector can't run: the caller then doesn't send the photo. */
+export async function photoHasFace(image: HTMLCanvasElement): Promise<boolean> {
+  const detector = await loadFaceDetector();
+  return detector.detect(image).detections.length > 0;
+}

@@ -13,6 +13,8 @@ const nextConfig: NextConfig = {
         ["./content/skills/*/skill.json", "./content/skills/*/items/*.json", "./content/skills/*/figures/*"],
       ]),
     ),
+    // Ask Kix reads the packs' teaching notes for the kid's level (lib/kix/homework.ts).
+    "/api/kix/homework": ["./content/skills/*/SKILL.md", "./content/skills/*/references/*.md"],
     // The learning loop reads the frog quest items from disk at request time (lib/learn/frog-quest.ts).
     ...Object.fromEntries(
       ["/learn/[quest]", "/learn/[quest]/done", "/question/[id]", "/api/attempts"].map((route) => [route, ["./content/skills/p3-science/items/demo.json"]]),
