@@ -29,7 +29,7 @@ import type { FlashcardSpec } from "../vibe/flashcards.ts";
 import type { FamilyMessage, Sticker } from "../family/messages.ts";
 import type { PageSlug } from "../notebook/notebook.ts";
 import type { CookieJar } from "./http.ts";
-import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt, StoredBeat, StoredGuardianSettings, StoredKixMessage, Creation, NotebookPage, NotebookRevision, StoredSessionRead } from "./store.ts";
+import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt, StoredBeat, StoredGuardianSettings, StoredKixMessage, Creation, NotebookPage, NotebookRevision, StoredSessionRead, StoredRun } from "./store.ts";
 import { NicknameTakenError } from "./store.ts";
 import { sessionSecret, signToken, verifyToken } from "./tokens.ts";
 
@@ -121,6 +121,7 @@ export class DemoStore implements AuthStore {
   readonly skillUpdateRows: SkillUpdate[] = [];
   /** Vibe Zone creations by id, with the household and the shared recipients. */
   readonly creationRows = new Map<string, Creation & { householdId: string; sharedWith: string[] }>();
+  readonly runRows: StoredRun[] = [];
   /** Family messages, Notebook pages and revisions, and session readings. */
   readonly familyRows: (FamilyMessage & { householdId: string })[] = [];
   readonly notebookRows = new Map<string, NotebookPage & { householdId: string; kidId: string }>();
@@ -426,6 +427,14 @@ export class DemoStore implements AuthStore {
     markSeen: async (householdId: string, flagId: string) => {
       this.seenFlagRows.add(`${householdId}|${flagId}`);
     },
+  };
+
+  readonly runs = {
+    save: async (run: StoredRun) => {
+      this.runRows.push({ ...run });
+      if (this.runRows.length > 500) this.runRows.shift();
+    },
+    recent: async (limit: number) => this.runRows.slice(-limit).reverse().map((r) => ({ ...r })),
   };
 
   readonly family = {

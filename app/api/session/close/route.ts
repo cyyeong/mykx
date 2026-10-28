@@ -13,6 +13,7 @@ import { hasMetaApiKey } from "@/lib/meta/client";
 import { sparkStructured } from "@/lib/meta/spark";
 import { applyPatches, PAGES, type PageSlug } from "@/lib/notebook/notebook";
 import { sessionClosePrompt, sessionReadSchema } from "@/lib/notebook/session-close";
+import { logRunsFor } from "@/lib/runs/log";
 
 const WINDOW_MS = 3 * 3_600_000;
 
@@ -22,6 +23,7 @@ export async function POST(request: Request) {
     const kid = await currentKid(store, jar, parent);
     if (!kid) return fail(401, "no-kid");
     const h = kid.householdId;
+    logRunsFor("memory-keeper", h, kid.id);
     const now = new Date().toISOString();
     const windowStart = new Date(toMs(now) - WINDOW_MS).toISOString();
     const reads = await store.notebook.reads(h, kid.id, windowStart);

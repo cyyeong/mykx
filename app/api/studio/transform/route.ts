@@ -4,6 +4,7 @@ import { z } from "zod";
 import { PACK_IDS } from "@/components/theme/packs";
 import { requireFamily } from "@/lib/auth/guard";
 import { runTransform } from "@/lib/studio/transform";
+import { logRunsFor } from "@/lib/runs/log";
 
 export const maxDuration = 60;
 
@@ -17,12 +18,13 @@ const Body = z.object({
 export async function POST(request: Request) {
   const family = await requireFamily(request, "transform", 4);
   if (family.refused) return family.refused;
+  logRunsFor("studio", family.householdId, family.kid?.id ?? null);
   const parsed = Body.safeParse(await request.json().catch(() => null));
   if (!parsed.success) return Response.json({ error: "Pick a world and up to two interests." }, { status: 400 });
   const { pack, interests } = parsed.data;
 
   const result = await runTransform(pack, interests);
-  // Day 3: write result.runs to model_runs.
+  // Every Muse Image and SAM call here is logged to model_runs (lib/runs/log.ts).
   if (result.ok) {
     return Response.json({
       fallback: false,

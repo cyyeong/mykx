@@ -12,6 +12,7 @@ import { FROG_QUEST, loadFrogItems } from "@/lib/learn/frog-quest";
 import { notebookNotes } from "@/lib/notebook/notebook";
 import { hasMetaApiKey } from "@/lib/meta/client";
 import { sparkStream } from "@/lib/meta/spark";
+import { logRunsFor } from "@/lib/runs/log";
 
 const body = z.strictObject({
   itemId: z.string().min(1).max(100),
@@ -32,6 +33,7 @@ export async function POST(request: Request) {
   if (family.refused) return family.refused;
   const kid = family.kid;
   if (!kid) return fail(401, "no-kid");
+  logRunsFor("tutor", family.householdId, kid.id);
   const input = await readBody(request, body);
   if (!input) return fail(400, "invalid");
   const item = loadFrogItems().find((i) => i.id === input.itemId);

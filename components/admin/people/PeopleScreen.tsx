@@ -48,11 +48,11 @@ const FILTERS: readonly [Filter, string][] = [
   ["admins", "Admins"],
   ["locked", "Locked"],
 ];
-// The Skills catalogue is designed (canvas) but not built yet: shown as "Soon" rather than linking to a 404.
 const NAV = [
-  { href: "/admin/skills", label: "Skills", soon: true },
+  { href: "/admin/skills", label: "Skills" },
   { href: "/admin/knowledge", label: "Add knowledge" },
   { href: "/admin/people", label: "People", current: true },
+  { href: "/admin/under-the-hood", label: "Under the hood" },
 ];
 
 const BADGE: CSSProperties = { display: "inline-flex", alignItems: "center", gap: 5, padding: "2px 10px 2px 8px", borderRadius: "var(--radius-pill)", fontSize: 13, lineHeight: "20px", fontWeight: 700, whiteSpace: "nowrap" };
@@ -528,13 +528,7 @@ export function PeopleScreen() {
             <span style={{ padding: "2px 8px", borderRadius: "var(--radius-pill)", background: "var(--ink)", color: "var(--surface)", fontSize: 11, lineHeight: "18px", fontWeight: 700, letterSpacing: ".04em" }}>ADMIN</span>
           </div>
           <div className="ap-navlist">
-            {NAV.map((n) =>
-              n.soon ? (
-                <span key={n.href} className="ap-navi" aria-disabled="true" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, padding: 12, borderRadius: "var(--radius-sm)", fontSize: 16, lineHeight: "20px", fontWeight: 600, color: "var(--ink-muted)", opacity: 0.6 }}>
-                  {n.label}
-                  <small style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".04em" }}>SOON</small>
-                </span>
-              ) : (
+            {NAV.map((n) => (
               <Link
                 key={n.href}
                 href={n.href}
@@ -544,8 +538,7 @@ export function PeopleScreen() {
               >
                 {n.label}
               </Link>
-              ),
-            )}
+            ))}
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
             <Link href="/family" className="ap-navi" style={{ display: "block", padding: 12, borderRadius: "var(--radius-sm)", fontSize: 15, lineHeight: "20px", fontWeight: 600, color: "var(--ink-muted)" }}>

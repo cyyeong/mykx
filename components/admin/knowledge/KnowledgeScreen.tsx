@@ -16,8 +16,10 @@ type Listing = { uploads: KnowledgeUpload[]; updates: SkillUpdate[]; packs: Pack
 type Job = { name: string; size: number; state: "waiting" | "reading" | "done" | "failed"; note?: string };
 
 const NAV = [
+  { href: "/admin/skills", label: "Skills" },
   { href: "/admin/knowledge", label: "Add knowledge", current: true },
   { href: "/admin/people", label: "People" },
+  { href: "/admin/under-the-hood", label: "Under the hood" },
 ];
 
 const MAX_BYTES = 4 * 1024 * 1024;

@@ -16,6 +16,7 @@ import { teachingNotes } from "@/lib/kix/homework";
 import { hasMetaApiKey } from "@/lib/meta/client";
 import { sparkStructured } from "@/lib/meta/spark";
 import { flashcardSpecSchema, makePrompt, SAMPLE_SET } from "@/lib/vibe/flashcards";
+import { logRunsFor } from "@/lib/runs/log";
 
 const body = z.discriminatedUnion("action", [
   z.strictObject({ action: z.literal("make"), request: z.string().trim().min(1).max(400), revise: z.strictObject({ spec: flashcardSpecSchema, change: z.string().trim().min(1).max(200) }).optional() }),
@@ -35,6 +36,7 @@ export async function POST(request: Request) {
   if (family.refused) return family.refused;
   const kid = family.kid;
   if (!kid) return fail(401, "no-kid");
+  logRunsFor("vibe", family.householdId, kid.id);
   const input = await readBody(request, body);
   if (!input) return fail(400, "invalid");
   const store = getStore()!;

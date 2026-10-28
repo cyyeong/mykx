@@ -14,6 +14,7 @@ import { extractionPrompt, extractionSchema, RIGHTS, settle, type KnowledgeUploa
 import { packsOnDisk } from "@/lib/knowledge/packs";
 import { hasMetaApiKey } from "@/lib/meta/client";
 import { sparkStructured } from "@/lib/meta/spark";
+import { logRunsFor } from "@/lib/runs/log";
 
 export const maxDuration = 300;
 const MAX_BYTES = 4 * 1024 * 1024;
@@ -24,6 +25,7 @@ export async function POST(request: Request) {
     if (locked) return locked;
     const admin = await requireAdmin(store, jar);
     if (!admin) return fail(403, "not-allowed");
+    logRunsFor("knowledge-agent");
     const form = await request.formData().catch(() => null);
     const file = form?.get("file");
     const rights = z.enum(RIGHTS).safeParse(form?.get("rights"));

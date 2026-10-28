@@ -12,6 +12,7 @@ import { updateNotes } from "@/lib/knowledge/knowledge";
 import { hasMetaApiKey } from "@/lib/meta/client";
 import { sparkStructured } from "@/lib/meta/spark";
 import { getStore } from "@/lib/auth/context";
+import { logRunsFor } from "@/lib/runs/log";
 
 /** About 2.2 MB of JPEG as a data URL: the browser sends at most 1600 px on the long side. */
 const MAX_IMAGE_CHARS = 3_000_000;
@@ -34,6 +35,7 @@ export async function POST(request: Request) {
   if (family.refused) return family.refused;
   const kid = family.kid;
   if (!kid) return fail(401, "no-kid");
+  logRunsFor("ask-kix", family.householdId, kid.id);
   const input = await readBody(request, body);
   if (!input || (!input.text && !input.image && !input.question)) return fail(400, "invalid");
 

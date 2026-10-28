@@ -156,6 +156,27 @@ export interface StoredSessionRead {
   concern: boolean;
 }
 
+/** One model call as logged in `model_runs`: no prompt, output, audio or key. */
+export interface StoredRun {
+  at: string;
+  route: string;
+  operation: string;
+  model: string;
+  householdId: string | null;
+  profileId: string | null;
+  requestId: string | null;
+  responseId: string | null;
+  latencyMs: number | null;
+  firstTokenMs: number | null;
+  inputTokens: number | null;
+  outputTokens: number | null;
+  images: number | null;
+  audioSeconds: number | null;
+  costUsd: number | null;
+  ok: boolean;
+  error: string | null;
+}
+
 /** A Vibe Zone creation: its versions (each a validated spec) and the version shared with the grown-ups, if any. */
 export interface Creation {
   id: string;
@@ -257,6 +278,13 @@ export interface AuthStore {
     /** Flag ids a grown-up marked as seen. */
     seenFlags(householdId: string): Promise<string[]>;
     markSeen(householdId: string, flagId: string): Promise<void>;
+  };
+
+  // Every model call (model_runs), for Under the hood and cost. Writes come from lib/runs/log.ts.
+  runs: {
+    save(run: StoredRun): Promise<void>;
+    /** The newest runs across every household (admins only, through an audited route). */
+    recent(limit: number): Promise<StoredRun[]>;
   };
 
   // Family messages (never read by Kix or a model), the Notebook, and session readings. Household-scoped.

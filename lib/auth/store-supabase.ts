@@ -9,7 +9,7 @@ import type { CookieJar } from "./http.ts";
 import { familyOf, type AttemptEvent } from "../domain/attempts.ts";
 import { sgDate } from "../domain/time.ts";
 import type { LedgerEntry } from "../domain/rewards.ts";
-import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt, StoredBeat, StoredGuardianSettings, StoredKixMessage, Creation, NotebookPage, NotebookRevision, StoredSessionRead } from "./store.ts";
+import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt, StoredBeat, StoredGuardianSettings, StoredKixMessage, Creation, NotebookPage, NotebookRevision, StoredSessionRead, StoredRun } from "./store.ts";
 import { BEAT_MS, type ActivityKind } from "../guardian/screen-time.ts";
 import type { Extraction, KnowledgeUpload, Review, Rights, SkillUpdate } from "../knowledge/knowledge.ts";
 import type { FlashcardSpec } from "../vibe/flashcards.ts";
@@ -644,6 +644,59 @@ export class SupabaseStore implements AuthStore {
     revoke: async (householdId: string, creationId: string) => {
       const { error } = await this.db.from("shares").update({ revoked_at: new Date().toISOString() }).eq("household_id", householdId).eq("creation_id", creationId).is("revoked_at", null);
       check(error);
+    },
+  };
+
+  readonly runs = {
+    save: async (run: StoredRun) => {
+      const { error } = await this.db.from("model_runs").insert({
+        household_id: run.householdId,
+        profile_id: run.profileId,
+        route: run.route,
+        operation: run.operation,
+        model: run.model,
+        request_id: run.requestId,
+        response_id: run.responseId,
+        latency_ms: run.latencyMs,
+        first_token_ms: run.firstTokenMs,
+        input_tokens: run.inputTokens,
+        output_tokens: run.outputTokens,
+        images: run.images,
+        audio_seconds: run.audioSeconds,
+        cost_usd: run.costUsd,
+        ok: run.ok,
+        error: run.error?.slice(0, 300) ?? null,
+        created_at: run.at,
+      });
+      check(error);
+    },
+    recent: async (limit: number): Promise<StoredRun[]> => {
+      const { data, error } = await this.db
+        .from("model_runs")
+        .select("created_at, route, operation, model, household_id, profile_id, request_id, response_id, latency_ms, first_token_ms, input_tokens, output_tokens, images, audio_seconds, cost_usd, ok, error")
+        .order("created_at", { ascending: false })
+        .limit(limit);
+      check(error);
+      const n = (v: unknown) => (v === null || v === undefined ? null : Number(v));
+      return (data ?? []).map((r) => ({
+        at: new Date(r.created_at as string).toISOString(),
+        route: r.route as string,
+        operation: r.operation as string,
+        model: r.model as string,
+        householdId: (r.household_id as string | null) ?? null,
+        profileId: (r.profile_id as string | null) ?? null,
+        requestId: (r.request_id as string | null) ?? null,
+        responseId: (r.response_id as string | null) ?? null,
+        latencyMs: n(r.latency_ms),
+        firstTokenMs: n(r.first_token_ms),
+        inputTokens: n(r.input_tokens),
+        outputTokens: n(r.output_tokens),
+        images: n(r.images),
+        audioSeconds: n(r.audio_seconds),
+        costUsd: n(r.cost_usd),
+        ok: Boolean(r.ok),
+        error: (r.error as string | null) ?? null,
+      }));
     },
   };
 
