@@ -2,7 +2,7 @@
 # Muse Code may run in contributor mode, where what it reads can be used for training (AGENTS.md rule 1),
 # so secrets and private material stay out of its reach. Work from a fresh clone where possible: it has none of these.
 
-# Secrets: API keys (Meta, Baseten), Supabase keys, the kid-session secret
+# Secrets: API keys (Meta), Supabase keys, the kid-session secret
 .env
 .env.*
 !.env.example

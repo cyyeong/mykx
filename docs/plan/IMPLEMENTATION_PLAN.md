@@ -80,7 +80,7 @@ If a feature isn't in the 3-minute video, it isn't in this build. Screens come s
 | `POST /api/admin/extract` | `muse-spark-1.3` vision + JSON schema (Content Curator) | uploaded PDF or image → items in the unified schema with tags and a confidence flag | the admin enters items by hand in the review queue |
 | `POST /api/session/close` | `muse-spark-1.3`, JSON schema: Memory Keeper + mood + safety check in one call | after a session: the child's words to Kix + deterministic stats + Notebook pages → Notebook patch operations, a mood reading with evidence, a safety verdict → revisions, signals, flags | deterministic signals and keyword safety flags still apply; the Notebook stays as it was |
 | `POST /api/parent/summary` | `muse-spark-1.3`, JSON schema | deterministic aggregates → what happened, what it may mean, tomorrow | template text from the same aggregates |
-| `POST /api/tag` (stretch) | Baseten `meta-models/muse-spark-open-1026` | brief → topic tag | skipped |
+| `POST /api/tag` (stretch) | Baseten `meta-models/muse-spark-open-1026` | brief → topic tag | dropped 29 Oct (no partner credits; the key is removed) |
 
 ```
 app/(kid)/studio, home, learn/[quest], question/[id], treasure, critters, squadron, vibe
@@ -265,7 +265,7 @@ Script target: about 360 words of voice-over (130 a minute), finished by Day 5. 
 | New feature requests | anything new after Day 6 | Goes on the roadmap slide, not into the build. |
 
 **Cut order when a checkpoint slips** (the stretch items, Study Song and Baseten, only start when ahead, so they go first):
-1. Baseten, then camera signals. Then Guardian's canvas boards (F9).
+1. Baseten (dropped 29 Oct: no partner credits), then camera signals. Then Guardian's canvas boards (F9).
 1a. **Guardian (stream F), in this order** (ONVIF discovery and web location are already cut): the Home Link client (keep the simulator as the only camera source); places and arrive/leave events (keep the live dot and trail); the timeline on Home now; the evening-summary paragraph. **Never cut the Muse proof:** the Home Reader, SAM outlines, the Guardian Brief, Do something together and their Under the hood rows. The last thing standing is the simulator → real ingest → Muse Spark → Home now and the map, because that's the video beat.
 2. Skills admin extras: the versions list and reference counts go (the agents matrix is already read-only). The Notebook's parent view becomes read-only plus wipe (no line editing).
 3. Family extras are already cut (Kix-suggested messages, voice-pace signals); next the dashboard drops the wellbeing expanders and keeps flags, screen time and the plan. Sign-in extras: the walking characters and the junior door variant (one door for everyone) go before the core sign-in.

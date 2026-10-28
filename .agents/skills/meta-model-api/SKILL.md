@@ -92,7 +92,9 @@ Box and point prompt JSON shapes: see the "segmenting with prompts" guide (**unv
 
 **Voice is child data:** push-to-talk only, never always listening; audio is never stored or logged (only the transcript, like typed text); clips ≤ 30 s; Standard key; the parent can turn voice off per child.
 
-## Open weights: Muse Spark Open via Baseten (bonus: Best Build on Meta Open Weight Models)
+## Open weights: Muse Spark Open via Baseten (dropped 29 Oct)
+
+**Not used.** The founder dropped Baseten and Fireworks on 29 Oct (no partner credits); the key is removed from `.env.local`. Kept below for reference only.
 
 - Endpoint `https://inference.baseten.co/v1/chat/completions` (OpenAI-compatible), model **`meta-models/muse-spark-open-1026`** (hackathon alias; the docs say `muse-spark-open`). Key: `BASETEN_API_KEY`.
 - Bounded role: de-identified topic tagging (≤ 2k input / 128 output) behind the same typed adapter as Spark, so one env flag switches providers.

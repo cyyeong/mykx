@@ -30,7 +30,7 @@ export class MetaApiError extends Error {
   }
 }
 
-const SECRET_ENV = ["MODEL_API_KEY", "META_API_KEY", "BASETEN_API_KEY", "SUPABASE_SECRET_KEY"];
+const SECRET_ENV = ["MODEL_API_KEY", "META_API_KEY", "SUPABASE_SECRET_KEY"];
 
 /** Removes any configured secret and any bearer token from a string before it is logged or thrown. */
 export function redactSecrets(text: string): string {

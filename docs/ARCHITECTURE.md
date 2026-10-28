@@ -863,7 +863,6 @@ Both refuse any request without `Authorization: Bearer $CRON_SECRET` (timing-saf
 | `SIM_HOME_LINK_TOKEN`, `SIM_PASSCODE`, `MYKX_URL` | `sim/api/send.js` | Set on `mykx-sim`, the first two marked sensitive |
 | `MYKX_SERVER`, `MYKX_HOME_LINK_DIR`, `MYKX_HOME_LINK_FFMPEG` | `clients/home-link/` | Optional client settings |
 | `GOOGLE_API_KEY` | `scripts/papers/connect.ts` | Local paper connector only |
-| `BASETEN_API_KEY` | `lib/meta/errors.ts` (redaction list only) | Reserved for Muse Spark Open (**Roadmap**) |
 
 Values are never printed, logged or committed.
 
@@ -943,7 +942,7 @@ Section 10.1 is about the design as built. Sections 10.2 and 10.3 are **Roadmap*
 
 How the peak is worked out: about 11 learning calls an active child a day, half in 240 minutes (1,000 children: about 14 a minute), plus 0.3 Home Reader calls a minute for each household with cameras (100 households: about 30 a minute). At 100,000 children the peak passes the 3,000-a-minute team limit, so queuing and a quota increase come before that point.
 
-The biggest levers, in order: Home watch dominates Guardian's cost, so skipping empty rooms on the device (a small on-box person detector, or a stricter motion threshold) and a 2-minute default interval would cut it by half or more; prefix caching roughly halves learning cost; the Brief's digest cache already avoids most repeat calls. A bounded, de-identified task such as topic tagging could move to the open-weights Muse Spark Open on Baseten behind the same client (the skill's plan; price and access unverified).
+The biggest levers, in order: Home watch dominates Guardian's cost, so skipping empty rooms on the device (a small on-box person detector, or a stricter motion threshold) and a 2-minute default interval would cut it by half or more; prefix caching roughly halves learning cost; the Brief's digest cache already avoids most repeat calls.
 
 ### 10.2 Many devices, one sidekick (Roadmap)
 
@@ -1078,7 +1077,7 @@ Dates are SGT. From `docs/plan/IMPLEMENTATION_PLAN.md` and `docs/prd/GUARDIAN.md
 | Learning | More quests beyond the frog life cycle; the Kix Tutor reading published updates; server-side cross-check of hint counts; Study Song (a song spec played by Tone.js) |
 | Memory | The remaining Notebook pages from the spec (events, weak spots linked to subskills, revision log); line-level parent edits in the UI |
 | Guardian | ONVIF discovery and streaming in Home Link; on-box person detection; push notifications; Supabase Realtime instead of polling; Activity Recognition through a native plugin |
-| Platform | Shared budgets and caches; an ingest queue for frames; retention jobs and rollups; prompt ordering for prefix caching; persisted evening summaries; Muse Spark Open on Baseten for de-identified tagging |
+| Platform | Shared budgets and caches; an ingest queue for frames; retention jobs and rollups; prompt ordering for prefix caching; persisted evening summaries |
 | Reach | New levels and languages; school and tutor roles; other countries' syllabi; the device adapters in §10.2 |
 
 ---

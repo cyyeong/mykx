@@ -42,7 +42,7 @@ Art source of truth stays in the repo: `public/art/` (optimised WebP) and `publi
 |---|---|
 | [ARCHITECTURE.md](ARCHITECTURE.md) | **Platform architecture:** system context, data model and RLS, the fifteen agents, skill packs, the self-improvement loops, safety rules in code, cost, operations, scaling and the device-adapter roadmap |
 | [../AGENTS.md](../AGENTS.md) | Agent rules, priorities, hard rules, division of work (`CLAUDE.md` imports it) |
-| [../.agents/skills/meta-model-api/SKILL.md](../.agents/skills/meta-model-api/SKILL.md) | Meta Model API: model IDs, Standard vs Contributor, structured output, SAM, Baseten, pricing |
+| [../.agents/skills/meta-model-api/SKILL.md](../.agents/skills/meta-model-api/SKILL.md) | Meta Model API: model IDs, Standard vs Contributor, structured output, SAM, pricing |
 | [../.agents/skills/muse-image-assets/SKILL.md](../.agents/skills/muse-image-assets/SKILL.md) | Art pipeline: Kix canon, pack prompts, IP/safety rules, SAM cutouts, manifest, budget |
 
 ## Vendored third-party skills
@@ -56,4 +56,3 @@ Art source of truth stays in the repo: `public/art/` (optimised WebP) and `publi
 
 - Hackathon guide (saved copy): `~/Downloads/Details – Meta Global AI Developer Hackathon – Cerebral Valley (26_10_2026 23：17：25).html`
 - Meta docs: https://dev.meta.ai/docs/overview · models https://dev.meta.ai/docs/models · pricing https://dev.meta.ai/docs/pricing-rate-limits
-- Baseten chat completions: https://docs.baseten.co/reference/inference-api/chat-completions (model alias `meta-models/muse-spark-open-1026`)

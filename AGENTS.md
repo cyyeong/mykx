@@ -33,7 +33,7 @@ myKx gives every Singapore student an AI sidekick, **Kix**: learning loops that 
 
 1. **Child data → Standard models only** (`muse-spark-1.3`, never `-contributor`). Contributor mode lets Meta train on prompts. Muse Code defaults to contributor, so if it's used, give it synthetic data only and never real children's work or names.
 2. **Original art only.** Never name or imitate real franchises, characters, studios, artists, idols or brands in prompts, art or copy. Never take a child's photo as image input for generation (Studio, art). The one exception to reading children's images is Home watch (rule 15).
-3. **Keys are server-side only** (`MODEL_API_KEY`/`META_API_KEY`, `BASETEN_API_KEY`, Supabase service key). Never in client bundles, logs or git.
+3. **Keys are server-side only** (`MODEL_API_KEY`/`META_API_KEY`, Supabase service key). Never in client bundles, logs or git.
 4. **No model-authored code is executed.** Vibe Zone renders a validated JSON spec with trusted React components.
 5. **Mastery and rewards are deterministic** (PRD §6, §5 FR10). Models narrate and hint; they never change scores. No random rewards, loot boxes, rankings or money.
 6. **Every kept generated asset goes in `public/art/manifest.json`** (prompt, model, refs, hash, date).
