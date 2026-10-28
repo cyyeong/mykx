@@ -18,8 +18,11 @@ export async function requireFamily(request: Request, bucket: string, perMinute:
   if (!store) return { refused: fail(503, "not-configured") };
   const jar = new RequestCookieJar(request);
   const parent = await currentParent(store, jar);
-  if (!parent) return { refused: fail(401, "no-parent") };
-  const budget = takeToken(bucket, parent.householdId, perMinute);
+  // A kid who signed in with their magic name has no grown-up on this device: their own session says the family.
+  const kid = await currentKid(store, jar, parent);
+  const householdId = parent?.householdId ?? kid?.householdId;
+  if (!householdId) return { refused: fail(401, "no-parent") };
+  const budget = takeToken(bucket, householdId, perMinute);
   if (!budget.ok) return { refused: fail(429, "slow-down", { retryAfterSec: budget.retryAfterSec }) };
-  return { refused: null, householdId: parent.householdId, kid: await currentKid(store, jar, parent) };
+  return { refused: null, householdId, kid };
 }

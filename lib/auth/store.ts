@@ -27,6 +27,8 @@ export interface Profile {
   role: "parent" | "child";
   isAdmin: boolean;
   nickname: string;
+  /** A kid's magic name (unique across myKx, lowercase): typed on the sign-in page to bring their door. */
+  username: string | null;
   band: Band | null;
   level: Level | null;
   pack: Pack | null;
@@ -53,6 +55,7 @@ export type ProfilePatch = Partial<
   Pick<
     Profile,
     | "nickname"
+    | "username"
     | "pack"
     | "voiceEnabled"
     | "cameraEnabled"
@@ -128,6 +131,13 @@ export class NicknameTakenError extends Error {
   constructor() {
     super("That nickname is already used in this family.");
     this.name = "NicknameTakenError";
+  }
+}
+
+export class UsernameTakenError extends Error {
+  constructor() {
+    super("That magic name is already taken.");
+    this.name = "UsernameTakenError";
   }
 }
 
@@ -240,7 +250,9 @@ export interface AuthStore {
   household(householdId: string): Promise<Household | null>;
   kids(householdId: string): Promise<Profile[]>;
   kid(householdId: string, kidId: string): Promise<Profile | null>;
-  /** Updates one profile in the household; null if it isn't there. Throws NicknameTakenError. */
+  /** The kid with this magic name, in any household (the sign-in page's door lookup); null if none. */
+  kidByUsername(username: string): Promise<Profile | null>;
+  /** Updates one profile in the household; null if it isn't there. Throws NicknameTakenError or UsernameTakenError. */
   update(householdId: string, profileId: string, patch: ProfilePatch): Promise<Profile | null>;
   /** Throws NicknameTakenError. */
   addKid(householdId: string, kid: NewKid): Promise<Profile>;

@@ -24,6 +24,8 @@ export const DEMO_SECRETS = {
 export interface DemoKid {
   id: string;
   nickname: string;
+  /** The magic name typed on the sign-in page (unique across myKx). */
+  username: string;
   band: Band;
   level: Level;
   pack: Pack;
@@ -37,6 +39,7 @@ export const DEMO_KIDS: readonly DemoKid[] = [
   {
     id: JORDAN_ID,
     nickname: "Jordan",
+    username: "jordan",
     band: "junior",
     level: "P3",
     pack: "terrarium",
@@ -48,6 +51,7 @@ export const DEMO_KIDS: readonly DemoKid[] = [
   {
     id: ABBY_ID,
     nickname: "Abby",
+    username: "abby",
     band: "teen",
     level: "P6",
     pack: "idol-stage",
@@ -59,6 +63,7 @@ export const DEMO_KIDS: readonly DemoKid[] = [
   {
     id: LEONARD_ID,
     nickname: "Leonard",
+    username: "leonard",
     band: "teen",
     level: "Sec 2",
     pack: "anime-sky",

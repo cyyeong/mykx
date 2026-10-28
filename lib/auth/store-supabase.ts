@@ -21,7 +21,7 @@ import type { ScoutRow } from "../papers/scan.ts";
 import type { OutingRun } from "../outings/outings.ts";
 import { KEEP_POINTS_DAYS, type KidLocationSettings, type Motion, type Place, type PlaceEvent, type StoredPoint } from "../location/location.ts";
 import { DEFAULT_PREFS, KEEP_STATUS_DAYS, type DeviceKind, type GuardianPrefs, type HomeAlert, type HomeCamera, type HomeDevice, type HomeStatus, type RoomKind } from "../home-watch/home-watch.ts";
-import { NicknameTakenError } from "./store.ts";
+import { NicknameTakenError, UsernameTakenError } from "./store.ts";
 
 export interface SupabaseEnv {
   url: string;
@@ -42,6 +42,7 @@ function toProfile(r: Row): Profile {
     role: r.role as Profile["role"],
     isAdmin: Boolean(r.is_admin),
     nickname: r.nickname as string,
+    username: (r.username as string | null | undefined) ?? null,
     band: (r.band as Profile["band"]) ?? null,
     level: (r.level as Profile["level"]) ?? null,
     pack: (r.pack as Profile["pack"]) ?? null,
@@ -64,6 +65,7 @@ function toProfile(r: Row): Profile {
 
 const PATCH_COLUMNS: Record<keyof ProfilePatch, string> = {
   nickname: "nickname",
+  username: "username",
   pack: "pack",
   voiceEnabled: "voice_enabled",
   cameraEnabled: "camera_enabled",
@@ -152,6 +154,7 @@ const tableMissing = (e: { code?: string }) => e.code === "42P01" || e.code === 
 function check(error: DbError) {
   if (!error) return;
   if (error.code === "23505" && /nickname/.test(error.message ?? "")) throw new NicknameTakenError();
+  if (error.code === "23505" && /username/.test(error.message ?? "")) throw new UsernameTakenError();
   throw new Error(`accounts store: ${error.code ?? "error"}`); // no row data in the message
 }
 
@@ -317,7 +320,7 @@ export class SupabaseStore implements AuthStore {
   // Household-scoped
 
   async profileByUserId(userId: string) {
-    const { data, error } = await this.db.from("profiles").select(COLUMNS).eq("user_id", userId).maybeSingle();
+    const { data, error } = await this.db.from("profiles").select<string, Row>(await this.cols()).eq("user_id", userId).maybeSingle();
     check(error);
     return data ? toProfile(data) : null;
   }
@@ -331,7 +334,7 @@ export class SupabaseStore implements AuthStore {
   async kids(householdId: string) {
     const { data, error } = await this.db
       .from("profiles")
-      .select(COLUMNS)
+      .select<string, Row>(await this.cols())
       .eq("household_id", householdId)
       .eq("role", "child")
       .order("created_at")
@@ -340,14 +343,32 @@ export class SupabaseStore implements AuthStore {
     return (data ?? []).map(toProfile);
   }
 
+  // profiles.username (migration 20261030_kid_username.sql): asked for only once the column exists, so sign-in keeps
+  // working on a database that hasn't had the migration yet.
+  private usernameReady: Promise<boolean> | null = null;
+  private hasUsername(): Promise<boolean> {
+    this.usernameReady ??= Promise.resolve(this.db.from("profiles").select("username").limit(1)).then(({ error }) => !error || error.code !== "42703");
+    return this.usernameReady;
+  }
+  private async cols(): Promise<string> {
+    return (await this.hasUsername()) ? `${COLUMNS}, username` : COLUMNS;
+  }
+
+  async kidByUsername(username: string) {
+    if (!(await this.hasUsername())) return null;
+    const { data, error } = await this.db.from("profiles").select<string, Row>(await this.cols()).eq("role", "child").eq("username", username.trim().toLowerCase()).maybeSingle();
+    check(error);
+    return data ? toProfile(data as unknown as Row) : null;
+  }
+
   async kid(householdId: string, kidId: string) {
-    const { data, error } = await this.db.from("profiles").select(COLUMNS).eq("household_id", householdId).eq("id", kidId).eq("role", "child").maybeSingle();
+    const { data, error } = await this.db.from("profiles").select<string, Row>(await this.cols()).eq("household_id", householdId).eq("id", kidId).eq("role", "child").maybeSingle();
     check(error);
     return data ? toProfile(data) : null;
   }
 
   async update(householdId: string, profileId: string, patch: ProfilePatch) {
-    const { data, error } = await this.db.from("profiles").update(toRow(patch)).eq("household_id", householdId).eq("id", profileId).select(COLUMNS).maybeSingle();
+    const { data, error } = await this.db.from("profiles").update(toRow(patch)).eq("household_id", householdId).eq("id", profileId).select<string, Row>(await this.cols()).maybeSingle();
     check(error);
     return data ? toProfile(data) : null;
   }
@@ -367,7 +388,7 @@ export class SupabaseStore implements AuthStore {
         secret_set_at: kid.secretSetAt,
         secret_event: kid.secretEvent,
       })
-      .select(COLUMNS)
+      .select<string, Row>(await this.cols())
       .single();
     check(error);
     return toProfile(data as Row);
@@ -848,7 +869,7 @@ export class SupabaseStore implements AuthStore {
 
   readonly family = {
     grownUps: async (householdId: string): Promise<Profile[]> => {
-      const { data, error } = await this.db.from("profiles").select(COLUMNS).eq("household_id", householdId).eq("role", "parent");
+      const { data, error } = await this.db.from("profiles").select<string, Row>(await this.cols()).eq("household_id", householdId).eq("role", "parent");
       check(error);
       return (data ?? []).map(toProfile);
     },
@@ -1358,7 +1379,7 @@ export class SupabaseStore implements AuthStore {
       if (!ids.length) return [];
       const [households, people] = await Promise.all([
         this.db.from("households").select("id, name").in("id", ids),
-        this.db.from("profiles").select(COLUMNS).in("household_id", ids).order("role", { ascending: false }).order("nickname"),
+        this.db.from("profiles").select<string, Row>(await this.cols()).in("household_id", ids).order("role", { ascending: false }).order("nickname"),
       ]);
       check(households.error);
       check(people.error);
@@ -1369,12 +1390,12 @@ export class SupabaseStore implements AuthStore {
       }));
     },
     profile: async (profileId: string) => {
-      const { data, error } = await this.db.from("profiles").select(COLUMNS).eq("id", profileId).maybeSingle();
+      const { data, error } = await this.db.from("profiles").select<string, Row>(await this.cols()).eq("id", profileId).maybeSingle();
       check(error);
       return data ? toProfile(data) : null;
     },
     update: async (profileId: string, patch: ProfilePatch) => {
-      const { data, error } = await this.db.from("profiles").update(toRow(patch)).eq("id", profileId).select(COLUMNS).maybeSingle();
+      const { data, error } = await this.db.from("profiles").update(toRow(patch)).eq("id", profileId).select<string, Row>(await this.cols()).maybeSingle();
       check(error);
       return data ? toProfile(data) : null;
     },

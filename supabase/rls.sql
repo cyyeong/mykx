@@ -129,7 +129,7 @@ grant usage on schema public to authenticated;
 grant select on households, attempts, ledger, summaries, model_runs, audit_log to authenticated;
 -- Every profile column except secret_hash and pin_hash (kid secrets and the parent PIN are checked by the server only).
 grant select (
-  id, household_id, user_id, role, is_admin, nickname, band, level, pack, interests, kix_url,
+  id, household_id, user_id, role, is_admin, nickname, username, band, level, pack, interests, kix_url,
   voice_enabled, camera_enabled, daily_limit_min, synthetic, secret_kind, secret_set_at, secret_event,
   failed_attempts, locked_until, disabled_at, last_sign_in_at, created_at
 ) on profiles to authenticated;

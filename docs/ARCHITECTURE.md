@@ -201,7 +201,7 @@ All 32 tables are in `supabase/schema.sql`; migrations in `supabase/migrations/`
 
 | Domain | Tables | Notes |
 |---|---|---|
-| Accounts | `households`, `profiles`, `audit_log` | Kids are `profiles` rows with `role = 'child'`, a nickname (at most 20 characters), band, level and pack; `secret_hash` and `pin_hash` are scrypt strings (`check (secret_hash like 'scrypt$%')`). `audit_log` is append-only, written by the service role, and holds field names and reasons, never child content. |
+| Accounts | `households`, `profiles`, `audit_log` | Kids are `profiles` rows with `role = 'child'`, a nickname (at most 20 characters), a magic name (`username`, unique, for the sign-in page's door), band, level and pack; `secret_hash` and `pin_hash` are scrypt strings (`check (secret_hash like 'scrypt$%')`). `audit_log` is append-only, written by the service role, and holds field names and reasons, never child content. |
 | Learning record | `attempts`, `ledger`, `game_progress` | `attempts` carries marks, `first_try`, `hints_used`, `revealed` and a unique `idempotency_key`; mastery is recomputed from it. `ledger` holds stars, cards, companion stages and squadron unlocks, each with the rule that granted it and a unique key. Game stars are separate and never mastery evidence. |
 | Memory | `notebook_pages`, `notebook_revisions`, `session_reads` | Four pages per kid (`personality`, `asking`, `slips`, `moments`), each at most 4,000 characters in the database and 1,500 in code. Every write records a revision (`before`, `after`, `by`, `reason`). `session_reads` holds the Memory Keeper's mood reading with its evidence. |
 | Wellbeing and guardian | `screen_beats`, `kix_messages`, `guardian_settings`, `flags_seen`, `signals` | One beat per 30 s slot while a kid page is visible. `kix_messages` is the child's own words to Kix (never family messages), with `distress` and `self_talk` set by the server. Flags are computed on read; only "seen" marks are stored. `signals.counts` may contain only four keys (`awaySeconds`, `eyesClosedEvents`, `yawns`, `facePresentRatio`). |
@@ -681,6 +681,9 @@ Each verdict is a fixed rule applied to a person's judgement, not a model learni
 
 ## 7. Safety, privacy and child-data rules in code
 
+
+**Kid sign-in (29 Oct).** Kids can sign in on any device with their magic name: `/api/auth/kid/door` (10 lookups a minute per address) returns only how to draw the door and sets a ten-minute signed door ticket; `/api/auth/kid` with `{ door: true }` checks the secret with the usual lockout and opens a solo session whose cookie carries an HMAC of the kid's secret hash (`secretVersion` in `lib/auth/kid-session.ts`), so any reset by a parent ends it. `currentKid` and `requireFamily` accept solo sessions; grown-up pages never do. Kids sign out from the rail, the avatar menu or Me, and after 15 minutes idle (`components/nav/KidIdle.tsx`).
+
 | Rule (AGENTS.md) | Enforced by | Where |
 |---|---|---|
 | 1. Standard models only | `assertStandardModel` throws `ContributorModelError` on any id containing "contributor", in every call path (Spark chat, stream, structured, web search, image, SAM, voice); the database refuses such a row in `model_runs` | `lib/meta/guard.ts`; `supabase/schema.sql` |
@@ -876,6 +879,7 @@ Values are never printed, logged or committed.
 | `20261028_guardian.sql` | Screen time, words to Kix, guardian settings and flags seen, plus location, places, Home watch devices, cameras, statuses and alerts |
 | `20261028_knowledge.sql` | `knowledge_uploads`, `skill_updates` |
 | `20261028_parent_pin.sql` | `profiles.pin_hash` |
+| `20261030_kid_username.sql` | `profiles.username`: kids' magic names (sign-in page door, solo kid session) |
 | `20261029_family.sql` | Family messages, Notebook pages and revisions, session readings |
 | `20261029_games.sql` | `game_progress` |
 | `20261030_focus_verdict.sql` | `signals.verdict`, `verdict_at` |

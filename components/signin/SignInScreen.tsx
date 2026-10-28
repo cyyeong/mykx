@@ -73,14 +73,21 @@ const WALK = [
 const SPARK = "M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z";
 
 /** Sky, lanterns or motes, fireflies and flying Kix. Decorative; never re-renders with the form. */
-const LivingCity = memo(function LivingCity({ variant }: { variant: DoorVariant }) {
+const LivingCity = memo(function LivingCity({ variant, world }: { variant: DoorVariant; world?: string }) {
   const look = LOOKS[variant];
   return (
     <div className="lg-scene" aria-hidden="true">
-      {/* The city's own aurora, stars, lanterns, lights and plants move (living art); the city drifts as a whole. */}
+      {/* The city's own aurora, stars, lanterns, lights and plants move (living art); the city drifts as a whole.
+          A kid who came by magic name stands in their own world instead (MagicName.tsx). */}
       <div className="lg-city">
-        <Art base={look.city} className="lg-city-img" alt="" sizes="106vw" fetchPriority="high" />
-        <LivingArt data={(look.city.endsWith("neon") ? neonCity : twilightCity) as LivingArtData} oy="70%" />
+        {world ? (
+          <Art base={world} className="lg-city-img" alt="" sizes="106vw" fetchPriority="high" />
+        ) : (
+          <>
+            <Art base={look.city} className="lg-city-img" alt="" sizes="106vw" fetchPriority="high" />
+            <LivingArt data={(look.city.endsWith("neon") ? neonCity : twilightCity) as LivingArtData} oy="70%" />
+          </>
+        )}
       </div>
       <div
         style={{
@@ -264,12 +271,21 @@ export function SignInScreen({
   variant,
   pack = "dreamlight",
   kid,
+  world,
+  solo,
+  onMagicName,
 }: {
   variant: DoorVariant;
   /** The kid's world; grown-ups always get Dreamlight. */
   pack?: PackId;
   /** Kid doors only: who this door belongs to. needsSetup: no picture code yet, so the kid picks one now. */
   kid?: { id: string; nickname: string; needsSetup?: boolean };
+  /** A kid who came by magic name: their world's art stands in for the city. */
+  world?: string;
+  /** A magic-name door (no grown-up here): the door ticket cookie says who; "Not you?" goes back to the sign-in card. */
+  solo?: { onBack: () => void };
+  /** The grown-ups' card: the kids' line opens the magic-name dialog. */
+  onMagicName?: () => void;
 }) {
   const router = useRouter();
   const { play } = useSound();
@@ -391,7 +407,7 @@ export function SignInScreen({
   const submitKid = async (secret: KidSecret, setup = false) => {
     if (!kid) return;
     setPending(true);
-    const { status, data } = await post("/api/auth/kid", { kidId: kid.id, secret, ...(setup && { setup: true }) });
+    const { status, data } = solo ? await post("/api/auth/kid", { door: true, secret }) : await post("/api/auth/kid", { kidId: kid.id, secret, ...(setup && { setup: true }) });
     setPending(false);
     if (data.ok) open(data.next ?? "/home");
     else if (status === 401) fail(WRONG_KID);
@@ -475,7 +491,7 @@ export function SignInScreen({
       style={{ background: "var(--twilight, #1E1C45)", color: "var(--ink)", fontFamily: "var(--font-text)" }}
     >
       <div onClick={onCityTap} className="lg-city-taps">
-        <LivingCity variant={variant} />
+        <LivingCity variant={variant} world={world} />
       </div>
       <main className="lg-stage" onClick={onCityTap}>
         <Door variant={variant} rattle={rattle} />
@@ -556,7 +572,16 @@ export function SignInScreen({
                 </button>
               </form>
               <div className="lg-meta">
-                <Link
+                {onMagicName ? (
+                  <button type="button" className="lg-magic" onClick={onMagicName} aria-haspopup="dialog">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/art/login/kix.webp" alt="" className="lg-magic-kix" />
+                    <span className="lg-magic-say">
+                      <b>Kids:</b> tell me your magic name, and I shall bring your magical door
+                    </span>
+                  </button>
+                ) : (
+                  <Link
                   href="/doors"
                   style={{ display: "inline-flex", alignItems: "center", gap: 10, minHeight: 44, boxSizing: "border-box", padding: "0 16px 0 12px", borderRadius: "var(--radius-pill)", background: "rgba(var(--lg-glow), 0.12)", boxShadow: "inset 0 0 0 1.5px rgba(var(--lg-glow), 0.5)", color: "var(--ink)", fontSize: 15, lineHeight: "20px", fontWeight: 800, textDecoration: "none" }}
                 >
@@ -568,6 +593,7 @@ export function SignInScreen({
                     <path fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
                   </svg>
                 </Link>
+                )}
                 <p style={{ margin: 0, display: "flex", gap: 10, fontSize: 14, lineHeight: "20px", fontWeight: 600, color: "var(--ink-muted)" }}>
                   <svg viewBox="0 0 24 24" aria-hidden="true" style={{ width: 18, height: 18, flex: "none", marginTop: 1 }}>
                     <rect x="4.5" y="10.5" width="15" height="10" rx="2.5" fill="none" stroke="currentColor" strokeWidth="2" />
@@ -638,9 +664,15 @@ export function SignInScreen({
                 <div className="lg-jmsg" id="lg-msg" aria-live="polite">
                   {msg && <Message text={msg} tone="junior" />}
                 </div>
-                <Link href="/doors" className="lg-link lg-jlink" style={{ display: "inline-flex", alignItems: "center", minHeight: 56, fontSize: 18, lineHeight: "24px" }}>
-                  Not you? Pick another door
-                </Link>
+                {solo ? (
+                  <button type="button" onClick={solo.onBack} className="lg-link lg-linkbtn lg-jlink" style={{ display: "inline-flex", alignItems: "center", minHeight: 56, fontSize: 18, lineHeight: "24px" }}>
+                    Not you? Tell me another magic name
+                  </button>
+                ) : (
+                  <Link href="/doors" className="lg-link lg-jlink" style={{ display: "inline-flex", alignItems: "center", minHeight: 56, fontSize: 18, lineHeight: "24px" }}>
+                    Not you? Pick another door
+                  </Link>
+                )}
               </div>
             </>
           )}
@@ -653,9 +685,15 @@ export function SignInScreen({
                 <h1 id="lg-title" className="lg-th1" style={{ margin: 0, fontFamily: "var(--font-display)", fontWeight: 700, letterSpacing: "-0.01em", color: "var(--ink)" }}>
                   {name ? `Hi ${name}` : "Hi there"}
                 </h1>
-                <Link href="/doors" className="lg-link" style={{ marginLeft: "auto", display: "inline-flex", alignItems: "center", minHeight: 44, fontSize: 15 }}>
-                  Not you?
-                </Link>
+                {solo ? (
+                  <button type="button" onClick={solo.onBack} className="lg-link lg-linkbtn" style={{ marginLeft: "auto", display: "inline-flex", alignItems: "center", minHeight: 44, fontSize: 15 }}>
+                    Not you?
+                  </button>
+                ) : (
+                  <Link href="/doors" className="lg-link" style={{ marginLeft: "auto", display: "inline-flex", alignItems: "center", minHeight: 44, fontSize: 15 }}>
+                    Not you?
+                  </Link>
+                )}
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                 <label htmlFor="lg-teen-pw" style={{ ...labelStyle, fontWeight: 700 }}>

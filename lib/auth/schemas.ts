@@ -30,6 +30,8 @@ export const pictureCodeSchema = z.array(z.enum(PICTURE_IDS)).length(PICTURE_COD
 export const passwordSchema = z.string().min(PASSWORD_MIN).max(PASSWORD_MAX);
 /** Nickname as typed: trimmed, 1–20 characters. Tip for the UI: a nickname, not a full name. */
 export const nicknameSchema = z.string().trim().min(1).max(NICKNAME_MAX);
+/** A kid's magic name: 3 to 24 lowercase letters, digits or hyphens, starting with a letter (unique across myKx). */
+export const usernameSchema = z.string().trim().toLowerCase().regex(/^[a-z][a-z0-9-]{2,23}$/, "3 to 24 letters, numbers or hyphens, starting with a letter");
 
 /** A new code or password (the kid changing theirs, or setting a picture code at the door). */
 export const secretSchema = z.discriminatedUnion("kind", [
@@ -78,6 +80,9 @@ export const signOutBody = z.object({ everywhere: z.boolean().optional() });
 export const resetBody = z.object({ email: z.string().trim().min(1).max(320) });
 /** `setup: true` sets the first code (only when none is set) and signs in. */
 export const kidSignInBody = z.object({ kidId: id, secret: secretAttemptSchema, setup: z.boolean().optional() });
+/** The sign-in page: a kid with a magic name, no grown-up on this device. The door ticket cookie says who. */
+export const kidDoorSignInBody = z.object({ door: z.literal(true), secret: secretAttemptSchema });
+export const doorLookupBody = z.object({ name: z.string().trim().min(1).max(40) });
 
 /** The 4-digit parent PIN: set once in Your family, asked on grown-up pages while a kid is signed in. */
 export const pinSchema = z.string().regex(/^\d{4}$/);
@@ -95,6 +100,8 @@ export const updateKidBody = z
     voiceEnabled: z.boolean().optional(),
     cameraEnabled: z.boolean().optional(), // the focus camera: on-device counts only (AGENTS.md rule 12)
     pack: z.enum(PACKS).optional(),
+    /** The kid's magic name; null clears it. */
+    username: usernameSchema.nullable().optional(),
   })
   .refine((b) => Object.values(b).some((v) => v !== undefined), "Nothing to change");
 export const removeKidBody = z.object({ confirm: z.string() });
@@ -144,6 +151,8 @@ export interface KidMe {
 export interface FamilyKid {
   id: string;
   nickname: string;
+  /** The magic name for the sign-in page; null until a grown-up sets one. */
+  username: string | null;
   level: Level;
   band: Band;
   pack: Pack;

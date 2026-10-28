@@ -1,6 +1,7 @@
 // One kid in "Your family". PATCH: reset the code (`secret: { kind: "pictures" }` clears it so the kid
 // chooses a new one at their door; a password sets a temporary one), daily limit, voice, focus camera, world.
 // DELETE: remove the kid and everything they made, with `{ confirm: <their nickname> }`.
+import { UsernameTakenError } from "@/lib/auth/store";
 import { currentParent, toFamilyKid, withAuth } from "@/lib/auth/context";
 import { pinLockedResponse } from "@/lib/auth/pin";
 import { nowIso } from "@/lib/auth/flows";
@@ -41,6 +42,10 @@ export async function PATCH(request: Request, { params }: Ctx) {
       patch.dailyLimitMin = body.dailyLimitMin;
       fields.push("daily_limit_min");
     }
+    if (body.username !== undefined) {
+      patch.username = body.username;
+      fields.push("username");
+    }
     if (body.secret) {
       const s = body.secret;
       const hash = s.kind === "password" ? await hashSecret(s) : s.code ? await hashSecret({ kind: "pictures", code: s.code }) : null;
@@ -48,7 +53,13 @@ export async function PATCH(request: Request, { params }: Ctx) {
       fields.push("secret");
     }
 
-    const updated = await store.update(parent.householdId, kid.id, patch);
+    let updated;
+    try {
+      updated = await store.update(parent.householdId, kid.id, patch);
+    } catch (err) {
+      if (err instanceof UsernameTakenError) return fail(409, "taken", { note: "That magic name is already taken. Try adding a word or a number." });
+      throw err;
+    }
     if (!updated) return fail(404, "not-found");
     await store.audit({
       actor: parent.profile.id,

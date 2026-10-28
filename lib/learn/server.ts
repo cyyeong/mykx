@@ -36,8 +36,8 @@ export async function learnContext(): Promise<LearnContext | null> {
   const jar = await readOnlyJar();
   const parent = await currentParent(store, jar);
   const kid = await currentKid(store, jar, parent);
-  if (!parent || !kid) return null;
-  return { store, householdId: parent.householdId, kidId: kid.id, nickname: kid.nickname };
+  if (!kid) return null;
+  return { store, householdId: kid.householdId, kidId: kid.id, nickname: kid.nickname };
 }
 
 export interface QuestData {

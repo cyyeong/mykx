@@ -21,6 +21,8 @@ create table profiles (
   role text not null check (role in ('parent', 'child')),
   is_admin boolean not null default false, -- skills admin (platform content team; the demo parent)
   nickname text not null, -- nicknames, never full names (hard rule 13)
+  -- A kid's magic name (founder, 29 Oct): unique across myKx, typed on the sign-in page to bring their door.
+  username text check (username is null or (role = 'child' and username ~ '^[a-z][a-z0-9-]{2,23}$')),
   band text check (band in ('junior', 'teen')),
   level text check (level in ('P3', 'P6', 'Sec 2')),
   pack text check (pack in ('dreamlight', 'anime-sky', 'toon-pop', 'idol-stage', 'terrarium')),
@@ -51,6 +53,7 @@ create table profiles (
   check (secret_hash is null or secret_kind is not null),
   check (role = 'parent' or not is_admin)
 );
+create unique index profiles_username_unique on profiles (username) where username is not null;
 create index profiles_household on profiles (household_id);
 -- One door per name in a family, so "Who's learning?" is never ambiguous.
 create unique index profiles_household_nickname on profiles (household_id, lower(nickname));

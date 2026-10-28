@@ -1,0 +1,59 @@
+/* Kids' magic name (MagicName.tsx; canvas board KidMagicName): Kix's dialog, then the door's flight over the city as
+   it turns into the kid's world. Transforms and opacity only, so it stays smooth. */
+.mn-back{position:fixed;inset:0;z-index:55;display:grid;place-items:center;padding:16px;background:rgba(14,11,46,.55);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);animation:mn-fade .2s ease-out both}
+.mn-bubble{position:relative;width:min(460px,100%);box-sizing:border-box;margin:0;padding:22px 22px 18px;border-radius:30px 30px 30px 10px;background:var(--surface-raised);color:var(--ink);box-shadow:0 0 0 3px rgb(var(--lg-glow,255,227,138)),0 24px 70px rgba(10,8,40,.55);display:flex;flex-direction:column;gap:12px;animation:mn-pop .34s var(--ease-bounce) both}
+.mn-who{display:flex;align-items:center;gap:12px;padding-right:40px}
+.mn-who img{width:60px;height:60px;flex:none;border-radius:50%;object-fit:cover;background:var(--surface);animation:mn-bob 2.4s ease-in-out infinite}
+.mn-who p{margin:0;font:700 20px/26px var(--font-display)}
+.mn-name{height:58px;box-sizing:border-box;border:0;border-radius:18px;padding:0 18px;background:var(--surface);color:var(--ink);font:700 22px var(--font-display);box-shadow:inset 0 0 0 3px var(--accent);outline:none}
+.mn-name:focus-visible{box-shadow:inset 0 0 0 3px var(--accent),0 0 0 4px var(--focus-ring)}
+.mn-go{display:flex;align-items:center;justify-content:center;gap:8px;min-height:56px;border:0;border-radius:var(--radius-pill);background:var(--accent);color:var(--on-accent);font:800 19px var(--font-text);cursor:pointer;box-shadow:0 10px 24px rgba(10,8,40,.25)}
+.mn-go:disabled{opacity:.55;cursor:default}
+.mn-go svg{width:18px;height:18px}
+.mn-go:focus-visible,.mn-close:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+.mn-note{margin:0;font:700 13px/18px var(--font-text);color:var(--ink-muted);text-align:center}
+.mn-note a{color:var(--accent);font-weight:800}
+.mn-close{position:absolute;right:12px;top:12px;display:grid;place-items:center;width:44px;height:44px;border:0;border-radius:50%;background:var(--surface);color:var(--ink);cursor:pointer}
+.mn-close svg{width:18px;height:18px}
+.mn-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* the summoning */
+.ds{position:fixed;inset:0;z-index:60;overflow:hidden;pointer-events:none;transition:opacity .55s ease}
+.ds[data-stage="lift"]{opacity:0}
+.ds-city,.ds-world{position:absolute;inset:0}
+.ds-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ds-city .ds-img{object-position:50% 70%}
+.ds-world{clip-path:circle(0% at var(--ds-x) var(--ds-y));animation:ds-reveal 1.15s cubic-bezier(.6,0,.2,1) .08s forwards}
+.ds-world .ds-img{transform:scale(1.12);animation:ds-settle 1.7s cubic-bezier(.2,.8,.2,1) forwards}
+.ds-life{position:absolute;inset:0}
+.ds-mote{position:absolute;bottom:-12px;width:7px;height:7px;border-radius:50%;box-shadow:0 0 12px 4px rgba(255,255,255,.55);opacity:0;animation:ds-rise linear infinite}
+.ds-piece{position:absolute;opacity:0;animation:ds-fall ease-in-out infinite}
+.ds-leaf{background:currentColor;border-radius:100% 0}
+.ds-confetti{background:currentColor;border-radius:2px}
+.ds-petal{background:currentColor;border-radius:80% 20% 80% 20%}
+.ds-star{background:currentColor;clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%)}
+.ds-bubble{border-radius:50%;box-shadow:inset 0 0 0 2px currentColor}
+.ds-door{position:absolute;display:flex;opacity:0;filter:drop-shadow(0 0 24px rgba(255,227,138,.85));will-change:transform,opacity}
+.ds-door img{position:relative;z-index:1;width:50%;height:100%;object-fit:fill}
+.ds-trail{position:absolute;left:62%;top:18%;width:60vw;height:6px;border-radius:6px;transform:rotate(-34deg);transform-origin:0 50%;background:linear-gradient(90deg,rgba(255,227,138,.95),rgba(255,227,138,0));transition:opacity .3s}
+.ds[data-stage="landed"] .ds-trail,.ds[data-stage="lift"] .ds-trail{opacity:0}
+.ds-burst{position:absolute;left:var(--ds-x);top:var(--ds-y);width:12px;height:12px;margin:-6px;border-radius:50%;opacity:0}
+.ds[data-stage="landed"] .ds-burst,.ds[data-stage="lift"] .ds-burst{animation:ds-burst .75s ease-out forwards}
+.ds-say{position:absolute;left:50%;bottom:28px;margin:0;padding:10px 18px;border-radius:var(--radius-pill);background:rgba(22,20,62,.82);color:#FFE38A;font:800 18px var(--font-text);white-space:nowrap;transform:translateX(-50%);animation:ds-pop .4s .3s var(--ease-bounce) both}
+@keyframes mn-fade{from{opacity:0}}
+@keyframes mn-pop{from{opacity:0;transform:translateY(14px) scale(.92)}}
+@keyframes mn-bob{50%{transform:translateY(-3px) rotate(-4deg)}}
+@keyframes ds-reveal{to{clip-path:circle(150% at var(--ds-x) var(--ds-y))}}
+@keyframes ds-settle{to{transform:scale(1)}}
+@keyframes ds-rise{0%{opacity:0;transform:translateY(0)}15%{opacity:1}100%{opacity:0;transform:translateY(-105vh)}}
+@keyframes ds-fall{0%{opacity:0;transform:translate(0,-12vh) rotate(var(--spin))}15%{opacity:.95}100%{opacity:0;transform:translate(-14vw,30vh) rotate(calc(var(--spin) + 400deg))}}
+@keyframes ds-burst{0%{opacity:.9;box-shadow:0 0 0 0 rgba(255,227,138,.9)}100%{opacity:0;box-shadow:0 0 0 60vmax rgba(255,227,138,0)}}
+@keyframes ds-pop{from{opacity:0;transform:translate(-50%,10px)}}
+@media (prefers-reduced-motion: reduce){
+  .mn-back,.mn-bubble,.mn-who img{animation:none}
+  .ds-world{clip-path:none;animation:none}
+  .ds-world .ds-img{transform:none;animation:none}
+  .ds-life,.ds-trail,.ds-burst{display:none}
+  .ds-door{opacity:1}
+}
+.ds[data-calm="yes"] .ds-door{opacity:1}

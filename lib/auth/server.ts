@@ -89,5 +89,6 @@ export async function isDemoFamily(): Promise<boolean> {
   const store = getStore();
   if (!store) return false;
   const parent = await currentParent(store, jar);
-  return parent?.householdId === DEMO_HOUSEHOLD_ID;
+  const householdId = parent?.householdId ?? (await currentKid(store, jar, null))?.householdId;
+  return householdId === DEMO_HOUSEHOLD_ID;
 }

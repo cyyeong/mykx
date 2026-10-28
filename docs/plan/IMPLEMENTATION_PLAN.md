@@ -209,7 +209,7 @@ Script target: about 360 words of voice-over (130 a minute), finished by Day 5. 
 | Time | Beat | Screen | Shows |
 |---|---|---|---|
 | 0:00–0:10 | The problem, in the founder's voice: "Most parents here work through their kids' whole afternoon", over the living city at dusk, with a caption: 56.6% of couples both work; S$1.8 billion a year on tuition (sources in the README) | Sign-in city | a problem known firsthand |
-| 0:10–0:30 | Jordan taps the picture code, the door swings open and the time tunnel carries us in; picks Terrarium and critters; Kix transforms; the app re-skins; Pip is adopted | Sign-in, Studio | Muse Image + SAM 3.1, live |
+| 0:10–0:30 | Jordan tells Kix the magic name, the storybook door flies in as the terrarium grows over the city, Jordan taps the picture code, the door swings open and the time tunnel carries us in; picks Terrarium and critters; Kix transforms; the app re-skins; Pip is adopted | Sign-in, Studio | Muse Image + SAM 3.1, live |
 | 0:30–0:40 | Home: today's quest, Pip, the squadron; a 2-second cut to the same Home on a phone and an open foldable | Home | personalisation; every device |
 | 0:40–1:15 | Quest map → a "P3 Science skill loaded" chip → Kix reads the question aloud → the child asks "why?" by voice → streamed hint → correct → Kix cheers → card flies; "57, limited evidence" | Quest map, Question | Kix Tutor agent; Voice Transcribe; honest mastery |
 | 1:15–1:30 | Treasure, a Sky Squadron card flip, Pip grows | Treasure, Critter Lab | earned, never random |

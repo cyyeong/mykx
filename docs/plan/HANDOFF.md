@@ -100,6 +100,8 @@ Order: designs (canvas page "Admin and sign-in, 29 Oct") → B → C → A → F
 - **F. Agents you can edit.** Under the hood: click an agent to see its instructions; edit and publish versions; diff, restore and delete; the built-in default can't be deleted. Safety guardrails stay fixed in code and are shown read-only.
 - Then: ARCHITECTURE, SKILL_ENGINE, ACCOUNTS, PROGRESS, the video beat sheet.
 
+- **Done 29 Oct:** B (canvas tunnel, e4a1ba7), C (kids sign out and idle, e4a1ba7), A (magic names). **The founder runs one SQL for A:** `supabase/migrations/20261030_kid_username.sql` (adds `profiles.username` and sets the demo kids to `jordan`, `abby` and `leonard`). Until then the magic-name door answers "I couldn't find that magic name" and everything else works.
+
 ## Things only the founder or Claude Code do
 
 - Publish to the Claude Design canvas (Claude Code); copy boards back into `docs/design/boards/` after.

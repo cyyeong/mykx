@@ -2,7 +2,7 @@
 //   supabase: NEXT_PUBLIC_SUPABASE_URL + NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY + SUPABASE_SECRET_KEY set.
 //   demo:     none of them set, and not a production build (in-memory synthetic family).
 //   off:      anything else; routes answer 503 { ok: false, reason: "not-configured" }.
-import { KID_COOKIE, verifyKidSession } from "./kid-session.ts";
+import { KID_COOKIE, secretVersion, verifyKidSession } from "./kid-session.ts";
 import { lockRemainingSec } from "./lockout.ts";
 import { fail, RequestCookieJar, type CookieJar } from "./http.ts";
 import type { AccountStatus, Door, FamilyKid, KidMe } from "./schemas.ts";
@@ -61,9 +61,15 @@ export async function currentParent(store: AuthStore, jar: CookieJar, now = Date
 /** The kid signed in on this device: valid cookie, bound to this parent, in the household, enabled. */
 export async function currentKid(store: AuthStore, jar: CookieJar, parent: Parent | null, now = Date.now()): Promise<Profile | null> {
   const secret = sessionSecret();
-  if (!parent || !secret) return null;
-  const checked = verifyKidSession(jar.get(KID_COOKIE), { parentUserId: parent.user.userId, secret, now });
-  if (!checked.ok || checked.session.householdId !== parent.householdId) return null;
+  if (!secret) return null;
+  const checked = verifyKidSession(jar.get(KID_COOKIE), { parentUserId: parent?.user.userId ?? null, secret, now });
+  if (!checked.ok) return null;
+  if (checked.session.solo) {
+    // A magic-name sign-in: valid while the kid's code or password is the one they signed in with.
+    const solo = await store.kid(checked.session.householdId, checked.session.kidId);
+    return solo && !solo.disabledAt && secretVersion(secret, solo.secretHash) === checked.session.solo.sv ? solo : null;
+  }
+  if (!parent || checked.session.householdId !== parent.householdId) return null;
   const kid = await store.kid(parent.householdId, checked.session.kidId);
   return kid && !kid.disabledAt ? kid : null;
 }
@@ -111,6 +117,7 @@ export function toFamilyKid(p: Profile, now = Date.now()): FamilyKid {
   return {
     id: p.id,
     nickname: p.nickname,
+    username: p.username,
     level: p.level!,
     band: p.band!,
     pack: p.pack ?? "dreamlight",

@@ -273,3 +273,12 @@
 /* Tunnel without a dark dip: the door's glow lingers while a bright-centred tunnel and a half-size vortex grow in
    behind it (a near-black tunnel start dropped the screen from bright to dark and back, which read as a flicker). */
 [data-state="tunnel"] .lg-flood{opacity:0;transform:scale(1.4);transition:opacity .9s ease .25s,transform .9s ease .25s}
+/* The kids' line on the grown-ups' card (founder, 29 Oct): a little dialogue with Kix that opens the magic-name door. */
+.lg-magic{display:flex;align-items:center;gap:12px;width:100%;min-height:56px;box-sizing:border-box;padding:8px 16px 8px 8px;border:0;border-radius:20px;background:linear-gradient(120deg,#2B2A5C,#3D2F7A);color:#fff;text-align:left;cursor:pointer;box-shadow:0 0 0 2px rgba(var(--lg-glow),.65),0 0 22px rgba(var(--lg-glow),.3);animation:lg-magic-glow 3.2s ease-in-out infinite}
+.lg-magic:focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px}
+.lg-magic-kix{width:44px;height:44px;flex:none;border-radius:50%;object-fit:cover;background:#B9A7F5;animation:lg-magic-bob 2.4s ease-in-out infinite}
+.lg-magic-say{font:700 15px/20px var(--font-text)}
+.lg-magic-say b{color:rgb(var(--lg-glow));font-weight:800}
+@keyframes lg-magic-glow{50%{box-shadow:0 0 0 2px rgba(var(--lg-glow),.95),0 0 30px rgba(var(--lg-glow),.5)}}
+@keyframes lg-magic-bob{50%{transform:translateY(-3px) rotate(-4deg)}}
+@media (prefers-reduced-motion: reduce){.lg-magic,.lg-magic-kix{animation:none}}

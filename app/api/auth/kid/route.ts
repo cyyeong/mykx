@@ -2,13 +2,15 @@
 // (teen), checked against the scrypt hash with the 5-tries lockout. `setup: true` chooses the first
 // picture code with the kid (only while none is set). On success sets the mykx_kid cookie (12 h). DELETE ends
 // the kid's session only.
+import { z } from "zod";
 import { currentParent, withAuth } from "@/lib/auth/context";
 import { checkKidSecret, nowIso } from "@/lib/auth/flows";
 import { clientIp, fail, ok, readBody } from "@/lib/auth/http";
 import { KID_COOKIE, kidCookieOptions, signKidSession } from "@/lib/auth/kid-session";
 import { AFTER_SUCCESS, takeToken } from "@/lib/auth/lockout";
 import { KIDS_HERE_COOKIE, kidsHereCookieOptions, signKidsHere } from "@/lib/auth/pin";
-import { kidSignInBody, secretSchema } from "@/lib/auth/schemas";
+import { kidDoorSignInBody, kidSignInBody, secretSchema } from "@/lib/auth/schemas";
+import { DOOR_COOKIE, verifyDoorTicket } from "@/lib/auth/door-ticket";
 import { hashSecret } from "@/lib/auth/secrets";
 import { sessionSecret } from "@/lib/auth/tokens";
 
@@ -18,8 +20,24 @@ export async function POST(request: Request) {
     if (!secret) return fail(503, "not-configured");
     const limited = takeToken("kid-signin", clientIp(request), 30);
     if (!limited.ok) return fail(429, "slow-down", { retryAfterSec: limited.retryAfterSec });
-    const body = await readBody(request, kidSignInBody);
+    const body = await readBody(request, z.union([kidSignInBody, kidDoorSignInBody]));
     if (!body) return fail(400, "invalid");
+
+    // The magic-name door (sign-in page, no grown-up here): the door ticket says who; the session is solo.
+    if ("door" in body) {
+      const ticket = verifyDoorTicket(jar.get(DOOR_COOKIE), secret);
+      if (!ticket) return fail(403, "not-found", { note: "Tell me your magic name again." });
+      const kid = await store.kid(ticket.householdId, ticket.kidId);
+      if (!kid) return fail(403, "not-found");
+      if (kid.disabledAt) return fail(403, "disabled");
+      if (!kid.secretHash) return fail(409, "needs-setup");
+      const refused = await checkKidSecret(store, kid, body.secret);
+      if (refused) return refused;
+      await store.update(kid.householdId, kid.id, { lastSignInAt: nowIso() });
+      jar.delete(DOOR_COOKIE);
+      jar.set(KID_COOKIE, signKidSession({ kidId: kid.id, householdId: kid.householdId, soloSecretHash: kid.secretHash }, secret), kidCookieOptions());
+      return ok({ kid: { id: kid.id, nickname: kid.nickname, band: kid.band, pack: kid.pack }, next: "/home" });
+    }
 
     const parent = await currentParent(store, jar);
     if (!parent) return fail(403, "no-parent");

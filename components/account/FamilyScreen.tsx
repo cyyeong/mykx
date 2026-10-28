@@ -664,6 +664,7 @@ export function FamilyScreen() {
                           {k.level} · {worldName(k.pack)}
                         </span>
                       </span>
+                      <MagicNameRow kid={k} onSaved={refresh} />
                       <span style={{ display: "flex", alignItems: "flex-start", gap: 8, ...muted16 }}>
                         <Icon d={ICON.clock} style={{ marginTop: 2 }} />
                         <span>Last here: {whenLabel(k.lastSignInAt) ?? "not yet"}</span>
@@ -1277,5 +1278,79 @@ export function FamilyScreen() {
         )}
       </div>
     </div>
+  );
+}
+
+/** The kid's magic name (founder, 29 Oct): what they tell Kix on the sign-in page to bring their door. Unique. */
+function MagicNameRow({ kid, onSaved }: { kid: FamilyKid; onSaved: () => Promise<unknown> }) {
+  const [editing, setEditing] = useState(false);
+  const [value, setValue] = useState(kid.username ?? "");
+  const [note, setNote] = useState("");
+  const [busy, setBusy] = useState(false);
+  const save = async () => {
+    const name = value.trim().toLowerCase();
+    if (!/^[a-z][a-z0-9-]{2,23}$/.test(name)) return setNote("3 to 24 letters, numbers or hyphens, starting with a letter.");
+    setBusy(true);
+    const r = await api("PATCH", `/api/family/kids/${kid.id}`, { username: name });
+    setBusy(false);
+    if (r.ok) {
+      setEditing(false);
+      setNote("");
+      await onSaved();
+    } else setNote(r.status === 409 ? "That magic name is taken. Try adding a word or a number." : "That didn't save. Try again in a moment.");
+  };
+  if (!editing)
+    return (
+      <span className="fa-magic" style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8, fontSize: 16, lineHeight: "22px", fontWeight: 600 }}>
+        <svg viewBox="0 0 24 24" aria-hidden="true" style={{ width: 18, height: 18, flex: "none", color: "var(--accent)" }}>
+          <path fill="currentColor" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z" />
+        </svg>
+        <span>
+          Magic name: {kid.username ? <strong style={{ color: "var(--ink)" }}>{kid.username}</strong> : <span style={{ color: "var(--ink-muted)" }}>not set yet</span>}
+        </span>
+        <button type="button" className="fa-click mk-btn mk-btn--secondary" style={{ minHeight: 36, padding: "0 12px", fontSize: 14 }} onClick={() => setEditing(true)}>
+          {kid.username ? "Change" : "Set one"}
+        </button>
+      </span>
+    );
+  return (
+    <span style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+      <label htmlFor={`fa-magic-${kid.id}`} style={{ fontSize: 14, lineHeight: "20px", fontWeight: 700 }}>
+        {kid.nickname}&apos;s magic name, for the sign-in page
+      </label>
+      <span style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+        <input
+          id={`fa-magic-${kid.id}`}
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value);
+            setNote("");
+          }}
+          maxLength={24}
+          autoCapitalize="none"
+          spellCheck={false}
+          placeholder="e.g. starry-jordan"
+          style={{ flex: "1 1 180px", minHeight: 44, padding: "0 12px", borderRadius: "var(--radius-sm)", border: 0, boxShadow: "inset 0 0 0 2px var(--line)", background: "var(--surface)", color: "var(--ink)", font: "600 16px var(--font-text)" }}
+        />
+        <button type="button" className="fa-click mk-btn mk-btn--primary" style={{ minHeight: 44 }} onClick={() => void save()} disabled={busy}>
+          {busy ? "Saving…" : "Save"}
+        </button>
+        <button
+          type="button"
+          className="fa-click mk-btn mk-btn--secondary"
+          style={{ minHeight: 44 }}
+          onClick={() => {
+            setEditing(false);
+            setValue(kid.username ?? "");
+            setNote("");
+          }}
+        >
+          Cancel
+        </button>
+      </span>
+      <span aria-live="polite" style={{ fontSize: 14, lineHeight: "20px", fontWeight: 600, color: note ? "var(--warn)" : "var(--ink-muted)" }}>
+        {note || "Unique across myKx. Keep it fun, and leave out their full name."}
+      </span>
+    </span>
   );
 }

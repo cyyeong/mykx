@@ -39,12 +39,12 @@ import type { PageSlug } from "../notebook/notebook.ts";
 import type { GameProgress } from "../games/progress.ts";
 import type { CookieJar } from "./http.ts";
 import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt, StoredBeat, StoredGuardianSettings, StoredKixMessage, Creation, NotebookPage, NotebookRevision, StoredSessionRead, StoredRun, StoredSkillEvent } from "./store.ts";
-import { NicknameTakenError } from "./store.ts";
+import { NicknameTakenError, UsernameTakenError } from "./store.ts";
 import { sessionSecret, signToken, verifyToken } from "./tokens.ts";
 
 export const DEMO_PARENT_COOKIE = "mykx_demo_parent";
 /** Bump when the store's shape changes: a running dev server then rebuilds it on the next request (see demoStore). */
-const DEMO_STORE_SHAPE = 11; // 9: game progress; 10: paper scout; 11: Guardian
+const DEMO_STORE_SHAPE = 12; // 9: game progress; 10: paper scout; 11: Guardian; 12: magic names
 const DEMO_TTL_SEC = 7 * 24 * 60 * 60;
 const LABEL = "demo-parent";
 
@@ -66,6 +66,7 @@ function profile(p: Partial<Profile> & Pick<Profile, "id" | "householdId" | "rol
   return {
     userId: null,
     isAdmin: false,
+    username: null,
     band: null,
     level: null,
     pack: null,
@@ -173,6 +174,7 @@ export class DemoStore implements AuthStore {
           householdId: DEMO_HOUSEHOLD_ID,
           role: "child",
           nickname: k.nickname,
+          username: k.username,
           band: k.band,
           level: k.level,
           pack: k.pack,
@@ -190,6 +192,7 @@ export class DemoStore implements AuthStore {
         householdId: OTHER_HOUSEHOLD_ID,
         role: "child",
         nickname: "Kai",
+        username: "kai",
         band: "junior",
         level: "P3",
         pack: "toon-pop",
@@ -274,6 +277,17 @@ export class DemoStore implements AuthStore {
     return p && p.householdId === householdId && p.role === "child" ? p : null;
   }
 
+  async kidByUsername(username: string) {
+    const lower = username.trim().toLowerCase();
+    for (const p of this.profiles.values()) if (p.role === "child" && p.username === lower) return p;
+    return null;
+  }
+
+  private checkUsername(username: string | null, exceptId?: string) {
+    if (!username) return;
+    for (const p of this.profiles.values()) if (p.id !== exceptId && p.username === username) throw new UsernameTakenError();
+  }
+
   private checkNickname(householdId: string, nickname: string, exceptId?: string) {
     const lower = nickname.toLowerCase();
     for (const p of this.profiles.values()) {
@@ -283,6 +297,7 @@ export class DemoStore implements AuthStore {
 
   private apply(p: Profile, patch: ProfilePatch): Profile {
     if (patch.nickname !== undefined) this.checkNickname(p.householdId, patch.nickname, p.id);
+    if (patch.username !== undefined) this.checkUsername(patch.username, p.id);
     const defined = Object.fromEntries(Object.entries(patch).filter(([, v]) => v !== undefined));
     const next = { ...p, ...defined };
     this.profiles.set(p.id, next);

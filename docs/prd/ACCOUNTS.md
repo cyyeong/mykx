@@ -10,7 +10,9 @@
 | **Admin** (platform content team) | the same form; admin is a flag on the account | the skills catalogue |
 | **Kid** | on a family device a parent has signed in on: **"Who's learning?"** shows a door per child. **Junior:** a 4-picture code. **Teen:** a password. | their Home, in their world |
 
-Kids never give an email. A kid signing in on their own device (family code + nickname + secret) is on the roadmap.
+| **Kid, anywhere** (29 Oct) | the sign-in page: "Kids: tell me your magic name, and I shall bring your magical door". The kid types their **magic name** (unique across myKx, set by a parent in Your family); their own door flies in while their world replaces the city, then asks for the picture code or password. | their Home, in their world |
+
+Kids never give an email. The magic-name door needs no grown-up on the device: the lookup (`/api/auth/kid/door`, 10 a minute per address) only says how to draw the door and sets a ten-minute door ticket; the sign-in then opens a **solo kid session**, tied to the kid's current secret instead of a grown-up's session, so a parent resetting the code ends it (`lib/auth/kid-session.ts`). The usual lockout applies.
 
 ## 2. The moment (design)
 
@@ -29,12 +31,15 @@ Kids never give an email. A kid signing in on their own device (family code + ni
 ## 4. Rules
 
 1. Kids' codes and passwords are hashed on the server (scrypt), checked with rate limits, and never shown again. A parent can reset them.
-2. A kid's session is a short-lived, signed, http-only cookie tied to the parent's session on that device (12 h, or until the parent signs out).
+2. A kid's session is a short-lived, signed, http-only cookie tied to the parent's session on that device (12 h, or until the parent signs out), or a solo session from the magic-name door, tied to the kid's current secret (12 h, or until the code or password is reset).
    **Sign out and idle (29 Oct):** a kid can sign out from the rail (from 600 px), the avatar menu or Me; after 14 minutes with no taps, keys or scrolls a "Still there?" card counts down the last minute, and at 15 minutes the kid is signed out (`components/nav/KidIdle.tsx`). Signing out ends the kid's session only: back to Kids' doors when a grown-up is signed in on the device, else to the sign-in page.
 3. Nicknames, never full names, and no email for kids.
 4. All admin actions are server routes that check the admin flag, write an `audit_log` row, and use the service role; RLS still scopes everything else by household.
 5. Sign-in pages say what's stored and link the privacy note.
 
 ## 5. Data (adds to `supabase/schema.sql`)
+
+- `profiles.username` (29 Oct, migration `20261030_kid_username.sql`): the kid's magic name, lowercase letters, digits and hyphens, 3 to 24 characters, unique across myKx.
+
 
 `profiles`: `nickname`, `secret_kind` (`pictures` | `password`), `secret_hash`, `failed_attempts`, `locked_until`, `disabled_at`. New table `audit_log` (actor, action, target, created_at).

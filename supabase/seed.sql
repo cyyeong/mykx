@@ -16,6 +16,9 @@ insert into profiles (id, household_id, role, is_admin, nickname, band, level, p
   ('00000000-0000-4000-8000-000000000013', '00000000-0000-4000-8000-000000000001', 'child', false, 'Leonard', 'teen', 'Sec 2', 'anime-sky', '{"Space","Drawing"}', true, false, 60, true,
     'password', 'scrypt$16384$8$1$ad2uDKiCeE4ILgvIFn5hfg$mkI3K-AHDmgmu8RUxnCbPjzkpdUU1zoxvGAf38QOLDE', now(), 'set');
 
+-- Magic names for the sign-in page (founder, 29 Oct).
+update profiles set username = lower(nickname) where household_id = '00000000-0000-4000-8000-000000000001' and role = 'child';
+
 -- A sample "possibly losing focus" note for Jordan (synthetic; Your family labels it "Sample"), dated yesterday at
 -- 4:12 pm Singapore time, so the grown-up's Focus card has something to show. Same id and words as
 -- ARI_SAMPLE_FOCUS_NOTE in lib/auth/demo-family.ts. Jordan's camera stays off, as for every kid.
