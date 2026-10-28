@@ -1151,6 +1151,17 @@ export function FamilyScreen() {
             )}
           </section>
 
+          {/* Guardian: where they are and the home cameras (docs/prd/GUARDIAN.md) */}
+          <section aria-labelledby="fa-guardian-h" style={{ ...card, gap: 6 }}>
+            <h2 id="fa-guardian-h" style={{ margin: 0, font: "800 20px/26px var(--font-display)" }}>
+              Location and home cameras
+            </h2>
+            <p style={{ margin: 0, font: "500 15px/22px var(--font-text)", color: "var(--ink-muted)" }}>See where the kids are on a map, and read your home cameras as words. Pick how often, set your places and camera hours, and pair a computer.</p>
+            <Link className="mk-btn mk-btn--secondary" href="/family/guardian" style={{ alignSelf: "flex-start", marginTop: 6 }}>
+              Open
+            </Link>
+          </section>
+
           {/* The parent PIN: inside the page's theme, after Add a kid */}
           <PinSetupCard />
 

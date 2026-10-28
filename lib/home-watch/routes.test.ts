@@ -7,7 +7,9 @@ import * as devices from "@/app/api/home/devices/route";
 import * as frames from "@/app/api/home/frames/route";
 import * as pair from "@/app/api/home/pair/route";
 import * as prefs from "@/app/api/home/prefs/route";
+import * as brief from "@/app/api/guardian/brief/route";
 import * as location from "@/app/api/location/route";
+import * as mine from "@/app/api/location/mine/route";
 import * as pause from "@/app/api/location/pause/route";
 import * as places from "@/app/api/location/places/route";
 import * as settings from "@/app/api/location/settings/route";
@@ -153,4 +155,40 @@ describe("where they are", () => {
     const sent = await device.call(location.POST, "/api/location", { body: { kidId: MEI_ID, points: [{ at: new Date().toISOString(), lat: 1.39, lng: 103.9, accuracyM: 10 }] } });
     expect(sent.body).toMatchObject({ stored: 0, pausedUntil: paused.body.pausedUntil });
   });
+
+  it("shows a kid only their own state, refuses a junior's pause, and lets a teen pause and resume", async () => {
+    await pairSimulator();
+    await parent.call(settings.PATCH, "/api/location/settings", { method: "PATCH", body: { kidId: MEI_ID, enabled: true } });
+    await parent.call(settings.PATCH, "/api/location/settings", { method: "PATCH", body: { kidId: ARI_ID, enabled: true } });
+    await parent.call(cameras.PUT, "/api/home/cameras", { method: "PUT", body: { cameras: [{ key: "study", room: "Study" }] } }); // the parent's cookie isn't a device: refused
+    await device.call(cameras.PUT, "/api/home/cameras", { method: "PUT", body: { cameras: [{ key: "study", room: "Study" }] } });
+    await parent.call(prefs.PATCH, "/api/home/prefs", { method: "PATCH", body: { camDays: [1, 2, 3, 4, 5, 6, 7], camFrom: "00:00", camTo: "23:59" } });
+
+    await parent.call(kidRoute.POST, "/api/auth/kid", { body: { kidId: ARI_ID, secret: { kind: "pictures", code: ["idle", "cheer", "pilot", "dreamlight"] } } });
+    const junior = await parent.call(mine.GET, "/api/location/mine");
+    expect(junior.body).toMatchObject({ nickname: "Ari", band: "junior", sharing: { enabled: true, paused: false, canPause: false }, cameras: { on: true, rooms: ["Study"] } });
+    expect(JSON.stringify(junior.body)).not.toMatch(/lat|lng|reading|activity/);
+    expect((await parent.call(pause.POST, "/api/location/pause", { body: { minutes: 30 } })).status).toBe(403);
+
+    await parent.call(kidRoute.POST, "/api/auth/kid", { body: { kidId: MEI_ID, secret: { kind: "password", password: "frogs123" } } });
+    expect((await parent.call(mine.GET, "/api/location/mine")).body.sharing).toMatchObject({ canPause: true, paused: false });
+    await parent.call(pause.POST, "/api/location/pause", { body: { minutes: 30 } });
+    expect((await parent.call(mine.GET, "/api/location/mine")).body.sharing).toMatchObject({ paused: true, on: true });
+    expect((await parent.call(pause.DELETE, "/api/location/pause", { method: "DELETE" })).body.pausedUntil).toBeNull();
+    expect((await parent.call(mine.GET, "/api/location/mine")).body.sharing.paused).toBe(false);
+  });
+
+  it("writes the Right now brief from facts with the rules' own words when Muse isn't there, and says nothing when there's nothing", async () => {
+    expect((await parent.call(brief.GET, "/api/guardian/brief")).body.brief).toBeNull();
+    await pairSimulator();
+    await parent.call(settings.PATCH, "/api/location/settings", { method: "PATCH", body: { kidId: ARI_ID, enabled: true } });
+    await parent.call(places.POST, "/api/location/places", { body: { name: "School", kind: "school", lat: 1.3966, lng: 103.8865, radiusM: 200 } });
+    await device.call(location.POST, "/api/location", { body: { kidId: ARI_ID, points: [{ at: new Date(Date.now() - 60_000).toISOString(), lat: 1.3966, lng: 103.8865, accuracyM: 8, speed: 0 }] } });
+    const r = await parent.call(brief.GET, "/api/guardian/brief");
+    expect(r.body.brief).toMatchObject({ source: "fallback", cached: false });
+    expect(r.body.brief.text).toContain("Ari is at School");
+    expect(r.body.brief.text).not.toMatch(/\d\.\d{3}/);
+    expect((await parent.call(brief.GET, "/api/guardian/brief")).body.brief.cached).toBe(true);
+  });
 });
+

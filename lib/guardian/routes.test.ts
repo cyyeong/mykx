@@ -45,7 +45,10 @@ beforeEach(() => {
   store = resetDemoStore();
   b = new Browser();
 });
-afterEach(() => vi.unstubAllEnvs());
+afterEach(() => {
+  vi.useRealTimers();
+  vi.unstubAllEnvs();
+});
 
 const asAri = async () => {
   await b.call(parentRoute.POST, "/api/auth/parent", { email: "parent@demo.mykx", password: "x" });
@@ -54,6 +57,9 @@ const asAri = async () => {
 
 describe("guardian routes", () => {
   it("a heartbeat needs the kid, is stored once per 30 s slot, and answers with Kix's next step", async () => {
+    // An afternoon in Singapore: after 20:30 a junior's quiet hours begin and Kix says "rest", so the clock is pinned.
+    vi.useFakeTimers({ toFake: ["Date"] });
+    vi.setSystemTime(new Date("2026-10-30T07:00:00Z"));
     expect((await b.call(beat.POST, "/api/guardian/beat", { kind: "learn", idle: false })).status).toBe(401);
     await asAri();
     const r = await b.call(beat.POST, "/api/guardian/beat", { kind: "learn", idle: false });

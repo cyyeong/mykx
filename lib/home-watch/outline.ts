@@ -3,9 +3,10 @@
 // or named. If SAM fails, the frame is kept as it was.
 import sharp from "sharp";
 import { samSegment } from "../meta/sam.ts";
-import type { SeenPerson } from "./home-watch.ts";
+import { PACK_COLOUR, type SeenPerson } from "./home-watch.ts";
 
-export const PACK_COLOUR: Record<string, string> = { dreamlight: "#9B87F5", "anime-sky": "#1F66C1", "toon-pop": "#6A47F0", "idol-stage": "#FF3DCB", terrarium: "#2C7A47" };
+export { PACK_COLOUR };
+
 const UNKNOWN = "#FFB020";
 
 const rgb = (hex: string) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));

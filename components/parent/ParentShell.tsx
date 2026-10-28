@@ -1,6 +1,6 @@
 "use client";
 
-// The parent dashboard shell (USER_STORIES §8.4 fix 6): Today, Messages,
+// The parent dashboard shell (USER_STORIES §8.4 fix 6): Today, Where, Home, Messages,
 // Notebook and Family under one bar (bottom on phones, rail from 600 px),
 // a Kids' doors button to hand the device over, and an account menu with
 // sign out here, sign out everywhere, and the admin entry for admins.
@@ -10,18 +10,22 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { api } from "@/components/account/api";
+import { HomeNowTab } from "@/components/home-watch/HomeNowTab";
+import { WhereTab } from "@/components/location/WhereTab";
 import { ParentMessages } from "./ParentMessages";
 import { ParentNotebook } from "./ParentNotebook";
 import { ParentToday } from "./ParentToday";
 import "./parent.css";
 
-type Tab = "today" | "messages" | "notebook" | "family";
+type Tab = "today" | "where" | "home" | "messages" | "notebook" | "family";
 
 type Kid = { id: string; nickname: string; level: string | null; band: string | null };
 type KidsReply = { household?: { name?: string }; kids?: Kid[] };
 
 const TABS: { id: Tab; label: string }[] = [
   { id: "today", label: "Today" },
+  { id: "where", label: "Where" },
+  { id: "home", label: "Home" },
   { id: "messages", label: "Messages" },
   { id: "notebook", label: "Notebook" },
   { id: "family", label: "Family" },
@@ -134,6 +138,14 @@ export function ParentShell({ name, isAdmin }: { name: string | null; isAdmin: b
             ) : (
               <ParentToday />
             )}
+          </section>
+        ) : tab === "where" ? (
+          <section aria-label="Where">
+            <WhereTab onTab={setTab} />
+          </section>
+        ) : tab === "home" ? (
+          <section aria-label="Home">
+            <HomeNowTab onTab={setTab} />
           </section>
         ) : tab === "messages" ? (
           <section aria-label="Messages">

@@ -4,6 +4,7 @@
 "use client";
 
 import { useState, type CSSProperties } from "react";
+import { GuardianChips } from "@/components/guardian/GuardianChips";
 import { StudyRoom } from "@/components/scene/rooms/StudyRoom";
 import { getPack, wordmarkFor, type PackId } from "@/components/theme/packs";
 import { Art } from "@/components/ui/Art";
@@ -25,6 +26,8 @@ export function StudyDeckScreen({ kid }: { kid: { nickname: string; level: strin
             <img src={wordmarkFor(pack)} alt="myKx" style={{ height: "22px", width: "auto" }} />
             <span style={{ marginLeft: "auto", fontSize: "14px", lineHeight: "20px", fontWeight: 600, color: "var(--ink-muted)" }}>{`${kid.nickname} · ${kid.level} · ${pack.name}`}</span>
           </div>
+          {/* Rule 15: while a grown-up has location sharing or the home cameras on, the teen sees it here. */}
+          <GuardianChips className="sd-span" />
           <div className="sd-span" style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
             <h1 className="sd-title" style={{ margin: 0, fontFamily: "var(--font-display)", fontWeight: 800 }}>Forces, week 3</h1>
             <p style={{ margin: 0, fontSize: "16px", lineHeight: "24px", color: "var(--ink-muted)" }}>Physics test in 18 days. Scope from the school notice, added 24 Oct.</p>

@@ -4,6 +4,7 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { KixSticker } from "@/components/family/KixSticker";
+import { GuardianChips } from "@/components/guardian/GuardianChips";
 import { KidAvatarMenu } from "@/components/nav/KidAvatarMenu";
 import { Greeting } from "@/components/scene/Greeting";
 import { KixHero } from "@/components/scene/KixHero";
@@ -98,6 +99,8 @@ export function HomeScreen({ data = SAMPLE }: { data?: HomeData }) {
           <KidAvatarMenu nickname={nickname} />
         </header>
 
+        {/* Rule 15: while a grown-up has location sharing or the home cameras on, the child sees it here. */}
+        <GuardianChips />
         <div className="hm-main">
           <section className="hm-greet">
             <h1 className="hm-h1" style={{ margin: 0, fontFamily: "var(--font-display)", fontWeight: 800, textShadow: "0 2px 18px rgba(255, 255, 255, 0.9)" }}>

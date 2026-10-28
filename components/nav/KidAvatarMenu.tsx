@@ -45,6 +45,9 @@ export function KidAvatarMenu({ nickname }: { nickname: string }) {
           <Link role="menuitem" className="kam-item" href="/messages">
             Messages
           </Link>
+          <Link role="menuitem" className="kam-item" href="/me/sharing">
+            What my grown-ups see
+          </Link>
           <Link role="menuitem" className="kam-item" href="/studio">
             Change my Kix
           </Link>

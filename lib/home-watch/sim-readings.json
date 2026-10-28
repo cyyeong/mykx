@@ -9,10 +9,10 @@
       }
     ],
     "activity": "reading or homework",
-    "note": "Child reading book alone on living room sofa",
+    "note": "Child sitting on sofa reading a book",
     "hazard": "none",
     "concern": "none",
-    "reason": "Possibly Ari is quietly reading alone in the living room.",
+    "reason": "Ari is quietly reading alone on the sofa.",
     "confidence": 0.9
   },
   "d5c77b37516ae7c2e07dcb8a9cb8ca4ad92da593c87621f7bcbcf0cf4c22c6b7": {
@@ -31,11 +31,11 @@
       }
     ],
     "activity": "watching a screen",
-    "note": "Two children sitting on sofa watching TV",
+    "note": "Two kids sitting on couch watching TV together",
     "hazard": "none",
     "concern": "none",
-    "reason": "Ari and Zara are calmly watching TV together.",
-    "confidence": 0.92
+    "reason": "Both kids appear settled watching TV with no risk visible.",
+    "confidence": 0.9
   },
   "5dfe50828d2cad94fd3f997b9e37df20c26fe048803e108a26c9843d25a72e35": {
     "people": [
@@ -43,14 +43,14 @@
         "who": "child",
         "likely": "Ari",
         "confidence": 0.85,
-        "cue": "unclear"
+        "cue": "calm"
       }
     ],
     "activity": "eating or drinking",
-    "note": "Child eating bowl of food at small table",
+    "note": "Child eating bowl of food at table.",
     "hazard": "none",
     "concern": "none",
-    "reason": "Possibly Ari eating calmly in the kitchen.",
+    "reason": "Child possibly Ari eating calmly in kitchen, no hazard visible.",
     "confidence": 0.9
   },
   "1ebfeca31c6e17fb4116701809a18133af760952468c2ff60831cfe2cb253401": {
@@ -58,23 +58,23 @@
       {
         "who": "child",
         "likely": "Mei",
-        "confidence": 0.85,
+        "confidence": 0.9,
         "cue": "calm"
       }
     ],
     "activity": "reading or homework",
-    "note": "Girl in grey hoodie studying at desk",
+    "note": "child in grey hoodie studying at desk",
     "hazard": "none",
     "concern": "none",
-    "reason": "Possibly Mei studying alone quietly at the desk.",
-    "confidence": 0.9
+    "reason": "Mei appears focused on homework at the study desk.",
+    "confidence": 0.92
   },
   "a77239a16240f2541ef7642ea6b507285e5bda075a507770305ba95daca8e5b5": {
     "people": [
       {
         "who": "child",
         "likely": "Zara",
-        "confidence": 0.9,
+        "confidence": 0.88,
         "cue": "frowning"
       },
       {
@@ -88,8 +88,8 @@
     "note": "Two kids tugging remote in living room",
     "hazard": "none",
     "concern": "watch",
-    "reason": "Possibly Zara and Ari arguing over the remote, looks tense but may be play.",
-    "confidence": 0.78
+    "reason": "Zara and Ari possibly arguing over remote, worth checking.",
+    "confidence": 0.82
   },
   "e5344cf5a46db00cd39009af08846547f7a8491c67f906f45a4e99fcb05ee685": {
     "people": [
@@ -104,8 +104,8 @@
     "note": "Child walking toward wide-open high-rise windows",
     "hazard": "child near an open window or ledge",
     "concern": "urgent",
-    "reason": "Possibly Ari walking toward fully open windows in high-rise living room.",
-    "confidence": 0.85
+    "reason": "Possibly Ari walking toward wide-open windows with fall risk.",
+    "confidence": 0.9
   },
   "b570df556884e317c8fc3b3b35e8ea80b8f27e2daac0645c7f97fa5d051281b9": {
     "people": [
@@ -117,19 +117,19 @@
       }
     ],
     "activity": "moving around",
-    "note": "Child with backpack bending to adjust shoes",
+    "note": "Kid with backpack bending over shoes by open gate",
     "hazard": "none",
     "concern": "none",
-    "reason": "Possibly Ari putting on shoes by open gate.",
+    "reason": "Possibly Ari getting ready by the open entrance gate.",
     "confidence": 0.85
   },
   "fe058f3e9aa50b96554af4aa9821e4f6d1d8339ae5e8283a5051a81ecbef9ca3": {
     "people": [],
     "activity": "nobody here",
-    "note": "Empty clean kitchen with table and stools",
+    "note": "Empty kitchen with cabinets table and window",
     "hazard": "none",
     "concern": "none",
-    "reason": "Kitchen is empty with no visible hazards.",
+    "reason": "Kitchen is empty with no visible issues.",
     "confidence": 0.98
   }
 }

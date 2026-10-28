@@ -16,9 +16,9 @@ const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const key = process.env.SUPABASE_SECRET_KEY;
 if (!url || !key) throw new Error("NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SECRET_KEY are needed (.env.local).");
 const db = createClient(url, key, { auth: { persistSession: false } });
-const must = <T>(r: { data: T; error: { message: string } | null }, what: string): T => {
+const must = <T>(r: { data: T | null; error: { message: string } | null }, what: string): NonNullable<T> => {
   if (r.error) throw new Error(`${what}: ${r.error.message}`);
-  return r.data;
+  return (r.data ?? []) as NonNullable<T>;
 };
 
 const profiles = must(await db.from("profiles").select("id, synthetic").eq("household_id", DEMO_HOUSEHOLD_ID), "profiles");

@@ -176,3 +176,14 @@ export function imageKind(b: Uint8Array): "jpeg" | "png" | "webp" | null {
   if (b[0] === 0x52 && b[1] === 0x49 && b[2] === 0x46 && b[3] === 0x46 && b[8] === 0x57 && b[9] === 0x45 && b[10] === 0x42 && b[11] === 0x50) return "webp";
   return null;
 }
+
+/** Each kid's ring colour on the map and floor plan: their pack's accent (design system §2). */
+export const PACK_COLOUR: Record<string, string> = { dreamlight: "#9B87F5", "anime-sky": "#1F66C1", "toon-pop": "#6A47F0", "idol-stage": "#FF3DCB", terrarium: "#2C7A47" };
+export const packColour = (pack: string | null | undefined) => PACK_COLOUR[pack ?? ""] ?? "#1F66C1";
+
+/** Dark or white text for a label on `hex`, whichever reads better (WCAG relative luminance). */
+export function readableOn(hex: string): string {
+  const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255).map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
+  const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  return lum > 0.3 ? "#1B2350" : "#FFFFFF";
+}

@@ -23,3 +23,17 @@ export async function POST(request: Request) {
     return ok({ pausedUntil: saved.pausedUntil });
   });
 }
+
+/** A teen ends their own pause early. Audited; the grown-up sees sharing is back on. */
+export async function DELETE(request: Request) {
+  return withAuth(request, async ({ store }) => {
+    const family = await requireFamily(request, "location-pause", 6);
+    if (family.refused) return family.refused;
+    const kid = family.kid;
+    if (!kid) return fail(401, "no-kid");
+    if (kid.band !== "teen") return fail(403, "not-allowed");
+    await store.whereabouts.saveSettings(family.householdId, kid.id, { pausedUntil: null });
+    await store.audit({ actor: kid.id, actorRole: "kid", action: "location.resume", target: kid.id, householdId: family.householdId });
+    return ok({ pausedUntil: null });
+  });
+}

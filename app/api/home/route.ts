@@ -16,10 +16,11 @@ export async function GET(request: Request) {
     const hh = parent.householdId;
     const now = new Date();
     const since = sgMidnightIso(now);
-    const [prefs, cameras, statuses, alerts, devices] = await Promise.all([store.homeWatch.prefs(hh), store.homeWatch.cameras(hh), store.homeWatch.statuses(hh, since), store.homeWatch.alerts(hh, since), store.homeWatch.devices(hh)]);
+    const [prefs, cameras, statuses, alerts, devices, kids] = await Promise.all([store.homeWatch.prefs(hh), store.homeWatch.cameras(hh), store.homeWatch.statuses(hh, since), store.homeWatch.alerts(hh, since), store.homeWatch.devices(hh), store.kids(hh)]);
     const withFrames = await Promise.all(alerts.map(async (a) => ({ ...a, frames: a.framesExpireAt && Date.parse(a.framesExpireAt) > now.getTime() ? await store.homeWatch.alertFrameUrls(hh, a.framePaths) : [] })));
     const live = cameras.filter((c) => c.enabled);
     return ok({
+      kids: kids.filter((k) => k.role === "child").map((k) => ({ id: k.id, nickname: k.nickname, pack: k.pack })),
       camerasOn: camerasOn(prefs, now),
       pausedUntil: prefs.camsPausedUntil,
       schedule: { days: prefs.camDays, from: prefs.camFrom, to: prefs.camTo },

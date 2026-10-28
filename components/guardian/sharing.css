@@ -1,0 +1,30 @@
+/* What my grown-ups see (board KidSharing) and the chips that point to it. Uses the kid's own pack tokens. */
+.ks-main { display: flex; flex-direction: column; gap: 14px; padding: 18px 16px 40px; max-width: 640px; margin: 0 auto; box-sizing: border-box; color: var(--ink); }
+.ks-head { display: flex; align-items: center; gap: 12px; padding-right: 60px; }
+.ks-head img { flex: none; width: 64px; height: 64px; border-radius: 50%; object-fit: cover; background: var(--surface-raised); box-shadow: 0 0 0 3px var(--surface-raised), 0 0 0 6px var(--accent); }
+.ks-head h1 { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 28px; line-height: 1.15; }
+.ks-head p { margin: 2px 0 0; font-size: 15px; line-height: 1.4; color: var(--ink-muted); }
+.ks-card { display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: var(--radius-lg); background: var(--surface-glass, var(--surface-raised)); backdrop-filter: blur(10px); box-shadow: var(--shadow-raised); }
+[data-band="junior"] .ks-card { padding: 20px; }
+.ks-card h2 { margin: 0; display: flex; align-items: center; gap: 10px; font-size: 18px; line-height: 1.3; font-weight: 800; }
+[data-band="junior"] .ks-card h2 { font-size: 22px; }
+.ks-card p, .ks-card li { margin: 0; font-size: 15px; line-height: 1.45; }
+[data-band="junior"] .ks-card p, [data-band="junior"] .ks-card li { font-size: 19px; }
+.ks-card ul { margin: 0; padding: 0 0 0 20px; display: flex; flex-direction: column; gap: 6px; }
+.ks-dot { flex: none; width: 12px; height: 12px; border-radius: 50%; background: var(--success); box-shadow: 0 0 0 4px rgba(35, 119, 77, 0.18); }
+.ks-dot[data-off] { background: transparent; box-shadow: inset 0 0 0 3px var(--border-control); }
+.ks-small { font-size: 13px !important; line-height: 18px !important; color: var(--ink-muted); }
+.ks-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.gchip { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 14px; border-radius: var(--radius-pill); background: var(--surface-raised); color: var(--ink); box-shadow: inset 0 0 0 2px var(--accent); font: 700 14px var(--font-text); text-decoration: none; }
+[data-band="junior"] .gchip { min-height: 44px; font-size: 17px; }
+.gchip:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+.gchips-row { position: relative; z-index: 2; display: flex; flex-wrap: wrap; gap: 8px; padding: 0 16px 8px; }
+.gchips-row.sd-span { padding: 0; }
+@media (min-width: 1024px) {
+  .ks-main { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-content: center; align-items: stretch; min-height: 100vh; max-width: 1240px; gap: 24px; padding: 48px 40px; }
+  .ks-head, .ks-main > .ks-chips-card { grid-column: 1 / -1; }
+  .ks-head { padding-right: 0; }
+  .ks-head img { width: 96px; height: 96px; }
+  .ks-head h1 { font-size: 40px; }
+  .ks-card { padding: 24px; gap: 14px; }
+}

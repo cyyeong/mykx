@@ -1,0 +1,37 @@
+/* Location and home cameras (board GuardianSettings): one column of cards, two from 1024 px. */
+.gs-root { min-height: 100dvh; background: var(--surface); color: var(--ink); font-family: var(--font-text); }
+.gs-main { display: flex; flex-direction: column; gap: 16px; padding: 16px 16px 40px; max-width: 760px; margin: 0 auto; }
+.gs-back { font-size: 14px; line-height: 20px; font-weight: 700; color: var(--accent); text-decoration: none; }
+.gs-h1 { margin: 6px 0 0; font-family: var(--font-display); font-weight: 800; font-size: 26px; line-height: 32px; }
+.gs-lede { margin: 4px 0 0; font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+.gs-card { display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: var(--shadow-raised); min-width: 0; }
+.gs-card h2 { margin: 0; font-size: 18px; line-height: 24px; font-weight: 800; }
+.gs-card h3 { margin: 0; font-size: 14px; line-height: 20px; font-weight: 700; }
+.gs-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; }
+.gs-row .t b { display: block; font-size: 15px; line-height: 20px; }
+.gs-row .t span { display: block; font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.gs-tile { padding: 8px 12px; border-radius: var(--radius-sm); background: var(--surface); }
+.gs-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.gs-chip { min-height: 40px; padding: 0 14px; border: 0; border-radius: var(--radius-pill); background: var(--surface); color: var(--ink-muted); box-shadow: inset 0 0 0 1.5px var(--line); font: 700 13px var(--font-text); cursor: pointer; }
+.gs-chip[aria-pressed="true"], .gs-chip[aria-checked="true"] { background: var(--ink); color: var(--surface-raised); box-shadow: none; }
+.gs-seg { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; padding: 4px; border-radius: var(--radius-sm); background: var(--surface); }
+.gs-seg button { min-height: 40px; padding: 0 4px; border: 0; border-radius: 8px; background: transparent; color: var(--ink-muted); font: 700 13px/1.1 var(--font-text); cursor: pointer; }
+.gs-seg button[aria-checked="true"] { background: var(--surface-raised); color: var(--ink); box-shadow: var(--shadow-raised); }
+.gs-chip:focus-visible, .gs-seg button:focus-visible, .gs-input:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+.gs-input { min-height: 44px; padding: 0 12px; border: 0; border-radius: var(--radius-sm); background: var(--surface); color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--border-control); font: 500 15px var(--font-text); width: 100%; box-sizing: border-box; }
+.gs-label { display: flex; flex-direction: column; gap: 4px; font-size: 14px; line-height: 20px; font-weight: 700; }
+.gs-note { margin: 0; font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.gs-link { background: none; border: 0; padding: 8px 4px; font: 700 14px var(--font-text); color: var(--accent); cursor: pointer; text-decoration: none; }
+.gs-state { font-size: 13px; font-weight: 700; color: var(--success); }
+.gs-state[data-bad] { color: var(--warn); }
+.gs-code { margin: 0; font-family: var(--font-display); font-size: 30px; line-height: 36px; font-weight: 800; letter-spacing: 0.08em; font-variant-numeric: tabular-nums; }
+.gs-box { display: flex; flex-direction: column; gap: 8px; padding: 12px; border-radius: var(--radius-sm); box-shadow: inset 0 0 0 1.5px var(--line); }
+.gs-promises { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.gs-promises li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; font-size: 14px; line-height: 20px; }
+.gs-form { display: grid; gap: 8px; padding: 12px; border-radius: var(--radius-sm); background: var(--surface); }
+.gs-results { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.gs-results button { width: 100%; padding: 8px 10px; border: 0; border-radius: 8px; background: var(--surface-raised); color: var(--ink); font: 500 14px/1.3 var(--font-text); text-align: left; cursor: pointer; }
+@media (min-width: 1024px) {
+  .gs-main { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; max-width: 1200px; gap: 20px; padding: 32px; }
+  .gs-main > header { grid-column: 1 / -1; }
+}
