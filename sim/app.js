@@ -109,7 +109,7 @@ document.querySelectorAll("[data-speed]").forEach((b) => b.addEventListener("cli
 $("burst").addEventListener("change", render);
 $("sendloc").addEventListener("click", () => send({ type: "location", role: state.role, spot: state.spot }, `${names[state.role]} at ${state.spot}`));
 $("sendframes").addEventListener("click", () => send({ type: "frames", burst: $("burst").checked, frames: [...state.picked].map(([frame, room]) => ({ frame, room })) }, "frames"));
-$("gateform").addEventListener("submit", (e) => { e.preventDefault(); pass = $("pass").value; store.set("sim-pass", pass); $("gate").hidden = true; void connect(); });
+$("gateform").addEventListener("submit", (e) => { e.preventDefault(); pass = $("pass").value.trim(); store.set("sim-pass", pass); $("gate").hidden = true; void connect(); });
 
 if (!pass) $("gate").hidden = false;
 render();
