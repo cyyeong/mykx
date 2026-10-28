@@ -9,9 +9,10 @@ import type { CookieJar } from "./http.ts";
 import { familyOf, type AttemptEvent } from "../domain/attempts.ts";
 import { sgDate } from "../domain/time.ts";
 import type { LedgerEntry } from "../domain/rewards.ts";
-import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt, StoredBeat, StoredGuardianSettings, StoredKixMessage } from "./store.ts";
+import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt, StoredBeat, StoredGuardianSettings, StoredKixMessage, Creation } from "./store.ts";
 import { BEAT_MS, type ActivityKind } from "../guardian/screen-time.ts";
 import type { Extraction, KnowledgeUpload, Review, Rights, SkillUpdate } from "../knowledge/knowledge.ts";
+import type { FlashcardSpec } from "../vibe/flashcards.ts";
 import { NicknameTakenError } from "./store.ts";
 
 export interface SupabaseEnv {
@@ -554,6 +555,67 @@ export class SupabaseStore implements AuthStore {
     },
     markSeen: async (householdId: string, flagId: string) => {
       const { error } = await this.db.from("flags_seen").upsert({ household_id: householdId, flag_id: flagId.slice(0, 200) }, { onConflict: "household_id,flag_id", ignoreDuplicates: true });
+      check(error);
+    },
+  };
+
+  // Vibe Zone creations and shares. Same household filtering; a share's recipient must be in the household.
+  readonly creations = {
+    list: async (householdId: string, kidId?: string): Promise<Creation[]> => {
+      let q = this.db.from("creations").select("id, profile_id, kind, title, versions, current_version, created_at, updated_at").eq("household_id", householdId);
+      if (kidId) q = q.eq("profile_id", kidId);
+      const { data, error } = await q.order("updated_at", { ascending: false }).limit(100);
+      check(error);
+      const ids = (data ?? []).map((r) => r.id as string);
+      const shared = new Map<string, number>();
+      if (ids.length) {
+        const s = await this.db.from("shares").select("creation_id, version").eq("household_id", householdId).in("creation_id", ids).is("revoked_at", null);
+        check(s.error);
+        for (const r of s.data ?? []) shared.set(r.creation_id as string, Number(r.version));
+      }
+      return (data ?? []).map((r) => ({
+        id: r.id as string,
+        kidId: r.profile_id as string,
+        kind: "flashcards" as const,
+        title: r.title as string,
+        versions: (r.versions as FlashcardSpec[]) ?? [],
+        currentVersion: Number(r.current_version),
+        sharedVersion: shared.get(r.id as string) ?? null,
+        createdAt: new Date(r.created_at as string).toISOString(),
+        updatedAt: new Date(r.updated_at as string).toISOString(),
+      }));
+    },
+    saveVersion: async (householdId: string, kidId: string, id: string | null, spec: FlashcardSpec): Promise<Creation | null> => {
+      if (!(await this.ownsKid(householdId, kidId))) return null;
+      const now = new Date().toISOString();
+      if (!id) {
+        const { data, error } = await this.db
+          .from("creations")
+          .insert({ household_id: householdId, profile_id: kidId, kind: "flashcards", title: spec.title.slice(0, 60), versions: [spec], current_version: 1, created_at: now, updated_at: now })
+          .select("id")
+          .single();
+        check(error);
+        if (!data) return null;
+        return { id: data.id as string, kidId, kind: "flashcards", title: spec.title, versions: [spec], currentVersion: 1, sharedVersion: null, createdAt: now, updatedAt: now };
+      }
+      const cur = await this.db.from("creations").select("versions, created_at").eq("household_id", householdId).eq("profile_id", kidId).eq("id", id).maybeSingle();
+      check(cur.error);
+      if (!cur.data) return null;
+      const versions = [...((cur.data.versions as FlashcardSpec[]) ?? []), spec];
+      const { error } = await this.db.from("creations").update({ title: spec.title.slice(0, 60), versions, current_version: versions.length, updated_at: now }).eq("id", id).eq("household_id", householdId);
+      check(error);
+      return { id, kidId, kind: "flashcards", title: spec.title, versions, currentVersion: versions.length, sharedVersion: null, createdAt: new Date(cur.data.created_at as string).toISOString(), updatedAt: now };
+    },
+    share: async (householdId: string, creationId: string, version: number, recipientIds: readonly string[]) => {
+      const now = new Date().toISOString();
+      const r = await this.db.from("shares").update({ revoked_at: now }).eq("household_id", householdId).eq("creation_id", creationId).is("revoked_at", null);
+      check(r.error);
+      if (!recipientIds.length) return;
+      const { error } = await this.db.from("shares").insert(recipientIds.map((rid) => ({ household_id: householdId, creation_id: creationId, version, recipient_profile_id: rid })));
+      check(error);
+    },
+    revoke: async (householdId: string, creationId: string) => {
+      const { error } = await this.db.from("shares").update({ revoked_at: new Date().toISOString() }).eq("household_id", householdId).eq("creation_id", creationId).is("revoked_at", null);
       check(error);
     },
   };

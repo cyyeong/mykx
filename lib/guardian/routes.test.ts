@@ -10,6 +10,8 @@ import * as summary from "@/app/api/guardian/summary/route";
 import * as words from "@/app/api/guardian/words/route";
 import * as homework from "@/app/api/kix/homework/route";
 import * as tutor from "@/app/api/kix/tutor/route";
+import * as vibe from "@/app/api/vibe/route";
+import * as sharedRoute from "@/app/api/family/shared/route";
 import { ARI_ID, DEMO_HOUSEHOLD_ID } from "../auth/demo-family.ts";
 import { resetRateLimits } from "../auth/lockout.ts";
 import { resetDemoStore, type DemoStore } from "../auth/store-demo.ts";
@@ -132,6 +134,25 @@ describe("guardian routes", () => {
     expect((await res.text()).length).toBeGreaterThan(10);
     const care = await b.call(tutor.POST, "/api/kix/tutor", { itemId: "p3sci-demo-03", hint: 2, ask: "nobody cares about me" });
     expect(care.body.care.helplines).toHaveLength(2);
+  });
+
+  it("Vibe Zone: makes a set (sample without a key), pays +5 once per creation, and shares one version with the grown-up", async () => {
+    vi.stubEnv("MODEL_API_KEY", "");
+    vi.stubEnv("META_API_KEY", "");
+    await asAri();
+    const made = await b.call(vibe.POST, "/api/vibe", { action: "make", request: "I keep forgetting the frog life cycle" });
+    expect(made.body).toMatchObject({ sample: true, spec: { title: "Frog life cycle flashcards" } });
+    const first = await b.call(vibe.POST, "/api/vibe", { action: "save", id: null, spec: made.body.spec });
+    expect(first.body.awards).toEqual([{ rule: "creation_saved", amount: 5 }]);
+    const again = await b.call(vibe.POST, "/api/vibe", { action: "save", id: first.body.creation.id, spec: made.body.spec });
+    expect(again.body).toMatchObject({ awards: [], creation: { currentVersion: 2 } });
+    const shared = await b.call(vibe.POST, "/api/vibe", { action: "share", id: first.body.creation.id, share: true });
+    expect(shared.body.creation.sharedVersion).toBe(2);
+    await b.call(kidRoute.DELETE, "/api/auth/kid", null);
+    const forParent = await b.call(sharedRoute.GET, "/api/family/shared");
+    expect(forParent.body.shared).toMatchObject([{ kid: "Ari", version: 2, title: "Frog life cycle flashcards" }]);
+    await store.creations.revoke(DEMO_HOUSEHOLD_ID, first.body.creation.id);
+    expect((await b.call(sharedRoute.GET, "/api/family/shared")).body.shared).toEqual([]);
   });
 
   it("the summary is for grown-ups only", async () => {

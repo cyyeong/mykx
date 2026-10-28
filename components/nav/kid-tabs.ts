@@ -17,8 +17,7 @@ export const KID_TABS: readonly KidTab[] = [
   // Task 6 builds the Arcade: keep the canonical href and drop `soon` when it lands.
   { id: "play", label: "Play", href: "/arcade", soon: true },
   { id: "treasure", label: "Treasure", href: "/treasure" },
-  // Task 5 builds Vibe Zone: keep the canonical href and drop `soon` when it lands.
-  { id: "vibe", label: "Vibe", href: "/vibe", soon: true },
+  { id: "vibe", label: "Vibe", href: "/vibe" },
 ];
 
 /** Strips one trailing slash so "/home/" and "/home" match the same tab. */

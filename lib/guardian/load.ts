@@ -19,7 +19,7 @@ async function offerFor(store: AuthStore, householdId: string, kidId: string): P
     quest: open ? { title: FROG_QUEST.title, href: `/learn/${FROG_QUEST.slug}`, minutes: 9 } : null,
     reviewsDue: 0,
     arcade: false,
-    vibe: false,
+    vibe: true,
   };
 }
 

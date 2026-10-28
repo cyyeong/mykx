@@ -8,6 +8,7 @@ import type { FocusMinute } from "../signals/focus.ts";
 import type { FocusNote } from "../signals/schemas.ts";
 import type { Beat, GuardianSettings } from "../guardian/screen-time.ts";
 import type { KnowledgeUpload, Review, SkillUpdate } from "../knowledge/knowledge.ts";
+import type { FlashcardSpec } from "../vibe/flashcards.ts";
 import type { Band, Level, Pack, SecretEvent, SecretKind } from "./schemas.ts";
 
 /** A profiles row, server side. Holds the secret hash: never send one of these to a client as is. */
@@ -128,6 +129,20 @@ export interface StoredBeat extends Beat {
   synthetic?: boolean;
 }
 
+/** A Vibe Zone creation: its versions (each a validated spec) and the version shared with the grown-ups, if any. */
+export interface Creation {
+  id: string;
+  kidId: string;
+  kind: "flashcards";
+  title: string;
+  versions: FlashcardSpec[];
+  /** 1-based, like the UI's "version 2". */
+  currentVersion: number;
+  sharedVersion: number | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
 /** The guardian settings a parent can change, apart from the daily limit (which lives on the profile). */
 export type StoredGuardianSettings = Omit<GuardianSettings, "dailyLimitMin">;
 
@@ -215,6 +230,18 @@ export interface AuthStore {
     /** Flag ids a grown-up marked as seen. */
     seenFlags(householdId: string): Promise<string[]>;
     markSeen(householdId: string, flagId: string): Promise<void>;
+  };
+
+  // Vibe Zone creations (the `creations` and `shares` tables), household-scoped; shares only to the household's
+  // own grown-ups (rls.sql checks the recipient).
+  creations: {
+    /** Newest first; one kid's when `kidId` is given. */
+    list(householdId: string, kidId?: string): Promise<Creation[]>;
+    /** Saves a new creation (id null) or adds a version to one; returns it. */
+    saveVersion(householdId: string, kidId: string, id: string | null, spec: FlashcardSpec): Promise<Creation | null>;
+    /** Shares one version with the given grown-ups, replacing any earlier share of this creation. */
+    share(householdId: string, creationId: string, version: number, recipientIds: readonly string[]): Promise<void>;
+    revoke(householdId: string, creationId: string): Promise<void>;
   };
 
   // The knowledge agent's uploads and published pack updates: platform content, admins only (callers check first).

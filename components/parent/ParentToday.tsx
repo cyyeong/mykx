@@ -12,6 +12,7 @@ import "./parentDash.css";
 
 type KidRef = { id: string; nickname: string; band: string | null; level: string | null };
 type Summary = { kids: KidRef[]; kid: KidRef | null; view: GuardianView | null };
+type Shared = { id: string; title: string; version: number; kid: string; spec: { cards: { front: string; back: string }[] } | null };
 
 const KIND_LABEL = { learn: "Learning", play: "Play", create: "Making", other: "Browsing" } as const;
 const KIND_COLOR = { learn: "var(--accent)", play: "var(--accent-2)", create: "var(--reward)", other: "var(--line)" } as const;
@@ -213,6 +214,15 @@ export function ParentToday() {
   const [kidId, setKidId] = useState<string | null>(null);
   const [failed, setFailed] = useState(false);
   const [version, setVersion] = useState(0);
+  const [shared, setShared] = useState<Shared[]>([]);
+
+  useEffect(() => {
+    let live = true;
+    void api<{ shared: Shared[] }>("GET", "/api/family/shared").then((r) => live && r.ok && r.data && setShared(r.data.shared));
+    return () => {
+      live = false;
+    };
+  }, [version]);
 
   useEffect(() => {
     let live = true;
@@ -298,6 +308,36 @@ export function ParentToday() {
           )}
           <p className="pd-muted pd-sources">From answers, pauses and time away; {kid.nickname}&apos;s own words to Kix; the camera only if you switched it on (counts on the device, never pictures). Possibilities, not diagnoses.</p>
         </section>
+        {shared.length > 0 && (
+          <section className="pd-card pd-panel" aria-label="Shared with you">
+            <div className="pd-panel-head">
+              <h2 className="pd-h2">Shared with you</h2>
+              <span className="pd-muted">From Vibe Zone</span>
+            </div>
+            <ul className="pd-sessions">
+              {shared.map((c) => (
+                <li key={c.id}>
+                  <details className="pd-session">
+                    <summary>
+                      <span className="pd-when">
+                        {c.kid} · version {c.version}
+                      </span>
+                      <span className="pd-mood">{c.title}</span>
+                      <span className="pd-focus">{c.spec?.cards.length ?? 0} cards</span>
+                    </summary>
+                    <ul className="pd-why">
+                      {c.spec?.cards.map((card, i) => (
+                        <li key={i}>
+                          <strong>{card.front}</strong> {card.back}
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
       </div>
     </div>
   );

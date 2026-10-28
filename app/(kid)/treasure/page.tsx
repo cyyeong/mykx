@@ -31,6 +31,7 @@ async function Treasure() {
       nodes={stops.map((s) => ({ label: s.label, lit: s.state === "mastered", current: s.state === "current" }))}
       questHref={`/learn/${FROG_QUEST.slug}`}
       questTitle={FROG_QUEST.title}
+      creations={(await ctx.store.creations.list(ctx.householdId, ctx.kidId).catch(() => [])).map((c) => ({ id: c.id, title: c.title, version: c.currentVersion, cards: c.versions[c.currentVersion - 1]?.cards.length ?? 0, shared: c.sharedVersion !== null }))}
     />
   );
 }

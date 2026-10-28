@@ -43,6 +43,8 @@ export interface TreasureProps {
   nodes: TreasureNode[];
   questHref: string;
   questTitle: string;
+  /** Saved Vibe Zone creations, newest first. */
+  creations?: { id: string; title: string; version: number; cards: number; shared: boolean }[];
 }
 
 const RULE_TITLES: Record<string, string> = {
@@ -63,7 +65,8 @@ export function cardsFromLedger(
   defaults: { art: string; chip: string } = { art: "/art/cards/gecko-and-frog", chip: "P3 Science" },
 ): TreasureCard[] {
   return entries
-    .filter((e) => e.amount > 0)
+    // A saved creation shows on the creations shelf, not as a card.
+    .filter((e) => e.amount > 0 && e.rule !== "creation_saved")
     .map((e) => {
       const stop = e.ref ? stops[e.ref] : undefined;
       const rule = RULE_TITLES[e.rule] ?? e.rule;
@@ -94,7 +97,7 @@ const PANEL_TITLE: CSSProperties = { margin: 0, fontFamily: "var(--font-display)
 
 const NODE_X = [24, 92, 168, 236, 298];
 
-export function TreasureScreen({ nickname, stars, starsToday, evidenceLabel, cards, nodes, questHref, questTitle }: TreasureProps) {
+export function TreasureScreen({ nickname, stars, starsToday, evidenceLabel, cards, nodes, questHref, questTitle, creations = [] }: TreasureProps) {
   const litPath = nodes
     .map((n, i) => ({ ...n, i }))
     .filter((n) => n.lit)
@@ -194,9 +197,29 @@ export function TreasureScreen({ nickname, stars, starsToday, evidenceLabel, car
 
           <GlassPanel as="section" className="tr-panel" aria-label="Your creations" style={{ boxSizing: "border-box", padding: "20px 24px", display: "flex", flexDirection: "column", gap: 12 }}>
             <h2 style={PANEL_TITLE}>Your creations</h2>
-            <p className="tr-cap" style={{ margin: 0, fontWeight: 600, color: "var(--ink-muted)" }}>
-              Things you make in Vibe Zone will live here. Vibe Zone opens in a later quest.
-            </p>
+            {creations.length ? (
+              <ul className="tr-shelf" style={{ margin: 0, padding: 0, listStyle: "none" }}>
+                {creations.slice(0, 4).map((c) => (
+                  <li key={c.id}>
+                    <Link href="/vibe" className="tr-polaroid">
+                      <span className="tr-polaroid-pic" aria-hidden="true">
+                        <span />
+                        <span />
+                      </span>
+                      <span className="tr-polaroid-title">{c.title}</span>
+                      <span className="tr-cap" style={{ color: "var(--ink-muted)" }}>
+                        {c.cards} cards · v{c.version}
+                        {c.shared ? " · shared" : ""}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="tr-cap" style={{ margin: 0, fontWeight: 600, color: "var(--ink-muted)" }}>
+                Flashcards you save in <Link href="/vibe" style={{ color: "var(--accent)", fontWeight: 800 }}>Vibe Zone</Link> live here.
+              </p>
+            )}
           </GlassPanel>
         </div>
       </div>

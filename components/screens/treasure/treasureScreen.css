@@ -91,3 +91,12 @@
   .tr-cards .mk-holo__meta{height:auto;min-height:34%;padding-block:10px 12px}
   .tr-cards .mk-holo__title{font-size:clamp(18px,1.7cqw,22px);line-height:1.18}
 }
+
+/* Saved Vibe Zone creations as polaroids on the shelf. */
+.tr-polaroid{display:flex;flex-direction:column;gap:4px;padding:8px 8px 10px;border-radius:10px;background:var(--surface-raised);color:var(--ink);text-decoration:none;box-shadow:var(--shadow-raised);transform:rotate(-1.5deg)}
+.tr-shelf li:nth-child(even) .tr-polaroid{transform:rotate(1.5deg)}
+.tr-polaroid:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+.tr-polaroid-pic{position:relative;height:54px;border-radius:6px;background:var(--surface);overflow:hidden}
+.tr-polaroid-pic span{position:absolute;width:46%;height:60%;border-radius:6px;background:var(--accent-2);left:14%;top:18%;transform:rotate(-8deg)}
+.tr-polaroid-pic span+span{background:var(--accent);left:40%;top:22%;transform:rotate(6deg)}
+.tr-polaroid-title{font:700 14px/18px var(--font-text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}

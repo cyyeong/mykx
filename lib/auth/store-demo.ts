@@ -25,14 +25,15 @@ import { sgDate } from "../domain/time.ts";
 import { BEAT_MS } from "../guardian/screen-time.ts";
 import { sampleGuardianWeek } from "../guardian/sample.ts";
 import type { KnowledgeUpload, Review, SkillUpdate } from "../knowledge/knowledge.ts";
+import type { FlashcardSpec } from "../vibe/flashcards.ts";
 import type { CookieJar } from "./http.ts";
-import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt, StoredBeat, StoredGuardianSettings, StoredKixMessage } from "./store.ts";
+import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt, StoredBeat, StoredGuardianSettings, StoredKixMessage, Creation } from "./store.ts";
 import { NicknameTakenError } from "./store.ts";
 import { sessionSecret, signToken, verifyToken } from "./tokens.ts";
 
 export const DEMO_PARENT_COOKIE = "mykx_demo_parent";
 /** Bump when the store's shape changes: a running dev server then rebuilds it on the next request (see demoStore). */
-const DEMO_STORE_SHAPE = 6; // 6: guardian beats, words, settings and seen flags
+const DEMO_STORE_SHAPE = 7; // 7: knowledge uploads and Vibe Zone creations
 const DEMO_TTL_SEC = 7 * 24 * 60 * 60;
 const LABEL = "demo-parent";
 
@@ -113,6 +114,8 @@ export class DemoStore implements AuthStore {
   /** Knowledge uploads by id, and published pack updates (platform content). */
   readonly knowledgeRows = new Map<string, KnowledgeUpload>();
   readonly skillUpdateRows: SkillUpdate[] = [];
+  /** Vibe Zone creations by id, with the household and the shared recipients. */
+  readonly creationRows = new Map<string, Creation & { householdId: string; sharedWith: string[] }>();
   private readonly emails = new Map<string, string>(); // auth user id → email
   private readonly banned = new Set<string>();
   private readonly generation = new Map<string, number>();
@@ -269,6 +272,7 @@ export class DemoStore implements AuthStore {
     for (const [key, row] of this.attemptRows) if (row.kidId === kidId) this.attemptRows.delete(key);
     for (const [key, row] of this.ledgerRows) if (row.kidId === kidId) this.ledgerRows.delete(key);
     for (const [key, row] of this.beatRows) if (row.kidId === kidId) this.beatRows.delete(key);
+    for (const [key, row] of this.creationRows) if (row.kidId === kidId) this.creationRows.delete(key);
     this.kixMessageRows.splice(0, this.kixMessageRows.length, ...this.kixMessageRows.filter((m) => m.kidId !== kidId));
     this.guardianSettingRows.delete(kidId);
     return this.profiles.delete(kidId);
@@ -414,6 +418,37 @@ export class DemoStore implements AuthStore {
     },
   };
 
+  readonly creations = {
+    list: async (householdId: string, kidId?: string) =>
+      [...this.creationRows.values()]
+        .filter((c) => c.householdId === householdId && (!kidId || c.kidId === kidId))
+        .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
+        .map(toCreation),
+    saveVersion: async (householdId: string, kidId: string, id: string | null, spec: FlashcardSpec) => {
+      if (!this.ownsKid(householdId, kidId)) return null;
+      const now = nowIso();
+      const had = id ? this.creationRows.get(id) : undefined;
+      if (id && (!had || had.householdId !== householdId || had.kidId !== kidId)) return null;
+      const row = had
+        ? { ...had, title: spec.title, versions: [...had.versions, structuredClone(spec)], currentVersion: had.versions.length + 1, updatedAt: now }
+        : { id: randomUUID(), kidId, kind: "flashcards" as const, title: spec.title, versions: [structuredClone(spec)], currentVersion: 1, sharedVersion: null, createdAt: now, updatedAt: now, householdId, sharedWith: [] };
+      this.creationRows.set(row.id, row);
+      return toCreation(row);
+    },
+    share: async (householdId: string, creationId: string, version: number, recipientIds: readonly string[]) => {
+      const c = this.creationRows.get(creationId);
+      if (!c || c.householdId !== householdId) return;
+      c.sharedVersion = version;
+      c.sharedWith = recipientIds.filter((r) => this.profiles.get(r)?.householdId === householdId);
+    },
+    revoke: async (householdId: string, creationId: string) => {
+      const c = this.creationRows.get(creationId);
+      if (!c || c.householdId !== householdId) return;
+      c.sharedVersion = null;
+      c.sharedWith = [];
+    },
+  };
+
   readonly knowledge = {
     saveUpload: async (u: KnowledgeUpload) => {
       this.knowledgeRows.set(u.id, structuredClone(u));
@@ -475,6 +510,11 @@ function stripKidPrefix(storageKey: string, kidId: string): string {
 }
 
 /** Drops the storage envelope (household, key, raw answer, pack version). */
+/** A stored creation without its storage fields. */
+function toCreation(r: Creation): Creation {
+  return structuredClone({ id: r.id, kidId: r.kidId, kind: r.kind, title: r.title, versions: r.versions, currentVersion: r.currentVersion, sharedVersion: r.sharedVersion, createdAt: r.createdAt, updatedAt: r.updatedAt });
+}
+
 function toAttemptEvent(r: StoredLearnAttempt): AttemptEvent {
   return {
     id: r.id,
