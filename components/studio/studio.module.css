@@ -194,3 +194,14 @@
     .wordmark { display: none; }
   }
 }
+
+/* Adopt Pip: the Studio's last step, then home. */
+.adopt { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; padding: 24px 16px; background: var(--scrim, rgba(20, 16, 48, 0.72)); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.adoptCard { display: flex; flex-direction: column; align-items: center; gap: 14px; width: min(460px, 100%); padding: 28px 24px; border-radius: var(--radius-xl); background: var(--surface-raised); color: var(--ink); text-align: center; box-shadow: var(--shadow-glow); animation: adoptIn var(--motion-hero, 600ms) var(--ease-bounce, ease-out) both; }
+.adoptKicker { padding: 2px 12px; border-radius: var(--radius-pill); background: var(--accent-2); color: var(--on-accent-2); font: 800 13px / 20px var(--font-text); }
+.adoptTitle { margin: 0; font: 600 36px / 1.1 var(--font-display); }
+.adoptPip { width: 100%; aspect-ratio: 3 / 1; border-radius: var(--radius-lg); background: url(/art/critters/frog-life-cycle-800.webp) 50% 52% / cover no-repeat, #FFF6E0; box-shadow: inset 0 0 0 2px var(--line); }
+.adoptText { margin: 0; font-size: 18px; line-height: 26px; font-weight: 600; color: var(--ink-muted); }
+.adoptLater { min-height: 44px; border: 0; background: none; color: var(--ink-muted); font: 700 15px / 1 var(--font-text); text-decoration: underline; cursor: pointer; }
+@keyframes adoptIn { from { opacity: 0; transform: scale(0.9) translateY(12px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .adoptCard { animation: none; } }

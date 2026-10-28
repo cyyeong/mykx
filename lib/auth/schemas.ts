@@ -84,8 +84,8 @@ export const pinSchema = z.string().regex(/^\d{4}$/);
 export const pinSetupBody = z.object({ pin: pinSchema });
 export const pinVerifyBody = z.object({ pin: z.string().min(1).max(32) });
 export const mePatchBody = z
-  .object({ nickname: nicknameSchema.optional(), secret: z.object({ old: secretAttemptSchema, new: secretSchema }).optional() })
-  .refine((b) => b.nickname !== undefined || b.secret !== undefined, "Nothing to change");
+  .object({ nickname: nicknameSchema.optional(), secret: z.object({ old: secretAttemptSchema, new: secretSchema }).optional(), pack: z.enum(PACKS).optional() })
+  .refine((b) => b.nickname !== undefined || b.secret !== undefined || b.pack !== undefined, "Nothing to change");
 /** `secret` may be left out for a picture-code kid (chosen with the kid later); a password kid needs one. */
 export const addKidBody = z.object({ nickname: nicknameSchema, level: z.enum(LEVELS), pack: z.enum(PACKS), secret: parentSecretSchema.optional() });
 export const updateKidBody = z

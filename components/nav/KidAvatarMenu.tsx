@@ -42,6 +42,9 @@ export function KidAvatarMenu({ nickname }: { nickname: string }) {
           <Link role="menuitem" className="kam-item" href="/me">
             Me
           </Link>
+          <Link role="menuitem" className="kam-item" href="/studio">
+            Change my Kix
+          </Link>
           <button role="menuitem" type="button" className="kam-item" onClick={switchProfile} disabled={leaving}>
             {leaving ? "Switching…" : "Switch profile"}
           </button>

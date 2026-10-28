@@ -38,6 +38,11 @@ export async function PATCH(request: Request) {
       Object.assign(patch, { secretHash: await hashSecret(body.secret.new), secretSetAt: nowIso(), secretEvent: "changed" });
       changed.push("secret");
     }
+    // The kid's world from the Studio (Keep this Kix → adopt Pip).
+    if (body.pack !== undefined && body.pack !== kid.pack) {
+      patch.pack = body.pack;
+      changed.push("pack");
+    }
     if (body.nickname !== undefined && body.nickname !== kid.nickname) {
       patch.nickname = body.nickname;
       changed.push("nickname");

@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
     "/api/kix/homework": ["./content/skills/*/SKILL.md", "./content/skills/*/references/*.md"],
     // The learning loop reads the frog quest items from disk at request time (lib/learn/frog-quest.ts).
     ...Object.fromEntries(
-      ["/learn/[quest]", "/learn/[quest]/done", "/question/[id]", "/api/attempts"].map((route) => [route, ["./content/skills/p3-science/items/demo.json"]]),
+      ["/learn/[quest]", "/learn/[quest]/done", "/question/[id]", "/api/attempts", "/home"].map((route) => [route, ["./content/skills/p3-science/items/demo.json"]]),
     ),
   },
   partialPrefetching: true,

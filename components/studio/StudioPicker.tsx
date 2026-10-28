@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Art } from "@/components/ui/Art";
 import { useSound } from "@/components/sound/SoundProvider";
@@ -41,9 +42,25 @@ export function StudioPicker() {
   const pack = getPack(packId);
   const [likes, setLikes] = useState<string[]>(["Bugs and critters", "Jets"]);
   const [transforming, setTransforming] = useState(false);
-  // Kept Kix per world for this session (Day 3: Supabase Storage + profiles.kix_url).
+  // The kept Kix per world stays on this device (it's a picture, not a record); the world itself is saved to
+  // the kid's profile when they adopt Pip and head home.
   const [kept, setKept] = useState<Partial<Record<string, string>>>({});
+  const [adopting, setAdopting] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const router = useRouter();
   const keptKix = kept[pack.id];
+
+  async function adoptAndGo() {
+    setSaving(true);
+    await fetch("/api/me", { method: "PATCH", headers: { "content-type": "application/json" }, body: JSON.stringify({ pack: pack.id }) }).catch(() => null);
+    try {
+      if (keptKix) localStorage.setItem(`mykx-kix-${pack.id}`, keptKix);
+    } catch {
+      // Private mode or full storage: the kept Kix just isn't remembered on this device.
+    }
+    play("pipGrows");
+    router.push("/home");
+  }
 
   function toggle(label: string) {
     play("tap");
@@ -149,9 +166,26 @@ export function StudioPicker() {
           onKeep={(image) => {
             setKept((k) => ({ ...k, [pack.id]: image }));
             setTransforming(false);
+            setAdopting(true);
           }}
           onClose={() => setTransforming(false)}
         />
+      )}
+      {adopting && (
+        <div className={s.adopt} role="dialog" aria-modal="true" aria-labelledby="adopt-title">
+          <div className={s.adoptCard}>
+            <span className={s.adoptKicker}>One more friend</span>
+            <h2 id="adopt-title" className={s.adoptTitle}>Meet Pip!</h2>
+            <div className={s.adoptPip} role="img" aria-label="Pip the frog's life cycle: frogspawn, tadpole, froglet, frog" />
+            <p className={s.adoptText}>Pip starts as frogspawn. Every question you answer on your own helps Pip grow, all the way to a frog.</p>
+            <button type="button" className="mk-btn mk-btn--reward" disabled={saving} onClick={() => void adoptAndGo()}>
+              {saving ? "Getting ready…" : "Adopt Pip and go home"}
+            </button>
+            <button type="button" className={s.adoptLater} onClick={() => setAdopting(false)}>
+              Stay in the Studio
+            </button>
+          </div>
+        </div>
       )}
     </main>
   );

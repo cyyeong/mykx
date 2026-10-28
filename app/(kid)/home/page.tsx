@@ -4,6 +4,8 @@ import { Suspense } from "react";
 import { HomeScreen } from "@/components/screens/home/HomeScreen";
 import { StudyDeckScreen } from "@/components/screens/study-deck/StudyDeckScreen";
 import { getSignedInKid } from "@/lib/auth/server";
+import { homeData } from "@/lib/learn/home";
+import { learnContext } from "@/lib/learn/server";
 
 export const metadata: Metadata = { title: "Home · myKx" };
 
@@ -12,7 +14,9 @@ async function Landing() {
   const kid = await getSignedInKid();
   if (!kid) redirect("/doors");
   if (kid.band === "teen") return <StudyDeckScreen kid={kid} />;
-  return <HomeScreen nickname={kid.nickname} />;
+  const ctx = await learnContext();
+  if (!ctx) redirect("/doors");
+  return <HomeScreen data={await homeData(ctx)} />;
 }
 
 export default function HomePage() {
