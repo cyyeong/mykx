@@ -28,10 +28,12 @@
     "@electric-sql/pglite": "0.5.12",
     "@tailwindcss/turbopack": "4.3.3",
     "@types/node": "24.19.2",
+    "@types/pg": "8.11.10",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "eslint": "9.39.5",
     "eslint-config-next": "16.4.3",
+    "pg": "8.13.1",
     "tailwindcss": "4.3.3",
     "typescript": "5.9.3",
     "vitest": "5.0.5"
