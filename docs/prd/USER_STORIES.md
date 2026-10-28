@@ -187,14 +187,14 @@ Each row: **As a … I want … so that …**, then short acceptance criteria (A
 
 | ID | Story | Acceptance criteria | Now |
 |---|---|---|---|
-| P-01 | As **the parent**, I want to sign in at the door and land on my dashboard. | Email and password; door and time tunnel; lands on `/parent`. | Partial: lands on `/doors` |
+| P-01 | As **the parent**, I want to sign in at the door and land on my dashboard. | Email and password; door and time tunnel; lands on `/parent`. | Built on `muse/grown-ups`: parents land on `/parent`, admins on `/admin/people` |
 | P-02 | As **the parent**, I want a password reset by email. | "Forgot password?" sends a link; neutral wording that doesn't reveal accounts. | Built |
 | P-03 | As **a parent already signed in**, I want `/signin` to let me continue. | "Continue as Demo Parent" or a redirect to my landing. | New |
-| P-04 | As **a parent opening a link from a notification**, I want to land on that page after signing in. | `/signin?next=…` honoured for safe in-app paths. | New |
-| P-05 | As **the parent**, I want to hand the tablet to a kid from any parent page. | "Kids' doors" in the parent header opens `/doors`. | Partial: doors is the only landing |
-| P-06 | As **the parent**, I want to sign out on this device or everywhere. | Both in the account menu; everywhere also shuts the kids' doors. | Partial: only "everywhere" (and "Switch grown-up" on doors) |
+| P-04 | As **a parent opening a link from a notification**, I want to land on that page after signing in. | `/signin?next=…` honoured for safe in-app paths. | Built on `muse/grown-ups` |
+| P-05 | As **the parent**, I want to hand the tablet to a kid from any parent page. | "Kids' doors" in the parent header opens `/doors`. | Built on `muse/grown-ups` |
+| P-06 | As **the parent**, I want to sign out on this device or everywhere. | Both in the account menu; everywhere also shuts the kids' doors. | Built on `muse/grown-ups` |
 | P-07 | As **the parent**, I want to change my password and email. | Change password by email link; change email (board). | Partial: password only |
-| P-08 | As **the parent**, I want grown-up pages to ask who I am when a kid is using the device. | Opening Your family, the dashboard or admin while a kid session is active asks for the grown-up password. | New |
+| P-08 | As **the parent**, I want grown-up pages to ask who I am when a kid is using the device. | Opening Your family, the dashboard or admin while a kid session is active asks for the 4-digit parent PIN (founder decision: PIN, not password). | Built on `muse/grown-ups` |
 | P-09 | As **a new parent**, I want to create a family account. | Sign-up or invite flow. | Not designed (MVP uses seeded accounts; decision needed) |
 
 ### 3.11 Parents: family management and controls
@@ -213,7 +213,7 @@ Each row: **As a … I want … so that …**, then short acceptance criteria (A
 | P-19 | As **the parent**, I want to switch camera focus help on for a kid (off by default). | See §4. | Board (toggle only) |
 | P-20 | As **the parent**, I want to switch the Arcade off for a kid. | Play tab hidden; games refuse. | Spec |
 | P-21 | As **the parent**, I want to set a weekly learning plan. | Days × minutes; Kix picks topics from mastery gaps. | Board ("Edit plan" goes nowhere) |
-| P-22 | As **the parent**, I want my way back from Family to my dashboard. | Back goes to `/parent`. | Partial: goes to `/doors` |
+| P-22 | As **the parent**, I want my way back from Family to my dashboard. | Back goes to `/parent`. | Built on `muse/grown-ups` |
 
 ### 3.12 Parents: tonight's summary and the dashboard
 
@@ -671,9 +671,9 @@ Checked on 28 Oct against the stories above. Severity: **blocker** (breaks the d
 3. **Wire Home's dead ends:** "See the squadron" → `/squadron`, "Make something" and the Vibe tab → `/vibe`, Pip's card → `/critters`, add Play → `/arcade`, and point Learn at `/learn` instead of a fixed quest id. (K-11 to K-14, K-21)
 4. **Make Studio reachable and finishable:** first visit after a new door goes to `/studio`; Me → "Change my Kix"; ✕ on the picker; Keep → Adopt Pip → **Go to my Home**; save the Kix to the profile. (K-19, K-43 to K-46)
 5. **Give teens a working landing:** nav and avatar on the study deck; wire **Start session**, **25 min focus** and **Ask Kix**; show P6 or Sec 2 content, not Sec 3 Physics for both. (K-18, K-30)
-6. **Send grown-ups to the right place and give parents a shell:** honour `next` (`/parent`, `/admin/skills`) and a safe `?next=`; build `/parent` with Today, Messages, Notebook and Family, Kids' doors and an account menu with sign out; Family's back goes to `/parent`. (P-01, P-04 to P-06, P-22)
+6. **Send grown-ups to the right place and give parents a shell:** honour `next` (`/parent`, `/admin/skills`) and a safe `?next=`; build `/parent` with Today, Messages, Notebook and Family, Kids' doors and an account menu with sign out; Family's back goes to `/parent`. (P-01, P-04 to P-06, P-22) — **Built** on `muse/grown-ups` (Messages/Notebook tabs are honest empty states until their backends land; admins land on `/admin/people` until `/admin/skills` exists).
 7. **Fix the admin sidebar:** `/admin/skills` and `/admin/upload` 404 today; build them (or hide the links until built), make the AdminSkills and AdminUpload board sidebars real links, add **Back to my family** and **Sign out**, and replace the forbidden gate's "Go to sign in" with **Back to your family**. (A-01 to A-05)
-8. **Shared-device safety:** Switch profile ends the kid session before `/doors` (Back must not reopen a sibling's world), and grown-up pages (`/family`, `/parent`, `/admin`) ask for the grown-up's password while a kid session is active. Today any kid on the family tablet can open Your family and People. (K-06, P-08)
+8. **Shared-device safety:** Switch profile ends the kid session before `/doors` (Back must not reopen a sibling's world), and grown-up pages (`/family`, `/parent`, `/admin`) ask for the 4-digit parent PIN (founder decision) while a kid session is active — page shell and data routes both check the 15-minute unlock. Today any kid on the family tablet can open Your family and People. (K-06, P-08) — **Built** on `muse/grown-ups`.
 9. **Guard every kid page and keep deep links:** Studio, Learn, Question, Treasure and Talk render for anyone today; redirect them like `/home` does, carrying `?next=` through sign-in and the kid's door. (K-08, P-04)
 10. **Add `app/not-found.tsx` and `app/error.tsx`** with "Take me home" by role, so a bad quest id, an unbuilt admin page or a crash never strands anyone on the bare default page. (§7.6)
 
