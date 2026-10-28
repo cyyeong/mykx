@@ -50,3 +50,24 @@ describe("game progress", () => {
     expect(levelWords(7, 1, "P3")).toBeNull();
   });
 });
+
+describe("arcade content", () => {
+  it("every Word Garden picture points at a real critter stage, and answers are lower-case letters", async () => {
+    const { gardenLevel } = await import("./typing/garden.ts");
+    const { blastLevel } = await import("./typing/answers.ts");
+    const { CRITTERS } = await import("../critters/catalog.ts");
+    for (let l = 1; l <= 5; l++) {
+      for (const p of gardenLevel(l)) {
+        expect(CRITTERS.some((c) => c.id === p.critter)).toBe(true);
+        expect(p.stage).toBeGreaterThanOrEqual(0);
+        expect(p.stage).toBeLessThanOrEqual(3);
+        expect(p.word).toMatch(/^[a-z]+$/);
+      }
+      for (const school of ["P6", "Sec 2"] as const) {
+        const qs = blastLevel(l, school);
+        expect(qs).toHaveLength(5);
+        for (const q of qs) expect(q.a).toMatch(/^[a-z]+$/);
+      }
+    }
+  });
+});

@@ -8,36 +8,12 @@
 import { useMemo, useState, type CSSProperties } from "react";
 import { useSound } from "@/components/sound/SoundProvider";
 import { CRITTERS, GROUP_LABEL, INSECT_QUIZ, shuffledStages, type Critter } from "@/lib/critters/catalog";
+import { stageCrop as crop } from "@/lib/critters/crop";
 import eyes from "@/public/art/living/critters.json";
 import "./critterLab.css";
 
 type Eye = { stage: number; x: number; y: number; w: number; h: number; lid: string };
 const EYES = eyes as Record<string, Eye[]>;
-/** Each tile zooms a little into its own quarter of the sheet (per critter), so a neighbouring stage never peeks in. */
-const zx = (z: number, i: number) => (z === 1 ? (i / 3) * 100 : ((z * (i + 0.5) - 0.5) / (4 * z - 1)) * 100);
-/** An eye found on the unzoomed tile (critters.json), moved onto the zoomed one. */
-const zoomed = (z: number, v: number) => z * (v - 50) + 50;
-
-/** A stage's crop of the sheet: the background size and position, and where an eye found on the plain quarter tile
- *  (critters.json) lands on it. Even sheets zoom into their quarter; uneven ones use measured frames. */
-function crop(critter: Critter, i: number) {
-  const frame = critter.frames?.[i];
-  if (frame) {
-    const [c, w] = frame;
-    const left = c - w / 2;
-    const k = 25 / w;
-    return {
-      size: (100 / w) * 100,
-      pos: (left / (100 - w)) * 100,
-      x: (v: number) => ((i * 25 + v / 4 - left) / w) * 100,
-      y: (v: number) => (v - 50) * k + 50,
-      scale: k,
-    };
-  }
-  const z = critter.zoom ?? 1.12;
-  return { size: 400 * z, pos: zx(z, i), x: (v: number) => zoomed(z, v), y: (v: number) => zoomed(z, v), scale: z };
-}
-
 function Tile({ critter, i, dim, glow, onClick, label }: { critter: Critter; i: number; dim?: boolean; glow?: boolean; onClick?: () => void; label?: string }) {
   const stage = critter.stages[i];
   const f = crop(critter, i);

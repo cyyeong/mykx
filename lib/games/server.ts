@@ -6,7 +6,10 @@ import { settingsFor } from "../guardian/view.ts";
 import type { LearnContext } from "../learn/server.ts";
 import { emptyProgress, isOpen, starTotals, type GameProgress } from "./progress.ts";
 import { gamesFor, type GameBand, type GameLevel } from "./registry.ts";
-import { LEVELS_PER_STAGE, STAGES, startingStage } from "./typing/curriculum.ts";
+import { LEVELS_PER_STAGE, STAGES } from "./typing/curriculum.ts";
+import { blastLevel } from "./typing/answers.ts";
+import { gardenLevel } from "./typing/garden.ts";
+import { TYPING_MODES } from "./typing/modes.ts";
 import { levelWords, PLAYABLE_STAGES, schoolLevelOf } from "./typing/levels.ts";
 
 export interface Cabinet {
@@ -31,9 +34,9 @@ export async function arcadeData(ctx: LearnContext) {
   const saved = await ctx.store.games.progress(ctx.householdId, ctx.kidId).catch(() => [] as GameProgress[]);
   const now = new Date().toISOString();
   const cabinets: Cabinet[] = gamesFor(band, level).map((g) => {
-    const p = saved.find((x) => x.game === g.id) ?? emptyProgress(g.id, startingStage(band), now);
+    const mode = TYPING_MODES[g.id];
+    const p = saved.find((x) => x.game === g.id) ?? emptyProgress(g.id, mode?.start(band) ?? 1, now);
     const t = starTotals(p);
-    const stage = STAGES.find((s) => s.n === p.stage);
     return {
       id: g.id,
       name: g.name,
@@ -43,7 +46,7 @@ export async function arcadeData(ctx: LearnContext) {
       href: g.status === "ready" ? g.route : null,
       soon: g.status !== "ready",
       kind: g.subject === "typing" ? "typing" : "subject",
-      stage: g.status === "ready" ? `Stage ${p.stage} · ${stage?.name ?? ""}` : "Coming soon",
+      stage: g.status === "ready" && mode ? (mode.maxStage > 1 ? `Stage ${p.stage} · ${mode.stageName(p.stage)}` : `${mode.stageName(p.stage)} · level ${p.level} of ${LEVELS_PER_STAGE}`) : "Coming soon",
       stars: g.status === "ready" ? `★ ${t.earned} of ${t.possible}` : "",
     };
   });
@@ -60,7 +63,7 @@ export async function typingRound(ctx: LearnContext, game: string, want: { stage
   const band = kid ? bandOf(kid) : "junior";
   const school = schoolLevelOf(kid?.level ?? null);
   const saved = (await ctx.store.games.progress(ctx.householdId, ctx.kidId).catch(() => [] as GameProgress[])).find((x) => x.game === game);
-  const progress = saved ?? emptyProgress(game, startingStage(band), new Date().toISOString());
+  const progress = saved ?? emptyProgress(game, TYPING_MODES[game].start(band), new Date().toISOString());
   let stage = want.stage ?? progress.stage;
   let level = want.level ?? progress.level;
   if (!isOpen(progress, stage, level) || stage > PLAYABLE_STAGES || level < 1 || level > LEVELS_PER_STAGE) {
@@ -70,4 +73,25 @@ export async function typingRound(ctx: LearnContext, game: string, want: { stage
   const words = levelWords(stage, level, school) ?? levelWords(4, 1, school)!;
   const s = STAGES.find((x) => x.n === stage)!;
   return { nickname: ctx.nickname, band, school, stage, level, stageName: s.name, words, progress };
+}
+
+/** Neon Strike's round: five questions for the furthest open "Answer blast" level (or the one asked for). */
+export async function blastRound(ctx: LearnContext, want: { level?: number }) {
+  const kid = await ctx.store.kid(ctx.householdId, ctx.kidId);
+  const band = kid ? bandOf(kid) : "teen";
+  const school = schoolLevelOf(kid?.level ?? null);
+  const saved = (await ctx.store.games.progress(ctx.householdId, ctx.kidId).catch(() => [] as GameProgress[])).find((x) => x.game === "neon-strike");
+  const progress = saved ?? emptyProgress("neon-strike", 1, new Date().toISOString());
+  const level = want.level && isOpen(progress, 1, want.level) && want.level <= LEVELS_PER_STAGE ? want.level : progress.level;
+  return { nickname: ctx.nickname, band, school, stage: 1, level, questions: blastLevel(level, school) };
+}
+
+/** Word Garden's round: six pictures for the furthest open "Match it" level (or the one asked for). */
+export async function gardenRound(ctx: LearnContext, want: { level?: number }) {
+  const kid = await ctx.store.kid(ctx.householdId, ctx.kidId);
+  const band = kid ? bandOf(kid) : "junior";
+  const saved = (await ctx.store.games.progress(ctx.householdId, ctx.kidId).catch(() => [] as GameProgress[])).find((x) => x.game === "word-garden");
+  const progress = saved ?? emptyProgress("word-garden", 1, new Date().toISOString());
+  const level = want.level && isOpen(progress, 1, want.level) && want.level <= LEVELS_PER_STAGE ? want.level : progress.level;
+  return { nickname: ctx.nickname, band, level, prompts: gardenLevel(level) };
 }

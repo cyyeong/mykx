@@ -6,8 +6,7 @@ import { currentKid, currentParent, withAuth } from "@/lib/auth/context";
 import { fail, ok, readBody } from "@/lib/auth/http";
 import { applyRound, emptyProgress, isOpen } from "@/lib/games/progress";
 import { GAMES } from "@/lib/games/registry";
-import { startingStage } from "@/lib/games/typing/curriculum";
-import { PLAYABLE_STAGES } from "@/lib/games/typing/levels";
+import { TYPING_MODES } from "@/lib/games/typing/modes";
 
 const tally = z.strictObject({ hits: z.number().int().min(0).max(2000), misses: z.number().int().min(0).max(2000), instead: z.record(z.string().max(1), z.number().int().min(0).max(2000)) });
 const body = z.strictObject({
@@ -29,12 +28,13 @@ export async function POST(request: Request) {
     if (!kid) return fail(401, "no-kid");
     const r = await readBody(request, body);
     if (!r) return fail(400, "invalid");
-    if (!GAMES.some((g) => g.id === r.game && g.status === "ready" && g.subject === "typing")) return fail(404, "not-found");
+    const mode = TYPING_MODES[r.game];
+    if (!mode || !GAMES.some((g) => g.id === r.game && g.status === "ready" && g.subject === "typing")) return fail(404, "not-found");
     const band = kid.band === "teen" ? "teen" : "junior";
     const now = new Date().toISOString();
-    const prev = (await store.games.progress(kid.householdId, kid.id)).find((p) => p.game === r.game) ?? emptyProgress(r.game, startingStage(band), now);
-    if (!isOpen(prev, r.stage, r.level) || r.stage > PLAYABLE_STAGES) return fail(409, "invalid");
-    const out = applyRound(prev, r, band, PLAYABLE_STAGES, now);
+    const prev = (await store.games.progress(kid.householdId, kid.id)).find((p) => p.game === r.game) ?? emptyProgress(r.game, mode.start(band), now);
+    if (!isOpen(prev, r.stage, r.level) || r.stage > mode.maxStage) return fail(409, "invalid");
+    const out = applyRound(prev, r, band, mode.maxStage, now, mode.speedStage(r.stage));
     await store.games.save(kid.householdId, kid.id, out.progress);
     return ok({ stars: out.stars, accuracy: out.accuracy, wpm: out.wpm, unlocked: out.unlocked, next: { stage: out.progress.stage, level: out.progress.level } });
   });

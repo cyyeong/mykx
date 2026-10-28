@@ -38,10 +38,11 @@ export function emptyProgress(game: string, startStage: number, now: string): Ga
   return { game, stage: startStage, level: 1, stars: {}, bestAccuracy: 0, bestWpm: 0, keys: {}, updatedAt: now };
 }
 
-export function scoreRound(r: RoundReport, band: Band) {
+/** Stars for a round; `speedStage` is the curriculum stage whose speed target applies (defaults to the round's). */
+export function scoreRound(r: RoundReport, band: Band, speedStage = r.stage) {
   const acc = accuracy(r);
   const wpm = wordsPerMinute({ correctChars: r.correctChars, startedAt: 0, lastAt: r.ms });
-  return { accuracy: acc, wpm, stars: starsFor({ finished: r.finished, accuracy: acc, wpm, band, stage: r.stage }) };
+  return { accuracy: acc, wpm, stars: starsFor({ finished: r.finished, accuracy: acc, wpm, band, stage: speedStage }) };
 }
 
 function mergeKeys(a: KeyTally, b: KeyTally): KeyTally {
@@ -56,8 +57,8 @@ function mergeKeys(a: KeyTally, b: KeyTally): KeyTally {
 }
 
 /** The progress after one round; `maxStage` is the last stage this child can play right now. */
-export function applyRound(prev: GameProgress, r: RoundReport, band: Band, maxStage: number, now: string) {
-  const { accuracy: acc, wpm, stars } = scoreRound(r, band);
+export function applyRound(prev: GameProgress, r: RoundReport, band: Band, maxStage: number, now: string, speedStage = r.stage) {
+  const { accuracy: acc, wpm, stars } = scoreRound(r, band, speedStage);
   const key = `${r.stage}-${r.level}`;
   const next: GameProgress = {
     ...prev,
