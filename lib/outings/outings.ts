@@ -2,8 +2,10 @@
 // two steps so child data never reaches the web. The Scout (Muse Spark with web search) is told only the home area, the
 // radius, the interests and the dates. The Planner (Muse Spark, no web) then fits the Scout's sourced results to the
 // family's week and the weather. Code drops any idea whose source the Scout didn't actually cite (rule: no invented
-// places). Pure: no network here.
+// places). Pure: no network here. Both prompts' instructions are editable in Under the hood; their guardrails are
+// fixed (lib/agents/instructions.ts).
 import { z } from "zod";
+import { compose, type Vars } from "../agents/instructions.ts";
 
 export interface OutingIdea {
   id: string;
@@ -63,14 +65,14 @@ export const dayName = (date: string) => {
   return `${WEEKDAYS[d.getUTCDay()]} ${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]}`;
 };
 
+type ScoutAsk = { area: string; radiusKm: number; interests: readonly string[]; dates: readonly string[] };
+
 /** What the Scout may be told: the area, how far, what the family likes and the dates. Never a name, an age or a place a kid is. */
-export function scoutPrompt(o: { area: string; radiusKm: number; interests: readonly string[]; dates: readonly string[] }): string {
-  return [
-    `Find family-friendly things to do together near ${o.area}, Singapore, within about ${o.radiusKm} km of the town centre, on ${o.dates.map(dayName).join(" and ")}.`,
-    `The family likes: ${o.interests.join(", ")}. Look for sport halls and courts, swimming complexes, cycling routes and park connectors, hawker centres and other places to eat, and public events on those dates.`,
-    "Give 6 to 8 options. For each one: the venue and address, what to do there, opening hours or the event's date and time, a rough distance from the nearest MRT or LRT station, any price, and the web page you took it from.",
-    "Only include places you found on a web page, and say where. Prefer public places and community events; skip events themed on a film, game, toy, cartoon or celebrity brand. Keep each option under 70 words.",
-  ].join("\n");
+export const scoutVars = (o: ScoutAsk): Vars => ({ area: o.area, radiusKm: o.radiusKm, interests: o.interests.join(", "), dates: o.dates.map(dayName).join(" and ") });
+
+/** The Scout's whole prompt: its instructions (`head`: the published version, run.ts passes it) and guardrails. */
+export function scoutPrompt(o: ScoutAsk, head = compose("outing-scout", scoutVars(o))): string {
+  return head;
 }
 
 export const plannerSchema = z.strictObject({
@@ -93,15 +95,8 @@ export const plannerSchema = z.strictObject({
 });
 export type PlannerOutput = z.infer<typeof plannerSchema>;
 
-export const PLANNER_PROMPT = [
-  "You plan a weekend of things to do together for a Singapore family with children, from search results someone else found.",
-  "Use ONLY the places, hours, prices and distances in the search results. Never invent a venue, a time or a price. If the results don't say, leave that out.",
-  "Skip any event named after or themed on a film, game, toy, cartoon or celebrity brand; use the venue itself or a community event instead.",
-  "Pick 4 to 6 ideas that fit the family's interests, spread over the dates, outdoor ideas on the drier parts of the day and indoor ones when rain is likely. Keep each within the family's radius.",
-  "For each idea give: the day (YYYY-MM-DD, one of the dates given), a short time range, the interest it fits (or 'Other'), a short title, where it is, the key facts (hours, price, distance), and 'why this one': one friendly sentence tying it to the family's week or the weather. You may mention the children by the nicknames given; be kind and never judge anyone.",
-  "source: the one web address from the results that the idea came from, exactly as given.",
-  "summary: two sentences at most for the parent: how the week looked and how you planned around the weather. No lists.",
-].join("\n");
+// The Planner's prompt (its editable instructions and fixed guardrails) is in lib/agents/instructions.ts
+// ("outing-planner"); run.ts reads the published version with instructionsFor.
 
 const norm = (u: string) => {
   try {

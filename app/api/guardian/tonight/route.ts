@@ -2,14 +2,16 @@
 // rows (each kid's screen time and learning, unseen flags, and Guardian's afternoon: arrivals, what happened at home,
 // the notes and how the grown-up checked them, the weekend plan); Muse Spark (Standard) narrates them in three or four
 // sentences and may add nothing. If it can't, the rules' own sentence is returned and labelled. Cached per family: a new
-// summary is written only when the facts change, and at most every five minutes.
+// summary is written only when the facts change, and at most every five minutes. The prompt is Tonight's published
+// instructions (editable in Under the hood) with fixed guardrails (lib/agents).
+import { instructionsFor } from "@/lib/agents/runtime";
 import { currentParent, withAuth } from "@/lib/auth/context";
 import { fail, ok } from "@/lib/auth/http";
 import { takeToken } from "@/lib/auth/lockout";
 import { pinLockedResponse } from "@/lib/auth/pin";
 import { sgDate } from "@/lib/domain/time";
 import { loadGuardianView } from "@/lib/guardian/load";
-import { TONIGHT_PROMPT, fallbackTonight, hasTonight, tonightDigest, tonightFacts, tonightSchema, type TonightInput } from "@/lib/guardian/tonight";
+import { fallbackTonight, hasTonight, tonightDigest, tonightFacts, tonightSchema, type TonightInput } from "@/lib/guardian/tonight";
 import { sgMidnightIso } from "@/lib/home-watch/device-auth";
 import { stretches } from "@/lib/home-watch/rollup";
 import { hasMetaApiKey } from "@/lib/meta/client";
@@ -83,7 +85,8 @@ export async function GET(request: Request) {
     if (hasMetaApiKey()) {
       try {
         logRunsFor("tonight", hh, null);
-        const { data } = await sparkStructured({ messages: [{ role: "system", content: TONIGHT_PROMPT }, { role: "user", content: `Facts:\n${tonightFacts(input)}` }], schema: tonightSchema, schemaName: "tonight_summary", reasoningEffort: "low" }, { timeoutMs: 20_000, signal: request.signal });
+        const system = await instructionsFor("tonight", {}, { store });
+        const { data } = await sparkStructured({ messages: [{ role: "system", content: system }, { role: "user", content: `Facts:\n${tonightFacts(input)}` }], schema: tonightSchema, schemaName: "tonight_summary", reasoningEffort: "low" }, { timeoutMs: 20_000, signal: request.signal });
         entry = { digest, text: data.text.trim(), at: now.getTime(), source: "live" };
       } catch {
         // The rules' sentence stands in, labelled.

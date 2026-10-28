@@ -39,12 +39,13 @@ import type { PageSlug } from "../notebook/notebook.ts";
 import type { GameProgress } from "../games/progress.ts";
 import type { CookieJar } from "./http.ts";
 import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt, StoredBeat, StoredGuardianSettings, StoredKixMessage, Creation, NotebookPage, NotebookRevision, StoredSessionRead, StoredRun, StoredSkillEvent } from "./store.ts";
+import type { StoredAgentVersion } from "./store.ts";
 import { NicknameTakenError, UsernameTakenError } from "./store.ts";
 import { sessionSecret, signToken, verifyToken } from "./tokens.ts";
 
 export const DEMO_PARENT_COOKIE = "mykx_demo_parent";
 /** Bump when the store's shape changes: a running dev server then rebuilds it on the next request (see demoStore). */
-const DEMO_STORE_SHAPE = 12; // 9: game progress; 10: paper scout; 11: Guardian; 12: magic names
+const DEMO_STORE_SHAPE = 13; // 9: game progress; 10: paper scout; 11: Guardian; 12: magic names; 13: agent versions
 const DEMO_TTL_SEC = 7 * 24 * 60 * 60;
 const LABEL = "demo-parent";
 
@@ -849,6 +850,35 @@ export class DemoStore implements AuthStore {
     setBanned: async (userId: string, banned: boolean) => {
       if (banned) this.banned.add(userId);
       else this.banned.delete(userId);
+    },
+  };
+
+  // Agents you can edit (agent_versions): every version, deleted ones kept with deletedAt (lib/agents).
+  readonly agentVersionRows: StoredAgentVersion[] = [];
+
+  readonly agents = {
+    versions: async (agentId?: string) =>
+      this.agentVersionRows
+        .filter((v) => !agentId || v.agentId === agentId)
+        .sort((a, b) => a.agentId.localeCompare(b.agentId) || a.version - b.version)
+        .map((v) => ({ ...v })),
+    add: async (v: { agentId: string; instructions: string; note: string | null; status: StoredAgentVersion["status"]; createdBy: string | null }) => {
+      const version = Math.max(1, ...this.agentVersionRows.filter((r) => r.agentId === v.agentId).map((r) => r.version)) + 1;
+      const row: StoredAgentVersion = { id: randomUUID(), ...v, version, createdAt: nowIso(), deletedAt: null };
+      this.agentVersionRows.push(row);
+      return { ...row };
+    },
+    updateDraft: async (agentId: string, version: number, patch: { instructions: string; note: string | null; status: StoredAgentVersion["status"] }) => {
+      const row = this.agentVersionRows.find((r) => r.agentId === agentId && r.version === version && r.status === "draft" && !r.deletedAt);
+      if (!row) return null;
+      Object.assign(row, patch);
+      return { ...row };
+    },
+    remove: async (agentId: string, version: number, atIso: string) => {
+      const row = this.agentVersionRows.find((r) => r.agentId === agentId && r.version === version && !r.deletedAt);
+      if (!row) return false;
+      row.deletedAt = atIso;
+      return true;
     },
   };
 }

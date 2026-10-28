@@ -3,6 +3,7 @@
 // by the weekly paper scout's "Read it" (app/api/admin/papers). The PDF itself is never kept (rule 10); school
 // papers keep patterns only (settle enforces it).
 import { randomUUID } from "node:crypto";
+import { publishedInstructions } from "../agents/runtime.ts";
 import { hasMetaApiKey } from "../meta/client.ts";
 import { sparkStructured } from "../meta/spark.ts";
 import { extractionPrompt, extractionSchema, settle, type KnowledgeUpload, type Rights } from "./knowledge.ts";
@@ -31,7 +32,8 @@ export async function readPaper(o: { bytes: Uint8Array; fileName: string; rights
     const { data } = await sparkStructured(
       {
         messages: [
-          { role: "system", content: extractionPrompt(o.rights, Object.fromEntries(packs.map((p) => [p.id, p.topics]))) },
+          // The curator's published instructions (editable in Under the hood) with its fixed guardrails.
+          { role: "system", content: extractionPrompt(o.rights, Object.fromEntries(packs.map((p) => [p.id, p.topics])), (await publishedInstructions("knowledge-agent")).text) },
           {
             role: "user",
             content: [

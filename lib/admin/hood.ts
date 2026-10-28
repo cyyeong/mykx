@@ -76,7 +76,9 @@ export interface Agent {
   never: string;
 }
 
-/** Kix's agents and tools, for the demo's "under the hood". Child data only ever goes to Standard models (rule 1). */
+/** Kix's agents and tools, for the demo's "under the hood". Child data only ever goes to Standard models (rule 1).
+ *  The Muse Spark agents' instructions are editable in the agent editor (lib/agents, keyed by `route ?? id`);
+ *  `never` holds whatever an admin writes: it is their fixed guardrails and the checks in code. */
 export const AGENTS: readonly Agent[] = [
   { id: "tutor", name: "Kix Tutor", route: "tutor", models: ["muse-spark-1.3"], reads: "The question, its worked steps and hints, the quest's skill pack through tools (load_skill, read_reference, find_items, check_answer, notebook_read), Kix's Notebook", never: "Gives the answer away, checks the child's current question, or changes a score; every ask counts as a hint" },
   { id: "ask-kix", name: "Ask Kix (homework)", route: "ask-kix", models: ["muse-spark-1.3"], reads: "A typed question or a photo (face-checked on the device, never stored); a research step loads the right pack and reads its method sections with tools; published updates; the Notebook", never: "Keeps the photo, loads a pack outside the child's level, or skips the guide-first steps" },

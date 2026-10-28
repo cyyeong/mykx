@@ -146,3 +146,7 @@ grant select, delete on locations, home_status, home_alerts to authenticated;
 grant select, delete on family_messages, notebook_pages, session_reads to authenticated;
 grant select on notebook_revisions to authenticated;
 grant select, delete on game_progress to authenticated;
+
+-- Agents you can edit (migration 20261030_agent_versions.sql): server only, no policies and no grants.
+alter table agent_versions enable row level security;
+revoke all on agent_versions from anon, authenticated;

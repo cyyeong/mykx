@@ -6,6 +6,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { z } from "zod";
+import { compose, type Vars } from "../agents/instructions.ts";
 
 export const STAGES = ["hint", "steps", "full"] as const;
 export type Stage = (typeof STAGES)[number];
@@ -96,27 +97,14 @@ export function packNotes(pack: string, root = process.cwd()): string {
   return [read("SKILL.md", 4000), ...(METHOD_REFS[pack] ?? []).map((f) => read(join("references", f), 3000))].join("\n");
 }
 
-const STAGE_RULES: Record<Stage, string> = {
-  hint: "Stage HINT: restate what the question asks, name the method, give ONE hint that starts the child off, and a memory hook. No steps beyond the first, no answer. finalAnswer null.",
-  steps: "Stage STEPS: the method as numbered steps the child can follow, with a bar model (maths word problems) or a CER frame (science explanations) where it helps. Stop before the last calculation or the final sentence; finalAnswer null.",
-  full: "Stage FULL: the complete worked solution in steps, the final answer in finalAnswer, a memory hook, and one fresh try-this question (new numbers or context, never copied) with its answer.",
-};
+type PromptKid = { nickname: string; level: string | null; band: string | null; stage: Stage };
 
-export function systemPrompt(o: { nickname: string; level: string | null; band: string | null; stage: Stage; notes: string }): string {
-  const teen = o.band === "teen";
-  return [
-    `You are Kix, ${o.nickname}'s friendly study sidekick in myKx (Singapore, ${o.level ?? "primary"}). You help with homework the way the Singapore MOE syllabus teaches it, using the pack notes below (methods, answer frames, common traps).`,
-    teen ? "Tone: peer, clear, no baby talk." : "Tone: warm, short sentences, concrete; a 9-year-old reads this.",
-    "Help the child learn, not copy: explain the thinking so they can do the next one alone.",
-    "Make it stick: give a memory hook (rhyme, story, acronym, picture or chant) that fits the idea.",
-    "Visuals are data, never markup: use the blocks. bar-model parts carry a value or \"?\" for the unknown; cer uses claim, evidence, reasoning. Fill unused fields with null.",
-    STAGE_RULES[o.stage],
-    "If the photo or text isn't schoolwork, can't be read, or asks for something unsafe, set unclear true and use one say block to ask kindly for the question. Never repeat a name, school or face you see on the page.",
-    "Never copy a past-paper question into try-this: write a new one.",
-    "",
-    "# Pack notes",
-    o.notes,
-  ].join("\n");
+/** What Ask Kix's instructions may fill in; the stage picks its guide-first guardrail (lib/agents/instructions.ts). */
+export const askKixVars = (o: PromptKid): Vars => ({ nickname: o.nickname, level: o.level ?? "primary", band: o.band === "teen" ? "teen" : "junior", stage: o.stage });
+
+/** Ask Kix's instructions (the published version, which the route passes as `head`) with their guardrails, then the pack notes. */
+export function systemPrompt(o: PromptKid & { notes: string }, head = compose("ask-kix", askKixVars(o))): string {
+  return [head, "", "# Pack notes", o.notes].join("\n");
 }
 
 /** Guide first, enforced here rather than trusted to the model: before the full stage there's no final answer

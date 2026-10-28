@@ -1,10 +1,12 @@
 // Server only: one outing run, the Scout then the Planner (docs/prd/GUARDIAN.md §2.6). Shared by the route
-// (app/api/outings) and by scripts/guardian/outings-seed.ts, which records a real search for the demo family.
+// (app/api/outings) and by scripts/guardian/outings-seed.ts, which records a real search for the demo family. Both
+// prompts start with the agent's published instructions (editable in Under the hood) and fixed guardrails.
+import { instructionsFor } from "../agents/runtime.ts";
 import type { AuthStore } from "../auth/store.ts";
 import { loadGuardianView } from "../guardian/load.ts";
 import { sparkStructured } from "../meta/spark.ts";
 import { logRunsFor } from "../runs/log.ts";
-import { PLANNER_PROMPT, outingDates, plannerSchema, scoutPrompt, settleIdeas, type OutingRun } from "./outings.ts";
+import { outingDates, plannerSchema, scoutPrompt, scoutVars, settleIdeas, type OutingRun } from "./outings.ts";
 import { sparkSearch } from "./search.ts";
 import { weatherLines } from "./weather.ts";
 
@@ -17,7 +19,8 @@ export async function makeOutingRun(store: AuthStore, householdId: string, now: 
 
   // 1. The Scout: the web, and only the area, radius, interests and dates (never a child's name, age or whereabouts).
   logRunsFor("outing-scout", householdId, null);
-  const scout = await sparkSearch(scoutPrompt({ area: prefs.homeArea, radiusKm: prefs.radiusKm, interests: prefs.interests, dates }), { timeoutMs: 120_000, signal });
+  const ask = { area: prefs.homeArea, radiusKm: prefs.radiusKm, interests: prefs.interests, dates };
+  const scout = await sparkSearch(scoutPrompt(ask, await instructionsFor("outing-scout", scoutVars(ask), { store })), { timeoutMs: 120_000, signal });
   if (!scout.citations.length) throw new OutingError("Muse didn’t find sources this time. Try again in a minute.");
 
   // 2. The Planner: no web. The family's week and the weather, plus the Scout's sourced results.
@@ -39,7 +42,8 @@ export async function makeOutingRun(store: AuthStore, householdId: string, now: 
     `The family's week:\n${week.join("\n") || "No details."}`,
     `Search results (with the pages they came from):\n${scout.text}\n\nPages cited:\n${scout.citations.map((c) => `- ${c.url}${c.title ? ` (${c.title})` : ""}`).join("\n")}`,
   ].join("\n\n");
-  const { data } = await sparkStructured({ messages: [{ role: "system", content: PLANNER_PROMPT }, { role: "user", content: user }], schema: plannerSchema, schemaName: "outing_plan", reasoningEffort: "low" }, { timeoutMs: 60_000, signal });
+  const planner = await instructionsFor("outing-planner", {}, { store });
+  const { data } = await sparkStructured({ messages: [{ role: "system", content: planner }, { role: "user", content: user }], schema: plannerSchema, schemaName: "outing_plan", reasoningEffort: "low" }, { timeoutMs: 60_000, signal });
 
   const ideas = settleIdeas(data, scout.citations.map((c) => c.url), dates, prefs.interests);
   if (!ideas.length) throw new OutingError("Muse found places but none it could source. Try again.");

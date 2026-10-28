@@ -2,8 +2,10 @@
 // with its room, into structured room readings. One call per tick for all cameras. Code then enforces rule 15 on
 // whatever came back: adults are never named and get no cue, a child is named only as one of this household's
 // kids, cues are visible behaviour from a fixed list. Frames go to the model and are then dropped; only the words
-// are kept. Flags come from lib/home-watch/flags.ts (deterministic), never from the model's say-so alone.
+// are kept. Flags come from lib/home-watch/flags.ts (deterministic), never from the model's say-so alone. The
+// prompt's instructions are editable in Under the hood; rule 15's lines are fixed guardrails (lib/agents).
 import { z } from "zod";
+import { compose } from "../agents/instructions.ts";
 import type { RoomReading, SeenPerson } from "./home-watch.ts";
 
 export const ACTIVITIES = ["watching a screen", "eating or drinking", "reading or homework", "playing", "talking", "resting or sleeping", "moving around", "arguing", "physical conflict", "nobody here", "other"] as const;
@@ -44,23 +46,13 @@ export interface ReaderKid {
   description: string | null;
 }
 
-export function readerPrompt(kids: readonly ReaderKid[]): string {
+/** The Home Reader's instructions (`head`: the published version, read.ts passes it) and guardrails, then the kids. */
+export function readerPrompt(kids: readonly ReaderKid[], head = compose("home-reader", {})): string {
   const family = kids.length
     ? kids.map((k) => `- ${k.nickname} (${k.band === "junior" ? "primary school, about 7–10" : "about 11–16"}): ${k.description ?? "no description given"}`).join("\n")
     : "- (no descriptions given)";
   return [
-    "You read still frames from a family's own home cameras in Singapore and say what is visible, for the parent, as a short safety status. You are not watching anyone over time; you see one moment per room.",
-    "For each camera in the input, return one entry with its camera key.",
-    "",
-    "people: everyone visible, from left to right in the frame. who is child, adult or unknown.",
-    "- Never name an adult. Adults get likely: null and cue: null.",
-    "- Name a child only when they clearly match one of the parent's descriptions below (age, hair, clothes); put the nickname in likely with your confidence. Otherwise likely is null. Never identify anyone from their face alone.",
-    "- cue is for children only: a visible behaviour from the list (smiling or laughing, calm, frowning, crying, shouting posture, unclear). Never guess inner feelings, never diagnose, never judge.",
-    "activity: the main thing happening, from the list. note: what you see in at most 12 plain words. Say child or kid, never boy or girl, and don't guess anyone's gender, age or looks beyond what the parent described.",
-    "hazard: only when clearly visible in the frame; otherwise none. In a high-rise flat, a child close to a wide-open window or ledge is a real fall risk: use 'child near an open window or ledge' even if they are only walking toward it. A lit stove with a child nearby is 'child near a lit stove'.",
-    "concern: urgent only for a hazard or someone clearly being hurt; watch for possible conflict, a child crying, or anything else a parent would want to check; otherwise none.",
-    "reason: one short sentence a parent can read. Say 'possibly' when unsure. Play-fighting and games can look like conflict: say so when it might be play.",
-    "confidence: 0 to 1, how sure you are of the activity and concern.",
+    head,
     "",
     "The kids in this family, in the parent's words:",
     family,
