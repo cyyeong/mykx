@@ -32,6 +32,40 @@
 .kn-toggle button[aria-pressed="true"]:first-child { background: var(--success); color: var(--on-success, #fff); }
 .kn-toggle button[aria-pressed="true"]:last-child { background: var(--warn); color: var(--on-warn); }
 .kn-toggle button:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: -3px; }
+/* New papers found (the weekly scout) */
+.pf-root > .kn-card-head > div { flex: 1 1 520px; }
+.pf-bar { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; }
+.pf-group { border-radius: var(--radius-sm); box-shadow: inset 0 0 0 1.5px var(--border-control); padding: 4px 10px 10px; }
+.pf-group > summary { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; padding: 8px 2px; cursor: pointer; list-style-position: inside; }
+.pf-group > summary:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; border-radius: var(--radius-sm); }
+.pf-why { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 8px 16px; margin: 0 0 8px; padding: 8px 12px; border-radius: var(--radius-sm); background: var(--surface); }
+.pf-why ul { margin: 0; padding: 0 0 0 16px; flex: 1 1 420px; font-size: 13px; line-height: 19px; color: var(--ink-muted); }
+.pf-why b { color: var(--ink); }
+.pf-rows { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; }
+.pf-rows li { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 4px 4px 4px 12px; border-top: 1px solid var(--border-control); }
+.pf-rows li:first-child { border-top: 0; }
+.pf-rows li[data-status="dismissed"] { opacity: 0.5; }
+.pf-rows li[data-status="read"] .kn-main { color: var(--success); }
+.pf-what { flex: 1; min-width: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; }
+.pf-what .kn-muted { overflow-wrap: anywhere; }
+.pf-link { padding: 8px 10px; border-radius: var(--radius-sm); color: var(--accent); font-size: 13px; font-weight: 700; white-space: nowrap; text-decoration: none; }
+.pf-link:hover { text-decoration: underline; }
+.pf-link:focus-visible { outline: 3px solid var(--focus-ring); }
+.pf-dot { display: inline-block; flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); vertical-align: middle; }
+.pf-dot[data-f="manual"] { background: transparent; box-shadow: inset 0 0 0 2.5px var(--ink-muted); }
+.pf-new { padding: 1px 8px; border-radius: var(--radius-pill); background: var(--accent-2); color: var(--on-accent-2); font-size: 11px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
+.pf-acts { display: inline-flex; flex: none; gap: 6px; align-items: center; }
+.pf-btn { min-height: 36px; padding: 0 14px; font-size: 13px; white-space: nowrap; }
+.pf-x { width: 36px; height: 36px; border: 0; border-radius: 50%; background: transparent; color: var(--ink-muted); font: 700 18px / 1 var(--font-text); cursor: pointer; }
+.pf-x:hover { background: var(--surface-raised); color: var(--ink); }
+.pf-x:focus-visible { outline: 3px solid var(--focus-ring); }
+.pf-problems { margin: 0; padding: 4px 4px 0 22px; display: flex; flex-direction: column; gap: 4px; font-size: 13px; line-height: 19px; color: var(--ink-muted); overflow-wrap: anywhere; }
+@media (max-width: 600px) {
+  .pf-rows li { flex-wrap: wrap; }
+  .pf-acts { width: 100%; justify-content: flex-end; }
+}
 @media (max-width: 900px) {
   .kn-upload, .kn-two { grid-template-columns: minmax(0, 1fr); }
 }
+/* The New / All latest switch is a view filter, not approve/reject: both sides use the accent. */
+.pf-bar .kn-toggle button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }

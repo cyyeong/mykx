@@ -213,6 +213,8 @@ export type FailReason =
   | "not-pdf" // an upload that isn't a PDF (415)
   | "nothing-approved" // publish with no approved knowledge (409)
   | "label" // a Notebook line that labels or diagnoses a child (400, rule 11)
+  | "download-by-hand" // a scout find the agent may not download itself (409)
+  | "download-failed" // the agent couldn't download a scout find (502; `note` says why)
   | "error"; // something went wrong on the server (500)
 
 export interface Fail {
@@ -220,4 +222,6 @@ export interface Fail {
   reason: FailReason;
   triesLeft?: number;
   retryAfterSec?: number | null;
+  /** Plain words for an admin, where the reason alone isn't enough. */
+  note?: string;
 }

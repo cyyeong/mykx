@@ -4,16 +4,14 @@
 //          sends several files one after another. The PDF itself isn't kept (rule 10).
 //   GET:   the uploads and each pack's published versions.
 //   PATCH: an admin's approve/reject marks for one upload.
-import { randomUUID } from "node:crypto";
 import { z } from "zod";
 import { requireAdmin } from "@/lib/auth/admin";
 import { withAuth } from "@/lib/auth/context";
 import { fail, ok, readBody } from "@/lib/auth/http";
 import { pinLockedResponse } from "@/lib/auth/pin";
-import { extractionPrompt, extractionSchema, RIGHTS, settle, type KnowledgeUpload } from "@/lib/knowledge/knowledge";
+import { RIGHTS } from "@/lib/knowledge/knowledge";
+import { readPaper } from "@/lib/knowledge/read";
 import { packsOnDisk } from "@/lib/knowledge/packs";
-import { hasMetaApiKey } from "@/lib/meta/client";
-import { sparkStructured } from "@/lib/meta/spark";
 import { logRunsFor } from "@/lib/runs/log";
 
 export const maxDuration = 300;
@@ -35,52 +33,7 @@ export async function POST(request: Request) {
     const bytes = new Uint8Array(await file.arrayBuffer());
     if (new TextDecoder().decode(bytes.subarray(0, 4)) !== "%PDF") return fail(415, "not-pdf");
 
-    const packs = packsOnDisk();
-    const base: KnowledgeUpload = {
-      id: randomUUID(),
-      uploadedBy: admin.profile.id,
-      fileName: file.name.slice(0, 200),
-      bytes: file.size,
-      rights: rights.data,
-      sourceUrl: source.data,
-      status: "failed",
-      pack: null,
-      packIsNew: false,
-      extraction: null,
-      review: {},
-      publishedIn: null,
-      error: null,
-      createdAt: new Date().toISOString(),
-    };
-    let upload: KnowledgeUpload;
-    if (!hasMetaApiKey()) {
-      upload = { ...base, error: "The Meta model key isn't set on this server, so the paper couldn't be read." };
-    } else {
-      try {
-        const { data } = await sparkStructured(
-          {
-            messages: [
-              { role: "system", content: extractionPrompt(rights.data, Object.fromEntries(packs.map((p) => [p.id, p.topics]))) },
-              {
-                role: "user",
-                content: [
-                  { type: "text", text: `File: ${base.fileName}` },
-                  { type: "file", file: { filename: base.fileName, file_data: `data:application/pdf;base64,${Buffer.from(bytes).toString("base64")}` } },
-                ],
-              },
-            ],
-            schema: extractionSchema,
-            schemaName: "knowledge_extraction",
-            reasoningEffort: "medium",
-          },
-          { timeoutMs: 240_000, signal: request.signal },
-        );
-        const settled = settle(data, rights.data, packs.map((p) => p.id));
-        upload = { ...base, status: "ready", extraction: settled.extraction, pack: settled.pack, packIsNew: settled.packIsNew };
-      } catch (e) {
-        upload = { ...base, error: `Muse Spark couldn't read it: ${(e as Error).message.slice(0, 200)}` };
-      }
-    }
+    const upload = await readPaper({ bytes, fileName: file.name, rights: rights.data, sourceUrl: source.data, uploadedBy: admin.profile.id, signal: request.signal });
     await store.knowledge.saveUpload(upload);
     await store.audit({ actor: admin.profile.id, actorRole: "admin", action: "knowledge.upload", target: upload.id, householdId: admin.householdId, detail: { rights: upload.rights, status: upload.status, pack: upload.pack } });
     return ok({ upload });

@@ -25,6 +25,8 @@ import { sgDate } from "../domain/time.ts";
 import { BEAT_MS } from "../guardian/screen-time.ts";
 import { sampleGuardianWeek } from "../guardian/sample.ts";
 import type { KnowledgeUpload, Review, SkillUpdate } from "../knowledge/knowledge.ts";
+import { findFields, findKey, runCounts, type FindStatus, type PaperFind, type ScoutRun } from "../papers/finds.ts";
+import type { ScoutRow } from "../papers/scan.ts";
 import type { FlashcardSpec } from "../vibe/flashcards.ts";
 import type { FamilyMessage, Sticker } from "../family/messages.ts";
 import type { PageSlug } from "../notebook/notebook.ts";
@@ -36,7 +38,7 @@ import { sessionSecret, signToken, verifyToken } from "./tokens.ts";
 
 export const DEMO_PARENT_COOKIE = "mykx_demo_parent";
 /** Bump when the store's shape changes: a running dev server then rebuilds it on the next request (see demoStore). */
-const DEMO_STORE_SHAPE = 9; // 9: game progress
+const DEMO_STORE_SHAPE = 10; // 9: game progress; 10: paper scout
 const DEMO_TTL_SEC = 7 * 24 * 60 * 60;
 const LABEL = "demo-parent";
 
@@ -120,6 +122,9 @@ export class DemoStore implements AuthStore {
   /** Knowledge uploads by id, and published pack updates (platform content). */
   readonly knowledgeRows = new Map<string, KnowledgeUpload>();
   readonly skillUpdateRows: SkillUpdate[] = [];
+  /** The paper scout's finds by key (findKey), and its runs. */
+  readonly paperFindRows = new Map<string, PaperFind>();
+  readonly scoutRunRows: ScoutRun[] = [];
   /** Vibe Zone creations by id, with the household and the shared recipients. */
   readonly creationRows = new Map<string, Creation & { householdId: string; sharedWith: string[] }>();
   readonly runRows: StoredRun[] = [];
@@ -565,6 +570,44 @@ export class DemoStore implements AuthStore {
       this.skillUpdateRows.push(structuredClone(update));
     },
     updates: async (pack?: string) => this.skillUpdateRows.filter((u) => !pack || u.pack === pack).map((u) => structuredClone(u)),
+  };
+
+  readonly papers = {
+    saveScan: async (run: Omit<ScoutRun, "fresh" | "found" | "auto" | "manual" | "skip">, rows: readonly ScoutRow[]) => {
+      let fresh = 0;
+      for (const r of rows) {
+        const fields = findFields(r);
+        const old = this.paperFindRows.get(findKey(fields));
+        if (!old) fresh += 1;
+        this.paperFindRows.set(findKey(fields), { ...fields, id: old?.id ?? randomUUID(), status: old?.status ?? "new", uploadId: old?.uploadId ?? null, firstSeen: old?.firstSeen ?? run.at, lastSeen: run.at });
+      }
+      const saved: ScoutRun = { ...run, ...runCounts(rows), fresh, problems: [...run.problems] };
+      this.scoutRunRows.push(saved);
+      return structuredClone(saved);
+    },
+    finds: async () => [...this.paperFindRows.values()].sort((a, b) => b.lastSeen.localeCompare(a.lastSeen) || (b.year ?? 0) - (a.year ?? 0)).map((f) => structuredClone(f)),
+    find: async (id: string) => {
+      const f = [...this.paperFindRows.values()].find((x) => x.id === id);
+      return f ? structuredClone(f) : null;
+    },
+    setFind: async (id: string, patch: { status: FindStatus; uploadId?: string | null }) => {
+      const f = [...this.paperFindRows.values()].find((x) => x.id === id);
+      if (!f) return null;
+      f.status = patch.status;
+      if (patch.uploadId !== undefined) f.uploadId = patch.uploadId;
+      return structuredClone(f);
+    },
+    setStatus: async (ids: readonly string[], status: Exclude<FindStatus, "read">) => {
+      const want = new Set(ids);
+      let n = 0;
+      for (const f of this.paperFindRows.values()) {
+        if (!want.has(f.id) || f.status === "read") continue;
+        f.status = status;
+        n += 1;
+      }
+      return n;
+    },
+    runs: async (limit: number) => [...this.scoutRunRows].reverse().slice(0, limit).map((r) => structuredClone(r)),
   };
 
   // Admin

@@ -316,3 +316,32 @@ describe("migrations/20261028_parent_pin.sql", () => {
     }
   });
 });
+
+describe("migrations/20261030_paper_scout.sql and 20261030_focus_verdict.sql", () => {
+  it("add the scout's tables (admins read, nobody else) and the verdict columns, runnable twice", async () => {
+    const old = new PGlite();
+    try {
+      for (const f of ["test-auth-stub.sql", "schema.sql", "rls.sql", "seed.sql"]) await old.exec(sql(f));
+      await old.exec(`drop table paper_finds; drop table scout_runs; alter table signals drop column verdict, drop column verdict_at;`);
+      for (const f of ["migrations/20261030_paper_scout.sql", "migrations/20261030_focus_verdict.sql"]) {
+        await old.exec(sql(f));
+        await old.exec(sql(f));
+      }
+      await old.exec(`insert into paper_finds (key, site, title, page_url, fetch_mode, reason) values ('mathtutor https://x/a.pdf', 'mathtutor', 'WA1', 'https://x/', 'auto', 'robots.txt allows it')`);
+      await expect(old.exec(`insert into paper_finds (key, site, title, page_url, fetch_mode, reason) values ('mathtutor https://x/a.pdf', 'mathtutor', 'WA1', 'https://x/', 'auto', 'again')`)).rejects.toThrow(/duplicate key/);
+      await expect(old.exec(`update signals set verdict = 'maybe'`)).rejects.toThrow(/check constraint/);
+      await old.exec(`insert into auth.users (id) values ('${PARENT_A}'); update profiles set user_id = '${PARENT_A}', is_admin = false where id = '00000000-0000-4000-8000-000000000010';`);
+      await old.query(`select set_config('request.jwt.claim.sub', $1, false)`, [PARENT_A]);
+      await old.exec("set role authenticated");
+      expect((await old.query("select id from paper_finds")).rows).toHaveLength(0); // a parent who isn't an admin sees nothing
+      await expect(old.query(`insert into scout_runs (trigger) values ('admin')`)).rejects.toThrow(/permission denied/);
+      await old.exec("reset role");
+      await old.exec(`update profiles set is_admin = true where id = '00000000-0000-4000-8000-000000000010'`);
+      await old.exec("set role authenticated");
+      expect((await old.query("select id from paper_finds")).rows).toHaveLength(1);
+      await old.exec("reset role");
+    } finally {
+      await old.close();
+    }
+  });
+});

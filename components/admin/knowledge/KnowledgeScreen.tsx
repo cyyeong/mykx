@@ -9,6 +9,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { api } from "@/components/account/api";
 import { RIGHTS, RIGHTS_LABEL, type KnowledgeUpload, type Review, type Rights, type SkillUpdate } from "@/lib/knowledge/knowledge";
 import "@/components/admin/people/people.css";
+import { PaperFinds } from "./PaperFinds";
 import "./knowledge.css";
 
 type Pack = { id: string; title: string; version: string };
@@ -228,7 +229,7 @@ export function KnowledgeScreen() {
         <main className="ap-main kn-main-col">
           <header>
             <h1 className="kn-h1">Add knowledge</h1>
-            <p className="kn-lede">Upload papers or notes, several at a time. Kix&apos;s Content Curator (Muse Spark) reads each one into question patterns, traps and marking cues, sends it to the right skill pack, and waits for your review. Publishing makes it the pack&apos;s next version.</p>
+            <p className="kn-lede">Upload papers or notes, several at a time, or pick from the papers the weekly scout found. Kix&apos;s Content Curator (Muse Spark) reads each one into question patterns, traps and marking cues, sends it to the right skill pack, and waits for your review. Publishing makes it the pack&apos;s next version.</p>
           </header>
 
           {denied ? (
@@ -277,6 +278,8 @@ export function KnowledgeScreen() {
                   </ul>
                 )}
               </section>
+
+              <PaperFinds onRead={() => setVersion((v) => v + 1)} />
 
               {published && <p className="kn-note">{published}</p>}
 

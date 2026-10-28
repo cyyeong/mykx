@@ -36,6 +36,8 @@ alter table notebook_revisions enable row level security;
 alter table session_reads enable row level security;
 alter table knowledge_uploads enable row level security;
 alter table skill_updates enable row level security;
+alter table paper_finds enable row level security;
+alter table scout_runs enable row level security;
 
 create policy households_own on households for select to authenticated using (id = my_household());
 
@@ -85,6 +87,8 @@ create policy session_reads_delete on session_reads for delete to authenticated 
 -- Knowledge uploads and pack updates: admins read them; only the server writes (after review).
 create policy knowledge_uploads_admin_read on knowledge_uploads for select to authenticated using (i_am_admin());
 create policy skill_updates_admin_read on skill_updates for select to authenticated using (i_am_admin());
+create policy paper_finds_admin_read on paper_finds for select to authenticated using (i_am_admin());
+create policy scout_runs_admin_read on scout_runs for select to authenticated using (i_am_admin());
 
 -- Creations and shares stay inside the household.
 create policy creations_all on creations for all to authenticated
@@ -98,7 +102,7 @@ create policy shares_all on shares for all to authenticated
 
 -- Supabase grants every role everything on new public tables by default, so start from nothing and
 -- grant exactly what the browser needs. RLS still scopes every row by household.
-revoke all on households, profiles, attempts, ledger, creations, shares, summaries, model_runs, audit_log, signals, screen_beats, kix_messages, guardian_settings, flags_seen, knowledge_uploads, skill_updates, family_messages, notebook_pages, notebook_revisions, session_reads, game_progress from anon, authenticated;
+revoke all on households, profiles, attempts, ledger, creations, shares, summaries, model_runs, audit_log, signals, screen_beats, kix_messages, guardian_settings, flags_seen, knowledge_uploads, skill_updates, paper_finds, scout_runs, family_messages, notebook_pages, notebook_revisions, session_reads, game_progress from anon, authenticated;
 grant usage on schema public to authenticated;
 grant select on households, attempts, ledger, summaries, model_runs, audit_log to authenticated;
 -- Every profile column except secret_hash and pin_hash (kid secrets and the parent PIN are checked by the server only).
@@ -114,7 +118,7 @@ grant select, insert, update, delete on creations, shares to authenticated;
 grant select, delete on signals to authenticated;
 grant select, delete on screen_beats, kix_messages to authenticated;
 grant select on guardian_settings, flags_seen to authenticated;
-grant select on knowledge_uploads, skill_updates to authenticated;
+grant select on knowledge_uploads, skill_updates, paper_finds, scout_runs to authenticated;
 grant select, delete on family_messages, notebook_pages, session_reads to authenticated;
 grant select on notebook_revisions to authenticated;
 grant select, delete on game_progress to authenticated;

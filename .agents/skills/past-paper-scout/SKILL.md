@@ -9,7 +9,7 @@ Finds the newest past papers for myKx's levels (P3, P6, Sec 2), downloads the on
 
 ## Rules (never bend these)
 
-1. **Allowlist only.** Fetch only from the sites in `scripts/papers/scout.ts` (`SITES`). Adding a site needs the founder's approval in chat; record it in the table below.
+1. **Allowlist only.** Fetch only from the sites in `lib/papers/scan.ts` (`SITES`), shared by the CLI and the weekly job. Adding a site needs the founder's approval in chat; record it in the table below.
 2. **robots.txt and terms decide.** Check robots.txt for both the page's host and the file's host. Disallowed → the admin downloads by hand, or a sanctioned API does it (Google's Drive API for public Drive files). A site whose terms forbid reuse → skip until it gives written permission. Never work around a block: no CAPTCHA solving, no sign-in, no other user agents, no headless browser to get past a check, no mirrors.
 3. **Be polite.** Identify as `myKx-paper-scout`, wait at least 1.5 s between requests, cap pages, PDFs only, ≤ 20 MB each.
 4. **Private reference only** (AGENTS.md rule 10). Papers live in `MYKX_PAPERS_DIR` (default `../mykx-papers`, outside the repo) or the private Supabase bucket. Never commit them, never serve them to children, never show them to another household. The knowledge agent derives **archetypes, exam weights, common traps and mark-scheme cues**; Kix writes fresh questions from those, and every one is reviewed.
@@ -22,6 +22,8 @@ Finds the newest past papers for myKx's levels (P3, P6, Sec 2), downloads the on
 node scripts/papers/scout.ts            # report only: MYKX_PAPERS_DIR/scout/<date>.md and .json
 node scripts/papers/scout.ts --fetch    # also downloads the "auto" papers into MYKX_PAPERS_DIR/<site>/<year>/
 ```
+
+**Weekly, on its own** (30 Oct): Vercel's scheduler calls `/api/cron/papers` every Monday at 06:00 SGT (`vercel.json`, `0 22 * * 0` UTC) with `Authorization: Bearer $CRON_SECRET` (set it in Vercel; without it the route refuses). It runs the same scan (`lib/papers/scan.ts`), downloads nothing, and saves each latest paper's link and decision to `paper_finds` (one row per run in `scout_runs`; migration `20261030_paper_scout.sql`). Admin → Add knowledge → **New papers found** lists them by level and subject, with the reason per site, and "Run the scout now". For an "auto" find, **Read it with the knowledge agent** has the server download it (allowlisted host and robots.txt checked again, PDF only, ≤ 20 MB) and Muse Spark read it as a school paper (`lib/knowledge/read.ts`), straight into the review queue; the PDF isn't kept. "Manual" finds open the site's page; the admin downloads and uploads them above.
 
 Connectors for the two sites that can't be fetched directly (`scripts/papers/connect.ts`, works from the latest report):
 

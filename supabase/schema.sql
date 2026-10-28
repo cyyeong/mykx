@@ -323,6 +323,44 @@ create table skill_updates (
   unique (pack, version)
 );
 
+-- The weekly past-paper scout (lib/papers/scan.ts, app/api/cron/papers): links and download decisions only, never a
+-- paper (rule 10).
+create table paper_finds (
+  id uuid primary key default gen_random_uuid(),
+  -- site + the file link, or the page when there's no file link (one page can list several papers)
+  key text not null unique check (char_length(key) <= 650),
+  site text not null check (char_length(site) <= 40),
+  title text not null check (char_length(title) <= 300),
+  level text check (char_length(level) <= 10),
+  subject text check (char_length(subject) <= 40),
+  year integer,
+  exam_type text check (char_length(exam_type) <= 20),
+  school text check (char_length(school) <= 120),
+  page_url text not null check (char_length(page_url) <= 600),
+  file_url text check (char_length(file_url) <= 600),
+  fetch_mode text not null check (fetch_mode in ('auto', 'manual', 'skip')),
+  reason text not null check (char_length(reason) <= 400),
+  pack text check (char_length(pack) <= 40),
+  pack_is_new boolean not null default false,
+  status text not null default 'new' check (status in ('new', 'seen', 'dismissed', 'read')),
+  upload_id uuid references knowledge_uploads (id) on delete set null,
+  first_seen timestamptz not null default now(),
+  last_seen timestamptz not null default now()
+);
+create index paper_finds_seen on paper_finds (last_seen desc);
+
+create table scout_runs (
+  id uuid primary key default gen_random_uuid(),
+  at timestamptz not null default now(),
+  trigger text not null check (trigger in ('weekly', 'admin')),
+  found integer not null default 0,
+  fresh integer not null default 0,
+  auto integer not null default 0,
+  manual integer not null default 0,
+  skip integer not null default 0,
+  problems jsonb not null default '[]'::jsonb
+);
+
 -- Account actions: admin actions (always), family changes and kid lockouts. Append-only, written by
 -- the server's service role; readable by admins (rls.sql). `detail` holds field names and reasons,
 -- never a child's messages, answers, Notebook, nickname or secrets. No foreign keys, so the trail

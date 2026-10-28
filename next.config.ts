@@ -20,6 +20,10 @@ const nextConfig: NextConfig = {
     "/api/admin/hood": ["./content/skills/*/skill.json", "./content/skills/*/items/*.json", "./public/art/manifest.json"],
     "/api/admin/knowledge": ["./content/skills/*/skill.json"],
     "/api/admin/knowledge/publish": ["./content/skills/*/skill.json"],
+    // The paper scout routes finds to packs and the knowledge agent reads them.
+    "/api/cron/papers": ["./content/skills/*/skill.json"],
+    "/api/admin/papers": ["./content/skills/*/skill.json"],
+    "/api/admin/papers/read": ["./content/skills/*/skill.json"],
     // The learning loop reads the frog quest items from disk at request time (lib/learn/frog-quest.ts).
     ...Object.fromEntries(
       ["/learn/[quest]", "/learn/[quest]/done", "/question/[id]", "/api/attempts", "/api/kix/reason", "/home", "/critters", "/squadron"].map((route) => [route, ["./content/skills/p3-science/items/demo.json", "./content/skills/p3-science/figures/*"]]),

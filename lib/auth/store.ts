@@ -12,6 +12,8 @@ import type { FlashcardSpec } from "../vibe/flashcards.ts";
 import type { FamilyMessage, Sticker } from "../family/messages.ts";
 import type { PageSlug } from "../notebook/notebook.ts";
 import type { GameProgress } from "../games/progress.ts";
+import type { FindStatus, PaperFind, ScoutRun } from "../papers/finds.ts";
+import type { ScoutRow } from "../papers/scan.ts";
 import type { Band, Level, Pack, SecretEvent, SecretKind } from "./schemas.ts";
 
 /** A profiles row, server side. Holds the secret hash: never send one of these to a client as is. */
@@ -340,6 +342,21 @@ export interface AuthStore {
     saveUpdate(update: SkillUpdate): Promise<void>;
     /** Published updates, oldest first; one pack's when `pack` is given. */
     updates(pack?: string): Promise<SkillUpdate[]>;
+  };
+
+  // The weekly past-paper scout's finds (links and decisions, never papers) and runs: platform content; the cron
+  // route (CRON_SECRET) or an admin route writes, admins read.
+  papers: {
+    /** Upserts the scan's rows by key (findKey; keeping each find's status) and records the run; returns it. */
+    saveScan(run: Omit<ScoutRun, "fresh" | "found" | "auto" | "manual" | "skip">, rows: readonly ScoutRow[]): Promise<ScoutRun>;
+    /** Newest first by last seen. */
+    finds(): Promise<PaperFind[]>;
+    find(id: string): Promise<PaperFind | null>;
+    setFind(id: string, patch: { status: FindStatus; uploadId?: string | null }): Promise<PaperFind | null>;
+    /** Marks several finds at once (never a "read" one back to new); returns how many changed. */
+    setStatus(ids: readonly string[], status: Exclude<FindStatus, "read">): Promise<number>;
+    /** Newest first. */
+    runs(limit: number): Promise<ScoutRun[]>;
   };
 
   // Admin only: callers check the admin flag first (lib/auth/context.ts requireAdmin).

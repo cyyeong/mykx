@@ -16,6 +16,8 @@ import type { FlashcardSpec } from "../vibe/flashcards.ts";
 import type { FamilyMessage, Sticker } from "../family/messages.ts";
 import type { PageSlug } from "../notebook/notebook.ts";
 import type { GameProgress } from "../games/progress.ts";
+import { findFields, findKey, runCounts, type FindStatus, type PaperFind, type ScoutRun } from "../papers/finds.ts";
+import type { ScoutRow } from "../papers/scan.ts";
 import { NicknameTakenError } from "./store.ts";
 
 export interface SupabaseEnv {
@@ -82,6 +84,31 @@ function toRow(patch: ProfilePatch): Row {
 }
 
 type DbError = { code?: string; message?: string } | null;
+
+const FIND_COLUMNS = "id, site, title, level, subject, year, exam_type, school, page_url, file_url, fetch_mode, reason, pack, pack_is_new, status, upload_id, first_seen, last_seen";
+function toFind(r: Record<string, unknown>): PaperFind {
+  return {
+    id: r.id as string,
+    site: r.site as PaperFind["site"],
+    title: r.title as string,
+    level: (r.level as PaperFind["level"]) ?? null,
+    subject: (r.subject as string | null) ?? null,
+    year: (r.year as number | null) ?? null,
+    type: (r.exam_type as string | null) ?? null,
+    school: (r.school as string | null) ?? null,
+    pageUrl: r.page_url as string,
+    fileUrl: (r.file_url as string | null) ?? null,
+    fetch: r.fetch_mode as PaperFind["fetch"],
+    reason: r.reason as string,
+    pack: (r.pack as string | null) ?? null,
+    packIsNew: Boolean(r.pack_is_new),
+    status: r.status as FindStatus,
+    uploadId: (r.upload_id as string | null) ?? null,
+    firstSeen: new Date(r.first_seen as string).toISOString(),
+    lastSeen: new Date(r.last_seen as string).toISOString(),
+  };
+}
+const toRun = (r: Record<string, unknown>): ScoutRun => ({ id: r.id as string, at: new Date(r.at as string).toISOString(), trigger: r.trigger as ScoutRun["trigger"], found: Number(r.found), fresh: Number(r.fresh), auto: Number(r.auto), manual: Number(r.manual), skip: Number(r.skip), problems: (r.problems as string[]) ?? [] });
 
 function check(error: DbError) {
   if (!error) return;
@@ -895,6 +922,53 @@ export class SupabaseStore implements AuthStore {
         const p = r.payload as Pick<SkillUpdate, "archetypes" | "traps" | "markingCues" | "items">;
         return { id: r.id as string, pack: r.pack as string, version: r.version as string, publishedBy: (r.published_by as string | null) ?? "", publishedAt: new Date(r.published_at as string).toISOString(), summary: r.summary as string, archetypes: p.archetypes ?? [], traps: p.traps ?? [], markingCues: p.markingCues ?? [], items: p.items ?? [] };
       });
+    },
+  };
+
+  // The weekly paper scout (paper_finds, scout_runs): platform content; the cron or admin route writes.
+  readonly papers = {
+    saveScan: async (run: Omit<ScoutRun, "fresh" | "found" | "auto" | "manual" | "skip">, rows: readonly ScoutRow[]): Promise<ScoutRun> => {
+      const { data: known, error: e1 } = await this.db.from("paper_finds").select("key").limit(5000);
+      check(e1);
+      const seen = new Set((known ?? []).map((k) => k.key as string));
+      const unique = new Map(rows.map((r) => [findKey(findFields(r)), findFields(r)]));
+      const fresh = [...unique.keys()].filter((k) => !seen.has(k)).length;
+      // Status, first seen and the upload are left out, so an existing find keeps them and a new one gets defaults.
+      const payload = [...unique.entries()].map(([key, f]) => ({ key, site: f.site, title: f.title, level: f.level, subject: f.subject, year: f.year, exam_type: f.type, school: f.school, page_url: f.pageUrl, file_url: f.fileUrl, fetch_mode: f.fetch, reason: f.reason, pack: f.pack, pack_is_new: f.packIsNew, last_seen: run.at }));
+      for (let i = 0; i < payload.length; i += 200) {
+        const { error } = await this.db.from("paper_finds").upsert(payload.slice(i, i + 200), { onConflict: "key" });
+        check(error);
+      }
+      const saved: ScoutRun = { ...run, ...runCounts(rows), fresh, problems: run.problems.slice(0, 60).map((p) => p.slice(0, 400)) };
+      const { error } = await this.db.from("scout_runs").insert({ id: saved.id, at: saved.at, trigger: saved.trigger, found: saved.found, fresh, auto: saved.auto, manual: saved.manual, skip: saved.skip, problems: saved.problems });
+      check(error);
+      return saved;
+    },
+    finds: async (): Promise<PaperFind[]> => {
+      const { data, error } = await this.db.from("paper_finds").select(FIND_COLUMNS).order("last_seen", { ascending: false }).order("year", { ascending: false }).limit(1000);
+      check(error);
+      return (data ?? []).map(toFind);
+    },
+    find: async (id: string): Promise<PaperFind | null> => {
+      const { data, error } = await this.db.from("paper_finds").select(FIND_COLUMNS).eq("id", id).maybeSingle();
+      check(error);
+      return data ? toFind(data) : null;
+    },
+    setFind: async (id: string, patch: { status: FindStatus; uploadId?: string | null }): Promise<PaperFind | null> => {
+      const { data, error } = await this.db.from("paper_finds").update({ status: patch.status, ...(patch.uploadId !== undefined ? { upload_id: patch.uploadId } : {}) }).eq("id", id).select(FIND_COLUMNS).maybeSingle();
+      check(error);
+      return data ? toFind(data) : null;
+    },
+    setStatus: async (ids: readonly string[], status: Exclude<FindStatus, "read">): Promise<number> => {
+      if (!ids.length) return 0;
+      const { data, error } = await this.db.from("paper_finds").update({ status }).in("id", [...ids]).neq("status", "read").select("id");
+      check(error);
+      return data?.length ?? 0;
+    },
+    runs: async (limit: number): Promise<ScoutRun[]> => {
+      const { data, error } = await this.db.from("scout_runs").select("*").order("at", { ascending: false }).limit(limit);
+      check(error);
+      return (data ?? []).map(toRun);
     },
   };
 
