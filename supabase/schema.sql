@@ -235,6 +235,62 @@ create table flags_seen (
 -- The knowledge agent (SKILL_ENGINE.md §6): admin uploads read by Muse Spark (Standard) into patterns, traps and
 -- marking cues (never a school paper's questions, rule 10), each reviewed, then published as a pack's next minor
 -- version that Kix reads. Platform content, not family data: admins only, written by the server.
+-- Family messages (PARENT_INSIGHTS §3): grown-up ↔ kid inside the household, words and Kix stickers. Kix, the
+-- Memory Keeper and every language model never read them (rule 12); a voice reply arrives as its transcript only.
+create table family_messages (
+  id uuid primary key default gen_random_uuid(),
+  household_id uuid not null references households (id) on delete cascade,
+  sender_profile_id uuid not null references profiles (id) on delete cascade,
+  recipient_profile_id uuid not null references profiles (id) on delete cascade,
+  body text check (char_length(body) <= 300),
+  sticker text check (sticker in ('cheer', 'proud', 'hug', 'got-this', 'rest', 'think', 'party', 'love')),
+  by_voice boolean not null default false,
+  created_at timestamptz not null default now(),
+  read_at timestamptz,
+  check (body is not null or sticker is not null)
+);
+create index family_messages_household_time on family_messages (household_id, created_at desc);
+
+-- Kix's Notebook (SKILL_ENGINE §5): a few short pages per kid, kept by the Memory Keeper as patch operations after
+-- a session, never labels or diagnoses (rule 11). Every change is a revision a grown-up can read, edit or wipe.
+create table notebook_pages (
+  id uuid primary key default gen_random_uuid(),
+  household_id uuid not null references households (id) on delete cascade,
+  profile_id uuid not null references profiles (id) on delete cascade,
+  slug text not null check (slug in ('personality', 'asking', 'slips', 'moments')),
+  body text not null default '' check (char_length(body) <= 4000),
+  updated_at timestamptz not null default now(),
+  unique (profile_id, slug)
+);
+create table notebook_revisions (
+  id uuid primary key default gen_random_uuid(),
+  household_id uuid not null references households (id) on delete cascade,
+  profile_id uuid not null references profiles (id) on delete cascade,
+  slug text not null,
+  before text not null default '',
+  after text not null default '',
+  by text not null check (by in ('memory-keeper', 'grown-up')),
+  reason text check (char_length(reason) <= 200),
+  created_at timestamptz not null default now()
+);
+create index notebook_revisions_profile_time on notebook_revisions (profile_id, created_at desc);
+
+-- After a session, Muse Spark (Standard) reads only the kid's own words to Kix in it: a mood with its words and
+-- confidence, and whether anything worried it. Possibilities for the grown-up, never a diagnosis (rule 12).
+create table session_reads (
+  id uuid primary key default gen_random_uuid(),
+  household_id uuid not null references households (id) on delete cascade,
+  profile_id uuid not null references profiles (id) on delete cascade,
+  session_start timestamptz not null,
+  session_end timestamptz not null,
+  mood text not null check (mood in ('calm', 'happy', 'curious', 'unsure', 'frustrated', 'tired', 'worried')),
+  confidence text not null check (confidence in ('low', 'medium', 'high')),
+  evidence jsonb not null default '[]'::jsonb,
+  concern boolean not null default false,
+  created_at timestamptz not null default now(),
+  unique (profile_id, session_start)
+);
+
 create table knowledge_uploads (
   id uuid primary key default gen_random_uuid(),
   uploaded_by uuid not null references profiles (id) on delete cascade,

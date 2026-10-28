@@ -72,7 +72,9 @@ export function checkWords(text: string): WordCheck {
 
 export interface MoodReading {
   mood: Mood;
-  confidence: "low" | "medium";
+  confidence: "low" | "medium" | "high";
+  /** Set when the Memory Keeper (Muse Spark, after the session) read it; otherwise the word lists here did. */
+  source?: "spark";
   /** The child's own short phrases behind the reading (at most three, each at most 80 characters). */
   evidence: string[];
 }

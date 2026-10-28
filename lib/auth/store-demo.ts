@@ -26,14 +26,16 @@ import { BEAT_MS } from "../guardian/screen-time.ts";
 import { sampleGuardianWeek } from "../guardian/sample.ts";
 import type { KnowledgeUpload, Review, SkillUpdate } from "../knowledge/knowledge.ts";
 import type { FlashcardSpec } from "../vibe/flashcards.ts";
+import type { FamilyMessage, Sticker } from "../family/messages.ts";
+import type { PageSlug } from "../notebook/notebook.ts";
 import type { CookieJar } from "./http.ts";
-import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt, StoredBeat, StoredGuardianSettings, StoredKixMessage, Creation } from "./store.ts";
+import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt, StoredBeat, StoredGuardianSettings, StoredKixMessage, Creation, NotebookPage, NotebookRevision, StoredSessionRead } from "./store.ts";
 import { NicknameTakenError } from "./store.ts";
 import { sessionSecret, signToken, verifyToken } from "./tokens.ts";
 
 export const DEMO_PARENT_COOKIE = "mykx_demo_parent";
 /** Bump when the store's shape changes: a running dev server then rebuilds it on the next request (see demoStore). */
-const DEMO_STORE_SHAPE = 7; // 7: knowledge uploads and Vibe Zone creations
+const DEMO_STORE_SHAPE = 8; // 8: family messages, the Notebook and session readings
 const DEMO_TTL_SEC = 7 * 24 * 60 * 60;
 const LABEL = "demo-parent";
 
@@ -93,6 +95,9 @@ interface DemoPayload {
   exp: number;
 }
 
+/** A stored family message without its household id. */
+const toMessage = (m: FamilyMessage): FamilyMessage => ({ id: m.id, from: m.from, to: m.to, body: m.body, sticker: m.sticker, byVoice: m.byVoice, at: m.at, readAt: m.readAt });
+
 export class DemoStore implements AuthStore {
   readonly mode = "demo" as const;
   readonly shape = DEMO_STORE_SHAPE;
@@ -116,6 +121,11 @@ export class DemoStore implements AuthStore {
   readonly skillUpdateRows: SkillUpdate[] = [];
   /** Vibe Zone creations by id, with the household and the shared recipients. */
   readonly creationRows = new Map<string, Creation & { householdId: string; sharedWith: string[] }>();
+  /** Family messages, Notebook pages and revisions, and session readings. */
+  readonly familyRows: (FamilyMessage & { householdId: string })[] = [];
+  readonly notebookRows = new Map<string, NotebookPage & { householdId: string; kidId: string }>();
+  readonly notebookRevisionRows: (NotebookRevision & { householdId: string; kidId: string })[] = [];
+  readonly sessionReadRows: (StoredSessionRead & { householdId: string; kidId: string })[] = [];
   private readonly emails = new Map<string, string>(); // auth user id → email
   private readonly banned = new Set<string>();
   private readonly generation = new Map<string, number>();
@@ -416,6 +426,64 @@ export class DemoStore implements AuthStore {
     markSeen: async (householdId: string, flagId: string) => {
       this.seenFlagRows.add(`${householdId}|${flagId}`);
     },
+  };
+
+  readonly family = {
+    grownUps: async (householdId: string) => [...this.profiles.values()].filter((p) => p.householdId === householdId && p.role === "parent"),
+    thread: async (householdId: string, a: string, b: string) =>
+      this.familyRows
+        .filter((m) => m.householdId === householdId && ((m.from === a && m.to === b) || (m.from === b && m.to === a)))
+        .slice(-60)
+        .map(toMessage),
+    unread: async (householdId: string, to: string) => this.familyRows.filter((m) => m.householdId === householdId && m.to === to && !m.readAt).map(toMessage),
+    send: async (householdId: string, m: { from: string; to: string; body: string | null; sticker: Sticker | null; byVoice: boolean }) => {
+      const both = [m.from, m.to].every((id) => this.profiles.get(id)?.householdId === householdId);
+      if (!both) return null;
+      const row = { ...m, id: randomUUID(), at: nowIso(), readAt: null, householdId };
+      this.familyRows.push(row);
+      return toMessage(row);
+    },
+    markRead: async (householdId: string, to: string, ids: readonly string[]) => {
+      const now = nowIso();
+      for (const m of this.familyRows) if (m.householdId === householdId && m.to === to && ids.includes(m.id) && !m.readAt) m.readAt = now;
+    },
+  };
+
+  readonly notebook = {
+    pages: async (householdId: string, kidId: string) =>
+      [...this.notebookRows.values()].filter((p) => p.householdId === householdId && p.kidId === kidId).map((p) => ({ slug: p.slug, body: p.body, updatedAt: p.updatedAt })),
+    write: async (householdId: string, kidId: string, slug: PageSlug, body: string, by: NotebookRevision["by"], reason: string | null) => {
+      if (!this.ownsKid(householdId, kidId)) return;
+      const key = `${kidId}|${slug}`;
+      const before = this.notebookRows.get(key)?.body ?? "";
+      const at = nowIso();
+      this.notebookRows.set(key, { slug, body, updatedAt: at, householdId, kidId });
+      this.notebookRevisionRows.push({ slug, before, after: body, by, reason, at, householdId, kidId });
+    },
+    revisions: async (householdId: string, kidId: string, limit: number) =>
+      this.notebookRevisionRows
+        .filter((r) => r.householdId === householdId && r.kidId === kidId)
+        .slice(-limit)
+        .reverse()
+        .map((r) => ({ slug: r.slug, before: r.before, after: r.after, by: r.by, reason: r.reason, at: r.at })),
+    wipe: async (householdId: string, kidId: string) => {
+      for (const [k, p] of this.notebookRows) if (p.householdId === householdId && p.kidId === kidId) this.notebookRows.delete(k);
+      for (let i = this.notebookRevisionRows.length - 1; i >= 0; i--) {
+        const r = this.notebookRevisionRows[i];
+        if (r.householdId === householdId && r.kidId === kidId) this.notebookRevisionRows.splice(i, 1);
+      }
+    },
+    saveRead: async (householdId: string, kidId: string, read: StoredSessionRead) => {
+      if (!this.ownsKid(householdId, kidId)) return;
+      const i = this.sessionReadRows.findIndex((r) => r.kidId === kidId && r.sessionStart === read.sessionStart);
+      const row = { ...read, householdId, kidId };
+      if (i >= 0) this.sessionReadRows[i] = row;
+      else this.sessionReadRows.push(row);
+    },
+    reads: async (householdId: string, kidId: string, sinceIso: string) =>
+      this.sessionReadRows
+        .filter((r) => r.householdId === householdId && r.kidId === kidId && r.sessionEnd >= sinceIso)
+        .map((r) => ({ sessionStart: r.sessionStart, sessionEnd: r.sessionEnd, mood: r.mood, confidence: r.confidence, evidence: [...r.evidence], concern: r.concern })),
   };
 
   readonly creations = {

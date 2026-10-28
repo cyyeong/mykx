@@ -10,6 +10,15 @@ import type { HomeData } from "../../components/screens/home/HomeScreen.tsx";
 import { FROG_QUEST, questEvidence, questStops, sessionPicks } from "./frog-quest.ts";
 import { questData, type LearnContext } from "./server.ts";
 
+/** The newest unread message from a grown-up, for Home's chip (the family thread itself is on /messages). */
+async function newestMessage(ctx: LearnContext): Promise<HomeData["message"]> {
+  const unread = await ctx.store.family.unread(ctx.householdId, ctx.kidId);
+  const last = unread[unread.length - 1];
+  if (!last) return null;
+  const from = (await ctx.store.family.grownUps(ctx.householdId)).find((g) => g.id === last.from)?.nickname || "your grown-up";
+  return { from, preview: last.body, sticker: last.sticker, count: unread.length };
+}
+
 export async function homeData(ctx: LearnContext): Promise<HomeData> {
   const { items, attempts, ledger } = await questData(ctx);
   const now = new Date().toISOString();
@@ -26,6 +35,7 @@ export async function homeData(ctx: LearnContext): Promise<HomeData> {
   const sq = squadron({ successes: freshSuccesses(attempts), ledger, now });
   const kid = await ctx.store.kid(ctx.householdId, ctx.kidId);
   const status = kid ? await loadKidStatus(ctx.store, ctx.householdId, kid, now).catch(() => null) : null;
+  const message = await newestMessage(ctx).catch(() => null);
   return {
     nickname: ctx.nickname,
     stars: ledger.filter((e) => e.kind === "stars").reduce((n, e) => n + e.amount, 0),
@@ -41,6 +51,7 @@ export async function homeData(ctx: LearnContext): Promise<HomeData> {
     },
     pip: { stage: pip.stage, name: STAGES.frog[pip.stage], next: pip.next ? { name: pip.next.name, needs: pip.next.needs } : null },
     squadron: { unlocked: sq.unlocked, all: [...JETS], next: sq.next },
+    message,
     next: status
       ? { kind: status.next.kind, line: status.next.line, why: status.next.why, href: status.next.href, cta: status.next.cta }
       : { kind: "learn", line: `Ready for ${FROG_QUEST.title}?`, why: "Today's learning comes first.", href: `/learn/${FROG_QUEST.slug}`, cta: "Start today's quest" },

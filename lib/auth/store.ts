@@ -9,6 +9,8 @@ import type { FocusNote } from "../signals/schemas.ts";
 import type { Beat, GuardianSettings } from "../guardian/screen-time.ts";
 import type { KnowledgeUpload, Review, SkillUpdate } from "../knowledge/knowledge.ts";
 import type { FlashcardSpec } from "../vibe/flashcards.ts";
+import type { FamilyMessage, Sticker } from "../family/messages.ts";
+import type { PageSlug } from "../notebook/notebook.ts";
 import type { Band, Level, Pack, SecretEvent, SecretKind } from "./schemas.ts";
 
 /** A profiles row, server side. Holds the secret hash: never send one of these to a client as is. */
@@ -129,6 +131,31 @@ export interface StoredBeat extends Beat {
   synthetic?: boolean;
 }
 
+export interface NotebookPage {
+  slug: PageSlug;
+  body: string;
+  updatedAt: string;
+}
+
+export interface NotebookRevision {
+  slug: string;
+  before: string;
+  after: string;
+  by: "memory-keeper" | "grown-up";
+  reason: string | null;
+  at: string;
+}
+
+/** One session's mood reading from the kid's own words (Muse Spark, Standard). */
+export interface StoredSessionRead {
+  sessionStart: string;
+  sessionEnd: string;
+  mood: string;
+  confidence: "low" | "medium" | "high";
+  evidence: string[];
+  concern: boolean;
+}
+
 /** A Vibe Zone creation: its versions (each a validated spec) and the version shared with the grown-ups, if any. */
 export interface Creation {
   id: string;
@@ -230,6 +257,28 @@ export interface AuthStore {
     /** Flag ids a grown-up marked as seen. */
     seenFlags(householdId: string): Promise<string[]>;
     markSeen(householdId: string, flagId: string): Promise<void>;
+  };
+
+  // Family messages (never read by Kix or a model), the Notebook, and session readings. Household-scoped.
+  family: {
+    /** The household's grown-ups (for a kid's reply). */
+    grownUps(householdId: string): Promise<Profile[]>;
+    /** The thread between two people, oldest first (the last 60). */
+    thread(householdId: string, a: string, b: string): Promise<FamilyMessage[]>;
+    /** Unread messages to someone, oldest first. */
+    unread(householdId: string, to: string): Promise<FamilyMessage[]>;
+    send(householdId: string, m: { from: string; to: string; body: string | null; sticker: Sticker | null; byVoice: boolean }): Promise<FamilyMessage | null>;
+    markRead(householdId: string, to: string, ids: readonly string[]): Promise<void>;
+  };
+  notebook: {
+    pages(householdId: string, kidId: string): Promise<NotebookPage[]>;
+    /** Writes a page and records the revision. */
+    write(householdId: string, kidId: string, slug: PageSlug, body: string, by: NotebookRevision["by"], reason: string | null): Promise<void>;
+    revisions(householdId: string, kidId: string, limit: number): Promise<NotebookRevision[]>;
+    /** Wipes every page and its history for the kid (a grown-up's choice). */
+    wipe(householdId: string, kidId: string): Promise<void>;
+    saveRead(householdId: string, kidId: string, read: StoredSessionRead): Promise<void>;
+    reads(householdId: string, kidId: string, sinceIso: string): Promise<StoredSessionRead[]>;
   };
 
   // Vibe Zone creations (the `creations` and `shares` tables), household-scoped; shares only to the household's

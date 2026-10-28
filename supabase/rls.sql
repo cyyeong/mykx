@@ -29,6 +29,10 @@ alter table screen_beats enable row level security;
 alter table kix_messages enable row level security;
 alter table guardian_settings enable row level security;
 alter table flags_seen enable row level security;
+alter table family_messages enable row level security;
+alter table notebook_pages enable row level security;
+alter table notebook_revisions enable row level security;
+alter table session_reads enable row level security;
 alter table knowledge_uploads enable row level security;
 alter table skill_updates enable row level security;
 
@@ -65,6 +69,16 @@ create policy kix_messages_delete on kix_messages for delete to authenticated us
 create policy guardian_settings_read on guardian_settings for select to authenticated using (household_id = my_household());
 create policy flags_seen_read on flags_seen for select to authenticated using (household_id = my_household());
 
+-- Family messages, the Notebook and session readings: the household's grown-ups read them and may delete
+-- (wipe) them; only the server writes, after checks.
+create policy family_messages_read on family_messages for select to authenticated using (household_id = my_household());
+create policy family_messages_delete on family_messages for delete to authenticated using (household_id = my_household());
+create policy notebook_pages_read on notebook_pages for select to authenticated using (household_id = my_household());
+create policy notebook_pages_delete on notebook_pages for delete to authenticated using (household_id = my_household());
+create policy notebook_revisions_read on notebook_revisions for select to authenticated using (household_id = my_household());
+create policy session_reads_read on session_reads for select to authenticated using (household_id = my_household());
+create policy session_reads_delete on session_reads for delete to authenticated using (household_id = my_household());
+
 -- Knowledge uploads and pack updates: admins read them; only the server writes (after review).
 create policy knowledge_uploads_admin_read on knowledge_uploads for select to authenticated using (i_am_admin());
 create policy skill_updates_admin_read on skill_updates for select to authenticated using (i_am_admin());
@@ -81,7 +95,7 @@ create policy shares_all on shares for all to authenticated
 
 -- Supabase grants every role everything on new public tables by default, so start from nothing and
 -- grant exactly what the browser needs. RLS still scopes every row by household.
-revoke all on households, profiles, attempts, ledger, creations, shares, summaries, model_runs, audit_log, signals, screen_beats, kix_messages, guardian_settings, flags_seen, knowledge_uploads, skill_updates from anon, authenticated;
+revoke all on households, profiles, attempts, ledger, creations, shares, summaries, model_runs, audit_log, signals, screen_beats, kix_messages, guardian_settings, flags_seen, knowledge_uploads, skill_updates, family_messages, notebook_pages, notebook_revisions, session_reads from anon, authenticated;
 grant usage on schema public to authenticated;
 grant select on households, attempts, ledger, summaries, model_runs, audit_log to authenticated;
 -- Every profile column except secret_hash and pin_hash (kid secrets and the parent PIN are checked by the server only).
@@ -98,3 +112,5 @@ grant select, delete on signals to authenticated;
 grant select, delete on screen_beats, kix_messages to authenticated;
 grant select on guardian_settings, flags_seen to authenticated;
 grant select on knowledge_uploads, skill_updates to authenticated;
+grant select, delete on family_messages, notebook_pages, session_reads to authenticated;
+grant select on notebook_revisions to authenticated;

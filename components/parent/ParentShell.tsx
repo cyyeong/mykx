@@ -4,12 +4,14 @@
 // Notebook and Family under one bar (bottom on phones, rail from 600 px),
 // a Kids' doors button to hand the device over, and an account menu with
 // sign out here, sign out everywhere, and the admin entry for admins.
-// Today is the guardian's picture (ParentToday); Messages and Notebook say honestly that they
-// arrive with the parent dashboard (their backends land in a later task).
+// Today is the guardian's picture (ParentToday); Messages are family threads with Kix stickers
+// (ParentMessages); Notebook is what Kix remembers, editable and wipeable (ParentNotebook).
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { api } from "@/components/account/api";
+import { ParentMessages } from "./ParentMessages";
+import { ParentNotebook } from "./ParentNotebook";
 import { ParentToday } from "./ParentToday";
 import "./parent.css";
 
@@ -134,14 +136,12 @@ export function ParentShell({ name, isAdmin }: { name: string | null; isAdmin: b
             )}
           </section>
         ) : tab === "messages" ? (
-          <section className="pshell-card" aria-label="Messages">
-            <h2 className="pshell-h2">Messages</h2>
-            <p className="pshell-p">Family messages arrive here with the parent dashboard — flags from Kix, threads with your kids, and the evening summary. Nothing to read yet.</p>
+          <section aria-label="Messages">
+            <ParentMessages />
           </section>
         ) : tab === "notebook" ? (
-          <section className="pshell-card" aria-label="Notebook">
-            <h2 className="pshell-h2">Notebook</h2>
-            <p className="pshell-p">What Kix remembers about your family lands here — one line per insight, editable, with the full history. Nothing written yet.</p>
+          <section aria-label="Notebook">
+            <ParentNotebook />
           </section>
         ) : (
           <section aria-label="Family">

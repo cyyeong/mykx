@@ -202,7 +202,7 @@ function SessionLine({ s, usual }: { s: SessionRow; usual: number }) {
           ))}
           {s.cameraTired && <li>Camera: possibly sleepy (counted on this device only)</li>}
           {!s.mood && !s.reasons.length && !s.cameraTired && <li>Steady answers; nothing unusual.</li>}
-          {s.mood && <li>Mood confidence: {s.mood.confidence}.</li>}
+          {s.mood && <li>Mood confidence: {s.mood.confidence}{s.mood.source === "spark" ? " (read after the session by Muse Spark)" : ""}.</li>}
         </ul>
       </details>
     </li>

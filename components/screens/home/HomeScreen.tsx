@@ -1,7 +1,9 @@
 // Home (Junior, Terrarium), ported from docs/design/boards/Home.dc.html: scripts/port-board.ts, then by hand.
 // Every number comes from the learner record (app/(kid)/home/page.tsx): stars, today's quest, Pip's stage, the
 // squadron, and Kix's next step from the guardian (lib/guardian), which says why.
+import Link from "next/link";
 import type { CSSProperties } from "react";
+import { KixSticker } from "@/components/family/KixSticker";
 import { KidAvatarMenu } from "@/components/nav/KidAvatarMenu";
 import { Greeting } from "@/components/scene/Greeting";
 import { KixHero } from "@/components/scene/KixHero";
@@ -10,6 +12,7 @@ import { Art } from "@/components/ui/Art";
 import { ButtonLink } from "@/components/ui/Button";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { KixBubble } from "@/components/ui/KixBubble";
+import type { Sticker } from "@/lib/family/messages";
 import { ROUTES } from "../routes";
 import "./homeScreen.css";
 
@@ -38,6 +41,8 @@ export interface HomeData {
   squadron: { unlocked: string[]; all: string[]; next: { jet: string; have: number; need: number } | null };
   /** Kix's next step (the guardian's recommendation) and why. */
   next: { line: string; why: string; href: string | null; cta: string | null; kind: string };
+  /** The newest unread family message (from a grown-up), if any. */
+  message?: { from: string; preview: string | null; sticker: Sticker | null; count: number } | null;
 }
 
 const SAMPLE: HomeData = {
@@ -80,6 +85,16 @@ export function HomeScreen({ data = SAMPLE }: { data?: HomeData }) {
             </svg>
             {data.stars} {data.stars === 1 ? "star" : "stars"}
           </span>
+          {data.message && (
+            <Link href="/messages" className="hm-chip hm-msg" aria-label={`${data.message.count === 1 ? "A new message" : `${data.message.count} new messages`} from ${data.message.from}`}>
+              <KixSticker sticker={data.message.sticker ?? "love"} size={40} label={false} />
+              <span className="hm-msg-text">
+                <span className="hm-msg-from">From {data.message.from}</span>
+                <span className="hm-msg-preview">{data.message.preview ?? "sent you a sticker"}</span>
+              </span>
+              {data.message.count > 1 && <span className="hm-msg-count">{data.message.count}</span>}
+            </Link>
+          )}
           <KidAvatarMenu nickname={nickname} />
         </header>
 

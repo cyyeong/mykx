@@ -6,6 +6,7 @@ import { z } from "zod";
 import { requireFamily } from "@/lib/auth/guard";
 import { fail, ok, readBody } from "@/lib/auth/http";
 import { caringReply, checkWords, HELPLINES } from "@/lib/guardian/words";
+import { notebookNotes } from "@/lib/notebook/notebook";
 import { enforceStage, explanationSchema, packsForLevel, sampleExplanation, STAGES, systemPrompt, teachingNotes } from "@/lib/kix/homework";
 import { updateNotes } from "@/lib/knowledge/knowledge";
 import { hasMetaApiKey } from "@/lib/meta/client";
@@ -52,7 +53,8 @@ export async function POST(request: Request) {
   // The packs' notes, plus what the knowledge agent has published for this level (newest exam patterns).
   const prefix = packsForLevel(kid.level)[0]?.split("-")[0] ?? "";
   const published = ((await store?.knowledge.updates().catch(() => [])) ?? []).filter((u) => prefix && u.pack.startsWith(`${prefix}-`));
-  const notes = [teachingNotes(kid.level), updateNotes(published)].filter(Boolean).join("\n\n");
+  const remembered = notebookNotes(kid.nickname, (await store?.notebook.pages(family.householdId, kid.id).catch(() => [])) ?? []);
+  const notes = [teachingNotes(kid.level), updateNotes(published), remembered].filter(Boolean).join("\n\n");
   try {
     const { data } = await sparkStructured(
       {

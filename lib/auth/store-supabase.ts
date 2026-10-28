@@ -9,10 +9,12 @@ import type { CookieJar } from "./http.ts";
 import { familyOf, type AttemptEvent } from "../domain/attempts.ts";
 import { sgDate } from "../domain/time.ts";
 import type { LedgerEntry } from "../domain/rewards.ts";
-import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt, StoredBeat, StoredGuardianSettings, StoredKixMessage, Creation } from "./store.ts";
+import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt, StoredBeat, StoredGuardianSettings, StoredKixMessage, Creation, NotebookPage, NotebookRevision, StoredSessionRead } from "./store.ts";
 import { BEAT_MS, type ActivityKind } from "../guardian/screen-time.ts";
 import type { Extraction, KnowledgeUpload, Review, Rights, SkillUpdate } from "../knowledge/knowledge.ts";
 import type { FlashcardSpec } from "../vibe/flashcards.ts";
+import type { FamilyMessage, Sticker } from "../family/messages.ts";
+import type { PageSlug } from "../notebook/notebook.ts";
 import { NicknameTakenError } from "./store.ts";
 
 export interface SupabaseEnv {
@@ -140,6 +142,31 @@ function toLedgerEntry(r: Row, kidId: string): LedgerEntry {
     ...(typeof r.ref === "string" && r.ref ? { ref: r.ref } : {}),
     at,
     day: sgDate(at),
+  };
+}
+
+const MESSAGE_COLUMNS = "id, sender_profile_id, recipient_profile_id, body, sticker, by_voice, created_at, read_at";
+function toMessage(r: Row): FamilyMessage {
+  return {
+    id: r.id as string,
+    from: r.sender_profile_id as string,
+    to: r.recipient_profile_id as string,
+    body: (r.body as string | null) ?? null,
+    sticker: (r.sticker as Sticker | null) ?? null,
+    byVoice: Boolean(r.by_voice),
+    at: new Date(r.created_at as string).toISOString(),
+    readAt: r.read_at ? new Date(r.read_at as string).toISOString() : null,
+  };
+}
+
+function toSessionRead(r: Row): StoredSessionRead {
+  return {
+    sessionStart: new Date(r.session_start as string).toISOString(),
+    sessionEnd: new Date(r.session_end as string).toISOString(),
+    mood: r.mood as string,
+    confidence: r.confidence as StoredSessionRead["confidence"],
+    evidence: (r.evidence as string[]) ?? [],
+    concern: Boolean(r.concern),
   };
 }
 
@@ -617,6 +644,91 @@ export class SupabaseStore implements AuthStore {
     revoke: async (householdId: string, creationId: string) => {
       const { error } = await this.db.from("shares").update({ revoked_at: new Date().toISOString() }).eq("household_id", householdId).eq("creation_id", creationId).is("revoked_at", null);
       check(error);
+    },
+  };
+
+  readonly family = {
+    grownUps: async (householdId: string): Promise<Profile[]> => {
+      const { data, error } = await this.db.from("profiles").select(COLUMNS).eq("household_id", householdId).eq("role", "parent");
+      check(error);
+      return (data ?? []).map(toProfile);
+    },
+    thread: async (householdId: string, a: string, b: string): Promise<FamilyMessage[]> => {
+      if (![a, b].every((id) => UUID.test(id))) return [];
+      const { data, error } = await this.db
+        .from("family_messages")
+        .select(MESSAGE_COLUMNS)
+        .eq("household_id", householdId)
+        .or(`and(sender_profile_id.eq.${a},recipient_profile_id.eq.${b}),and(sender_profile_id.eq.${b},recipient_profile_id.eq.${a})`)
+        .order("created_at", { ascending: false })
+        .limit(60);
+      check(error);
+      return (data ?? []).map(toMessage).reverse();
+    },
+    unread: async (householdId: string, to: string): Promise<FamilyMessage[]> => {
+      const { data, error } = await this.db.from("family_messages").select(MESSAGE_COLUMNS).eq("household_id", householdId).eq("recipient_profile_id", to).is("read_at", null).order("created_at").limit(30);
+      check(error);
+      return (data ?? []).map(toMessage);
+    },
+    send: async (householdId: string, m: { from: string; to: string; body: string | null; sticker: Sticker | null; byVoice: boolean }): Promise<FamilyMessage | null> => {
+      const both = await this.db.from("profiles").select("id").eq("household_id", householdId).in("id", [m.from, m.to]);
+      check(both.error);
+      if ((both.data ?? []).length !== 2) return null;
+      const { data, error } = await this.db
+        .from("family_messages")
+        .insert({ household_id: householdId, sender_profile_id: m.from, recipient_profile_id: m.to, body: m.body, sticker: m.sticker, by_voice: m.byVoice })
+        .select(MESSAGE_COLUMNS)
+        .single();
+      check(error);
+      return data ? toMessage(data) : null;
+    },
+    markRead: async (householdId: string, to: string, ids: readonly string[]) => {
+      const valid = ids.filter((id) => UUID.test(id));
+      if (!valid.length) return;
+      const { error } = await this.db.from("family_messages").update({ read_at: new Date().toISOString() }).eq("household_id", householdId).eq("recipient_profile_id", to).in("id", valid).is("read_at", null);
+      check(error);
+    },
+  };
+
+  readonly notebook = {
+    pages: async (householdId: string, kidId: string): Promise<NotebookPage[]> => {
+      const { data, error } = await this.db.from("notebook_pages").select("slug, body, updated_at").eq("household_id", householdId).eq("profile_id", kidId);
+      check(error);
+      return (data ?? []).map((r) => ({ slug: r.slug as PageSlug, body: r.body as string, updatedAt: new Date(r.updated_at as string).toISOString() }));
+    },
+    write: async (householdId: string, kidId: string, slug: PageSlug, body: string, by: NotebookRevision["by"], reason: string | null) => {
+      if (!(await this.ownsKid(householdId, kidId))) return;
+      const cur = await this.db.from("notebook_pages").select("body").eq("profile_id", kidId).eq("slug", slug).maybeSingle();
+      check(cur.error);
+      const now = new Date().toISOString();
+      const up = await this.db.from("notebook_pages").upsert({ household_id: householdId, profile_id: kidId, slug, body, updated_at: now }, { onConflict: "profile_id,slug" });
+      check(up.error);
+      const { error } = await this.db.from("notebook_revisions").insert({ household_id: householdId, profile_id: kidId, slug, before: (cur.data?.body as string) ?? "", after: body, by, reason });
+      check(error);
+    },
+    revisions: async (householdId: string, kidId: string, limit: number): Promise<NotebookRevision[]> => {
+      const { data, error } = await this.db.from("notebook_revisions").select("slug, before, after, by, reason, created_at").eq("household_id", householdId).eq("profile_id", kidId).order("created_at", { ascending: false }).limit(limit);
+      check(error);
+      return (data ?? []).map((r) => ({ slug: r.slug as string, before: r.before as string, after: r.after as string, by: r.by as NotebookRevision["by"], reason: (r.reason as string | null) ?? null, at: new Date(r.created_at as string).toISOString() }));
+    },
+    wipe: async (householdId: string, kidId: string) => {
+      const a = await this.db.from("notebook_revisions").delete().eq("household_id", householdId).eq("profile_id", kidId);
+      check(a.error);
+      const b = await this.db.from("notebook_pages").delete().eq("household_id", householdId).eq("profile_id", kidId);
+      check(b.error);
+    },
+    saveRead: async (householdId: string, kidId: string, read: StoredSessionRead) => {
+      if (!(await this.ownsKid(householdId, kidId))) return;
+      const { error } = await this.db.from("session_reads").upsert(
+        { household_id: householdId, profile_id: kidId, session_start: read.sessionStart, session_end: read.sessionEnd, mood: read.mood, confidence: read.confidence, evidence: read.evidence, concern: read.concern },
+        { onConflict: "profile_id,session_start" },
+      );
+      check(error);
+    },
+    reads: async (householdId: string, kidId: string, sinceIso: string): Promise<StoredSessionRead[]> => {
+      const { data, error } = await this.db.from("session_reads").select("session_start, session_end, mood, confidence, evidence, concern").eq("household_id", householdId).eq("profile_id", kidId).gte("session_end", sinceIso).order("session_end");
+      check(error);
+      return (data ?? []).map(toSessionRead);
     },
   };
 

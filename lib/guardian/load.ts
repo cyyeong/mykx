@@ -26,7 +26,7 @@ async function offerFor(store: AuthStore, householdId: string, kidId: string): P
 /** The full picture for the parent dashboard: two weeks of rows, so the usual focus has a baseline. */
 export async function loadGuardianView(store: AuthStore, householdId: string, kid: Profile, now = new Date().toISOString()): Promise<GuardianView> {
   const since = new Date(toMs(now) - 14 * DAY_MS).toISOString();
-  const [beats, attempts, messages, notes, saved, seen, offer] = await Promise.all([
+  const [beats, attempts, messages, notes, saved, seen, offer, reads] = await Promise.all([
     store.guardian.beats(householdId, kid.id, since),
     store.learn.attempts(householdId, kid.id),
     store.guardian.messages(householdId, kid.id, since),
@@ -34,6 +34,7 @@ export async function loadGuardianView(store: AuthStore, householdId: string, ki
     store.guardian.settings(householdId, kid.id),
     store.guardian.seenFlags(householdId),
     offerFor(store, householdId, kid.id),
+    store.notebook.reads(householdId, kid.id, since).catch(() => []),
   ]);
   return guardianView({
     nickname: kid.nickname,
@@ -45,6 +46,7 @@ export async function loadGuardianView(store: AuthStore, householdId: string, ki
     attempts,
     messages,
     notes: notes.filter((n) => n.kidId === kid.id),
+    reads,
     seen,
     offer,
   });

@@ -9,6 +9,7 @@ import { getStore } from "@/lib/auth/context";
 import { caringReply, checkWords, HELPLINES } from "@/lib/guardian/words";
 import { packNotes } from "@/lib/kix/homework";
 import { FROG_QUEST, loadFrogItems } from "@/lib/learn/frog-quest";
+import { notebookNotes } from "@/lib/notebook/notebook";
 import { hasMetaApiKey } from "@/lib/meta/client";
 import { sparkStream } from "@/lib/meta/spark";
 
@@ -47,6 +48,7 @@ export async function POST(request: Request) {
   const cached = hints[Math.min(input.hint, hints.length) - 1] ?? "Read the question again slowly. What is it really asking?";
   if (!hasMetaApiKey()) return textStream(cached, "cached");
 
+  const remembered = notebookNotes(kid.nickname, (await getStore()?.notebook.pages(family.householdId, kid.id).catch(() => [])) ?? []);
   const options = choices.length ? `\nOptions: ${choices.map((o, i) => `(${i + 1}) ${o}`).join("  ")}` : "";
   const system = [
     `You are Kix, ${kid.nickname}'s friendly study sidekick (Singapore ${kid.level ?? "P3"}). You are helping with one question during a quest.`,
@@ -59,7 +61,10 @@ export async function POST(request: Request) {
     `# The worked steps (for you only; never repeat the conclusion)\n${(item.working ?? []).join("\n")}`,
     `# The item's own hints, in order\n${hints.map((h, i) => `${i + 1}. ${h}`).join("\n")}`,
     `# Pack notes (${SKILL})\n${packNotes(FROG_QUEST.skill)}`,
-  ].join("\n");
+    remembered,
+  ]
+    .filter(Boolean)
+    .join("\n");
   const user = input.ask ? `${kid.nickname} asks: ${input.ask}` : `Give hint ${input.hint}: a nudge that builds on the earlier hints.`;
 
   try {

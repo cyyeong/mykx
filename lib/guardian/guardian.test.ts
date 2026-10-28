@@ -4,6 +4,7 @@ import { nextStep, type NextStepInput } from "./next-step.ts";
 import { activityForPath, inQuietHours, JUNIOR_SETTINGS, lastDays, minutesSinceBreak, screenTimeByDay, type Beat } from "./screen-time.ts";
 import { focusBaseline, sessionFocus, type GuardianSession } from "./session.ts";
 import { checkWords, moodFromWords } from "./words.ts";
+import { deriveSessions } from "./view.ts";
 
 const S = JUNIOR_SETTINGS;
 /** Beats every 30 s for `min` minutes from an SGT wall time on 28 Oct 2026. */
@@ -165,5 +166,15 @@ describe("next step", () => {
 
   it("eases off after a frustrated session", () => {
     expect(nextStep({ ...input, mood: "frustrated" })).toMatchObject({ kind: "review", cta: "Warm up" });
+  });
+});
+
+describe("the Memory Keeper's readings", () => {
+  const run = Array.from({ length: 12 }, (_, i) => ({ at: new Date(Date.parse("2026-10-29T10:00:00.000Z") + i * 30_000).toISOString(), kind: "learn" as const, idle: false, path: "/learn/x" }));
+  const said = [{ at: "2026-10-29T10:02:00.000Z", text: "this is fun", source: "talk" as const, distress: false, selfTalk: false }];
+  it("uses the after-session reading when one overlaps the session, else the word lists", () => {
+    const read = { sessionStart: "2026-10-29T10:01:00.000Z", sessionEnd: "2026-10-29T10:07:00.000Z", mood: "curious", confidence: "high" as const, evidence: ["why do frogs"], concern: false };
+    expect(deriveSessions(run, [], said, [], [read])[0].mood).toEqual({ mood: "curious", confidence: "high", evidence: ["why do frogs"], source: "spark" });
+    expect(deriveSessions(run, [], said, [])[0].mood?.source).toBeUndefined();
   });
 });

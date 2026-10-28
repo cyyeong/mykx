@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
+import { SessionClose } from "@/components/guardian/SessionClose";
 import { QuestDoneScreen, type DoneStop } from "@/components/screens/quest-done/QuestDoneScreen";
 import { cardsFromLedger } from "@/components/screens/treasure/TreasureScreen";
 import { stageFromMilestones, milestonesFrom, STAGES } from "@/lib/domain/companion";
@@ -55,7 +56,9 @@ async function Done({ params }: { params: Promise<{ quest: string }> }) {
   const stage = stageFromMilestones(milestonesFrom(attempts, masteryStates));
   const starsToday = pointsOnDay(ledger, today);
   return (
-    <QuestDoneScreen
+    <>
+      <SessionClose />
+      <QuestDoneScreen
       questTitle={FROG_QUEST.title}
       questSlug={FROG_QUEST.slug}
       complete={complete}
@@ -70,7 +73,8 @@ async function Done({ params }: { params: Promise<{ quest: string }> }) {
       stage={stage}
       stageNames={STAGES.frog}
       evidenceLabel={questEvidence(attempts).label}
-    />
+      />
+    </>
   );
 }
 
