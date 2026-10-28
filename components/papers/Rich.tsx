@@ -3,7 +3,8 @@ import type { ReactNode } from "react";
 import { parseBlocks, parseInline, plainText, splitParagraphs, type Inline, type TextBlock } from "@/lib/print/markup";
 import type { PrintFigure } from "@/lib/print/bank";
 
-function inline(nodes: Inline[], key = ""): ReactNode[] {
+/** Inline markup as trusted React (bold, underline, line breaks, answer blanks). */
+export function inline(nodes: Inline[], key = ""): ReactNode[] {
   return nodes.map((n, i) => {
     const k = `${key}${i}`;
     switch (n.t) {

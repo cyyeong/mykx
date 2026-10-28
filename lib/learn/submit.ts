@@ -51,6 +51,8 @@ export interface SubmitResult {
   /** The reason, checked in code: only an on-topic reason earns the explanation stars. `better` is a model reason
    *  from the worked steps, given once the answer is right or shown (never before, so a retry isn't spoiled). */
   reason: { quality: ReasonQuality; used: string[]; better: string | null };
+  /** The right answer (option number or text), once it's reached or shown; never before, so a retry is theirs. */
+  answer: number | string | null;
 }
 
 const nowIso = () => new Date().toISOString();
@@ -151,6 +153,7 @@ export async function submitAttempt(
     capReached: starsToday >= DAILY_CAP,
     care,
     reason: { quality: reason.quality, used: reason.used, better: mark.correct || input.revealed ? modelReason(item) : null },
+    answer: mark.correct || input.revealed ? item.answer : null,
   };
 }
 
@@ -185,5 +188,6 @@ async function submitState(store: AuthStore, householdId: string, kidId: string,
     capReached: starsToday >= DAILY_CAP,
     care: null, // the first submission already answered with care; a resend doesn't repeat it
     reason: { quality: attempt.explanation ? "on-topic" : "none", used: [], better: null },
+    answer: null,
   };
 }

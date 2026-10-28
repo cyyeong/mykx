@@ -2,6 +2,7 @@
 
 // Draws Kix's homework explanation from its validated spec (lib/kix/homework.ts). Trusted components only: the
 // model chooses blocks and words, never markup (AGENTS.md rule 4).
+import { InlineMarkup } from "@/components/screens/question/StemText";
 import { useState } from "react";
 import type { Block } from "@/lib/kix/homework";
 import s from "./ask.module.css";
@@ -69,7 +70,7 @@ export function ExplainBlocks({ blocks, finalAnswer = null }: { blocks: Block[];
           finalAnswer && i === working ? (
             <p key="final" className={s.final}>
               <span>Answer</span>
-              {finalAnswer}
+              <InlineMarkup text={finalAnswer} />
             </p>
           ) : null;
         const block = (() => {
@@ -77,7 +78,7 @@ export function ExplainBlocks({ blocks, finalAnswer = null }: { blocks: Block[];
           case "say":
             return (
               <p key={key} className={s.say}>
-                {b.text}
+                <InlineMarkup text={b.text} />
               </p>
             );
           case "steps":
@@ -88,7 +89,9 @@ export function ExplainBlocks({ blocks, finalAnswer = null }: { blocks: Block[];
                   {(b.steps ?? []).map((step, j) => (
                     <li key={j} style={{ animationDelay: `${j * 120}ms` }}>
                       <span className={s.stepNum}>{j + 1}</span>
-                      <span>{step}</span>
+                      <span>
+                        <InlineMarkup text={step} />
+                      </span>
                     </li>
                   ))}
                 </ol>
@@ -103,15 +106,21 @@ export function ExplainBlocks({ blocks, finalAnswer = null }: { blocks: Block[];
                 <dl className={s.cer}>
                   <div data-k="c">
                     <dt>Claim</dt>
-                    <dd>{b.claim}</dd>
+                    <dd>
+                      <InlineMarkup text={b.claim} />
+                    </dd>
                   </div>
                   <div data-k="e">
                     <dt>Evidence</dt>
-                    <dd>{b.evidence}</dd>
+                    <dd>
+                      <InlineMarkup text={b.evidence} />
+                    </dd>
                   </div>
                   <div data-k="r">
                     <dt>Reasoning</dt>
-                    <dd>{b.reasoning}</dd>
+                    <dd>
+                      <InlineMarkup text={b.reasoning} />
+                    </dd>
                   </div>
                 </dl>
               </section>
@@ -124,7 +133,7 @@ export function ExplainBlocks({ blocks, finalAnswer = null }: { blocks: Block[];
                 </svg>
                 <div>
                   <span className={s.hookKind}>{b.hook ? HOOK_LABEL[b.hook] : "Remember it"}</span>
-                  <p className={s.hookText}>{b.text}</p>
+                  <p className={s.hookText}><InlineMarkup text={b.text} /></p>
                 </div>
               </section>
             );

@@ -22,7 +22,7 @@ const nextConfig: NextConfig = {
     "/api/admin/knowledge/publish": ["./content/skills/*/skill.json"],
     // The learning loop reads the frog quest items from disk at request time (lib/learn/frog-quest.ts).
     ...Object.fromEntries(
-      ["/learn/[quest]", "/learn/[quest]/done", "/question/[id]", "/api/attempts", "/home", "/critters", "/squadron"].map((route) => [route, ["./content/skills/p3-science/items/demo.json"]]),
+      ["/learn/[quest]", "/learn/[quest]/done", "/question/[id]", "/api/attempts", "/api/kix/reason", "/home", "/critters", "/squadron"].map((route) => [route, ["./content/skills/p3-science/items/demo.json", "./content/skills/p3-science/figures/*"]]),
     ),
   },
   partialPrefetching: true,

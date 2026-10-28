@@ -1,3 +1,6 @@
+import type { StemFigure } from "@/components/screens/question/StemText";
+import { loadFigures } from "@/lib/print/bank";
+import type { SkillItem } from "@/lib/types";
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
@@ -12,6 +15,13 @@ export const metadata: Metadata = { title: "Question · myKx" };
 // The frog quest's reviewed items (Ari's quest from task 2).
 export function generateStaticParams() {
   return loadFrogItems().map((item) => ({ id: item.id }));
+}
+
+/** The item's diagram from its skill pack, inlined, at its natural size in CSS pixels (96 per inch). */
+function figureFor(item: SkillItem): StemFigure | null {
+  if (!item.figure) return null;
+  const fig = loadFigures(item.skill, [item.figure])[item.figure];
+  return fig ? { src: fig.src, w: (fig.widthMm * 96) / 25.4, h: (fig.heightMm * 96) / 25.4, alt: "The diagram for this question" } : null;
 }
 
 async function Question({ params }: { params: Promise<{ id: string }> }) {
@@ -31,7 +41,7 @@ async function Question({ params }: { params: Promise<{ id: string }> }) {
   return (
     <QuestionPlayer
       key={item.id}
-      item={{ id: item.id, stem: item.stem, options: item.options ?? [], hints: item.hints ?? [] }}
+      item={{ id: item.id, stem: item.stem, options: item.options ?? [], hints: item.hints ?? [], figure: figureFor(item) }}
       questSlug={FROG_QUEST.slug}
       questTitle={FROG_QUEST.title}
       position={position}

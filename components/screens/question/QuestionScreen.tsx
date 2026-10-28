@@ -4,6 +4,7 @@
 // the answer key never reaches the client.
 "use client";
 
+import { InlineMarkup, speakable, StemText, type StemFigure } from "./StemText";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
@@ -19,9 +20,12 @@ import "./questionScreen.css";
 
 export interface PlayerItem {
   id: string;
+  /** Item markup: paragraphs, "| a | b |" tables, **bold** (rendered by StemText, never shown raw). */
   stem: string;
   options: string[];
   hints: string[];
+  /** The item's diagram from its skill pack (an inlined SVG), when it has one. */
+  figure?: StemFigure | null;
 }
 
 export interface QuestionPlayerProps {
@@ -54,6 +58,8 @@ interface AttemptOutcome {
   care: Care | null;
   /** The reason, checked in code (lib/domain/reason.ts); `better` once the answer is right or shown. */
   reason?: { quality: "none" | "short" | "off-topic" | "on-topic"; used: string[]; better: string | null };
+  /** The right answer, once reached or shown ("Show me how" highlights it). */
+  answer?: number | string | null;
 }
 
 /** Kix's feedback on the child's reason (/api/kix/reason): narration only, never the stars. */
@@ -84,7 +90,8 @@ const TREASURE = "M6 4h12l4 5.5L12 20 2 9.5zm0 0L12 20M2 9.5h20M9.5 9.5 12 20M14
 // Layout (direction, size, padding) lives in .qp-option so the size classes can change it.
 const OPTION: CSSProperties = { border: 0, borderRadius: "var(--radius-lg)", fontFamily: "var(--font-text)", color: "var(--ink)" };
 
-function optionStyle(selected: boolean, state: "idle" | "right" | "wrong"): CSSProperties {
+function optionStyle(selected: boolean, state: "idle" | "right" | "wrong" | "answer"): CSSProperties {
+  if (state === "answer") return { ...OPTION, background: "var(--surface-raised)", fontWeight: 900, boxShadow: "inset 0 0 0 4px var(--success), 0 0 0 4px rgba(46, 160, 90, 0.18)" };
   if (state === "right") return { ...OPTION, background: "var(--success)", color: "var(--on-success)", boxShadow: "inset 0 0 0 3px var(--border-control)" };
   if (state === "wrong") return { ...OPTION, background: "var(--warn)", color: "var(--on-warn)", boxShadow: "inset 0 0 0 3px var(--border-control)" };
   if (selected) return { ...OPTION, background: "var(--surface)", boxShadow: "inset 0 0 0 4px var(--accent), 4px 4px 0 var(--accent)" };
@@ -144,6 +151,8 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
     setSpoken(text);
     speak(text);
   };
+  // The right answer in words, once it's reached or shown (bold in Kix's bubble and the "How it works" panel).
+  const answerText = outcome?.answer == null ? null : typeof outcome.answer === "number" ? (item.options[outcome.answer - 1] ?? null) : String(outcome.answer);
   const bubble: ReactNode = (() => {
     if (speaking && spoken) {
       return spoken.split(/\s+/).map((w, i) => (
@@ -155,11 +164,28 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
     if (phase === "answering" && tutor !== null) return tutor || "Kix is thinking…";
     if (phase === "correct" && coach?.verdict === "not-yet") return "Yes, that's the right answer! But your reason doesn't explain it yet. Read what I wrote under your reason.";
     if (phase === "correct") return outcome?.awards.length ? "Yes! That's it. Collect your card." : "Yes! That's it.";
-    if (phase === "revealed") return "Here's how it works. Read it over, then keep going.";
+    if (phase === "revealed") return answerText ? `The answer is **${answerText}**. Read how it works, then keep going.` : "Here's how it works. Read it over, then keep going.";
     if (phase === "wrong" && outcome?.note) return outcome.note;
     if (hintIdx > 0) return item.hints[Math.min(hintIdx, item.hints.length) - 1];
     return "Take your time. Say what you think, and why.";
   })();
+
+  // When the answer is shown or reached, bring the highlighted option into view (the card scrolls on short screens).
+  useEffect(() => {
+    if (phase !== "revealed" && phase !== "correct") return;
+    const t = setTimeout(() => {
+      document.querySelector(".qp-option[data-answer]")?.scrollIntoView({ block: "nearest", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    }, 150);
+    return () => clearTimeout(t);
+  }, [phase]);
+
+  /** A new try after a wrong answer: a fresh submission key and timer, back to "Check my answer". */
+  function startRetry() {
+    if (tries >= 2) return;
+    key.current = crypto.randomUUID();
+    shownAt.current = performance.now();
+    setPhase("answering");
+  }
 
   async function send(revealed: boolean) {
     setTutor(null);
@@ -404,15 +430,13 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
               )}
             </div>
             <div className="qp-qrow">
-              <h1 className="qp-q" style={{ margin: 0, fontFamily: "var(--font-display)", fontWeight: 400, whiteSpace: "pre-line" }}>
-                {item.stem}
-              </h1>
+              <StemText text={item.stem} figure={item.figure} />
               <button
                 type="button"
                 className="qp-read"
                 aria-label="Read the question aloud"
                 title="Kix reads it with your device's voice"
-                onClick={() => say([item.stem, ...item.options.map((o, i) => `${String.fromCharCode(65 + i)}. ${o}`)].join(". "))}
+                onClick={() => say([speakable(item.stem), ...item.options.map((o, i) => `${String.fromCharCode(65 + i)}. ${speakable(o)}`)].join(". "))}
               >
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M4 9v6h4l5 4V5L8 9H4zM16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" />
@@ -422,7 +446,9 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
             {isMcq ? (
               <div className="qp-options" role="group" aria-label="Answer options">
                 {item.options.map((label, i) => {
-                  const state = phase === "correct" && outcome ? "idle" : phase === "wrong" && i === selected ? "wrong" : "idle";
+                  // Once the answer is reached or shown, it stands out in bold with a green ring and a tick.
+                  const isAnswer = resolved && typeof outcome?.answer === "number" && outcome.answer === i + 1;
+                  const state = isAnswer ? "answer" : (phase === "wrong" || phase === "revealed") && i === selected ? "wrong" : "idle";
                   return (
                     <button
                       key={i}
@@ -430,12 +456,28 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
                       type="button"
                       onClick={() => {
                         if (resolved || phase === "checking") return;
+                        // After a wrong try, picking another answer starts the next try at once.
+                        if (phase === "wrong") {
+                          if (tries >= 2) return;
+                          startRetry();
+                        }
                         setSelected(i);
                       }}
                       aria-pressed={i === selected}
+                      data-answer={isAnswer || undefined}
                       style={{ ...optionStyle(i === selected, state), minHeight: 56, padding: "12px 16px", textAlign: "left", cursor: "pointer" }}
                     >
-                      <span style={{ fontSize: 20, lineHeight: "26px", fontWeight: 800 }}>{label}</span>
+                      <span style={{ fontSize: 20, lineHeight: "26px", fontWeight: isAnswer ? 900 : 800 }}>
+                        <InlineMarkup text={label} />
+                      </span>
+                      {isAnswer && (
+                        <span className="qp-answer-tag">
+                          <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill="currentColor" d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" />
+                          </svg>
+                          {phase === "revealed" ? "Kix's answer" : "The answer"}
+                        </span>
+                      )}
                     </button>
                   );
                 })}
@@ -445,7 +487,10 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
                 Your answer
                 <input
                   value={typed}
-                  onChange={(e) => setTyped(e.target.value)}
+                  onChange={(e) => {
+                    if (phase === "wrong") startRetry();
+                    setTyped(e.target.value);
+                  }}
                   disabled={resolved || phase === "checking"}
                   style={{ minHeight: 56, padding: "0 16px", borderRadius: "var(--radius-lg)", border: 0, background: "var(--surface)", color: "var(--ink)", fontSize: 20, boxShadow: "inset 0 0 0 3px var(--line)" }}
                 />
@@ -455,7 +500,10 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
               Why do you think so? Say it in your own words — it earns stars.
               <input
                 value={explanation}
-                onChange={(e) => setExplanation(e.target.value)}
+                onChange={(e) => {
+                  if (phase === "wrong") startRetry();
+                  setExplanation(e.target.value);
+                }}
                 disabled={resolved || phase === "checking"}
                 maxLength={500}
                 placeholder="Because…"
@@ -500,7 +548,7 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
                 aria-live="polite"
                 style={{ fontSize: 20, lineHeight: "28px", fontWeight: 700 }}
               >
-                {bubble}
+                {typeof bubble === "string" ? <InlineMarkup text={bubble} /> : bubble}
               </KixBubble>
               {!resolved && phase !== "checking" && (
                 <form
@@ -582,9 +630,16 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
               {phase === "revealed" && outcome?.working && (
                 <div style={{ display: "flex", flexDirection: "column", gap: 8, padding: 16, borderRadius: "var(--radius-lg)", background: "var(--surface-raised)", boxShadow: "inset 0 0 0 3px var(--border-control)" }}>
                   <span style={{ fontWeight: 800, fontSize: 16 }}>How it works</span>
+                  {answerText && (
+                    <p className="qp-how-answer">
+                      The answer: <strong>{answerText}</strong>
+                    </p>
+                  )}
                   <ol style={{ margin: 0, paddingLeft: 20, display: "flex", flexDirection: "column", gap: 6, fontSize: 16, lineHeight: "24px" }}>
                     {outcome.working.map((step, i) => (
-                      <li key={i}>{step}</li>
+                      <li key={i}>
+                        <InlineMarkup text={step} />
+                      </li>
                     ))}
                   </ol>
                 </div>
@@ -614,15 +669,7 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
                 </span>
               )}
               {phase === "wrong" && tries < 2 && (
-                <Button
-                  onClick={() => {
-                    key.current = crypto.randomUUID();
-                    shownAt.current = performance.now();
-                    setPhase("answering");
-                  }}
-                >
-                  Try again
-                </Button>
+                <Button onClick={startRetry}>Try again</Button>
               )}
               {phase === "wrong" && tries >= 2 && (
                 <>
