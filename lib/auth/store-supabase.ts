@@ -161,8 +161,11 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 export class SupabaseStore implements AuthStore {
   readonly mode = "supabase" as const;
   private readonly db: SupabaseClient;
+  private readonly env: SupabaseEnv;
 
-  constructor(private readonly env: SupabaseEnv) {
+  // A plain field, not a parameter property, so Node's type stripping can run scripts that use this store.
+  constructor(env: SupabaseEnv) {
+    this.env = env;
     this.db = createClient(env.url, env.secretKey, { auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false } });
   }
 
