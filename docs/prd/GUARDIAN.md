@@ -195,7 +195,7 @@ Guardian is a reassurance tool, not a guarantee, and the settings page says so i
 | **M3 Parent screens** | Fri | F5, F3, settings | Home now, the map and the settings work from the simulator's data at phone and desktop sizes |
 | **M4 Kid side and Home Link** | Sat | F2, F6 | a kid's phone shares while myKx is open (the walk test); Home Link pairs and sends from a test RTSP or snapshot camera |
 | **M5 Polish and the beat** | Sun | the device pass on Guardian screens, the video take | a clean take of the 20 s beat; then the plan's freeze on Mon 22:00 |
-| **M6 Mobile app** | after submission | F8: the Android app (Capacitor shell, background location, native upload), then iPhone; signed Home Link installers for Mac and Windows | roadmap slide in the video |
+| **M6 Mobile app** | not scheduled (founder, 28 Oct: a milestone, no build for now) | F8, §5a: the Android app shared as an APK on GitHub Releases, then iPhone; signed Home Link installers for Mac and Windows | an APK that installs by sideloading and keeps the parent's map moving with the screen off (emulator with a scripted GPS route); until then, the roadmap slide |
 
 
 
@@ -208,7 +208,7 @@ Guardian is a reassurance tool, not a guarantee, and the settings page says so i
 | F5 | Home now page: room tiles, timeline, alert cards with Right / Not right, settings (schedule, pause, descriptions, Home Link code) | 4 | must |
 | F6 | Home Link client: Node CLI and local settings page, ONVIF discovery, snapshot and RTSP grab, motion filter and burst, pairing, config file | 5 | must |
 | F7 | Home simulator: second Vercel project, scripted route and afternoon, **Send now** for a location and selected frames, the answers list; synthetic frames (8 made in M0; more only if the beat needs them) | 4 | must |
-| F8 | myKx for Android: Capacitor shell, background geolocation, native HTTP upload, the mode from the parent's settings | 4 | roadmap (founder, 28 Oct) |
+| F8 | myKx for Android (§5a): Capacitor shell, background geolocation, native upload, device token, GitHub Releases APK, emulator test | 5–6 | M6, not scheduled |
 | F9 | Canvas boards for every Guardian screen, Home Link, the mobile app and the simulator | 2 | done (M0) |
 
 **Must: 25 h** (F9 done). The founder's time is about 1.5 h:
@@ -217,6 +217,17 @@ Guardian is a reassurance tool, not a guarantee, and the settings page says so i
 - the alert and chip wording (30 min);
 - walking a block with the phone to test location (30 min);
 - optionally, one real camera at home (30 min; real frames reach Muse Standard and are never used in the video).
+
+## 5a. M6, the Android app (planned 28 Oct, not built)
+
+- **What:** the live myKx site in a Capacitor shell (`@capacitor/core` 8.x), plus `@capacitor-community/background-geolocation` 1.3.x (MIT) and native HTTP uploads. Android shows a permanent "sharing your location" notice. Package and code live in `mobile/`; the web side talks to the plugin through `window.Capacitor`, so the Next.js bundle doesn't change.
+- **Pairing:** a kid session mints a location-only device token (`POST /api/location/devices`, only when the parent has sharing on; revocable from settings). The app keeps it and posts to `/api/location`, and each reply carries the parent's mode and any teen pause.
+- **Builds and sharing:** a GitHub Actions workflow (`.github/workflows/android.yml`) builds a signed APK on an `android-v*` tag and attaches it to a GitHub Release. GitHub's Ubuntu runners already have the Android SDK and Java.
+- **Signing:** one release key kept on the founder's Mac (outside the repo) and in the repo's Actions secrets, so updates install over the previous version. The founder approved this on 28 Oct; it isn't made yet.
+- **Testing without a phone:** Android's emulator on this Mac with a scripted GPS route, with the app in the background while the dot moves on the parent's map. Labelled "Android emulator, simulated route" in any video.
+- **Singapore sideloading:** Google's developer verification began here on 30 Sep 2026 for apps from participating stores ([Android developer verification](https://developer.android.com/developer-verification)). APKs installed directly or over USB aren't covered yet ([March 2026 post](https://android-developers.googleblog.com/2026/03/android-developer-verification-rolling-out-to-all-developers.html)). Registering under the free limited-distribution account (up to 20 devices, no ID or fee) keeps it working when verification widens in 2027.
+- **Toolchain** (approved, not installed): Homebrew `openjdk@21` (Temurin's installer needs an admin password), `android-commandlinetools`, SDK platform and build tools, and the emulator with an Android 15 arm64 image. About 4 GB. The founder accepts the SDK licence with one `!` command.
+- **Effort:** about 5–6 agent hours (shell and plugin 2.5, signing and CI 1, emulator test 1, docs 0.5) and about 30 minutes of the founder's time. It needs M1's location routes first. It can run in its own worktree alongside other work.
 
 ## 6. The demo beat (20 s, replaces part of 2:00–2:22)
 
