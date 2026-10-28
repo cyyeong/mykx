@@ -7,6 +7,7 @@ import type { LedgerEntry } from "../domain/rewards.ts";
 import type { FocusMinute } from "../signals/focus.ts";
 import type { FocusNote } from "../signals/schemas.ts";
 import type { Beat, GuardianSettings } from "../guardian/screen-time.ts";
+import type { KnowledgeUpload, Review, SkillUpdate } from "../knowledge/knowledge.ts";
 import type { Band, Level, Pack, SecretEvent, SecretKind } from "./schemas.ts";
 
 /** A profiles row, server side. Holds the secret hash: never send one of these to a client as is. */
@@ -214,6 +215,18 @@ export interface AuthStore {
     /** Flag ids a grown-up marked as seen. */
     seenFlags(householdId: string): Promise<string[]>;
     markSeen(householdId: string, flagId: string): Promise<void>;
+  };
+
+  // The knowledge agent's uploads and published pack updates: platform content, admins only (callers check first).
+  knowledge: {
+    saveUpload(upload: KnowledgeUpload): Promise<void>;
+    /** Newest first. */
+    uploads(): Promise<KnowledgeUpload[]>;
+    setReview(id: string, review: Review): Promise<void>;
+    markPublished(ids: readonly string[], version: string): Promise<void>;
+    saveUpdate(update: SkillUpdate): Promise<void>;
+    /** Published updates, oldest first; one pack's when `pack` is given. */
+    updates(pack?: string): Promise<SkillUpdate[]>;
   };
 
   // Admin only: callers check the admin flag first (lib/auth/context.ts requireAdmin).

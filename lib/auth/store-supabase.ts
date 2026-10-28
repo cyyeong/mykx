@@ -11,6 +11,7 @@ import { sgDate } from "../domain/time.ts";
 import type { LedgerEntry } from "../domain/rewards.ts";
 import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt, StoredBeat, StoredGuardianSettings, StoredKixMessage } from "./store.ts";
 import { BEAT_MS, type ActivityKind } from "../guardian/screen-time.ts";
+import type { Extraction, KnowledgeUpload, Review, Rights, SkillUpdate } from "../knowledge/knowledge.ts";
 import { NicknameTakenError } from "./store.ts";
 
 export interface SupabaseEnv {
@@ -551,6 +552,80 @@ export class SupabaseStore implements AuthStore {
     markSeen: async (householdId: string, flagId: string) => {
       const { error } = await this.db.from("flags_seen").upsert({ household_id: householdId, flag_id: flagId.slice(0, 200) }, { onConflict: "household_id,flag_id", ignoreDuplicates: true });
       check(error);
+    },
+  };
+
+  // The knowledge agent (knowledge_uploads, skill_updates): platform content; the route checks the admin flag.
+  readonly knowledge = {
+    saveUpload: async (u: KnowledgeUpload) => {
+      const { error } = await this.db.from("knowledge_uploads").insert({
+        id: u.id,
+        uploaded_by: u.uploadedBy,
+        file_name: u.fileName.slice(0, 200),
+        bytes: u.bytes,
+        rights: u.rights,
+        source_url: u.sourceUrl,
+        status: u.status,
+        pack: u.pack,
+        pack_is_new: u.packIsNew,
+        extraction: u.extraction,
+        review: u.review,
+        published_in: u.publishedIn,
+        error: u.error?.slice(0, 300) ?? null,
+        created_at: u.createdAt,
+      });
+      check(error);
+    },
+    uploads: async (): Promise<KnowledgeUpload[]> => {
+      const { data, error } = await this.db.from("knowledge_uploads").select("*").order("created_at", { ascending: false }).limit(200);
+      check(error);
+      return (data ?? []).map((r) => ({
+        id: r.id as string,
+        uploadedBy: r.uploaded_by as string,
+        fileName: r.file_name as string,
+        bytes: Number(r.bytes),
+        rights: r.rights as Rights,
+        sourceUrl: (r.source_url as string | null) ?? null,
+        status: r.status as KnowledgeUpload["status"],
+        pack: (r.pack as string | null) ?? null,
+        packIsNew: Boolean(r.pack_is_new),
+        extraction: (r.extraction as Extraction | null) ?? null,
+        review: (r.review as Review) ?? {},
+        publishedIn: (r.published_in as string | null) ?? null,
+        error: (r.error as string | null) ?? null,
+        createdAt: new Date(r.created_at as string).toISOString(),
+      }));
+    },
+    setReview: async (id: string, review: Review) => {
+      const { error } = await this.db.from("knowledge_uploads").update({ review }).eq("id", id).is("published_in", null);
+      check(error);
+    },
+    markPublished: async (ids: readonly string[], version: string) => {
+      if (!ids.length) return;
+      const { error } = await this.db.from("knowledge_uploads").update({ published_in: version }).in("id", [...ids]);
+      check(error);
+    },
+    saveUpdate: async (u: SkillUpdate) => {
+      const { error } = await this.db.from("skill_updates").insert({
+        id: u.id,
+        pack: u.pack,
+        version: u.version,
+        published_by: u.publishedBy,
+        published_at: u.publishedAt,
+        summary: u.summary.slice(0, 300),
+        payload: { archetypes: u.archetypes, traps: u.traps, markingCues: u.markingCues, items: u.items },
+      });
+      check(error);
+    },
+    updates: async (pack?: string): Promise<SkillUpdate[]> => {
+      let q = this.db.from("skill_updates").select("*").order("published_at");
+      if (pack) q = q.eq("pack", pack);
+      const { data, error } = await q.limit(200);
+      check(error);
+      return (data ?? []).map((r) => {
+        const p = r.payload as Pick<SkillUpdate, "archetypes" | "traps" | "markingCues" | "items">;
+        return { id: r.id as string, pack: r.pack as string, version: r.version as string, publishedBy: (r.published_by as string | null) ?? "", publishedAt: new Date(r.published_at as string).toISOString(), summary: r.summary as string, archetypes: p.archetypes ?? [], traps: p.traps ?? [], markingCues: p.markingCues ?? [], items: p.items ?? [] };
+      });
     },
   };
 

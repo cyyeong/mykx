@@ -24,6 +24,7 @@ import type { LedgerEntry } from "../domain/rewards.ts";
 import { sgDate } from "../domain/time.ts";
 import { BEAT_MS } from "../guardian/screen-time.ts";
 import { sampleGuardianWeek } from "../guardian/sample.ts";
+import type { KnowledgeUpload, Review, SkillUpdate } from "../knowledge/knowledge.ts";
 import type { CookieJar } from "./http.ts";
 import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt, StoredBeat, StoredGuardianSettings, StoredKixMessage } from "./store.ts";
 import { NicknameTakenError } from "./store.ts";
@@ -109,6 +110,9 @@ export class DemoStore implements AuthStore {
   readonly kixMessageRows: (StoredKixMessage & { householdId: string; kidId: string })[] = [];
   readonly guardianSettingRows = new Map<string, StoredGuardianSettings & { householdId: string }>();
   readonly seenFlagRows = new Set<string>();
+  /** Knowledge uploads by id, and published pack updates (platform content). */
+  readonly knowledgeRows = new Map<string, KnowledgeUpload>();
+  readonly skillUpdateRows: SkillUpdate[] = [];
   private readonly emails = new Map<string, string>(); // auth user id → email
   private readonly banned = new Set<string>();
   private readonly generation = new Map<string, number>();
@@ -408,6 +412,27 @@ export class DemoStore implements AuthStore {
     markSeen: async (householdId: string, flagId: string) => {
       this.seenFlagRows.add(`${householdId}|${flagId}`);
     },
+  };
+
+  readonly knowledge = {
+    saveUpload: async (u: KnowledgeUpload) => {
+      this.knowledgeRows.set(u.id, structuredClone(u));
+    },
+    uploads: async () => [...this.knowledgeRows.values()].sort((a, b) => b.createdAt.localeCompare(a.createdAt)).map((u) => structuredClone(u)),
+    setReview: async (id: string, review: Review) => {
+      const u = this.knowledgeRows.get(id);
+      if (u && !u.publishedIn) u.review = { ...review };
+    },
+    markPublished: async (ids: readonly string[], version: string) => {
+      for (const id of ids) {
+        const u = this.knowledgeRows.get(id);
+        if (u) u.publishedIn = version;
+      }
+    },
+    saveUpdate: async (update: SkillUpdate) => {
+      this.skillUpdateRows.push(structuredClone(update));
+    },
+    updates: async (pack?: string) => this.skillUpdateRows.filter((u) => !pack || u.pack === pack).map((u) => structuredClone(u)),
   };
 
   // Admin

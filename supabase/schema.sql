@@ -232,6 +232,39 @@ create table flags_seen (
   primary key (household_id, flag_id)
 );
 
+-- The knowledge agent (SKILL_ENGINE.md §6): admin uploads read by Muse Spark (Standard) into patterns, traps and
+-- marking cues (never a school paper's questions, rule 10), each reviewed, then published as a pack's next minor
+-- version that Kix reads. Platform content, not family data: admins only, written by the server.
+create table knowledge_uploads (
+  id uuid primary key default gen_random_uuid(),
+  uploaded_by uuid not null references profiles (id) on delete cascade,
+  file_name text not null check (char_length(file_name) <= 200),
+  bytes integer not null check (bytes >= 0),
+  rights text not null check (rights in ('school-private', 'own', 'licensed')),
+  source_url text check (char_length(source_url) <= 500),
+  status text not null check (status in ('ready', 'failed')),
+  pack text check (char_length(pack) <= 40),
+  pack_is_new boolean not null default false,
+  extraction jsonb, -- lib/knowledge/knowledge.ts extractionSchema; items always empty for school-private
+  review jsonb not null default '{}'::jsonb,
+  published_in text,
+  error text check (char_length(error) <= 300),
+  created_at timestamptz not null default now()
+);
+create index knowledge_uploads_pack on knowledge_uploads (pack, created_at desc);
+
+-- Published pack updates: the approved patterns, traps, cues and items, one row per version.
+create table skill_updates (
+  id uuid primary key default gen_random_uuid(),
+  pack text not null check (char_length(pack) <= 40),
+  version text not null,
+  published_by uuid references profiles (id) on delete set null,
+  published_at timestamptz not null default now(),
+  summary text not null check (char_length(summary) <= 300),
+  payload jsonb not null, -- { archetypes, traps, markingCues, items }
+  unique (pack, version)
+);
+
 -- Account actions: admin actions (always), family changes and kid lockouts. Append-only, written by
 -- the server's service role; readable by admins (rls.sql). `detail` holds field names and reasons,
 -- never a child's messages, answers, Notebook, nickname or secrets. No foreign keys, so the trail

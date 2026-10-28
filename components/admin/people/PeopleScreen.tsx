@@ -48,10 +48,10 @@ const FILTERS: readonly [Filter, string][] = [
   ["admins", "Admins"],
   ["locked", "Locked"],
 ];
-// Skills and Add knowledge are designed (canvas) but not built yet: shown as "Soon" rather than linking to a 404.
+// The Skills catalogue is designed (canvas) but not built yet: shown as "Soon" rather than linking to a 404.
 const NAV = [
   { href: "/admin/skills", label: "Skills", soon: true },
-  { href: "/admin/upload", label: "Add knowledge", soon: true },
+  { href: "/admin/knowledge", label: "Add knowledge" },
   { href: "/admin/people", label: "People", current: true },
 ];
 

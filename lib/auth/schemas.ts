@@ -209,6 +209,9 @@ export type FailReason =
   | "confirm" // the confirm text didn't match the nickname (400)
   | "self" // an admin can't lock, disable or demote themselves (400)
   | "not-allowed" // the action doesn't apply to this account (400/403)
+  | "too-large" // an upload over its size limit (413)
+  | "not-pdf" // an upload that isn't a PDF (415)
+  | "nothing-approved" // publish with no approved knowledge (409)
   | "error"; // something went wrong on the server (500)
 
 export interface Fail {

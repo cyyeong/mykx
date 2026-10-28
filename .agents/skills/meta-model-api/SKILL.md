@@ -47,7 +47,7 @@ const hint = JSON.parse(res.choices[0].message.content!);
 
 - Schemas: no recursive `$ref` (HTTP 400). Use `additionalProperties: false`, list every field in `required`, and use `enum` for closed sets.
 - Streaming: `stream: true` on chat completions (OpenAI SDK semantics). **Unverified** for json_schema plus stream together. Stream plain text for the tutor and use non-streamed calls for structured output.
-- Vision/PDF: OpenAI-style `image_url` content parts. File handling docs: PDF text up to page 100, images up to page 50; inline ≤ 50 MB, Files API ≤ 1 GiB. myKx limits uploads to 10 MB / 20 pages.
+- Vision: OpenAI-style `image_url` parts (JPEG, PNG, GIF, WebP, ICO only). **PDF: a `file` part** `{ type: "file", file: { filename, file_data: "data:application/pdf;base64,…" } }` (tested 28 Oct: a 7-page paper read in 7 s, about 18k input tokens ≈ 2.6k a page; `image_url` with a PDF returns 400). Docs: PDF text up to page 100, images up to page 50; inline ≤ 50 MB. myKx caps uploads at 4 MB (Vercel's request body limit) and 20 pages.
 
 ## Responses API (`POST /v1/responses`)
 
