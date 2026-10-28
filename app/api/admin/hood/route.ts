@@ -5,7 +5,7 @@ import { requireAdmin } from "@/lib/auth/admin";
 import { withAuth } from "@/lib/auth/context";
 import { fail, ok } from "@/lib/auth/http";
 import { pinLockedResponse } from "@/lib/auth/pin";
-import { AGENTS, manifestSummary, packCards, publicRun, totalsByModel } from "@/lib/admin/hood";
+import { AGENTS, manifestSummary, packCards, publicRun, publicSkillEvent, totalsByModel } from "@/lib/admin/hood";
 import { hasMetaApiKey } from "@/lib/meta/client";
 
 export async function GET(request: Request) {
@@ -14,7 +14,7 @@ export async function GET(request: Request) {
     if (locked) return locked;
     const admin = await requireAdmin(store, jar);
     if (!admin) return fail(403, "not-allowed");
-    const [runs, updates] = await Promise.all([store.runs.recent(500).catch(() => []), store.knowledge.updates().catch(() => [])]);
+    const [runs, updates, skillEvents] = await Promise.all([store.runs.recent(500).catch(() => []), store.knowledge.updates().catch(() => []), store.skills.recent(200).catch(() => [])]);
     return ok({
       live: hasMetaApiKey(),
       packs: packCards(),
@@ -22,6 +22,12 @@ export async function GET(request: Request) {
       agents: AGENTS,
       totals: totalsByModel(runs),
       runs: runs.slice(0, 60).map(publicRun),
+      skills: {
+        loads: skillEvents.filter((e) => e.kind === "load").length,
+        tools: skillEvents.filter((e) => e.kind === "tool").length,
+        refusals: skillEvents.filter((e) => e.kind === "refuse").length,
+        events: skillEvents.slice(0, 30).map(publicSkillEvent),
+      },
       manifest: manifestSummary(),
     });
   });

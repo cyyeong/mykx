@@ -163,6 +163,21 @@ export interface StoredSessionRead {
 }
 
 /** One model call as logged in `model_runs`: no prompt, output, audio or key. */
+/** One Skill Engine event (lib/skills/runtime.ts): a load, a refusal or a tool call. Ids and names only. */
+export interface StoredSkillEvent {
+  at: string;
+  householdId: string | null;
+  profileId: string | null;
+  agent: "tutor" | "ask-kix";
+  kind: "load" | "unload" | "refuse" | "tool";
+  pack: string | null;
+  tool: string | null;
+  /** A section id, item id, page or filter: never a child's words. */
+  target: string | null;
+  ok: boolean;
+  note: string | null;
+}
+
 export interface StoredRun {
   at: string;
   route: string;
@@ -299,6 +314,13 @@ export interface AuthStore {
     save(run: StoredRun): Promise<void>;
     /** The newest runs across every household (admins only, through an audited route). */
     recent(limit: number): Promise<StoredRun[]>;
+  };
+  // Skill Engine events (skill_events), for Under the hood. Server only; admins read them through an audited route.
+  skills: {
+    log(events: readonly StoredSkillEvent[]): Promise<void>;
+    recent(limit: number): Promise<StoredSkillEvent[]>;
+    /** Deletes events older than `beforeIso` (kept 30 days); returns how many went. */
+    prune(beforeIso: string): Promise<number>;
   };
 
   // Family messages (never read by Kix or a model), the Notebook, and session readings. Household-scoped.

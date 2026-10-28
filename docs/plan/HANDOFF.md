@@ -83,6 +83,11 @@ Today `lib/sound/engine.ts` plays short synthesised effects and, for some worlds
 - **`20261030_focus_verdict.sql` is applied** (founder, 28 Oct; `signals.verdict` and `signals.verdict_at` exist in production). The store's fallback for a database without them stays as a safety net.
 - **Home Link** (`clients/home-link/`): the desktop client for the family's own cameras; see its README. It is a separate small Node package and is not part of the Next.js build.
 
+## The Skill Engine runtime (29 Oct)
+
+- The Kix Tutor and Ask Kix call tools (`lib/skills/runtime.ts`; design in `docs/ARCHITECTURE.md` §4.10). Tool results and the policy are code; the model only chooses.
+- **The founder runs one SQL:** `supabase/migrations/20261029_skill_events.sql` in Supabase's SQL editor. Until then the agents work, but nothing is logged and Under the hood's Skill Engine card stays empty.
+
 ## Things only the founder or Claude Code do
 
 - Publish to the Claude Design canvas (Claude Code); copy boards back into `docs/design/boards/` after.

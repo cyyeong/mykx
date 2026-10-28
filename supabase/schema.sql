@@ -521,3 +521,20 @@ create table game_progress (
   updated_at timestamptz not null default now(),
   primary key (profile_id, game)
 );
+
+-- Skill Engine events (lib/skills/runtime.ts; migration 20261029_skill_events.sql): loads, refusals and tool
+-- calls, for Under the hood. Ids and names only, never a child's words. Server only; kept 30 days.
+create table skill_events (
+  id uuid primary key default gen_random_uuid(),
+  household_id uuid references households (id) on delete cascade,
+  profile_id uuid references profiles (id) on delete set null,
+  agent text not null check (agent in ('tutor', 'ask-kix')),
+  kind text not null check (kind in ('load', 'unload', 'refuse', 'tool')),
+  pack text check (char_length(pack) <= 40),
+  tool text check (char_length(tool) <= 40),
+  target text check (char_length(target) <= 120),
+  ok boolean not null,
+  note text check (char_length(note) <= 160),
+  created_at timestamptz not null default now()
+);
+create index skill_events_created on skill_events (created_at desc);

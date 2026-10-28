@@ -5,10 +5,10 @@
 // calls, and the art made during the event (public/art/manifest.json). Synthetic data is labelled (rule 8).
 import { useEffect, useState } from "react";
 import { api } from "@/components/account/api";
-import type { Agent, ManifestSummary, ModelTotal, PublicRun } from "@/lib/admin/hood";
+import type { Agent, ManifestSummary, ModelTotal, PublicRun, PublicSkillEvent } from "@/lib/admin/hood";
 import { AdminFrame } from "../AdminFrame";
 
-type Hood = { live: boolean; agents: Agent[]; totals: ModelTotal[]; runs: PublicRun[]; manifest: ManifestSummary };
+type Hood = { live: boolean; agents: Agent[]; totals: ModelTotal[]; runs: PublicRun[]; manifest: ManifestSummary; skills?: { loads: number; tools: number; refusals: number; events: PublicSkillEvent[] } };
 
 const n = (v: number) => v.toLocaleString("en-SG");
 const usd = (v: number) => (v < 0.01 && v > 0 ? `$${v.toFixed(4)}` : `$${v.toFixed(2)}`);
@@ -137,6 +137,47 @@ export function HoodScreen() {
               </div>
             ) : (
               <p className="ad-muted">No calls logged yet.</p>
+            )}
+          </section>
+
+          <section className="ad-card ad-col" aria-label="Skill Engine">
+            <h2 className="ad-h2">Skill Engine: what Kix loaded and read</h2>
+            <p className="ad-muted">
+              Kix Tutor and Ask Kix call tools: load one of the child&apos;s packs, read a section by id, find a practice question, check one by code. Trusted code runs every tool;
+              a rule decides what may load. {data.skills ? `${n(data.skills.loads)} loads, ${n(data.skills.tools)} tool calls, ${n(data.skills.refusals)} refused.` : ""}
+            </p>
+            {data.skills?.events.length ? (
+              <div className="ad-scroll">
+                <table className="ad-table">
+                  <thead>
+                    <tr>
+                      <th>When</th>
+                      <th>Agent</th>
+                      <th>What</th>
+                      <th>Pack</th>
+                      <th>Detail</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data.skills.events.slice(0, 20).map((e, i) => (
+                      <tr key={i}>
+                        <td>{at(e.at)}</td>
+                        <td>{e.agent}</td>
+                        <td>
+                          {e.kind === "tool" ? <code>{e.tool}</code> : e.kind === "load" ? (e.tool ? "loaded on request" : "loaded for the quest") : e.kind}
+                          {!e.ok && <span className="ad-fail"> · refused</span>}
+                        </td>
+                        <td>
+                          <code>{e.pack ?? "—"}</code>
+                        </td>
+                        <td className="ad-muted">{[e.target && e.kind === "tool" ? e.target : null, e.note].filter(Boolean).join(": ")}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <p className="ad-muted">No skill events yet: ask Kix for a hint in a quest.</p>
             )}
           </section>
 

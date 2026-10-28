@@ -4,7 +4,7 @@
 // child's words, answers or Notebook ever reach these pages (rule 13).
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import type { StoredRun } from "../auth/store.ts";
+import type { StoredRun, StoredSkillEvent } from "../auth/store.ts";
 
 export interface PackCard {
   id: string;
@@ -78,8 +78,8 @@ export interface Agent {
 
 /** Kix's agents and tools, for the demo's "under the hood". Child data only ever goes to Standard models (rule 1). */
 export const AGENTS: readonly Agent[] = [
-  { id: "tutor", name: "Kix Tutor", route: "tutor", models: ["muse-spark-1.3"], reads: "The question's skill pack, its worked steps and hints, Kix's Notebook", never: "Gives the answer away or changes a score; every ask counts as a hint" },
-  { id: "ask-kix", name: "Ask Kix (homework)", route: "ask-kix", models: ["muse-spark-1.3"], reads: "A typed question or a photo (face-checked on the device, never stored), the level's packs, published updates, the Notebook", never: "Keeps the photo, or skips the guide-first steps" },
+  { id: "tutor", name: "Kix Tutor", route: "tutor", models: ["muse-spark-1.3"], reads: "The question, its worked steps and hints, the quest's skill pack through tools (load_skill, read_reference, find_items, check_answer, notebook_read), Kix's Notebook", never: "Gives the answer away, checks the child's current question, or changes a score; every ask counts as a hint" },
+  { id: "ask-kix", name: "Ask Kix (homework)", route: "ask-kix", models: ["muse-spark-1.3"], reads: "A typed question or a photo (face-checked on the device, never stored); a research step loads the right pack and reads its method sections with tools; published updates; the Notebook", never: "Keeps the photo, loads a pack outside the child's level, or skips the guide-first steps" },
   { id: "memory-keeper", name: "Memory Keeper", route: "memory-keeper", models: ["muse-spark-1.3"], reads: "The child's own words to Kix after a session, the session's numbers, the Notebook", never: "Labels or diagnoses (refused in code), reads family messages, or touches mastery" },
   { id: "vibe", name: "Vibe Zone maker", route: "vibe", models: ["muse-spark-1.3"], reads: "The child's brief and the level's pack notes", never: "Writes code: it returns a validated spec drawn by trusted components" },
   { id: "curator", name: "Content Curator (knowledge agent)", route: "knowledge-agent", models: ["muse-spark-1.3"], reads: "Admin-uploaded PDFs (read as files)", never: "Keeps a school paper's questions: patterns only, and an admin approves before anything is published" },
@@ -181,3 +181,9 @@ export function publicRun(r: StoredRun) {
   };
 }
 export type PublicRun = ReturnType<typeof publicRun>;
+
+/** A Skill Engine event as the admin pages show it (lib/skills/runtime.ts): never which child. */
+export function publicSkillEvent(e: StoredSkillEvent) {
+  return { at: e.at, agent: e.agent === "tutor" ? "Kix Tutor" : "Ask Kix", kind: e.kind, pack: e.pack, tool: e.tool, target: e.target, ok: e.ok, note: e.note };
+}
+export type PublicSkillEvent = ReturnType<typeof publicSkillEvent>;

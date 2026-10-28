@@ -31,6 +31,7 @@ alter table guardian_settings enable row level security;
 alter table flags_seen enable row level security;
 alter table family_messages enable row level security;
 alter table game_progress enable row level security;
+alter table skill_events enable row level security; -- server only: no policies
 alter table notebook_pages enable row level security;
 alter table notebook_revisions enable row level security;
 alter table session_reads enable row level security;
@@ -123,7 +124,7 @@ create policy shares_all on shares for all to authenticated
 
 -- Supabase grants every role everything on new public tables by default, so start from nothing and
 -- grant exactly what the browser needs. RLS still scopes every row by household.
-revoke all on households, profiles, attempts, ledger, creations, shares, summaries, model_runs, audit_log, signals, screen_beats, kix_messages, guardian_settings, flags_seen, knowledge_uploads, skill_updates, paper_finds, scout_runs, guardian_prefs, kid_location, locations, places, place_events, home_devices, home_cameras, home_status, home_alerts, family_messages, notebook_pages, notebook_revisions, session_reads, game_progress from anon, authenticated;
+revoke all on households, profiles, attempts, ledger, creations, shares, summaries, model_runs, audit_log, signals, screen_beats, kix_messages, guardian_settings, flags_seen, knowledge_uploads, skill_updates, paper_finds, scout_runs, guardian_prefs, kid_location, locations, places, place_events, home_devices, home_cameras, home_status, home_alerts, family_messages, notebook_pages, notebook_revisions, session_reads, game_progress, skill_events from anon, authenticated;
 grant usage on schema public to authenticated;
 grant select on households, attempts, ledger, summaries, model_runs, audit_log to authenticated;
 -- Every profile column except secret_hash and pin_hash (kid secrets and the parent PIN are checked by the server only).

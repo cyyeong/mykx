@@ -18,6 +18,12 @@ import { TalkButton } from "@/components/voice/TalkButton";
 import { useKixVoice } from "@/components/voice/useKixVoice";
 import "./questionScreen.css";
 
+/** p3-science → "P3 Science", s2-science → "Sec 2 Science". */
+function packName(id: string): string {
+  const [lvl, ...rest] = id.split("-");
+  return `${lvl.startsWith("s") ? `Sec ${lvl.slice(1)}` : lvl.toUpperCase()} ${rest.map((w) => (w ? w[0].toUpperCase() + w.slice(1) : w)).join(" ")}`;
+}
+
 export interface PlayerItem {
   id: string;
   /** Item markup: paragraphs, "| a | b |" tables, **bold** (rendered by StemText, never shown raw). */
@@ -139,6 +145,8 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
   const [tutor, setTutor] = useState<string | null>(null);
   const [tutorBusy, setTutorBusy] = useState(false);
   const [skill, setSkill] = useState<string | null>(null);
+  // What Kix did for the last answer (x-kix-trace): the packs it had loaded and the sections it read.
+  const [trace, setTrace] = useState<{ loaded: string[]; read: string[] } | null>(null);
   const [askText, setAskText] = useState("");
   const [spoken, setSpoken] = useState<string | null>(null);
   const [askCare, setAskCare] = useState<Care | null>(null);
@@ -276,6 +284,12 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
     try {
       const res = await fetch("/api/kix/tutor", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ itemId: item.id, hint, ...(ask ? { ask } : {}) }) });
       setSkill(res.headers.get("x-kix-skill"));
+      try {
+        const raw = res.headers.get("x-kix-trace");
+        setTrace(raw ? (JSON.parse(decodeURIComponent(raw)) as { loaded: string[]; read: string[] }) : null);
+      } catch {
+        setTrace(null);
+      }
       if (res.headers.get("content-type")?.includes("application/json")) {
         const data = (await res.json()) as { care?: Care };
         if (data.care) {
@@ -433,14 +447,15 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
               <span style={{ padding: "3px 12px", borderRadius: "var(--radius-pill)", background: "var(--surface)", color: "var(--ink)", fontSize: 14, lineHeight: "22px", fontWeight: 800, boxShadow: "inset 0 0 0 2px var(--line)" }}>
                 Fresh question
               </span>
-              {skill && (
-                <span className="qp-skill" title={`Kix is teaching from the ${skill} skill pack`}>
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5zM9 7h7M9 11h5" />
-                  </svg>
-                  {skill.startsWith("p3-science") ? "P3 Science" : skill.split("@")[0]} skill loaded
-                </span>
-              )}
+              {skill &&
+                skill.split(", ").map((s) => (
+                  <span key={s} className="qp-skill" title={`Kix is teaching from the ${s} skill pack`}>
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5zM9 7h7M9 11h5" />
+                    </svg>
+                    {packName(s.split("@")[0])} skill loaded
+                  </span>
+                ))}
             </div>
             <div className="qp-qrow">
               <StemText text={item.stem} figure={item.figure} />
@@ -564,6 +579,19 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
               >
                 {typeof bubble === "string" ? <InlineMarkup text={bubble} /> : bubble}
               </KixBubble>
+              {phase === "answering" && tutor && !tutorBusy && trace?.read.length ? (
+                <p className="qp-trace" aria-label="What Kix looked up">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2zM22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z" />
+                  </svg>
+                  Kix read
+                  {trace.read.map((t) => (
+                    <span key={t} className="qp-trace-chip">
+                      {t}
+                    </span>
+                  ))}
+                </p>
+              ) : null}
               {!resolved && phase !== "checking" && (
                 <form
                   className="qp-ask"

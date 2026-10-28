@@ -67,6 +67,7 @@ beforeEach(async () => {
 });
 
 afterEach(() => {
+  vi.useRealTimers();
   // No reply ever carries a stored hash.
   for (const b of [...parent.bodies, ...device.bodies]) expect(b).not.toMatch(/tokenHash|token_hash|pairCodeHash|pair_code_hash/);
   vi.unstubAllEnvs();
@@ -117,6 +118,9 @@ describe("Home watch pairing, cameras and frames", () => {
 
 describe("where they are", () => {
   it("stores points only when sharing is on, works out motion and arrived/left, and shows the parent today", async () => {
+    // An afternoon in Singapore, so "today" holds all the points whatever time the suite runs.
+    vi.useFakeTimers({ toFake: ["Date"] });
+    vi.setSystemTime(new Date("2026-10-28T08:00:00Z"));
     await pairSimulator();
     const now = Date.now();
     const at = (minAgo: number) => new Date(now - minAgo * 60_000).toISOString();

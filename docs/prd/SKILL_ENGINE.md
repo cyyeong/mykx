@@ -98,6 +98,8 @@ child opens a quest ──► orchestrator (server, deterministic)
 
 **Tools (trusted code, per skill namespace):** `read_reference(section)` returns one section of one reference file; `find_items(topic, subskill?, difficulty?, n)` returns reviewed items only and never their answers; `check_answer(item_id, answer)` runs deterministic marking (a correct/incorrect signal so Kix can respond; the attempt and mastery are written by the app, not by the model). Global tools: `learner_summary()` (mastery by subskill, read-only). **Hard limits:** at most 2 subject skills at once, `muse-spark-1.3` Standard only, 10 s timeout on the hint path (fixture hint fallback), and no tool can write scores (hard rule 5).
 
+**Built on 29 Oct** (`lib/skills/runtime.ts`, `docs/ARCHITECTURE.md` §4.10): the Kix Tutor and Ask Kix call `load_skill`, `read_reference`, `find_items`, `check_answer` and `notebook_read` as plain function tools on chat completions; trusted code runs each one under the policy above (the child's own packs, at most two loaded, three tool rounds), and every load, refusal and tool call is a `skill_events` row shown in Under the hood. Muse Spark only accepts `tool_choice: "auto"`, so the loop's last round is sent without tools. Not built yet: `tool_search` namespaces, `learner_summary`, unloading between quests, and the other agents on the engine.
+
 **Agents in the MVP:**
 
 | Agent | Faces | Skills | Tools |

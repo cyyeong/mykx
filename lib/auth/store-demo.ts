@@ -38,7 +38,7 @@ import type { FamilyMessage, Sticker } from "../family/messages.ts";
 import type { PageSlug } from "../notebook/notebook.ts";
 import type { GameProgress } from "../games/progress.ts";
 import type { CookieJar } from "./http.ts";
-import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt, StoredBeat, StoredGuardianSettings, StoredKixMessage, Creation, NotebookPage, NotebookRevision, StoredSessionRead, StoredRun } from "./store.ts";
+import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt, StoredBeat, StoredGuardianSettings, StoredKixMessage, Creation, NotebookPage, NotebookRevision, StoredSessionRead, StoredRun, StoredSkillEvent } from "./store.ts";
 import { NicknameTakenError } from "./store.ts";
 import { sessionSecret, signToken, verifyToken } from "./tokens.ts";
 
@@ -147,6 +147,7 @@ export class DemoStore implements AuthStore {
   /** Vibe Zone creations by id, with the household and the shared recipients. */
   readonly creationRows = new Map<string, Creation & { householdId: string; sharedWith: string[] }>();
   readonly runRows: StoredRun[] = [];
+  readonly skillRows: StoredSkillEvent[] = [];
   readonly gameRows = new Map<string, GameProgress & { householdId: string }>();
   /** Family messages, Notebook pages and revisions, and session readings. */
   readonly familyRows: (FamilyMessage & { householdId: string })[] = [];
@@ -479,6 +480,20 @@ export class DemoStore implements AuthStore {
       if (this.runRows.length > 500) this.runRows.shift();
     },
     recent: async (limit: number) => this.runRows.slice(-limit).reverse().map((r) => ({ ...r })),
+  };
+
+  readonly skills = {
+    log: async (events: readonly StoredSkillEvent[]) => {
+      this.skillRows.push(...events.map((e) => ({ ...e })));
+      if (this.skillRows.length > 500) this.skillRows.splice(0, this.skillRows.length - 500);
+    },
+    recent: async (limit: number) => this.skillRows.slice(-limit).reverse().map((e) => ({ ...e })),
+    prune: async (beforeIso: string) => {
+      const keep = this.skillRows.filter((e) => e.at >= beforeIso);
+      const gone = this.skillRows.length - keep.length;
+      this.skillRows.splice(0, this.skillRows.length, ...keep);
+      return gone;
+    },
   };
 
   readonly family = {

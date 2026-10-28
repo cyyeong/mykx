@@ -1,5 +1,6 @@
 // Daily Guardian clean-up (vercel.json, 03:00 SGT): deletes flagged frames past their 24 h (rule 15). Room statuses
-// (14 days) and points (30 days) are trimmed as they're written. Vercel's scheduler calls it with CRON_SECRET.
+// (14 days) and points (30 days) are trimmed as they're written; Skill Engine events are kept 30 days. Vercel's
+// scheduler calls it with CRON_SECRET.
 import { timingSafeEqual } from "node:crypto";
 import { getStore } from "@/lib/auth/context";
 import { fail, ok } from "@/lib/auth/http";
@@ -17,5 +18,8 @@ export async function GET(request: Request) {
   if (!authorised(request)) return fail(401, "not-allowed");
   const store = getStore();
   if (!store) return fail(503, "not-configured");
-  return ok({ purged: await store.homeWatch.purgeAlertFrames(new Date().toISOString()) });
+  const now = Date.now();
+  const purged = await store.homeWatch.purgeAlertFrames(new Date(now).toISOString());
+  const skillEvents = await store.skills.prune(new Date(now - 30 * 86_400_000).toISOString()).catch(() => 0);
+  return ok({ purged, skillEvents });
 }

@@ -10,8 +10,10 @@ import { notebookNotes } from "@/lib/notebook/notebook";
 import { enforceStage, explanationSchema, packsForLevel, sampleExplanation, STAGES, systemPrompt, teachingNotes } from "@/lib/kix/homework";
 import { updateNotes } from "@/lib/knowledge/knowledge";
 import { hasMetaApiKey } from "@/lib/meta/client";
-import { sparkStructured } from "@/lib/meta/spark";
+import { sparkStructured, sparkTools } from "@/lib/meta/spark";
+import { cleanTitle, packsForChild, publicTrace, readSection, runSkillAgent } from "@/lib/skills/runtime";
 import { getStore } from "@/lib/auth/context";
+import type { NotebookPage } from "@/lib/auth/store";
 import { logRunsFor } from "@/lib/runs/log";
 
 /** About 2.2 MB of JPEG as a data URL: the browser sends at most 1600 px on the long side. */
@@ -28,6 +30,8 @@ const body = z.strictObject({
   /** Later stages send back what Kix read the first time, so the photo is never sent twice. */
   question: z.string().trim().max(500).optional(),
   figure: z.string().trim().max(300).optional(),
+  /** And the pack sections Kix chose then (ids like p6-maths/heuristics#2), re-read by code instead of researched again. */
+  sections: z.array(z.string().max(80)).max(4).optional(),
 });
 
 export async function POST(request: Request) {
@@ -55,8 +59,19 @@ export async function POST(request: Request) {
   // The packs' notes, plus what the knowledge agent has published for this level (newest exam patterns).
   const prefix = packsForLevel(kid.level)[0]?.split("-")[0] ?? "";
   const published = ((await store?.knowledge.updates().catch(() => [])) ?? []).filter((u) => prefix && u.pack.startsWith(`${prefix}-`));
-  const remembered = notebookNotes(kid.nickname, (await store?.notebook.pages(family.householdId, kid.id).catch(() => [])) ?? []);
-  const notes = [teachingNotes(kid.level), updateNotes(published), remembered].filter(Boolean).join("\n\n");
+  // The Skill Engine's research step (lib/skills/runtime.ts): Kix loads the one pack the question belongs to and
+  // reads the sections that teach its method. Later stages re-read the same sections by code. If research fails,
+  // every pack's method notes for the level stand in, as before.
+  const pages = (await store?.notebook.pages(family.householdId, kid.id).catch(() => [])) ?? [];
+  const remembered = notebookNotes(kid.nickname, pages);
+  const research = await researchSkills({ level: kid.level, sections: input.sections, userParts, pages, signal: request.signal });
+  if (research.events.length) {
+    const at = new Date().toISOString();
+    await store?.skills.log(research.events.map((e) => ({ ...e, at, householdId: family.householdId, profileId: kid.id }))).catch(() => undefined);
+  }
+  const packNotesText = research.reads.length ? `## What Kix read in the ${research.loaded.join(" and ")} pack\n${research.reads.map((r) => r.text).join("\n\n")}` : teachingNotes(kid.level);
+  const notes = [packNotesText, updateNotes(published), remembered].filter(Boolean).join("\n\n");
+  const skills = { loaded: research.loaded, read: research.reads.map((r) => cleanTitle(r.title)), sections: research.reads.map((r) => r.id) };
   try {
     const { data } = await sparkStructured(
       {
@@ -70,9 +85,44 @@ export async function POST(request: Request) {
       },
       { timeoutMs: 45_000, signal: request.signal },
     );
-    return ok({ care: null, explanation: enforceStage(data, input.stage), sample: false });
+    return ok({ care: null, explanation: enforceStage(data, input.stage), sample: false, skills });
   } catch {
     // A slow or failed call never leaves the child stuck: the cached sample, labelled as one.
     return ok({ care: null, explanation: sampleExplanation(input.stage), sample: true });
+  }
+}
+
+type Part = { type: "text"; text: string } | { type: "image_url"; image_url: { url: string } };
+
+/** Picks and reads the pack sections for this question: by id when a later stage sends them back, otherwise by
+ *  letting Muse Spark load the right pack and read what it needs. Never throws. */
+async function researchSkills(o: { level: string | null; sections?: string[]; userParts: Part[]; pages: NotebookPage[]; signal: AbortSignal }) {
+  const allowed = packsForChild(o.level);
+  if (o.sections?.length) {
+    const reads = o.sections.filter((id) => allowed.includes(id.split("/")[0])).flatMap((id) => {
+      const r = readSection(id);
+      return r ? [{ id, title: r.section.title, text: r.text }] : [];
+    });
+    return { loaded: [...new Set(reads.map((r) => r.id.split("/")[0]))], reads, events: [] };
+  }
+  try {
+    const run = await runSkillAgent({
+      agent: "ask-kix",
+      level: o.level,
+      autoPack: null,
+      notebook: o.pages,
+      system: [
+        `You are the research step of Kix's homework help (Singapore ${o.level ?? "primary"}). Do not answer the question here.`,
+        `1. Load the ONE pack for this question's subject with load_skill (the child's packs: ${allowed.join(", ")}).`,
+        "2. Read the one or two sections that teach the method this question needs, with read_reference and ids from the section list you get back.",
+        "3. Then reply with one short line: the subject and the method.",
+      ].join("\n"),
+      user: { role: "user", content: o.userParts },
+      call: (req) => sparkTools({ ...req, reasoningEffort: "minimal", maxCompletionTokens: 1200 }, { timeoutMs: 15_000, signal: o.signal }),
+    });
+    const trace = publicTrace(run.state);
+    return { loaded: trace.loaded, reads: run.state.reads, events: run.state.events };
+  } catch {
+    return { loaded: [], reads: [], events: [] };
   }
 }

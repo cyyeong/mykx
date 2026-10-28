@@ -45,7 +45,7 @@ Fifteen agents do the work (`lib/admin/hood.ts`, `AGENTS`). Thirteen call Meta m
 | P4 | **Every generated surface has a cached fallback.** The demo path never waits on a live call. | Each agent has a fallback and the reply says which source answered | §8.1 |
 | P5 | **Honest labels.** Synthetic data, cached answers, rule-written sentences and thin evidence are labelled. | `source` fields (`live`, `cached`, `fallback`, `sample`, `words`, `code`), `describeMastery` ("limited evidence"), `synthetic` columns | `lib/domain/mastery.ts`, `app/api/guardian/brief/route.ts` |
 | P6 | **Thin inputs, Muse does the thinking.** Devices only capture and filter; reading, connecting and explaining happen server-side in Muse agents. | Home Link and the simulator post to the same ingest routes; Muse reads and writes words | `clients/home-link/`, `sim/api/send.js`, `app/api/home/frames/route.ts` |
-| P7 | **No RAG.** No vector store, no embeddings. Agents get skill-pack sections and Notebook pages chosen by id. | Pack notes are read from fixed file lists; the Notebook is four named pages | `lib/kix/homework.ts` (`METHOD_REFS`), `lib/notebook/notebook.ts` (`notebookNotes`) |
+| P7 | **No RAG.** No vector store, no embeddings. Agents get skill-pack sections and Notebook pages chosen by id. | Agents see each loaded pack's section index and read sections by id through the `read_reference` tool; the Notebook is four named pages read with `notebook_read` | `lib/skills/runtime.ts`, `lib/notebook/notebook.ts` |
 | P8 | **Household isolation.** Everything a child does belongs to one household. | Every store method takes the caller's household id; RLS scopes browser reads; tests try to cross households | `lib/auth/store.ts`, `supabase/rls.sql`, `supabase/schema.test.ts` |
 | P9 | **Privacy by construction.** If something must never be kept, there is no column for it. | `signals.counts` accepts four count keys only; no table holds audio; frames go to a 24 h private bucket only when flagged | `supabase/schema.sql`, `app/api/voice/transcribe/route.ts` |
 | P10 | **Two memory systems, never mixed.** Progress lives in the database; understanding lives in Kix's Notebook. | The Notebook refuses lines that quote a score as its own; mastery is recomputed from attempts | `lib/notebook/notebook.ts` (`REFUSED`), `lib/domain/mastery.ts` |
@@ -260,7 +260,7 @@ There is no agent framework. An agent is a route handler plus a small library mo
 | 4. Strict input | A zod `strictObject` body (unknown keys refused, sizes capped; a 16 KB JSON limit in `readBody`) | `lib/auth/http.ts` |
 | 5. Deterministic pre-checks | The safety word check on any child text, before any model sees it; consent switches (voice on, camera on, cameras' hours, sharing on) | `lib/guardian/words.ts` (`checkWords`) |
 | 6. Context by id | Exactly the pack sections, Notebook lines, item steps or facts the task needs, chosen by code, trimmed to a cap | `lib/kix/homework.ts` (`packNotes`, `teachingNotes`), `lib/notebook/notebook.ts` (`notebookNotes`), `briefFacts`, `tonightFacts` |
-| 7. The call | `sparkStructured` (zod to `json_schema`, output validated), `sparkStream`, `sparkSearch`, `museImageEdit`, `samSegment` or `transcribe`; a timeout, the caller's abort signal, SDK retries | `lib/meta/spark.ts`, `lib/outings/search.ts`, `lib/meta/image.ts`, `lib/meta/sam.ts`, `lib/meta/voice.ts` |
+| 7. The call | `sparkStructured` (zod to `json_schema`, output validated), `sparkTools` (function tools, for the Skill Engine's loop), `sparkStream`, `sparkSearch`, `museImageEdit`, `samSegment` or `transcribe`; a timeout, the caller's abort signal, SDK retries | `lib/meta/spark.ts`, `lib/outings/search.ts`, `lib/meta/image.ts`, `lib/meta/sam.ts`, `lib/meta/voice.ts` |
 | 8. Settle in code | Rules applied to whatever came back: stage gates, rights rule, adults unnamed, sources checked, labels refused | `enforceStage`, `settle`, `settleReading`, `settleIdeas`, `applyPatches` |
 | 9. Fallback | A cached or rule-written answer when there is no key, an error or a timeout, labelled with its source | §8.1 |
 | 10. Store and answer | Write only what the rules allow (words, counts, revisions); reply with the source label | the store |
@@ -273,8 +273,8 @@ The structured-output path (`lib/meta/schema.ts`) converts a zod schema to JSON 
 
 | Agent | Purpose | Model | Route (log id) | Status |
 |---|---|---|---|---|
-| Kix Tutor | Streamed hints and answers to "why?" in the question player; feedback on the child's reason after marking | Muse Spark | `api/kix/tutor`, `api/kix/reason` (`tutor`) | Built |
-| Ask Kix | Homework help from a typed question or a photo, as a visual lesson that guides first | Muse Spark (vision) | `api/kix/homework` (`ask-kix`) | Built |
+| Kix Tutor | Hints and answers to "why?" in the question player as a Skill Engine agent with tools (§4.10); feedback on the child's reason after marking | Muse Spark (function tools) | `api/kix/tutor`, `api/kix/reason` (`tutor`) | Built |
+| Ask Kix | Homework help from a typed question or a photo: a research step loads the right pack and reads its method (§4.10), then a visual lesson that guides first | Muse Spark (vision, function tools) | `api/kix/homework` (`ask-kix`) | Built |
 | Memory Keeper | After a quest: a mood reading from the child's words and Notebook patches | Muse Spark | `api/session/close` (`memory-keeper`) | Built |
 | Vibe Zone maker | Flashcard sets from the child's own words, revisable | Muse Spark | `api/vibe` (`vibe`) | Built (flashcards; songs are roadmap) |
 | Content Curator | Reads exam PDFs into patterns, traps and marking cues, routed to a pack | Muse Spark (PDF input) | `api/admin/knowledge`, `api/admin/papers/read` (`knowledge-agent`) | Built |
@@ -293,8 +293,8 @@ The structured-output path (`lib/meta/schema.ts`) converts a zod schema to JSON 
 
 | Agent | Reads | May never | Output checked by | Fallback |
 |---|---|---|---|---|
-| Kix Tutor | The item's stem, options, worked steps and hints; the P3 Science pack's `SKILL.md` and method references; up to 900 characters of Notebook notes; the child's question | Say the answer or which option is right; change a score (every ask is a hint) | Prompt rules; the client counts each ask as a hint; reason coach: `reasonCoachSchema`, and `better` is forced to null after a wrong answer | The item's own next hint; `fallbackCoach` from the reason check |
-| Ask Kix | A typed question or face-checked photo; the level's pack notes; published pack updates for the level; Notebook notes | Keep the photo; give the final answer before the child asks for it | `explanationSchema`; `enforceStage` strips `finalAnswer` and `try-this` before the full stage | `sampleExplanation(stage)`, labelled as a sample |
+| Kix Tutor | The item's stem, options, worked steps and hints; the quest pack's index (`SKILL.md` core and section list) and the sections it chooses to read; Notebook pages it asks for; up to 900 characters of Notebook notes; the child's question | Say the answer or which option is right; change a score (every ask is a hint) | Prompt rules; the client counts each ask as a hint; reason coach: `reasonCoachSchema`, and `better` is forced to null after a wrong answer | The item's own next hint; `fallbackCoach` from the reason check |
+| Ask Kix | A typed question or face-checked photo; the sections its research step read (else every pack's method notes for the level); published pack updates for the level; Notebook notes | Keep the photo; give the final answer before the child asks for it | `explanationSchema`; `enforceStage` strips `finalAnswer` and `try-this` before the full stage | `sampleExplanation(stage)`, labelled as a sample |
 | Memory Keeper | Only the child's own words to Kix since the last reading, the session's numbers, the current Notebook | Label or diagnose; quote a score as its own; read family messages; touch mastery | `sessionReadSchema` (at most 5 patches); `applyPatches` refuses label words, dedupes, caps page size; a distress word always sets `concern` | The word-list mood reading; Notebook unchanged |
 | Vibe Zone maker | The child's request (and the set to revise); the level's pack notes | Write code; use pictures it has no art for; name real people, brands or characters | `flashcardSpecSchema` (3 to 8 cards; pictures from a fixed list of four) | `SAMPLE_SET`, labelled |
 | Content Curator | One admin-uploaded PDF (4 MB) or one scout find (20 MB) as a `file` part; each pack's topic ids | Keep a school paper's questions | `extractionSchema`; `settle` empties `items` for `school-private` uploads whatever the model returned; routing is code (`packFor`) | The upload is saved as `failed` with the reason; nothing is published |
@@ -321,10 +321,9 @@ sequenceDiagram
   participant G as requireFamily
   participant W as checkWords
   participant ST as Store
-  participant P as content/skills/p3-science
-  participant MC as lib/meta sparkStream
+  participant SE as Skill Engine (lib/skills/runtime.ts)
   participant API as Meta API muse-spark-1.3
-  participant L as model_runs
+  participant L as model_runs and skill_events
 
   QP->>QP: hint counter +1 (sent later with the attempt)
   QP->>R: POST itemId, hint number, optional ask
@@ -345,25 +344,30 @@ sequenceDiagram
     R-->>QP: cached hint, header x-kix-source cached
   else key present
     R->>ST: Notebook pages for the kid
-    R->>P: SKILL.md and method references, trimmed
-    R->>MC: system prompt with item, steps, hints, pack notes, Notebook lines
-    MC->>MC: assertStandardModel, start the run clock
-    MC->>API: chat completions, stream, reasoning minimal, 20 s timeout
-    API-->>MC: text deltas
-    MC-->>R: deltas
-    R-->>QP: streamed text, headers x-kix-skill p3-science@1.0.0 and x-kix-source
-    MC->>L: one row with latency, first token, tokens, cost
+    R->>SE: runSkillAgent(tutor, level P3, auto pack p3-science, current item)
+    SE->>SE: policy: the child's packs, at most 2 loaded; load p3-science (event)
+    loop up to 3 tool rounds
+      SE->>API: chat completions with tools, tool_choice auto, 12 s
+      API-->>SE: tool calls, e.g. read_reference p3-science/content-cycles#4
+      SE->>SE: trusted code runs each tool (never the current item's answer)
+    end
+    SE->>API: final round without tools if the rounds ran out
+    API-->>SE: one or two sentences
+    SE-->>R: text, loaded packs, sections read, events
+    R->>L: one model_runs row per call; skill events
+    R-->>QP: text, headers x-kix-skill, x-kix-source, x-kix-trace
   end
-  Note over R,QP: If the stream fails before the first word, the cached hint is sent instead.
+  Note over R,QP: If any round fails, the cached hint is sent instead.
+  QP->>QP: shows "Kix read: Stage features" under the bubble
   QP->>QP: on submit, hintsUsed goes with the attempt
   Note over QP,ST: In the mastery engine a helped answer can never raise mastery.
 ```
 
-What makes this safe is in the order of steps: the safety check runs before the model; the model never sees a score and has no way to write one; the answer stays in the "for you only" part of the prompt; and the mastery maths caps any helped attempt at the current level (`step()` in `lib/domain/mastery.ts`: `if (c.hints > 0) q = Math.min(q, m)`).
+What makes this safe is in the order of steps: the safety check runs before the model; the model never sees a score and has no way to write one; its tools are code that refuses to check the child's current question and never return an item's answer; the answer stays in the "for you only" part of the prompt; and the mastery maths caps any helped attempt at the current level (`step()` in `lib/domain/mastery.ts`: `if (c.hints > 0) q = Math.min(q, m)`).
 
 ### 4.4 Learning agents
 
-**Kix Tutor** (`app/api/kix/tutor/route.ts`, `app/api/kix/reason/route.ts`, `lib/kix/reason-coach.ts`). Two jobs in the question player. The hint path streams one or two sentences with `reasoningEffort: "minimal"` and a 2,000-token cap; the prompt carries the item's worked steps "for you only; never repeat the conclusion". The reason path runs after marking: the child's own "because…" is first checked in code (`checkReason` in `lib/domain/reason.ts`: three words or more using the question's own ideas), and that check alone decides whether the explanation stars are paid. Then Muse Spark returns `{verdict, feedback, better}` about the reason only. The route forces `better` to null after a wrong answer so a retry is never spoiled. Both paths read the same pack notes (`packNotes("p3-science")`: `SKILL.md` up to 4,000 characters, `answering-cer.md` and `coaching-playbook.md` up to 3,000 each).
+**Kix Tutor** (`app/api/kix/tutor/route.ts`, `app/api/kix/reason/route.ts`, `lib/kix/reason-coach.ts`). Two jobs in the question player. The hint path runs the Skill Engine's agent loop (§4.10): one or two sentences with `reasoningEffort: "minimal"`, up to three tool rounds of 12 s each, 1,500 tokens a round; the prompt carries the item's worked steps "for you only; never repeat the conclusion". The reason path runs after marking: the child's own "because…" is first checked in code (`checkReason` in `lib/domain/reason.ts`: three words or more using the question's own ideas), and that check alone decides whether the explanation stars are paid. Then Muse Spark returns `{verdict, feedback, better}` about the reason only. The route forces `better` to null after a wrong answer so a retry is never spoiled. Both paths read the same pack notes (`packNotes("p3-science")`: `SKILL.md` up to 4,000 characters, `answering-cer.md` and `coaching-playbook.md` up to 3,000 each).
 
 **Ask Kix** (`app/api/kix/homework/route.ts`, `lib/kix/homework.ts`). The child types a question or takes a photo. In the browser (`components/kix/AskKix.tsx`) the photo is redrawn on a canvas at most 1,600 px wide, which drops EXIF location and camera data, and MediaPipe's face detector checks it; if it finds a face, or cannot run, the photo is not sent. On the server, Muse Spark reads it once with the level's teaching notes (`teachingNotes(level)`: every pack at that level, each `SKILL.md` and its method references from `METHOD_REFS`), the published updates for that level (`updateNotes`), and Notebook notes. It returns an `explanationSchema` object: up to six blocks of kinds `say`, `steps`, `bar-model`, `cer`, `memory-hook` and `try-this`, which trusted components draw (`components/kix/ExplainBlocks.tsx`). Stages are hint, steps and full; `enforceStage` removes the final answer and the try-this question before the full stage, so guide-first is enforced in code, not trusted to the prompt. Later stages send back the text Kix read the first time, so a photo is never sent twice.
 
@@ -460,11 +464,23 @@ A refresh takes about a minute and was measured at about $0.20 (36 s and 12 sear
 
 **Content Curator** (`lib/knowledge/`, `app/api/admin/knowledge/*`, `app/api/admin/papers/read/route.ts`). §6.1.
 
-### 4.10 Orchestration today versus the Skill Engine design
+### 4.10 The Skill Engine runtime: agents that load skills and call tools
 
-`docs/prd/SKILL_ENGINE.md` §5 designs a Responses API orchestrator in which agents load and unload skill namespaces through client-executed `tool_search`, call `read_reference(section)`, `find_items(...)` and `check_answer(...)`, and log every load to `skill_events` under `agent_policies`. **That orchestrator is not built.** The packs' manifests declare those tools (`skill.json` `tools`, `lib/skills/schema.ts`) and their `SKILL.md` files are written for them, but no tool executor exists and the `skills`, `skill_items`, `skill_events` and `agent_policies` tables were not created.
+**Built** (29 Oct, `lib/skills/runtime.ts`, tests in `lib/skills/runtime.test.ts`). The Kix Tutor and Ask Kix run an agent loop on Muse Spark's function calling (chat completions with `tools`; tested live: Meta accepts `tool_choice: "auto"` only, so the last round is sent without tools to make the model answer).
 
-The code runs the plan's documented fallback (`docs/plan/IMPLEMENTATION_PLAN.md` §6: "preload the quest's skill and pass the references in the prompt"). Code picks the sections by id from `METHOD_REFS`, trims them, and puts them in the system prompt. This keeps the "no RAG, by id" property and makes every prompt reproducible, but an agent cannot yet ask for another section mid-conversation. The tutor's header `x-kix-skill: p3-science@1.0.0` drives the "P3 Science skill loaded" chip. The admin Skills page shows packs from disk and the live call list from `model_runs`, not a skill-event trace. See §11 for the path to the full design.
+| Tool | What trusted code does | Guardrail |
+|---|---|---|
+| `load_skill(pack)` | Loads another pack and returns its section index | Only the child's own level's published packs (`packsForChild`), at most two loaded at once; refusals are logged |
+| `read_reference(section)` | Returns one section of a loaded pack, by id (`p3-science/content-cycles#4`), from its heading to the next heading of the same level, at most 2,400 characters | The pack must be loaded; at most four reads per answer |
+| `find_items(pack, topic?, subskill?, n)` | Reviewed items from a loaded pack, as stem, options, topic and difficulty | Never the answer, working, hints or distractor notes (`publicItem`); never the current question |
+| `check_answer(item_id, answer)` | Marks by `markItem` and says correct or not | Refuses the question the child is answering now |
+| `notebook_read(page)` | One of the child's four Notebook pages | Kix Tutor and Ask Kix only; household-scoped by the route |
+
+**Policy** (`POLICY`): the Kix Tutor has all five tools and starts with its quest's pack loaded; Ask Kix has all but `check_answer` and starts with nothing loaded, so its research step must choose the subject itself. Each agent gets at most three tool rounds. **Every load, refusal and tool call** becomes a `skill_events` row (agent, kind, pack, tool, target id, ok, note; never a child's words), kept 30 days and shown on Under the hood's Skill Engine card; the question player and Ask Kix show the child which pack Kix loaded and which sections it read (`x-kix-trace`, `skills`).
+
+**Ask Kix's research step:** Muse Spark sees the question (text or photo) and the child's packs, calls `load_skill` for the subject, then `read_reference` for the method sections. The structured explanation is then written from what code read, not from the model's own summary. Later stages send the section ids back and code re-reads them, so research runs once per question. Measured on 29 Oct: a P6 "before and after" word problem loaded `p6-maths` and read "Before-and-After, 4 types" by itself; the hint took 13 s in all, a tutor hint 4 to 5 s.
+
+**Still to build** (Roadmap): client-executed `tool_search` over skill namespaces on the Responses API, `learner_summary`, unloading between quests, the Vibe Zone maker and the parent's narrator on the engine, and `agent_policies` as a table an admin can edit.
 
 ---
 
@@ -507,8 +523,9 @@ The figures are drawn by trusted code, not stored as model output: `lib/skills/f
 
 | Consumer | What it reads | Where |
 |---|---|---|
-| Kix Tutor, reason coach | `p3-science` `SKILL.md` (4,000 characters) and its method references (`answering-cer.md`, `coaching-playbook.md`, 3,000 each); the item's working and hints | `packNotes` in `lib/kix/homework.ts` |
-| Ask Kix | Every pack at the child's level: `SKILL.md` (3,500) and method references (2,500 each); plus the latest three published updates for the level (archetypes, traps, marking cues) | `teachingNotes` in `lib/kix/homework.ts`, `updateNotes` in `lib/knowledge/knowledge.ts` |
+| Kix Tutor | The quest pack's index (`SKILL.md` core, 1,600 characters, and every section's id and title) and the sections it reads with `read_reference`; the item's working and hints | `runSkillAgent` in `lib/skills/runtime.ts` |
+| Reason coach | `p3-science` `SKILL.md` and its method references, trimmed | `packNotes` in `lib/kix/homework.ts` |
+| Ask Kix | The sections its research step read from the pack it loaded; if research fails, every pack at the child's level (`SKILL.md` 3,500 and method references 2,500 each); plus the latest three published updates for the level | `researchSkills` in `app/api/kix/homework/route.ts`, `teachingNotes`, `updateNotes` |
 | Vibe Zone maker | The level's teaching notes | `teachingNotes` |
 | The learning loop | `p3-science/items/demo.json` (the frog quest's five stops) through `selectNext` | `lib/learn/frog-quest.ts` |
 | Printable papers | Reviewed items of any pack, by blueprint, deterministic for a given seed | `lib/print/bank.ts`, `lib/print/paper.ts` |
@@ -1032,7 +1049,7 @@ The point of the contract is that a new device adds a Reader and some rules, not
 - **Other countries' syllabi.** Packs carry `syllabus`; routing (`packFor`) would gain a country dimension, and the scout's allowlist becomes per-country, with the same robots.txt and rights rules.
 - **Schools and tutors as roles.** `profiles.role` is `parent` or `child` today. A `tutor` or `teacher` role would get consent-scoped, read-only grants per child (attempts and mastery labels, not the Notebook or words), audited like admin actions; schools would see de-identified aggregates only. Household isolation stays the default.
 - **Content marketplace.** Teachers and tutors upload their own material through the same rights, review and publish gate; each published version credits its source.
-- **The full Skill Engine.** Agents that load and unload skill namespaces through `tool_search`, with a `skill_events` trace and per-agent policies (§4.10, §11).
+- **The full Skill Engine.** Tool-calling agents are built (§4.10); next, skill namespaces through `tool_search`, every child-facing agent on the engine, and policies an admin can edit (§11).
 
 ---
 
@@ -1057,7 +1074,7 @@ Dates are SGT. From `docs/plan/IMPLEMENTATION_PLAN.md` and `docs/prd/GUARDIAN.md
 
 | Area | Next steps |
 |---|---|
-| Skill Engine | Responses API orchestrator with client `tool_search`, `read_reference`, `find_items`, `check_answer`, `learner_summary`, `notebook_read`; `skill_events` and `agent_policies`; at most two subject skills at once; quests for every pack, served from published items; in-app `SKILL.md` editor, version diffs and rollback |
+| Skill Engine | Built: tool calling with `load_skill`, `read_reference`, `find_items`, `check_answer`, `notebook_read`, the policy and `skill_events` (§4.10). Next: client `tool_search` namespaces on the Responses API, `learner_summary`, `agent_policies` as a table; at most two subject skills at once; quests for every pack, served from published items; in-app `SKILL.md` editor, version diffs and rollback |
 | Learning | More quests beyond the frog life cycle; the Kix Tutor reading published updates; server-side cross-check of hint counts; Study Song (a song spec played by Tone.js) |
 | Memory | The remaining Notebook pages from the spec (events, weak spots linked to subskills, revision log); line-level parent edits in the UI |
 | Guardian | ONVIF discovery and streaming in Home Link; on-box person detection; push notifications; Supabase Realtime instead of polling; Activity Recognition through a native plugin |
@@ -1072,8 +1089,8 @@ The specs in `docs/prd/` describe more than the hackathon build does. These are 
 
 | Spec says | Code does | Where |
 |---|---|---|
-| Agents load and unload skills through `tool_search` and call `read_reference`, `find_items`, `check_answer`; events go to `skill_events` (SKILL_ENGINE §5) | Code preloads fixed method references into the prompt; the tools are declared in manifests only; no `skills`, `skill_items`, `skill_events` or `agent_policies` tables | §4.10 |
-| The tutor uses the Responses API with a 10 s hint timeout (plan §2) | Chat completions streaming with a 20 s timeout | `app/api/kix/tutor/route.ts` |
+| Agents load and unload skills through `tool_search` and call `read_reference`, `find_items`, `check_answer`; events go to `skill_events` (SKILL_ENGINE §5) | The Kix Tutor and Ask Kix call those tools as plain function tools (plus `load_skill` and `notebook_read`) and log `skill_events`; no `tool_search` namespaces, no unloading, no `skills`, `skill_items` or `agent_policies` tables | §4.10 |
+| The tutor uses the Responses API with a 10 s hint timeout (plan §2) | Chat completions with function tools, not streamed, 12 s a round, up to three tool rounds | `app/api/kix/tutor/route.ts` |
 | Seven Notebook pages with `append`, `replace_section` and `remove_line` (SKILL_ENGINE §5a) | Four pages; `append` and `remove_line` only | `lib/notebook/notebook.ts` |
 | Published updates are read by Kix when it tutors and helps with homework | Ask Kix reads them; the tutor reads the pack on disk | `app/api/kix/homework/route.ts` |
 | Published items join the pack and are served next session (SKILL_ENGINE §6) | Items are stored in `skill_updates` but not yet served in quests | `lib/knowledge/knowledge.ts` |

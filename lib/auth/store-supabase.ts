@@ -9,7 +9,7 @@ import type { CookieJar } from "./http.ts";
 import { familyOf, type AttemptEvent } from "../domain/attempts.ts";
 import { sgDate } from "../domain/time.ts";
 import type { LedgerEntry } from "../domain/rewards.ts";
-import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt, StoredBeat, StoredGuardianSettings, StoredKixMessage, Creation, NotebookPage, NotebookRevision, StoredSessionRead, StoredRun } from "./store.ts";
+import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt, StoredBeat, StoredGuardianSettings, StoredKixMessage, Creation, NotebookPage, NotebookRevision, StoredSessionRead, StoredRun, StoredSkillEvent } from "./store.ts";
 import { BEAT_MS, type ActivityKind } from "../guardian/screen-time.ts";
 import type { Extraction, KnowledgeUpload, Review, Rights, SkillUpdate } from "../knowledge/knowledge.ts";
 import type { FlashcardSpec } from "../vibe/flashcards.ts";
@@ -145,6 +145,9 @@ const toPrefs = (r: Record<string, unknown>): GuardianPrefs => ({
   camsPausedUntil: iso(r.cams_paused_until),
   descriptions: (r.descriptions as Record<string, string>) ?? {},
 });
+
+/** Postgres or PostgREST saying a table isn't there yet (a migration not applied). */
+const tableMissing = (e: { code?: string }) => e.code === "42P01" || e.code === "PGRST205";
 
 function check(error: DbError) {
   if (!error) return;
@@ -764,6 +767,29 @@ export class SupabaseStore implements AuthStore {
         { onConflict: "profile_id,game" },
       );
       check(error);
+    },
+  };
+
+  // skill_events (migration 20261029_skill_events.sql). Until it is applied, logging is skipped and the list is empty.
+  readonly skills = {
+    log: async (events: readonly StoredSkillEvent[]) => {
+      if (!events.length) return;
+      const { error } = await this.db.from("skill_events").insert(
+        events.map((e) => ({ household_id: e.householdId, profile_id: e.profileId, agent: e.agent, kind: e.kind, pack: e.pack, tool: e.tool, target: e.target, ok: e.ok, note: e.note, created_at: e.at })),
+      );
+      if (error && !tableMissing(error)) check(error);
+    },
+    recent: async (limit: number): Promise<StoredSkillEvent[]> => {
+      const { data, error } = await this.db.from("skill_events").select("created_at, household_id, profile_id, agent, kind, pack, tool, target, ok, note").order("created_at", { ascending: false }).limit(limit);
+      if (error && tableMissing(error)) return [];
+      check(error);
+      return (data ?? []).map((r) => ({ at: r.created_at as string, householdId: r.household_id as string | null, profileId: r.profile_id as string | null, agent: r.agent as StoredSkillEvent["agent"], kind: r.kind as StoredSkillEvent["kind"], pack: r.pack as string | null, tool: r.tool as string | null, target: r.target as string | null, ok: Boolean(r.ok), note: r.note as string | null }));
+    },
+    prune: async (beforeIso: string): Promise<number> => {
+      const { data, error } = await this.db.from("skill_events").delete().lt("created_at", beforeIso).select("id");
+      if (error && tableMissing(error)) return 0;
+      check(error);
+      return data?.length ?? 0;
     },
   };
 

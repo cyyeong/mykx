@@ -1,17 +1,19 @@
 // Kix Tutor in the question player. The kid asks for a hint or asks "why?" (typed or by voice); Muse Spark
-// (Standard) answers in a sentence or two, streamed, using the question's own skill pack (its method and answer
-// frames) and the item's worked steps, and never gives the answer away. Every ask counts as a hint, so a helped
-// answer is never mastery evidence (rule 5). Without a model, the item's own next hint answers instead (rule 7).
+// (Standard) answers in a sentence or two and never gives the answer away. It runs as a Skill Engine agent
+// (lib/skills/runtime.ts): the quest's pack is loaded, and Kix calls tools to read the section it needs, find a
+// similar practice question, check one by code or load another of the child's packs; every load and tool call is
+// logged as a skill event. Every ask counts as a hint, so a helped answer is never mastery evidence (rule 5).
+// Without a model, or if the agent fails, the item's own next hint answers instead (rule 7).
 import { z } from "zod";
 import { requireFamily } from "@/lib/auth/guard";
 import { fail, ok, readBody } from "@/lib/auth/http";
 import { getStore } from "@/lib/auth/context";
 import { caringReply, checkWords, HELPLINES } from "@/lib/guardian/words";
-import { packNotes } from "@/lib/kix/homework";
 import { FROG_QUEST, loadFrogItems } from "@/lib/learn/frog-quest";
 import { notebookNotes } from "@/lib/notebook/notebook";
 import { hasMetaApiKey } from "@/lib/meta/client";
-import { sparkStream } from "@/lib/meta/spark";
+import { sparkTools } from "@/lib/meta/spark";
+import { loadPack, publicTrace, runSkillAgent } from "@/lib/skills/runtime";
 import { logRunsFor } from "@/lib/runs/log";
 
 const body = z.strictObject({
@@ -24,8 +26,10 @@ const body = z.strictObject({
 
 const SKILL = `${FROG_QUEST.skill}@${FROG_QUEST.version}`;
 
-function textStream(text: string, source: string): Response {
-  return new Response(text, { headers: { "content-type": "text/plain; charset=utf-8", "x-kix-skill": SKILL, "x-kix-source": source } });
+function textReply(text: string, source: string, skill = SKILL, trace: unknown = null): Response {
+  const headers: Record<string, string> = { "content-type": "text/plain; charset=utf-8", "x-kix-skill": skill, "x-kix-source": source, "cache-control": "no-store" };
+  if (trace) headers["x-kix-trace"] = encodeURIComponent(JSON.stringify(trace));
+  return new Response(text, { headers });
 }
 
 export async function POST(request: Request) {
@@ -48,9 +52,11 @@ export async function POST(request: Request) {
   const hints = item.hints ?? [];
   const choices = item.options ?? [];
   const cached = hints[Math.min(input.hint, hints.length) - 1] ?? "Read the question again slowly. What is it really asking?";
-  if (!hasMetaApiKey()) return textStream(cached, "cached");
+  if (!hasMetaApiKey()) return textReply(cached, "cached");
 
-  const remembered = notebookNotes(kid.nickname, (await getStore()?.notebook.pages(family.householdId, kid.id).catch(() => [])) ?? []);
+  const store = getStore();
+  const pages = (await store?.notebook.pages(family.householdId, kid.id).catch(() => [])) ?? [];
+  const remembered = notebookNotes(kid.nickname, pages);
   const options = choices.length ? `\nOptions: ${choices.map((o, i) => `(${i + 1}) ${o}`).join("  ")}` : "";
   const system = [
     `You are Kix, ${kid.nickname}'s friendly study sidekick (Singapore ${kid.level ?? "P3"}). You are helping with one question during a quest.`,
@@ -62,7 +68,7 @@ export async function POST(request: Request) {
     `# The question\n${item.stem}${options}`,
     `# The worked steps (for you only; never repeat the conclusion)\n${(item.working ?? []).join("\n")}`,
     `# The item's own hints, in order\n${hints.map((h, i) => `${i + 1}. ${h}`).join("\n")}`,
-    `# Pack notes (${SKILL})\n${packNotes(FROG_QUEST.skill)}`,
+    `This question is item ${item.id}. You may never check_answer it: the child submits their own answer.`,
     remembered,
   ]
     .filter(Boolean)
@@ -70,25 +76,23 @@ export async function POST(request: Request) {
   const user = input.ask ? `${kid.nickname} asks: ${input.ask}` : `Give hint ${input.hint}: a nudge that builds on the earlier hints.`;
 
   try {
-    const stream = sparkStream({ messages: [{ role: "system", content: system }, { role: "user", content: user }], reasoningEffort: "minimal", maxCompletionTokens: 2000 }, { timeoutMs: 20_000, signal: request.signal });
-    const encoder = new TextEncoder();
-    const body = new ReadableStream<Uint8Array>({
-      async start(controller) {
-        let sent = false;
-        try {
-          for await (const delta of stream) {
-            sent = true;
-            controller.enqueue(encoder.encode(delta));
-          }
-        } catch {
-          // A failed stream still leaves the kid with a hint.
-          if (!sent) controller.enqueue(encoder.encode(cached));
-        }
-        controller.close();
-      },
+    const run = await runSkillAgent({
+      agent: "tutor",
+      level: kid.level,
+      autoPack: FROG_QUEST.skill,
+      currentItemId: item.id,
+      notebook: pages,
+      system,
+      user: { role: "user", content: user },
+      call: (req) => sparkTools({ ...req, reasoningEffort: "minimal", maxCompletionTokens: 1500 }, { timeoutMs: 12_000, signal: request.signal }),
     });
-    return new Response(body, { headers: { "content-type": "text/plain; charset=utf-8", "x-kix-skill": SKILL, "x-kix-source": "muse-spark-1.3", "cache-control": "no-store" } });
+    const at = new Date().toISOString();
+    await store?.skills.log(run.state.events.map((e) => ({ ...e, at, householdId: family.householdId, profileId: kid.id }))).catch(() => undefined);
+    const text = run.text.trim();
+    if (!text) return textReply(cached, "cached");
+    const skills = run.state.loaded.map((id) => `${id}@${loadPack(id)?.version ?? "1.0.0"}`).join(", ") || SKILL;
+    return textReply(text, "muse-spark-1.3", skills, publicTrace(run.state));
   } catch {
-    return textStream(cached, "cached");
+    return textReply(cached, "cached");
   }
 }

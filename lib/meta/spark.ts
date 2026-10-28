@@ -1,5 +1,5 @@
-// Muse Spark via chat completions: plain, streamed, and structured (json_schema + zod).
-import type { ChatCompletionMessageParam } from "openai/resources/chat/completions";
+// Muse Spark via chat completions: plain, with function tools, streamed, and structured (json_schema + zod).
+import type { ChatCompletionMessageParam, ChatCompletionMessageToolCall, ChatCompletionTool } from "openai/resources/chat/completions";
 import type { z } from "zod";
 import { DEFAULT_SPARK_MODEL, callSignal, createMetaClient, pickRequestId } from "./client.ts";
 import { MetaApiError } from "./errors.ts";
@@ -96,6 +96,48 @@ export async function sparkChat(req: SparkRequest, options: CallOptions = {}): P
       });
     }
     return { text, finishReason: choice?.finish_reason ?? null, run: clock.finish(fields) };
+  } catch (err) {
+    throw clock.toError(err, fields, timedOut());
+  }
+}
+
+export interface SparkToolsRequest extends SparkRequest {
+  tools: ChatCompletionTool[];
+  /** `none` makes the model answer with what it has (the agent loop's last round). Muse Spark only accepts
+   *  `tool_choice: "auto"`, so `none` is sent as a request without tools (tested live 28 Oct). */
+  toolChoice?: "auto" | "none";
+}
+
+export interface SparkToolsResult {
+  text: string;
+  toolCalls: ChatCompletionMessageToolCall[];
+  finishReason: string | null;
+  run: RunInfo;
+}
+
+/** One non-streamed chat completion that may call function tools (the Skill Engine's agent loop, lib/skills/runtime.ts). */
+export async function sparkTools(req: SparkToolsRequest, options: CallOptions = {}): Promise<SparkToolsResult> {
+  const model = assertStandardModel(req.model ?? DEFAULT_SPARK_MODEL);
+  const client = createMetaClient({ maxRetries: options.maxRetries });
+  const { signal, timedOut } = callSignal(options);
+  const clock = startRun("chat_tools", model);
+  let fields: RunFields = {};
+  try {
+    const { data, response } = await client.chat.completions
+      .create(req.toolChoice === "none" ? baseBody(req, model) : { ...baseBody(req, model), tools: req.tools, tool_choice: "auto" as const }, { signal })
+      .withResponse();
+    fields = { requestId: pickRequestId(response.headers), responseId: data.id ?? null, ...usageFields(data.usage) };
+    const choice = data.choices[0];
+    const text = choice?.message?.content ?? "";
+    const toolCalls = choice?.message?.tool_calls ?? [];
+    if (!text.trim() && !toolCalls.length) {
+      throw new MetaApiError(`chat_tools (${model}) returned nothing (finish_reason: ${choice?.finish_reason ?? "none"})`, {
+        status: null,
+        code: "no_output",
+        run: clock.fail(fields, `no_output: finish_reason ${choice?.finish_reason ?? "none"}`),
+      });
+    }
+    return { text, toolCalls, finishReason: choice?.finish_reason ?? null, run: clock.finish(fields) };
   } catch (err) {
     throw clock.toError(err, fields, timedOut());
   }

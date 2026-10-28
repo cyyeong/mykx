@@ -32,6 +32,14 @@ async function prepare(file: File): Promise<{ dataUrl: string; face: boolean | "
   return { dataUrl: canvas.toDataURL("image/jpeg", 0.85), face };
 }
 
+type Skills = { loaded: string[]; read: string[]; sections: string[] };
+
+/** p6-maths → "P6 Maths", s2-science → "Sec 2 Science". */
+function packName(id: string): string {
+  const [lvl, ...rest] = id.split("-");
+  return `${lvl.startsWith("s") ? `Sec ${lvl.slice(1)}` : lvl.toUpperCase()} ${rest.map((w) => (w ? w[0].toUpperCase() + w.slice(1) : w)).join(" ")}`;
+}
+
 export function AskKix({ nickname }: { nickname: string }) {
   const [text, setText] = useState("");
   const [photo, setPhoto] = useState<string | null>(null);
@@ -39,6 +47,8 @@ export function AskKix({ nickname }: { nickname: string }) {
   const [note, setNote] = useState<string | null>(null);
   const [answer, setAnswer] = useState<Explanation | null>(null);
   const [sample, setSample] = useState(false);
+  // The skill packs Kix loaded and the sections it read for this question (sent back for the later stages).
+  const [skills, setSkills] = useState<Skills | null>(null);
   const [care, setCare] = useState<Care | null>(null);
   const camera = useRef<HTMLInputElement>(null);
   const upload = useRef<HTMLInputElement>(null);
@@ -68,15 +78,16 @@ export function AskKix({ nickname }: { nickname: string }) {
         body: JSON.stringify(
           stage === "hint"
             ? { stage, ...(text.trim() ? { text: text.trim() } : {}), ...(photo ? { image: photo } : {}) }
-            : { stage, question: answer?.question, ...(answer?.figure ? { figure: answer.figure } : {}) },
+            : { stage, question: answer?.question, ...(answer?.figure ? { figure: answer.figure } : {}), ...(skills?.sections.length ? { sections: skills.sections } : {}) },
         ),
       });
-      const data = (await res.json()) as { ok: boolean; explanation?: Explanation | null; sample?: boolean; care?: Care | null };
+      const data = (await res.json()) as { ok: boolean; explanation?: Explanation | null; sample?: boolean; care?: Care | null; skills?: Skills };
       if (!data.ok) throw new Error("not-ok");
       setCare(data.care ?? null);
       if (data.explanation) {
         setAnswer(data.explanation);
         setSample(Boolean(data.sample));
+        if (data.skills?.sections.length) setSkills(data.skills);
         if (stage === "hint") setPhoto(null); // read once, then gone
       }
     } catch {
@@ -87,6 +98,7 @@ export function AskKix({ nickname }: { nickname: string }) {
 
   const reset = () => {
     setAnswer(null);
+    setSkills(null);
     setText("");
     setPhoto(null);
     setCare(null);
@@ -165,6 +177,19 @@ export function AskKix({ nickname }: { nickname: string }) {
         {answer ? (
           <>
             {sample && <p className={s.sample}>Sample explanation: Kix is offline right now.</p>}
+            {!sample && skills?.read.length ? (
+              <p className={s.trace} aria-label="What Kix looked up">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2zM22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z" />
+                </svg>
+                Kix loaded {skills.loaded.map(packName).join(" and ")} and read
+                {skills.read.map((t) => (
+                  <span key={t} className={s.traceChip}>
+                    {t}
+                  </span>
+                ))}
+              </p>
+            ) : null}
             <ExplainBlocks blocks={answer.blocks} finalAnswer={answer.finalAnswer} />
             {!answer.unclear && (
               <div className={s.next}>
