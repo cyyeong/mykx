@@ -17,8 +17,8 @@ export const LEONARD_ID = "00000000-0000-4000-8000-000000000013";
 /** What each demo kid types or taps. Jordan: idle, cheer, pilot, dreamlight. */
 export const DEMO_SECRETS = {
   [JORDAN_ID]: { kind: "pictures", code: ["idle", "cheer", "pilot", "dreamlight"] },
-  [ABBY_ID]: { kind: "password", password: "stars123" },
-  [LEONARD_ID]: { kind: "password", password: "frogs123" },
+  [ABBY_ID]: { kind: "password", password: "hackmuse" },
+  [LEONARD_ID]: { kind: "password", password: "hackmuse" },
 } as const;
 
 export interface DemoKid {
@@ -52,7 +52,7 @@ export const DEMO_KIDS: readonly DemoKid[] = [
     level: "P6",
     pack: "idol-stage",
     secretKind: "password",
-    secretHash: "scrypt$16384$8$1$FevcUegSzdBYFanzvoOZdw$sSUAUykHk2NcF_lnaMBDW4yjh4k6kkAw5j4X7k5zsVw",
+    secretHash: "scrypt$16384$8$1$PK5y3oBbecbqlyuJ2OeIrA$L2jsBBXoaBmmnRibFYBdL7Qut9EEpUrgaqSnExY7RdA",
     voiceEnabled: true,
     dailyLimitMin: 45,
   },
@@ -63,7 +63,7 @@ export const DEMO_KIDS: readonly DemoKid[] = [
     level: "Sec 2",
     pack: "anime-sky",
     secretKind: "password",
-    secretHash: "scrypt$16384$8$1$pjXXCAkBz0et6aXl41WZOA$kkkXCpP2snjhWs21BhmbdWZ1hzBwhFqasgwGnZVdPOc",
+    secretHash: "scrypt$16384$8$1$ad2uDKiCeE4ILgvIFn5hfg$mkI3K-AHDmgmu8RUxnCbPjzkpdUU1zoxvGAf38QOLDE",
     voiceEnabled: true,
     dailyLimitMin: 60,
   },

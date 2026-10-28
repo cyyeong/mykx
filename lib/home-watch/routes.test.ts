@@ -148,7 +148,7 @@ describe("where they are", () => {
   it("lets a teen pause for 30 minutes, and nothing is stored meanwhile; juniors can't", async () => {
     await pairSimulator();
     await parent.call(settings.PATCH, "/api/location/settings", { method: "PATCH", body: { kidId: LEONARD_ID, enabled: true } });
-    await parent.call(kidRoute.POST, "/api/auth/kid", { body: { kidId: LEONARD_ID, secret: { kind: "password", password: "frogs123" } } });
+    await parent.call(kidRoute.POST, "/api/auth/kid", { body: { kidId: LEONARD_ID, secret: { kind: "password", password: "hackmuse" } } });
     const paused = await parent.call(pause.POST, "/api/location/pause", { body: { minutes: 30 } });
     expect(paused.status).toBe(200);
     expect(Date.parse(paused.body.pausedUntil) - Date.now()).toBeGreaterThan(29 * 60_000);
@@ -170,7 +170,7 @@ describe("where they are", () => {
     expect(JSON.stringify(junior.body)).not.toMatch(/lat|lng|reading|activity/);
     expect((await parent.call(pause.POST, "/api/location/pause", { body: { minutes: 30 } })).status).toBe(403);
 
-    await parent.call(kidRoute.POST, "/api/auth/kid", { body: { kidId: LEONARD_ID, secret: { kind: "password", password: "frogs123" } } });
+    await parent.call(kidRoute.POST, "/api/auth/kid", { body: { kidId: LEONARD_ID, secret: { kind: "password", password: "hackmuse" } } });
     expect((await parent.call(mine.GET, "/api/location/mine")).body.sharing).toMatchObject({ canPause: true, paused: false });
     await parent.call(pause.POST, "/api/location/pause", { body: { minutes: 30 } });
     expect((await parent.call(mine.GET, "/api/location/mine")).body.sharing).toMatchObject({ paused: true, on: true });

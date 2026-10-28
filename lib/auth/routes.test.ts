@@ -84,7 +84,7 @@ beforeEach(() => {
 afterEach(() => {
   // Every reply this test saw: no hash, no secret, ever.
   for (const body of browser.bodies) {
-    expect(body).not.toMatch(/scrypt\$|secretHash|secret_hash|frogs123|stars123/);
+    expect(body).not.toMatch(/scrypt\$|secretHash|secret_hash|hackmuse/);
   }
   vi.useRealTimers();
   vi.unstubAllEnvs();
@@ -141,7 +141,7 @@ describe("kid sign-in", () => {
     expect(cookie).toMatch(/Path=\//i);
     expect((await browser.call(me.GET, "/api/me")).body).toMatchObject({ ok: true, kid: { id: JORDAN_ID, nickname: "Jordan", secretKind: "pictures" } });
 
-    expect((await browser.kidSignIn(LEONARD_ID, { kind: "password", password: "frogs123" })).status).toBe(200);
+    expect((await browser.kidSignIn(LEONARD_ID, { kind: "password", password: "hackmuse" })).status).toBe(200);
     expect((await browser.call(me.GET, "/api/me")).body.kid.nickname).toBe("Leonard");
   });
 
@@ -149,7 +149,7 @@ describe("kid sign-in", () => {
     await browser.signIn();
     expect((await browser.kidSignIn(LEONARD_ID, { kind: "pictures", code: JORDAN_CODE })).body.reason).toBe("wrong-kind");
     store.profiles.set(LEONARD_ID, { ...store.profiles.get(LEONARD_ID)!, disabledAt: new Date().toISOString() });
-    expect(await browser.kidSignIn(LEONARD_ID, { kind: "password", password: "frogs123" })).toMatchObject({ status: 403, body: { reason: "disabled" } });
+    expect(await browser.kidSignIn(LEONARD_ID, { kind: "password", password: "hackmuse" })).toMatchObject({ status: 403, body: { reason: "disabled" } });
   });
 
   it("locks after 5 wrong tries, unlocks after a minute, and a success resets the count", async () => {
@@ -259,7 +259,7 @@ describe("Your family", () => {
 
     const temp = await browser.call(familyKid.PATCH, `/api/family/kids/${LEONARD_ID}`, { method: "PATCH", id: LEONARD_ID, body: { secret: { kind: "password", password: "temporary1" } } });
     expect(temp.body.kid).toMatchObject({ needsSetup: false, secretEvent: "reset" });
-    expect((await browser.kidSignIn(LEONARD_ID, { kind: "password", password: "frogs123" })).status).toBe(401);
+    expect((await browser.kidSignIn(LEONARD_ID, { kind: "password", password: "hackmuse" })).status).toBe(401);
     expect((await browser.kidSignIn(LEONARD_ID, { kind: "password", password: "temporary1" })).status).toBe(200);
 
     // The gate fires before the household check; after sign-out the 404 shows through.
