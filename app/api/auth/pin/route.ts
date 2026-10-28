@@ -26,7 +26,7 @@ export async function GET(request: Request) {
         parentUserId: parent.user.userId,
         secret,
       }).ok;
-    return ok({ set: parent.profile.pinHash !== null, kidActive: kid !== null, unlocked });
+    return ok({ set: Boolean(parent.profile.pinHash), kidActive: kid !== null, unlocked });
   });
 }
 

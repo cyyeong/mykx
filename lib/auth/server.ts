@@ -93,7 +93,7 @@ export async function grownUpGateStatus(): Promise<GrownUpGate> {
       secret,
     }).ok;
   if (unlocked) return { state: "open" };
-  return parent.profile.pinHash !== null ? { state: "pin" } : { state: "setup" };
+  return parent.profile.pinHash ? { state: "pin" } : { state: "setup" };
 }
 
 /** Whether the signed-in household is the synthetic demo family (AGENTS.md rule 8: label synthetic data). */
