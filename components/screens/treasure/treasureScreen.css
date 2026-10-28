@@ -12,7 +12,7 @@
 .tr-bg{position:absolute;inset:0;width:100%;height:100%;overflow:hidden}
 .tr-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .tr-wrap{position:relative;flex:1;width:100%;max-width:1440px;margin:0 auto;box-sizing:border-box;padding:28px 32px;display:flex;flex-direction:column;gap:30px}
-.tr-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:16px;padding-right:112px}
+.tr-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:16px;padding-right:184px}
 .tr-head{flex:0 1 auto;min-width:0;box-sizing:border-box}
 .tr-title{font-size:clamp(32px,6vw,48px);line-height:1.04}
 .tr-lede{font-size:16px;line-height:22px}

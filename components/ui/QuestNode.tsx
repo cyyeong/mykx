@@ -10,21 +10,23 @@ const ICONS: Record<Exclude<QuestNodeState, "current">, string> = {
 
 /**
  * A stop on the Junior quest path (`mk-node`, app/styles/components.css), with mastery shown honestly:
- * mastered glows, current is a ring filled to the mastery index with the number inside, next pulses
- * (not under reduced motion), locked is muted. The subskill's name sits beside it on the map.
+ * mastered glows, current is a ring filled to the mastery index with the number inside (a play glyph
+ * while there's no evidence yet: never a "0" for a stop not tried), next pulses (not under reduced
+ * motion), locked is muted. The subskill's name sits beside it on the map.
  */
-export function QuestNode({ state, mastery = 0, className }: { state: QuestNodeState; mastery?: number; className?: string }) {
+export function QuestNode({ state, mastery, className }: { state: QuestNodeState; mastery?: number | null; className?: string }) {
+  const shown = state === "current" && mastery !== null && mastery !== undefined;
   return (
     <div
       className={["mk-node", `mk-node--${state}`, className].filter(Boolean).join(" ")}
-      style={state === "current" ? ({ "--mastery": mastery } as CSSProperties) : undefined}
+      style={state === "current" ? ({ "--mastery": mastery ?? 0 } as CSSProperties) : undefined}
     >
       <span className="mk-node__dot">
-        {state === "current" ? (
+        {shown ? (
           <span>{mastery}</span>
         ) : (
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path fill="currentColor" d={ICONS[state]} />
+            <path fill="currentColor" d={ICONS[state === "current" ? "next" : state]} />
           </svg>
         )}
       </span>

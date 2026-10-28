@@ -11,7 +11,8 @@
 .qd-chip-stars{color:var(--reward)}
 .qd-chip-stars svg{width:16px;height:16px}
 .qd-pip{display:flex;flex-direction:column;gap:8px}
-.qd-track{position:relative;border-radius:var(--radius-md);overflow:hidden;background:#FFF6E0}
+.qd-track{position:relative;border-radius:var(--radius-md);overflow:hidden;background:#FFF6E0;aspect-ratio:3 / 1}
+.qd-track img{width:100%;height:100%!important;object-fit:cover;object-position:50% 52%}
 .qd-track-cols{position:absolute;inset:0;display:grid;grid-template-columns:27% 25% 24% 24%}
 .qd-stage{background:rgba(255,246,224,.62);transition:background var(--motion-base,240ms)}
 .qd-stage.is-past{background:rgba(255,246,224,.28)}
@@ -30,6 +31,10 @@
 @keyframes qd-reveal{from{opacity:0;transform:perspective(900px) rotateY(80deg) scale(.86)}to{opacity:1;transform:none}}
 @keyframes qd-pop{from{opacity:0;transform:translateX(-50%) scale(.6)}to{opacity:1;transform:translateX(-50%) scale(1)}}
 @keyframes qd-grow{from{transform:scaleX(0);transform-origin:left}to{transform:scaleX(1);transform-origin:left}}
+@media (max-width:599px){
+  /* Clear the sound buttons (fixed top right) on phones. */
+  .qd-wrap{padding-top:84px}
+}
 @media (max-width:719px){
   .qd-hero{grid-template-columns:minmax(0,1fr)}
   .qd-holo,.qd-slot{width:min(260px,70vw)}

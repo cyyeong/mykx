@@ -72,7 +72,7 @@ export function QuestMapScreen({ questTitle, levelLabel, blurb, stops, startHref
             const n = i + 1;
             return (
               <div key={stop.itemId} className={`qm-stop qm-stop--${n}`}>
-                <QuestNode state={stop.state} mastery={stop.mastery ?? 0} className="qm-node" />
+                <QuestNode state={stop.state} mastery={stop.mastery} className="qm-node" />
                 {stop.state === "current" ? (
                   <GlassPanel
                     className={`qm-label qm-label--${n}`}
