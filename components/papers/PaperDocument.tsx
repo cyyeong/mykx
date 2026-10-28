@@ -1,5 +1,6 @@
 // A practice paper as clean A4 HTML: cover, sections and (optionally) the answer guide on its own pages.
 // Server component, no state; print rules live in paper.css.
+import { WorkedModelFigure } from "./WorkedModel";
 import type { PrintFigure } from "@/lib/print/bank";
 import type { AnswerSpace, GuideEntry, Paper, PaperGroup, PaperPart, PaperQuestion } from "@/lib/print/paper";
 import type { GuideMode } from "@/lib/print/params";
@@ -402,6 +403,12 @@ function GuideRow({ entry }: { entry: GuideEntry }) {
               </li>
             ))}
           </ul>
+        ) : null}
+        {entry.model ? (
+          <div className="pp-guide-model">
+            <span className="pp-guide-tag">{entry.model.kind === "timeline" ? "Time line" : "Model"}</span>
+            <WorkedModelFigure model={entry.model} label={entry.model.kind === "timeline" ? "Time line" : "Model"} />
+          </div>
         ) : null}
         {entry.working.length ? (
           <div className="pp-guide-working">

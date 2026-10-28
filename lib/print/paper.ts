@@ -3,7 +3,7 @@
 // Only reviewed items are used (never drafts or retired ones); every item appears at most once; questions
 // are numbered continuously; marks are totalled from the items (hard rule 5: nothing here is model-made).
 // Pure, no I/O: lib/print/bank.ts reads the pack, the print page renders the result.
-import type { ItemType, SkillItem, SkillManifest } from "../types.ts";
+import type { ItemType, SkillItem, SkillManifest, WorkedModel } from "../types.ts";
 import {
   allOfType,
   blockDifficulty,
@@ -111,6 +111,8 @@ export interface GuideEntry {
   working: string[];
   marking: string[];
   unit?: string;
+  /** The bar model or time line the school method draws, when the item has one. */
+  model?: WorkedModel;
 }
 
 export interface Paper {
@@ -523,6 +525,7 @@ function guideEntries(sections: PaperSection[], items: Map<string, SkillItem>): 
             working: item.working ?? [],
             marking: item.marking ?? [],
             unit: item.unit,
+            ...(item.model ? { model: item.model } : {}),
           });
         }
   return out;

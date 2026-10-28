@@ -527,6 +527,77 @@
       "Left: 1 − 5/8 = 8/8 − 5/8 = 3/8.",
       "Common error: Stopping at 5/8 (fraction eaten, not left); or 1/4 + 3/8 = 4/12."
     ],
+    "model": {
+      "kind": "bars",
+      "panels": [
+        {
+          "bars": [
+            {
+              "label": "Pizza",
+              "parts": [
+                {
+                  "w": 1,
+                  "text": "1/8",
+                  "tone": "extra"
+                },
+                {
+                  "w": 1,
+                  "text": "1/8",
+                  "tone": "extra"
+                },
+                {
+                  "w": 1,
+                  "text": "1/8"
+                },
+                {
+                  "w": 1,
+                  "text": "1/8"
+                },
+                {
+                  "w": 1,
+                  "text": "1/8"
+                },
+                {
+                  "w": 1,
+                  "text": "?"
+                },
+                {
+                  "w": 1,
+                  "text": "?"
+                },
+                {
+                  "w": 1,
+                  "text": "?"
+                }
+              ]
+            }
+          ],
+          "marks": [
+            {
+              "bar": 0,
+              "from": 0,
+              "to": 2,
+              "text": "Ali 1/4 = 2/8",
+              "side": "below"
+            },
+            {
+              "bar": 0,
+              "from": 2,
+              "to": 5,
+              "text": "Ben 3/8",
+              "side": "below"
+            },
+            {
+              "bar": 0,
+              "from": 5,
+              "to": 8,
+              "text": "left ?",
+              "side": "below"
+            }
+          ]
+        }
+      ]
+    },
     "marking": [
       "M1 for 5/8 eaten, A1 for 3/8"
     ],
@@ -555,6 +626,35 @@
       "Lesson started: 17 30 − 1 h 25 min = 16 05.",
       "Common error: Going forwards (adding) from 18 05; or forgetting the 35-minute journey."
     ],
+    "model": {
+      "kind": "timeline",
+      "ticks": [
+        {
+          "at": 0,
+          "label": "16 05"
+        },
+        {
+          "at": 85,
+          "label": "17 30"
+        },
+        {
+          "at": 120,
+          "label": "18 05"
+        }
+      ],
+      "jumps": [
+        {
+          "from": 0,
+          "to": 85,
+          "text": "1 h 25 min"
+        },
+        {
+          "from": 85,
+          "to": 120,
+          "text": "35 min"
+        }
+      ]
+    },
     "marking": [
       "M1 for 17 30, A1 for 16 05"
     ],
@@ -668,6 +768,73 @@
       "Box A had 600 marbles at first.",
       "Common error: 475 − 125 = 350 (that is Box B at first)."
     ],
+    "model": {
+      "kind": "bars",
+      "panels": [
+        {
+          "title": "At first",
+          "bars": [
+            {
+              "label": "Box A",
+              "parts": [
+                {
+                  "w": 4.75,
+                  "text": "475"
+                },
+                {
+                  "w": 1.25,
+                  "text": "125",
+                  "tone": "extra"
+                }
+              ]
+            },
+            {
+              "label": "Box B",
+              "parts": [
+                {
+                  "w": 3.5,
+                  "text": "350"
+                }
+              ]
+            }
+          ],
+          "total": {
+            "text": "950"
+          }
+        },
+        {
+          "title": "After 125 moved from A to B",
+          "bars": [
+            {
+              "label": "Box A",
+              "parts": [
+                {
+                  "w": 4.75,
+                  "text": "475"
+                }
+              ]
+            },
+            {
+              "label": "Box B",
+              "parts": [
+                {
+                  "w": 3.5,
+                  "text": "350"
+                },
+                {
+                  "w": 1.25,
+                  "text": "125",
+                  "tone": "extra"
+                }
+              ]
+            }
+          ],
+          "total": {
+            "text": "950"
+          }
+        }
+      ]
+    },
     "marking": [
       "M1 for 475 + 125, A1 for 600"
     ],
@@ -753,6 +920,58 @@
       "Check: 3 × $7 + 2 × $13 = $21 + $26 = $47 ✓",
       "Common error: Answering $7 (the book), or $47 ÷ 5 before taking away the $12."
     ],
+    "model": {
+      "kind": "bars",
+      "panels": [
+        {
+          "bars": [
+            {
+              "label": "3 books",
+              "parts": [
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 1,
+                  "text": "1 u"
+                }
+              ]
+            },
+            {
+              "label": "2 cases",
+              "parts": [
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 0.85,
+                  "text": "$6",
+                  "tone": "extra"
+                },
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 0.85,
+                  "text": "$6",
+                  "tone": "extra"
+                }
+              ]
+            }
+          ],
+          "total": {
+            "text": "$47"
+          }
+        }
+      ]
+    },
     "marking": [
       "M1 for 5 units = $35, M1 for 1 unit = $7, A1 for $13"
     ],
@@ -952,6 +1171,54 @@
       "Check: Marcus 34 − 18 = 16; Kai 34 + 30 = 64 = 4 × 16 ✓",
       "Common error: Answering 16 (Marcus in the end), or dividing 48 by 4 instead of 3."
     ],
+    "model": {
+      "kind": "bars",
+      "panels": [
+        {
+          "title": "In the end",
+          "bars": [
+            {
+              "label": "Marcus",
+              "parts": [
+                {
+                  "w": 1,
+                  "text": "1 u"
+                }
+              ]
+            },
+            {
+              "label": "Kai",
+              "parts": [
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 1,
+                  "text": "1 u"
+                }
+              ]
+            }
+          ],
+          "marks": [
+            {
+              "bar": 1,
+              "from": 1,
+              "to": 4,
+              "text": "3 u = 18 + 30 = 48"
+            }
+          ]
+        }
+      ]
+    },
     "marking": [
       "M1 for 3 units = 48, M1 for 1 unit = 16, A1 for 34"
     ],

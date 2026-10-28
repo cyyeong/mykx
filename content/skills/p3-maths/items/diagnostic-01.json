@@ -224,6 +224,41 @@
       "Altogether: 245 + 313 = 558.",
       "Watch out: Circle the name after 'fewer than' — that person has more."
     ],
+    "model": {
+      "kind": "bars",
+      "panels": [
+        {
+          "bars": [
+            {
+              "label": "Marcus",
+              "parts": [
+                {
+                  "w": 3,
+                  "text": "245"
+                }
+              ]
+            },
+            {
+              "label": "Kai",
+              "parts": [
+                {
+                  "w": 3,
+                  "text": "245"
+                },
+                {
+                  "w": 0.85,
+                  "text": "68",
+                  "tone": "extra"
+                }
+              ]
+            }
+          ],
+          "total": {
+            "text": "?"
+          }
+        }
+      ]
+    },
     "distractors": {
       "1": "245 − 68: went the wrong direction",
       "2": "245 + 177: subtracted first, then added",
@@ -638,6 +673,35 @@
       "He sold 387 plates on Sunday.",
       "Common error: Subtracting only one day: 1250 − 468."
     ],
+    "model": {
+      "kind": "bars",
+      "panels": [
+        {
+          "bars": [
+            {
+              "label": "Plates",
+              "parts": [
+                {
+                  "w": 4.68,
+                  "text": "Fri 468"
+                },
+                {
+                  "w": 3.95,
+                  "text": "Sat 395"
+                },
+                {
+                  "w": 3.87,
+                  "text": "Sun ?"
+                }
+              ]
+            }
+          ],
+          "total": {
+            "text": "1250"
+          }
+        }
+      ]
+    },
     "marking": [
       "M1 for 1250 − 863 (follow-through from (a) allowed), A1 for 387"
     ],
@@ -889,6 +953,58 @@
       "Check: 30 + 90 + 42 = 162 ✓",
       "Common error: Dividing 162 by 5; or answering 30 (Marcus) instead of Kai."
     ],
+    "model": {
+      "kind": "bars",
+      "panels": [
+        {
+          "bars": [
+            {
+              "label": "Marcus",
+              "parts": [
+                {
+                  "w": 1,
+                  "text": "1 u"
+                }
+              ]
+            },
+            {
+              "label": "Kai",
+              "parts": [
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 1,
+                  "text": "1 u"
+                }
+              ]
+            },
+            {
+              "label": "Mia",
+              "parts": [
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 0.5,
+                  "text": "12",
+                  "tone": "extra"
+                }
+              ]
+            }
+          ],
+          "total": {
+            "text": "162"
+          }
+        }
+      ]
+    },
     "marking": [
       "M1 for a correct model or 5 units = 150, M1 for 1 unit = 30, A1 for 90"
     ],

@@ -56,6 +56,35 @@
       "Left: $120 − $48 − $30 = $42.",
       "Check with fractions: 1 − 2/5 − 1/4 = 7/20, and 7/20 × $120 = $42 ✓"
     ],
+    "model": {
+      "kind": "bars",
+      "panels": [
+        {
+          "bars": [
+            {
+              "label": "Siti's $",
+              "parts": [
+                {
+                  "w": 8,
+                  "text": "shoes 2/5"
+                },
+                {
+                  "w": 5,
+                  "text": "book 1/4"
+                },
+                {
+                  "w": 7,
+                  "text": "left ?"
+                }
+              ]
+            }
+          ],
+          "total": {
+            "text": "$120"
+          }
+        }
+      ]
+    },
     "hints": [
       "Find how much she spent on each item. Both fractions are fractions of the whole $120.",
       "Work out 2/5 of $120 and 1/4 of $120, then take both amounts away from $120."
@@ -88,6 +117,57 @@
       "The remainder is 2/3 of all the marbles: 2/3 = 60 → 1/3 = 30 → at first = 90 marbles.",
       "Check: 90 − 30 = 60; 3/5 × 60 = 36; 60 − 36 = 24 ✓"
     ],
+    "model": {
+      "kind": "bars",
+      "panels": [
+        {
+          "bars": [
+            {
+              "label": "Marbles",
+              "parts": [
+                {
+                  "w": 5,
+                  "text": "brother 1/3"
+                },
+                {
+                  "w": 6,
+                  "text": "cousin"
+                },
+                {
+                  "w": 4,
+                  "text": "24 left"
+                }
+              ]
+            }
+          ],
+          "marks": [
+            {
+              "bar": 0,
+              "from": 5,
+              "to": 15,
+              "text": "remainder = 2/3"
+            },
+            {
+              "bar": 0,
+              "from": 5,
+              "to": 11,
+              "text": "3/5 of remainder",
+              "side": "below"
+            },
+            {
+              "bar": 0,
+              "from": 11,
+              "to": 15,
+              "text": "2/5 = 24",
+              "side": "below"
+            }
+          ],
+          "total": {
+            "text": "?"
+          }
+        }
+      ]
+    },
     "hints": [
       "After he gives 1/3 away, draw a new bar for the remainder and cut it into 5 equal parts.",
       "The 24 marbles left are 2 of those 5 parts. Work back to the remainder first, then to the whole."
@@ -124,6 +204,43 @@
       "4 units = 48 → 1 unit = 12.",
       "Apples − pears = 6 units − 5 units = 1 unit = 12. Check: 72 apples, 60 pears and 48 oranges make 180 fruits ✓"
     ],
+    "model": {
+      "kind": "bars",
+      "panels": [
+        {
+          "bars": [
+            {
+              "label": "Fruits",
+              "parts": [
+                {
+                  "w": 6,
+                  "text": "apples 6 u"
+                },
+                {
+                  "w": 5,
+                  "text": "pears 5 u"
+                },
+                {
+                  "w": 4,
+                  "text": "oranges"
+                }
+              ]
+            }
+          ],
+          "marks": [
+            {
+              "bar": 0,
+              "from": 11,
+              "to": 15,
+              "text": "4 u = 48"
+            }
+          ],
+          "total": {
+            "text": "15 u"
+          }
+        }
+      ]
+    },
     "distractors": {
       "1": "That is the number of apples. The question asks how many MORE apples than pears.",
       "2": "That is the total number of fruits at the stall.",
@@ -233,6 +350,46 @@
       "35 units = 280 → 1 unit = 8.",
       "Wen Hui = 15 × 8 = 120 stickers. Check: 64 + 96 + 120 = 280 ✓"
     ],
+    "model": {
+      "kind": "bars",
+      "panels": [
+        {
+          "title": "Bala's units made the same (12)",
+          "bars": [
+            {
+              "label": "Arjun",
+              "parts": [
+                {
+                  "w": 8,
+                  "text": "8 u"
+                }
+              ]
+            },
+            {
+              "label": "Bala",
+              "parts": [
+                {
+                  "w": 12,
+                  "text": "12 u"
+                }
+              ]
+            },
+            {
+              "label": "Wen Hui",
+              "parts": [
+                {
+                  "w": 15,
+                  "text": "15 u"
+                }
+              ]
+            }
+          ],
+          "total": {
+            "text": "280"
+          }
+        }
+      ]
+    },
     "hints": [
       "Bala appears in both ratios. Make his number of units the same in both.",
       "Bala is 3 units in one ratio and 4 units in the other. Change both ratios so that Bala is 12 units."
@@ -337,6 +494,37 @@
       "80% = $68 → 1% = $0.85 → 100% = $85.",
       "Check: 20% of $85 = $17, and $85 − $17 = $68 ✓"
     ],
+    "model": {
+      "kind": "bars",
+      "panels": [
+        {
+          "bars": [
+            {
+              "label": "Price",
+              "parts": [
+                {
+                  "w": 8,
+                  "text": "80% = $68"
+                },
+                {
+                  "w": 2,
+                  "text": "20% off",
+                  "tone": "ghost"
+                }
+              ]
+            }
+          ],
+          "marks": [
+            {
+              "bar": 0,
+              "from": 0,
+              "to": 10,
+              "text": "100% = ?"
+            }
+          ]
+        }
+      ]
+    },
     "distractors": {
       "1": "Added 20% of $68 to $68. The 20% is a percentage of the price BEFORE the discount, not of the sale price.",
       "3": "Added $20. The discount is 20 per cent, not $20.",
@@ -402,6 +590,45 @@
       "1% = $63 ÷ 42 = $1.50 → 100% = $150.",
       "Check: game $45, remaining $105, book $42, left $105 − $42 = $63 ✓"
     ],
+    "model": {
+      "kind": "bars",
+      "panels": [
+        {
+          "bars": [
+            {
+              "label": "Kumar's $",
+              "parts": [
+                {
+                  "w": 3,
+                  "text": "game 30%",
+                  "tone": "ghost"
+                },
+                {
+                  "w": 2.8,
+                  "text": "book 28%",
+                  "tone": "ghost"
+                },
+                {
+                  "w": 4.2,
+                  "text": "42% = $63"
+                }
+              ]
+            }
+          ],
+          "marks": [
+            {
+              "bar": 0,
+              "from": 3,
+              "to": 10,
+              "text": "remaining 70%"
+            }
+          ],
+          "total": {
+            "text": "100% = ?"
+          }
+        }
+      ]
+    },
     "hints": [
       "The 40% is a percentage of the REMAINING money, not of all his money.",
       "Work out what percentage of ALL his money was left at the end, then use the $63."
@@ -698,6 +925,7 @@
       "Use AB as the base. How far is side DC from side AB?",
       "Area of a triangle = ½ × base × height, and the height is the same wherever E is on DC."
     ],
+    "figure": "figures/q20-rectangle-abe.svg",
     "source": {
       "kind": "generated",
       "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
@@ -728,6 +956,7 @@
       "Picture the grass as a smaller rectangle in the middle. The path is on BOTH sides of it.",
       "Take 2 m off each end of the length and each end of the width, then multiply."
     ],
+    "figure": "figures/q21-garden-path.svg",
     "source": {
       "kind": "generated",
       "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
@@ -758,6 +987,7 @@
       "What is the length of one side of the square?",
       "Each rectangle is half the square. Find its length and width, then add all four sides."
     ],
+    "figure": "figures/q22-square-cut.svg",
     "source": {
       "kind": "generated",
       "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
@@ -797,6 +1027,7 @@
       "Which circumference formula uses the diameter directly?",
       "Circumference = π × d. 28 ÷ 7 is a whole number, so cancel the 7 first."
     ],
+    "figure": "figures/q23-circle-diameter.svg",
     "source": {
       "kind": "generated",
       "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
@@ -827,6 +1058,7 @@
       "Use the circumference to find the diameter first.",
       "The area needs the RADIUS: halve the diameter, then use π × r × r."
     ],
+    "figure": "figures/q24-circle-circumference.svg",
     "source": {
       "kind": "generated",
       "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
@@ -867,6 +1099,7 @@
       "Trace around the semicircle with your finger. How many edges does it have?",
       "Add half of the full circle's circumference to the length of the straight edge."
     ],
+    "figure": "figures/q25-semicircle.svg",
     "source": {
       "kind": "generated",
       "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
@@ -897,6 +1130,7 @@
       "This is a 'square minus quarter circle' shape. Find each area separately.",
       "A quarter circle has ¼ of the area of the full circle, π × r × r, with r = 14 cm."
     ],
+    "figure": "figures/q26-quarter-circle.svg",
     "source": {
       "kind": "generated",
       "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
@@ -937,6 +1171,7 @@
       "Which number multiplied by itself three times gives 216?",
       "Count the edges of a cube: 4 on the top, 4 on the bottom and 4 standing upright."
     ],
+    "figure": "figures/q27-cube.svg",
     "source": {
       "kind": "generated",
       "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
@@ -967,6 +1202,7 @@
       "Change litres to cm³ first: 1 ℓ = 1000 cm³.",
       "Height of water = volume of water ÷ area of the base."
     ],
+    "figure": "figures/q28-tank.svg",
     "source": {
       "kind": "generated",
       "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
@@ -998,6 +1234,7 @@
       "Water is only moved, not lost. Find the total volume of water first.",
       "When the heights are equal, the water stands on both bases together. Add the two base areas."
     ],
+    "figure": "figures/q29-two-tanks.svg",
     "source": {
       "kind": "generated",
       "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
@@ -1037,6 +1274,7 @@
       "Find the volume of water needed for a height of 30 cm, in litres.",
       "1 ℓ = 1000 cm³. Then divide by the 8 ℓ that flow in each minute."
     ],
+    "figure": "figures/q30-tank-fill.svg",
     "source": {
       "kind": "generated",
       "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
@@ -1077,6 +1315,7 @@
       "Which two angles are equal in an isosceles triangle? Look opposite the two equal sides.",
       "The two equal angles share what is left of 180° after the 48° angle."
     ],
+    "figure": "figures/q31-isosceles.svg",
     "source": {
       "kind": "generated",
       "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
@@ -1109,6 +1348,7 @@
       "In a rhombus, all four sides are equal. What kind of triangle is ABC?",
       "The angles in triangle ABC add up to 180°, and the angles at A and C in that triangle are equal."
     ],
+    "figure": "figures/q32-rhombus.svg",
     "source": {
       "kind": "generated",
       "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
@@ -1141,6 +1381,7 @@
       "Draw it: two parallel lines across the page, a slanted line crossing both, and A and C at the left ends.",
       "∠AGH and ∠GHC are on the same side of GH, between the parallel lines. What do such angles add up to?"
     ],
+    "figure": "figures/q33-parallel.svg",
     "source": {
       "kind": "generated",
       "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
@@ -1181,6 +1422,7 @@
       "Imagine folding each shape so that the two halves match exactly. How many different folds work?",
       "Folding along a diagonal only works when all four sides are equal."
     ],
+    "figure": "figures/q34-shapes.svg",
     "source": {
       "kind": "generated",
       "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
@@ -1222,6 +1464,7 @@
       "A right angle is what fraction of a whole circle?",
       "Find the number of pupils for Bus, Car and MRT, then take them all away from 360."
     ],
+    "figure": "figures/q35-pie-travel.svg",
     "source": {
       "kind": "generated",
       "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."
@@ -1290,6 +1533,7 @@
       "A pie chart shows fractions of one whole. Do you know how big each whole is?",
       "Which statements need the number of pupils in each class? Cross those out."
     ],
+    "figure": "figures/q37-two-pies.svg",
     "source": {
       "kind": "generated",
       "ref": "Original P6 Maths practice written by Claude Code for myKx; pending founder review."

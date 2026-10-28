@@ -69,6 +69,71 @@
       "Check: 3 × $5 + 4 × $3 = $15 + $12 = $27 ✓",
       "Common error: Answering $3 (that is the pencil)."
     ],
+    "model": {
+      "kind": "bars",
+      "panels": [
+        {
+          "bars": [
+            {
+              "label": "3 pens",
+              "parts": [
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 0.5,
+                  "text": "$2",
+                  "tone": "extra"
+                },
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 0.5,
+                  "text": "$2",
+                  "tone": "extra"
+                },
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 0.5,
+                  "text": "$2",
+                  "tone": "extra"
+                }
+              ]
+            },
+            {
+              "label": "4 pencils",
+              "parts": [
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 1,
+                  "text": "1 u"
+                }
+              ]
+            }
+          ],
+          "total": {
+            "text": "$27"
+          }
+        }
+      ]
+    },
     "marking": [
       "M1 for 1 unit = $3, A1 for $5"
     ],
@@ -100,6 +165,66 @@
       "Check: 2 × $10 + 5 × $6 = $20 + $30 = $50 ✓",
       "Common error: Taking away $4 once instead of $8; or $50 ÷ 7 straight away."
     ],
+    "model": {
+      "kind": "bars",
+      "panels": [
+        {
+          "bars": [
+            {
+              "label": "2 mugs",
+              "parts": [
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 0.6,
+                  "text": "$4",
+                  "tone": "extra"
+                },
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 0.6,
+                  "text": "$4",
+                  "tone": "extra"
+                }
+              ]
+            },
+            {
+              "label": "5 plates",
+              "parts": [
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 1,
+                  "text": "1 u"
+                }
+              ]
+            }
+          ],
+          "total": {
+            "text": "$50"
+          }
+        }
+      ]
+    },
     "marking": [
       "M1 for 7 units = $42, M1 for 1 unit = $6, A1 for $10"
     ],
@@ -130,6 +255,58 @@
       "Ali has 51 cards. Check: 51 + 17 + 24 = 92 ✓",
       "Common error: 92 ÷ 5 before taking away the 7; or answering 17 (Ben)."
     ],
+    "model": {
+      "kind": "bars",
+      "panels": [
+        {
+          "bars": [
+            {
+              "label": "Ben",
+              "parts": [
+                {
+                  "w": 1,
+                  "text": "1 u"
+                }
+              ]
+            },
+            {
+              "label": "Ali",
+              "parts": [
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 1,
+                  "text": "1 u"
+                }
+              ]
+            },
+            {
+              "label": "Chong",
+              "parts": [
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 0.45,
+                  "text": "7",
+                  "tone": "extra"
+                }
+              ]
+            }
+          ],
+          "total": {
+            "text": "92"
+          }
+        }
+      ]
+    },
     "marking": [
       "M1 for 5 units = 85, M1 for 1 unit = 17, A1 for 51"
     ],
@@ -157,6 +334,57 @@
       "Gap = 7 + 9 = 16.",
       "Common error: 9 − 7 = 2 (subtracting the changes instead of adding them)."
     ],
+    "model": {
+      "kind": "bars",
+      "panels": [
+        {
+          "title": "Now (both started the same)",
+          "bars": [
+            {
+              "label": "Ann",
+              "parts": [
+                {
+                  "w": 4,
+                  "text": "same as at first − 7"
+                },
+                {
+                  "w": 0.7,
+                  "text": "7",
+                  "tone": "ghost"
+                }
+              ]
+            },
+            {
+              "label": "Ben",
+              "parts": [
+                {
+                  "w": 4,
+                  "text": ""
+                },
+                {
+                  "w": 0.7,
+                  "text": "7",
+                  "tone": "extra"
+                },
+                {
+                  "w": 0.9,
+                  "text": "9",
+                  "tone": "extra"
+                }
+              ]
+            }
+          ],
+          "marks": [
+            {
+              "bar": 1,
+              "from": 4,
+              "to": 5.6,
+              "text": "7 + 9 = 16"
+            }
+          ]
+        }
+      ]
+    },
     "source": {
       "kind": "own",
       "ref": "set_clinic_01.json#F2-5"
@@ -261,6 +489,55 @@
       "Check: Siti $26 + $10 = $36 = 3 × $12 ✓",
       "Common error: Dividing $24 by 3 (the gap is 2 units, not 3); or answering $12."
     ],
+    "model": {
+      "kind": "bars",
+      "panels": [
+        {
+          "title": "In the end",
+          "bars": [
+            {
+              "label": "Mei",
+              "parts": [
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 1.15,
+                  "text": "spent $14",
+                  "tone": "ghost"
+                }
+              ]
+            },
+            {
+              "label": "Siti",
+              "parts": [
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 1,
+                  "text": "1 u"
+                }
+              ]
+            }
+          ],
+          "marks": [
+            {
+              "bar": 1,
+              "from": 1,
+              "to": 3,
+              "text": "2 u = $14 + $10 = $24"
+            }
+          ]
+        }
+      ]
+    },
     "marking": [
       "M1 for 1 unit = $12, A1 for $26"
     ],
@@ -290,6 +567,54 @@
       "Raj had 12 tokens in the end.",
       "Common error: 36 ÷ 4 = 9 (the gap is 3 units, not 4)."
     ],
+    "model": {
+      "kind": "bars",
+      "panels": [
+        {
+          "title": "In the end",
+          "bars": [
+            {
+              "label": "Raj",
+              "parts": [
+                {
+                  "w": 1,
+                  "text": "1 u"
+                }
+              ]
+            },
+            {
+              "label": "Kumar",
+              "parts": [
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 1,
+                  "text": "1 u"
+                },
+                {
+                  "w": 1,
+                  "text": "1 u"
+                }
+              ]
+            }
+          ],
+          "marks": [
+            {
+              "bar": 1,
+              "from": 1,
+              "to": 4,
+              "text": "3 u = 9 + 27 = 36"
+            }
+          ]
+        }
+      ]
+    },
     "marking": [
       "M1 for 3 units = 36, A1 for 12"
     ],

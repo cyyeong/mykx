@@ -1140,6 +1140,7 @@
       "3": "B and D differ in turns AND core.",
       "4": "C and D differ in turns, batteries and core."
     },
+    "figure": "figures/p3sci-eoy-mock-80-e24.svg",
     "source": {
       "kind": "own",
       "ref": "eoy_mock_80.json#E24"

@@ -91,6 +91,30 @@ export const SkillManifestSchema = z
     }
   });
 
+const units = z.number().positive().max(120);
+const ModelPanelSchema = z.strictObject({
+  title: z.string().min(1).max(40).optional(),
+  bars: z
+    .array(
+      z.strictObject({
+        label: z.string().min(1).max(24),
+        parts: z.array(z.strictObject({ w: units, text: z.string().max(24).optional(), tone: z.enum(["unit", "extra", "ghost"]).optional() })).min(1).max(24),
+      }),
+    )
+    .min(1)
+    .max(5),
+  marks: z.array(z.strictObject({ bar: z.number().int().nonnegative(), from: z.number().nonnegative(), to: units, text: z.string().min(1).max(40), side: z.enum(["above", "below"]).optional() })).max(6).optional(),
+  total: z.strictObject({ text: z.string().min(1).max(24), from: z.number().int().nonnegative().optional(), to: z.number().int().nonnegative().optional() }).optional(),
+});
+export const WorkedModelSchema = z.discriminatedUnion("kind", [
+  z.strictObject({ kind: z.literal("bars"), panels: z.array(ModelPanelSchema).min(1).max(2) }),
+  z.strictObject({
+    kind: z.literal("timeline"),
+    ticks: z.array(z.strictObject({ at: z.number().nonnegative().max(1440), label: z.string().min(1).max(12) })).min(2).max(6),
+    jumps: z.array(z.strictObject({ from: z.number().nonnegative(), to: z.number().positive(), text: z.string().min(1).max(20) })).min(1).max(5),
+  }),
+]);
+
 export const SkillItemSchema = z
   .strictObject({
     id: z.string().regex(/^[a-z0-9][a-z0-9-]*$/, "lowercase item id"),
@@ -115,6 +139,7 @@ export const SkillItemSchema = z
     marking: z.array(z.string().min(1)).optional(),
     figure: packPath("figures").optional(),
     figure_spec: z.unknown().optional(),
+    model: WorkedModelSchema.optional(),
     card: z
       .strictObject({
         pinyin: z.string().optional(),
@@ -145,6 +170,9 @@ export const SkillItemSchema = z
     }
     if (item.status === "reviewed" && item.figure_spec !== undefined && !item.figure)
       issue("an item whose figure is not rendered cannot be reviewed");
+    if (item.model?.kind === "bars")
+      for (const panel of item.model.panels)
+        for (const m of panel.marks ?? []) if (m.bar >= panel.bars.length || m.from >= m.to) issue(`model mark "${m.text}" points outside its bars`);
     if (item.hints?.some((h) => typeof item.answer === "string" && item.answer.length > 3 && h.includes(item.answer)))
       issue("a hint gives the answer away");
   });

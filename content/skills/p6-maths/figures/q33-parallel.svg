@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="230" viewBox="0 0 400 230" font-family="Helvetica, Arial, sans-serif">
+<rect width="400" height="230" fill="#fff"/>
+<line x1="40" y1="60" x2="360" y2="60" stroke="#111" stroke-width="1.7" stroke-linecap="round"/>
+<line x1="40" y1="183.6" x2="360" y2="183.6" stroke="#111" stroke-width="1.7" stroke-linecap="round"/>
+<path d="M 294 55 L 300 60 L 294 65" fill="none" stroke="#111" stroke-width="1.4"/>
+<path d="M 294 178.63734711836997 L 300 183.63734711836997 L 294 188.63734711836997" fill="none" stroke="#111" stroke-width="1.4"/>
+<line x1="219.3" y1="31.5" x2="160.6" y2="212.2" stroke="#111" stroke-width="1.7" stroke-linecap="round"/>
+<path d="M 186 60 A 24 24 0 0 0 202.6 82.8" fill="none" stroke="#111" stroke-width="1.2"/>
+<text x="178.4" y="87.9" font-size="13" text-anchor="middle" fill="#111">72°</text>
+<text x="30" y="65" font-size="14" text-anchor="end" font-weight="700" fill="#111">A</text>
+<text x="370" y="65" font-size="14" text-anchor="start" font-weight="700" fill="#111">B</text>
+<text x="30" y="188.6" font-size="14" text-anchor="end" font-weight="700" fill="#111">C</text>
+<text x="370" y="188.6" font-size="14" text-anchor="start" font-weight="700" fill="#111">D</text>
+<text x="222" y="52" font-size="14" text-anchor="middle" font-weight="700" fill="#111">G</text>
+<text x="183.8" y="201.6" font-size="14" text-anchor="middle" font-weight="700" fill="#111">H</text>
+<text x="10" y="222" font-size="11" text-anchor="start" font-style="italic" fill="#555">Not drawn to scale</text>
+</svg>

@@ -114,6 +114,48 @@ export interface ItemSource {
   ref: string;
 }
 
+/**
+ * The model a Singapore primary answer sheet draws for a word problem (the bar-model method, MOE), or a time line.
+ * Data only: a trusted component draws it (components/papers/WorkedModel.tsx). Widths are in "units" along a bar.
+ */
+export interface ModelSegment {
+  /** Width in units. */
+  w: number;
+  /** Written inside the segment ("1 u", "$4", "?"). */
+  text?: string;
+  /** unit: a plain box; extra: a shaded add-on ($4 more); ghost: dashed, gone or not there (spent, given away). */
+  tone?: "unit" | "extra" | "ghost";
+}
+export interface ModelBar {
+  label: string;
+  parts: ModelSegment[];
+}
+/** A bracket over (or under) a stretch of one bar, from and to in units. */
+export interface ModelMark {
+  bar: number;
+  from: number;
+  to: number;
+  text: string;
+  side?: "above" | "below";
+}
+export interface ModelPanel {
+  /** "Before", "After", "In the end"… */
+  title?: string;
+  bars: ModelBar[];
+  marks?: ModelMark[];
+  /** A brace on the right over every bar (or bars from…to), with the total. */
+  total?: { text: string; from?: number; to?: number };
+}
+export type WorkedModel =
+  | { kind: "bars"; panels: ModelPanel[] }
+  | {
+      kind: "timeline";
+      /** Times on the line, in minutes from the first one, with their labels ("13 45"). */
+      ticks: { at: number; label: string }[];
+      /** Jumps drawn as arcs above the line ("1 h 25 min"). */
+      jumps: { from: number; to: number; text: string }[];
+    };
+
 export interface SkillItem {
   /** Unique across all packs, e.g. "p3sci-lc-004". */
   id: string;
@@ -154,6 +196,8 @@ export interface SkillItem {
    * trusted SVG tool can render it later. Items that rely on one stay `draft`.
    */
   figure_spec?: unknown;
+  /** The model drawn in the answer guide (bar model or time line), for questions schools teach with one. */
+  model?: WorkedModel;
   /** Extra fields for word cards. */
   card?: { pinyin?: string; meaning?: string; lesson?: number };
   source: ItemSource;

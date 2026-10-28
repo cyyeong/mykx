@@ -110,6 +110,44 @@
       "13 45 → 14 00 is 15 min; 14 00 → 15 00 is 1 h; 15 00 → 15 20 is 20 min.",
       "15 min + 1 h + 20 min = 1 h 35 min."
     ],
+    "model": {
+      "kind": "timeline",
+      "ticks": [
+        {
+          "at": 0,
+          "label": "13 45"
+        },
+        {
+          "at": 15,
+          "label": "14 00"
+        },
+        {
+          "at": 75,
+          "label": "15 00"
+        },
+        {
+          "at": 95,
+          "label": "15 20"
+        }
+      ],
+      "jumps": [
+        {
+          "from": 0,
+          "to": 15,
+          "text": "15 min"
+        },
+        {
+          "from": 15,
+          "to": 75,
+          "text": "1 h"
+        },
+        {
+          "from": 75,
+          "to": 95,
+          "text": "20 min"
+        }
+      ]
+    },
     "marking": [
       "M1 time line / jumps, A1 answer"
     ],
@@ -223,6 +261,35 @@
       "1 h 20 min + 1 h 15 min = 2 h 35 min.",
       "Common error: 22 40 → 01 15 treated as 01 15 − 22 40 (impossible) or as 3 h 25 min."
     ],
+    "model": {
+      "kind": "timeline",
+      "ticks": [
+        {
+          "at": 0,
+          "label": "22 40"
+        },
+        {
+          "at": 80,
+          "label": "00 00"
+        },
+        {
+          "at": 155,
+          "label": "01 15"
+        }
+      ],
+      "jumps": [
+        {
+          "from": 0,
+          "to": 80,
+          "text": "1 h 20 min"
+        },
+        {
+          "from": 80,
+          "to": 155,
+          "text": "1 h 15 min"
+        }
+      ]
+    },
     "marking": [
       "M1 for breaking at 00 00, M1 for 1 h 20 min and 1 h 15 min, A1 for 2 h 35 min"
     ],

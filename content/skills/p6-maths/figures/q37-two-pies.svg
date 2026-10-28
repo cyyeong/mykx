@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="260" viewBox="0 0 520 260" font-family="Helvetica, Arial, sans-serif">
+<rect width="520" height="260" fill="#fff"/>
+<path d="M 130 120 L 130 25 A 95 95 0 0 1 185.8 196.9 Z" fill="#d9d9de" stroke="#111" stroke-width="1.7" stroke-linejoin="round"/>
+<text x="184.2" y="99.4" font-size="13" text-anchor="middle" font-weight="700" fill="#111">Mango</text>
+<text x="184.2" y="115.4" font-size="13" text-anchor="middle" fill="#111">40%</text>
+<path d="M 130 120 L 185.8 196.9 A 95 95 0 0 1 53.1 175.8 Z" fill="#fff" stroke="#111" stroke-width="1.7" stroke-linejoin="round"/>
+<text x="121.1" y="181.3" font-size="13" text-anchor="middle" font-weight="700" fill="#111">Apple</text>
+<path d="M 130 120 L 53.1 175.8 A 95 95 0 0 1 53.1 64.2 Z" fill="#fff" stroke="#111" stroke-width="1.7" stroke-linejoin="round"/>
+<text x="73" y="125" font-size="13" text-anchor="middle" font-weight="700" fill="#111">Banana</text>
+<path d="M 130 120 L 53.1 64.2 A 95 95 0 0 1 130 25 Z" fill="#fff" stroke="#111" stroke-width="1.7" stroke-linejoin="round"/>
+<text x="104.1" y="74.2" font-size="13" text-anchor="middle" font-weight="700" fill="#111">Pear</text>
+<text x="130" y="238" font-size="13" text-anchor="middle" font-weight="700" fill="#111">Pie chart X: Class A</text>
+<path d="M 390 120 L 390 25 A 95 95 0 0 1 480.4 149.4 Z" fill="#d9d9de" stroke="#111" stroke-width="1.7" stroke-linejoin="round"/>
+<text x="436.1" y="83.5" font-size="13" text-anchor="middle" font-weight="700" fill="#111">Mango</text>
+<text x="436.1" y="99.5" font-size="13" text-anchor="middle" fill="#111">30%</text>
+<path d="M 390 120 L 480.4 149.4 A 95 95 0 0 1 334.2 196.9 Z" fill="#fff" stroke="#111" stroke-width="1.7" stroke-linejoin="round"/>
+<text x="407.6" y="179.2" font-size="13" text-anchor="middle" font-weight="700" fill="#111">Apple</text>
+<path d="M 390 120 L 334.2 196.9 A 95 95 0 0 1 313.1 64.2 Z" fill="#fff" stroke="#111" stroke-width="1.7" stroke-linejoin="round"/>
+<text x="333.7" y="133.9" font-size="13" text-anchor="middle" font-weight="700" fill="#111">Banana</text>
+<path d="M 390 120 L 313.1 64.2 A 95 95 0 0 1 390 25 Z" fill="#fff" stroke="#111" stroke-width="1.7" stroke-linejoin="round"/>
+<text x="364.1" y="74.2" font-size="13" text-anchor="middle" font-weight="700" fill="#111">Pear</text>
+<text x="390" y="238" font-size="13" text-anchor="middle" font-weight="700" fill="#111">Pie chart Y: Class B</text>
+</svg>

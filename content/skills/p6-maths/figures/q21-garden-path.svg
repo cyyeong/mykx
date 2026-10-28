@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="380" height="290" viewBox="0 0 380 290" font-family="Helvetica, Arial, sans-serif">
+<rect width="380" height="290" fill="#fff"/>
+<path d="M 40 30 H 328 V 222 H 40 Z M 72 62 V 190 H 296 V 62 Z" fill="#d9d9de" fill-rule="evenodd" stroke="#111" stroke-width="1.7"/>
+<path d="M 72 62 L 296 62 L 296 190 L 72 190 Z" fill="none" stroke="#111" stroke-width="1.4" stroke-linejoin="round"/>
+<text x="184" y="131" font-size="14" text-anchor="middle" font-style="italic" fill="#111">grass</text>
+<text x="184" y="51" font-size="12" text-anchor="middle" font-style="italic" fill="#111">path</text>
+<text x="184" y="244" font-size="14" text-anchor="middle" fill="#111">18 m</text>
+<text x="32" y="131" font-size="14" text-anchor="end" fill="#111">12 m</text>
+<line x1="338" y1="30" x2="338" y2="62" stroke="#111" stroke-width="1" stroke-linecap="round"/>
+<line x1="334" y1="30" x2="342" y2="30" stroke="#111" stroke-width="1" stroke-linecap="round"/>
+<line x1="334" y1="62" x2="342" y2="62" stroke="#111" stroke-width="1" stroke-linecap="round"/>
+<text x="346" y="51" font-size="14" text-anchor="start" fill="#111">2 m</text>
+<text x="10" y="282" font-size="11" text-anchor="start" font-style="italic" fill="#555">Not drawn to scale</text>
+</svg>

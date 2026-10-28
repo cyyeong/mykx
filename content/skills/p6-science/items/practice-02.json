@@ -88,7 +88,7 @@
     "difficulty": 3,
     "marks": 2,
     "type": "mcq",
-    "stem": "Refer to the same set-up. Magnet A was moved slowly towards the steel clip from 12 cm away. The clip was attracted when the magnet was 4 cm away. Magnets B and C were tested the same way and attracted the clip at 7 cm and 2 cm.\n\nWhich shows the magnets from the strongest to the weakest?",
+    "stem": "Magnet A was moved slowly along a ruler towards a steel clip, starting 12 cm away. The clip was attracted when the magnet was 4 cm away. Magnets B and C were tested the same way and attracted the clip at 7 cm and 2 cm.\n\nWhich shows the magnets from the strongest to the weakest?",
     "options": [
       "A, B, C",
       "B, A, C",
@@ -100,6 +100,7 @@
       "A stronger magnet attracts the clip from further away. B (7 cm) > A (4 cm) > C (2 cm).",
       "Watch out: Reading the smallest distance as 'strongest'. Further reach = stronger."
     ],
+    "figure": "figures/p6sci-practice-02-q2.svg",
     "source": {
       "kind": "own",
       "ref": "example_paper_2.json#Q2"

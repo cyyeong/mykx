@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="196" viewBox="0 0 560 196" font-family="Helvetica, Arial, sans-serif">
+<rect width="560" height="196" fill="#fff"/>
+<rect x="46" y="120" width="436" height="34" fill="#f7f1e1" stroke="#111" stroke-width="1.4"/>
+<line x1="60" y1="120" x2="60" y2="134" stroke="#111" stroke-width="1.1" stroke-linecap="round"/>
+<text x="60" y="148" font-size="11" text-anchor="middle" fill="#111">0</text>
+<line x1="94" y1="120" x2="94" y2="129" stroke="#111" stroke-width="1.1" stroke-linecap="round"/>
+<text x="94" y="148" font-size="11" text-anchor="middle" fill="#111">1</text>
+<line x1="128" y1="120" x2="128" y2="134" stroke="#111" stroke-width="1.1" stroke-linecap="round"/>
+<text x="128" y="148" font-size="11" text-anchor="middle" fill="#111">2</text>
+<line x1="162" y1="120" x2="162" y2="129" stroke="#111" stroke-width="1.1" stroke-linecap="round"/>
+<text x="162" y="148" font-size="11" text-anchor="middle" fill="#111">3</text>
+<line x1="196" y1="120" x2="196" y2="134" stroke="#111" stroke-width="1.1" stroke-linecap="round"/>
+<text x="196" y="148" font-size="11" text-anchor="middle" fill="#111">4</text>
+<line x1="230" y1="120" x2="230" y2="129" stroke="#111" stroke-width="1.1" stroke-linecap="round"/>
+<text x="230" y="148" font-size="11" text-anchor="middle" fill="#111">5</text>
+<line x1="264" y1="120" x2="264" y2="134" stroke="#111" stroke-width="1.1" stroke-linecap="round"/>
+<text x="264" y="148" font-size="11" text-anchor="middle" fill="#111">6</text>
+<line x1="298" y1="120" x2="298" y2="129" stroke="#111" stroke-width="1.1" stroke-linecap="round"/>
+<text x="298" y="148" font-size="11" text-anchor="middle" fill="#111">7</text>
+<line x1="332" y1="120" x2="332" y2="134" stroke="#111" stroke-width="1.1" stroke-linecap="round"/>
+<text x="332" y="148" font-size="11" text-anchor="middle" fill="#111">8</text>
+<line x1="366" y1="120" x2="366" y2="129" stroke="#111" stroke-width="1.1" stroke-linecap="round"/>
+<text x="366" y="148" font-size="11" text-anchor="middle" fill="#111">9</text>
+<line x1="400" y1="120" x2="400" y2="134" stroke="#111" stroke-width="1.1" stroke-linecap="round"/>
+<text x="400" y="148" font-size="11" text-anchor="middle" fill="#111">10</text>
+<line x1="434" y1="120" x2="434" y2="129" stroke="#111" stroke-width="1.1" stroke-linecap="round"/>
+<text x="434" y="148" font-size="11" text-anchor="middle" fill="#111">11</text>
+<line x1="468" y1="120" x2="468" y2="134" stroke="#111" stroke-width="1.1" stroke-linecap="round"/>
+<text x="468" y="148" font-size="11" text-anchor="middle" fill="#111">12</text>
+<text x="490" y="148" font-size="11" text-anchor="start" fill="#111">cm</text>
+<path d="M 56 90 h 18 v 22 h -12 v -16 h 6 v 10" fill="none" stroke="#111" stroke-width="2"/>
+<text x="64" y="80" font-size="12" text-anchor="middle" fill="#111">steel clip</text>
+<rect x="462" y="90" width="62" height="24" fill="#fff" stroke="#111" stroke-width="1.6"/>
+<line x1="493" y1="90" x2="493" y2="114" stroke="#111" stroke-width="1.2" stroke-linecap="round"/>
+<text x="478" y="107" font-size="12" text-anchor="middle" font-weight="700" fill="#111">N</text>
+<text x="509" y="107" font-size="12" text-anchor="middle" font-weight="700" fill="#111">S</text>
+<text x="493" y="80" font-size="12" text-anchor="middle" fill="#111">magnet</text>
+<path d="M 454 102 H 348" fill="none" stroke="#111" stroke-width="1.6"/>
+<path d="M 356 96 L 346 102 L 356 108" fill="none" stroke="#111" stroke-width="1.6"/>
+<text x="402" y="94" font-size="11" text-anchor="middle" fill="#555">moved slowly</text>
+<text x="10" y="188" font-size="11" text-anchor="start" font-style="italic" fill="#555">Not drawn to scale</text>
+</svg>

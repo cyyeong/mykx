@@ -389,6 +389,7 @@
       "2": "B and C differ in water AND light — two changes, so it is not a fair test.",
       "3": "B and D differ in air, water and temperature."
     },
+    "figure": "figures/p3sci-diagnostic-01-a8.svg",
     "source": {
       "kind": "own",
       "ref": "diagnostic_01.json#A8"
