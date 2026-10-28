@@ -17,7 +17,7 @@ export function StudyDeckScreen({ kid }: { kid: { nickname: string; level: strin
   const pack = getPack(kid.pack);
 
   return (
-    <div className="sd-root" data-theme={kid.pack} data-band="teen" style={{ width: "100%", minHeight: "100dvh", boxSizing: "border-box", position: "relative", overflow: "hidden", isolation: "isolate", display: "flex", flexDirection: "column", background: "var(--surface)", color: "var(--ink)", fontFamily: "var(--font-text)" }}>
+    <div className="sd-root" data-theme={kid.pack} data-band="teen" style={{ width: "100%", minHeight: "var(--screen-h, 100dvh)", boxSizing: "border-box", position: "relative", overflow: "hidden", isolation: "isolate", display: "flex", flexDirection: "column", background: "var(--surface)", color: "var(--ink)", fontFamily: "var(--font-text)" }}>
       <div className="sd-wrap">
         <section className="sd-panel" style={{ borderRadius: "var(--radius-lg)", background: "var(--surface-glass)", backdropFilter: "blur(20px)", boxShadow: "inset 0 0 0 1px var(--line), var(--shadow-raised)" }}>
           <div className="sd-span" style={{ display: "flex", alignItems: "center", gap: "12px" }}>

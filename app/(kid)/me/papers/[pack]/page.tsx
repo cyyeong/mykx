@@ -38,7 +38,7 @@ async function KidPaper({ params, searchParams }: PageProps<"/me/papers/[pack]">
 
 export default function KidPaperPage(props: PageProps<"/me/papers/[pack]">) {
   return (
-    <Suspense fallback={<div style={{ minHeight: "100dvh", background: "var(--surface)" }} />}>
+    <Suspense fallback={<div style={{ minHeight: "var(--screen-h, 100dvh)", background: "var(--surface)" }} />}>
       <KidPaper {...props} />
     </Suspense>
   );

@@ -1,6 +1,11 @@
 /* One kid navigation shell: bottom bar on compact, left rail from 600 px.
    Semantic tokens only; the pack theme re-skins it for free. */
 
+/* Room a screen header leaves on its right for the sound HUD (fixed top right: sound, music, beat, ambience). */
+.kid-shell {
+  --hud-room: 240px;
+}
+
 .kidnav {
   z-index: 40;
   background: var(--surface-glass);
@@ -84,6 +89,7 @@
   .kid-shell {
     display: block;
     --kidnav-h: calc(74px + env(safe-area-inset-bottom));
+    --hud-room: 72px; /* the HUD folds to one Sound button on phones */
   }
 
   .kid-shell:has(.kidnav-demo) {
@@ -165,6 +171,60 @@
 
   .kidnav-demo {
     display: none;
+  }
+
+  /* The sound HUD docks in the rail's free lower end, so no screen header or map stop has to make room for it.
+     Task screens hide the rail and keep the HUD top right. */
+  .kid-shell:has(.kidnav) {
+    --hud-room: 0px;
+  }
+
+  .kid-shell:has(.kidnav) > [role="group"][aria-label="Sound"] {
+    top: auto;
+    right: auto;
+    left: 20px;
+    bottom: max(72px, calc(env(safe-area-inset-bottom) + 72px));
+    z-index: 41; /* above the rail (40) */
+    flex-direction: column;
+  }
+}
+
+/* Landscape from 1024 px (tablet landscape, laptops, monitors): every kid screen
+   fits the window, no page scroll. The shell is exactly the window's height and
+   each screen fills --screen-h with a layout that flexes to it. Only when the
+   window is shorter than --fit-min-h, the shortest height every screen is laid
+   out for, the whole shell (HUD included) zooms down to fit, keeping its
+   proportions. It never zooms up: taller windows get more room instead. */
+@property --kid-zoom {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+@media (min-width: 1024px) and (min-aspect-ratio: 5/4) {
+  :root {
+    --fit-min-h: 720px;
+    --kid-zoom: clamp(0.6, tan(atan2(100dvh, var(--fit-min-h))), 1);
+  }
+
+  .kid-shell {
+    zoom: var(--kid-zoom);
+    /* Inside a zoomed box, viewport units are zoomed too: divide to get the window's height. */
+    height: calc(100dvh / var(--kid-zoom));
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .kid-shell-main {
+    height: 100%;
+    overflow: hidden auto;
+    container-type: size;
+    --screen-h: 100cqh;
+  }
+
+  .kidnav {
+    position: relative;
+    height: 100%;
   }
 }
 

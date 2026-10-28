@@ -8,7 +8,8 @@ export type SoundEvent = (typeof SOUND_EVENTS)[number];
 
 export type Voice = "bell" | "glock" | "marimba" | "pluck" | "kalimba";
 export type Flourish = "chimes" | "sparkle" | "boing" | "claps" | "croak";
-export type Ambience = "night-breeze" | "wind-birds" | "stage-pulse" | "rain-crickets";
+/** Ambience is texture only (noise beds, crickets, birds): never pitched notes or a beat, so idle screens never "hit notes". */
+export type Ambience = "night-breeze" | "wind-birds" | "stage-hum" | "rain-crickets";
 export type Effect = "whoosh" | "swish" | "bloop";
 /** Living-scene props (lamps, drawers, ponds, crystals): cosmetic only, never tied to rewards. */
 export const PROP_SOUNDS = ["click", "creak", "tink", "splash", "croak", "chime", "pop", "flutter", "knock", "rustle", "beat"] as const;
@@ -62,8 +63,8 @@ export const PACK_SOUNDS: Record<PackId, PackSound> = {
     chord: ["A4", "C5", "E5", "B5"],
     reverb: 0.25,
     flourish: "claps",
-    ambience: "stage-pulse",
-    ambienceLabel: "Stage pulse",
+    ambience: "stage-hum",
+    ambienceLabel: "Stage hum",
   },
   terrarium: {
     voice: "kalimba",
@@ -142,4 +143,13 @@ export function defaultSoundOn(band: Band): boolean {
 /** Music starts on for Junior (after the first tap unlocks audio) and off for Teen (Music brief). */
 export function defaultMusicOn(band: Band): boolean {
   return band === "junior";
+}
+
+/**
+ * The music's Beat (bass and drums) starts off where children learn and on
+ * everywhere else (light at Home and in Treasure, energetic in the games),
+ * until they choose with the Beat switch.
+ */
+export function defaultBeatOn(mood: "calm" | "dreamy" | "bright" | "driving"): boolean {
+  return mood !== "calm";
 }

@@ -76,7 +76,7 @@ async function Done({ params }: { params: Promise<{ quest: string }> }) {
 
 export default function DonePage({ params }: PageProps<"/learn/[quest]/done">) {
   return (
-    <Suspense fallback={<div style={{ minHeight: "100dvh", background: "var(--surface)" }} />}>
+    <Suspense fallback={<div style={{ minHeight: "var(--screen-h, 100dvh)", background: "var(--surface)" }} />}>
       <Done params={params} />
     </Suspense>
   );

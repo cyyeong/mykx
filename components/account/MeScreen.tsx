@@ -187,7 +187,7 @@ export function MeScreen() {
   if (load.phase === "signin" || load.phase === "error") {
     const signin = load.phase === "signin";
     return (
-      <div className="km2-root km2-gate" style={{ minHeight: "100dvh", background: "var(--surface)", color: "var(--ink)", fontFamily: "var(--font-text)" }}>
+      <div className="km2-root km2-gate" style={{ minHeight: "var(--screen-h, 100dvh)", background: "var(--surface)", color: "var(--ink)", fontFamily: "var(--font-text)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={kixSprite(pack)} alt="" className="km2-gate-kix" />
         <h1 style={{ margin: 0, fontFamily: "var(--font-display)", fontSize: 30, lineHeight: 1.15, fontWeight: 800 }}>{signin ? "Let's open your door first" : "Kix can't find your things right now"}</h1>
@@ -216,7 +216,7 @@ export function MeScreen() {
 
   if (!me || pack !== me.pack) {
     return (
-      <div className="km2-root km2-gate" aria-busy="true" style={{ minHeight: "100dvh", background: "var(--surface)", color: "var(--ink)", fontFamily: "var(--font-text)" }}>
+      <div className="km2-root km2-gate" aria-busy="true" style={{ minHeight: "var(--screen-h, 100dvh)", background: "var(--surface)", color: "var(--ink)", fontFamily: "var(--font-text)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={kixSprite(me?.pack ?? pack)} alt="" className="km2-gate-kix km2-bob" />
         <p role="status" style={{ margin: 0, fontSize: 18, lineHeight: "26px", fontWeight: 800, color: "var(--ink-muted)" }}>
@@ -419,7 +419,7 @@ export function MeScreen() {
   const lede = kind === "password" ? "Nickname and password." : "Your nickname and your secret picture code.";
 
   return (
-    <div className="km2-root" data-theme={me.pack} data-band={me.band} style={{ position: "relative", width: "100%", minHeight: "100dvh", boxSizing: "border-box", background: "var(--surface)", color: "var(--ink)", fontFamily: "var(--font-text)" }}>
+    <div className="km2-root" data-theme={me.pack} data-band={me.band} style={{ position: "relative", width: "100%", minHeight: "var(--screen-h, 100dvh)", boxSizing: "border-box", background: "var(--surface)", color: "var(--ink)", fontFamily: "var(--font-text)" }}>
       <Backdrop pack={me.pack} />
       <div className="km2-wrap">
         <header className="km2-head">

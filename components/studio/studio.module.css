@@ -1,6 +1,6 @@
 .studio {
   position: relative;
-  min-height: 100dvh;
+  min-height: var(--screen-h, 100dvh);
   overflow: hidden;
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
@@ -179,4 +179,18 @@
   .kix, .sparkle { animation: none; }
   .tile { transition: none; }
   .tile:hover { transform: none; }
+}
+
+/* Fit (landscape from 1024 px, kid-tabs.css): the screen is exactly the window. The picker's spacing and Kix
+   follow the height, so the Transform button stays on screen; on short windows the wordmark steps aside. */
+@media (min-width: 1024px) and (min-aspect-ratio: 5/4) {
+  .studio { height: var(--screen-h); min-height: 0; padding: clamp(16px, 3cqh, 32px) var(--space-6); }
+  .panel { box-sizing: border-box; max-height: 100%; gap: clamp(12px, 2.4cqh, 24px); padding: clamp(22px, 4cqh, 40px) clamp(24px, 3cqw, 40px); }
+  .kix { width: clamp(220px, min(30cqw, 52cqh), 420px); }
+  .title { font-size: clamp(36px, min(4.2cqw, 6.4cqh), 52px); }
+  .lede { font-size: 18px; line-height: 26px; }
+  .chip { min-height: 40px; }
+  @container (max-height: 820px) {
+    .wordmark { display: none; }
+  }
 }

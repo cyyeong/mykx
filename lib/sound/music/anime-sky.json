@@ -1,37 +1,91 @@
 {
   "pack": "anime-sky",
   "title": "Paper Planes at Dusk",
-  "composer": "Muse Code",
+  "composer": "Claude Code",
   "key": "F major",
-  "bpm": { "calm": 72, "dreamy": 62, "bright": 92, "driving": 112 },
-  "bars": 4,
-  "chords": [
-    ["F3", "A3", "C4"],
-    ["C4", "E4", "G4"],
-    ["D4", "F4", "A4"],
-    ["Bb3", "D4", "F4"]
-  ],
-  "bass": ["F2", "C3", "D3", "Bb2"],
-  "motifs": {
-    "a": [
-      { "tone": 0, "len": 1.5 },
-      { "tone": 2, "len": 1 },
-      { "tone": 1, "len": 1 },
-      { "tone": 2, "len": 0.5 }
+  "scale": ["F", "G", "A", "Bb", "C", "D", "E"],
+  "meter": 4,
+  "bpm": { "calm": 76, "dreamy": 64, "bright": 96, "driving": 116 },
+  "heatBpm": 8,
+  "swing": 0,
+  "register": { "pad": "F4", "bass": "A2", "arp": "A3", "sparkle": "C6" },
+  "voices": { "melody": "lead", "arp": "counter", "answer": "counter" },
+  "arpSource": "chord",
+  "sparkle": { "voice": "lead", "perBar": { "calm": 0, "dreamy": 1.2, "bright": 0.7, "driving": 0.5 } },
+  "bassFill": "1-5-8-5-3-5-6-7-",
+  "sections": {
+    "A": {
+      "chords": ["Fmaj7", "Gm7", "Am7", "Bbmaj7", "Gm7", "Am7", "Bbmaj7", "C7sus4"],
+      "melody": [
+        "A5:1.5 G5:0.5 F5:1 C5:1",
+        "Bb5:1.5 A5:0.5 G5:1 D5:1",
+        "C6:1.5 Bb5:0.5 A5:1 E5:1",
+        "D6:1.5 C6:0.5 A5:2",
+        "Bb5:0.5 A5:0.5 G5:0.5 F5:0.5 G5:1 D5:1",
+        "C6:0.5 Bb5:0.5 A5:0.5 G5:0.5 A5:1 E5:1",
+        "F5:0.5 G5:0.5 A5:0.5 Bb5:0.5 D6:1 C6:0.5 Bb5:0.5",
+        "C6:1.5 G5:0.5 A5:0.5 Bb5:0.5 C6:0.5 D6:0.5"
+      ],
+      "bass": "1-----1-5---8---",
+      "arp": "0.2.4.2.3.2.4.2.",
+      "groove": "verse"
+    },
+    "B": {
+      "chords": ["Bbmaj7", "C", "Am7", "Dm7", "Gm7", "Am7", "Bbmaj7", "C7sus4 C7"],
+      "melody": [
+        "F6:1.5 E6:0.5 D6:1 C6:0.5 D6:0.5",
+        "E6:1.5 D6:0.5 C6:1 G5:1",
+        "C6:1 E6:1 D6:0.5 C6:0.5 A5:1",
+        "A5:2 r:1 A5:0.5 C6:0.5",
+        "D6:1.5 C6:0.5 Bb5:1 A5:0.5 Bb5:0.5",
+        "C6:1.5 Bb5:0.5 A5:1 G5:0.5 A5:0.5",
+        "F5:0.5 G5:0.5 A5:0.5 Bb5:0.5 D6:1.5 C6:0.5",
+        "C6:2 Bb5:1 G5:1"
+      ],
+      "answer": ["r:4", "r:4", "r:4", "r:2 C6:0.5 D6:0.5 E6:1", "r:4", "r:4", "r:4", "r:4"],
+      "bass": "1-1-1-1-5-5-8-5-",
+      "arp": "*-..*-*-..*-*---",
+      "groove": "chorus"
+    },
+    "B2": {
+      "chords": ["Bbmaj7", "C", "Am7", "Dm7", "Gm7", "Am7", "Bbmaj7 C", "Fadd9"],
+      "melody": [
+        "F6:1.5 E6:0.5 D6:1 C6:0.5 D6:0.5",
+        "E6:1.5 D6:0.5 C6:1 G5:1",
+        "C6:1 E6:1 F6:0.5 E6:0.5 C6:1",
+        "A5:2 r:1 A5:0.5 C6:0.5",
+        "D6:1.5 C6:0.5 Bb5:1 A5:0.5 Bb5:0.5",
+        "C6:1.5 Bb5:0.5 A5:1 G5:0.5 A5:0.5",
+        "F5:0.5 G5:0.5 A5:0.5 Bb5:0.5 C6:1 E6:1",
+        "F6:1.5 C6:0.5 A5:1 G5:1"
+      ],
+      "answer": ["r:4", "r:4", "r:4", "r:2 C6:0.5 D6:0.5 E6:1", "r:4", "r:4", "r:4", "r:4"],
+      "bass": "1-1-1-1-5-5-8-5-",
+      "arp": "*-..*-*-..*-*---",
+      "groove": "chorus"
+    }
+  },
+  "form": ["A", "B", "A", "B2"],
+  "grooves": {
+    "verse": [
+      { "drum": "kick", "pattern": "X.......X.x....." },
+      { "drum": "snare", "pattern": "....X.......X..." },
+      { "drum": "hat", "pattern": "x.x.x.x.x.x.x.x.", "minHeat": 0.3 }
     ],
-    "b": [
-      { "tone": 2, "len": 2 },
-      { "tone": 1, "len": 1 },
-      { "tone": 0, "len": 1 }
+    "chorus": [
+      { "drum": "kick", "pattern": "X...X...X...X..." },
+      { "drum": "snare", "pattern": "....X.......X..." },
+      { "drum": "hat", "pattern": "x.x.x.x.x.x.x.x." },
+      { "drum": "hat", "pattern": ".o.o.o.o.o.o.o.o", "minHeat": 0.7 }
     ]
   },
-  "form": ["a", "b", "a", "b"],
   "layers": {
-    "pad": ["calm", "dreamy", "bright"],
     "melody": ["calm", "dreamy", "bright", "driving"],
+    "arp": ["calm", "dreamy", "bright", "driving"],
+    "pad": ["calm", "dreamy", "bright", "driving"],
     "bass": ["calm", "bright", "driving"],
-    "pulse": ["bright", "driving"],
-    "sparkle": ["dreamy"],
+    "answer": ["dreamy", "bright", "driving"],
+    "sparkle": ["calm", "dreamy", "bright"],
     "drums": ["driving"]
   }
 }

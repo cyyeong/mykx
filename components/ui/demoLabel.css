@@ -10,3 +10,7 @@
 @media (min-width:600px){
   .kid-shell-main .demo-label{left:calc(96px + 12px)}
 }
+/* Task screens hide the rail (question, done): the pill takes the free bottom-right corner instead. */
+@media (min-width:600px){
+  .kid-shell:not(:has(.kidnav)) .kid-shell-main .demo-label{left:auto;right:12px}
+}

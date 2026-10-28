@@ -12,7 +12,7 @@
 .tr-bg{position:absolute;inset:0;width:100%;height:100%;overflow:hidden}
 .tr-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .tr-wrap{position:relative;flex:1;width:100%;max-width:1440px;margin:0 auto;box-sizing:border-box;padding:28px 32px;display:flex;flex-direction:column;gap:30px}
-.tr-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:16px;padding-right:184px}
+.tr-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:16px;padding-right:var(--hud-room,240px)}
 .tr-head{flex:0 1 auto;min-width:0;box-sizing:border-box}
 .tr-title{font-size:clamp(32px,6vw,48px);line-height:1.04}
 .tr-lede{font-size:16px;line-height:22px}
@@ -75,3 +75,19 @@
 /* Ambient critters (components/scene/Critters) live behind the panels: the layout passes clicks through. */
 .tr-wrap{z-index:1;pointer-events:none}
 .tr-wrap :is(a,button,.tr-head,.tr-card,.tr-panel){pointer-events:auto}
+
+/* Fit (landscape from 1024 px, kid-tabs.css): the screen is exactly the window. The cards are one shelf that
+   takes the height left between the header and the panels; each card is as tall as the shelf allows (up to its
+   board size) and narrows when there are many. Past what fits, the shelf scrolls sideways, never the page. */
+@media (min-width: 1024px) and (min-aspect-ratio: 5/4){
+  .tr-wrap{height:var(--screen-h);gap:clamp(14px,2.6cqh,30px);padding-block:clamp(16px,3.2cqh,40px)}
+  .tr-cards{flex:1 1 0;min-height:0;container-type:size;display:flex;justify-content:safe center;align-items:center;gap:clamp(16px,2.4cqw,40px);margin-block:0;overflow:auto hidden;scroll-snap-type:x proximity;scrollbar-width:thin}
+  .tr-cards > *{flex:0 1 248px;min-width:150px;max-width:calc(100cqh * 5 / 7);scroll-snap-align:center}
+  .tr-cards .tr-card{width:auto}
+  .tr-base{margin-top:0}
+  .tr-panel{min-height:0}
+  .tr-cons-svg{max-height:min(150px,16cqh)}
+  /* A narrower card keeps its whole caption: the strip grows up over the art instead of clipping. */
+  .tr-cards .mk-holo__meta{height:auto;min-height:34%;padding-block:10px 12px}
+  .tr-cards .mk-holo__title{font-size:clamp(18px,1.7cqw,22px);line-height:1.18}
+}

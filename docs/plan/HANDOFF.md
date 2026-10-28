@@ -1,6 +1,6 @@
 # Handover: state of myKx and what to build next (28 Oct)
 
-Read `AGENTS.md` first (rules, division of work, the trail), then this file, then `docs/plan/PROGRESS.md`. The stories and the navigation audit behind the task list are in `docs/prd/USER_STORIES.md`; the schedule is in `docs/plan/IMPLEMENTATION_PLAN.md` (feature freeze Mon 2 Nov 22:00 SGT, submit Wed 4 Nov 22:00 SGT).
+Claude Code builds everything from 28 Oct afternoon (Muse Code retired). Read `AGENTS.md` first (rules, division of work, the trail), then this file, then `docs/plan/PROGRESS.md`. The stories and the navigation audit behind the task list are in `docs/prd/USER_STORIES.md`; the schedule is in `docs/plan/IMPLEMENTATION_PLAN.md` (feature freeze Mon 2 Nov 22:00 SGT, submit Wed 4 Nov 22:00 SGT).
 
 ## Run it
 
@@ -20,7 +20,7 @@ Read `AGENTS.md` first (rules, division of work, the trail), then this file, the
 
 ## Tasks, in order
 
-Each task: build it, check it in the browser at 390 and 1280 px wide (Playwright screenshots are fine), make typecheck, lint and tests pass, add a row to `PROGRESS.md`, and commit with the `Agent: Muse Code` trailer when the founder says to commit.
+Each task: build it, check it in the browser at 390 and 1280 px wide (Playwright screenshots are fine), make typecheck, lint and tests pass, add a row to `PROGRESS.md`, and commit with the `Agent: Claude Code` trailer when the founder says to commit.
 
 1. **Kid navigation bar** (USER_STORIES §8.4 fix 1) — ✅ done on `muse/kid-nav`. One bar on every kid browsing page: Home, Learn, Play (the Arcade), Treasure, Vibe; bottom bar under 600 px, side rail from 600 px (design skill §3a). The avatar menu already exists: `components/nav/KidAvatarMenu.tsx` (Me, Switch profile). Hide the bar inside a question and during an Arcade round. Mount it in `app/(kid)/layout.tsx` next to the existing pieces (keep `<FocusWatch />` in its Suspense boundary). Play and Vibe render as disabled Soon tabs (same pattern as the admin sidebar) until tasks 5–6 build `/arcade` and `/vibe`; Learn opens the demo quest until task 2/5 builds `/learn`.
 2. **The learning loop** (the demo's core; fixes 2, 3) — ✅ done on `muse/learning-loop`.

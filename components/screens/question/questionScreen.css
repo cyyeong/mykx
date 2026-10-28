@@ -95,3 +95,13 @@
 .qp-card-foil{position:absolute;inset:0;background:conic-gradient(from 210deg at 30% 20%,rgba(255,61,203,.0),rgba(61,245,255,.35),rgba(255,227,138,.4),rgba(185,167,245,.35),rgba(255,61,203,.0));background-size:200% 200%;mix-blend-mode:color-dodge;opacity:.55;animation:qp-foil 3.2s ease-in-out infinite alternate;pointer-events:none}
 @keyframes qp-foil{from{background-position:0% 0%}to{background-position:100% 100%}}
 @media (prefers-reduced-motion: reduce){.qp-card-foil{animation:none}}
+
+/* Fit (landscape from 1024 px, kid-tabs.css): the screen is exactly the window. The header leaves room for the
+   sound HUD (top right) so the stars pill stays visible, and the spacing follows the height. */
+@media (min-width: 1024px) and (min-aspect-ratio: 5/4){
+  .qp-root{height:var(--screen-h)}
+  .qp-wrap{height:100%;row-gap:clamp(16px,3.4cqh,32px);padding-block:clamp(16px,3cqh,24px)}
+  .qp-header{padding-right:var(--hud-room,240px)}
+  .qp-main{padding-block:clamp(20px,4cqh,32px) clamp(12px,2.6cqh,20px)}
+  .qp-note{padding-bottom:clamp(16px,3.4cqh,32px)}
+}

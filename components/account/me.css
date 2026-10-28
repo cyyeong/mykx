@@ -182,9 +182,8 @@
 .km2-signout:disabled{opacity:.6}
 .km2-demo{position:relative;margin:4px 0 0;display:flex;align-items:center;gap:8px;font-size:14px;line-height:20px;font-weight:600;color:var(--ink-muted)}
 .km2-demo-tag{padding:1px 8px;border-radius:var(--radius-pill);background:var(--ink);color:var(--surface);font-size:11px;line-height:18px;font-weight:800;letter-spacing:.04em}
-/* The sound HUD (kid layout) sits top-right; on Me it moves to the bottom corner so it never covers Sign out. */
-body:has(.km2-root) [role="group"][aria-label="Sound"]{top:auto;bottom:max(16px,env(safe-area-inset-bottom))}
-.km2-wrap{padding-bottom:96px}
+/* The sound HUD: one Sound button top right on phones (the header keeps room for it), docked in the rail from 600 px. */
+.km2-head{padding-right:var(--hud-room,0px)}
 @media (max-width: 599px){
   .km2-signout{width:var(--target);padding:0}
   .km2-signout-label{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
@@ -193,3 +192,19 @@ body:has(.km2-root) [role="group"][aria-label="Sound"]{top:auto;bottom:max(16px,
 @media (prefers-reduced-motion: reduce){.km2-bob{animation:none}}
 .km2-titles{flex:1 1 auto}
 .km2-headend{flex:none}
+/* Fit (landscape from 1024 px, kid-tabs.css): the screen is exactly the window and the spacing follows the
+   height (the sound HUD docks in the rail from 600 px, so Sign out stays clear). */
+@media (min-width: 1024px) and (min-aspect-ratio: 5/4){
+  .km2-root{height:var(--screen-h)}
+  .km2-wrap{height:100%;justify-content:center;gap:clamp(14px,2.4cqh,22px);padding:clamp(16px,3cqh,24px) 40px}
+  .km2-card{padding:clamp(20px,3.4cqh,28px);gap:clamp(12px,2cqh,18px)}
+  /* The shell's demo pill already says it, bottom left, right where this line sat. */
+  .kid-shell-main:has(.demo-label) .km2-demo{display:none}
+  /* Tablet landscape: the picture pad narrows so the steps keep their words on one line. */
+  @container (max-width: 1100px){
+    .km2-wrap{padding-inline:24px}
+    .km2-grid{grid-template-columns:minmax(0,380fr) minmax(0,656fr);gap:20px}
+    .km2-codebody{grid-template-columns:minmax(0,1fr) clamp(220px,26cqw,312px);column-gap:18px}
+    .km2-padwrap{width:auto}
+  }
+}

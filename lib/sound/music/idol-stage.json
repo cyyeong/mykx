@@ -1,40 +1,91 @@
 {
   "pack": "idol-stage",
   "title": "Lightstick Rehearsal",
-  "composer": "Muse Code",
+  "composer": "Claude Code",
   "key": "A minor",
-  "bpm": { "calm": 70, "dreamy": 60, "bright": 96, "driving": 116 },
-  "bars": 4,
-  "chords": [
-    ["A3", "C4", "E4"],
-    ["F3", "A3", "C4"],
-    ["C4", "E4", "G4"],
-    ["G3", "B3", "D4"]
-  ],
-  "bass": ["A2", "F2", "C3", "G2"],
-  "motifs": {
-    "a": [
-      { "tone": 0, "len": 0.5 },
-      { "tone": 2, "len": 0.5 },
-      { "tone": 1, "len": 1 },
-      { "tone": 0, "len": 0.5 },
-      { "tone": 1, "len": 0.5 },
-      { "tone": 2, "len": 1 }
+  "scale": ["A", "B", "C", "D", "E", "F", "G"],
+  "meter": 4,
+  "bpm": { "calm": 72, "dreamy": 62, "bright": 100, "driving": 122 },
+  "heatBpm": 8,
+  "swing": 0,
+  "register": { "pad": "E4", "bass": "A2", "arp": "G5", "sparkle": "E6" },
+  "voices": { "melody": "lead", "arp": "counter", "answer": "counter" },
+  "arpSource": "chord",
+  "sparkle": { "voice": "lead", "perBar": { "calm": 0, "dreamy": 1.2, "bright": 0.6, "driving": 0.4 } },
+  "bassFill": "1-.8-.1-.8-.5-7-",
+  "sections": {
+    "A": {
+      "chords": ["Am9", "Dm9", "G6", "Cmaj7", "Fmaj7", "Bm7b5", "E7sus4", "E7"],
+      "melody": [
+        "E5:0.75 E5:0.75 C5:0.5 D5:0.5 E5:1 r:0.5",
+        "F5:0.75 F5:0.75 E5:0.5 D5:0.5 A4:1 r:0.5",
+        "D5:0.75 D5:0.75 B4:0.5 D5:0.5 E5:1.5",
+        "E5:0.5 G5:0.5 B5:1 G5:0.5 E5:0.5 r:1",
+        "A5:0.75 G5:0.75 F5:0.5 E5:0.5 C5:1 r:0.5",
+        "D5:0.75 F5:0.75 A5:0.5 G5:0.5 F5:1 r:0.5",
+        "E5:0.75 D5:0.75 B4:0.5 A4:1 r:1",
+        "G#4:0.5 B4:0.5 D5:0.5 E5:0.5 G#5:0.5 B5:0.5 D6:0.5 E6:0.5"
+      ],
+      "bass": "1.8.1.8.1.8.1.8.",
+      "arp": "0.1.2.3.4.3.2.1.",
+      "groove": "verse"
+    },
+    "B": {
+      "chords": ["Am9", "Am7/G", "D9/F#", "Fmaj7", "Dm9", "Em7", "Fmaj7 G6", "E7sus4 E7"],
+      "melody": [
+        "A5:0.75 C6:0.75 B5:0.5 A5:0.5 E5:1.5",
+        "G5:0.75 A5:0.75 E5:0.5 C5:0.5 E5:1.5",
+        "F#5:0.75 A5:0.75 E5:0.5 D5:0.5 A5:1.5",
+        "E5:0.75 F5:0.75 A5:0.5 C6:1 r:1",
+        "D6:0.75 C6:0.75 A5:0.5 F5:0.5 A5:1.5",
+        "B5:0.75 G5:0.75 E5:0.5 D5:0.5 E5:1.5",
+        "C6:0.75 A5:0.75 F5:0.5 B5:0.75 G5:0.75 D5:0.5",
+        "E5:1 A5:1 G#5:1 B5:1"
+      ],
+      "bass": "1--8--1-1--8--5-",
+      "arp": "0123432101234321",
+      "groove": "chorus"
+    },
+    "A2": {
+      "chords": ["Am9", "Dm9", "G6", "Cmaj7", "Fmaj7", "Bm7b5", "E7sus4", "E7"],
+      "melody": [
+        "E5:0.75 E5:0.75 C5:0.5 D5:0.5 E5:1 r:0.5",
+        "F5:0.75 F5:0.75 E5:0.5 D5:0.5 A4:1 r:0.5",
+        "D5:0.75 D5:0.75 B4:0.5 D5:0.5 E5:1.5",
+        "E5:0.5 G5:0.5 B5:1 G5:0.5 E5:0.5 r:1",
+        "C6:0.75 A5:0.75 F5:0.5 E5:0.5 A5:1 r:0.5",
+        "B5:0.75 A5:0.75 F5:0.5 D5:0.5 F5:1 r:0.5",
+        "E5:0.75 B5:0.75 A5:0.5 E5:1 r:1",
+        "E6:0.5 D6:0.5 B5:0.5 G#5:0.5 E5:0.5 D5:0.5 B4:0.5 G#4:0.5"
+      ],
+      "bass": "1.8.1.8.1.8.1.8.",
+      "arp": "0.2.1.3.2.4.3.1.",
+      "groove": "verse"
+    }
+  },
+  "form": ["A", "B", "A2", "B"],
+  "grooves": {
+    "verse": [
+      { "drum": "kick", "pattern": "X...x...X...x..." },
+      { "drum": "hat", "pattern": "..x...x...x...x." },
+      { "drum": "clap", "pattern": "....X.......X...", "minHeat": 0.3 },
+      { "drum": "hat", "pattern": ".o.o.o.o.o.o.o.o", "minHeat": 0.7 }
     ],
-    "b": [
-      { "tone": 2, "len": 1 },
-      { "tone": 2, "len": 0.5 },
-      { "tone": 1, "len": 0.5 },
-      { "tone": 0, "len": 2 }
+    "chorus": [
+      { "drum": "kick", "pattern": "X...x...X...x..." },
+      { "drum": "hat", "pattern": "..x...x...x...x." },
+      { "drum": "clap", "pattern": "....X.......X..." },
+      { "drum": "clap", "pattern": "..............o.", "minHeat": 0.5 },
+      { "drum": "hat", "pattern": ".o.o.o.o.o.o.o.o", "minHeat": 0.6 }
     ]
   },
-  "form": ["a", "a", "b", "a"],
   "layers": {
-    "pad": ["calm", "dreamy", "bright"],
     "melody": ["calm", "dreamy", "bright", "driving"],
-    "bass": ["bright", "driving"],
-    "pulse": ["bright", "driving"],
+    "arp": ["dreamy", "bright", "driving"],
+    "pad": ["calm", "dreamy", "bright", "driving"],
+    "bass": ["calm", "bright", "driving"],
     "sparkle": ["dreamy", "bright"],
     "drums": ["driving"]
-  }
+  },
+  "heat": { "arp": 0.35 }
 }

@@ -211,7 +211,7 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
       data-theme="toon-pop"
       data-band="junior"
       className="qp-root"
-      style={{ width: "100%", minHeight: "100vh", boxSizing: "border-box", position: "relative", overflow: "clip", background: "var(--surface)", color: "var(--ink)", fontFamily: "var(--font-text)" }}
+      style={{ width: "100%", minHeight: "var(--screen-h, 100vh)", boxSizing: "border-box", position: "relative", overflow: "clip", background: "var(--surface)", color: "var(--ink)", fontFamily: "var(--font-text)" }}
     >
       <div aria-hidden="true" style={{ position: "absolute", right: "-9.375%", top: 0, width: "40.625%", aspectRatio: "1 / 1", transform: "translateY(-30.77%)", borderRadius: "50%", background: "var(--accent-2)", opacity: 0.22 }} />
       <div aria-hidden="true" style={{ position: "absolute", left: "-10.9375%", bottom: 0, width: "35.9375%", aspectRatio: "1 / 1", transform: "translateY(43.48%)", borderRadius: "50%", background: "var(--reward)", opacity: 0.3 }} />

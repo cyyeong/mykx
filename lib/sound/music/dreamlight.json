@@ -1,37 +1,96 @@
 {
   "pack": "dreamlight",
-  "title": "Lanterns Over the Mist",
-  "composer": "Muse Code",
+  "title": "Moth-Lantern Lullaby",
+  "composer": "Claude Code",
   "key": "C major",
-  "bpm": { "calm": 66, "dreamy": 58, "bright": 88, "driving": 108 },
-  "bars": 4,
-  "chords": [
-    ["C4", "E4", "G4"],
-    ["A3", "C4", "E4"],
-    ["F3", "A3", "C4"],
-    ["G3", "B3", "D4"]
-  ],
-  "bass": ["C3", "A2", "F2", "G2"],
-  "motifs": {
-    "a": [
-      { "tone": 0, "len": 1 },
-      { "tone": 1, "len": 1 },
-      { "tone": 2, "len": 1.5 },
-      { "tone": 1, "len": 0.5 }
-    ],
-    "b": [
-      { "tone": 2, "len": 1 },
-      { "tone": 1, "len": 1 },
-      { "tone": 0, "len": 2 }
+  "scale": ["C", "D", "E", "F", "G", "A", "B"],
+  "meter": 3,
+  "bpm": { "calm": 66, "dreamy": 54, "bright": 84, "driving": 104 },
+  "heatBpm": 8,
+  "swing": 0,
+  "register": { "pad": "G4", "bass": "C3", "arp": "C4", "sparkle": "C6" },
+  "voices": { "melody": "lead", "arp": "counter", "answer": "counter" },
+  "arpSource": "chord",
+  "sparkle": { "voice": "lead", "perBar": { "calm": 0.25, "dreamy": 1.4, "bright": 0.8, "driving": 0.4 } },
+  "bassFill": "1---5---8---",
+  "sections": {
+    "A": {
+      "chords": ["Cmaj9", "G/B", "Am7", "Em7/G", "Fmaj7", "Cmaj7/E", "Dm9", "G7sus4"],
+      "melody": [
+        "G5:1.5 B5:0.5 D6:1",
+        "D6:1.5 C6:0.5 B5:1",
+        "A5:1.5 G5:0.5 E5:1",
+        "G5:2 E5:0.5 D5:0.5",
+        "A5:1.5 C6:0.5 E6:1",
+        "E6:1 D6:0.5 C6:0.5 B5:1",
+        "A5:1.5 F5:0.5 E5:1",
+        "D5:1 F5:1 G5:1"
+      ],
+      "bass": "1-------5---",
+      "arp": "0.1.2.3.2.1.",
+      "groove": "waltz"
+    },
+    "A2": {
+      "chords": ["Cmaj9", "G/B", "Am7", "Em7/G", "Fmaj7", "Fm6", "Em7", "Dm9 G7sus4"],
+      "melody": [
+        "G5:1.5 B5:0.5 D6:1",
+        "D6:1.5 C6:0.5 B5:1",
+        "C6:1.5 B5:0.5 A5:1",
+        "B5:2 G5:0.5 E5:0.5",
+        "F5:0.5 A5:0.5 C6:0.5 E6:1.5",
+        "D6:1.5 C6:0.5 Ab5:1",
+        "B5:1 G5:1 E5:1",
+        "A5:1 F5:0.5 G5:1.5"
+      ],
+      "answer": ["r:3", "r:3", "r:3", "r:2 D6:0.5 E6:0.5", "r:3", "r:2 F6:0.5 Ab6:0.5", "r:3", "r:3"],
+      "bass": "1-------5---",
+      "arp": "0.1.2.3.2.1.",
+      "groove": "waltz"
+    },
+    "B": {
+      "chords": ["Fmaj9", "Fm6", "Em7", "Am9", "Dm9", "Ebmaj7", "Abmaj7", "G7sus4"],
+      "melody": [
+        "A5:2 G5:1",
+        "Ab5:2 F5:1",
+        "G5:1.5 B5:0.5 D6:1",
+        "C6:2 B5:1",
+        "A5:1.5 C6:0.5 E6:1",
+        "D6:1.5 Bb5:0.5 G5:1",
+        "C6:2 G5:1",
+        "D6:1 C6:1 F5:1"
+      ],
+      "answer": [
+        "r:2 E6:0.5 C6:0.5",
+        "r:2 C6:0.5 Ab5:0.5",
+        "r:3",
+        "r:2 E6:0.5 D6:0.5",
+        "r:3",
+        "r:2 G6:0.5 F6:0.5",
+        "r:2 Eb6:0.5 C6:0.5",
+        "r:3"
+      ],
+      "bass": "1-----------",
+      "arp": "0...1...2...",
+      "groove": "waltz"
+    }
+  },
+  "form": ["A", "A2", "B", "A2"],
+  "grooves": {
+    "waltz": [
+      { "drum": "kick", "pattern": "X..........." },
+      { "drum": "hat", "pattern": "....x...x..." },
+      { "drum": "shaker", "pattern": "..o...o...o.", "minHeat": 0.4 },
+      { "drum": "kick", "pattern": "X.......x...", "minHeat": 0.7 }
     ]
   },
-  "form": ["a", "a", "b", "a"],
   "layers": {
-    "pad": ["calm", "dreamy", "bright"],
     "melody": ["calm", "dreamy", "bright", "driving"],
-    "bass": ["calm", "bright", "driving"],
-    "pulse": ["bright", "driving"],
-    "sparkle": ["dreamy", "bright"],
+    "arp": ["calm", "dreamy", "bright", "driving"],
+    "pad": ["calm", "dreamy", "bright", "driving"],
+    "bass": ["calm", "dreamy", "bright", "driving"],
+    "answer": ["dreamy", "bright"],
+    "sparkle": ["calm", "dreamy", "bright"],
+    "perc": ["driving"],
     "drums": ["driving"]
   }
 }

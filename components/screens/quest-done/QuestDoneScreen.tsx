@@ -69,13 +69,15 @@ export function QuestDoneScreen(props: QuestDoneProps) {
       data-theme="dreamlight"
       data-band="junior"
       className="qd-root"
-      style={{ width: "100%", minHeight: "100vh", boxSizing: "border-box", position: "relative", overflow: "clip", background: "var(--surface)", color: "var(--ink)", fontFamily: "var(--font-text)" }}
+      style={{ width: "100%", minHeight: "var(--screen-h, 100vh)", boxSizing: "border-box", position: "relative", overflow: "clip", background: "var(--surface)", color: "var(--ink)", fontFamily: "var(--font-text)" }}
     >
-      <div aria-hidden="true" style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
+      {/* The quest map's own sky, dimmed under a twilight veil so the reward panels lead. */}
+      <div aria-hidden="true" className="qd-bg">
+        <Art base="/art/scenes/quest-map" alt="" className="qd-bg-img" />
         <LivingArt data={questMapLiving as LivingArtData} />
       </div>
       <div className="qd-wrap">
-        <div style={{ display: "flex", gap: 14, alignItems: "center" }}>
+        <div className="qd-kix">
           <Art
             base="/art/kix/dreamlight"
             alt="Kix cheering"
@@ -166,11 +168,11 @@ export function QuestDoneScreen(props: QuestDoneProps) {
           <span className="qd-evidence">{evidenceLabel}</span>
         </GlassPanel>
 
-        <nav aria-label="After the quest" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-          <ButtonLink href={`/learn/${questSlug}`} style={{ width: "100%" }}>
+        <nav aria-label="After the quest" className="qd-nav">
+          <ButtonLink href={`/learn/${questSlug}`} className="qd-nav-main">
             Back to the map
           </ButtonLink>
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+          <div className="qd-nav-more">
             <ButtonLink href="/treasure" variant="secondary" style={{ flex: "1 1 auto" }}>
               See my Treasure
             </ButtonLink>

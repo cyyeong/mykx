@@ -104,7 +104,7 @@ export function TreasureScreen({ nickname, stars, starsToday, evidenceLabel, car
     <div
       data-theme="dreamlight"
       data-band="junior"
-      style={{ width: "100%", minHeight: "100vh", boxSizing: "border-box", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", background: "var(--surface)", color: "var(--ink)", fontFamily: "var(--font-text)" }}
+      style={{ width: "100%", minHeight: "var(--screen-h, 100vh)", boxSizing: "border-box", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", background: "var(--surface)", color: "var(--ink)", fontFamily: "var(--font-text)" }}
     >
       {/* The realm is alive: islands float with their chests, lanterns flicker, the aurora and clouds drift. */}
       <div className="tr-bg">

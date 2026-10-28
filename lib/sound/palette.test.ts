@@ -1,6 +1,20 @@
 import { describe, expect, it } from "vitest";
 import { PACK_IDS } from "@/components/theme/packs";
-import { PACK_SOUNDS, SOUND_EVENTS, defaultSoundOn, planFor, planLength } from "./palette";
+import { PACK_SOUNDS, SOUND_EVENTS, defaultBeatOn, defaultSoundOn, planFor, planLength } from "./palette";
+
+describe("the Beat switch default", () => {
+  it("is off where children learn and on at Home, in Treasure and in the games", () => {
+    expect(defaultBeatOn("calm")).toBe(false);
+    expect(defaultBeatOn("bright")).toBe(true);
+    expect(defaultBeatOn("dreamy")).toBe(true);
+    expect(defaultBeatOn("driving")).toBe(true);
+  });
+
+  it("names the Idol Stage bed for what it is now: a hum, not a beat", () => {
+    expect(PACK_SOUNDS["idol-stage"].ambience).toBe("stage-hum");
+    expect(PACK_SOUNDS["idol-stage"].ambienceLabel).toBe("Stage hum");
+  });
+});
 
 describe("sound palette", () => {
   it("defines every pack, and Toon Pop is the only pack without ambience", () => {

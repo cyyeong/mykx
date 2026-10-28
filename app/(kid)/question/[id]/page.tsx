@@ -46,7 +46,7 @@ async function Question({ params }: { params: Promise<{ id: string }> }) {
 
 export default function QuestionPage({ params }: PageProps<"/question/[id]">) {
   return (
-    <Suspense fallback={<div style={{ minHeight: "100dvh", background: "var(--surface)" }} />}>
+    <Suspense fallback={<div style={{ minHeight: "var(--screen-h, 100dvh)", background: "var(--surface)" }} />}>
       <Question params={params} />
     </Suspense>
   );

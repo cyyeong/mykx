@@ -58,7 +58,7 @@ async function QuestMap({ params }: { params: Promise<{ quest: string }> }) {
 
 export default function QuestMapPage({ params }: PageProps<"/learn/[quest]">) {
   return (
-    <Suspense fallback={<div style={{ minHeight: "100dvh", background: "var(--surface)" }} />}>
+    <Suspense fallback={<div style={{ minHeight: "var(--screen-h, 100dvh)", background: "var(--surface)" }} />}>
       <QuestMap params={params} />
     </Suspense>
   );

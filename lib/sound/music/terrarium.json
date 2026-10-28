@@ -1,35 +1,99 @@
 {
   "pack": "terrarium",
   "title": "Pond at Nap Time",
-  "composer": "Muse Code",
-  "key": "D major",
-  "bpm": { "calm": 64, "dreamy": 56, "bright": 84, "driving": 104 },
-  "bars": 4,
-  "chords": [
-    ["D4", "F#4", "A4"],
-    ["B3", "D4", "F#4"],
-    ["G3", "B3", "D4"],
-    ["A3", "C#4", "E4"]
-  ],
-  "bass": ["D3", "B2", "G2", "A2"],
-  "motifs": {
-    "a": [
-      { "tone": 0, "len": 2 },
-      { "tone": 1, "len": 1 },
-      { "tone": 2, "len": 1 }
-    ],
-    "b": [
-      { "tone": 2, "len": 2 },
-      { "tone": 1, "len": 2 }
+  "composer": "Claude Code",
+  "key": "D major pentatonic",
+  "scale": ["D", "E", "F#", "A", "B"],
+  "meter": 4,
+  "bpm": { "calm": 68, "dreamy": 58, "bright": 88, "driving": 108 },
+  "heatBpm": 8,
+  "swing": 0.12,
+  "register": { "pad": "F#4", "bass": "D3", "arp": "A4", "sparkle": "A5" },
+  "voices": { "melody": "lead", "arp": "lead", "answer": "counter" },
+  "arpSource": "scale",
+  "sparkle": { "voice": "drop", "perBar": { "calm": 0.5, "dreamy": 1.6, "bright": 1.2, "driving": 0.8 } },
+  "sections": {
+    "A": {
+      "chords": ["Dadd9", "Dadd9", "Bm7", "Bm7", "Gmaj9", "Gmaj9", "Em9", "A7sus4"],
+      "melody": [
+        "F#5:2 A5:1 B5:1",
+        "A5:3 r:1",
+        "B5:1.5 A5:0.5 F#5:2",
+        "D5:3 r:1",
+        "D6:2 B5:1 A5:1",
+        "B5:3 r:1",
+        "E5:1.5 F#5:0.5 A5:1 B5:1",
+        "A5:2 r:2"
+      ],
+      "drone": ["D3", "A3"],
+      "bass": "1-------5-------",
+      "arp": "2.4.0.3.2.5.1.4.|2.4.0.3.5.3.4.1.",
+      "groove": "pond"
+    },
+    "B": {
+      "chords": ["Gmaj9", "Em9", "Gmaj9", "Bm7", "Gmaj9", "Em9", "Asus4", "A7sus4"],
+      "melody": [
+        "B5:1 D6:1 E6:2",
+        "E6:1.5 D6:0.5 B5:2",
+        "D6:1 B5:1 A5:2",
+        "F#5:1.5 A5:0.5 B5:2",
+        "B5:1 D6:1 F#6:2",
+        "E6:1.5 D6:0.5 B5:2",
+        "A5:1.5 B5:0.5 D6:2",
+        "E6:2 r:2"
+      ],
+      "answer": [
+        "r:2 D5:1 E5:1",
+        "r:2 F#5:1 E5:1",
+        "r:2 D5:2",
+        "r:4",
+        "r:2 A5:1 B5:1",
+        "r:2 F#5:1 A5:1",
+        "r:2 E5:2",
+        "r:2 D5:1 E5:1"
+      ],
+      "drone": ["G2", "D3"],
+      "bass": "1-----5-8-------",
+      "arp": "3.5.4.6.3.5.2.7.|3.5.4.6.7.6.5.4.",
+      "groove": "pond"
+    },
+    "A2": {
+      "chords": ["Dadd9", "Bm7", "Gmaj9", "Dadd9", "Bm7", "Gmaj9", "Em9", "A7sus4"],
+      "melody": [
+        "A5:1 F#5:1 E5:1 D5:1",
+        "F#5:2 B5:2",
+        "D6:1.5 B5:0.5 A5:2",
+        "F#5:3 r:1",
+        "B5:1 A5:1 F#5:1 D5:1",
+        "D5:1 E5:1 A5:2",
+        "B5:1.5 A5:0.5 E5:2",
+        "E5:2 r:2"
+      ],
+      "drone": ["D3", "A3"],
+      "bass": "1-------5-------",
+      "arp": "2.4.0.3.2.5.1.4.|2.4.0.3.5.3.4.1.",
+      "groove": "pond"
+    }
+  },
+  "form": ["A", "B", "A2", "B"],
+  "grooves": {
+    "pond": [
+      { "drum": "block", "note": "A5", "pattern": "x.......x...o..." },
+      { "drum": "block", "note": "D5", "pattern": "....o.........o." },
+      { "drum": "shaker", "pattern": ".o.o.o.o.o.o.o.o", "minHeat": 0.4 },
+      { "drum": "kick", "pattern": "X.......X..x...." },
+      { "drum": "hat", "pattern": "..x...x...x...x.", "minHeat": 0.6 }
     ]
   },
-  "form": ["a", "b", "a", "b"],
   "layers": {
-    "pad": ["calm", "dreamy"],
     "melody": ["calm", "dreamy", "bright", "driving"],
-    "bass": ["calm", "dreamy", "bright"],
-    "pulse": ["bright", "driving"],
-    "sparkle": ["dreamy", "calm"],
+    "arp": ["calm", "dreamy", "bright", "driving"],
+    "drone": ["calm", "dreamy", "bright", "driving"],
+    "pad": ["dreamy", "bright"],
+    "answer": ["dreamy", "bright"],
+    "bass": ["bright", "driving"],
+    "sparkle": ["calm", "dreamy", "bright", "driving"],
+    "perc": ["bright", "driving"],
     "drums": ["driving"]
   }
 }

@@ -19,8 +19,9 @@ export default function KidLayout({ children }: LayoutProps<"/">) {
                 under 600 px the label rides inside the bar and this pill hides. */}
             <DemoLabel />
           </div>
+          {/* Inside the shell so it zooms with the screen when a short window scales it (kid-tabs.css). */}
+          <SoundToggle />
         </div>
-        <SoundToggle />
         {/* Focus camera: learning screens only, when a grown-up turned it on (renders nothing otherwise). It reads
             the current path, so it sits in its own Suspense boundary and never blocks a page. */}
         <Suspense fallback={null}>

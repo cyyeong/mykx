@@ -156,7 +156,7 @@
 .pp-guide-tag { font-size: 0.85em; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; color: var(--pp-muted); }
 
 /* ─── Screen: toolbar and desk ──────────────────────────────────────────── */
-.pp-screen { min-height: 100dvh; background: var(--surface); color: var(--ink); font-family: var(--font-text); }
+.pp-screen { min-height: var(--screen-h, 100dvh); background: var(--surface); color: var(--ink); font-family: var(--font-text); }
 .pp-bar { position: sticky; top: 0; z-index: 30; background: var(--surface-glass); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); box-shadow: 0 1px 0 var(--line); }
 .pp-bar-in { box-sizing: border-box; max-width: 1180px; margin: 0 auto; padding: 10px 24px 12px; display: flex; flex-direction: column; gap: 10px; }
 .pp-bar-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; }
@@ -190,7 +190,7 @@
 }
 
 /* ─── Index page ────────────────────────────────────────────────────────── */
-.pp-index { min-height: 100dvh; background: var(--surface); color: var(--ink); font-family: var(--font-text); }
+.pp-index { min-height: var(--screen-h, 100dvh); background: var(--surface); color: var(--ink); font-family: var(--font-text); }
 .pp-index-wrap { box-sizing: border-box; max-width: 880px; margin: 0 auto; padding: 32px 24px 64px; display: flex; flex-direction: column; gap: 20px; }
 .pp-index h1 { margin: 0; font: 800 clamp(28px, 1vw + 20px, 36px)/1.2 var(--font-display); }
 .pp-index-lede { margin: -8px 0 0; font-size: 16px; line-height: 1.5; color: var(--ink-muted); max-width: 60ch; }

@@ -3,7 +3,8 @@
 const KEY = "mykx.sound.v1";
 const listeners = new Set<() => void>();
 
-export type SoundPrefs = { on?: boolean; ambience?: boolean; music?: boolean };
+/** `beat` is the Beat switch (bass and drums); unset follows the place (off for learning). */
+export type SoundPrefs = { on?: boolean; ambience?: boolean; music?: boolean; beat?: boolean };
 
 export function subscribe(listener: () => void): () => void {
   listeners.add(listener);
@@ -33,11 +34,12 @@ export function parsePrefs(raw: string): SoundPrefs {
   try {
     const value = JSON.parse(raw) as unknown;
     if (!value || typeof value !== "object") return {};
-    const { on, ambience, music } = value as Record<string, unknown>;
+    const { on, ambience, music, beat } = value as Record<string, unknown>;
     return {
       ...(typeof on === "boolean" ? { on } : {}),
       ...(typeof ambience === "boolean" ? { ambience } : {}),
       ...(typeof music === "boolean" ? { music } : {}),
+      ...(typeof beat === "boolean" ? { beat } : {}),
     };
   } catch {
     return {};

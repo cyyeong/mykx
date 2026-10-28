@@ -39,7 +39,7 @@ export function HomeScreen({ nickname = "Ari" }: { nickname?: string }) {
       className="hm-root"
       data-theme="terrarium"
       data-band="junior"
-      style={{ position: "relative", width: "100%", minHeight: "100vh", boxSizing: "border-box", background: "var(--surface)", color: "var(--ink)", fontFamily: "var(--font-text)" }}
+      style={{ position: "relative", width: "100%", minHeight: "var(--screen-h, 100vh)", boxSizing: "border-box", background: "var(--surface)", color: "var(--ink)", fontFamily: "var(--font-text)" }}
     >
       <div className="hm-wrap">
         <header className="hm-header">

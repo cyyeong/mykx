@@ -1,4 +1,12 @@
 /* Quest complete: the reward moment (design skill §4, question → Treasure). */
+.qd-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.qd-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+/* A twilight veil keeps the panels the brightest thing on screen. */
+.qd-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(43,42,92,.55),rgba(43,42,92,.35) 45%,rgba(43,42,92,.6))}
+.qd-kix{display:flex;gap:14px;align-items:center}
+.qd-nav{display:flex;flex-direction:column;gap:12px}
+.qd-nav-main{width:100%}
+.qd-nav-more{display:flex;gap:12px;flex-wrap:wrap}
 .qd-wrap{position:relative;max-width:960px;margin:0 auto;padding:32px 20px calc(32px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:20px}
 .qd-hero{display:grid;grid-template-columns:260px minmax(0,1fr);gap:24px;align-items:center}
 .qd-card{position:relative;display:grid;justify-items:center}
@@ -42,6 +50,23 @@
   .qd-stop-label{grid-area:label}
   .qd-bar{grid-area:bar}
   .qd-stop-num{grid-area:num}
+}
+/* Fit (landscape from 1024 px, kid-tabs.css): the screen is exactly the window. Card, summary and stops
+   stand side by side under Kix's line, and the three buttons share one row. */
+@media (min-width:1024px) and (min-aspect-ratio:5/4){
+  .qd-root{height:var(--screen-h)}
+  .qd-wrap{max-width:1400px;height:100%;box-sizing:border-box;padding:clamp(20px,4cqh,40px) 32px;display:grid;grid-template-columns:auto minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto auto auto;align-content:center;gap:clamp(16px,2.8cqh,28px) 24px}
+  .qd-kix{grid-column:1 / -1;padding-right:var(--hud-room,240px)}
+  .qd-hero{display:contents}
+  .qd-card{grid-column:1;grid-row:2;align-self:center}
+  .qd-holo,.qd-slot{width:clamp(200px,min(20cqw,34cqh),280px)}
+  .qd-slot{min-height:0;aspect-ratio:5 / 7}
+  .qd-summary{grid-column:2;grid-row:2;align-self:stretch;justify-content:center}
+  .qd-stops{grid-column:3;grid-row:2;align-self:stretch;justify-content:center}
+  .qd-stops li{grid-template-columns:minmax(0,150px) minmax(0,1fr) 32px}
+  .qd-nav{grid-column:1 / -1;flex-direction:row}
+  .qd-nav-main{width:auto;flex:1 1 0}
+  .qd-nav-more{flex:2 1 0;flex-wrap:nowrap}
 }
 @media (prefers-reduced-motion:reduce){
   .qd-holo,.qd-ribbon,.qd-bar-after.is-up{animation:none}

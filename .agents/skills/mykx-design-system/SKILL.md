@@ -80,6 +80,7 @@ CSS: `@media (max-width: 599px)` compact, `@media (min-width: 600px) and (max-wi
 
 **Layout rules**
 - Content sits in a centred container, `max-width: 1440px`; on desktop, ambient art and glows fill the margins instead of stretching cards.
+- **Fit to screen (kid pages, landscape from 1024 px; founder's call, 28 Oct):** no page scroll. The shell is the window's height and each screen fills `var(--screen-h)` with a layout that flexes to it (inside these rules use `cqh`/`cqw` from `.kid-shell-main`, never `vh`/`vw`). Fit first; only windows shorter than `--fit-min-h` (720 px) zoom the whole shell down, never up. Art-anchored layouts (the quest map) keep their board ratio as a centred stage over a blurred copy of the art. Long lists scroll inside their own shelf, not the page. Phones and portrait tablets keep reflow and normal scrolling. See `components/nav/kid-tabs.css`.
 - Two-pane screens (stage + task: Studio, Question, Vibe Zone, Talk to Kix, Add knowledge): side by side on expanded and desktop; stacked on medium with the stage shortened; on compact the task comes first and the stage becomes a header.
 - Card collections use `repeat(auto-fill, minmax(…, 1fr))`: 2 columns compact, 3 medium, 4–5 expanded.
 - Maps and rows that rely on horizontal space (Quest map, Squadron, pack tiles) become a vertical trail or a horizontal snap carousel on compact.
@@ -145,14 +146,14 @@ Backgrounds are places, not wallpaper: kids can poke things in the art (the stud
 
 ## 6a. Voice and sound (added 27 Oct)
 
-**Sound is synthesised, never recorded.** Tone.js (lazy-loaded on the first tap; browsers block audio before a gesture) plays every effect, so there are no audio files to license or download. Master level −12 dB; effects ≤ 600 ms except the transform; no sound for wrong answers (kindness rule); one mute button in the HUD; SFX on by default for Junior and off for Teen; ambience off by default.
+**Sound is synthesised, never recorded.** Tone.js (lazy-loaded on the first tap; browsers block audio before a gesture) plays every effect, so there are no audio files to license or download. Master level −12 dB; effects ≤ 600 ms except the transform; no sound for wrong answers (kindness rule); one mute button in the HUD; SFX on by default for Junior and off for Teen; ambience off by default. The HUD holds Sound (the one mute), Music, Beat and the ambience bed: docked in the rail from 600 px, folded behind one Sound button on phones. Ambience beds are texture only (no pitched or random notes); music plays from its score on the beat grid, and the Beat (drums and bass) follows the place: none on learning screens, light on Home and Treasure, energetic in games.
 
 | Pack | Instrument palette | Ambience bed (optional) |
 |---|---|---|
 | Dreamlight | music box / celesta, soft pad, wind chimes | night breeze and distant chimes |
 | Anime Sky | bright piano, glockenspiel, airy strings | wind and synth birdsong |
 | Toon Pop | marimba, slide whistle, boing, woodblock | none (it's loud enough) |
-| Idol Stage | synth pluck, claps, sparkle arpeggios | soft four-on-the-floor pulse |
+| Idol Stage | synth pluck, claps, sparkle arpeggios | stage hum (texture only, no beat) |
 | Terrarium | kalimba, wood blocks, FM frog croak | rain, crickets, pond drips |
 
 Events, same everywhere, voiced by the pack's palette: tap (soft tick), pack pick (the pack's signature chord), correct (rising three notes), hint (two gentle notes), reward card (sparkle arpeggio and shimmer), transform (two-second rising whoosh, then a reveal chord), card flip (swish), Pip grows (pond bloop and chime).

@@ -1,44 +1,115 @@
 {
   "pack": "toon-pop",
   "title": "Bouncy Toy Parade",
-  "composer": "Muse Code",
+  "composer": "Claude Code",
   "key": "C major",
-  "bpm": { "calm": 76, "dreamy": 64, "bright": 100, "driving": 120 },
-  "bars": 4,
-  "chords": [
-    ["C4", "E4", "G4"],
-    ["F3", "A3", "C4"],
-    ["G3", "B3", "D4"],
-    ["C4", "E4", "G4", "C5"]
-  ],
-  "bass": ["C3", "F2", "G2", "C3"],
-  "motifs": {
-    "a": [
-      { "tone": 0, "len": 0.5 },
-      { "tone": 0, "len": 0.5 },
-      { "tone": 1, "len": 0.5 },
-      { "tone": 2, "len": 0.5 },
-      { "tone": 2, "len": 0.5 },
-      { "tone": 1, "len": 0.5 },
-      { "tone": 0, "len": 0.5 },
-      { "tone": 1, "len": 0.5 }
+  "scale": ["C", "D", "E", "F", "G", "A", "B"],
+  "meter": 4,
+  "bpm": { "calm": 76, "dreamy": 64, "bright": 104, "driving": 120 },
+  "heatBpm": 8,
+  "swing": 0.5,
+  "glide": true,
+  "register": { "pad": "E4", "bass": "C3", "arp": "C5", "sparkle": "C6" },
+  "voices": { "melody": "lead", "arp": "lead", "answer": "counter" },
+  "arpSource": "chord",
+  "sparkle": { "voice": "lead", "perBar": { "calm": 0, "dreamy": 1, "bright": 0.5, "driving": 0.3 } },
+  "bassFill": "1-3-5-6-8-6-5-3-",
+  "sections": {
+    "A": {
+      "chords": ["C6", "A7", "Dm7", "G7", "C6", "A7", "D7", "G7"],
+      "melody": [
+        "C5:0.5 E5:0.5 G5:0.5 A5:0.5 r:2",
+        "C#5:0.5 E5:0.5 G5:0.5 A5:0.5 r:2",
+        "D5:0.5 F5:0.5 A5:0.5 C6:0.5 r:2",
+        "G5:0.5 F5:0.5 D5:0.5 B4:0.5 G4:1 r:1",
+        "E5:0.5 G5:0.5 C6:0.5 E6:0.5 r:2",
+        "E6:0.5 C#6:0.5 A5:0.5 E5:0.5 r:2",
+        "F#5:0.5 A5:0.5 C6:0.5 D6:0.5 r:2",
+        "B5:0.5 A5:0.5 G5:0.5 F5:0.5 D5:0.5 B4:0.5 G4:1"
+      ],
+      "answer": [
+        "r:2 G5:1 E5:1",
+        "r:2 A5:1 G5:1",
+        "r:2 C6:1 A5:1",
+        "r:3 G5:1",
+        "r:2 D6:0.5 C6:0.5 A5:1",
+        "r:2 G5:1 A5:1",
+        "r:2 C6:1 A5:1",
+        "r:4"
+      ],
+      "bass": "1-..5-..8-..5-..",
+      "pad": "....*-......*-..",
+      "groove": "parade"
+    },
+    "A2": {
+      "chords": ["C6", "A7", "Dm7", "G7", "E7", "Am7", "D7", "G7"],
+      "melody": [
+        "C5:0.5 E5:0.5 G5:0.5 A5:0.5 r:2",
+        "C#5:0.5 E5:0.5 G5:0.5 A5:0.5 r:2",
+        "D5:0.5 F5:0.5 A5:0.5 C6:0.5 r:2",
+        "G5:0.5 F5:0.5 D5:0.5 B4:0.5 G4:1 r:1",
+        "G#5:0.5 B5:0.5 D6:0.5 E6:0.5 r:2",
+        "E6:0.5 C6:0.5 A5:0.5 E5:0.5 r:2",
+        "F#5:0.5 A5:0.5 C6:0.5 D6:0.5 r:2",
+        "D6:0.5 B5:0.5 G5:0.5 F5:0.5 D5:0.5 r:0.5 G4:1"
+      ],
+      "answer": [
+        "r:2 E6:1 C6:1",
+        "r:2 E6:1 C#6:1",
+        "r:2 F6:1 D6:1",
+        "r:3 G5:1",
+        "r:2 D6:1 B5:1",
+        "r:2 C6:1 A5:1",
+        "r:2 D6:1 F#5:1",
+        "r:4"
+      ],
+      "bass": "1-..5-..8-..5-..",
+      "pad": "....*-......*-..",
+      "groove": "parade"
+    },
+    "B": {
+      "chords": ["F6", "Fm6", "Em7", "A7", "Dm7", "G7", "Em7 A7", "Dm7 G7"],
+      "melody": [
+        "A5:1 C6:0.5 D6:1 C6:0.5 A5:1",
+        "Ab5:1 C6:0.5 D6:1 C6:0.5 Ab5:1",
+        "G5:0.5 B5:0.5 D6:0.5 B5:0.5 G5:1 E5:1",
+        "E5:0.5 G5:0.5 A5:0.5 C#6:0.5 E6:2",
+        "F5:0.5 A5:0.5 C6:0.5 A5:0.5 F5:1 D5:1",
+        "B4:0.5 D5:0.5 F5:0.5 D5:0.5 B4:1 G4:1",
+        "G5:0.5 E5:0.5 B4:1 C#5:0.5 E5:0.5 G5:1",
+        "F5:0.5 D5:0.5 A4:1 B4:0.5 D5:0.5 F5:0.5 G5:0.5"
+      ],
+      "answer": ["r:4", "r:3 F5:1", "r:4", "r:2 A5:1 G5:1", "r:4", "r:4", "r:4", "r:4"],
+      "bass": "1-......5-......",
+      "pad": "*------.*------.",
+      "groove": "bridge"
+    }
+  },
+  "form": ["A", "A2", "B", "A2"],
+  "grooves": {
+    "parade": [
+      { "drum": "block", "note": "D6", "pattern": "x...x...x...x..." },
+      { "drum": "block", "note": "G5", "pattern": "..o...o...o...o." },
+      { "drum": "block", "note": "D6", "pattern": "...........o.o..", "minHeat": 0.5 },
+      { "drum": "kick", "pattern": "X.......X......." },
+      { "drum": "snare", "pattern": "....X.......X..." },
+      { "drum": "hat", "pattern": "..x...x...x...x.", "minHeat": 0.3 }
     ],
-    "b": [
-      { "tone": 2, "len": 0.5 },
-      { "tone": 2, "len": 0.5 },
-      { "tone": 1, "len": 0.5 },
-      { "tone": 1, "len": 0.5 },
-      { "tone": 0, "len": 1 },
-      { "tone": 1, "len": 1 }
+    "bridge": [
+      { "drum": "block", "note": "D6", "pattern": "x.......x......." },
+      { "drum": "block", "note": "G5", "pattern": "....o.......o..." },
+      { "drum": "kick", "pattern": "X.......X......." },
+      { "drum": "snare", "pattern": "....X.......X..." },
+      { "drum": "hat", "pattern": "..x...x...x...x.", "minHeat": 0.3 }
     ]
   },
-  "form": ["a", "a", "b", "a"],
   "layers": {
-    "pad": ["calm", "bright"],
     "melody": ["calm", "dreamy", "bright", "driving"],
-    "bass": ["calm", "bright", "driving"],
-    "pulse": ["bright", "driving"],
-    "sparkle": ["bright"],
+    "answer": ["bright", "driving"],
+    "pad": ["calm", "dreamy", "bright", "driving"],
+    "bass": ["calm", "dreamy", "bright", "driving"],
+    "sparkle": ["dreamy", "bright", "driving"],
+    "perc": ["bright", "driving"],
     "drums": ["driving"]
   }
 }

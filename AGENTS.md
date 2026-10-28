@@ -1,6 +1,6 @@
 # myKx — agent rules
 
-Read by both coding agents: **Claude Code** (`CLAUDE.md` imports it) and **Muse Code**. Keep it short; details live in skills and `docs/`. Start a work session with `docs/plan/HANDOFF.md` and `docs/plan/PROGRESS.md`.
+Read by the coding agent, **Claude Code** (`CLAUDE.md` imports it); Muse Code read it too while it was in use on 28 Oct. Keep it short; details live in skills and `docs/`. Start a work session with `docs/plan/HANDOFF.md` and `docs/plan/PROGRESS.md`.
 
 ## Project
 
@@ -45,12 +45,12 @@ myKx gives every Singapore student an AI sidekick, **Kix**: learning loops that 
 13. **Kids never need an email.** Kids sign in with a picture code or password set by a parent, hashed on the server and never shown again; nicknames, never full names. Admin actions go through audited server routes and never expose a child's messages, Notebook or answers.
 14. Don't commit or push unless the user asks.
 
-## Division of work (two coding agents, from 28 Oct)
+## Division of work (Claude Code only, from 28 Oct afternoon)
 
-- **Muse Code** (Meta) builds app features from `docs/plan/HANDOFF.md`, on its own branch (`muse/<topic>`), and opens a pull request or asks the founder to merge. It never reads anything listed in `.museignore` (secrets, private material, session files), and it works from a fresh clone where possible.
-- **Claude Code** (Anthropic) keeps the Claude Design canvas (only it can publish there; copies of every board are in `docs/design/boards/`, the game boards' sources in `docs/design/canvas-src/`), reviews and merges Muse's branches, runs the checks, and takes any work the founder sends its way.
-- Both follow every rule in this file, and both add a row to `docs/plan/PROGRESS.md` for each finished task.
-- **Trail in commits:** every commit ends with a trailer naming the agent: `Agent: Muse Code` or `Agent: Claude Code` (Claude Code's commits also carry its Co-Authored-By line). Commit only when the founder has said to.
+- **Claude Code** (Anthropic) builds everything: app features from `docs/plan/HANDOFF.md`, the Claude Design canvas (only it can publish there; copies of every board are in `docs/design/boards/`, the game boards' sources in `docs/design/canvas-src/`), the checks, docs and commits.
+- **Muse Code** (Meta's coding agent) built four branches on 28 Oct (kid nav, learning loop, music, grown-ups); Claude Code reviewed and fixed them on main. The founder retired it the same day; don't hand it work. `.museignore` stays in case it is ever used again. The app itself still runs on Meta's models (Muse Spark, Muse Image, SAM 3.1, Muse Voice Transcribe): those are product features, not coding agents.
+- Every finished task adds a row to `docs/plan/PROGRESS.md`.
+- **Trail in commits:** every commit ends with `Agent: Claude Code` and Claude Code's Co-Authored-By line (older commits may carry `Agent: Muse Code`). Commit only when the founder has said to.
 - Code areas, for splitting work: **UI** (`app/(kid)`, `app/(parent)`, `components/`, theme, motion), **platform** (`lib/meta`, `app/api`, `supabase/`, `lib/domain`, `lib/auth`, `lib/signals`, fixtures, art), **skills** (`lib/skills/`, `content/skills/`, `scripts/import-skill.ts`, `app/(admin)/`, `/api/kix/tutor`, `/api/admin/*`; spec in `docs/prd/SKILL_ENGINE.md`), **games** (`lib/games/`, the Arcade; spec in `docs/prd/GAMES.md`), **print** (`lib/print/`, `components/papers/`).
 - **Art:** generate with `node --env-file=.env.local .agents/skills/muse-image-assets/scripts/gen-image.mjs …` (needs the Meta key, so Claude Code or the founder runs it); every kept file goes in the manifest (rule 6). Living-art layers come from `scripts/living-art.ts`.
 

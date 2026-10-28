@@ -4,12 +4,21 @@ import { Suspense, createContext, useCallback, useContext, useEffect, useRef, us
 import { usePathname } from "next/navigation";
 import { useTheme } from "@/components/theme/ThemeRoot";
 import type { Band, PackId } from "@/components/theme/packs";
-import { PACK_SOUNDS, defaultMusicOn, defaultSoundOn, type PropSound, type SoundEvent } from "@/lib/sound/palette";
+import { PACK_SOUNDS, defaultBeatOn, defaultMusicOn, defaultSoundOn, type PropSound, type SoundEvent } from "@/lib/sound/palette";
 import { moodForPath } from "@/lib/sound/music/mood";
 import type { ThemeMood } from "@/lib/sound/music/schema";
 import { getServerSnapshot, getSnapshot, parsePrefs, savePrefs, subscribe } from "@/lib/sound/prefs";
 
 type Engine = typeof import("@/lib/sound/engine");
+
+/**
+ * One seed per tab: the sign-in and kid areas each mount their own provider,
+ * and a shared seed lets the theme carry on across them instead of restarting.
+ */
+let tabSeed = 0;
+const seedForTab = () => (tabSeed ||= 1 + Math.floor(Math.random() * (2 ** 31 - 1)));
+/** The engine module once any provider has loaded it. */
+let loadedEngine: Engine | null = null;
 
 type SoundContextValue = {
   /** Sound effects (and ambience, if chosen) are audible. */
@@ -20,6 +29,9 @@ type SoundContextValue = {
   /** The composed theme for the current pack. */
   musicOn: boolean;
   setMusicOn: (on: boolean) => void;
+  /** The music's bass and drums (the tune plays either way). Off by default for learning. */
+  beatOn: boolean;
+  setBeatOn: (on: boolean) => void;
   /** Ducks the music bed (mic recording); Kix's speech ducks it automatically. */
   duck: (on: boolean) => void;
   /** The current pack's ambience name, or null when the pack has none. */
@@ -79,6 +91,7 @@ export function SoundProvider({ children, kidArea = false }: { children: ReactNo
   // hydration; the seed is minted with the first tap, when audio unlocks).
   const [mood, setMood] = useState<ThemeMood>("calm");
   const [seed, setSeed] = useState(0);
+  const beatOn = prefs.beat ?? defaultBeatOn(mood);
   const [micDuck, setMicDuck] = useState(false);
   const [ready, setReady] = useState(false);
   const engine = useRef<Engine | null>(null);
@@ -94,6 +107,7 @@ export function SoundProvider({ children, kidArea = false }: { children: ReactNo
   const fetchEngine = useCallback((): Promise<Engine> => {
     loading.current ??= import("@/lib/sound/engine").then((m) => {
       fetched.current = m;
+      loadedEngine = m;
       return m;
     });
     return loading.current;
@@ -101,7 +115,7 @@ export function SoundProvider({ children, kidArea = false }: { children: ReactNo
 
   const begin = useCallback((m: Engine) => {
     if (engine.current) return;
-    setSeed((s) => s || Math.floor(Math.random() * 2 ** 31));
+    setSeed(seedForTab());
     const started = m.start(); // resumes the AudioContext synchronously, inside the gesture when possible
     engine.current = m;
     void started.then(() => {
@@ -123,11 +137,20 @@ export function SoundProvider({ children, kidArea = false }: { children: ReactNo
 
   useEffect(() => {
     if (!on) return;
+    // Audio was unlocked on an earlier screen (the sign-in area has its own
+    // provider): carry straight on, with no new tap and no restart.
+    if (loadedEngine?.isStarted()) {
+      void load();
+      return;
+    }
     const idle = window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 1500));
     const cancel = window.cancelIdleCallback ?? window.clearTimeout;
     const handle = idle(() => void fetchEngine());
     return () => cancel(handle);
-  }, [on, fetchEngine]);
+  }, [on, fetchEngine, load]);
+
+  // Leaving the sound area lets the music go, unless the next screen picks it straight back up.
+  useEffect(() => () => loadedEngine?.releaseMusic(), []);
 
   useEffect(() => {
     const unlock = () => {
@@ -148,6 +171,11 @@ export function SoundProvider({ children, kidArea = false }: { children: ReactNo
   useEffect(() => {
     engine.current?.setAmbience(on && ambienceOn ? pack : null);
   }, [on, ambienceOn, pack, ready]);
+
+  // The Beat switch: the child's choice, or (unset) the place's default.
+  useEffect(() => {
+    if (ready) engine.current?.setBeat(prefs.beat ?? null);
+  }, [prefs.beat, ready]);
 
   // The composed theme follows the pack and the place (mood); it starts with
   // the first tap like everything else, because browsers block audio before that.
@@ -214,10 +242,14 @@ export function SoundProvider({ children, kidArea = false }: { children: ReactNo
     [prefs, load],
   );
 
+  const setBeatOn = useCallback((next: boolean) => savePrefs({ ...prefs, beat: next }), [prefs]);
+
   const duck = useCallback((next: boolean) => setMicDuck(next), []);
 
   return (
-    <SoundContext value={{ on, setOn, ambienceOn, setAmbienceOn, musicOn, setMusicOn, duck, ambienceLabel: PACK_SOUNDS[pack].ambienceLabel, play, prop }}>
+    <SoundContext
+      value={{ on, setOn, ambienceOn, setAmbienceOn, musicOn, setMusicOn, beatOn, setBeatOn, duck, ambienceLabel: PACK_SOUNDS[pack].ambienceLabel, play, prop }}
+    >
       <Suspense fallback={null}>
         <PathMood onMood={setMood} />
       </Suspense>
