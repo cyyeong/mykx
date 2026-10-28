@@ -55,6 +55,16 @@ Today `lib/sound/engine.ts` plays short synthesised effects and, for some worlds
 - **Control:** a Music switch beside the existing sound button, off by default for teens, on for juniors after their first tap; remembered per device.
 - **Check:** no clicks or pops at loop edges, CPU under about 5 % on a laptop, and silence when muted.
 
+## Keys and second deployment (28 Oct)
+
+- **The founder signs the Vercel CLI in once:** `npx vercel@65.1.0 login`. After that, Claude Code sets keys itself:
+  - `CRON_SECRET` on the main project;
+  - the `mykx-sim` project (same repo, root `sim`);
+  - `SIM_HOME_LINK_TOKEN` and `SIM_PASSCODE` on `mykx-sim`, with the passcode also in `.env.local`.
+
+  Values are never printed in chat or committed.
+- **Database:** the same production Supabase. The simulator has no database; it posts to myKx's routes as the demo family. If `SUPABASE_DB_URL` is in `.env.local`, `scripts/db-migrate.ts` runs migrations; otherwise the founder pastes the SQL.
+
 ## Things only the founder or Claude Code do
 
 - Publish to the Claude Design canvas (Claude Code); copy boards back into `docs/design/boards/` after.

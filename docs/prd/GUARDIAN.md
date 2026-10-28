@@ -134,6 +134,17 @@ Muse Spark reads the place events and motion states in the Guardian brief and th
   - **A location:** pick a kid and a spot (School, Playground, Walking home, Bus, Home), each with its motion state and accuracy, then press **Send location**.
   - **Camera frames:** tick any of the synthetic frames, set each one's room (living room, kitchen, study, entrance), choose a single picture or a burst of 3, then press **Send frames**.
   - What myKx answered (status, timing and Muse's reading) lists every send, newest first.
+- **Keys, set up automatically** (founder, 28 Oct). After the founder's one-time `npx vercel@65.1.0 login`, a setup script handles the rest:
+  - creates the `mykx-sim` project from this repo (root `sim`);
+  - mints the simulator's Home Link device for the demo family in production and stores its token only as a server-side setting on `mykx-sim` (`SIM_HOME_LINK_TOKEN`);
+  - generates `SIM_PASSCODE`, also kept in `.env.local`;
+  - sets `CRON_SECRET` on the main project.
+
+  No key is printed in chat or committed.
+- **Guards:**
+  - The simulator page asks for the passcode once per browser.
+  - Its server route sends only its own bundled frames and scripted points, never uploads from the page.
+  - myKx caps a simulator device at 300 frames a day (about $1 of Muse at worst) and rate-limits every device token.
 - **Real path:** it signs in with a normal Home Link device token and posts to the **real ingest API**. myKx can't tell it from a real client, so the analysis, flags and map run live. If a live Muse call fails during a take, the page shows the last cached status, labelled (rule 7).
 
 ## 2.5 Where Muse does the thinking (the proof)
