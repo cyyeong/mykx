@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Builds the README / video boards (1600x900) as canvas .dc.html files (copies in docs/design/boards/Readme*.dc.html).
-# Run it from a working folder holding rd-blobs.json (canvas upload ids for the art and app screens) and canvas-root/project/.
+# Builds the README / video boards (1600x900) as canvas .dc.html files.
 import json, os, html
 
 S = os.path.dirname(os.path.abspath(__file__))
@@ -133,7 +133,7 @@ why_css = """
 rows = [
     ("13:40", "#1F66C1", "#1F66C1", "Leonard", "left school and took the bus home.", rules("Location rules")),
     ("15:10", "#2C7A47", "#2C7A47", "Jordan", "finished the frog life-cycle quest: 3 of 3, and a new Treasure card.", muse("Kix Tutor") + rules("Mastery rules")),
-    ("16:20", "#C2338F", "#C2338F", "Abby", "photographed a fractions question. Kix guided her steps and never gave the answer away.", muse("Ask Kix")),
+    ("16:20", "#C2338F", "#C2338F", "Abby", "photographed a fractions question. Kix guided each step and never gave the answer away.", muse("Ask Kix")),
     ("17:08", "#D9822B", "#B5651D", "At home,", "possibly a tug-of-war in the living room. The parent looks at the pictures and taps Not right.", muse("Home Reader") + muse("SAM 3.1")),
     ("18:30", "#1C8EA8", "#1C6C84", "Saturday", "looks drier: cycle the riverside, then hawker supper.", muse("Outing Scout, web search")),
     ("21:30", "#6A47F0", "#6A47F0", "Tonight,", "one calm paragraph about all three, ready when the parent is.", muse("Tonight")),
@@ -148,7 +148,6 @@ build_why = f"""
 <blockquote class="w-quote"><p>“I’m a parent of three hyperactive kids, each with a different nature and different interests. Getting them to talk about schoolwork at all is a challenge. So I built a place where what they love becomes how they learn.”</p><cite>The founder of myKx</cite></blockquote>
 <div class="w-day"><h3>One Tuesday, as the parent sees it</h3>{rows_html}</div>
 """
-build_why = build_why.replace("guided her steps", "guided each step")
 board("ReadmeWhy", "myKx README: why", build_why, False, why_css)
 
 # 3. Three kids ---------------------------------------------------------------------------------------------------
@@ -188,7 +187,7 @@ build_kids = f"""
 </div>
 <div class="k-cols">
 {kid("Jordan", "'Grandstander',sans-serif", 44, "Primary 3", "Terrarium", "frogs, ants and anything that crawls", ["The frog life-cycle quest", "Critter Lab: a tadpole that grows with mastery", "Picture-code sign-in and a Kix that reads aloud"], "kix-terrarium", "jordan-home", "#E7F2DD", "#1D3324", "#3F6B4C", "#2C7A47")}
-{kid("Abby", "'Unbounded',sans-serif", 38, "Primary 6", "Idol Stage", "music, dance and the stage", ["Study Songs and flashcards in Vibe Zone", "Neon Strike: science words at typing speed", "PSLE Maths and Science packs"], "kix-idol", "abby-neon", "#241640", "#FFFFFF", "#FF9BE6", "#FF3DCB")}
+{kid("Abby", "'Unbounded',sans-serif", 38, "Primary 6", "Idol Stage", "music, dance and the stage", ["Vibe Zone flashcards from Abby's own brief", "Neon Strike: science words at typing speed", "PSLE Maths and Science packs"], "kix-idol", "abby-neon", "#241640", "#FFFFFF", "#FF9BE6", "#FF3DCB")}
 {kid("Leonard", "'M PLUS Rounded 1c',sans-serif", 42, "Secondary 2", "Anime Sky", "jets and how things fly", ["Sky Squadron: forces through display jets", "A study deck with mastery rings", "Ask Kix for homework, guide first"], "kix-pilot", "leonard-home", "#1B2350", "#FFFFFF", "#9CCBFF", "#5AA9F0", 800)}
 </div>
 """
@@ -251,7 +250,7 @@ ag_css = """
 """
 groups = [
     ("Learning", [("Kix Tutor", "Hints and explanations for each question", muse("Muse Spark")), ("Ask Kix", "Homework help from a typed question or a photo", muse("Muse Spark")), ("Content Curator", "Reads past papers for patterns and traps", muse("Muse Spark")), ("Past-paper scout", "Finds new papers every week", rules())]),
-    ("Imagination", [("Sidekick Studio", "Turns Kix into the child's own world", muse("Muse Image") + " " + muse("SAM 3.1")), ("Vibe Zone maker", "Planners, flashcards and Study Songs", muse("Muse Spark")), ("Talk to Kix", "Push to talk; the audio is never kept", muse("Muse Voice Transcribe"))]),
+    ("Imagination", [("Sidekick Studio", "Turns Kix into the child's own world", muse("Muse Image") + " " + muse("SAM 3.1")), ("Vibe Zone maker", "Flashcards from the child's own brief", muse("Muse Spark")), ("Talk to Kix", "Push to talk; the audio is never kept", muse("Muse Voice Transcribe"))]),
     ("Home and outdoors", [("Home Reader", "Reads the family's own camera frames, with vision", muse("Muse Spark")), ("Who's who", "Outlines the children on a flagged frame", muse("SAM 3.1")), ("Guardian Brief", "The “Right now” line for the parent", muse("Muse Spark"))]),
     ("Memory and care", [("Memory Keeper", "Keeps Kix's Notebook about each child", muse("Muse Spark")), ("Screen-time guardian", "Breaks, quiet hours, the day's balance", rules())]),
     ("Family time", [("Outing Scout", "Searches the web for things to do near home", muse("Muse Spark")), ("Outing Planner", "Plans the weekend around the weather", muse("Muse Spark")), ("Tonight", "The evening summary for the parent", muse("Muse Spark"))]),

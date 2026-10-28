@@ -51,7 +51,7 @@ afterEach(() => {
 });
 
 const asAri = async () => {
-  await b.call(parentRoute.POST, "/api/auth/parent", { email: "parent@demo.mykx", password: "x" });
+  await b.call(parentRoute.POST, "/api/auth/parent", { email: "demo@mykx.ai", password: "x" });
   await b.call(kidRoute.POST, "/api/auth/kid", { kidId: JORDAN_ID, secret: { kind: "pictures", code: ["idle", "cheer", "pilot", "dreamlight"] } });
 };
 

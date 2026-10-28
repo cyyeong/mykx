@@ -11,7 +11,7 @@ const FRAMES = ["living-reading", "living-tv", "kitchen-snack", "study-homework"
 const ROOM: Record<string, string> = { living: "Living room", kitchen: "Kitchen", study: "Study", entrance: "Entrance" };
 const KIDS = [
   { nickname: "Jordan", band: "junior" as const, description: "Youngest, about 9, short straight black hair, often a light blue T-shirt" },
-  { nickname: "Abby", band: "junior" as const, description: "About 12, curly chin-length hair, often a mustard-yellow T-shirt" },
+  { nickname: "Abby", band: "teen" as const, description: "About 12, curly chin-length hair, often a mustard-yellow T-shirt" },
   { nickname: "Leonard", band: "teen" as const, description: "About 14, long black ponytail and round glasses, often a grey hoodie" },
 ];
 

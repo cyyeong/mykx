@@ -85,7 +85,7 @@ describe("knowledge routes", () => {
 
   it("needs an admin; records a failed read without a model key; publishes approved knowledge as v1.1.0", async () => {
     expect((await call(knowledge.GET, { method: "GET" })).status).toBe(403);
-    const signin = await parentRoute.POST(new Request("http://localhost/api/auth/parent", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email: "parent@demo.mykx", password: "x" }) }));
+    const signin = await parentRoute.POST(new Request("http://localhost/api/auth/parent", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email: "demo@mykx.ai", password: "x" }) }));
     const cookie = signin.headers.getSetCookie().map((c) => c.split(";")[0]).join("; ");
 
     const form = new FormData();

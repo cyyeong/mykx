@@ -204,20 +204,20 @@ Hands off. Emergency fixes only, before 10:00 SGT.
 
 ## 5. The video (12 protected hours)
 
-Script target: about 360 words of voice-over (130 a minute), finished by Day 5.
+Script target: about 360 words of voice-over (130 a minute), finished by Day 5. Re-cut on 28 Oct to open with the parent's problem before the transformation.
 
 | Time | Beat | Screen | Shows |
 |---|---|---|---|
-| 0:00–0:12 | "My kids have always been my sidekicks…" over the living city; Jordan taps the picture code, the door swings open and the time tunnel carries us in | Sign-in | the hook |
-| 0:12–0:40 | A P3 child picks Terrarium and bugs and critters; Kix transforms; the app re-skins; Pip is adopted | Studio | Muse Image + SAM 3.1, live |
-| 0:40–0:50 | Home: today's quest, Pip, the squadron; a 2-second cut to the same Home on a phone and an open foldable | Home | personalisation; every device |
-| 0:50–1:25 | Quest map → a "P3 Science skill loaded" chip → Kix reads the question aloud → the child asks "why?" by voice → streamed hint → correct → Kix cheers → card flies; "57, limited evidence" | Quest map, Question | Kix Tutor agent; Voice Transcribe; honest mastery |
-| 1:25–1:40 | Treasure, a Sky Squadron card flip, Pip grows | Treasure, Critter Lab | earned, never random |
-| 1:40–2:00 | The child *says* "I keep forgetting the frog life cycle" → flashcards → save → share with Mum | Vibe Zone | voice in; structured output; no AI code runs |
-| 2:00–2:10 | The parent's phone: "Jordan seemed tired in 3 evening sessions" with the evidence → Message Jordan with a Kix sticker → Jordan's sticker reply (no Notebook flash) | Parent dashboard, messages | care, evidence, not labels |
-| 2:10–2:30 | Guardian: Muse's "Right now" over the map (Jordan walking home) → Home now's floor plan → a watch card, "possibly a tug-of-war", with SAM 3.1 outlines → the parent taps **Not right** → a 3 s flash of Do something together ("Muse searched the web: badminton at Sengkang Sports Hall…"); lower third: "Your cameras, read by Muse Spark and SAM 3.1. Frames deleted after 24 h. Kix never sees them." | Where they are, Home now, Do together | Muse Spark vision, SAM 3.1 and web search, live; built for Singapore families |
-| 2:30–2:45 | Skills admin ("same Kix, different skills"): the P3, P6 and Sec 2 catalogue → upload a new worksheet → Spark extracts six questions → approve → version 1.1 published → Kix uses them | Admin | knowledge that grows; Best Agentic |
-| 2:45–3:00 | The trace: Kix loading and unloading skills; `model_runs` showing four live Meta models; built 27 Oct–4 Nov; synthetic data; "Kix speaks with your device's voice" | Under the hood | Meta tooling and honesty |
+| 0:00–0:10 | The problem, in the founder's voice: "Most parents here work through their kids' whole afternoon", over the living city at dusk, with a caption: 56.6% of couples both work; S$1.8 billion a year on tuition (sources in the README) | Sign-in city | a problem known firsthand |
+| 0:10–0:30 | Jordan taps the picture code, the door swings open and the time tunnel carries us in; picks Terrarium and critters; Kix transforms; the app re-skins; Pip is adopted | Sign-in, Studio | Muse Image + SAM 3.1, live |
+| 0:30–0:40 | Home: today's quest, Pip, the squadron; a 2-second cut to the same Home on a phone and an open foldable | Home | personalisation; every device |
+| 0:40–1:15 | Quest map → a "P3 Science skill loaded" chip → Kix reads the question aloud → the child asks "why?" by voice → streamed hint → correct → Kix cheers → card flies; "57, limited evidence" | Quest map, Question | Kix Tutor agent; Voice Transcribe; honest mastery |
+| 1:15–1:30 | Treasure, a Sky Squadron card flip, Pip grows | Treasure, Critter Lab | earned, never random |
+| 1:30–1:45 | The child *says* "I keep forgetting the frog life cycle" → flashcards → save → share with Mum | Vibe Zone | voice in; structured output; no AI code runs |
+| 1:45–2:00 | The parent's phone: "Jordan seemed tired in 3 evening sessions" with the evidence → Message Jordan with a Kix sticker → Jordan's sticker reply → Tonight's paragraph | Parent dashboard, messages | care, evidence, not labels |
+| 2:00–2:20 | Guardian: Muse's "Right now" over the map (Jordan walking home) → Home now's floor plan → a watch card, "possibly a tug-of-war", with SAM 3.1 outlines → the parent taps **Not right** → a 3 s flash of Do something together ("Muse searched the web: badminton at Sengkang Sports Hall…"); lower third: "Your cameras, read by Muse Spark and SAM 3.1. Frames deleted after 24 h. Kix never sees them." | Where they are, Home now, Do together | Muse Spark vision, SAM 3.1 and web search, live; built for Singapore families |
+| 2:20–2:40 | Skills admin ("same Kix, different skills"): the P3, P6 and Sec 2 catalogue → upload a new worksheet → Spark extracts six questions → approve → version 1.1 published → Kix uses them | Admin | knowledge that grows; Best Agentic |
+| 2:40–3:00 | The proof: Under the hood's live list of calls across the four Meta models and 15 agents; the "P3 Science skill loaded" chip; built 27 Oct–4 Nov; synthetic data; "Kix speaks with your device's voice"; a 2-second roadmap card (mobile app, Home Link streaming, Kix on Meta devices) | Under the hood, roadmap board | Meta tooling, honesty, what's next |
 
 **Rules:** record in production with the seeded demo and "Reset demo" between takes. Capture app sound with the screen (the SFX are part of the wow) and duck the music under the voice-over. The spoken lines are performed by an adult or read from the script, never a real child's voice. Show at least one genuinely live transform; if it is slow, speed it up and label it. Burn in captions, since judges may watch muted. Use royalty-free music and credit it. Never show real children's names or photos.
 

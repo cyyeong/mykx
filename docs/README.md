@@ -40,6 +40,7 @@ Art source of truth stays in the repo: `public/art/` (optimised WebP) and `publi
 
 | Doc | What it is |
 |---|---|
+| [ARCHITECTURE.md](ARCHITECTURE.md) | **Platform architecture:** system context, data model and RLS, the fifteen agents, skill packs, the self-improvement loops, safety rules in code, cost, operations, scaling and the device-adapter roadmap |
 | [../AGENTS.md](../AGENTS.md) | Agent rules, priorities, hard rules, division of work (`CLAUDE.md` imports it) |
 | [../.agents/skills/meta-model-api/SKILL.md](../.agents/skills/meta-model-api/SKILL.md) | Meta Model API: model IDs, Standard vs Contributor, structured output, SAM, Baseten, pricing |
 | [../.agents/skills/muse-image-assets/SKILL.md](../.agents/skills/muse-image-assets/SKILL.md) | Art pipeline: Kix canon, pack prompts, IP/safety rules, SAM cutouts, manifest, budget |

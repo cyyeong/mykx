@@ -8,7 +8,7 @@ export const DEMO_HOUSEHOLD_ID = "00000000-0000-4000-8000-000000000001";
 export const DEMO_PARENT_ID = "00000000-0000-4000-8000-000000000010";
 /** The demo parent's auth user id in the in-memory demo store (Supabase links a real one on Day 3). */
 export const DEMO_PARENT_USER_ID = "00000000-0000-4000-8000-0000000000a1";
-export const DEMO_PARENT_EMAIL = "parent@demo.mykx";
+export const DEMO_PARENT_EMAIL = "demo@mykx.ai";
 
 export const JORDAN_ID = "00000000-0000-4000-8000-000000000011";
 export const ABBY_ID = "00000000-0000-4000-8000-000000000012";
