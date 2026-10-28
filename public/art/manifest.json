@@ -2597,5 +2597,149 @@
     "created": "2026-10-28",
     "sha256": "206f5487048c4df849557a2f8afdef7bdbb2fe276658465b73ee7515f0a0e82e",
     "cut_by": null
+  },
+  {
+    "id": "sim-living-reading",
+    "path": "public/art/sim/living-reading.webp",
+    "variants": [
+      "public/art/sim/living-reading-640.webp"
+    ],
+    "pack": null,
+    "kind": "sim-frame",
+    "model": "muse-image-1.0",
+    "route": "api",
+    "prompt": "A living room with a grey sofa, a low wooden coffee table and a switched-off TV on a cabinet. Child A sits cross-legged on the sofa reading a picture book, calm and absorbed. Nobody else is in the room. Fictional characters only. A: a small child about 9 years old with short straight black hair, a light blue T-shirt and navy shorts. B: a child about 12 years old with a curly chin-length bob, a mustard-yellow T-shirt and grey shorts. C: a teenager about 14 years old with a long black ponytail and round glasses, a grey hoodie. Stylised 3D animated-feature render with soft clay-like materials, warm afternoon light, a tidy Singapore public-housing flat interior with a pale tiled floor and a ceiling fan. Seen from a security camera mounted high in a corner of the room, looking down at an angle, slight wide-angle lens distortion, gently desaturated colours, soft sensor grain. The people are small in the frame and fully clothed. No text, no letters, no numbers, no timestamp, no logos, no watermark.",
+    "refs": [],
+    "size": "1792x1024",
+    "created": "2026-10-28",
+    "sha256": "5f7cdd0bc2ea86b3a1e150d9f7f9c49d30c94ff8747265b1d2504daa49856ead",
+    "cut_by": null,
+    "note": "Synthetic home-camera frame for the Home simulator and Guardian designs (GUARDIAN.md §2.3); fictional characters; label as synthetic."
+  },
+  {
+    "id": "sim-living-tv",
+    "path": "public/art/sim/living-tv.webp",
+    "variants": [
+      "public/art/sim/living-tv-640.webp"
+    ],
+    "pack": null,
+    "kind": "sim-frame",
+    "model": "muse-image-1.0",
+    "route": "api",
+    "prompt": "A living room with a grey sofa and a TV on a cabinet showing a bright abstract blue and green glow. Exactly two children sit side by side on the sofa watching the screen, relaxed, a bowl of crackers between them: a small child about 9 years old with short straight black hair, a light blue T-shirt and navy shorts, and a child about 12 years old with a curly chin-length bob, a mustard-yellow T-shirt and grey shorts. No other people anywhere in the frame. Stylised 3D animated-feature render with soft clay-like materials, warm afternoon light, a tidy Singapore public-housing flat interior with a pale tiled floor and a ceiling fan. Seen from a security camera mounted high in a corner of the room, looking down at an angle, slight wide-angle lens distortion, gently desaturated colours, soft sensor grain. The people are small in the frame and fully clothed. No text, no letters, no numbers, no timestamp, no logos, no watermark.",
+    "refs": [],
+    "size": "1792x1024",
+    "created": "2026-10-28",
+    "sha256": "f1c5c97a1e50c7413642b787cf3df3847a4d25cbab563b0c40247cd464ec994e",
+    "cut_by": null,
+    "note": "Synthetic home-camera frame for the Home simulator and Guardian designs (GUARDIAN.md §2.3); fictional characters; label as synthetic."
+  },
+  {
+    "id": "sim-kitchen-snack",
+    "path": "public/art/sim/kitchen-snack.webp",
+    "variants": [
+      "public/art/sim/kitchen-snack-640.webp"
+    ],
+    "pack": null,
+    "kind": "sim-frame",
+    "model": "muse-image-1.0",
+    "route": "api",
+    "prompt": "A small galley kitchen with white cabinets, a two-burner stove that is switched off, and a small round table by the wall. Exactly one person: a small child about 9 years old with short straight black hair, a light blue T-shirt and navy shorts, sitting at the table eating a bowl of noodles with a spoon, a glass of water beside the bowl. No other people anywhere in the frame. Stylised 3D animated-feature render with soft clay-like materials, warm afternoon light, a tidy Singapore public-housing flat interior with a pale tiled floor and a ceiling fan. Seen from a security camera mounted high in a corner of the room, looking down at an angle, slight wide-angle lens distortion, gently desaturated colours, soft sensor grain. The people are small in the frame and fully clothed. No text, no letters, no numbers, no timestamp, no logos, no watermark.",
+    "refs": [],
+    "size": "1792x1024",
+    "created": "2026-10-28",
+    "sha256": "4102988140cf928ada9d489e95b258e1c9bf06b988618a60bcd1bd644b520300",
+    "cut_by": null,
+    "note": "Synthetic home-camera frame for the Home simulator and Guardian designs (GUARDIAN.md §2.3); fictional characters; label as synthetic."
+  },
+  {
+    "id": "sim-study-homework",
+    "path": "public/art/sim/study-homework.webp",
+    "variants": [
+      "public/art/sim/study-homework-640.webp"
+    ],
+    "pack": null,
+    "kind": "sim-frame",
+    "model": "muse-image-1.0",
+    "route": "api",
+    "prompt": "A small study room with a desk against the wall, a desk lamp switched on and a bookshelf; there is no bed. Exactly one person: a teenager about 14 years old with a long black ponytail and round glasses, a grey hoodie, sitting at the desk writing in an exercise book, a school bag on the floor. No other people anywhere in the frame. Stylised 3D animated-feature render with soft clay-like materials, warm afternoon light, a tidy Singapore public-housing flat interior with a pale tiled floor and a ceiling fan. Seen from a security camera mounted high in a corner of the room, looking down at an angle, slight wide-angle lens distortion, gently desaturated colours, soft sensor grain. The people are small in the frame and fully clothed. No text, no letters, no numbers, no timestamp, no logos, no watermark.",
+    "refs": [],
+    "size": "1792x1024",
+    "created": "2026-10-28",
+    "sha256": "a1ec9a8995ef066540d0204ba96bfed49732ffd378bf969cebafa6001e408d6e",
+    "cut_by": null,
+    "note": "Synthetic home-camera frame for the Home simulator and Guardian designs (GUARDIAN.md §2.3); fictional characters; label as synthetic."
+  },
+  {
+    "id": "sim-living-argument",
+    "path": "public/art/sim/living-argument.webp",
+    "variants": [
+      "public/art/sim/living-argument-640.webp"
+    ],
+    "pack": null,
+    "kind": "sim-frame",
+    "model": "muse-image-1.0",
+    "route": "api",
+    "prompt": "A living room with a grey sofa and a TV cabinet. Exactly two children stand in the middle of the room, both frowning and upset, each pulling one end of a TV remote control in a tug of war: a child about 12 years old with a curly chin-length bob, a mustard-yellow T-shirt and grey shorts, and a small child about 9 years old with short straight black hair, a light blue T-shirt and navy shorts. A sofa cushion has fallen on the floor. No other people anywhere in the frame. Stylised 3D animated-feature render with soft clay-like materials, warm afternoon light, a tidy Singapore public-housing flat interior with a pale tiled floor and a ceiling fan. Seen from a security camera mounted high in a corner of the room, looking down at an angle, slight wide-angle lens distortion, gently desaturated colours, soft sensor grain. The people are small in the frame and fully clothed. No text, no letters, no numbers, no timestamp, no logos, no watermark.",
+    "refs": [],
+    "size": "1792x1024",
+    "created": "2026-10-28",
+    "sha256": "30e4afa92445b726f6a4cc4ef4c91708c3a1879ddaae78982730733b820f8a5d",
+    "cut_by": null,
+    "note": "Synthetic home-camera frame for the Home simulator and Guardian designs (GUARDIAN.md §2.3); fictional characters; label as synthetic."
+  },
+  {
+    "id": "sim-living-window",
+    "path": "public/art/sim/living-window.webp",
+    "variants": [
+      "public/art/sim/living-window-640.webp"
+    ],
+    "pack": null,
+    "kind": "sim-frame",
+    "model": "muse-image-1.0",
+    "route": "api",
+    "prompt": "A living room with a large window whose glass pane is swung wide open, no window grille, white curtains blowing inward, tall apartment blocks in the distance. A wooden dining chair has been pushed against the low window ledge, and a small toy rests on the outer ledge. Exactly one person: a small child about 9 years old with short straight black hair, a light blue T-shirt and navy shorts, walking toward the chair and looking at the toy. No other people anywhere in the frame. Stylised 3D animated-feature render with soft clay-like materials, warm afternoon light, a tidy Singapore public-housing flat interior with a pale tiled floor and a ceiling fan. Seen from a security camera mounted high in a corner of the room, looking down at an angle, slight wide-angle lens distortion, gently desaturated colours, soft sensor grain. The people are small in the frame and fully clothed. No text, no letters, no numbers, no timestamp, no logos, no watermark.",
+    "refs": [],
+    "size": "1792x1024",
+    "created": "2026-10-28",
+    "sha256": "8115c0c21e14e26fe871cc712aeee0b6f17b77dfb2f0a9e273779b61d49f68db",
+    "cut_by": null,
+    "note": "Synthetic home-camera frame for the Home simulator and Guardian designs (GUARDIAN.md §2.3); fictional characters; label as synthetic."
+  },
+  {
+    "id": "sim-entrance-arrive",
+    "path": "public/art/sim/entrance-arrive.webp",
+    "variants": [
+      "public/art/sim/entrance-arrive-640.webp"
+    ],
+    "pack": null,
+    "kind": "sim-frame",
+    "model": "muse-image-1.0",
+    "route": "api",
+    "prompt": "The entrance of the flat seen from inside: the front door is open with a metal gate, a low shoe rack beside it. Exactly one person: a small child about 9 years old with short straight black hair, a light blue T-shirt and navy shorts, who has just come home wearing a small school backpack, bending down to take off their shoes. No other people anywhere in the frame. Stylised 3D animated-feature render with soft clay-like materials, warm afternoon light, a tidy Singapore public-housing flat interior with a pale tiled floor and a ceiling fan. Seen from a security camera mounted high in a corner of the room, looking down at an angle, slight wide-angle lens distortion, gently desaturated colours, soft sensor grain. The people are small in the frame and fully clothed. No text, no letters, no numbers, no timestamp, no logos, no watermark.",
+    "refs": [],
+    "size": "1792x1024",
+    "created": "2026-10-28",
+    "sha256": "737630f7631f157c80c0f6cf8989ab204b85a1d70dc4a8fdd1063f2c590d31ad",
+    "cut_by": null,
+    "note": "Synthetic home-camera frame for the Home simulator and Guardian designs (GUARDIAN.md §2.3); fictional characters; label as synthetic."
+  },
+  {
+    "id": "sim-kitchen-empty",
+    "path": "public/art/sim/kitchen-empty.webp",
+    "variants": [
+      "public/art/sim/kitchen-empty-640.webp"
+    ],
+    "pack": null,
+    "kind": "sim-frame",
+    "model": "muse-image-1.0",
+    "route": "api",
+    "prompt": "A small galley kitchen with white cabinets, a two-burner stove that is switched off, a small round table by the wall with two stools pushed in. The room is completely empty: no people, no animals. Late afternoon light through a small window. Stylised 3D animated-feature render with soft clay-like materials, warm afternoon light, a tidy Singapore public-housing flat interior with a pale tiled floor and a ceiling fan. Seen from a security camera mounted high in a corner of the room, looking down at an angle, slight wide-angle lens distortion, gently desaturated colours, soft sensor grain. The people are small in the frame and fully clothed. No text, no letters, no numbers, no timestamp, no logos, no watermark.",
+    "refs": [],
+    "size": "1792x1024",
+    "created": "2026-10-28",
+    "sha256": "2e20745a12688b0d0ab16a93631c946b1a118fd761fd5880c45706911352abea",
+    "cut_by": null,
+    "note": "Synthetic home-camera frame for the Home simulator and Guardian designs (GUARDIAN.md §2.3); fictional characters; label as synthetic."
   }
 ]

@@ -1,5 +1,5 @@
 {
-  "_note": "Canvas (myKx Screens) upload id → repo art path without extension (pass to <Art base=…>). Derived from each board's alt text and usage on 27 Oct; ids marked * are inferred from which board uses them as a background.",
+  "_note": "Canvas (myKx Screens) upload id \u2192 repo art path without extension (pass to <Art base=\u2026>). Derived from each board's alt text and usage on 27 Oct; ids marked * are inferred from which board uses them as a background.",
   "1be0285c83fc5de9a8d666fbb5e6c403": "/art/kix/dreamlight",
   "02b5a70e7404562cef8d3aaba98b9e32": "/art/kix/anime-sky",
   "37653891e49ec872cab5610d9f2e71d3": "/art/kix/toon-pop",
@@ -156,5 +156,13 @@
   "af7ce077175f07c17a70dbf2043d6bff": "/art/critters/mosquito-life-cycle",
   "3943cfec295b47abc84f8fae9e1e56ca": "/art/critters/cockroach-life-cycle",
   "d27314a533388662769e6ff158ddbcd4": "/art/critters/chicken-life-cycle",
-  "3522891d46300853f228f344da5edc92": "/art/critters/bean-plant-life-cycle"
+  "3522891d46300853f228f344da5edc92": "/art/critters/bean-plant-life-cycle",
+  "1e30452e53d14ac7c45b667c0e631984": "/art/sim/living-reading",
+  "ba679826e0d97bc5fad524b9399f2372": "/art/sim/living-tv",
+  "33b500330eadc430628ce3ff0116144f": "/art/sim/kitchen-snack",
+  "0d6e5204ed2763cff4f8a2aa6807029c": "/art/sim/study-homework",
+  "d87ba190c3e873f5519ab688c80acf33": "/art/sim/living-argument",
+  "45de2e9922ee7c35f6da121f055cc7f4": "/art/sim/living-window",
+  "4ac7cd844d252b0d6b104423614f6cce": "/art/sim/entrance-arrive",
+  "c0f522b2d5481fa60060cf1be2edcee1": "/art/sim/kitchen-empty"
 }

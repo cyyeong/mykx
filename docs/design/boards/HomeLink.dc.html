@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>myKx Home Link</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+.hl-click{cursor:pointer}
+.hl-click:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+.hl-root{display:grid;grid-template-columns:240px minmax(0,1fr) 360px;grid-template-rows:minmax(0,1fr) auto;grid-template-areas:"rail wall side" "rail log side"}
+.hl-rail{grid-area:rail}.hl-wall{grid-area:wall}.hl-side{grid-area:side}.hl-log{grid-area:log}
+.hl-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.hl-slot{position:relative;aspect-ratio:16/10;border-radius:12px;overflow:hidden}
+.hl-slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hl-tag{position:absolute;left:6px;top:6px;padding:2px 6px;border-radius:4px;background:#0E1230B3;color:#fff;font:600 10.5px/14px var(--font-text);font-variant-numeric:tabular-nums}
+.hl-field{display:flex;flex-direction:column;gap:6px}
+.hl-input{min-height:40px;padding:0 12px;border:0;border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--border-control);font:500 14px var(--font-text)}
+@media (max-width: 1100px){
+  .hl-root{grid-template-columns:200px minmax(0,1fr);grid-template-areas:"rail wall" "rail side" "rail log"}
+  .hl-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width: 700px){
+  .hl-root{grid-template-columns:minmax(0,1fr);grid-template-areas:"rail" "wall" "side" "log"}
+  .hl-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+</style>
+</helmet>
+<div class="hl-root" data-theme="anime-sky" data-band="teen" style="width: 100%; min-height: 100vh; box-sizing: border-box; background: var(--surface); color: var(--ink); font-family: var(--font-text)">
+
+  <aside class="hl-rail" style="display: flex; flex-direction: column; gap: 18px; padding: 22px 18px; background: var(--surface-raised); box-shadow: 1px 0 0 var(--line)">
+    <div>
+      <img src="/_blob/f52e18857979369421011da66fdb9de3" alt="myKx" style="height: 22px; width: auto">
+      <p style="margin: 4px 0 0; font-family: var(--font-display); font-size: 20px; line-height: 26px; font-weight: 800">Home Link</p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 4px; padding: 12px; border-radius: var(--radius-sm); background: var(--surface)">
+      <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; line-height: 18px; font-weight: 800; color: var(--success)"><span style="width: 8px; height: 8px; border-radius: 50%; background: var(--success)"></span>Paired with your family</span>
+      <span style="font-size: 13px; line-height: 18px; color: var(--ink-muted)">This computer is “Study laptop”. Sending to mykx.vercel.app.</span>
+    </div>
+    <nav aria-label="Home Link" style="display: flex; flex-direction: column; gap: 4px">
+      <a href="#" aria-current="page" style="padding: 10px 12px; border-radius: var(--radius-sm); background: var(--surface); color: var(--ink); font-weight: 700; text-decoration: none">Cameras</a>
+      <a href="#" style="padding: 10px 12px; border-radius: var(--radius-sm); color: var(--ink-muted); font-weight: 600; text-decoration: none">Activity</a>
+      <a href="#" style="padding: 10px 12px; border-radius: var(--radius-sm); color: var(--ink-muted); font-weight: 600; text-decoration: none">Schedule and pairing</a>
+    </nav>
+    <p style="margin: auto 0 0; font-size: 12px; line-height: 17px; color: var(--ink-muted)">Camera passwords stay on this computer. Home Link only sends pictures out; myKx never connects into your home.</p>
+  </aside>
+
+  <main class="hl-wall" style="display: flex; flex-direction: column; gap: 16px; padding: 24px; min-width: 0">
+    <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap">
+      <div>
+        <h1 style="margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 28px; line-height: 34px">Cameras <span style="font-weight: 600; color: var(--ink-muted)">{{count}} of 10</span></h1>
+        <p style="margin: 4px 0 0; font-size: 14px; line-height: 20px; color: var(--ink-muted)">On weekdays 14:00–19:00. A picture goes to myKx only when the room changes, plus one every 10 minutes.</p>
+      </div>
+      <div style="display: flex; gap: 8px">
+        <button class="mk-btn mk-btn--primary hl-click" type="button" onClick="{{openFind}}">Find cameras on this network</button>
+        <button class="mk-btn mk-btn--secondary hl-click" type="button" onClick="{{addByAddress}}">Add by address</button>
+      </div>
+    </div>
+    <div class="hl-grid" role="list">
+      <sc-for list="{{slots}}" as="c" hint-placeholder-count="10">
+        <button class="hl-slot hl-click" role="listitem" type="button" onClick="{{c.pick}}" aria-pressed="{{c.pressed}}" aria-label="{{c.aria}}" style="{{c.style}}">
+          <sc-if value="{{c.src}}" hint-placeholder-val="{{true}}"><img src="{{c.src}}" alt=""><span class="hl-tag">{{c.tag}}</span></sc-if>
+          <span style="{{c.labelStyle}}">{{c.label}}<span style="{{c.subStyle}}">{{c.sub}}</span></span>
+        </button>
+      </sc-for>
+    </div>
+    <sc-if value="{{find.open}}" hint-placeholder-val="{{false}}">
+      <section aria-label="Found on this network" style="display: flex; flex-direction: column; gap: 8px; padding: 16px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: var(--shadow-raised)">
+        <h2 style="margin: 0; font-size: 17px; line-height: 22px; font-weight: 800">Found 3 cameras on this network</h2>
+        <sc-for list="{{find.items}}" as="f" hint-placeholder-count="3">
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; padding: 4px 12px; border-radius: var(--radius-sm); background: var(--surface)">
+            <span><span style="display: block; font-size: 15px; line-height: 20px; font-weight: 700">{{f.name}}</span><span style="display: block; font-size: 13px; line-height: 18px; color: var(--ink-muted)">{{f.sub}}</span></span>
+            <button class="mk-btn mk-btn--secondary" type="button" style="min-height: 40px">{{f.action}}</button>
+          </div>
+        </sc-for>
+      </section>
+    </sc-if>
+  </main>
+
+  <aside class="hl-side" aria-label="{{sel.room}} camera" style="display: flex; flex-direction: column; gap: 14px; padding: 22px 20px; background: var(--surface-raised); box-shadow: -1px 0 0 var(--line); overflow: auto">
+    <h2 style="margin: 0; font-size: 20px; line-height: 26px; font-weight: 800">{{sel.room}} camera</h2>
+    <figure class="hl-slot" style="margin: 0; background: #0E1230"><img src="{{sel.src}}" alt="{{sel.alt}}"><span class="hl-tag">Test picture · {{sel.tag}}</span></figure>
+    <div class="hl-field"><span style="font-size: 13px; font-weight: 700">Source</span><span style="font-size: 14px; line-height: 20px">{{sel.source}}</span></div>
+    <label class="hl-field"><span style="font-size: 13px; font-weight: 700">Stream address</span><input class="hl-input" value="{{sel.url}}" readonly></label>
+    <label class="hl-field"><span style="font-size: 13px; font-weight: 700">Room</span><select class="hl-input"><option>{{sel.room}}</option><option>Kitchen</option><option>Study</option><option>Entrance</option><option>Dining area</option></select></label>
+    <div class="hl-field">
+      <span style="font-size: 13px; font-weight: 700">Check every</span>
+      <div role="radiogroup" aria-label="Check every" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; padding: 4px; border-radius: var(--radius-sm); background: var(--surface)">
+        <sc-for list="{{intervals}}" as="i" hint-placeholder-count="4"><button class="hl-click" type="button" role="radio" aria-checked="{{i.on}}" onClick="{{i.pick}}" style="{{i.style}}">{{i.label}}</button></sc-for>
+      </div>
+    </div>
+    <label style="display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; align-items: start; padding: 12px; border-radius: var(--radius-sm); background: var(--surface); font-size: 14px; line-height: 20px">
+      <input type="checkbox" checked style="width: 20px; height: 20px; margin: 0; accent-color: var(--accent)">
+      <span><b>This camera doesn’t see a bathroom or any bedroom, or anywhere someone changes.</b> Everyone at home knows it’s here.</span>
+    </label>
+    <div style="display: flex; gap: 8px; margin-top: auto">
+      <button class="mk-btn mk-btn--primary" type="button" style="flex: 1">Save</button>
+      <button class="mk-btn mk-btn--secondary" type="button" style="flex: 1">Take a test picture</button>
+    </div>
+  </aside>
+
+  <section class="hl-log" aria-label="Activity" style="padding: 0 24px 20px">
+    <div style="padding: 12px 14px; border-radius: var(--radius-md); background: #1B2350; color: #E9EDFB; font-size: 13px; line-height: 21px; font-variant-numeric: tabular-nums">
+      <sc-for list="{{log}}" as="l" hint-placeholder-count="4"><div><span style="color: #9FB0E8">{{l.at}}</span>  {{l.text}}</div></sc-for>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  state = { sel: 0, find: true, every: '60 s' };
+  renderVals() {
+    const CAMS = [
+      { room: 'Living room', src: '/_blob/d87ba190c3e873f5519ab688c80acf33', tag: '17:08:31', sub: 'Sent 17:08:31 · changed', ok: true, source: 'Found on this network (ONVIF) · “IPC-2K” at 192.168.1.23', url: 'rtsp://••••@192.168.1.23:554/stream1' },
+      { room: 'Kitchen', src: '/_blob/c0f522b2d5481fa60060cf1be2edcee1', tag: '17:08:02', sub: 'No change · last sent 16:02', ok: true, source: 'Added by address (RTSP)', url: 'rtsp://••••@192.168.1.31:554/h264' },
+      { room: 'Study', src: '/_blob/0d6e5204ed2763cff4f8a2aa6807029c', tag: '17:07:55', sub: 'No change · last sent 16:58', ok: true, source: 'Found on this network (ONVIF snapshot)', url: 'http://192.168.1.40/onvif/snapshot.jpg' },
+      { room: 'Entrance', src: null, tag: '', sub: 'Can’t reach it since 16:56', ok: false, source: 'Added by address (RTSP)', url: 'rtsp://••••@192.168.1.52:554/live' },
+    ];
+    const sel = CAMS[this.state.sel] ?? CAMS[0];
+    const slots = Array.from({ length: 10 }, (_, i) => {
+      const c = CAMS[i];
+      if (!c) return { src: null, tag: '', label: 'Add camera', sub: '', aria: `Empty slot ${i + 1} of 10: add a camera`, pressed: 'false', pick: () => this.setState({ find: true }),
+        style: 'border: 0; padding: 0; background: transparent; box-shadow: inset 0 0 0 2px var(--line); background-image: repeating-linear-gradient(135deg, transparent 0 8px, rgba(31, 102, 193, 0.05) 8px 16px); font-family: var(--font-text); color: var(--ink-muted);',
+        labelStyle: 'position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700;', subStyle: 'display: none' };
+      const on = this.state.sel === i;
+      return { src: c.src, tag: c.tag, label: c.room, sub: c.sub, aria: `${c.room}: ${c.sub}`, pressed: on ? 'true' : 'false', pick: () => this.setState({ sel: i }),
+        style: 'border: 0; padding: 0; background: #0E1230; font-family: var(--font-text); text-align: left;' + (on ? ' box-shadow: 0 0 0 3px var(--surface), 0 0 0 6px var(--accent);' : ''),
+        labelStyle: 'position: absolute; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; padding: 18px 8px 6px; background: linear-gradient(transparent, #0E1230E6); color: #fff; font-size: 13px; line-height: 17px; font-weight: 700;',
+        subStyle: 'font-size: 11px; line-height: 15px; font-weight: 500;' + (c.ok ? ' color: #C9D3F5;' : ' color: #FFC9A3;') };
+    });
+    return {
+      count: CAMS.length, slots,
+      sel: { room: sel.room, src: sel.src ?? '/_blob/c0f522b2d5481fa60060cf1be2edcee1', alt: `Test picture from the ${sel.room} camera (synthetic)`, tag: sel.tag || 'last good 16:56', source: sel.source, url: sel.url },
+      intervals: ['10 s', '30 s', '60 s', '5 min'].map((label) => ({ label, on: this.state.every === label ? 'true' : 'false', pick: () => this.setState({ every: label }),
+        style: 'min-height: 36px; border: 0; border-radius: 8px; font: 700 13px var(--font-text);' + (this.state.every === label ? ' background: var(--surface-raised); color: var(--ink); box-shadow: var(--shadow-raised);' : ' background: transparent; color: var(--ink-muted);') })),
+      find: { open: this.state.find, items: [{ name: 'IPC-2K at 192.168.1.23', sub: 'Living room · already added', action: 'Added' }, { name: 'Camera at 192.168.1.40', sub: 'Study · already added', action: 'Added' }, { name: 'Camera at 192.168.1.61', sub: 'New · needs its user name and password', action: 'Add' }] },
+      openFind: () => this.setState({ find: !this.state.find }),
+      addByAddress: () => this.setState({ find: false }),
+      log: [['17:08:31', 'Living room changed a lot → sent a burst of 3 pictures (62 KB each). myKx: “possibly a tug-of-war” (watch).'], ['17:08:02', 'Kitchen, Study: no change → nothing sent.'], ['17:07:31', 'Living room changed → sent 1 picture. myKx: “Zara, Ari: watching TV”.'], ['16:56:10', 'Entrance: can’t reach the camera. Retrying every minute; your family sees “offline”.']].map(([at, text]) => ({ at, text })),
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Home now</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+.hn-click{cursor:pointer}
+.hn-click:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+.hn-main{display:flex;flex-direction:column;gap:16px;padding:16px 16px 24px}
+.hn-cols{display:flex;flex-direction:column;gap:16px}
+@media (min-width: 600px){
+  .hn-main{padding:24px}
+  .hn-cols{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:start;gap:20px}
+}
+@media (min-width: 1024px){ .hn-main{padding:32px max(32px, calc((100% - 1100px) / 2))} }
+.hn-sheet{position:fixed;z-index:11;left:0;right:0;bottom:0;max-height:88vh;overflow:auto;border-radius:24px 24px 0 0}
+@media (min-width: 600px){ .hn-sheet{left:50%;right:auto;bottom:auto;top:50%;transform:translate(-50%,-50%);width:min(560px, calc(100% - 48px));border-radius:24px} }
+.hn-frame{position:relative;border-radius:12px;overflow:hidden;background:#0E1230}
+.hn-frame img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+.hn-stamp{position:absolute;left:8px;top:8px;padding:2px 6px;border-radius:4px;background:#0E1230B3;color:#FFFFFF;font:600 11px/15px var(--font-text);font-variant-numeric:tabular-nums;letter-spacing:.02em}
+@media (prefers-reduced-motion: reduce){ .hn-root *{transition:none !important} }
+</style>
+</helmet>
+<div class="hn-root" data-theme="anime-sky" data-band="teen" style="width: 100%; min-height: 100vh; box-sizing: border-box; background: var(--surface); color: var(--ink); font-family: var(--font-text); padding-bottom: 72px">
+
+  <div class="hn-main">
+    <header style="display: flex; flex-direction: column; gap: 8px">
+      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px; flex-wrap: wrap">
+        <h1 style="margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 26px; line-height: 32px">Home now</h1>
+        <button class="mk-btn mk-btn--secondary hn-click" type="button" onClick="{{togglePause}}" aria-pressed="{{pause.pressed}}" style="min-height: 40px; padding: 0 14px; font-size: 14px">{{pause.label}}</button>
+      </div>
+      <p style="margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-muted)">{{status}}</p>
+    </header>
+
+    <sc-if value="{{alert.show}}" hint-placeholder-val="{{true}}">
+      <button class="hn-click" type="button" onClick="{{openAlert}}" style="{{alert.bannerStyle}}">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 1px"><path d="M12 3l9.5 17h-19zM12 10v4M12 17.5h.01"/></svg>
+        <span style="display: flex; flex-direction: column; gap: 2px; text-align: left; min-width: 0">
+          <span style="font-size: 13px; line-height: 18px; font-weight: 800">{{alert.level}} · {{alert.room}} · {{alert.at}}</span>
+          <span style="font-size: 15px; line-height: 21px; font-weight: 600">{{alert.title}}</span>
+          <span style="font-size: 13px; line-height: 18px; text-decoration: underline">{{alert.cta}}</span>
+        </span>
+      </button>
+    </sc-if>
+
+    <div class="hn-cols">
+      <section aria-label="The flat" style="display: flex; flex-direction: column; gap: 12px; padding: 14px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: var(--shadow-raised)">
+        <div style="position: relative; width: 100%; max-width: 560px; align-self: center">
+<svg viewBox="0 0 360 268" role="img" aria-label="{{planAria}}" style="display: block; width: 100%; height: auto">
+  <defs>
+    <pattern id="gdHatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="7" height="7" fill="#F6F8FF"/><line x1="0" y1="0" x2="0" y2="7" stroke="#DCE3F5" stroke-width="3"/></pattern>
+  </defs>
+  <g font-family="Outfit, system-ui, sans-serif">
+    <rect x="8" y="8" width="96" height="104" fill="url(#gdHatch)"/><rect x="104" y="8" width="88" height="104" fill="url(#gdHatch)"/><rect x="264" y="8" width="88" height="80" fill="url(#gdHatch)"/><rect x="192" y="8" width="72" height="46" fill="url(#gdHatch)"/>
+    <rect x="192" y="54" width="72" height="58" style="{{rStudy}}"/>
+    <rect x="8" y="112" width="200" height="148" style="{{rLiving}}"/>
+    <rect x="208" y="112" width="144" height="88" style="{{rKitchen}}"/>
+    <rect x="264" y="88" width="88" height="24" fill="url(#gdHatch)"/>
+    <rect x="208" y="200" width="144" height="60" style="{{rEntrance}}"/>
+    <g fill="none" stroke="#1B2350" stroke-width="3.5" stroke-linejoin="round">
+      <rect x="8" y="8" width="344" height="252" rx="2"/>
+      <path d="M104 8 V 112 M192 8 V 112 M264 8 V 112 M8 112 H 70 M98 112 H 160 M186 112 H 208 M208 112 V 150 M208 176 V 260 M208 200 H 300 M326 200 H 352 M264 88 H 352 M192 54 H 214 M240 54 H 264 M208 112 H 230 M256 112 H 352"/>
+    </g>
+    <path d="M232 260 A 26 26 0 0 1 258 234" fill="none" stroke="#1B2350" stroke-width="1.5" stroke-dasharray="3 3"/>
+    <g font-size="10.5" font-weight="600" fill="#4A5482" text-anchor="middle">
+      <text x="56" y="64">Bedroom</text><text x="56" y="77" font-size="9.5" font-weight="500">no camera</text>
+      <text x="148" y="64">Bedroom</text><text x="148" y="77" font-size="9.5" font-weight="500">no camera</text>
+      <text x="308" y="52">Bedroom</text><text x="308" y="65" font-size="9.5" font-weight="500">no camera</text>
+      <text x="228" y="30" font-size="9.5">Bath</text><text x="308" y="104" font-size="9.5">Bath</text>
+    </g>
+    <g font-size="12" font-weight="700" fill="#1B2350">
+      <text x="200" y="72">Study</text><text x="18" y="132">Living room</text><text x="218" y="132">Kitchen</text><text x="218" y="220">Entrance</text>
+    </g>
+    <g fill="#1B2350"><circle cx="252" cy="62" r="3.5"/><circle cx="198" cy="252" r="3.5"/><circle cx="344" cy="120" r="3.5"/><circle cx="344" cy="252" r="3.5"/></g>
+    <g fill="#1B2350" fill-opacity="0.08"><path d="M252 62 L 220 100 L 246 104 Z"/><path d="M198 252 L 120 170 L 150 160 Z"/><path d="M344 120 L 300 176 L 326 182 Z"/><path d="M344 252 L 290 214 L 300 238 Z"/></g>
+  </g>
+</svg>
+
+          <sc-for list="{{pins}}" as="p" hint-placeholder-count="3">
+            <span style="{{p.style}}"><img src="{{p.kix}}" alt="" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%"><span style="{{p.tagStyle}}">{{p.name}}</span></span>
+          </sc-for>
+        </div>
+        <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px">
+          <sc-for list="{{rooms}}" as="r" hint-placeholder-count="4">
+            <li>
+              <button class="hn-click" type="button" onClick="{{r.pick}}" aria-pressed="{{r.pressed}}" style="{{r.style}}">
+                <span style="display: flex; flex-direction: column; gap: 2px; min-width: 0; text-align: left">
+                  <span style="font-size: 15px; line-height: 20px; font-weight: 700">{{r.name}} <span style="font-weight: 500; color: var(--ink-muted)">· {{r.who}}</span></span>
+                  <span style="font-size: 14px; line-height: 19px">{{r.doing}}</span>
+                </span>
+                <span style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex: none">
+                  <sc-if value="{{r.cue}}" hint-placeholder-val="{{true}}"><span style="{{r.cueStyle}}">{{r.cue}}</span></sc-if>
+                  <span style="font-size: 12px; line-height: 16px; color: var(--ink-muted); font-variant-numeric: tabular-nums">{{r.ago}}</span>
+                </span>
+              </button>
+            </li>
+          </sc-for>
+        </ul>
+      </section>
+
+      <section aria-label="Today at home" style="display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: var(--shadow-raised)">
+        <h2 style="margin: 0; font-size: 17px; line-height: 22px; font-weight: 800">Today at home</h2>
+        <ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px">
+          <sc-for list="{{timeline}}" as="t" hint-placeholder-count="5">
+            <li style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 10px">
+              <span style="font-size: 13px; line-height: 20px; font-weight: 600; color: var(--ink-muted); font-variant-numeric: tabular-nums">{{t.at}}</span>
+              <span style="font-size: 15px; line-height: 20px">{{t.what}}</span>
+            </li>
+          </sc-for>
+        </ol>
+        <p style="margin: 4px 0 0; font-size: 12px; line-height: 17px; color: var(--ink-muted)">Muse Spark reads one picture from each camera when something changes, then the picture is gone. You see words, not video. Cameras check every 60 s and can miss things. Kix never sees any of this.</p>
+      </section>
+    </div>
+  </div>
+
+  <sc-if value="{{sheet.open}}" hint-placeholder-val="{{false}}">
+    <div aria-hidden="true" onClick="{{closeAlert}}" style="position: fixed; inset: 0; z-index: 10; background: var(--scrim)"></div>
+    <section class="hn-sheet" role="dialog" aria-modal="true" aria-label="{{alert.title}}" style="display: flex; flex-direction: column; gap: 14px; padding: 18px 16px 22px; box-sizing: border-box; background: var(--surface-raised); box-shadow: 0 -12px 32px rgba(27, 35, 80, 0.25)">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px">
+        <div>
+          <p style="margin: 0; font-size: 13px; line-height: 18px; font-weight: 800; color: var(--warn)">{{alert.level}} · {{alert.room}} · {{alert.at}}</p>
+          <h2 style="margin: 2px 0 0; font-size: 20px; line-height: 26px; font-weight: 800">{{alert.title}}</h2>
+        </div>
+        <button class="hn-click" type="button" onClick="{{closeAlert}}" aria-label="Close" style="flex: none; width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--surface); color: var(--ink); font-size: 22px; line-height: 1">×</button>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+        <sc-for list="{{alert.frames}}" as="f" hint-placeholder-count="2">
+          <figure class="hn-frame" style="margin: 0"><img src="{{f.src}}" alt="{{f.alt}}"><span class="hn-stamp">{{f.stamp}}</span></figure>
+        </sc-for>
+      </div>
+      <p style="margin: 0; font-size: 15px; line-height: 22px">{{alert.reason}}</p>
+      <p style="margin: 0; font-size: 13px; line-height: 18px; color: var(--ink-muted)">{{alert.why}}</p>
+      <sc-if value="{{alert.urgent}}" hint-placeholder-val="{{false}}">
+        <p style="margin: 0; padding: 10px 12px; border-radius: var(--radius-sm); background: var(--surface); font-size: 14px; line-height: 20px; font-weight: 600">If someone is hurt, call 995 for an ambulance. For the police, call 999.</p>
+      </sc-if>
+      <div>
+        <p style="margin: 0 0 8px; font-size: 14px; line-height: 20px; font-weight: 700">Was Muse right?</p>
+        <div role="group" aria-label="Was Muse right?" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px">
+          <button class="mk-btn mk-btn--secondary hn-click" type="button" onClick="{{markRight}}" aria-pressed="{{verdict.right}}" style="{{verdict.rightStyle}}">Right</button>
+          <button class="mk-btn mk-btn--secondary hn-click" type="button" onClick="{{markWrong}}" aria-pressed="{{verdict.wrong}}" style="{{verdict.wrongStyle}}">Not right</button>
+        </div>
+        <sc-if value="{{verdict.note}}" hint-placeholder-val="{{false}}"><p style="margin: 8px 0 0; font-size: 14px; line-height: 20px">{{verdict.note}}</p></sc-if>
+      </div>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap">
+        <button class="mk-btn mk-btn--primary" type="button" style="flex: 1">Call home</button>
+        <button class="mk-btn mk-btn--secondary" type="button" style="flex: 1">Message them</button>
+      </div>
+      <p style="margin: 0; font-size: 12px; line-height: 17px; color: var(--ink-muted)">{{alert.keep}} Synthetic frames from the Home simulator.</p>
+    </section>
+  </sc-if>
+
+  <nav aria-label="Grown-ups" style="position: fixed; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: repeat(5, 1fr); padding: 6px 4px calc(6px + env(safe-area-inset-bottom)); background: var(--surface-raised); box-shadow: 0 -1px 0 var(--line)">
+    <sc-for list="{{tabs}}" as="t" hint-placeholder-count="5">
+      <a href="#" aria-current="{{t.current}}" style="{{t.style}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{t.icon}}"/></svg>{{t.label}}</a>
+    </sc-for>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"alert":{"editor":"select","options":["watch","urgent","none"],"default":"watch"},"sheetOpen":{"editor":"boolean","default":false},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  state = { room: 'Living room', sheet: null, verdict: null, paused: false };
+  renderVals() {
+    const kind = this.props.alert ?? 'watch';
+    const sheetOpen = this.state.sheet ?? Boolean(this.props.sheetOpen ?? false);
+    const ALERTS = {
+      watch: { level: 'Watch', room: 'Living room', at: '17:08', title: 'Possibly a tug-of-war over the TV remote', cta: 'See what Muse saw',
+        frames: [{ src: '/_blob/ba679826e0d97bc5fad524b9399f2372', alt: 'Synthetic frame: two children on the sofa watching TV', stamp: 'LIVING ROOM 17:06:12' }, { src: '/_blob/d87ba190c3e873f5519ab688c80acf33', alt: 'Synthetic frame: two children pulling one TV remote, both frowning', stamp: 'LIVING ROOM 17:08:31' }],
+        reason: 'Two children are pulling on one TV remote and both look upset. A cushion is on the floor. No one looks hurt. Medium confidence.',
+        why: 'A watch note: seen in 2 of the last 3 checks. Play-fighting can look like this.', keep: 'These two frames are deleted at 17:08 tomorrow.', urgent: false },
+      urgent: { level: 'Urgent', room: 'Living room', at: '16:52', title: 'Possibly a child near an open window with a chair at the ledge', cta: 'See what Muse saw',
+        frames: [{ src: '/_blob/1e30452e53d14ac7c45b667c0e631984', alt: 'Synthetic frame: a child reading on the sofa', stamp: 'LIVING ROOM 16:49:05' }, { src: '/_blob/45de2e9922ee7c35f6da121f055cc7f4', alt: 'Synthetic frame: a child walking toward a chair pushed against a wide-open window', stamp: 'LIVING ROOM 16:52:18' }],
+        reason: 'A child is walking toward a chair pushed against a wide-open window with no grille. A toy is on the outer ledge. High confidence.',
+        why: 'Urgent: a window or ledge hazard needs only one check. We also showed it on your lock screen.', keep: 'These two frames are deleted at 16:52 tomorrow.', urgent: true },
+    };
+    const a = ALERTS[kind];
+    const ROOMS = [
+      { name: 'Living room', who: 'Zara, Ari', doing: kind === 'urgent' ? 'Ari: walking to the window' : 'Pulling at the TV remote, raised voices', cue: kind === 'urgent' ? null : 'Frowning', warn: kind !== 'none', ago: '20 s ago', fill: '#FBE9DD' },
+      { name: 'Study', who: 'Mei (likely)', doing: 'Homework at the desk', cue: 'Calm', ago: '40 s ago', fill: '#E6EEFC' },
+      { name: 'Kitchen', who: 'nobody', doing: 'Stove off', cue: null, ago: '1 min ago', fill: '#FFFFFF' },
+      { name: 'Entrance', who: 'nobody', doing: 'Door closed', cue: null, ago: '3 min ago', fill: '#FFFFFF' },
+    ];
+    if (kind === 'none') { ROOMS[0].doing = 'Watching TV on the sofa'; ROOMS[0].cue = 'Calm'; ROOMS[0].fill = '#E6EEFC'; }
+    const sel = this.state.room;
+    const fillOf = (n) => { const r = ROOMS.find((x) => x.name === n); return `fill: ${r.fill}; stroke: ${n === sel ? '#1F66C1' : 'none'}; stroke-width: 4;`; };
+    const v = this.state.verdict;
+    const pressedStyle = (on) => 'min-height: 48px;' + (on ? ' background: var(--ink); color: var(--surface-raised);' : '');
+    const KIX = { Ari: '/_blob/e100a223af29f3653ca9b4ed32a70d4c', Zara: '/_blob/89c33c13cd369e58aad9fee004a30b65', Mei: '/_blob/02b5a70e7404562cef8d3aaba98b9e32' };
+    const pins = kind === 'urgent'
+      ? [{ name: 'Ari', colour: '#2C7A47', x: 150, y: 172 }, { name: 'Mei', colour: '#1F66C1', x: 228, y: 90 }]
+      : [{ name: 'Zara', colour: '#FF3DCB', x: 96, y: 196 }, { name: 'Ari', colour: '#2C7A47', x: 140, y: 214 }, { name: 'Mei', colour: '#1F66C1', x: 228, y: 90 }];
+    const ICONS = { Today: 'M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0M12 7v5l3 2', Where: 'M12 21s-7-6.2-7-11.5a7 7 0 1 1 14 0C19 14.8 12 21 12 21zM12 7.5a2.5 2.5 0 1 0 0 5a2.5 2.5 0 0 0 0-5', Home: 'M3 11l9-7 9 7M5 10v10h14V10M10 20v-6h4v6', Messages: 'M4 5h16v11H8l-4 4z', Family: 'M9 11a3 3 0 1 0 0-6a3 3 0 0 0 0 6M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M17 11a2.5 2.5 0 1 0 0-5M21 19c0-2.6-1.7-4.6-4-5.2' };
+    return {
+      status: this.state.paused ? 'Paused until 18:10. No pictures are read while paused.' : '4 cameras · checks every 60 s · last check 17:08:40 · on until 19:00',
+      pause: { pressed: this.state.paused ? 'true' : 'false', label: this.state.paused ? 'Resume' : 'Pause 1 hour' },
+      togglePause: () => this.setState({ paused: !this.state.paused }),
+      planAria: `Floor plan. ${ROOMS.map((r) => `${r.name}: ${r.who}`).join('. ')}. Bedrooms and bathrooms have no camera.`,
+      rLiving: fillOf('Living room'), rStudy: fillOf('Study'), rKitchen: fillOf('Kitchen'), rEntrance: fillOf('Entrance'),
+      pins: pins.map((p) => ({ name: p.name, kix: KIX[p.name],
+        style: `position: absolute; left: ${(p.x / 360 * 100).toFixed(2)}%; top: ${(p.y / 268 * 100).toFixed(2)}%; width: 32px; height: 32px; transform: translate(-50%, -50%); border-radius: 50%; background: #FFFFFF; box-shadow: 0 0 0 3px ${p.colour}, 0 4px 10px rgba(27, 35, 80, 0.25);`,
+        tagStyle: `position: absolute; left: 50%; top: calc(100% + 5px); transform: translateX(-50%); padding: 0 6px; border-radius: 999px; background: ${p.colour}; color: ${p.name === "Zara" ? "#1B2350" : "#FFFFFF"}; font-size: 11px; line-height: 16px; font-weight: 800; white-space: nowrap;` })),
+      rooms: ROOMS.map((r) => ({ ...r, pressed: r.name === sel ? 'true' : 'false', pick: () => this.setState({ room: r.name }),
+        style: 'display: flex; width: 100%; justify-content: space-between; align-items: flex-start; gap: 10px; padding: 10px 12px; border: 0; border-radius: var(--radius-sm); font-family: var(--font-text); color: var(--ink); text-align: left;'
+          + (r.name === sel ? ' background: var(--surface); box-shadow: inset 0 0 0 2px var(--accent);' : ' background: var(--surface);'),
+        cueStyle: 'padding: 2px 8px; border-radius: var(--radius-pill); font-size: 12px; line-height: 16px; font-weight: 700;' + (r.cue === 'Frowning' ? ' background: #FBE9DD; color: #7A3A10;' : ' background: #E2F1E8; color: #1A5C3A;') })),
+      timeline: [['15:41', 'Ari came home (Entrance)'], ['15:45–16:02', 'Ari ate noodles in the Kitchen'], ['16:05–17:05', 'Ari and Zara watched TV · 1 h'], ['16:30 –', 'Mei doing homework in the Study'], [kind === 'urgent' ? '16:52' : '17:08', kind === 'urgent' ? 'Urgent note: open window' : 'Watch note: tug-of-war']].map(([at, what]) => ({ at, what })),
+      alert: { ...a, show: kind !== 'none',
+        bannerStyle: 'display: flex; gap: 12px; align-items: flex-start; width: 100%; padding: 12px 14px; border: 0; border-radius: var(--radius-md); font-family: var(--font-text);'
+          + (a && a.urgent ? ' background: var(--warn); color: var(--on-warn);' : ' background: #FBE9DD; color: #5C2A0A; box-shadow: inset 0 0 0 2px var(--warn);') },
+      sheet: { open: kind !== 'none' && sheetOpen },
+      openAlert: () => this.setState({ sheet: true }),
+      closeAlert: () => this.setState({ sheet: false }),
+      markRight: () => this.setState({ verdict: v === 'right' ? null : 'right' }),
+      markWrong: () => this.setState({ verdict: v === 'wrong' ? null : 'wrong' }),
+      verdict: { right: v === 'right' ? 'true' : 'false', wrong: v === 'wrong' ? 'true' : 'false', rightStyle: pressedStyle(v === 'right'), wrongStyle: pressedStyle(v === 'wrong'),
+        note: v === 'wrong' ? 'Thanks. This camera now needs 3 of 3 checks before a tug-of-war note, for two weeks.' : v === 'right' ? 'Thanks. Nothing changes; the note stays in today’s list.' : null },
+      tabs: ['Today', 'Where', 'Home', 'Messages', 'Family'].map((label) => ({ label, icon: ICONS[label], current: label === 'Home' ? 'page' : 'false',
+        style: 'display: flex; flex-direction: column; align-items: center; gap: 2px; min-height: 48px; justify-content: center; border-radius: var(--radius-sm); text-decoration: none; font-size: 12px; line-height: 16px; font-weight: 700;'
+          + (label === 'Home' ? ' color: var(--accent);' : ' color: var(--ink-muted);') })),
+    };
+  }
+}
+</script>
+</body>
+</html>

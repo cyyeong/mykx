@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Location and home cameras</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+.gs-click{cursor:pointer}
+.gs-click:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+.gs-main{display:flex;flex-direction:column;gap:16px;padding:16px 16px 32px;max-width:720px;margin:0 auto}
+.gs-card{display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:var(--radius-md);background:var(--surface-raised);box-shadow:var(--shadow-raised)}
+.gs-row{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px}
+.gs-seg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding:4px;border-radius:var(--radius-sm);background:var(--surface)}
+@media (min-width: 600px){ .gs-main{padding:24px} }
+</style>
+</helmet>
+<div data-theme="anime-sky" data-band="teen" style="width: 100%; min-height: 100vh; box-sizing: border-box; background: var(--surface); color: var(--ink); font-family: var(--font-text)">
+  <div class="gs-main">
+    <header>
+      <a href="#" style="font-size: 14px; line-height: 20px; font-weight: 700; color: var(--accent); text-decoration: none">‹ Your family</a>
+      <h1 style="margin: 6px 0 0; font-family: var(--font-display); font-weight: 800; font-size: 26px; line-height: 32px">Location and home cameras</h1>
+      <p style="margin: 4px 0 0; font-size: 14px; line-height: 20px; color: var(--ink-muted)">Only grown-ups in your family can change these. Kids always see when sharing or cameras are on.</p>
+    </header>
+
+    <section class="gs-card" aria-label="Where they are">
+      <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 800">Where they are</h2>
+      <div role="group" aria-label="Child" style="display: flex; gap: 6px">
+        <sc-for list="{{kids}}" as="k" hint-placeholder-count="3">
+          <button class="gs-click" type="button" onClick="{{k.pick}}" aria-pressed="{{k.pressed}}" style="{{k.style}}">{{k.name}}</button>
+        </sc-for>
+      </div>
+      <div class="gs-row">
+        <span><span style="display: block; font-size: 15px; line-height: 20px; font-weight: 700">Share {{kid}}’s location</span><span style="display: block; font-size: 13px; line-height: 18px; color: var(--ink-muted)">From {{kid}}’s phone, while myKx is open</span></span>
+        <button class="gs-click" type="button" role="switch" aria-checked="{{share.on}}" aria-label="Share {{kid}}'s location" onClick="{{toggleShare}}" style="border: 0; background: none; padding: 0"><span style="{{share.track}}"><span style="{{share.knob}}"></span></span></button>
+      </div>
+      <div>
+        <p style="margin: 0 0 6px; font-size: 14px; line-height: 20px; font-weight: 700">How often</p>
+        <div class="gs-seg" role="radiogroup" aria-label="How often">
+          <sc-for list="{{modes}}" as="m" hint-placeholder-count="4">
+            <button class="gs-click" type="button" role="radio" aria-checked="{{m.on}}" onClick="{{m.pick}}" style="{{m.style}}">{{m.label}}</button>
+          </sc-for>
+        </div>
+        <p style="margin: 6px 0 0; font-size: 13px; line-height: 18px; color: var(--ink-muted)">{{modeNote}}</p>
+      </div>
+      <sc-if value="{{isTeen}}" hint-placeholder-val="{{true}}">
+        <div class="gs-row"><span style="font-size: 14px; line-height: 20px">{{kid}} can pause for 30 minutes. You’re told straight away.</span><span style="font-size: 13px; font-weight: 700; color: var(--success)">On for teens</span></div>
+      </sc-if>
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <p style="margin: 0; font-size: 14px; line-height: 20px; font-weight: 700">Places</p>
+        <sc-for list="{{places}}" as="p" hint-placeholder-count="2">
+          <div class="gs-row" style="padding: 8px 12px; border-radius: var(--radius-sm); background: var(--surface)">
+            <span><span style="display: block; font-size: 15px; line-height: 20px; font-weight: 700">{{p.name}}</span><span style="display: block; font-size: 13px; line-height: 18px; color: var(--ink-muted)">{{p.note}}</span></span>
+            <a href="#" style="font-size: 14px; font-weight: 700; color: var(--accent); text-decoration: none">Edit</a>
+          </div>
+        </sc-for>
+        <button class="mk-btn mk-btn--secondary" type="button">Add a place</button>
+      </div>
+      <p style="margin: 0; font-size: 12px; line-height: 17px; color: var(--ink-muted)">Places are your own pins, so no map service sees where {{kid}} is. Points are kept 30 days.</p>
+    </section>
+
+    <section class="gs-card" aria-label="Home cameras">
+      <div class="gs-row">
+        <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 800">Home cameras</h2>
+        <button class="gs-click" type="button" role="switch" aria-checked="{{cams.on}}" aria-label="Home cameras" onClick="{{toggleCams}}" style="border: 0; background: none; padding: 0"><span style="{{cams.track}}"><span style="{{cams.knob}}"></span></span></button>
+      </div>
+      <div class="gs-row" style="padding: 8px 12px; border-radius: var(--radius-sm); background: var(--surface)"><span><span style="display: block; font-size: 15px; line-height: 20px; font-weight: 700">When</span><span style="display: block; font-size: 13px; line-height: 18px; color: var(--ink-muted)">Weekdays 14:00–19:00 · weekends off</span></span><a href="#" style="font-size: 14px; font-weight: 700; color: var(--accent); text-decoration: none">Change</a></div>
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <p style="margin: 0; font-size: 14px; line-height: 20px; font-weight: 700">Cameras from Home Link on “Study laptop”</p>
+        <sc-for list="{{cameras}}" as="c" hint-placeholder-count="4">
+          <div class="gs-row" style="min-height: 40px; padding: 4px 12px; border-radius: var(--radius-sm); background: var(--surface)">
+            <span style="font-size: 15px; line-height: 20px; font-weight: 600">{{c.room}} <span style="font-weight: 500; color: var(--ink-muted)">· {{c.how}}</span></span>
+            <span style="{{c.dotStyle}}">{{c.state}}</span>
+          </div>
+        </sc-for>
+        <p style="margin: 0; font-size: 13px; line-height: 18px; color: var(--ink-muted)">Up to 10 cameras. Add or rename them on the computer running Home Link.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px; padding: 12px; border-radius: var(--radius-sm); box-shadow: inset 0 0 0 1.5px var(--line)">
+        <p style="margin: 0; font-size: 15px; line-height: 20px; font-weight: 700">Pair a computer</p>
+        <sc-if value="{{code.show}}" hint-placeholder-val="{{true}}">
+          <p style="margin: 0; font-family: var(--font-display); font-size: 30px; line-height: 36px; font-weight: 800; letter-spacing: .08em; font-variant-numeric: tabular-nums">K7Q4-MZ2P</p>
+          <p style="margin: 0; font-size: 13px; line-height: 18px; color: var(--ink-muted)">Open myKx Home Link on the computer and type this code. It works once and runs out in 14:52.</p>
+        </sc-if>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap">
+          <button class="mk-btn mk-btn--primary gs-click" type="button" onClick="{{showCode}}">{{code.label}}</button>
+          <a class="mk-btn mk-btn--secondary" href="#" style="text-decoration: none">Get Home Link for Mac or Windows</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="gs-card" aria-label="How Muse tells your kids apart">
+      <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 800">How Muse tells your kids apart</h2>
+      <p style="margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-muted)">A few words each, in your own words. There’s no face matching. Grown-ups, helpers and visitors are never named.</p>
+      <sc-for list="{{descriptions}}" as="d" hint-placeholder-count="3">
+        <label style="display: flex; flex-direction: column; gap: 4px">
+          <span style="font-size: 14px; line-height: 20px; font-weight: 700">{{d.name}}</span>
+          <input type="text" value="{{d.text}}" maxlength="120" style="min-height: 44px; padding: 0 12px; border: 0; border-radius: var(--radius-sm); background: var(--surface); color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--border-control); font: 500 15px var(--font-text)">
+        </label>
+      </sc-for>
+    </section>
+
+    <section class="gs-card" aria-label="Our promises">
+      <h2 style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 800">Our promises</h2>
+      <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px">
+        <sc-for list="{{promises}}" as="p" hint-placeholder-count="6">
+          <li style="display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; font-size: 14px; line-height: 20px">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+            <span>{{p}}</span>
+          </li>
+        </sc-for>
+      </ul>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  state = { kid: 'Ari', share: { Ari: true, Zara: true, Mei: true }, mode: { Ari: 'Balanced', Zara: 'School hours', Mei: 'Balanced' }, cams: true, code: false };
+  renderVals() {
+    const id = this.state.kid;
+    const NOTES = { Live: 'Every 30 s while moving, every 5 min while still. Uses the most battery.', Balanced: 'Every 2 min while moving, every 15 min while still.', Saver: 'Every 10 min while moving, every 30 min while still.', 'School hours': 'Balanced on weekdays from the end of school to 19:00, off at other times.' };
+    const toggle = (on) => ({ on: on ? 'true' : 'false',
+      track: 'position: relative; display: block; width: 52px; height: 30px; border-radius: 999px;' + (on ? ' background: var(--accent);' : ' background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--border-control);'),
+      knob: 'position: absolute; top: 4px; left: 4px; width: 22px; height: 22px; border-radius: 50%; transition: transform var(--duration-snappy) var(--ease-soft);' + (on ? ' transform: translateX(22px); background: var(--on-accent);' : ' background: var(--border-control);') });
+    const dot = (ok) => 'display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700;' + (ok ? ' color: var(--success);' : ' color: var(--warn);');
+    return {
+      kid: id, isTeen: id === 'Mei',
+      kids: ['Ari', 'Zara', 'Mei'].map((name) => ({ name, pressed: name === id ? 'true' : 'false', pick: () => this.setState({ kid: name }),
+        style: 'min-height: 44px; padding: 0 16px; border: 0; border-radius: var(--radius-pill); font: 700 14px var(--font-text);' + (name === id ? ' background: var(--ink); color: var(--surface-raised);' : ' background: var(--surface); color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line);') })),
+      share: toggle(this.state.share[id]),
+      toggleShare: () => this.setState({ share: { ...this.state.share, [id]: !this.state.share[id] } }),
+      modes: ['Live', 'Balanced', 'Saver', 'School hours'].map((label) => ({ label, on: this.state.mode[id] === label ? 'true' : 'false', pick: () => this.setState({ mode: { ...this.state.mode, [id]: label } }),
+        style: 'min-height: 40px; padding: 0 4px; border: 0; border-radius: 8px; font: 700 13px/1.1 var(--font-text);' + (this.state.mode[id] === label ? ' background: var(--surface-raised); color: var(--ink); box-shadow: var(--shadow-raised);' : ' background: transparent; color: var(--ink-muted);') })),
+      modeNote: NOTES[this.state.mode[id]],
+      places: [{ name: 'Home', note: 'Within 150 m · tells you when they arrive and leave' }, { name: 'School', note: 'Within 200 m · “not home by 16:30 on school days” is on' }],
+      cams: toggle(this.state.cams), toggleCams: () => this.setState({ cams: !this.state.cams }),
+      cameras: [['Living room', 'found on the network', true], ['Kitchen', 'by address', true], ['Study', 'found on the network', true], ['Entrance', 'by address', false]].map(([room, how, ok]) => ({ room, how, state: ok ? 'Online' : 'Offline 12 min', dotStyle: dot(ok) })),
+      code: { show: this.state.code, label: this.state.code ? 'Make a new code' : 'Show a pairing code' },
+      showCode: () => this.setState({ code: true }),
+      descriptions: [['Ari', 'Youngest, about 9, short black hair, often a light blue T-shirt'], ['Zara', 'About 12, curly short hair, often a yellow T-shirt'], ['Mei', 'About 14, long ponytail and round glasses']].map(([name, text]) => ({ name, text })),
+      promises: ['No camera sees a bathroom or any bedroom: Home Link asks you to confirm for each camera.', 'Tell everyone at home where the cameras are, including your helper.', 'Muse Spark reads a picture and then it’s gone. Pictures behind a note are kept 24 hours, for you to check.', 'Room notes are kept 14 days and places 30 days. Delete any of it at any time.', 'Kix never sees any of this, and it never changes stars, mastery or rewards.', 'Every note says “possibly” and waits for you to check it.'],
+    };
+  }
+}
+</script>
+</body>
+</html>

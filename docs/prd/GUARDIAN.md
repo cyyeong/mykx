@@ -1,17 +1,17 @@
 # myKx Guardian: location and home cameras (PRD 2)
 
-**Written:** Wed 28 Oct 2026, 17:45 SGT, from the founder's request the same afternoon. **Status:** proposed. §3 changes two hard rules in `AGENTS.md` and needs the founder's yes before anything is built. Schedule and cut lines: `docs/plan/IMPLEMENTATION_PLAN.md`, stream F.
+**Written:** Wed 28 Oct 2026, 17:45 SGT, from the founder's request the same afternoon. **Status:** approved by the founder, 28 Oct 18:00 (§3 as written; §8 answered). AGENTS.md rules 2 and 12 carry the exceptions and rule 15 is new. Schedule and cut lines: `docs/plan/IMPLEMENTATION_PLAN.md`, stream F.
 
 ## 0. Verdict
 
 **Doable before the freeze (Mon 2 Nov 22:00 SGT) as a thin, honest slice, if four things hold:**
 
 1. The founder approves the rule changes in §3 today.
-2. Location ships as **web location sharing** (any phone, while myKx is open) plus the **parent map**. The **Android background app** is a stretch on Sunday. **iOS background tracking is roadmap**: it needs full Xcode and Apple signing, and this Mac only has the command-line tools.
+2. Location ships as **web location sharing** (any phone, while myKx is open) plus the **parent map**. **Background tracking apps for Android and iOS are roadmap** (founder, 28 Oct: no Android phone this week; iOS needs full Xcode and Apple signing).
 3. The CCTV client ships as a **small Node program with a local settings page**, not a signed installer. Signed macOS and Windows builds are roadmap.
 4. The emulator is a **page that runs in a browser tab** (a second Vercel project). Vercel's free plan runs scheduled jobs at most once a day, so it can't drive a live feed.
 
-**Size:** about 24.5 agent hours for the must-haves, 28.5 with the Android stretch, and about 3 hours of the founder's time. The plan's Days 3–6 work is mostly done already (PROGRESS.md, 27–28 Oct), so stream F fits from Wed evening to Sun without touching hardening or video hours. It does add one 20-second beat to the video (§6), so another beat gets shorter.
+**Size:** about 24.5 agent hours and about 1.5 hours of the founder's time. The plan's Days 3–6 work is mostly done already (PROGRESS.md, 27–28 Oct), so stream F fits from Wed evening to Sun without touching hardening or video hours. It does add one 20-second beat to the video (§6), so another beat gets shorter.
 
 **Measured today** (Muse Spark 1.3, Standard, low reasoning effort, one frame of our own art with no people in it):
 
@@ -35,7 +35,7 @@ Many Singapore children go home on their own after school while both parents wor
 | Source | Works | Limits |
 |---|---|---|
 | **Kid's myKx on a phone browser** (must) | today, on any phone; `navigator.geolocation.watchPosition` + `DeviceMotionEvent` | **Foreground only**: the browser stops sending when the tab is hidden or the screen locks. The web has no background-location API, including installed PWAs. Labelled "Shared while myKx is open". |
-| **myKx for Android** (stretch) | the same site in a Capacitor shell (`server.url` = production) with `@capacitor-community/background-geolocation` (MIT) | Sideloaded APK only (no Play Store review in time). Android shows a permanent "myKx is sharing your location with your family" notification, which is good for honesty. Uploads go through CapacitorHttp, because WebView requests are throttled after about 5 minutes in the background. Needs Android Studio on this Mac (not installed) and an Android phone. |
+| **myKx for Android** (roadmap) | the same site in a Capacitor shell (`server.url` = production) with `@capacitor-community/background-geolocation` (MIT) | Sideloaded APK only (no Play Store review in time). Android shows a permanent "myKx is sharing your location with your family" notification, which is good for honesty. Uploads go through CapacitorHttp, because WebView requests are throttled after about 5 minutes in the background. Needs Android Studio on this Mac (not installed) and an Android phone. |
 | **myKx for iPhone** (roadmap) | same shell plus the iOS "location" background mode | Needs full Xcode and an Apple developer signing identity. |
 | **Home simulator** (must, §2.3) | a scripted afternoon route pushed through the same API | Synthetic, labelled. |
 
@@ -78,7 +78,7 @@ Android's Activity Recognition API and iOS Core Motion would be more accurate, b
 
 **Data.** A `locations` table holds household, kid, time, lat, lng, accuracy, speed, heading, motion, source (`web`/`android`/`sim`) and battery. Points are kept **30 days**, and the parent can choose 7. A `places` table holds the parent's pins, and `place_events` the arrived and left events. Row-level security works by household, like every other table. The kid's session writes for web; a device token writes for Android and the simulator.
 
-**The child knows.** A chip on Home and in the kid menu says "Sharing where you are with your grown-ups" with the mode. Teens can open "What my grown-ups see". The child can't switch it off; the parent can.
+**The child knows.** A chip on Home and in the kid menu says "Sharing where you are with your grown-ups" with the mode. Teens can open "What my grown-ups see", and **a teen can pause sharing for 30 minutes** at a time (founder, 28 Oct): the parent sees "Mei paused sharing until 16:40" at once, and the map shows the last point greyed. Juniors can't pause; the parent can switch it off for any child.
 
 No Meta model is used for location: none is needed. The evening summary can mention it in passing ("walked home in 25 minutes").
 
@@ -87,12 +87,12 @@ No Meta model is used for location: none is needed. The evening summary can ment
 **myKx Home Link, the desktop client** (`clients/home-link/`, Node 24, MIT)
 
 - Run it with `node home-link.ts`. It opens a settings page at `http://127.0.0.1:4747`, bound to this machine only.
-- **Pairing:** the parent creates a one-time Home Link code in Your family → Home cameras. The client exchanges it for a device token, which the server keeps hashed (scrypt, like kid codes). The parent can revoke it, and every push is audited and rate-limited.
+- **Pairing:** the parent creates a one-time Home Link code in Your family → Home cameras. The code works once and runs out after 15 minutes. The client exchanges it for a long random device token, which the server keeps only as a SHA-256 hash (a high-entropy token needs no slow hash). The parent can revoke it, and every push is audited and rate-limited.
 - **Up to 10 cameras.**
   - **ONVIF discovery** (`onvif` 0.8.3, MIT) finds cameras on the LAN and reads each profile's *snapshot URI* (a plain HTTP JPEG, no decoding needed) or *stream URI* (RTSP).
   - **RTSP** works by pasting a URL or by discovery. It grabs one frame with `ffmpeg -rtsp_transport tcp -i <url> -frames:v 1`. ffmpeg isn't bundled (it's GPL): the client checks for it and says how to install it (`brew install ffmpeg`, `winget install ffmpeg`). Snapshot-URI cameras don't need it.
-- **For each camera:** a room label (Living room, Kitchen, Study, Entrance…), on/off, a test snapshot, and a privacy confirmation: "This camera doesn't see a bathroom, or a room where someone sleeps or changes."
-- **Interval:** 10 s to 10 min, 60 s by default, plus the parent's schedule (for example weekdays 14:00–19:00) and "Pause for an hour".
+- **For each camera:** a room label (Living room, Kitchen, Study, Entrance…), on/off, a test snapshot, and a privacy confirmation: "This camera doesn't see a bathroom or any bedroom, or anywhere someone changes."
+- **Interval:** 10 s to 10 min, 60 s by default, plus the parent's schedule (for example weekdays 14:00–19:00) and "Pause for an hour". No camera may see a bathroom or **any bedroom** (founder, 28 Oct).
 - **Motion filter, on the machine:** the client shrinks each frame to 64×36 grey and compares it with the last one sent. It sends only if something changed, plus a heartbeat every 10 minutes. On a big change it sends a **burst** of 3 frames 1 s apart.
 - **Upload:** frames are resized to 640–960 px, JPEG quality 70 (about 40–90 KB). One POST per tick carries all changed cameras, staying under Vercel's 4.5 MB request limit.
 - **Camera passwords never leave this machine.** They sit in a config file readable only by the user (mode 600). The client only pushes; myKx never connects into the home network.
@@ -130,9 +130,29 @@ No Meta model is used for location: none is needed. The evening summary can ment
   - Cameras: living room (reading, then TV), kitchen (snack), study (homework), and a staged sibling argument that tips into a shove (a watch flag, then Right / Not right).
   - One hazard frame: a child climbing a chair by an open window (urgent).
 - **The frames:** about 30 **pre-generated** frames from Muse Image. They show fictional characters in a stylised 3D look with a high, wide-angle camera viewpoint; the timestamp is drawn by code, never by the model. They live in `sim/frames/` with manifest entries (rule 6) and are labelled "Synthetic camera frames" (rule 8). If Muse Image refuses a frame (the argument and the hazard), we use a softer version, and the gap is noted.
+- **Send now (founder, 28 Oct):** besides the scripted afternoon, the simulator has on-demand controls, for a take or to test one thing.
+  - **A location:** pick a kid and a spot (School, Playground, Walking home, Bus, Home), each with its motion state and accuracy, then press **Send location**.
+  - **Camera frames:** tick any of the synthetic frames, set each one's room (living room, kitchen, study, entrance), choose a single picture or a burst of 3, then press **Send frames**.
+  - What myKx answered (status, timing and Muse's reading) lists every send, newest first.
 - **Real path:** it signs in with a normal Home Link device token and posts to the **real ingest API**. myKx can't tell it from a real client, so the analysis, flags and map run live. If a live Muse call fails during a take, the page shows the last cached status, labelled (rule 7).
 
-## 3. Rule changes (need the founder's yes)
+## 2.4 Designs (canvas row 11, 28 Oct)
+
+All in the [myKx Screens canvas](https://claude.ai/artifact/8crEyKVQm9QxCHLDqPXioP), with copies in `docs/design/boards/`:
+
+| Board | What it shows |
+|---|---|
+| `GuardianMap` | the parent's map: each kid's chip, the route with places, the Kix-ringed live dot, and an afternoon timeline ("possibly playing" at the playground, "expected home by 16:30"). Phone, foldable, tablet and desktop on the Devices page. |
+| `HomeNow` | the floor plan of the flat, with rooms lit where the kids are (bedrooms and bathrooms hatched "no camera"), each room's status, and today at home. The alert sheet shows the synthetic frames, Muse's reason, Right / Not right, Call home, and 995/999 when urgent. Props switch between watch, urgent and none. All four device sizes. |
+| `GuardianSettings` | location per kid (mode, places, the teen pause), Home cameras (schedule, cameras from Home Link, the pairing code), how Muse tells the kids apart, and the promises. |
+| `KidSharing` | the kid's "What my grown-ups see": teen (Mei, with Pause for 30 minutes) or junior (Ari) via a prop, plus the Home chips. |
+| `HomeLink` | the desktop client: pairing status, the ten-slot camera wall, ONVIF discovery, the camera's settings (source, address, room, interval, privacy check, test picture) and the activity log. |
+| `MobileApp` | the roadmap app on a kid's phone: Kix explains, the phone's permission question, and sharing with its notice. |
+| `HomeSim` | the simulator: scripted afternoon, **Send now** (location and frames), and what myKx answered. |
+
+The eight synthetic frames are in `public/art/sim/` (Muse Image, in the manifest). Two first prompts, a shove and a child kneeling at an open window, were refused by Muse Image's content filter, as expected. Their softer versions (a tug-of-war over the remote, and a chair by an open window with the child walking toward it) were generated and are still honest tests of "possibly".
+
+## 3. Rule changes (approved by the founder, 28 Oct)
 
 | Rule | Today | Proposed |
 |---|---|---|
@@ -165,7 +185,19 @@ No Meta model is used for location: none is needed. The evening summary can ment
 
 Guardian is a reassurance tool, not a guarantee, and the settings page says so in plain words.
 
-## 5. Build list (stream F)
+## 5. Milestones and build list (stream F)
+
+| Milestone | When | What | Exit |
+|---|---|---|---|
+| **M0 Design** | Wed 28 Oct, done | the seven boards above, the Devices wrappers, eight synthetic frames | the founder reviews the boards; the video beat is storyboarded from them |
+| **M1 Data and ingest** | Wed evening | F1 | locations, places and home status go in and come out per household; the cross-household test passes |
+| **M2 Muse reads the home** | Thu | F4, F7 (scripted afternoon and Send now) | the simulator in production produces room statuses and one watch flag through the real API |
+| **M3 Parent screens** | Fri | F5, F3, settings | Home now, the map and the settings work from the simulator's data at phone and desktop sizes |
+| **M4 Kid side and Home Link** | Sat | F2, F6 | a kid's phone shares while myKx is open (the walk test); Home Link pairs and sends from a test RTSP or snapshot camera |
+| **M5 Polish and the beat** | Sun | the device pass on Guardian screens, the video take | a clean take of the 20 s beat; then the plan's freeze on Mon 22:00 |
+| **M6 Mobile app** | after submission | F8: the Android app (Capacitor shell, background location, native upload), then iPhone; signed Home Link installers for Mac and Windows | roadmap slide in the video |
+
+
 
 | # | Task | Hours | Need |
 |---|---|---|---|
@@ -175,17 +207,16 @@ Guardian is a reassurance tool, not a guarantee, and the settings page says so i
 | F4 | Home analysis: Muse Spark schema and prompt, flag rules (tested), flagged frames to a private bucket with 24 h expiry, `model_runs` logging, cached fallback | 3.5 | must |
 | F5 | Home now page: room tiles, timeline, alert cards with Right / Not right, settings (schedule, pause, descriptions, Home Link code) | 4 | must |
 | F6 | Home Link client: Node CLI and local settings page, ONVIF discovery, snapshot and RTSP grab, motion filter and burst, pairing, config file | 5 | must |
-| F7 | Home simulator: second Vercel project, scripted route and afternoon, ~30 synthetic frames (Muse Image, in the manifest) | 3.5 | must |
-| F8 | myKx for Android: Capacitor shell, background geolocation, native HTTP upload, the mode from the parent's settings | 4 | stretch |
-| F9 | Canvas boards for the map and Home now (phone + desktop) | 2 | if time |
+| F7 | Home simulator: second Vercel project, scripted route and afternoon, **Send now** for a location and selected frames, the answers list; synthetic frames (8 made in M0; more only if the beat needs them) | 4 | must |
+| F8 | myKx for Android: Capacitor shell, background geolocation, native HTTP upload, the mode from the parent's settings | 4 | roadmap (founder, 28 Oct) |
+| F9 | Canvas boards for every Guardian screen, Home Link, the mobile app and the simulator | 2 | done (M0) |
 
-**Must: 24.5 h. With stretch: 28.5 h.** The founder's time is about 3 h:
+**Must: 25 h** (F9 done). The founder's time is about 1.5 h:
 
 - yes or no on §3 (15 min);
 - the alert and chip wording (30 min);
 - walking a block with the phone to test location (30 min);
-- optionally, one real camera at home (30 min; real frames reach Muse Standard and are never used in the video);
-- for the Android stretch, installing Android Studio and running the APK on a phone (1.5 h).
+- optionally, one real camera at home (30 min; real frames reach Muse Standard and are never used in the video).
 
 ## 6. The demo beat (20 s, replaces part of 2:00–2:22)
 
@@ -200,7 +231,7 @@ The messages beat gets shorter to pay for it (§5 of the plan).
 
 ## 7. Out of scope (roadmap slide)
 
-- iOS background app.
+- Android and iOS background apps (the Capacitor shell in F8 is designed; no phone to test on this week).
 - Signed and notarised desktop installers.
 - Play Store and App Store listings.
 - Push notifications (in-app and polling only).
@@ -211,12 +242,12 @@ The messages beat gets shorter to pay for it (§5 of the plan).
 - Fall detection from phone sensors.
 - Supabase Realtime in place of polling.
 
-## 8. Questions for the founder
+## 8. Founder decisions (28 Oct, 18:00)
 
-1. Approve the rule changes in §3, as written or with edits?
-2. Should the child be able to pause location (teens only, for 30 minutes, with the parent told), or never?
-3. Should kids' rooms be allowed as camera rooms if no one else sleeps there, or keep every bedroom out?
-4. Is a real Android phone available on Sunday for the stretch?
+1. Rule changes in §3: **approved as written**, including "likely Ari" from the parent's descriptions.
+2. Pausing location: **teens may pause for 30 minutes**, and the parent is told at once; juniors can't.
+3. Bedrooms: **no camera in any bedroom**, and none in bathrooms.
+4. Android: **no phone this week**, so the background app is roadmap.
 
 ## Sources
 

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>myKx mobile app</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+.ma-row{display:flex;justify-content:center;align-items:flex-start;gap:40px;flex-wrap:wrap}
+.ma-phone{position:relative;width:260px;height:520px;flex:none;border-radius:44px;padding:10px;box-sizing:border-box;background:#0B0A1E;box-shadow:0 24px 60px rgba(0,0,0,.45), inset 0 0 0 2px #2C2A52}
+.ma-screen{position:relative;width:100%;height:100%;border-radius:34px;overflow:hidden;display:flex;flex-direction:column;box-sizing:border-box}
+.ma-notch{position:absolute;top:8px;left:50%;width:84px;height:22px;transform:translateX(-50%);border-radius:12px;background:#0B0A1E;z-index:3}
+.ma-cap{margin:12px 0 0;max-width:260px;font-size:14px;line-height:20px;color:#E4E0FF}
+.ma-cap b{display:block;font-family:var(--font-display);font-size:17px;line-height:22px;color:#FFFFFF}
+@media (max-width: 700px){ .ma-row{gap:24px} }
+</style>
+</helmet>
+<div data-theme="dreamlight" data-band="teen" style="width: 100%; min-height: 100vh; box-sizing: border-box; padding: 28px 32px 24px; display: flex; flex-direction: column; gap: 20px; background: radial-gradient(90% 70% at 50% 0%, #3B3A7A 0%, #2B2A5C 45%, #1C1B42 100%); color: var(--ink); font-family: var(--font-text)">
+  <header style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap">
+    <div>
+      <h1 style="margin: 0; font-family: var(--font-display); font-size: 34px; line-height: 40px; font-weight: 700; color: #FFFFFF">myKx on a kid’s phone</h1>
+      <p style="margin: 6px 0 0; max-width: 720px; font-size: 15px; line-height: 22px; color: #D9D4FF">The same myKx website in a thin app with one background-location plugin, so sharing keeps going when the screen is off. Android first, then iPhone. Until then, kids share from the website while it’s open; the parent’s map works the same.</p>
+    </div>
+    <span style="padding: 8px 14px; border-radius: var(--radius-pill); background: #FFE38A; color: #2B2A5C; font-size: 14px; line-height: 18px; font-weight: 800">Designed now · built after the hackathon</span>
+  </header>
+
+  <div class="ma-row">
+    <div>
+      <div class="ma-phone"><div class="ma-screen" data-theme="anime-sky" style="background: linear-gradient(#F6F8FF, #E4ECFF); color: var(--ink); padding: 46px 18px 18px; gap: 12px">
+        <div class="ma-notch"></div>
+        <img src="/_blob/02b5a70e7404562cef8d3aaba98b9e32" alt="Kix" style="width: 104px; height: 104px; object-fit: cover; border-radius: 50%; align-self: center; box-shadow: 0 0 0 4px #FFFFFF, 0 0 0 7px var(--accent)">
+        <h2 style="margin: 0; font-family: var(--font-display); font-size: 22px; line-height: 28px; font-weight: 800; text-align: center">Let Mum and Dad know you’re safe?</h2>
+        <ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 6px; font-size: 14px; line-height: 20px">
+          <li>They see a dot on a map, and whether you’re walking, running or still.</li>
+          <li>Your phone shows a notice the whole time it’s on.</li>
+          <li>Kix never sees where you are.</li>
+        </ul>
+        <button class="mk-btn mk-btn--primary" type="button" style="margin-top: auto">Next</button>
+      </div></div>
+      <p class="ma-cap"><b>1 · Kix explains</b>A grown-up pairs it with a code. Plain words before the phone asks.</p>
+    </div>
+
+    <div>
+      <div class="ma-phone"><div class="ma-screen" style="background: #E8ECF6; padding: 54px 16px 22px; justify-content: flex-end; color: #1F2433">
+        <div class="ma-notch"></div>
+        <div style="position: absolute; inset: 0; background: linear-gradient(#F6F8FF, #E4ECFF); filter: blur(1px); opacity: .7"></div>
+        <div style="position: absolute; inset: 0; background: rgba(15, 18, 40, .45)"></div>
+        <div role="dialog" aria-label="Location permission" style="position: relative; display: flex; flex-direction: column; gap: 6px; padding: 20px 16px 12px; border-radius: 26px; background: #FAFBFF; text-align: center; font-family: system-ui, sans-serif">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#3A57C9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="align-self: center"><path d="M12 21s-7-6.2-7-11.5a7 7 0 1 1 14 0C19 14.8 12 21 12 21zM12 7.5a2.5 2.5 0 1 0 0 5a2.5 2.5 0 0 0 0-5"/></svg>
+          <p style="margin: 0; font-size: 16px; line-height: 22px; font-weight: 600">Allow myKx to use this phone’s location?</p>
+          <p style="margin: 0 0 6px; font-size: 13px; line-height: 18px; color: #4B5268">myKx shares where you are with your family, even when the app is closed.</p>
+          <span style="padding: 11px; border-radius: 18px; background: #DCE4FF; font-size: 14px; font-weight: 700; color: #1E3A9E">Allow all the time</span>
+          <span style="padding: 11px; font-size: 14px; font-weight: 600; color: #1E3A9E">Only while using the app</span>
+          <span style="padding: 11px; font-size: 14px; font-weight: 600; color: #1E3A9E">Don’t allow</span>
+        </div>
+      </div></div>
+      <p class="ma-cap"><b>2 · The phone asks</b>“All the time” works with the screen off; “while using” works like the website.</p>
+    </div>
+
+    <div>
+      <div class="ma-phone"><div class="ma-screen" data-theme="anime-sky" style="background: var(--surface); color: var(--ink); padding: 40px 14px 18px; gap: 12px">
+        <div class="ma-notch"></div>
+        <div style="display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border-radius: 18px; background: #1B2350; color: #FFFFFF; font-family: system-ui, sans-serif; margin-top: 6px">
+          <img src="/_blob/02b5a70e7404562cef8d3aaba98b9e32" alt="" style="width: 22px; height: 22px; border-radius: 6px; object-fit: cover; flex: none; background: #F6F8FF">
+          <span style="display: flex; flex-direction: column; gap: 1px"><span style="font-size: 12px; line-height: 16px; font-weight: 700">myKx · now</span><span style="font-size: 13px; line-height: 18px">Sharing your location with your family</span><span style="font-size: 12px; line-height: 16px; color: #B9C3EA">Balanced · set by Mum</span></span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: 20px; background: var(--surface-raised); box-shadow: var(--shadow-raised)">
+          <span style="display: inline-flex; align-items: center; gap: 8px; font-size: 17px; line-height: 22px; font-weight: 800"><span style="width: 12px; height: 12px; border-radius: 50%; background: var(--success); box-shadow: 0 0 0 4px rgba(35, 119, 77, .18)"></span>Sharing is on</span>
+          <dl style="margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; font-size: 14px; line-height: 20px">
+            <dt style="color: var(--ink-muted)">How often</dt><dd style="margin: 0; font-weight: 600">Every 2 min while moving</dd>
+            <dt style="color: var(--ink-muted)">Last sent</dt><dd style="margin: 0; font-weight: 600">16:08 · walking</dd>
+            <dt style="color: var(--ink-muted)">Battery</dt><dd style="margin: 0; font-weight: 600">64% · about 2% an hour</dd>
+          </dl>
+        </div>
+        <button class="mk-btn mk-btn--secondary" type="button">Pause for 30 minutes</button>
+        <p style="margin: 0; font-size: 12px; line-height: 17px; color: var(--ink-muted)">Teens can pause; Mum and Dad are told. The rest of myKx works as usual in this app.</p>
+      </div></div>
+      <p class="ma-cap"><b>3 · Sharing, with a notice</b>The notice stays while it’s on; uploads keep going in the background.</p>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

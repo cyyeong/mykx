@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>What my grown-ups see</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+.ks-click{cursor:pointer}
+.ks-click:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+.ks-main{display:flex;flex-direction:column;gap:14px;padding:18px 16px 32px;max-width:640px;margin:0 auto;box-sizing:border-box}
+.ks-card{display:flex;flex-direction:column;gap:10px;padding:16px;border-radius:var(--radius-lg);background:var(--surface-glass);backdrop-filter:blur(10px);box-shadow:var(--shadow-raised)}
+[data-band="junior"] .ks-card{padding:20px}
+</style>
+</helmet>
+<div data-theme="{{theme}}" data-band="{{band}}" style="{{rootStyle}}">
+  <div class="ks-main">
+    <header style="display: flex; align-items: center; gap: 12px">
+      <img src="{{kix}}" alt="" style="width: 64px; height: 64px; object-fit: cover; border-radius: 50%; flex: none; box-shadow: 0 0 0 3px var(--surface-raised), 0 0 0 6px var(--accent)">
+      <div>
+        <h1 style="{{h1Style}}">{{title}}</h1>
+        <p style="{{ledeStyle}}">{{lede}}</p>
+      </div>
+    </header>
+
+    <section class="ks-card" aria-label="Where I am">
+      <div style="display: flex; align-items: center; gap: 10px">
+        <span aria-hidden="true" style="{{shareDot}}"></span>
+        <h2 style="{{h2Style}}">{{share.title}}</h2>
+      </div>
+      <p style="{{bodyStyle}}">{{share.body}}</p>
+      <sc-if value="{{teen}}" hint-placeholder-val="{{true}}">
+        <button class="mk-btn mk-btn--secondary ks-click" type="button" onClick="{{togglePause}}" style="align-self: flex-start">{{share.button}}</button>
+        <p style="margin: 0; font-size: 13px; line-height: 18px; color: var(--ink-muted)">{{share.small}}</p>
+      </sc-if>
+    </section>
+
+    <section class="ks-card" aria-label="Home cameras">
+      <div style="display: flex; align-items: center; gap: 10px">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7M5 10v10h14V10"/><path d="M10 15.5a2 2 0 1 0 4 0a2 2 0 0 0-4 0"/></svg>
+        <h2 style="{{h2Style}}">{{cams.title}}</h2>
+      </div>
+      <p style="{{bodyStyle}}">{{cams.body}}</p>
+    </section>
+
+    <section class="ks-card" aria-label="Never">
+      <h2 style="{{h2Style}}">{{never.title}}</h2>
+      <ul style="{{listStyle}}">
+        <sc-for list="{{never.items}}" as="n" hint-placeholder-count="3"><li>{{n}}</li></sc-for>
+      </ul>
+    </section>
+
+    <section aria-label="On Home" style="display: flex; flex-direction: column; gap: 8px; padding-top: 4px">
+      <p style="margin: 0; font-size: 13px; line-height: 18px; font-weight: 700; color: var(--ink-muted)">On Home and in the menu, these chips show while it’s on:</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px">
+        <span style="{{chipStyle}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 1 1 14 0C19 14.8 12 21 12 21z"/></svg>{{chips.share}}</span>
+        <span style="{{chipStyle}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7M5 10v10h14V10"/></svg>{{chips.cams}}</span>
+      </div>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"kid":{"editor":"select","options":["Mei","Ari"],"default":"Mei"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  state = { paused: false };
+  renderVals() {
+    const teen = (this.props.kid ?? 'Mei') === 'Mei';
+    const p = this.state.paused;
+    const T = teen ? {
+      theme: 'anime-sky', band: 'teen', kix: '/_blob/02b5a70e7404562cef8d3aaba98b9e32', title: 'What my grown-ups see', lede: 'Mum and Dad set these up. You can always check them here.', h1: '26px', h2: '18px', body: '15px', small: '14px',
+      share: p ? { title: 'Paused until 16:40', body: 'Mum and Dad can see that you paused, and your last spot from 16:10. Sharing starts again by itself.', button: 'Share again now', small: 'You can pause again after it starts.' }
+        : { title: 'Sharing where I am', body: 'Mum and Dad see a dot on a map and whether you’re walking, running or still, every 2 minutes while you move. Only while myKx is open on this phone.', button: 'Pause for 30 minutes', small: 'They’re told straight away when you pause.' },
+      cams: { title: 'Home cameras are on until 19:00', body: 'On weekdays, the cameras at home send a short note for each room to Mum and Dad, like “Study: homework, calm”. A picture is read by Muse Spark and then it’s gone, unless something looks unsafe; then they can see it for a day.' },
+      never: { title: 'Never', items: ['No camera in your bedroom or the bathroom.', 'No live video and no recording.', 'Kix never sees where you are or the cameras, and it never changes your stars.'] },
+      chips: { share: 'Sharing where you are', cams: 'Home cameras on' },
+    } : {
+      theme: 'terrarium', band: 'junior', kix: '/_blob/e100a223af29f3653ca9b4ed32a70d4c', title: 'Your grown-ups can see', lede: 'So they know you’re safe.', h1: '34px', h2: '22px', body: '19px', small: '17px',
+      share: { title: 'Where you are', body: 'Mum and Dad see a little dot on a map when myKx is open on your phone.' },
+      cams: { title: 'Home cameras', body: 'After school, the cameras tell Mum and Dad which room you’re in and what you’re doing, like “reading”. No pictures of your bedroom or the bathroom.' },
+      never: { title: 'Kix never sees it', items: ['Kix doesn’t know where you are.', 'It never changes your stars.'] },
+      chips: { share: 'Sharing where you are', cams: 'Home cameras on' },
+    };
+    return {
+      ...T, teen,
+      rootStyle: 'width: 100%; min-height: 100vh; box-sizing: border-box; color: var(--ink); font-family: var(--font-text); background: radial-gradient(120% 70% at 50% 0%, var(--surface-raised) 0%, var(--surface) 70%);',
+      ledeStyle: `margin: 2px 0 0; font-size: ${T.small}; line-height: 1.4; color: var(--ink-muted)`,
+      h2Style: `margin: 0; font-size: ${T.h2}; line-height: 1.3; font-weight: 800`,
+      bodyStyle: `margin: 0; font-size: ${T.body}; line-height: 1.45`,
+      listStyle: `margin: 0; padding: 0 0 0 20px; display: flex; flex-direction: column; gap: 6px; font-size: ${T.body}; line-height: 1.45`,
+      h1Style: `margin: 0; font-family: var(--font-display); font-weight: 800; font-size: ${T.h1}; line-height: 1.15`,
+      shareDot: 'flex: none; width: 12px; height: 12px; border-radius: 50%;' + (p ? ' background: transparent; box-shadow: inset 0 0 0 3px var(--border-control);' : ' background: var(--success); box-shadow: 0 0 0 4px rgba(35, 119, 77, 0.18);'),
+      togglePause: () => this.setState({ paused: !p }),
+      chipStyle: `display: inline-flex; align-items: center; gap: 6px; min-height: ${teen ? 36 : 44}px; padding: 0 14px; border-radius: var(--radius-pill); background: var(--surface-raised); color: var(--ink); box-shadow: inset 0 0 0 2px var(--accent); font-size: ${teen ? 14 : 17}px; font-weight: 700;`,
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1267,6 +1267,141 @@
    "page": "devices",
    "is_interactive": true,
    "title": "Under the hood · Desktop 1600 × 1000"
+  },
+  "GuardianMap.dc.html": {
+   "x": 0,
+   "y": 12388,
+   "w": 390,
+   "h": 844,
+   "is_interactive": true,
+   "expand": "fill",
+   "title": "Parent: where they are (map, phone)"
+  },
+  "HomeNow.dc.html": {
+   "x": 470,
+   "y": 12388,
+   "w": 390,
+   "h": 844,
+   "is_interactive": true,
+   "expand": "fill",
+   "title": "Parent: Home now (floor plan, rooms, alert)"
+  },
+  "GuardianSettings.dc.html": {
+   "x": 940,
+   "y": 12388,
+   "w": 390,
+   "h": 844,
+   "is_interactive": true,
+   "expand": "fill",
+   "title": "Parent: location and home cameras settings"
+  },
+  "KidSharing.dc.html": {
+   "x": 1410,
+   "y": 12388,
+   "w": 390,
+   "h": 844,
+   "is_interactive": true,
+   "expand": "fill",
+   "title": "Kid: what my grown-ups see (teen; junior via prop)"
+  },
+  "HomeLink.dc.html": {
+   "x": 1880,
+   "y": 12388,
+   "w": 1280,
+   "h": 800,
+   "is_interactive": true,
+   "expand": "fill",
+   "title": "Home Link: the desktop camera client (localhost page)"
+  },
+  "MobileApp.dc.html": {
+   "x": 3240,
+   "y": 12388,
+   "w": 1280,
+   "h": 800,
+   "is_interactive": true,
+   "expand": "fill",
+   "title": "myKx mobile app: onboarding and sharing (roadmap)"
+  },
+  "HomeSim.dc.html": {
+   "x": 4600,
+   "y": 12388,
+   "w": 1440,
+   "h": 900,
+   "is_interactive": true,
+   "expand": "fill",
+   "title": "Home simulator: scripted afternoon and Send now (second Vercel project)"
+  },
+  "GuardianMap-phone.dc.html": {
+   "x": 0,
+   "y": 43560,
+   "w": 390,
+   "h": 844,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "Where they are · Phone 390 × 844"
+  },
+  "GuardianMap-fold.dc.html": {
+   "x": 470,
+   "y": 43560,
+   "w": 720,
+   "h": 840,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "Where they are · Foldable 720 × 840"
+  },
+  "GuardianMap-tabp.dc.html": {
+   "x": 1270,
+   "y": 43560,
+   "w": 820,
+   "h": 1180,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "Where they are · Tablet portrait 820 × 1180"
+  },
+  "GuardianMap-desk.dc.html": {
+   "x": 2170,
+   "y": 43560,
+   "w": 1600,
+   "h": 1000,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "Where they are · Desktop 1600 × 1000"
+  },
+  "HomeNow-phone.dc.html": {
+   "x": 0,
+   "y": 45160,
+   "w": 390,
+   "h": 844,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "Home now · Phone 390 × 844"
+  },
+  "HomeNow-fold.dc.html": {
+   "x": 470,
+   "y": 45160,
+   "w": 720,
+   "h": 840,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "Home now · Foldable 720 × 840"
+  },
+  "HomeNow-tabp.dc.html": {
+   "x": 1270,
+   "y": 45160,
+   "w": 820,
+   "h": 1180,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "Home now · Tablet portrait 820 × 1180"
+  },
+  "HomeNow-desk.dc.html": {
+   "x": 2170,
+   "y": 45160,
+   "w": 1600,
+   "h": 1000,
+   "page": "devices",
+   "is_interactive": true,
+   "title": "Home now · Desktop 1600 × 1000"
   }
  },
  "createdOnFiles": {
@@ -1581,6 +1716,30 @@
    "text": "Under the hood: phone · foldable · tablet portrait · desktop",
    "maxW": 3770,
    "page": "devices"
+  },
+  "row11": {
+   "kind": "title1",
+   "maxW": 6120,
+   "text": "Guardian (PRD 2): where they are, Home now, settings, the kid’s view, Home Link, the mobile app and the Home simulator. All frames and routes are synthetic",
+   "w": 240,
+   "x": 0,
+   "y": 12088
+  },
+  "dev-GuardianMap": {
+   "kind": "title1",
+   "x": 0,
+   "y": 43260,
+   "text": "Where they are: phone · foldable · tablet portrait · desktop",
+   "maxW": 3770,
+   "page": "devices"
+  },
+  "dev-HomeNow": {
+   "kind": "title1",
+   "x": 0,
+   "y": 44860,
+   "text": "Home now: phone · foldable · tablet portrait · desktop",
+   "maxW": 3770,
+   "page": "devices"
   }
  },
  "order": [
@@ -1724,7 +1883,22 @@
   "UnderTheHood-phone.dc.html",
   "UnderTheHood-fold.dc.html",
   "UnderTheHood-tabp.dc.html",
-  "UnderTheHood-desk.dc.html"
+  "UnderTheHood-desk.dc.html",
+  "GuardianMap.dc.html",
+  "HomeNow.dc.html",
+  "GuardianSettings.dc.html",
+  "KidSharing.dc.html",
+  "HomeLink.dc.html",
+  "MobileApp.dc.html",
+  "HomeSim.dc.html",
+  "GuardianMap-phone.dc.html",
+  "GuardianMap-fold.dc.html",
+  "GuardianMap-tabp.dc.html",
+  "GuardianMap-desk.dc.html",
+  "HomeNow-phone.dc.html",
+  "HomeNow-fold.dc.html",
+  "HomeNow-tabp.dc.html",
+  "HomeNow-desk.dc.html"
  ],
  "pages": [
   {
