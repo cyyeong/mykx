@@ -40,6 +40,7 @@ export function ParentMessages() {
   const [busy, setBusy] = useState(false);
   const [failed, setFailed] = useState(false);
   const [version, setVersion] = useState(0);
+  const [dismissed, setDismissed] = useState<string | null>(null);
   const end = useRef<HTMLLIElement>(null);
 
   useEffect(() => {
@@ -65,6 +66,7 @@ export function ParentMessages() {
   if (!data.kid) return <p className="pshell-p">No kids yet. Add one in Your family to get started.</p>;
   const kid = data.kid;
   const idea = suggestion(flags, kid.nickname);
+  const showIdea = idea && dismissed !== `${kid.id}:${idea.why}`;
 
   const send = async (m: { body?: string; sticker?: Sticker }) => {
     setBusy(true);
@@ -123,7 +125,7 @@ export function ParentMessages() {
       </section>
 
       <section className="pd-card fm-compose" aria-label="Write to your kid">
-        {idea && (
+        {showIdea && idea && (
           <div className="fm-idea">
             <svg viewBox="0 0 24 24" aria-hidden="true" className="fm-idea-icon">
               <path d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z" />
@@ -132,9 +134,15 @@ export function ParentMessages() {
               <p className="fm-idea-title">
                 <strong>Kix suggests</strong> · {idea.why}
               </p>
-              <button type="button" className="fm-chip is-idea" disabled={busy} onClick={() => void send({ body: idea.body, sticker: idea.sticker })}>
-                Send “{idea.body}” with a {STICKER_INFO[idea.sticker].label.toLowerCase()} sticker
-              </button>
+              <span className="fm-idea-actions">
+                <button type="button" className="fm-chip is-idea" disabled={busy} onClick={() => void send({ body: idea.body, sticker: idea.sticker }).then(() => setDismissed(`${kid.id}:${idea.why}`))}>
+                  Send “{idea.body}” with a {STICKER_INFO[idea.sticker].label.toLowerCase()} sticker
+                </button>
+                <button type="button" className="fm-chip" onClick={() => setDismissed(`${kid.id}:${idea.why}`)}>
+                  Not now
+                </button>
+              </span>
+              <p className="fm-fine">From the guardian&apos;s notes on {kid.nickname}&apos;s sessions. Kix never reads your messages.</p>
             </div>
           </div>
         )}
@@ -145,6 +153,10 @@ export function ParentMessages() {
             </button>
           ))}
         </div>
+        <p className="fm-tray-head">
+          <strong>Kix stickers</strong>
+          <span>Made for myKx. No outside GIFs.</span>
+        </p>
         <div className="fm-tray" role="group" aria-label="Kix stickers">
           {STICKERS.map((s) => (
             <button key={s} type="button" className="fm-sticker" disabled={busy} onClick={() => void send({ sticker: s })} aria-label={`Send the ${STICKER_INFO[s].label} sticker`}>
@@ -167,9 +179,12 @@ export function ParentMessages() {
             Send
           </button>
         </form>
-        <button type="button" className="fm-refresh" onClick={() => setVersion((v) => v + 1)}>
-          Check for replies
-        </button>
+        <div className="fm-foot">
+          <button type="button" className="fm-refresh" onClick={() => setVersion((v) => v + 1)}>
+            Check for replies
+          </button>
+          <span className="fm-fine">Messages stay in your family. Kix and AI models never read them.</span>
+        </div>
       </section>
     </div>
   );

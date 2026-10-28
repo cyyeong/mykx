@@ -17,6 +17,31 @@ type Book = { kids: KidRef[]; kid: KidRef | null; pages: Page[]; revisions: Note
 const day = (iso: string) => new Date(iso).toLocaleString("en-SG", { weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit", timeZone: "Asia/Singapore" });
 const MOOD_WORD: Record<string, string> = { calm: "calm", happy: "happy", curious: "curious", unsure: "unsure", frustrated: "frustrated", tired: "tired", worried: "worried" };
 
+const strip = (l: string) => l.replace(/^\d{4}-\d{2}-\d{2}: /, "");
+
+/** What a revision added (+) and took away (−), line by line. */
+function Diff({ before, after }: { before: string; after: string }) {
+  const b = before.split("\n").filter(Boolean);
+  const a = after.split("\n").filter(Boolean);
+  const added = a.filter((l) => !b.includes(l));
+  const removed = b.filter((l) => !a.includes(l));
+  if (!added.length && !removed.length) return null;
+  return (
+    <ul className="nb-diff">
+      {added.map((l, i) => (
+        <li key={`a${i}`} className="nb-add">
+          + {strip(l)}
+        </li>
+      ))}
+      {removed.map((l, i) => (
+        <li key={`r${i}`} className="nb-del">
+          − {strip(l)}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 function PageCard({ page, kidId, onSaved }: { page: Page; kidId: string; onSaved: () => void }) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(page.body);
@@ -120,7 +145,7 @@ export function ParentNotebook() {
       <div className="fm-head">
         <div>
           <h2 className="pd-h1">What Kix remembers about {kid.nickname}</h2>
-          <span className="pd-muted">Kix reads these pages to be a kinder sidekick. Possibilities, never labels; scores live elsewhere.</span>
+          <span className="pd-muted">Kix reads these pages to be a kinder sidekick. Progress numbers come from {kid.nickname}&apos;s records, never from here. You can change or delete anything.</span>
         </div>
         {data.kids.length > 1 && (
           <div className="pd-kids fm-kids" role="group" aria-label="Child">
@@ -181,7 +206,7 @@ export function ParentNotebook() {
               </span>
             ) : (
               <button type="button" className="fm-chip" onClick={() => setConfirmWipe(true)} disabled={!data.revisions.length && data.pages.every((p) => !p.body)}>
-                Wipe the Notebook
+                Wipe {kid.nickname}&apos;s Notebook
               </button>
             )}
           </div>
@@ -193,6 +218,7 @@ export function ParentNotebook() {
                     {day(r.at)} · {r.by === "memory-keeper" ? "Memory Keeper" : "You"} · {data.pages.find((p) => p.slug === r.slug)?.title ?? r.slug}
                   </span>
                   {r.reason && <span className="pd-muted">{r.reason}</span>}
+                  <Diff before={r.before} after={r.after} />
                 </li>
               ))}
             </ul>

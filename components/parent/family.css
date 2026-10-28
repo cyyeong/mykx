@@ -50,3 +50,12 @@
   .fm-thread { min-height: 280px; max-height: 55dvh; }
 }
 @media (max-width: 599px) { .fm-tray { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; padding: 6px; } .fm-sticker { min-height: 92px; } }
+.fm-idea-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.fm-fine { margin: 8px 0 0; font-size: 12px; line-height: 17px; font-weight: 600; color: var(--ink-muted); }
+.fm-tray-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 12px; margin: 0 0 -6px; font-size: 14px; line-height: 20px; }
+.fm-tray-head span { font-size: 12px; font-weight: 600; color: var(--ink-muted); }
+.fm-foot { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 12px; }
+.fm-foot .fm-fine { margin: 0; }
+.nb-diff { margin: 4px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; font-size: 14px; line-height: 20px; }
+.nb-add { color: var(--success); font-weight: 600; }
+.nb-del { color: var(--ink-muted); text-decoration: line-through; }
