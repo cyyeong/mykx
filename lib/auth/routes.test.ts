@@ -353,7 +353,11 @@ describe("focus camera (AGENTS.md rule 12)", () => {
     const reading = { level: "watch", evidence: "Ari is lazy.", confidence: "high", from: at(13), to: at(16) };
     const res = await post({ minutes: [drifting(13), drifting(14), drifting(15)], signal: reading });
     expect(res.body).toMatchObject({ ok: true, saved: 3, noted: true });
-    const notes = (await browser.call(focus.GET, "/api/signals/focus")).body.notes;
+    // The notes are the grown-up's: the kid signed in on the device can't read them.
+    expect((await browser.call(focus.GET, "/api/signals/focus")).status).toBe(403);
+    const grownUp = new Browser();
+    await grownUp.signIn();
+    const notes = (await grownUp.call(focus.GET, "/api/signals/focus")).body.notes;
     const mine = notes.find((n: { synthetic: boolean }) => !n.synthetic);
     expect(mine).toMatchObject({ kidId: ARI_ID, from: at(13), to: at(16), synthetic: false });
     expect(mine.evidence).toMatch(/^In 3 minutes: looked away 1 min 45 s/);
@@ -468,12 +472,60 @@ describe("grown-up sign-in destinations (fix 6)", () => {
 describe("parent PIN (fix 8)", () => {
   const pin = (action: string, pin: string) => browser.call(pinRoute.POST, "/api/auth/pin", { body: { action, pin } });
 
-  it("starts unset; setup needs four digits and refuses a second set", async () => {
+  it("starts unset; setup needs four digits; the grown-up can change it on a kid-free device", async () => {
     await browser.signIn();
-    expect((await browser.call(pinRoute.GET, "/api/auth/pin")).body).toMatchObject({ ok: true, set: false, kidActive: false, unlocked: false });
+    expect((await browser.call(pinRoute.GET, "/api/auth/pin")).body).toMatchObject({ ok: true, set: false, kidActive: false, shared: false, unlocked: false });
     expect((await pin("setup", "12")).status).toBe(400);
     expect(await pin("setup", "4821")).toMatchObject({ status: 200, body: { ok: true, set: true } });
-    expect((await pin("setup", "0000")).status).toBe(409);
+    expect((await pin("setup", "0000")).status).toBe(200);
+    expect(store.auditLog.at(-1)).toMatchObject({ action: "parent.pin-change" });
+  });
+
+  it("Switch profile doesn't open grown-up pages: the PIN stays until the grown-up's password", async () => {
+    await browser.signIn();
+    await pin("setup", "4821");
+    await browser.kidSignIn(ARI_ID, { kind: "pictures", code: ARI_CODE });
+    expect((await browser.call(family.GET, "/api/family/kids")).status).toBe(403);
+    await browser.kidSignOut();
+    expect(browser.cookies.has("mykx_kidshere")).toBe(true);
+    expect((await browser.call(pinRoute.GET, "/api/auth/pin")).body).toMatchObject({ kidActive: false, shared: true, unlocked: false });
+    expect((await browser.call(family.GET, "/api/family/kids")).status).toBe(403);
+    expect((await browser.call(focus.GET, "/api/signals/focus")).status).toBe(403);
+    expect((await browser.call(adminPeople.GET, "/api/admin/people")).status).toBe(403);
+    // ...and can't set a new PIN to get in.
+    expect((await pin("setup", "0000")).status).toBe(403);
+    expect((await pin("verify", "4821")).status).toBe(200);
+    expect((await browser.call(family.GET, "/api/family/kids")).status).toBe(200);
+
+    // Forgot it: the grown-up signs in again with their password, and the device is theirs.
+    const fresh = new Browser();
+    fresh.cookies = new Map([...browser.cookies].filter(([k]) => k !== "mykx_pinunlock"));
+    await fresh.signIn();
+    expect(fresh.cookies.has("mykx_kidshere")).toBe(false);
+    expect((await fresh.call(family.GET, "/api/family/kids")).status).toBe(200);
+    expect((await fresh.call(pinRoute.POST, "/api/auth/pin", { body: { action: "setup", pin: "7316" } })).status).toBe(200);
+  });
+
+  it("without a PIN, a kid-free moment opens the pages so the grown-up can set one", async () => {
+    await browser.signIn();
+    await browser.kidSignIn(ARI_ID, { kind: "pictures", code: ARI_CODE });
+    expect((await browser.call(family.GET, "/api/family/kids")).status).toBe(403);
+    await browser.kidSignOut();
+    expect((await browser.call(family.GET, "/api/family/kids")).status).toBe(200);
+    expect((await pin("setup", "4821")).status).toBe(200);
+    expect((await browser.call(family.GET, "/api/family/kids")).status).toBe(403);
+  });
+
+  it("pauses after 5 wrong PINs without locking the grown-up or the kid out", async () => {
+    await browser.signIn();
+    await pin("setup", "4821");
+    await browser.kidSignIn(ARI_ID, { kind: "pictures", code: ARI_CODE });
+    for (let i = 0; i < 5; i++) expect((await pin("verify", "0000")).status).toBe(401);
+    expect((await pin("verify", "4821")).status).toBe(423);
+    expect((await browser.call(me.GET, "/api/me")).status).toBe(200);
+    expect((await browser.call(kidsRoute.GET, "/api/auth/kids")).body).toMatchObject({ signedIn: true });
+    vi.useFakeTimers({ now: Date.now() + 5 * 60_000 + 1000 });
+    expect((await pin("verify", "4821")).status).toBe(200);
   });
 
   it("setup refuses while a kid is signed in; verify mints the unlock", async () => {

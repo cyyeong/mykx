@@ -8,10 +8,9 @@ import { connection } from "next/server";
 import { currentKid, currentParent, getStore, grownUpLabel, toDoor, toKidMe } from "./context.ts";
 import { doorsFor } from "./flows.ts";
 import type { CookieJar } from "./http.ts";
-import { PIN_UNLOCK_COOKIE, verifyPinUnlock } from "./pin.ts";
+import { grownUpAccess } from "./pin.ts";
 import { isId, type Door, type DoorsResult, type KidMe } from "./schemas.ts";
 import { DEMO_HOUSEHOLD_ID } from "./demo-family.ts";
-import { sessionSecret } from "./tokens.ts";
 
 async function readOnlyJar(): Promise<CookieJar> {
   // Sign-in state is request-time only: lockouts and sessions read the clock, which a (runtime) prerender can't.
@@ -70,30 +69,18 @@ export type GrownUpGate =
   | { state: "setup" };
 
 /**
- * The shared-device gate for grown-up pages (USER_STORIES §8.4 fix 8). Open
- * when no kid session is active (today's behaviour); with a kid active, the
- * 15-minute PIN unlock opens, an unset PIN sends for setup, otherwise the PIN
- * prompt. Never reveals whether a PIN is set to a signed-out device: without
- * a grown-up session the pages behave exactly as today.
+ * The shared-device gate for grown-up pages (USER_STORIES §8.4 fix 8), from
+ * the same check as the data routes (grownUpAccess in pin.ts): open on a
+ * grown-up-only device or with the 15-minute unlock; on a device kids use, the
+ * PIN prompt, or setup when no PIN is set yet. Never reveals whether a PIN is
+ * set to a signed-out device: without a grown-up session the pages behave as before.
  */
 export async function grownUpGateStatus(): Promise<GrownUpGate> {
   const jar = await readOnlyJar();
   const store = getStore();
   if (!store) return { state: "open" };
-  const parent = await currentParent(store, jar);
-  if (!parent) return { state: "open" };
-  const kid = await currentKid(store, jar, parent);
-  if (!kid) return { state: "open" };
-  const secret = sessionSecret();
-  const unlocked =
-    !!secret &&
-    verifyPinUnlock(jar.get(PIN_UNLOCK_COOKIE), {
-      householdId: parent.householdId,
-      parentUserId: parent.user.userId,
-      secret,
-    }).ok;
-  if (unlocked) return { state: "open" };
-  return parent.profile.pinHash ? { state: "pin" } : { state: "setup" };
+  const access = await grownUpAccess(store, jar);
+  return { state: access?.state ?? "open" };
 }
 
 /** Whether the signed-in household is the synthetic demo family (AGENTS.md rule 8: label synthetic data). */

@@ -1,7 +1,7 @@
 "use client";
 
-// The PIN prompt a grown-up sees on their pages while a kid session is active
-// on the device. A correct entry unlocks for 15 minutes, then the page reloads
+// The PIN prompt a grown-up sees on their pages on a device kids use (a kid
+// signed in now, or since the grown-up's last password sign-in). A correct entry unlocks for 15 minutes, then the page reloads
 // through the gate.
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
@@ -39,7 +39,7 @@ export function PinPrompt() {
       <div style={{ display: "flex", flexDirection: "column", gap: 12, padding: 22, borderRadius: "var(--radius-md)", background: "var(--surface-raised)", boxShadow: "var(--shadow-raised)" }}>
         <h1 style={{ margin: 0, font: "600 22px/1.25 var(--font-display)" }}>Grown-ups only</h1>
         <p style={{ margin: 0, fontSize: 16, lineHeight: "23px", color: "var(--ink-muted)" }}>
-          A kid is signed in on this device. Enter your 4-digit parent PIN to continue.
+          Kids use this device. Enter your 4-digit parent PIN to continue.
         </p>
         <form onSubmit={(e) => void submit(e)} style={{ display: "flex", gap: 8 }}>
           <label htmlFor="pin-prompt" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)" }}>
@@ -65,7 +65,7 @@ export function PinPrompt() {
           </p>
         )}
         <p style={{ margin: 0, fontSize: 14, lineHeight: "20px", color: "var(--ink-muted)" }}>
-          No PIN yet, or forgot it? Switch the kid out first (their avatar menu → Switch profile), then open Your family.
+          Forgot it? Sign out, sign in again with your grown-up password, then change the PIN in Your family.
         </p>
       </div>
     </main>

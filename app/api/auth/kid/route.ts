@@ -7,6 +7,7 @@ import { checkKidSecret, nowIso } from "@/lib/auth/flows";
 import { clientIp, fail, ok, readBody } from "@/lib/auth/http";
 import { KID_COOKIE, kidCookieOptions, signKidSession } from "@/lib/auth/kid-session";
 import { AFTER_SUCCESS, takeToken } from "@/lib/auth/lockout";
+import { KIDS_HERE_COOKIE, kidsHereCookieOptions, signKidsHere } from "@/lib/auth/pin";
 import { kidSignInBody, secretSchema } from "@/lib/auth/schemas";
 import { hashSecret } from "@/lib/auth/secrets";
 import { sessionSecret } from "@/lib/auth/tokens";
@@ -47,11 +48,13 @@ export async function POST(request: Request) {
 
     await store.update(parent.householdId, kid.id, { lastSignInAt: nowIso() });
     jar.set(KID_COOKIE, signKidSession({ kidId: kid.id, householdId: kid.householdId, parentUserId: parent.user.userId }, secret), kidCookieOptions());
+    // Kids use this device now: grown-up pages ask the PIN until the grown-up's password clears it (lib/auth/pin.ts).
+    jar.set(KIDS_HERE_COOKIE, signKidsHere({ householdId: kid.householdId, parentUserId: parent.user.userId }, secret), kidsHereCookieOptions());
     return ok({ kid: { id: kid.id, nickname: kid.nickname, band: kid.band, pack: kid.pack }, next: "/home" });
   });
 }
 
-/** The kid steps away (Me → Sign out, or "Switch profile"): ends the kid's session only; the grown-up stays signed in. */
+/** The kid steps away (Me → Sign out, or "Switch profile"): ends the kid's session only; the grown-up stays signed in, and the kids-here mark stays, so grown-up pages still ask the PIN. */
 export async function DELETE(request: Request) {
   return withAuth(request, async ({ jar }) => {
     jar.delete(KID_COOKIE);

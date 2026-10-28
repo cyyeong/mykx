@@ -141,6 +141,8 @@ export interface AuthStore {
   addKid(householdId: string, kid: NewKid): Promise<Profile>;
   removeKid(householdId: string, kidId: string): Promise<boolean>;
   audit(entry: AuditEntry): Promise<void>;
+  /** How many audit rows with `action` the household has had since `sinceIso` (the PIN's wrong-try pause). */
+  countAudit(householdId: string, action: string, sinceIso: string): Promise<number>;
 
   // Learning record (the `attempts` and `ledger` tables), household-scoped like everything above.
   // Written by tested server code only, never by a model (supabase/schema.sql).

@@ -7,6 +7,7 @@
 //   DELETE: a grown-up removes a note (PARENT_INSIGHTS §4.5).
 // Images, video and landmarks never arrive here: the browser keeps them. Signals never touch mastery or rewards.
 import { currentParent, withAuth } from "@/lib/auth/context";
+import { pinLockedResponse } from "@/lib/auth/pin";
 import { requireFamily } from "@/lib/auth/guard";
 import { fail, ok, readBody } from "@/lib/auth/http";
 import type { AuthStore } from "@/lib/auth/store";
@@ -67,6 +68,9 @@ export async function GET(request: Request) {
   return withAuth(request, async ({ store, jar }) => {
     const parent = await currentParent(store, jar);
     if (!parent) return fail(401, "no-parent");
+    // Parent only (AGENTS.md rule 12): a kid on the device needs the PIN, like every grown-up read.
+    const locked = await pinLockedResponse(store, jar);
+    if (locked) return locked;
     const notes = await store.signals.focusNotes(parent.householdId, new Date(Date.now() - NOTES_DAYS * DAY_MS).toISOString());
     return ok({ notes } satisfies FocusNotesResult);
   });
@@ -76,6 +80,8 @@ export async function DELETE(request: Request) {
   return withAuth(request, async ({ store, jar }) => {
     const parent = await currentParent(store, jar);
     if (!parent) return fail(401, "no-parent");
+    const locked = await pinLockedResponse(store, jar);
+    if (locked) return locked;
     const body = await readBody(request, focusDeleteBody);
     if (!body) return fail(400, "invalid");
     const kidId = await store.signals.removeFocusNote(parent.householdId, body.id);

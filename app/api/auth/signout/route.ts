@@ -2,6 +2,7 @@
 import { withAuth } from "@/lib/auth/context";
 import { fail, ok, readBody } from "@/lib/auth/http";
 import { KID_COOKIE } from "@/lib/auth/kid-session";
+import { clearGrownUpProof } from "@/lib/auth/pin";
 import { signOutBody } from "@/lib/auth/schemas";
 
 export async function POST(request: Request) {
@@ -9,6 +10,7 @@ export async function POST(request: Request) {
     const body = await readBody(request, signOutBody);
     if (!body) return fail(400, "invalid");
     jar.delete(KID_COOKIE);
+    clearGrownUpProof(jar);
     await store.signOutParent(jar, body.everywhere === true);
     return ok({});
   });

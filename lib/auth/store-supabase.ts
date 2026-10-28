@@ -277,6 +277,17 @@ export class SupabaseStore implements AuthStore {
     check(error);
   }
 
+  async countAudit(householdId: string, action: string, sinceIso: string) {
+    const { count, error } = await this.db
+      .from("audit_log")
+      .select("id", { count: "exact", head: true })
+      .eq("household_id", householdId)
+      .eq("action", action)
+      .gte("created_at", sinceIso);
+    check(error);
+    return count ?? 0;
+  }
+
   // Wellbeing signals. The service role bypasses RLS, so each query filters by household; writes check the kid
   // is in it first.
 

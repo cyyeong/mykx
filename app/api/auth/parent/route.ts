@@ -5,7 +5,7 @@ import { nowIso } from "@/lib/auth/flows";
 import { clientIp, fail, ok, readBody } from "@/lib/auth/http";
 import { KID_COOKIE } from "@/lib/auth/kid-session";
 import { lockRemainingSec, retryAfter, takeToken } from "@/lib/auth/lockout";
-import { safeNext } from "@/lib/auth/pin";
+import { clearGrownUpProof, safeNext } from "@/lib/auth/pin";
 import { parentSignInBody } from "@/lib/auth/schemas";
 
 export async function POST(request: Request) {
@@ -26,6 +26,7 @@ export async function POST(request: Request) {
     }
 
     jar.delete(KID_COOKIE); // a new grown-up on this device: no kid carries over
+    clearGrownUpProof(jar); // the password is fresh proof: the device is grown-up-only until a kid signs in again
     await store.update(profile.householdId, profile.id, { lastSignInAt: nowIso() });
     const role = profile.isAdmin ? "admin" : "parent";
     // Admins land on People until the skills catalogue exists (task 7); a safe

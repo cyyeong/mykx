@@ -264,6 +264,11 @@ export class DemoStore implements AuthStore {
     this.auditLog.push({ ...entry, createdAt: nowIso() });
   }
 
+  async countAudit(householdId: string, action: string, sinceIso: string) {
+    const since = Date.parse(sinceIso);
+    return this.auditLog.filter((e) => e.householdId === householdId && e.action === action && Date.parse(e.createdAt) >= since).length;
+  }
+
   // Wellbeing signals
 
   private ownsKid(householdId: string, kidId: string) {

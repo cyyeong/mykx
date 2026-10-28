@@ -1,7 +1,7 @@
 "use client";
 
-// The parent PIN card in Your family: set the 4-digit PIN once (only when no
-// kid is signed in), or confirm it's set. Silent when nobody's grown-up here.
+// The parent PIN card in Your family: set the 4-digit PIN (only when no kid is
+// signed in), confirm it's set, or change it. Silent when nobody's grown-up here.
 import Link from "next/link";
 import { useEffect, useState, type CSSProperties, type FormEvent } from "react";
 import { api } from "./api";
@@ -15,6 +15,7 @@ export function PinSetupCard() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [done, setDone] = useState(false);
+  const [changing, setChanging] = useState(false);
 
   useEffect(() => {
     let live = true;
@@ -40,11 +41,25 @@ export function PinSetupCard() {
     );
   }
 
-  if (status.set || done) {
+  if ((status.set && !changing) || done) {
     return (
       <section aria-label="Parent PIN" style={card}>
         <h2 style={title}>Parent PIN</h2>
-        <p style={body}>Your 4-digit PIN is set. It&apos;s asked on grown-up pages whenever a kid is signed in on this device, and it unlocks for 15 minutes.</p>
+        <p style={body}>
+          Your 4-digit PIN is set. Once a kid has signed in on this device, grown-up pages ask for it (even after they switch out) until you sign in
+          again with your password. It unlocks for 15 minutes. Forgot it? Sign out, sign back in, then change it here.
+        </p>
+        <button
+          className="mk-btn mk-btn--secondary fa-click"
+          type="button"
+          onClick={() => {
+            setDone(false);
+            setChanging(true);
+          }}
+          style={{ alignSelf: "flex-start", minHeight: 44 }}
+        >
+          Change the PIN
+        </button>
       </section>
     );
   }
@@ -68,15 +83,21 @@ export function PinSetupCard() {
       setPin("");
       setAgain("");
       setDone(true);
+      setChanging(false);
+      setStatus({ ...status, set: true });
       return;
     }
-    setError(r.reason === "already-set" ? "A PIN is already set." : r.reason === "not-allowed" ? "A kid signed in — switch them out first." : "Something went wrong. Try again.");
+    setError(r.reason === "not-allowed" ? "A kid has been here — sign in again with your password first." : "Something went wrong. Try again.");
   };
 
   return (
     <section aria-label="Parent PIN" style={card}>
       <h2 style={title}>Parent PIN</h2>
-      <p style={body}>Four digits, asked on grown-up pages whenever a kid is signed in on this device. Set it once, somewhere the kids can&apos;t watch.</p>
+      <p style={body}>
+        {changing
+          ? "Choose a new 4-digit PIN, somewhere the kids can't watch."
+          : "Four digits, asked on grown-up pages once a kid has signed in on this device. Set it somewhere the kids can't watch."}
+      </p>
       <form onSubmit={(e) => void submit(e)} style={{ display: "flex", flexDirection: "column", gap: 10 }}>
         <div style={{ display: "flex", gap: 8 }}>
           <label htmlFor="pin-new" style={hidden}>
@@ -94,7 +115,7 @@ export function PinSetupCard() {
           </p>
         )}
         <button className="mk-btn mk-btn--primary fa-click" type="submit" disabled={busy} style={{ alignSelf: "flex-start", minHeight: 48 }}>
-          {busy ? "Setting…" : "Set the PIN"}
+          {busy ? "Setting…" : changing ? "Change the PIN" : "Set the PIN"}
         </button>
       </form>
     </section>
