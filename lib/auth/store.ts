@@ -11,6 +11,7 @@ import type { KnowledgeUpload, Review, SkillUpdate } from "../knowledge/knowledg
 import type { FlashcardSpec } from "../vibe/flashcards.ts";
 import type { FamilyMessage, Sticker } from "../family/messages.ts";
 import type { PageSlug } from "../notebook/notebook.ts";
+import type { GameProgress } from "../games/progress.ts";
 import type { Band, Level, Pack, SecretEvent, SecretKind } from "./schemas.ts";
 
 /** A profiles row, server side. Holds the secret hash: never send one of these to a client as is. */
@@ -278,6 +279,12 @@ export interface AuthStore {
     /** Flag ids a grown-up marked as seen. */
     seenFlags(householdId: string): Promise<string[]>;
     markSeen(householdId: string, flagId: string): Promise<void>;
+  };
+
+  // Arcade progress (game_progress): one row per kid and game.
+  games: {
+    progress(householdId: string, kidId: string): Promise<GameProgress[]>;
+    save(householdId: string, kidId: string, progress: GameProgress): Promise<void>;
   };
 
   // Every model call (model_runs), for Under the hood and cost. Writes come from lib/runs/log.ts.

@@ -15,7 +15,7 @@ describe("kid nav tabs", () => {
 
   it("marks only the unbuilt screens as soon (drop the flag when each screen lands)", () => {
     const soon = Object.fromEntries(KID_TABS.map((t) => [t.id, t.soon ?? false]));
-    expect(soon).toEqual({ home: false, learn: false, ask: false, play: true, treasure: false, vibe: false });
+    expect(soon).toEqual({ home: false, learn: false, ask: false, play: false, treasure: false, vibe: false });
   });
 
   it("keeps the canonical hrefs on soon tabs so enabling them is a one-flag change", () => {

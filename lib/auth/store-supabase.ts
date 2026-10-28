@@ -15,6 +15,7 @@ import type { Extraction, KnowledgeUpload, Review, Rights, SkillUpdate } from ".
 import type { FlashcardSpec } from "../vibe/flashcards.ts";
 import type { FamilyMessage, Sticker } from "../family/messages.ts";
 import type { PageSlug } from "../notebook/notebook.ts";
+import type { GameProgress } from "../games/progress.ts";
 import { NicknameTakenError } from "./store.ts";
 
 export interface SupabaseEnv {
@@ -643,6 +644,31 @@ export class SupabaseStore implements AuthStore {
     },
     revoke: async (householdId: string, creationId: string) => {
       const { error } = await this.db.from("shares").update({ revoked_at: new Date().toISOString() }).eq("household_id", householdId).eq("creation_id", creationId).is("revoked_at", null);
+      check(error);
+    },
+  };
+
+  readonly games = {
+    progress: async (householdId: string, kidId: string): Promise<GameProgress[]> => {
+      const { data, error } = await this.db.from("game_progress").select("game, stage, level, stars, best_accuracy, best_wpm, keys, updated_at").eq("household_id", householdId).eq("profile_id", kidId);
+      check(error);
+      return (data ?? []).map((r) => ({
+        game: r.game as string,
+        stage: Number(r.stage),
+        level: Number(r.level),
+        stars: (r.stars as Record<string, number>) ?? {},
+        bestAccuracy: Number(r.best_accuracy),
+        bestWpm: Number(r.best_wpm),
+        keys: (r.keys as GameProgress["keys"]) ?? {},
+        updatedAt: new Date(r.updated_at as string).toISOString(),
+      }));
+    },
+    save: async (householdId: string, kidId: string, p: GameProgress) => {
+      if (!(await this.ownsKid(householdId, kidId))) return;
+      const { error } = await this.db.from("game_progress").upsert(
+        { household_id: householdId, profile_id: kidId, game: p.game, stage: p.stage, level: p.level, stars: p.stars, best_accuracy: Math.round(p.bestAccuracy * 10000) / 10000, best_wpm: p.bestWpm, keys: p.keys, updated_at: p.updatedAt },
+        { onConflict: "profile_id,game" },
+      );
       check(error);
     },
   };

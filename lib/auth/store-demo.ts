@@ -28,6 +28,7 @@ import type { KnowledgeUpload, Review, SkillUpdate } from "../knowledge/knowledg
 import type { FlashcardSpec } from "../vibe/flashcards.ts";
 import type { FamilyMessage, Sticker } from "../family/messages.ts";
 import type { PageSlug } from "../notebook/notebook.ts";
+import type { GameProgress } from "../games/progress.ts";
 import type { CookieJar } from "./http.ts";
 import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt, StoredBeat, StoredGuardianSettings, StoredKixMessage, Creation, NotebookPage, NotebookRevision, StoredSessionRead, StoredRun } from "./store.ts";
 import { NicknameTakenError } from "./store.ts";
@@ -35,7 +36,7 @@ import { sessionSecret, signToken, verifyToken } from "./tokens.ts";
 
 export const DEMO_PARENT_COOKIE = "mykx_demo_parent";
 /** Bump when the store's shape changes: a running dev server then rebuilds it on the next request (see demoStore). */
-const DEMO_STORE_SHAPE = 8; // 8: family messages, the Notebook and session readings
+const DEMO_STORE_SHAPE = 9; // 9: game progress
 const DEMO_TTL_SEC = 7 * 24 * 60 * 60;
 const LABEL = "demo-parent";
 
@@ -122,6 +123,7 @@ export class DemoStore implements AuthStore {
   /** Vibe Zone creations by id, with the household and the shared recipients. */
   readonly creationRows = new Map<string, Creation & { householdId: string; sharedWith: string[] }>();
   readonly runRows: StoredRun[] = [];
+  readonly gameRows = new Map<string, GameProgress & { householdId: string }>();
   /** Family messages, Notebook pages and revisions, and session readings. */
   readonly familyRows: (FamilyMessage & { householdId: string })[] = [];
   readonly notebookRows = new Map<string, NotebookPage & { householdId: string; kidId: string }>();
@@ -426,6 +428,17 @@ export class DemoStore implements AuthStore {
     seenFlags: async (householdId: string) => [...this.seenFlagRows].filter((k) => k.startsWith(`${householdId}|`)).map((k) => k.slice(householdId.length + 1)),
     markSeen: async (householdId: string, flagId: string) => {
       this.seenFlagRows.add(`${householdId}|${flagId}`);
+    },
+  };
+
+  readonly games = {
+    progress: async (householdId: string, kidId: string): Promise<GameProgress[]> =>
+      [...this.gameRows.entries()]
+        .filter(([k, r]) => r.householdId === householdId && k.startsWith(`${kidId}|`))
+        .map(([, r]) => structuredClone({ game: r.game, stage: r.stage, level: r.level, stars: r.stars, bestAccuracy: r.bestAccuracy, bestWpm: r.bestWpm, keys: r.keys, updatedAt: r.updatedAt })),
+    save: async (householdId: string, kidId: string, progress: GameProgress) => {
+      if (!this.ownsKid(householdId, kidId)) return;
+      this.gameRows.set(`${kidId}|${progress.game}`, { ...structuredClone(progress), householdId });
     },
   };
 

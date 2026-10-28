@@ -1,0 +1,37 @@
+/* Ghost-hands keyboard, from docs/design/canvas-src/keyboard.css (the arcade boards). kb- prefixed, global. */
+/* Ghost-hands keyboard: keys tinted by the finger that owns them; two see-through hands rest on the home row and
+   the right finger reaches for the next key. Fingers are numbered 1–10 left to right (thumbs 5 and 6), and each
+   key carries its finger's number softly in the corner. --u is one key unit (the board is 11 units wide).
+   --kb-hand (set on the board root) is the hands' outline colour (white on dark boards, deep ink on light ones). */
+.kb{position:relative;width:100%;container-type:inline-size;--kb-hand-line:var(--kb-hand,255,255,255)}
+.kb-board{position:relative;width:100%;--u:calc(100cqw / 11);height:calc(var(--u) * 4.95);overflow:hidden}
+.kb-key{position:absolute;box-sizing:border-box;width:calc(var(--u) * .9);height:calc(var(--u) * .9);padding:0;border:0;border-radius:calc(var(--u) * .18);background:linear-gradient(rgba(var(--f),.22),rgba(var(--f),.22)),var(--kb-key,#FFFFFF);color:var(--kb-ink,#2B2A5C);font:800 calc(var(--u) * .34)/1 var(--font-display);box-shadow:inset 0 -3px 0 rgba(var(--f),.75),0 2px 6px rgba(10,8,40,.18);cursor:pointer;transition:transform 90ms ease,box-shadow 160ms ease}
+.kb-key:active{transform:translateY(2px)}
+.kb-key--space{font-size:calc(var(--u) * .24);letter-spacing:.08em;text-transform:uppercase}
+.kb-key--bump::after{content:"";position:absolute;left:35%;right:35%;bottom:16%;height:3px;border-radius:2px;background:currentColor;opacity:.45}
+.kb-key--next{background:rgb(var(--f));color:#1E1C45;box-shadow:0 0 0 3px #FFFFFF,0 0 22px 6px rgba(var(--f),.95);animation:kb-pulse 1.1s ease-in-out infinite}
+.kb-key--wrong{animation:kb-wobble .38s ease-in-out}
+.kb-kn{position:absolute;top:calc(var(--u) * .07);right:calc(var(--u) * .09);font:800 calc(var(--u) * .15)/1 var(--font-display);opacity:.5;transition:opacity .4s}
+.kb[data-hands="off"] .kb-kn{opacity:0}
+@keyframes kb-pulse{50%{transform:translateY(-3px)}}
+@keyframes kb-wobble{20%{transform:translateX(-4px) rotate(-3deg)}50%{transform:translateX(4px) rotate(3deg)}80%{transform:translateX(-2px)}}
+.kb-hands{position:absolute;inset:0;pointer-events:none;transition:opacity .4s}
+.kb-hands[data-mode="fade"]{opacity:.38}
+.kb-hands[data-mode="off"]{opacity:0}
+.kb-palm{position:absolute;top:calc(var(--u) * 3.4);width:calc(var(--u) * 4.2);height:calc(var(--u) * 2);border-radius:calc(var(--u) * 1.5) calc(var(--u) * 1.2) calc(var(--u) * .5) calc(var(--u) * .5)/calc(var(--u) * 1.1) calc(var(--u) * 1) calc(var(--u) * .5) calc(var(--u) * .5);background:linear-gradient(rgba(var(--kb-hand-line),.2),rgba(var(--kb-hand-line),.05));box-shadow:inset 0 0 0 1.5px rgba(var(--kb-hand-line),.5);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);-webkit-mask-image:linear-gradient(#000 20%,transparent 80%);mask-image:linear-gradient(#000 20%,transparent 80%)}
+.kb-palm--r{border-radius:calc(var(--u) * 1.2) calc(var(--u) * 1.5) calc(var(--u) * .5) calc(var(--u) * .5)/calc(var(--u) * 1) calc(var(--u) * 1.1) calc(var(--u) * .5) calc(var(--u) * .5)}
+/* A finger: a soft capsule in its own colour, its number on the fingertip pad (on the lower half of the key it rests on, under the letter), two knuckle creases. The bottom fades into the palm. --rot is the splay; the badge
+  
+   turns back the other way so the number stays upright. */
+.kb-finger,.kb-thumb{position:absolute;box-sizing:border-box;width:calc(var(--u) * .64);height:var(--len);border-radius:calc(var(--u) * .32) calc(var(--u) * .32) calc(var(--u) * .24) calc(var(--u) * .24);background:linear-gradient(rgba(255,255,255,.3),rgba(255,255,255,0) 45%),rgba(var(--f),.26);box-shadow:inset 0 0 0 1.5px rgba(var(--kb-hand-line),.6),0 calc(var(--u) * .06) calc(var(--u) * .16) rgba(12,10,40,.18);-webkit-mask-image:linear-gradient(#000 62%,transparent 98%);mask-image:linear-gradient(#000 62%,transparent 98%);transform-origin:50% 85%;transition:transform 420ms cubic-bezier(.34,1.56,.64,1),background .3s,box-shadow .3s}
+
+.kb-finger::after{content:"";position:absolute;top:calc(var(--u) * 1.1);left:26%;right:26%;height:1.5px;border-radius:1px;background:rgba(var(--kb-hand-line),.38);box-shadow:0 calc(var(--u) * .44) 0 rgba(var(--kb-hand-line),.3)}
+.kb-thumb{--len:calc(var(--u) * 1.5);width:calc(var(--u) * .7);transform-origin:50% 100%}
+.kb-num{position:absolute;top:calc(var(--u) * .05);left:50%;display:grid;place-items:center;width:calc(var(--u) * .36);height:calc(var(--u) * .36);margin-left:calc(var(--u) * -.18);border-radius:50%;background:rgb(var(--f));color:#1E1C45;font:800 calc(var(--u) * .2)/1 var(--font-display);box-shadow:0 0 0 1.5px rgba(255,255,255,.9),0 2px 6px rgba(10,8,40,.22);opacity:.85;transform:rotate(calc(-1 * var(--rot, 0deg)));transition:transform 420ms cubic-bezier(.34,1.56,.64,1),opacity .3s}
+.kb-thumb .kb-num{top:calc(var(--u) * .08)}
+.kb-finger--on{background:linear-gradient(rgba(255,255,255,.35),rgba(255,255,255,0) 55%),rgba(var(--f),.72);box-shadow:inset 0 0 0 2px #FFFFFF,0 0 calc(var(--u) * .3) calc(var(--u) * .06) rgba(var(--f),.9)}
+.kb-finger--on .kb-num{opacity:1;transform:rotate(calc(-1 * var(--rot, 0deg))) scale(1.2)}
+.kb-hint{display:flex;align-items:center;justify-content:center;gap:6px;min-height:28px;margin:0 0 8px;text-align:center;font:800 16px/28px var(--font-text);color:var(--kb-hint,#FFFFFF);text-shadow:0 1px 8px rgba(10,8,40,.6)}
+.kb-hint-n{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:rgb(var(--f));color:#1E1C45;font:800 14px/1 var(--font-display);text-shadow:none;box-shadow:0 0 0 1.5px rgba(255,255,255,.9)}
+.kb-hint-n:last-of-type{margin-right:4px}
+@media (prefers-reduced-motion: reduce){.kb-key--next,.kb-key--wrong{animation:none}.kb-finger,.kb-thumb,.kb-num{transition:none}}

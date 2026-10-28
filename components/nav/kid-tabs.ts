@@ -14,8 +14,7 @@ export const KID_TABS: readonly KidTab[] = [
   { id: "learn", label: "Learn", href: `/learn/${DEMO_QUEST}` },
   // Homework help (founder, 28 Oct): a typed question or a photo, explained the way the syllabus teaches it.
   { id: "ask", label: "Ask Kix", href: "/ask" },
-  // Task 6 builds the Arcade: keep the canonical href and drop `soon` when it lands.
-  { id: "play", label: "Play", href: "/arcade", soon: true },
+  { id: "play", label: "Play", href: "/arcade" },
   { id: "treasure", label: "Treasure", href: "/treasure" },
   { id: "vibe", label: "Vibe", href: "/vibe" },
 ];

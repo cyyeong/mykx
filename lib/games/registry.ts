@@ -42,7 +42,7 @@ export const GAMES: readonly GameEntry[] = [
     pitch: "Type the stage you see. Every right word grows a flower. No timer.",
     art: "/art/scenes/terrarium",
     route: "/arcade/word-garden",
-    status: "ready",
+    status: "soon",
   },
   {
     id: "neon-strike",
@@ -54,7 +54,7 @@ export const GAMES: readonly GameEntry[] = [
     pitch: "Answer by typing it. Beams fire only on the right keys. Track your words a minute.",
     art: "/art/games/neon-arena",
     route: "/arcade/neon-strike",
-    status: "ready",
+    status: "soon",
   },
   { id: "number-dash", name: "Number Dash", bands: ["junior"], levels: ["P3"], subject: "maths", tag: "Maths · P3 times tables", pitch: "Race along the sky path by answering facts.", art: "/art/scenes/quest-map", route: null, status: "soon" },
   { id: "stroke-quest", name: "Stroke Quest", bands: ["junior"], levels: ["P3"], subject: "chinese", tag: "Chinese · P3 stroke order", pitch: "Trace each character stroke by stroke from your word cards.", art: "/art/scenes/treasure-vault", route: null, status: "soon" },

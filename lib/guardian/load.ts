@@ -9,7 +9,7 @@ import { moodFromWords } from "./words.ts";
 
 const DAY_MS = 86_400_000;
 
-/** What the app can offer next: the frog quest while it has open stops. Arcade and Vibe Zone aren't built yet. */
+/** What the app can offer next: the frog quest while it has open stops, the Arcade and Vibe Zone. */
 async function offerFor(store: AuthStore, householdId: string, kidId: string): Promise<ViewInput["offer"]> {
   const attempts = await store.learn.attempts(householdId, kidId);
   const ids = FROG_QUEST.stops.map((s) => s.itemId);
@@ -18,7 +18,7 @@ async function offerFor(store: AuthStore, householdId: string, kidId: string): P
   return {
     quest: open ? { title: FROG_QUEST.title, href: `/learn/${FROG_QUEST.slug}`, minutes: 9 } : null,
     reviewsDue: 0,
-    arcade: false,
+    arcade: true,
     vibe: true,
   };
 }
