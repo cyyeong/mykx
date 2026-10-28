@@ -1,7 +1,7 @@
 // Critter eyes for blinking: finds each eye on a life-cycle sprite sheet (4 stages in a row) with SAM 3.1 and writes
 // public/art/living/critters.json with, per stage, the eye boxes in percent of a stage tile and the skin colour
 // just above each eye (the eyelid's colour). A tile shows one cell at background-size 400% auto, centred
-// vertically, with aspect ratio 172 / 150 (the Critter Lab board's .cl-tile).
+// vertically, square (the app's Critter Lab tile; the board used 172 / 150, which crops the taller critters).
 //
 //   node --env-file=.env.local scripts/critter-eyes.ts      (about $0.0025 per sheet)
 import { readFileSync, writeFileSync } from "node:fs";
@@ -9,8 +9,11 @@ import { join } from "node:path";
 import sharp from "sharp";
 import { samSegment } from "../lib/meta/index.ts";
 
-const SHEETS = { frog: "public/art/critters/frog-life-cycle.webp", mealworm: "public/art/critters/mealworm-life-cycle.webp" };
-const TILE_ASPECT = 172 / 150;
+// Every critter with eyes (the bean plant has none).
+const SHEETS = Object.fromEntries(
+  ["frog", "mealworm", "butterfly", "mosquito", "cockroach", "chicken"].map((id) => [id, `public/art/critters/${id}-life-cycle.webp`]),
+);
+const TILE_ASPECT = 1;
 const r1 = (v: number) => Math.round(v * 10) / 10;
 
 if (import.meta.main) {

@@ -2507,5 +2507,95 @@
     "size": 190640,
     "created": "2026-10-27",
     "note": "Living art: base plate for city-neon, drawn under the moving layers."
+  },
+  {
+    "id": "critters-butterfly-life-cycle",
+    "path": "public/art/critters/butterfly-life-cycle.webp",
+    "variants": [
+      "public/art/critters/butterfly-life-cycle-800.webp"
+    ],
+    "pack": "terrarium",
+    "kind": "critter",
+    "model": "muse-image-1.0",
+    "route": "api",
+    "prompt": "A butterfly life cycle shown as four separate stages evenly spaced left to right in one row on a plain flat pale cream background with lots of space between them: tiny round pale green butterfly eggs on a small leaf, a plump green caterpillar with soft stripes, a green chrysalis hanging from a short twig, a colourful adult butterfly with open orange and black wings. Cute soft 3D toy style, friendly picture-book look, not scary, not gross, consistent soft lighting, scientifically accurate for each life stage, no arrows, no text, no letters, no logos, no watermark.",
+    "refs": [],
+    "size": "1920x1280",
+    "source": "art-src/critters/butterfly-life-cycle.png",
+    "created": "2026-10-28",
+    "sha256": "a625b2c5fc2b2645bf01b12a431032284e247b3e7050a4e79a5e36c0ba6cae82",
+    "cut_by": null
+  },
+  {
+    "id": "critters-mosquito-life-cycle",
+    "path": "public/art/critters/mosquito-life-cycle.webp",
+    "variants": [
+      "public/art/critters/mosquito-life-cycle-800.webp"
+    ],
+    "pack": "terrarium",
+    "kind": "critter",
+    "model": "muse-image-1.0",
+    "route": "api",
+    "prompt": "A mosquito life cycle shown as four separate stages evenly spaced left to right in one row on a plain flat pale cream background with lots of space between them: a small raft of dark mosquito eggs floating on a little round puddle of water, a mosquito larva wriggling just under the surface of a little round puddle of water, a curled comma-shaped mosquito pupa in a little round puddle of water, an adult mosquito with long thin legs and clear wings. Cute soft 3D toy style, friendly picture-book look, not scary, not gross, consistent soft lighting, scientifically accurate for each life stage, no arrows, no text, no letters, no logos, no watermark.",
+    "refs": [],
+    "size": "1920x1280",
+    "source": "art-src/critters/mosquito-life-cycle.png",
+    "created": "2026-10-28",
+    "sha256": "b1580fc74d15852fc87a0f33b13e3cbc116f0f09cece959998c858dde1a054bc",
+    "cut_by": null
+  },
+  {
+    "id": "critters-cockroach-life-cycle",
+    "path": "public/art/critters/cockroach-life-cycle.webp",
+    "variants": [
+      "public/art/critters/cockroach-life-cycle-800.webp"
+    ],
+    "pack": "terrarium",
+    "kind": "critter",
+    "model": "muse-image-1.0",
+    "route": "api",
+    "prompt": "A cockroach life cycle shown as four separate stages evenly spaced left to right in one row on a plain flat pale cream background with lots of space between them: a small brown bean-shaped cockroach egg case, a tiny pale young cockroach nymph without wings, a bigger brown cockroach nymph without wings, an adult brown cockroach with wings. Cute soft 3D toy style, friendly picture-book look, not scary, not gross, consistent soft lighting, scientifically accurate for each life stage, no arrows, no text, no letters, no logos, no watermark.",
+    "refs": [],
+    "size": "1920x1280",
+    "source": "art-src/critters/cockroach-life-cycle.png",
+    "created": "2026-10-28",
+    "sha256": "e17b464d1f7051509e9af1c55c32a146807db33bc7e2ba264f4a4e5df14ed081",
+    "cut_by": null
+  },
+  {
+    "id": "critters-chicken-life-cycle",
+    "path": "public/art/critters/chicken-life-cycle.webp",
+    "variants": [
+      "public/art/critters/chicken-life-cycle-800.webp"
+    ],
+    "pack": "terrarium",
+    "kind": "critter",
+    "model": "muse-image-1.0",
+    "route": "api",
+    "prompt": "A chicken life cycle shown as four separate stages evenly spaced left to right in one row on a plain flat pale cream background with lots of space between them: a smooth white chicken egg, a fluffy yellow chick hatching out of a cracked egg shell, a fluffy yellow chick standing, an adult brown hen with a red comb. Cute soft 3D toy style, friendly picture-book look, not scary, not gross, consistent soft lighting, scientifically accurate for each life stage, no arrows, no text, no letters, no logos, no watermark.",
+    "refs": [],
+    "size": "1920x1280",
+    "source": "art-src/critters/chicken-life-cycle.png",
+    "created": "2026-10-28",
+    "sha256": "ec5b9c49ce188903c410d510ca33050f2d1ca67e0a096d15b741f7126aea71eb",
+    "cut_by": null
+  },
+  {
+    "id": "critters-bean-plant-life-cycle",
+    "path": "public/art/critters/bean-plant-life-cycle.webp",
+    "variants": [
+      "public/art/critters/bean-plant-life-cycle-800.webp"
+    ],
+    "pack": "terrarium",
+    "kind": "critter",
+    "model": "muse-image-1.0",
+    "route": "api",
+    "prompt": "A green bean plant life cycle shown as four separate stages evenly spaced left to right in one row on a plain flat pale cream background with lots of space between them: a single bean seed, a germinating bean seed with a small white root and a curled shoot, a young seedling with two green leaves in a small mound of soil, a grown bean plant with small white flowers and green bean pods in a small mound of soil. Cute soft 3D toy style, friendly picture-book look, not scary, not gross, consistent soft lighting, scientifically accurate for each life stage, no arrows, no text, no letters, no logos, no watermark.",
+    "refs": [],
+    "size": "1920x1280",
+    "source": "art-src/critters/bean-plant-life-cycle.png",
+    "created": "2026-10-28",
+    "sha256": "206f5487048c4df849557a2f8afdef7bdbb2fe276658465b73ee7515f0a0e82e",
+    "cut_by": null
   }
 ]
