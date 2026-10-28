@@ -33,7 +33,7 @@ The demo family is synthetic and labelled as such in the UI (`profiles.synthetic
 
 myKx gives a Singapore student an AI sidekick, **Kix**. A child learns in short quests that adapt to them, earns honest rewards in a Treasure Realm, makes study things in the Vibe Zone, restyles Kix in Sidekick Studio, plays syllabus typing games in the Arcade, and gets homework help from a photo. A parent gets a calm picture of the day: screen time, learning, wellbeing signals shown as possibilities, Kix's Notebook, family messages, and **Guardian**, which reads the family's own cameras and the child's whereabouts into plain status lines. An admin grows the content: a weekly scout finds new exam papers, and a knowledge agent turns them into patterns Kix teaches from, after a human approves each one.
 
-Fifteen agents do the work (`lib/admin/hood.ts`, `AGENTS`). Thirteen call Meta models: Muse Spark 1.3 in ten, SAM 3.1 in two, Muse Image 1.0 in one and Muse Voice Transcribe 1.0 in one (Sidekick Studio uses both Muse Image and SAM). Two are rules only.
+Sixteen agents do the work (`lib/admin/hood.ts`, `AGENTS`). Fourteen call Meta models: Muse Spark 1.3 in eleven, SAM 3.1 in two, Muse Image 1.0 in one and Muse Voice Transcribe 1.0 in one (Sidekick Studio uses both Muse Image and SAM). Two are rules only.
 
 ### 1.1 Design principles, and where the code enforces them
 
@@ -274,7 +274,7 @@ There is no agent framework. An agent is a route handler plus a small library mo
 
 The structured-output path (`lib/meta/schema.ts`) converts a zod schema to JSON Schema and refuses shapes Meta rejects: no `$ref` or `$defs`, no `allOf` or `oneOf`, a root object, every key required, `additionalProperties: false`. Output text is parsed (tolerating a fenced block) and validated with the same zod schema; a failure becomes a `MetaApiError` with code `invalid_output` and a logged failed run.
 
-### 4.2 The fifteen agents
+### 4.2 The sixteen agents
 
 **What each one is for:**
 
@@ -722,7 +722,7 @@ Each verdict is a fixed rule applied to a person's judgement, not a model learni
 ### 6.5 Loop 5: operations and observability
 
 - **`model_runs`** records every call (route, operation, model, request and response ids, latency, first-token time, tokens, images, audio seconds, estimated cost, ok, a short key-free error). `lib/runs/log.ts` writes it through a hook in `lib/meta/run.ts`, so no route can forget; logging never breaks a call.
-- **Under the hood** (`/admin/under-the-hood`, `app/api/admin/hood/route.ts`, `lib/admin/hood.ts`) shows the fifteen agents with what they read and may never do, per-model totals (calls, failures, average latency, tokens, images, audio seconds, cost), the latest 60 calls by agent name (never by child: `publicRun` reports only whether a call was for a child), the packs, published versions and the art manifest.
+- **Under the hood** (`/admin/under-the-hood`, `app/api/admin/hood/route.ts`, `lib/admin/hood.ts`) shows the sixteen agents with what they read and may never do, per-model totals (calls, failures, average latency, tokens, images, audio seconds, cost), the latest 60 calls by agent name (never by child: `publicRun` reports only whether a call was for a child), the packs, published versions and the art manifest.
 - **Refreshing fallbacks from live runs:** `scripts/guardian/home-reader-cache.ts` runs the real Home Reader on the eight synthetic frames and stores its answers by frame hash as the cached fallback; `scripts/guardian/outings-seed.ts` records a real outing run as the demo's cached run.
 - **Engine checks:** the soak test and the content scanner run offline and deterministically.
 

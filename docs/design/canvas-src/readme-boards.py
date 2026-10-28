@@ -249,7 +249,7 @@ ag_css = """
 .a-note{margin-top:14px;font:600 16px/23px "Nunito",sans-serif;color:#D9D3FF}
 """
 groups = [
-    ("Learning", [("Kix Tutor", "Hints and explanations for each question", muse("Muse Spark")), ("Ask Kix", "Homework help from a typed question or a photo", muse("Muse Spark")), ("Content Curator", "Reads past papers for patterns and traps", muse("Muse Spark")), ("Past-paper scout", "Finds new papers every week", rules())]),
+    ("Learning", [("Kix Tutor", "Hints and explanations for each question", muse("Muse Spark")), ("Ask Kix", "Homework help from a typed question or a photo", muse("Muse Spark")), ("Content Curator", "Reads past papers for patterns and traps", muse("Muse Spark")), ("Past-paper scout", "Finds new papers every week", rules()), ("Skill Editor", "Improves a skill pack when an admin asks", muse("Muse Spark"))]),
     ("Imagination", [("Sidekick Studio", "Turns Kix into the child's own world", muse("Muse Image") + " " + muse("SAM 3.1")), ("Vibe Zone maker", "Flashcards from the child's own brief", muse("Muse Spark")), ("Talk to Kix", "Push to talk; the audio is never kept", muse("Muse Voice Transcribe"))]),
     ("Home and outdoors", [("Home Reader", "Reads the family's own camera frames, with vision", muse("Muse Spark")), ("Who's who", "Outlines the children on a flagged frame", muse("SAM 3.1")), ("Guardian Brief", "The “Right now” line for the parent", muse("Muse Spark"))]),
     ("Memory and care", [("Memory Keeper", "Keeps Kix's Notebook about each child", muse("Muse Spark")), ("Screen-time guardian", "Breaks, quiet hours, the day's balance", rules())]),
@@ -260,13 +260,13 @@ def grp(name, agents):
 cols = [grp(*groups[0]), grp(*groups[1]) + grp(*groups[4]), grp(*groups[2]) + grp(*groups[3])]
 build_agents = f"""
 <div class="a-head">
-  <h1 class="rd-h2">15 specialists. 13 of them run on Meta Muse.</h1>
+  <h1 class="rd-h2">16 specialists. 14 of them run on Meta Muse.</h1>
   <p class="rd-lede">Muse reads, explains and imagines. Plain rules decide every score, reward and alert.</p>
 </div>
 <div class="a-grid">{''.join(f'<div>{c}</div>' for c in cols)}</div>
 <aside class="a-side">
   <h3>Meta models in myKx</h3>
-  <div class="a-count"><b>10</b><span>Muse Spark 1.3<small>Standard mode: chat, vision, structured output, web search</small></span></div>
+  <div class="a-count"><b>11</b><span>Muse Spark 1.3<small>Standard mode: chat, vision, structured output, web search</small></span></div>
   <div class="a-count"><b>2</b><span>SAM 3.1<small>Kix cut-outs and outlines on flagged frames</small></span></div>
   <div class="a-count"><b>1</b><span>Muse Image 1.0<small>Kix in every world, cards, critters and jets</small></span></div>
   <div class="a-count"><b>1</b><span>Muse Voice Transcribe 1.0<small>Talk to Kix</small></span></div>
@@ -274,7 +274,7 @@ build_agents = f"""
   <p class="a-note">Children's data only ever goes to Standard models, never contributor mode. Every call is logged in Under the hood with its model, time, tokens and cost.</p>
 </aside>
 """
-board("ReadmeAgents", "myKx README: 15 agents", build_agents, True, ag_css)
+board("ReadmeAgents", "myKx README: 16 agents", build_agents, True, ag_css)
 
 # 6. Beyond the screen --------------------------------------------------------------------------------------------
 out_css = """
