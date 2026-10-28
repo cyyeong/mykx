@@ -2,10 +2,12 @@
 
 // The door sign-in, ported from the Login board (canvas row 8). A living city behind a grand door; on success the
 // card folds away, the leaves swing open and a time tunnel carries the person to their landing page.
-// idle -> opening (1.15 s) -> tunnel (1.4 s) -> arrived -> navigate. Reduced motion: straight to arrived.
+// idle -> opening (1.15 s) -> tunnel (1.4 s, drawn on a canvas by WarpCanvas) -> arrived -> navigate. Reduced
+// motion: straight to arrived.
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { memo, useEffect, useRef, useState, type CSSProperties, type FormEvent } from "react";
+import { WarpCanvas } from "./WarpCanvas";
 import { useSound } from "@/components/sound/SoundProvider";
 import { useTheme } from "@/components/theme/ThemeRoot";
 import type { PackId } from "@/components/theme/packs";
@@ -68,15 +70,6 @@ const WALK = [
   { size: 42, dur: 60, delay: -20.6, rtl: true, lift: 10, few: false },
   { size: 36, dur: 72, delay: -46.1, rtl: false, lift: 18, few: true },
 ];
-const STREAKS = Array.from({ length: 18 }, (_, i) => {
-  const tint = i % 3 === 0 ? "rgb(var(--lg-glow))" : i % 3 === 1 ? "#FFFFFF" : "rgb(var(--lg-glow-2))";
-  return vars({
-    "--a": `${i * 20 + (i % 3) * 7}deg`,
-    width: 90 + ((i * 37) % 110),
-    animationDelay: `${(-((i * 0.29) % 0.95)).toFixed(2)}s`,
-    background: `linear-gradient(90deg, rgba(255, 255, 255, 0), ${tint})`,
-  });
-});
 const SPARK = "M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z";
 
 /** Sky, lanterns or motes, fireflies and flying Kix. Decorative; never re-renders with the form. */
@@ -173,21 +166,6 @@ const Door = memo(function Door({ variant, rattle }: { variant: DoorVariant; rat
           <div className="lg-dw-core" />
         </div>
         <div className="lg-rays" />
-        <div className="lg-warp">
-          <div className="lg-warp-bg" />
-          <div className="lg-warp-vortex">
-            <div className="lg-warp-spin">
-              <Art base="/art/scenes/transform-vortex" alt="" sizes="190vmax" />
-            </div>
-          </div>
-          <div className="lg-ring" />
-          <div className="lg-ring" style={{ animationDelay: "-0.43s" }} />
-          <div className="lg-ring" style={{ animationDelay: "-0.86s" }} />
-          {STREAKS.map((style, i) => (
-            <span key={i} className="lg-streak" style={style} />
-          ))}
-          <div className="lg-flash" />
-        </div>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className="lg-leaf lg-leaf--l" src={look.leafL} alt="" draggable="false" />
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -729,6 +707,9 @@ export function SignInScreen({
           <img src="/brand/wordmark-on-dark.svg" className="lg-mark" alt="myKx" />
         </div>
       )}
+
+      {/* The time tunnel: one canvas at screen size (WarpCanvas) */}
+      <WarpCanvas active={phase === "tunnel" && live} />
 
       {/* Arrived: through the tunnel and into your world */}
       <div className="lg-arrived" style={{ background: "radial-gradient(ellipse 60% 55% at 50% 45%, rgba(var(--lg-glow), 0.38), rgba(var(--lg-glow), 0) 70%), var(--surface)" }}>

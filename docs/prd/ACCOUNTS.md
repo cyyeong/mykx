@@ -30,6 +30,7 @@ Kids never give an email. A kid signing in on their own device (family code + ni
 
 1. Kids' codes and passwords are hashed on the server (scrypt), checked with rate limits, and never shown again. A parent can reset them.
 2. A kid's session is a short-lived, signed, http-only cookie tied to the parent's session on that device (12 h, or until the parent signs out).
+   **Sign out and idle (29 Oct):** a kid can sign out from the rail (from 600 px), the avatar menu or Me; after 14 minutes with no taps, keys or scrolls a "Still there?" card counts down the last minute, and at 15 minutes the kid is signed out (`components/nav/KidIdle.tsx`). Signing out ends the kid's session only: back to Kids' doors when a grown-up is signed in on the device, else to the sign-in page.
 3. Nicknames, never full names, and no email for kids.
 4. All admin actions are server routes that check the admin flag, write an `audit_log` row, and use the service role; RLS still scopes everything else by household.
 5. Sign-in pages say what's stored and link the privacy note.

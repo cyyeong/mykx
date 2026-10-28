@@ -54,10 +54,13 @@ export async function POST(request: Request) {
   });
 }
 
-/** The kid steps away (Me → Sign out, or "Switch profile"): ends the kid's session only; the grown-up stays signed in, and the kids-here mark stays, so grown-up pages still ask the PIN. */
+/** The kid steps away (Sign out, "Switch profile", or 15 minutes idle): ends the kid's session only. A grown-up
+ *  signed in on this device stays signed in (and the kids-here mark stays, so grown-up pages still ask the PIN),
+ *  so the kid goes back to the doors; with no grown-up here, back to the sign-in page. */
 export async function DELETE(request: Request) {
-  return withAuth(request, async ({ jar }) => {
+  return withAuth(request, async ({ store, jar }) => {
     jar.delete(KID_COOKIE);
-    return ok({ next: "/doors" });
+    const parent = await currentParent(store, jar);
+    return ok({ next: parent ? "/doors" : "/signin" });
   });
 }

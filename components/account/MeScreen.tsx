@@ -3,8 +3,8 @@
 // "Me" for kids, ported from the KidMe board (canvas row 8): what Kix calls you, and your picture code (old -> new
 // -> check) or password. Data: GET and PATCH /api/me (docs/prd/ACCOUNTS.md §3). The page takes on the kid's own
 // world and band. Codes and passwords go to the server once to be checked and hashed, then are forgotten here.
+import { signKidOut } from "@/components/nav/KidIdle";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
 import { PAD_PICTURES, kixSprite, type PictureId } from "@/components/signin/looks";
 import { useSound } from "@/components/sound/SoundProvider";
@@ -126,7 +126,6 @@ function Eye({ shown, onToggle, controls, label }: { shown: boolean; onToggle: (
 }
 
 export function MeScreen() {
-  const router = useRouter();
   const { pack, setPack, setBand } = useTheme();
   const { play } = useSound();
   const [load, setLoad] = useState<Load>({ phase: "loading" });
@@ -409,11 +408,10 @@ export function MeScreen() {
     setPassMsg(null);
   };
 
-  // Ends only this kid's session, then back to the doors (the grown-up stays signed in on this device).
+  // Ends only this kid's session, then back to the doors (or the sign-in page when no grown-up is signed in here).
   const signOut = async () => {
     setLeaving(true);
-    await api("DELETE", "/api/auth/kid");
-    router.replace("/doors");
+    await signKidOut();
   };
 
   const lede = kind === "password" ? "Nickname and password." : "Your nickname and your secret picture code.";

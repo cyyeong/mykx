@@ -1,10 +1,11 @@
 "use client";
 
-// The kid's avatar: opens a small menu with Me and Switch profile. Switching ends this kid's session first, so
+// The kid's avatar: opens a small menu with Me, Switch profile and Sign out. Both end this kid's session first, so
 // Back on a shared tablet never reopens a sibling's world (docs/prd/USER_STORIES.md §8.4, fix 8).
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { signKidOut } from "./KidIdle";
 import "./kidAvatarMenu.css";
 
 export function KidAvatarMenu({ nickname }: { nickname: string }) {
@@ -53,6 +54,18 @@ export function KidAvatarMenu({ nickname }: { nickname: string }) {
           </Link>
           <button role="menuitem" type="button" className="kam-item" onClick={switchProfile} disabled={leaving}>
             {leaving ? "Switching…" : "Switch profile"}
+          </button>
+          <button
+            role="menuitem"
+            type="button"
+            className="kam-item kam-out"
+            onClick={() => {
+              setLeaving(true);
+              void signKidOut();
+            }}
+            disabled={leaving}
+          >
+            Sign out
           </button>
         </div>
       )}

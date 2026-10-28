@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { FocusWatch } from "@/components/camera/FocusWatch";
 import { GuardianWatch } from "@/components/guardian/GuardianWatch";
+import { KidIdle } from "@/components/nav/KidIdle";
 import { KidNav } from "@/components/nav/KidNav";
 import { SoundProvider } from "@/components/sound/SoundProvider";
 import { SoundToggle } from "@/components/sound/SoundToggle";
@@ -27,6 +28,8 @@ export default function KidLayout({ children }: LayoutProps<"/">) {
           <Suspense fallback={null}>
             <GuardianWatch />
           </Suspense>
+          {/* Signs the kid out after 15 minutes idle, with a "Still there?" card in the last minute. */}
+          <KidIdle />
         </div>
         {/* Focus camera: learning screens only, when a grown-up turned it on (renders nothing otherwise). It reads
             the current path, so it sits in its own Suspense boundary and never blocks a page. */}
