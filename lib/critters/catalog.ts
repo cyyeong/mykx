@@ -27,6 +27,9 @@ export interface Critter {
   /** How far each tile zooms into its quarter of the sheet (default 1.12, so neighbours never peek in); tall,
    *  well-spaced sheets keep 1 so nothing is cropped. */
   zoom?: number;
+  /** For sheets whose stages aren't evenly spaced: each stage's [centre, width] in percent of the sheet's width
+   *  (measured from the art), so every tile frames its own stage and no neighbour peeks in. Overrides `zoom`. */
+  frames?: [number, number][];
 }
 
 export const GROUP_LABEL: Record<Group, string> = { amphibian: "Amphibian", insect: "Insect", bird: "Bird", plant: "Flowering plant" };
@@ -66,6 +69,7 @@ export const CRITTERS: readonly Critter[] = [
     id: "butterfly",
     name: "Butterfly",
     art: "/art/critters/butterfly-life-cycle",
+    frames: [[10.65, 20.3], [35.3, 33.6], [58.35, 17.1], [82.15, 33.3]],
     group: "insect",
     cycle: "4 stages: egg, larva (caterpillar), pupa (chrysalis), adult",
     youngLookLikeAdult: false,
@@ -96,6 +100,7 @@ export const CRITTERS: readonly Critter[] = [
     id: "cockroach",
     name: "Cockroach",
     art: "/art/critters/cockroach-life-cycle",
+    frames: [[10.95, 20], [32.95, 20.7], [57.05, 26.7], [82.85, 29.5]],
     group: "insect",
     cycle: "3 stages: egg, nymph, adult",
     youngLookLikeAdult: true,

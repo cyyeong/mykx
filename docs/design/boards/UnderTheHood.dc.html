@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Under the hood</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+.uh-click{cursor:pointer}
+.uh-click:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+/* Layout (mykx-design-system §3a), as the other admin boards. Default = expanded: sidebar and content. */
+.uh-shell{display:flex;min-height:100vh}
+.uh-nav{width:232px;padding:24px 16px;flex-direction:column;gap:6px;box-shadow:inset -1px 0 0 var(--line)}
+.uh-brand{padding:0 8px 18px}
+.uh-navlist{display:flex;flex-direction:column;gap:6px}
+.uh-navi[aria-current="page"]{box-shadow:inset 3px 0 0 var(--accent)}
+.uh-who{margin-top:auto}
+.uh-main{padding:28px 32px}
+.uh-stats{grid-template-columns:repeat(5,minmax(0,1fr))}
+.uh-agents{grid-template-columns:repeat(3,minmax(0,1fr))}
+.uh-split{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}
+.uh-gallery{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (min-width: 600px) and (max-width: 1023px){
+  .uh-shell{flex-direction:column}
+  .uh-nav{width:auto;padding:12px 24px;flex-direction:row;flex-wrap:wrap;align-items:center;gap:8px 16px;box-shadow:inset 0 -1px 0 var(--line)}
+  .uh-brand{padding:0}
+  .uh-who{order:1;margin-top:0;margin-left:auto}
+  .uh-navlist{order:2;flex:1 1 100%;flex-direction:row;flex-wrap:wrap;gap:4px}
+  .uh-navi[aria-current="page"]{box-shadow:inset 0 -3px 0 var(--accent)}
+  .uh-main{padding:24px}
+  .uh-stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .uh-agents{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .uh-split{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width: 599px){
+  .uh-shell{flex-direction:column}
+  .uh-nav{width:auto;padding:12px 16px;gap:10px;box-shadow:inset 0 -1px 0 var(--line)}
+  .uh-brand{padding:0}
+  .uh-who{display:none}
+  .uh-navlist{flex-direction:row;gap:4px;overflow-x:auto;scrollbar-width:none}
+  .uh-navi{flex:none;white-space:nowrap}
+  .uh-navi[aria-current="page"]{box-shadow:inset 0 -3px 0 var(--accent)}
+  .uh-main{padding:20px 16px 28px}
+  .uh-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .uh-agents{grid-template-columns:minmax(0,1fr)}
+  .uh-split{grid-template-columns:minmax(0,1fr)}
+  .uh-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (min-width: 1600px){.uh-shell{max-width:1600px;margin:0 auto}}
+</style>
+</helmet>
+<div data-theme="anime-sky" data-band="teen" style="width: 100%; min-height: 100vh; box-sizing: border-box; position: relative; overflow-x: clip; background: var(--surface); color: var(--ink); font-family: var(--font-text)">
+ <div class="uh-shell">
+  <nav class="uh-nav" aria-label="Admin" style="flex: none; box-sizing: border-box; display: flex; background: var(--surface-raised)">
+    <div class="uh-brand" style="display: flex; align-items: center; gap: 10px">
+      <img src="/_blob/f52e18857979369421011da66fdb9de3" alt="myKx" style="height: 24px; width: auto">
+      <span style="padding: 2px 8px; border-radius: var(--radius-pill); background: var(--ink); color: var(--surface); font-size: 11px; line-height: 18px; font-weight: 700; letter-spacing: .04em">ADMIN</span>
+    </div>
+    <div class="uh-navlist">
+      <a class="uh-navi" href="AdminSkills.dc.html" style="display: block; padding: 10px 12px; border-radius: var(--radius-sm); font-size: 15px; line-height: 20px; font-weight: 600; color: var(--ink-muted); text-decoration: none">Skills</a>
+      <a class="uh-navi" href="AdminUpload.dc.html" style="display: block; padding: 10px 12px; border-radius: var(--radius-sm); font-size: 15px; line-height: 20px; font-weight: 600; color: var(--ink-muted); text-decoration: none">Add knowledge</a>
+      <a class="uh-navi" href="AdminPeople.dc.html" style="display: block; padding: 10px 12px; border-radius: var(--radius-sm); font-size: 15px; line-height: 20px; font-weight: 600; color: var(--ink-muted); text-decoration: none">People</a>
+      <span class="uh-navi" aria-current="page" style="display: block; padding: 10px 12px; border-radius: var(--radius-sm); font-size: 15px; line-height: 20px; font-weight: 600; background: var(--surface); color: var(--accent)">Under the hood</span>
+    </div>
+    <div class="uh-who" style="padding: 12px; border-radius: var(--radius-sm); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); font-size: 13px; line-height: 18px; color: var(--ink-muted)">
+      Signed in as <strong style="color: var(--ink)">Demo Parent</strong><br>Role: admin · synthetic data
+    </div>
+  </nav>
+
+  <main class="uh-main" style="flex: 1; min-width: 0; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px">
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 12px 24px">
+      <div style="display: flex; flex-direction: column; gap: 4px; max-width: 780px">
+        <h1 style="margin: 0; font: 800 32px/38px var(--font-display)">Under the hood</h1>
+        <span style="font-size: 15px; line-height: 22px; color: var(--ink-muted)">How Kix thinks: the agents, the Meta models they call, and what each one may never do. Every call is logged with its model, time, tokens and cost; never a prompt, an answer or a child's words.</span>
+      </div>
+      <span style="padding: 3px 12px; border-radius: var(--radius-pill); box-shadow: inset 0 0 0 1.5px var(--border-control); font-size: 13px; line-height: 20px; font-weight: 700">Demo family · synthetic data</span>
+    </div>
+
+    <section class="uh-stats" aria-label="Totals" style="display: grid; gap: 12px; padding: 18px 20px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line), var(--shadow-raised)">
+      <sc-for list="{{stats}}" as="s" hint-placeholder-count="5">
+        <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+          <span style="font-size: 13px; line-height: 18px; color: var(--ink-muted)">{{s.label}}</span>
+          <span style="font: 800 30px/1.1 var(--font-display); font-variant-numeric: tabular-nums">{{s.value}}</span>
+        </div>
+      </sc-for>
+    </section>
+
+    <section aria-label="Kix's agents" style="display: flex; flex-direction: column; gap: 12px">
+      <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px">
+        <h2 style="margin: 0; font: 700 20px/26px var(--font-display)">Kix's agents</h2>
+        <span style="font-size: 13px; color: var(--ink-muted)">Pick one to see its calls</span>
+      </div>
+      <div class="uh-agents" style="display: grid; gap: 12px">
+        <sc-for list="{{agents}}" as="a" hint-placeholder-count="9">
+          <button class="uh-click" type="button" onClick="{{a.pick}}" aria-pressed="{{a.pressed}}" style="{{a.style}}">
+            <span style="font-size: 16px; line-height: 22px; font-weight: 700">{{a.name}}</span>
+            <span style="display: flex; flex-wrap: wrap; gap: 6px">
+              <sc-for list="{{a.models}}" as="m" hint-placeholder-count="1">
+                <code style="{{m.style}}">{{m.id}}</code>
+              </sc-for>
+            </span>
+            <span style="font-size: 13px; line-height: 19px; color: var(--ink-muted)">Reads: {{a.reads}}</span>
+            <span style="font-size: 13px; line-height: 19px"><strong style="color: var(--warn)">Never</strong> {{a.never}}</span>
+          </button>
+        </sc-for>
+      </div>
+    </section>
+
+    <div class="uh-split" style="display: grid; gap: 16px; align-items: start">
+      <section aria-label="Newest calls" style="min-width: 0; display: flex; flex-direction: column; gap: 10px; padding: 18px 20px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line), var(--shadow-raised)">
+        <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px">
+          <h2 style="margin: 0; font: 700 20px/26px var(--font-display)">Newest calls</h2>
+          <span style="font-size: 13px; color: var(--ink-muted)">{{callsNote}}</span>
+        </div>
+        <div style="overflow-x: auto">
+          <table style="width: 100%; border-collapse: collapse; font-size: 14px; line-height: 20px; font-variant-numeric: tabular-nums">
+            <thead>
+              <tr>
+                <th style="text-align: left; padding: 6px 10px 6px 0; border-bottom: 1px solid var(--line); font-size: 12px; color: var(--ink-muted)">When</th>
+                <th style="text-align: left; padding: 6px 10px 6px 0; border-bottom: 1px solid var(--line); font-size: 12px; color: var(--ink-muted)">Agent</th>
+                <th style="text-align: left; padding: 6px 10px 6px 0; border-bottom: 1px solid var(--line); font-size: 12px; color: var(--ink-muted)">Model</th>
+                <th style="text-align: right; padding: 6px 10px 6px 0; border-bottom: 1px solid var(--line); font-size: 12px; color: var(--ink-muted)">Time</th>
+                <th style="text-align: right; padding: 6px 0; border-bottom: 1px solid var(--line); font-size: 12px; color: var(--ink-muted)">Tokens</th>
+              </tr>
+            </thead>
+            <tbody>
+              <sc-for list="{{calls}}" as="c" hint-placeholder-count="6">
+                <tr>
+                  <td style="padding: 8px 10px 8px 0; border-bottom: 1px solid var(--line); white-space: nowrap">{{c.t}}</td>
+                  <td style="padding: 8px 10px 8px 0; border-bottom: 1px solid var(--line)">{{c.agent}}<span style="color: var(--ink-muted)">{{c.child}}</span></td>
+                  <td style="padding: 8px 10px 8px 0; border-bottom: 1px solid var(--line)"><code>{{c.model}}</code></td>
+                  <td style="padding: 8px 10px 8px 0; border-bottom: 1px solid var(--line); text-align: right">{{c.time}}</td>
+                  <td style="padding: 8px 0; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap">{{c.tokens}}</td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section aria-label="Per model" style="min-width: 0; display: flex; flex-direction: column; gap: 10px; padding: 18px 20px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line), var(--shadow-raised)">
+        <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px">
+          <h2 style="margin: 0; font: 700 20px/26px var(--font-display)">Per model</h2>
+          <span style="font-size: 13px; color: var(--ink-muted)">Meta Model API · Standard keys only</span>
+        </div>
+        <sc-for list="{{models}}" as="m" hint-placeholder-count="4">
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <div style="display: flex; justify-content: space-between; gap: 8px; font-size: 14px; line-height: 20px">
+              <code style="font-weight: 700">{{m.id}}</code>
+              <span style="color: var(--ink-muted)">{{m.detail}}</span>
+            </div>
+            <span style="display: block; height: 8px; border-radius: 4px; background: var(--line); overflow: hidden"><span style="{{m.bar}}"></span></span>
+          </div>
+        </sc-for>
+        <h3 style="margin: 8px 0 0; font: 700 16px/22px var(--font-text)">Art made for myKx</h3>
+        <span style="font-size: 13px; line-height: 19px; color: var(--ink-muted)">157 files in the manifest, made 27–28 Oct with Muse Image and SAM 3.1. Original art only; every file has its prompt, model and hash.</span>
+        <div class="uh-gallery" style="display: grid; gap: 8px">
+          <img src="/_blob/1be0285c83fc5de9a8d666fbb5e6c403" alt="Kix, Dreamlight" style="width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius-sm); display: block">
+          <img src="/_blob/89c33c13cd369e58aad9fee004a30b65" alt="Kix, Idol Stage" style="width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius-sm); display: block">
+          <img src="/_blob/8efcc51c7eaf89154a96f8104103085a" alt="Dragonfly jet" style="width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius-sm); display: block">
+          <img src="/_blob/862cb1eac1da1da82068dec70933794b" alt="Butterfly life cycle" style="width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius-sm); display: block; background: #FBF5E8">
+          <img src="/_blob/51658a9e815144ebc0da19f028bc2f57" alt="Treasure vault" style="width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius-sm); display: block">
+          <img src="/_blob/23bcad5667f5a18b84bad14a06b333ca" alt="Light and shadows card" style="width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius-sm); display: block">
+          <img src="/_blob/e100a223af29f3653ca9b4ed32a70d4c" alt="Kix, Terrarium" style="width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius-sm); display: block">
+          <img src="/_blob/f3fd52715c2e2bb9ef9c063b0011465a" alt="The living city at twilight" style="width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius-sm); display: block">
+        </div>
+      </section>
+    </div>
+  </main>
+ </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  state = { agent: null };
+
+  renderVals() {
+    const AGENTS = [
+      ['tutor', 'Kix Tutor', ['muse-spark-1.3'], "The question's skill pack, worked steps and hints, Kix's Notebook", 'gives the answer away or changes a score.'],
+      ['ask', 'Ask Kix (homework)', ['muse-spark-1.3'], 'A typed question or a photo (face-checked on the device), the level’s packs, the Notebook', 'keeps the photo, or skips the guide-first steps.'],
+      ['memory', 'Memory Keeper', ['muse-spark-1.3'], "The child's own words to Kix after a session, the Notebook", 'labels or diagnoses, reads family messages, or touches mastery.'],
+      ['vibe', 'Vibe Zone maker', ['muse-spark-1.3'], "The child's brief and the level's pack notes", 'writes code: it returns a checked spec.'],
+      ['curator', 'Content Curator', ['muse-spark-1.3'], 'Admin-uploaded PDFs', "keeps a school paper's questions: patterns only, approved by an admin."],
+      ['studio', 'Sidekick Studio', ['muse-image-1.0', 'sam-3.1'], 'The picked world and interests (chips only)', "takes a child's photo or free text."],
+      ['voice', 'Talk to Kix (voice in)', ['muse-voice-transcribe-1.0'], 'A push-to-talk clip of up to 30 s', 'stores or logs audio: the transcript only.'],
+      ['guardian', 'Guardian', [], "Heartbeats, answers, the child's words to Kix, the parent's settings", 'calls a model or diagnoses: rules in code only.'],
+      ['scout', 'Past-paper scout', [], 'Admin-approved sites, robots.txt and terms', 'bypasses a CAPTCHA, a sign-in or a robots block.'],
+    ];
+    const CALLS = [
+      ['19:16', 'memory', 'Memory Keeper', true, 'muse-spark-1.3', '5.6 s', '494 / 1,125'],
+      ['19:14', 'tutor', 'Kix Tutor', true, 'muse-spark-1.3', '2.9 s', '2,851 / 445'],
+      ['19:11', 'ask', 'Ask Kix (homework)', true, 'muse-spark-1.3', '7.7 s', '8,870 / 1,380'],
+      ['19:05', 'voice', 'Talk to Kix (voice in)', true, 'muse-voice-transcribe-1.0', '2.1 s', '3 s audio'],
+      ['18:52', 'vibe', 'Vibe Zone maker', true, 'muse-spark-1.3', '6.2 s', '3,410 / 980'],
+      ['18:40', 'studio', 'Sidekick Studio', true, 'muse-image-1.0', '18.9 s', '1 image'],
+      ['18:40', 'studio', 'Sidekick Studio', true, 'sam-3.1', '4.5 s', '1 image'],
+      ['17:02', 'curator', 'Content Curator', false, 'muse-spark-1.3', '28.0 s', '41,200 / 3,900'],
+    ];
+    const MODELS = [['muse-spark-1.3', 42, '42 calls · 5.4 s avg · $0.31'], ['muse-image-1.0', 6, '6 calls · 6 images · $0.06'], ['sam-3.1', 6, '6 calls · 6 images · $0.02'], ['muse-voice-transcribe-1.0', 9, '9 calls · 41 s audio · <$0.01']];
+    const pick = this.state.agent;
+    const card = 'display: flex; flex-direction: column; gap: 6px; padding: 14px 16px; border: 0; border-radius: var(--radius-md); text-align: left; font-family: var(--font-text); color: var(--ink);';
+    const shown = CALLS.filter((c) => !pick || c[1] === pick);
+    return {
+      stats: [['Model calls logged', '63'], ['Meta models used', '4'], ['Tokens', '186,420'], ['Estimated cost', '$0.40'], ['Art from Muse Image + SAM', '117']].map(([label, value]) => ({ label, value })),
+      agents: AGENTS.map(([id, name, models, reads, never]) => ({
+        name, reads, never,
+        pressed: pick === id ? 'true' : 'false',
+        style: card + (pick === id ? ' background: var(--surface-raised); box-shadow: 0 0 0 2px var(--accent), var(--shadow-raised);' : ' background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line);'),
+        models: (models.length ? models : ['no model: rules in code']).map((m) => ({
+          id: m,
+          style: 'padding: 2px 8px; border-radius: var(--radius-pill); font: 700 12px/18px ui-monospace, monospace;' + (models.length ? ' background: var(--accent); color: var(--on-accent);' : ' box-shadow: inset 0 0 0 1.5px var(--border-control); color: var(--ink-muted);'),
+        })),
+        pick: () => this.setState({ agent: pick === id ? null : id }),
+      })),
+      calls: shown.map(([t, , agent, child, model, time, tokens]) => ({ t, agent, child: child ? ' · child' : '', model, time, tokens })),
+      callsNote: pick ? `${shown.length} for ${AGENTS.find((a) => a[0] === pick)[1]} · tap it again for all` : 'Which agent, never which child',
+      models: MODELS.map(([id, n, detail]) => ({ id, detail, bar: `display: block; height: 100%; width: ${Math.round((n / 42) * 100)}%; border-radius: 4px; background: var(--accent);` })),
+    };
+  }
+}
+</script>
+</body>
+</html>

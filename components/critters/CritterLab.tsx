@@ -18,15 +18,35 @@ const zx = (z: number, i: number) => (z === 1 ? (i / 3) * 100 : ((z * (i + 0.5) 
 /** An eye found on the unzoomed tile (critters.json), moved onto the zoomed one. */
 const zoomed = (z: number, v: number) => z * (v - 50) + 50;
 
+/** A stage's crop of the sheet: the background size and position, and where an eye found on the plain quarter tile
+ *  (critters.json) lands on it. Even sheets zoom into their quarter; uneven ones use measured frames. */
+function crop(critter: Critter, i: number) {
+  const frame = critter.frames?.[i];
+  if (frame) {
+    const [c, w] = frame;
+    const left = c - w / 2;
+    const k = 25 / w;
+    return {
+      size: (100 / w) * 100,
+      pos: (left / (100 - w)) * 100,
+      x: (v: number) => ((i * 25 + v / 4 - left) / w) * 100,
+      y: (v: number) => (v - 50) * k + 50,
+      scale: k,
+    };
+  }
+  const z = critter.zoom ?? 1.12;
+  return { size: 400 * z, pos: zx(z, i), x: (v: number) => zoomed(z, v), y: (v: number) => zoomed(z, v), scale: z };
+}
+
 function Tile({ critter, i, dim, glow, onClick, label }: { critter: Critter; i: number; dim?: boolean; glow?: boolean; onClick?: () => void; label?: string }) {
   const stage = critter.stages[i];
-  const z = critter.zoom ?? 1.12;
-  const style = { "--sheet": `url(${critter.art}-800.webp)`, backgroundSize: `${400 * z}% auto`, backgroundPosition: `${zx(z, i)}% 50%` } as CSSProperties;
+  const f = crop(critter, i);
+  const style = { "--sheet": `url(${critter.art}-800.webp)`, backgroundSize: `${f.size}% auto`, backgroundPosition: `${f.pos}% 50%` } as CSSProperties;
   const lids = (EYES[critter.id] ?? []).filter((e) => e.stage === i);
   const body = (
     <span className={`cl-critter cl-m-${stage.motion}`} style={style}>
       {lids.map((e, k) => (
-        <span key={k} className="cl-lid" style={{ left: `${zoomed(z, e.x)}%`, top: `${zoomed(z, e.y)}%`, width: `${e.w * z}%`, height: `${e.h * z}%`, "--lid": e.lid, "--bdl": `${(i * 1.3 + k * 0.05) % 4}s` } as CSSProperties} />
+        <span key={k} className="cl-lid" style={{ left: `${f.x(e.x)}%`, top: `${f.y(e.y)}%`, width: `${e.w * f.scale}%`, height: `${e.h * f.scale}%`, "--lid": e.lid, "--bdl": `${(i * 1.3 + k * 0.05) % 4}s` } as CSSProperties} />
       ))}
     </span>
   );

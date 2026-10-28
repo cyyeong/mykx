@@ -151,5 +151,10 @@
   "47dd72891fef68326e7ebb0e8faa4439": "/art/living/space/stars-2",
   "9e84d8742fd90b1e9597ee712c0d592d": "/art/living/space/stars-3",
   "f8663e4d420c7cd085f6a233cea10c75": "/art/living/city-neon/beams",
-  "a74914fc8859f15b34ab06377ab873ae": "/art/living/city-neon/plate"
+  "a74914fc8859f15b34ab06377ab873ae": "/art/living/city-neon/plate",
+  "862cb1eac1da1da82068dec70933794b": "/art/critters/butterfly-life-cycle",
+  "af7ce077175f07c17a70dbf2043d6bff": "/art/critters/mosquito-life-cycle",
+  "3943cfec295b47abc84f8fae9e1e56ca": "/art/critters/cockroach-life-cycle",
+  "d27314a533388662769e6ff158ddbcd4": "/art/critters/chicken-life-cycle",
+  "3522891d46300853f228f344da5edc92": "/art/critters/bean-plant-life-cycle"
 }

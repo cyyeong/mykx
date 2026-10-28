@@ -16,6 +16,11 @@ a{color:var(--accent)}a:hover{color:var(--ink)}
 .cl-sheet{background-repeat:no-repeat;background-size:400% auto;background-color:#FBF5E8}
 .cl-frog{background-image:url(/_blob/d950da4db91207a7c4dfc3844601ad5c)}
 .cl-meal{background-image:url(/_blob/f6bac9c63451755bef6836125c76842a)}
+.cl-fly{background-image:url(/_blob/862cb1eac1da1da82068dec70933794b)}
+.cl-mozzie{background-image:url(/_blob/af7ce077175f07c17a70dbf2043d6bff)}
+.cl-roach{background-image:url(/_blob/3943cfec295b47abc84f8fae9e1e56ca)}
+.cl-hen{background-image:url(/_blob/d27314a533388662769e6ff158ddbcd4)}
+.cl-bean{background-image:url(/_blob/3522891d46300853f228f344da5edc92)}
 .cl-s0{background-position:0% 50%}
 .cl-s1{background-position:33.333% 50%}
 .cl-s2{background-position:66.667% 50%}
@@ -36,7 +41,7 @@ a{color:var(--accent)}a:hover{color:var(--ink)}
 .cl-main{grid-area:main;min-width:0;padding:26px 28px}
 .cl-stages{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0;padding:0}
 .cl-stage{min-width:0}
-.cl-tile{width:100%;aspect-ratio:172 / 150}
+.cl-tile{width:100%;aspect-ratio:1 / 1}
 .cl-side{grid-area:side;display:flex;flex-direction:column;gap:24px;min-width:0}
 .cl-kixrow{min-height:144px}
 .cl-kix{width:88px;height:88px}
@@ -115,6 +120,15 @@ a{color:var(--accent)}a:hover{color:var(--ink)}
 @keyframes cl-twitch{0%,86%,100%{transform:rotate(0)}89%{transform:rotate(-3deg)}92%{transform:rotate(3deg)}95%{transform:rotate(-1.5deg)}}
 .cl-m-scuttle{transform-origin:50% 62%;animation:cl-scuttle 3.6s ease-in-out infinite}
 @keyframes cl-scuttle{0%,100%{transform:translateX(0) rotate(0)}30%{transform:translateX(-3%) rotate(-1.5deg)}45%{transform:translateX(-3%) rotate(1deg)}75%{transform:translateX(1%) rotate(0)}}
+.cl-m-flutter{transform-origin:50% 50%;animation:cl-flutter .9s ease-in-out infinite alternate,cl-drift 5s ease-in-out infinite}
+@keyframes cl-flutter{from{transform:scaleX(1)}to{transform:scaleX(.9) translateY(-1.5%)}}
+@keyframes cl-drift{0%,100%{translate:0 0}50%{translate:0 -3%}}
+.cl-m-hover{transform-origin:50% 55%;animation:cl-hover .25s linear infinite alternate,cl-drift 4s ease-in-out infinite}
+@keyframes cl-hover{from{transform:translate(0,0)}to{transform:translate(.4%,-.6%)}}
+.cl-m-sway{transform-origin:50% 72%;animation:cl-sway 4.5s ease-in-out infinite}
+@keyframes cl-sway{0%,100%{transform:rotate(-2.5deg)}50%{transform:rotate(2.5deg)}}
+.cl-m-float{transform-origin:50% 60%;animation:cl-float 3s ease-in-out infinite}
+@keyframes cl-float{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-2%) rotate(1deg)}}
 @media (prefers-reduced-motion: reduce){.cl-critter,.cl-lid{animation:none!important}}
 </style>
 </helmet>
@@ -125,17 +139,17 @@ a{color:var(--accent)}a:hover{color:var(--ink)}
     <header class="cl-head" style="display: flex; flex-direction: column; gap: 8px; border-radius: var(--radius-lg); background: var(--surface-glass); backdrop-filter: blur(16px); box-shadow: inset 0 0 0 1px var(--line)">
       <img src="/_blob/f52e18857979369421011da66fdb9de3" alt="myKx" style="height: 22px; width: auto; align-self: flex-start">
       <h1 class="cl-h1" style="margin: 0; font-family: var(--font-display); font-weight: 800">Critter Lab</h1>
-      <p class="cl-body" style="margin: 0; font-weight: 700; color: var(--ink-muted)">Your critter grows a stage every time you learn something new.</p>
+      <p class="cl-body" style="margin: 0; font-weight: 700; color: var(--ink-muted)">Life cycles you can watch. Pip grows a stage every time you learn something new.</p>
     </header>
 
     <section class="cl-main" aria-label="Your critter" style="box-sizing: border-box; display: flex; flex-direction: column; gap: 16px; border-radius: var(--radius-xl); background: var(--surface-glass); backdrop-filter: blur(18px); box-shadow: inset 0 0 0 1px var(--line), var(--shadow-raised)">
       <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
-        <div role="group" aria-label="Choose your critter" style="display: flex; gap: 4px; padding: 4px; border-radius: var(--radius-pill); background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line)">
-          <sc-for list="{{tabs}}" as="t" hint-placeholder-count="2">
+        <div role="group" aria-label="Living things" style="display: flex; flex-wrap: wrap; gap: 4px; padding: 4px; border-radius: var(--radius-lg); background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line)">
+          <sc-for list="{{tabs}}" as="t" hint-placeholder-count="7">
             <button class="cl-tab" type="button" onClick="{{t.pick}}" aria-pressed="{{t.pressed}}" style="{{t.style}}">{{t.label}}</button>
           </sc-for>
         </div>
-        <span style="margin-left: auto; padding: 4px 12px; border-radius: var(--radius-pill); background: var(--accent-2); color: var(--on-accent-2); font-size: 14px; line-height: 20px; font-weight: 800">Science: life cycles</span>
+        <span style="margin-left: auto; padding: 4px 12px; border-radius: var(--radius-pill); background: var(--accent-2); color: var(--on-accent-2); font-size: 14px; line-height: 20px; font-weight: 800">{{critter.group}}</span>
       </div>
 
       <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px">
@@ -146,7 +160,7 @@ a{color:var(--accent)}a:hover{color:var(--ink)}
       <ol class="cl-stages" aria-label="Life cycle stages" style="list-style: none">
         <sc-for list="{{stages}}" as="s" hint-placeholder-count="4">
           <li class="cl-stage" style="display: flex; flex-direction: column; gap: 8px">
-            <div class="{{s.cls}}" role="img" aria-label="{{s.label}}" style="{{s.tileStyle}}"><div class="{{s.critterCls}}"><sc-for list="{{s.lids}}" as="l" hint-placeholder-count="0"><i class="cl-lid" style="{{l.style}}"></i></sc-for></div></div>
+            <div class="{{s.cls}}" role="img" aria-label="{{s.label}}" style="{{s.tileStyle}}"><div class="{{s.critterCls}}" style="{{s.critterStyle}}"><sc-for list="{{s.lids}}" as="l" hint-placeholder-count="0"><i class="cl-lid" style="{{l.style}}"></i></sc-for></div></div>
             <div style="display: flex; align-items: center; justify-content: space-between; gap: 6px">
               <span style="font-size: 18px; line-height: 22px; font-weight: 800">{{s.label}}</span>
               <span style="{{s.chipStyle}}">{{s.status}}</span>
@@ -156,11 +170,20 @@ a{color:var(--accent)}a:hover{color:var(--ink)}
         </sc-for>
       </ol>
 
+      <sc-if value="{{critter.pet}}" hint-placeholder-val="{{true}}">
       <div style="margin-top: auto; display: flex; flex-direction: column; gap: 8px; padding: 14px 16px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line)">
         <div style="display: flex; justify-content: space-between; gap: 12px; font-size: 16px; line-height: 22px; font-weight: 800"><span>Next stage: {{critter.next}}</span><span>1 of 2</span></div>
         <div style="height: 12px; border-radius: var(--radius-pill); background: var(--line); overflow: hidden"><div style="width: 50%; height: 12px; border-radius: var(--radius-pill); background: var(--accent)"></div></div>
         <span style="font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink-muted)">Solve 2 fresh questions on your own. Your critter never gets sick or sad if you take a break.</span>
       </div>
+      </sc-if>
+      <sc-if value="{{critter.explore}}" hint-placeholder-val="{{false}}">
+        <ul class="cl-body" style="margin: auto 0 0; padding: 14px 16px 14px 34px; display: flex; flex-direction: column; gap: 4px; border-radius: var(--radius-md); background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line); font-weight: 600">
+          <sc-for list="{{critter.facts}}" as="f" hint-placeholder-count="2">
+            <li>{{f.text}}</li>
+          </sc-for>
+        </ul>
+      </sc-if>
     </section>
 
     <div class="cl-side">
@@ -205,64 +228,87 @@ a{color:var(--accent)}a:hover{color:var(--ink)}
   </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"startCritter":{"editor":"enum","options":["frog","mealworm"],"default":"frog"},"$preview":{"width":1280,"height":800}}'>
+<script type="text/x-dc" data-dc-script data-props='{"startCritter":{"editor":"enum","options":["frog","mealworm","butterfly","mosquito","cockroach","chicken","bean"],"default":"frog"},"$preview":{"width":1280,"height":800}}'>
 class Component extends DCLogic {
   state = { critter: null };
 
   renderVals() {
+    // The seven living things (lib/critters/catalog.ts). Pip the frog is the child's companion; the rest are to explore.
     const CRITTERS = {
-      frog: {
-        tab: 'Tadpole', sheet: 'cl-frog', name: 'Pip', kind: 'a tadpole right now', next: 'froglet',
+      frog: { tab: 'Pip the frog', sheet: 'cl-frog', name: 'Pip', kind: 'a tadpole right now', next: 'froglet', pet: true, group: 'Amphibian',
         fact: 'A tadpole breathes with gills. It grows lungs as it turns into a frog.',
-        stages: [
-          { label: 'Frog spawn', note: 'Hatched 20 Oct' },
-          { label: 'Tadpole', note: 'Swims with its tail, breathes with gills' },
-          { label: 'Froglet', note: 'Four legs and a short tail' },
-          { label: 'Frog', note: 'Breathes air, lives on land and in water' },
-        ],
-      },
-      mealworm: {
-        tab: 'Mealworm', sheet: 'cl-meal', name: 'Mo', kind: 'a mealworm right now', next: 'pupa',
+        stages: [['Frog spawn', 'Hatched 20 Oct'], ['Tadpole', 'Swims with its tail, breathes with gills'], ['Froglet', 'Four legs and a short tail'], ['Frog', 'Breathes air, lives on land and in water']],
+        facts: [] },
+      mealworm: { tab: 'Mealworm beetle', sheet: 'cl-meal', name: 'Mealworm beetle', kind: '4 stages: egg, larva, pupa, adult', group: 'Insect',
         fact: 'A mealworm is not a worm. It is the larva of a beetle, so it is an insect!',
-        stages: [
-          { label: 'Eggs', note: 'Hatched 20 Oct' },
-          { label: 'Larva', note: 'Eats and sheds its skin to grow' },
-          { label: 'Pupa', note: 'Rests while its body changes' },
-          { label: 'Beetle', note: 'Six legs, hard wing cases' },
-        ],
-      },
+        stages: [['Eggs', 'Tiny, white and oval'], ['Larva', 'Eats and sheds its skin to grow'], ['Pupa', 'Rests while its body changes'], ['Beetle', 'Six legs, hard wing cases']],
+        facts: ['The mealworm is not a worm: it is the larva of a beetle.', 'Four stages, and the young look nothing like the adult.'] },
+      butterfly: { tab: 'Butterfly', sheet: 'cl-fly', frames: [[10.65, 20.3], [35.3, 33.6], [58.35, 17.1], [82.15, 33.3]], name: 'Butterfly', kind: '4 stages: egg, caterpillar, chrysalis, adult', group: 'Insect',
+        fact: 'The caterpillar eats leaves; the butterfly drinks nectar. Same animal, different food!',
+        stages: [['Eggs', 'Laid on the leaf the caterpillar will eat'], ['Caterpillar', 'The larva: eats leaves and grows fast'], ['Chrysalis', 'The pupa: the body changes completely'], ['Butterfly', 'Six legs, wings, drinks nectar']],
+        facts: ['The caterpillar and the butterfly eat different food: leaves, then nectar.', 'Four stages, like the mealworm beetle.'] },
+      mosquito: { tab: 'Mosquito', sheet: 'cl-mozzie', name: 'Mosquito', kind: '4 stages: egg, larva, pupa, adult', group: 'Insect',
+        fact: 'Three of its four stages live in water. Tip out still water and they cannot breed.',
+        stages: [['Eggs', 'Laid on still water, often as a raft'], ['Larva', 'The wriggler: breathes at the surface'], ['Pupa', 'The tumbler: lives in water, does not eat'], ['Adult', 'Flies; only the female bites']],
+        facts: ['Three of its four stages live in water, so tipping out still water stops mosquitoes breeding.', 'Like the frog, its young live in water.'] },
+      cockroach: { tab: 'Cockroach', sheet: 'cl-roach', frames: [[10.95, 20], [32.95, 20.7], [57.05, 26.7], [82.85, 29.5]], name: 'Cockroach', kind: '3 stages: egg, nymph, adult', group: 'Insect',
+        fact: 'No pupa here: a cockroach nymph looks like a small adult without wings.',
+        stages: [['Egg case', 'Holds many eggs inside'], ['Young nymph', 'Like a small adult, but no wings'], ['Older nymph', 'Grows by shedding its skin'], ['Adult', 'Has wings and can lay eggs']],
+        facts: ['Only 3 stages: there is no pupa.', 'The nymph looks like the adult without wings.'] },
+      chicken: { tab: 'Chicken', sheet: 'cl-hen', name: 'Chicken', kind: '3 stages: egg, chick, adult', group: 'Bird', zoom: 1.05,
+        fact: 'A chick looks like a small, fluffy hen. Birds lay eggs with hard shells.',
+        stages: [['Egg', 'Kept warm by the hen'], ['Hatching', 'The chick breaks out of the shell'], ['Chick', 'Fluffy and small, shaped like a hen'], ['Hen', 'Feathers, a beak and a comb']],
+        facts: ['A chicken is a bird: it has feathers and lays eggs with hard shells.', 'The chick looks like a small adult.'] },
+      bean: { tab: 'Bean plant', sheet: 'cl-bean', name: 'Bean plant', kind: 'seed, seedling, adult plant, flowers and fruits', group: 'Flowering plant', zoom: 1,
+        fact: 'A seed needs water, air and warmth to germinate, but not light. The seedling needs light to grow.',
+        stages: [['Seed', 'Needs water, air and warmth'], ['Germinating', 'The root grows first, then the shoot'], ['Seedling', 'First leaves make food using light'], ['Adult plant', 'Flowers become pods with new seeds']],
+        facts: ['A seed does not need light to germinate, but the seedling needs light to grow.', 'Flowers turn into fruits, and fruits hold seeds.'] },
     };
-    // How each stage moves, and where its eyes are (scripts/critter-eyes.ts; percent of a stage tile).
-    const MOTION = { frog: ['jiggle', 'swim', 'hop', 'breathe'], mealworm: ['jiggle', 'crawl', 'twitch', 'scuttle'] };
-    const EYES = {"frog":[{"stage":1,"x":75,"y":51,"w":8.3,"h":8.6,"lid":"#454543"},{"stage":2,"x":60.3,"y":36.4,"w":9.3,"h":10.3,"lid":"#bec495"},{"stage":2,"x":84.2,"y":31.5,"w":4.8,"h":8.6,"lid":"#dfe3c1"},{"stage":3,"x":44.7,"y":20,"w":12.3,"h":13.8,"lid":"#99b26a"},{"stage":3,"x":73.7,"y":16.6,"w":6.3,"h":11.5,"lid":"#c5d8a0"}],"mealworm":[{"stage":1,"x":79.3,"y":60.8,"w":3.3,"h":4,"lid":"#ecb853"},{"stage":1,"x":90.3,"y":56.2,"w":1.8,"h":3.7,"lid":"#f0ca81"},{"stage":3,"x":4,"y":52.4,"w":2.5,"h":4.3,"lid":"#5e4d3e"},{"stage":3,"x":13.2,"y":56.7,"w":4.3,"h":5.2,"lid":"#433026"}]};
+    // How each stage moves, and where its eyes are (SAM 3.1 via scripts/critter-eyes.ts; percent of a square tile).
+    const MOTION = { frog: ['jiggle', 'swim', 'breathe', 'hop'], mealworm: ['jiggle', 'crawl', 'twitch', 'scuttle'], butterfly: ['jiggle', 'crawl', 'sway', 'flutter'], mosquito: ['float', 'swim', 'twitch', 'hover'], cockroach: ['jiggle', 'scuttle', 'scuttle', 'twitch'], chicken: ['jiggle', 'twitch', 'hop', 'breathe'], bean: ['jiggle', 'sway', 'sway', 'sway'] };
+    const EYES = {"frog":[{"stage":1,"x":75,"y":50.9,"w":8.3,"h":7.5,"lid":"#454543"},{"stage":2,"x":60.3,"y":38.1,"w":9.3,"h":9,"lid":"#bec495"},{"stage":2,"x":84.2,"y":33.9,"w":4.8,"h":7.5,"lid":"#dfe3c1"},{"stage":3,"x":44.7,"y":23.9,"w":12.3,"h":12,"lid":"#99b26a"},{"stage":3,"x":73.7,"y":20.9,"w":6.3,"h":10,"lid":"#c5d8a0"}],"mealworm":[{"stage":1,"x":79.3,"y":59.4,"w":3.3,"h":3.5,"lid":"#ecb853"},{"stage":1,"x":90.3,"y":55.4,"w":1.8,"h":3.3,"lid":"#f0ca81"},{"stage":3,"x":4,"y":52.1,"w":2.5,"h":3.7,"lid":"#5e4d3e"},{"stage":3,"x":13.2,"y":55.9,"w":4.3,"h":4.5,"lid":"#433026"}],"butterfly":[{"stage":1,"x":80,"y":62.4,"w":4,"h":4,"lid":"#b9c57a"},{"stage":1,"x":95,"y":59.9,"w":3,"h":4.2,"lid":"#d2da9e"}],"mosquito":[],"cockroach":[{"stage":1,"x":48.8,"y":59.4,"w":5.8,"h":6.7,"lid":"#f7daae"},{"stage":1,"x":60.7,"y":58.4,"w":2.5,"h":5.5,"lid":"#fbebc8"},{"stage":2,"x":53.3,"y":49.1,"w":6.3,"h":7.5,"lid":"#c77b49"},{"stage":2,"x":68,"y":47.9,"w":2.3,"h":6.5,"lid":"#e6b788"},{"stage":3,"x":60,"y":42.1,"w":6.5,"h":7.8,"lid":"#bf7243"},{"stage":3,"x":75,"y":41.1,"w":2.8,"h":6.5,"lid":"#e3a977"}],"chicken":[{"stage":1,"x":36.7,"y":41.1,"w":8.5,"h":4,"lid":"#f1c767"},{"stage":1,"x":59,"y":39.4,"w":6.8,"h":3.5,"lid":"#fcde82"},{"stage":2,"x":40.8,"y":44.9,"w":7.2,"h":7.3,"lid":"#f6d168"},{"stage":2,"x":62,"y":43.4,"w":4,"h":6.5,"lid":"#fade8a"},{"stage":3,"x":12.7,"y":16.6,"w":5.5,"h":6.3,"lid":"#a25026"}]};
     const id = this.state.critter ?? this.props.startCritter ?? 'frog';
     const c = CRITTERS[id] ?? CRITTERS.frog;
+    // Each tile zooms a little into its own quarter of the sheet, so a neighbouring stage never peeks in.
+    const z = c.zoom ?? 1.12;
+    const zx = (i) => (z === 1 ? (i / 3) * 100 : ((z * (i + 0.5) - 0.5) / (4 * z - 1)) * 100);
+    const zp = (v) => z * (v - 50) + 50;
+    // Uneven sheets (butterfly, cockroach) frame each stage from its measured [centre, width] instead.
+    const crop = (i) => {
+      const f = c.frames && c.frames[i];
+      if (!f) return { size: 400 * z, pos: zx(i), x: zp, y: zp, k: z };
+      const left = f[0] - f[1] / 2;
+      const k = 25 / f[1];
+      return { size: (100 / f[1]) * 100, pos: (left / (100 - f[1])) * 100, x: (v) => ((i * 25 + v / 4 - left) / f[1]) * 100, y: (v) => (v - 50) * k + 50, k };
+    };
     const STATUS = ['Done', 'Now', 'Next', 'Later'];
     // Tile size comes from the .cl-tile class (aspect-ratio), so it scales with each size class.
     const tile = 'border-radius: var(--radius-md);';
     const tabBase = 'min-height: 44px; padding: 0 18px; border: 0; border-radius: var(--radius-pill); font: 800 16px/1 var(--font-text);';
     const chip = 'padding: 2px 9px; border-radius: var(--radius-pill); font-size: 12px; line-height: 18px; font-weight: 800;';
     return {
-      critter: c,
+      critter: { ...c, explore: !c.pet, facts: c.facts.map((text) => ({ text })) },
       tabs: Object.entries(CRITTERS).map(([key, v]) => ({
         label: v.tab,
         pressed: key === id ? 'true' : 'false',
         style: tabBase + (key === id ? ' background: var(--accent); color: var(--on-accent);' : ' background: transparent; color: var(--ink);'),
         pick: () => this.setState({ critter: key }),
       })),
-      stages: c.stages.map((s, i) => ({
-        ...s,
-        status: STATUS[i],
-        cls: 'cl-tile' + (i === 1 ? ' cl-now' : ''),
-        critterCls: `cl-sheet cl-critter ${c.sheet} cl-s${i} cl-m-${MOTION[id][i]}`,
-        lids: (EYES[id] ?? []).filter((e) => e.stage === i).map((e) => ({ style: `left: ${e.x}%; top: ${e.y}%; width: ${e.w}%; height: ${e.h}%; --lid: ${e.lid}; --bd: ${(4.2 + i * 0.9).toFixed(1)}s; --bdl: -${(i * 1.3).toFixed(1)}s` })),
-        tileStyle: tile + [
+      stages: c.stages.map(([label, note], i) => ({
+        label,
+        note,
+        status: c.pet ? STATUS[i] : `Stage ${i + 1}`,
+        cls: 'cl-tile' + (c.pet && i === 1 ? ' cl-now' : ''),
+        critterCls: `cl-sheet cl-critter ${c.sheet} cl-m-${MOTION[id][i]}`,
+        critterStyle: `background-size: ${crop(i).size.toFixed(1)}% auto; background-position: ${crop(i).pos.toFixed(3)}% 50%`,
+        lids: (EYES[id] ?? []).filter((e) => e.stage === i).map((e, k) => ({ style: `left: ${crop(i).x(e.x).toFixed(1)}%; top: ${crop(i).y(e.y).toFixed(1)}%; width: ${(e.w * crop(i).k).toFixed(1)}%; height: ${(e.h * crop(i).k).toFixed(1)}%; --lid: ${e.lid}; --bd: ${(4.2 + i * 0.9).toFixed(1)}s; --bdl: -${(i * 1.3 + k * 0.05).toFixed(2)}s` })),
+        tileStyle: !c.pet ? tile + ' box-shadow: inset 0 0 0 2px var(--line);' : tile + [
           ' box-shadow: inset 0 0 0 2px var(--line);',
           '',
           ' box-shadow: inset 0 0 0 2px var(--border-control); opacity: 0.85;',
           ' box-shadow: inset 0 0 0 2px var(--line); opacity: 0.55; filter: saturate(0.5);',
         ][i],
-        chipStyle: chip + [
+        chipStyle: !c.pet ? chip + ' box-shadow: inset 0 0 0 1.5px var(--border-control); color: var(--ink);' : chip + [
           ' background: var(--success); color: var(--on-success);',
           ' background: var(--reward); color: var(--on-reward);',
           ' box-shadow: inset 0 0 0 1.5px var(--border-control); color: var(--ink);',

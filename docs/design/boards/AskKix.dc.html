@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ask Kix</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:var(--accent)}a:hover{color:var(--ink)}
+.ak-click{cursor:pointer}
+.ak-click:focus-visible{outline:3px solid var(--focus-ring);outline-offset:3px}
+@keyframes ak-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.ak-in{animation:ak-in 420ms cubic-bezier(0.34,1.56,0.64,1) both}
+@media (prefers-reduced-motion: reduce){.ak-in{animation:none}}
+/* Expanded (default, 1024-1599): the question left, Kix's explanation right */
+.ak-root{display:grid;grid-template-columns:minmax(0,1fr)}
+.ak-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.ak-wrap{position:relative;display:grid;grid-template-columns:clamp(340px,33vw,430px) minmax(0,1fr);column-gap:24px;row-gap:20px;width:100%;max-width:1440px;justify-self:center;box-sizing:border-box;padding:28px 32px}
+.ak-pane{min-width:0;padding:22px;backdrop-filter:blur(18px)}
+.ak-body{font-size:17px;line-height:24px}
+.ak-h1{font-size:36px;line-height:40px}
+.ak-kix{width:80px;height:80px}
+.ak-bars{grid-template-columns:56px repeat(3,minmax(0,1fr)) 64px}
+/* Compact (<600): the question first, the explanation below */
+@media (max-width: 599px){
+  .ak-art{position:fixed}
+  .ak-wrap{grid-template-columns:minmax(0,1fr);row-gap:16px;padding:16px}
+  .ak-pane{padding:16px;backdrop-filter:none}
+  .ak-body{font-size:18px;line-height:26px}
+  .ak-h1{font-size:30px;line-height:34px}
+  .ak-kix{width:64px;height:64px}
+  .ak-bars{grid-template-columns:44px repeat(3,minmax(0,1fr)) 48px}
+}
+/* Medium (600-1023): stacked */
+@media (min-width: 600px) and (max-width: 1023px){
+  .ak-art{position:fixed}
+  .ak-wrap{grid-template-columns:minmax(0,1fr);padding:24px}
+}
+@media (min-width: 1600px){.ak-wrap{grid-template-columns:460px minmax(0,1fr)}}
+</style>
+</helmet>
+<div data-theme="terrarium" data-band="junior" class="ak-root" style="width: 100%; min-height: 100vh; box-sizing: border-box; position: relative; overflow: clip; background: var(--surface); color: var(--ink); font-family: var(--font-text)">
+  <img class="ak-art" src="/_blob/42a1d142037c7463131ff440b4e5f999" alt="">
+
+  <div class="ak-wrap">
+    <section class="ak-pane" aria-labelledby="ak-title" style="box-sizing: border-box; display: flex; flex-direction: column; gap: 14px; border-radius: var(--radius-xl); background: var(--surface-glass); box-shadow: inset 0 0 0 1px var(--line), var(--shadow-raised)">
+      <div style="display: flex; align-items: center; gap: 14px">
+        <img class="ak-kix" src="/_blob/322dfed5486a583d4343e28bcb22c301" alt="Kix thinking" style="flex: none; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 3px var(--surface-raised), 0 0 0 5px var(--accent)">
+        <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+          <h1 id="ak-title" class="ak-h1" style="margin: 0; font-family: var(--font-display); font-weight: 800">Ask Kix</h1>
+          <span class="ak-body" style="font-weight: 700; color: var(--ink-muted)">Stuck on homework, Ari? Show me the question.</span>
+        </div>
+      </div>
+
+      <label for="ak-q" style="font-size: 14px; line-height: 20px; font-weight: 800; color: var(--ink-muted)">Type it, or take a photo</label>
+      <textarea id="ak-q" rows="4" style="box-sizing: border-box; width: 100%; padding: 12px 14px; border: 0; border-radius: var(--radius-md); background: var(--surface-raised); color: var(--ink); font: 700 17px/24px var(--font-text); box-shadow: inset 0 0 0 2px var(--border-control); resize: none">Ali had 3 times as many stickers as Ben. They had 48 stickers altogether. How many stickers did Ben have?</textarea>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px">
+        <button class="mk-btn mk-btn--secondary" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M4 8h3l2-3h6l2 3h3v11H4zM12 17a4 4 0 1 0 0-8a4 4 0 0 0 0 8z"/></svg>Take a photo</button>
+        <button class="mk-btn mk-btn--secondary" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg>Upload</button>
+        <button class="mk-btn mk-btn--primary ak-click" type="button" onClick="{{restart}}" style="margin-left: auto">Ask Kix</button>
+      </div>
+      <p style="margin: 0; font-size: 13px; line-height: 19px; font-weight: 600; color: var(--ink-muted)">Photos are checked for faces on this device, read once by Kix, and never saved.</p>
+
+      <div style="display: flex; flex-direction: column; gap: 8px; margin-top: auto; padding: 14px 16px; border-radius: var(--radius-lg); background: var(--surface-raised); box-shadow: inset 0 0 0 2px var(--accent-2)">
+        <span style="font-size: 13px; line-height: 18px; font-weight: 800; color: var(--ink-muted)">Kix read</span>
+        <p class="ak-body" style="margin: 0; font-weight: 700">Ali has 3 times as many stickers as Ben; 48 in all. Find Ben's stickers.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px">
+          <span style="padding: 2px 10px; border-radius: var(--radius-pill); background: var(--accent); color: var(--on-accent); font-size: 13px; line-height: 20px; font-weight: 800">Maths</span>
+          <span style="padding: 2px 10px; border-radius: var(--radius-pill); box-shadow: inset 0 0 0 1.5px var(--border-control); font-size: 13px; line-height: 20px; font-weight: 700">Whole numbers</span>
+          <span style="padding: 2px 10px; border-radius: var(--radius-pill); box-shadow: inset 0 0 0 1.5px var(--border-control); font-size: 13px; line-height: 20px; font-weight: 700">Model drawing: units</span>
+          <span style="padding: 2px 10px; border-radius: var(--radius-pill); box-shadow: inset 0 0 0 1.5px var(--border-control); font-size: 13px; line-height: 20px; font-weight: 700">P3 Maths skill</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="ak-pane" aria-label="Kix explains" style="box-sizing: border-box; display: flex; flex-direction: column; gap: 14px; border-radius: var(--radius-xl); background: var(--surface-glass); box-shadow: inset 0 0 0 1px var(--line), var(--shadow-raised)">
+      <ol aria-label="How far Kix goes" style="margin: 0; padding: 4px; list-style: none; display: flex; gap: 4px; align-self: flex-start; border-radius: var(--radius-pill); background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line)">
+        <sc-for list="{{stepper}}" as="p" hint-placeholder-count="3">
+          <li aria-current="{{p.current}}" style="{{p.style}}">{{p.label}}</li>
+        </sc-for>
+      </ol>
+
+      <p class="ak-body ak-in" style="margin: 0; max-width: 560px; padding: 12px 16px; border-radius: 4px var(--radius-lg) var(--radius-lg) var(--radius-lg); background: var(--surface-raised); box-shadow: inset 0 0 0 2px var(--line); font-weight: 700">{{say}}</p>
+
+      <div class="ak-in" style="display: flex; flex-direction: column; gap: 10px; padding: 16px 18px; border-radius: var(--radius-lg); background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line), var(--shadow-raised)">
+        <span style="font-family: var(--font-display); font-size: 21px; line-height: 26px">Draw the model</span>
+        <div class="ak-bars" role="img" aria-label="Ali: 3 units. Ben: 1 unit. Together: 48." style="display: grid; column-gap: 0; row-gap: 10px; align-items: center">
+          <span style="font-weight: 800">Ali</span>
+          <span style="height: 40px; display: grid; place-items: center; border-radius: 8px 0 0 8px; background: var(--accent-2); color: var(--on-accent-2); box-shadow: inset -2px 0 0 var(--surface-raised); font-weight: 800">{{unit}}</span>
+          <span style="height: 40px; display: grid; place-items: center; background: var(--accent-2); color: var(--on-accent-2); box-shadow: inset -2px 0 0 var(--surface-raised); font-weight: 800">{{unit}}</span>
+          <span style="height: 40px; display: grid; place-items: center; border-radius: 0 8px 8px 0; background: var(--accent-2); color: var(--on-accent-2); font-weight: 800">{{unit}}</span>
+          <span style="grid-row: span 2; align-self: stretch; display: grid; place-items: center; margin-left: 10px; border-left: 3px solid var(--ink); border-radius: 0 10px 10px 0; font: 800 20px/1 var(--font-display)">48</span>
+          <span style="font-weight: 800">Ben</span>
+          <span style="height: 40px; display: grid; place-items: center; border-radius: 8px; background: var(--reward); color: var(--on-reward); font-weight: 800">{{unit}}</span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <sc-if value="{{showSteps}}" hint-placeholder-val="{{false}}">
+        <div class="ak-in" style="display: flex; flex-direction: column; gap: 8px; padding: 16px 18px; border-radius: var(--radius-lg); background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--line), var(--shadow-raised)">
+          <span style="font-family: var(--font-display); font-size: 21px; line-height: 26px">Step by step</span>
+          <ol class="ak-body" style="margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 4px; font-weight: 700">
+            <li>Ali has 3 units and Ben has 1 unit: 4 units in all.</li>
+            <li>4 units = 48 stickers.</li>
+            <li>1 unit = 48 ÷ 4 = ?</li>
+          </ol>
+        </div>
+      </sc-if>
+
+      <div class="ak-in" style="display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: var(--radius-lg); background: var(--surface-raised); box-shadow: inset 0 0 0 2px var(--reward)">
+        <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 26px; height: 26px; flex: none; color: var(--reward)"><path fill="currentColor" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z"/></svg>
+        <span style="display: flex; flex-direction: column; gap: 2px">
+          <span style="font-size: 13px; line-height: 18px; font-weight: 800; color: var(--ink-muted)">Remember it · a chant</span>
+          <span class="ak-body" style="font-weight: 800">Draw it, count the units, share the total.</span>
+        </span>
+      </div>
+
+      <sc-if value="{{showFull}}" hint-placeholder-val="{{false}}">
+        <div class="ak-in" style="display: flex; flex-wrap: wrap; gap: 12px">
+          <div style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-radius: var(--radius-lg); background: var(--accent); color: var(--on-accent)">
+            <span style="font-size: 13px; line-height: 18px; font-weight: 800; opacity: .85">The answer</span>
+            <span style="font: 400 24px/30px var(--font-display)">Ben had 12 stickers.</span>
+          </div>
+          <div style="flex: 1 1 260px; display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-radius: var(--radius-lg); background: var(--surface-raised); box-shadow: inset 0 0 0 2px var(--border-control)">
+            <span style="font-size: 13px; line-height: 18px; font-weight: 800; color: var(--ink-muted)">Try this one</span>
+            <span style="font-size: 16px; line-height: 22px; font-weight: 700">Mei has 4 times as many beads as Sam. They have 35 beads in all. How many beads does Sam have?</span>
+          </div>
+        </div>
+      </sc-if>
+
+      <div style="margin-top: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px">
+        <sc-if value="{{canMore}}" hint-placeholder-val="{{true}}">
+          <button class="mk-btn mk-btn--primary ak-click" type="button" onClick="{{more}}">{{moreLabel}}</button>
+        </sc-if>
+        <span style="font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink-muted)">Kix gives a hint first, then the steps your school uses, and the answer only after you try.</span>
+      </div>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"startStage":{"editor":"enum","options":["hint","steps","full"],"default":"hint"},"$preview":{"width":1280,"height":800}}'>
+class Component extends DCLogic {
+  state = { stage: null };
+
+  renderVals() {
+    const stage = this.state.stage ?? this.props.startStage ?? 'hint';
+    const order = ['hint', 'steps', 'full'];
+    const at = order.indexOf(stage);
+    const pill = 'padding: 6px 14px; border-radius: var(--radius-pill); font-size: 14px; line-height: 20px; font-weight: 800;';
+    return {
+      stepper: [['hint', 'A hint'], ['steps', 'The steps'], ['full', 'The answer']].map(([id, label], i) => ({
+        label,
+        current: id === stage ? 'step' : 'false',
+        style: pill + (i === at ? ' background: var(--accent); color: var(--on-accent);' : i < at ? ' color: var(--ink);' : ' color: var(--ink-muted);'),
+      })),
+      say: stage === 'hint'
+        ? 'Ali has 3 times as many as Ben. Can you draw Ben as 1 unit? How many units is Ali?'
+        : stage === 'steps'
+          ? 'Here are the steps. Try the last one yourself before you peek!'
+          : 'You did the hard part. Here is the answer, and one more to practise.',
+      unit: stage === 'full' ? '12' : '?',
+      showSteps: stage !== 'hint',
+      showFull: stage === 'full',
+      canMore: stage !== 'full',
+      moreLabel: stage === 'hint' ? 'Show me the steps' : 'I tried it: show the full answer',
+      more: () => this.setState({ stage: order[Math.min(2, at + 1)] }),
+      restart: () => this.setState({ stage: 'hint' }),
+    };
+  }
+}
+</script>
+</body>
+</html>
