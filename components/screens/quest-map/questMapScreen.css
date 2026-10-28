@@ -42,6 +42,8 @@
   .qm-labtxt{font-size:18px;line-height:24px}
   .qm-panel{justify-self:stretch;align-self:start;width:auto;padding:20px;backdrop-filter:none}
   .qm-cta{display:flex;flex-direction:column;position:fixed;left:0;right:0;bottom:0;z-index:20;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:var(--surface-raised);border-radius:var(--radius-lg) var(--radius-lg) 0 0;box-shadow:inset 0 1px 0 var(--line),0 -12px 32px rgba(0,0,0,.32)}
+  /* With the kid nav bar on screen, the CTA rides on top of it (kid-tabs.css sets --kidnav-h). */
+  .kid-shell:has(.kidnav) .qm-cta{bottom:var(--kidnav-h);padding-bottom:12px}
 }
 /* Medium (600-1023): taller banner, trail in a wide column, quest panel beside it */
 @media (min-width: 600px) and (max-width: 1023px){

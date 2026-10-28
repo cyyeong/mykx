@@ -1,0 +1,43 @@
+/* Quest complete: the reward moment (design skill §4, question → Treasure). */
+.qd-wrap{position:relative;max-width:960px;margin:0 auto;padding:32px 20px calc(32px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:20px}
+.qd-hero{display:grid;grid-template-columns:260px minmax(0,1fr);gap:24px;align-items:center}
+.qd-card{position:relative;display:grid;justify-items:center}
+.qd-holo{width:260px;animation:qd-reveal 700ms var(--ease-bounce,cubic-bezier(.34,1.56,.64,1)) both 150ms}
+.qd-ribbon{position:absolute;z-index:2;top:-12px;left:50%;transform:translateX(-50%);padding:4px 14px;border-radius:var(--radius-pill);background:var(--reward);color:var(--on-reward);font-size:14px;line-height:20px;font-weight:800;box-shadow:var(--shadow-glow);animation:qd-pop 400ms ease-out both 700ms}
+.qd-slot{box-sizing:border-box;width:260px;min-height:340px;padding:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center}
+.qd-summary{display:flex;flex-direction:column;gap:16px;padding:24px}
+.qd-chips{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+.qd-chips li{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:var(--radius-pill);background:var(--surface);box-shadow:inset 0 0 0 2px var(--line);font-size:15px;line-height:20px;font-weight:700}
+.qd-chip-stars{color:var(--reward)}
+.qd-chip-stars svg{width:16px;height:16px}
+.qd-pip{display:flex;flex-direction:column;gap:8px}
+.qd-track{position:relative;border-radius:var(--radius-md);overflow:hidden;background:#FFF6E0}
+.qd-track-cols{position:absolute;inset:0;display:grid;grid-template-columns:27% 25% 24% 24%}
+.qd-stage{background:rgba(255,246,224,.62);transition:background var(--motion-base,240ms)}
+.qd-stage.is-past{background:rgba(255,246,224,.28)}
+.qd-stage.is-now{background:transparent;box-shadow:inset 0 0 0 3px var(--reward);border-radius:var(--radius-md)}
+.qd-stops{display:flex;flex-direction:column;gap:12px;padding:24px}
+.qd-stops ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.qd-stops li{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr) 36px;align-items:center;gap:12px}
+.qd-stop-label{font-size:17px;line-height:22px;font-weight:700}
+.qd-bar{position:relative;height:14px;border-radius:var(--radius-pill);background:var(--surface);box-shadow:inset 0 0 0 2px var(--line);overflow:hidden}
+.qd-bar-before,.qd-bar-after{position:absolute;left:0;top:0;bottom:0;border-radius:inherit}
+.qd-bar-before{background:var(--line)}
+.qd-bar-after{background:var(--accent)}
+.qd-bar-after.is-up{background:linear-gradient(90deg,var(--accent),var(--reward));animation:qd-grow 900ms var(--ease-soft,ease-out) both 500ms}
+.qd-stop-num{font-size:17px;font-weight:800;text-align:right;font-variant-numeric:tabular-nums}
+.qd-evidence{align-self:flex-start;padding:4px 12px;border-radius:var(--radius-pill);background:var(--surface);box-shadow:inset 0 0 0 2px var(--line);font-size:14px;line-height:20px;font-weight:700;color:var(--ink-muted)}
+@keyframes qd-reveal{from{opacity:0;transform:perspective(900px) rotateY(80deg) scale(.86)}to{opacity:1;transform:none}}
+@keyframes qd-pop{from{opacity:0;transform:translateX(-50%) scale(.6)}to{opacity:1;transform:translateX(-50%) scale(1)}}
+@keyframes qd-grow{from{transform:scaleX(0);transform-origin:left}to{transform:scaleX(1);transform-origin:left}}
+@media (max-width:719px){
+  .qd-hero{grid-template-columns:minmax(0,1fr)}
+  .qd-holo,.qd-slot{width:min(260px,70vw)}
+  .qd-stops li{grid-template-columns:minmax(0,1fr) 36px;grid-template-areas:"label num" "bar bar";row-gap:6px}
+  .qd-stop-label{grid-area:label}
+  .qd-bar{grid-area:bar}
+  .qd-stop-num{grid-area:num}
+}
+@media (prefers-reduced-motion:reduce){
+  .qd-holo,.qd-ribbon,.qd-bar-after.is-up{animation:none}
+}

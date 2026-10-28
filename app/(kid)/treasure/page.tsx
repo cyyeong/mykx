@@ -4,7 +4,7 @@ import { KidGate } from "@/components/auth/KidGate";
 import { TreasureScreen, cardsFromLedger } from "@/components/screens/treasure/TreasureScreen";
 import { totalPoints, pointsOnDay } from "@/lib/domain/rewards";
 import { sgDate } from "@/lib/domain/time";
-import { FROG_QUEST, questEvidence, questStops, sessionPicks } from "@/lib/learn/frog-quest";
+import { FROG_QUEST, FROG_QUEST_CARD, questCardArt, questEvidence, questStops, sessionPicks } from "@/lib/learn/frog-quest";
 import { learnContext, questData } from "@/lib/learn/server";
 
 export const metadata: Metadata = { title: "Treasure Realm · myKx" };
@@ -21,14 +21,13 @@ async function Treasure() {
     attempts,
     picks.map((p) => p.items[0]?.id).filter((id): id is string => Boolean(id)),
   );
-  const labels = Object.fromEntries(FROG_QUEST.stops.map((s) => [s.itemId, s.label]));
   return (
     <TreasureScreen
       nickname={ctx.nickname}
       stars={totalPoints(ledger)}
       starsToday={pointsOnDay(ledger, sgDate(now))}
       evidenceLabel={questEvidence(attempts).label}
-      cards={cardsFromLedger(ledger, labels)}
+      cards={cardsFromLedger(ledger, questCardArt(), FROG_QUEST_CARD)}
       nodes={stops.map((s) => ({ label: s.label, lit: s.state === "mastered", current: s.state === "current" }))}
       questHref={`/learn/${FROG_QUEST.slug}`}
       questTitle={FROG_QUEST.title}

@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { QuestionPlayer } from "@/components/screens/question/QuestionScreen";
 import { pointsOnDay } from "@/lib/domain/rewards";
 import { sgDate } from "@/lib/domain/time";
-import { FROG_QUEST, loadFrogItems, nextPickId, sessionPicks } from "@/lib/learn/frog-quest";
+import { FROG_QUEST, loadFrogItems, nextPickId, questCardArt, sessionPicks } from "@/lib/learn/frog-quest";
 import { learnContext, questData } from "@/lib/learn/server";
 
 export const metadata: Metadata = { title: "Question · myKx" };
@@ -39,6 +39,7 @@ async function Question({ params }: { params: Promise<{ id: string }> }) {
       doneCount={Math.min(doneCount, Math.max(picks.length, 1))}
       nextId={nextPickId(picks, attempts, id)}
       starsToday={pointsOnDay(ledger, sgDate(now))}
+      card={questCardArt()[item.id] ?? { label: FROG_QUEST.title, art: "/art/cards/gecko-and-frog" }}
     />
   );
 }

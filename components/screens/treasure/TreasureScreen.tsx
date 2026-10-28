@@ -8,6 +8,7 @@ import { LivingArt } from "@/components/scene/LivingArt";
 import { Art } from "@/components/ui/Art";
 import { ButtonLink } from "@/components/ui/Button";
 import { GlassPanel } from "@/components/ui/GlassPanel";
+import { HoloCard } from "@/components/ui/HoloCard";
 import type { LedgerEntry } from "@/lib/domain/rewards";
 import type { LivingArtData } from "@/lib/scene/livingArt";
 import treasureLiving from "@/public/art/living/treasure-vault.json";
@@ -16,8 +17,14 @@ import "./treasureScreen.css";
 /** One earned ledger entry, in the child's own words of when and why. */
 export interface TreasureCard {
   id: string;
+  /** The stop it was earned on ("Pip the tadpole"). */
   title: string;
+  /** Rule, stars and day ("Revised retry · +3 stars · 27 Oct"). */
   note: string;
+  /** Card art without extension (HoloCard). */
+  art: string;
+  alt: string;
+  chip: string;
 }
 
 /** One constellation node per quest stop: lit only with fresh evidence. */
@@ -44,15 +51,31 @@ const RULE_TITLES: Record<string, string> = {
   fresh_transfer: "Fresh transfer",
 };
 
-/** One card per paid-out ledger entry (cap notes pay 0, so they never show). Refs render through `labels` so a child never sees an item id. */
-export function cardsFromLedger(entries: readonly LedgerEntry[], labels: Record<string, string> = {}): TreasureCard[] {
+const DAY = new Intl.DateTimeFormat("en-SG", { day: "numeric", month: "short", timeZone: "Asia/Singapore" });
+
+/**
+ * One card per paid-out ledger entry (cap notes pay 0, so they never show), titled by the stop it was
+ * earned on. Refs render through `stops`, so a child never sees an item id.
+ */
+export function cardsFromLedger(
+  entries: readonly LedgerEntry[],
+  stops: Record<string, { label: string; art: string }> = {},
+  defaults: { art: string; chip: string } = { art: "/art/cards/gecko-and-frog", chip: "P3 Science" },
+): TreasureCard[] {
   return entries
     .filter((e) => e.amount > 0)
-    .map((e) => ({
-      id: e.key,
-      title: RULE_TITLES[e.rule] ?? e.rule,
-      note: `${e.at.slice(0, 10)} · +${e.amount} stars${e.ref && labels[e.ref] ? ` · ${labels[e.ref]}` : ""}`,
-    }));
+    .map((e) => {
+      const stop = e.ref ? stops[e.ref] : undefined;
+      const rule = RULE_TITLES[e.rule] ?? e.rule;
+      return {
+        id: e.key,
+        title: stop?.label ?? rule,
+        note: `${stop ? `${rule} · ` : ""}+${e.amount} stars · ${DAY.format(new Date(e.at))}`,
+        art: stop?.art ?? defaults.art,
+        alt: stop ? `Reward card: ${stop.label}` : `Reward card: ${rule}`,
+        chip: defaults.chip,
+      };
+    });
 }
 
 /** Rising lanterns: horizontal position and start offset (hidden under reduced motion). */
@@ -121,14 +144,8 @@ export function TreasureScreen({ nickname, stars, starsToday, evidenceLabel, car
 
         <div className="tr-cards">
           {cards.length ? (
-            cards.map((card) => (
-              <GlassPanel key={card.id} className="tr-card" radius="xl" blur={12} style={{ boxSizing: "border-box", padding: "18px 20px", display: "flex", flexDirection: "column", gap: 6 }}>
-                <svg viewBox="0 0 24 24" aria-hidden="true" style={{ width: 40, height: 40, color: "var(--reward)" }}>
-                  <path fill="currentColor" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z" />
-                </svg>
-                <span style={{ fontFamily: "var(--font-display)", fontSize: 22, lineHeight: "26px" }}>{card.title}</span>
-                <span className="tr-slot-note" style={{ fontWeight: 600, color: "var(--ink-muted)" }}>{card.note}</span>
-              </GlassPanel>
+            cards.map(({ id, ...card }) => (
+              <HoloCard key={id} className="tr-card" sizes="(max-width: 599px) 50vw, (max-width: 1023px) 33vw, 248px" {...card} />
             ))
           ) : (
             <GlassPanel className="tr-card" radius="xl" blur={12} style={{ boxSizing: "border-box", padding: "18px 20px", display: "flex", flexDirection: "column", gap: 10 }}>

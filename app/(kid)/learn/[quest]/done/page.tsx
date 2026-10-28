@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
-import { QuestDoneScreen, type DoneLine } from "@/components/screens/quest-done/QuestDoneScreen";
+import { QuestDoneScreen, type DoneStop } from "@/components/screens/quest-done/QuestDoneScreen";
 import { cardsFromLedger } from "@/components/screens/treasure/TreasureScreen";
 import { stageFromMilestones, milestonesFrom, STAGES } from "@/lib/domain/companion";
 import { subskillKey } from "@/lib/domain/attempts";
-import { describeMastery, recompute } from "@/lib/domain/mastery";
+import { recompute } from "@/lib/domain/mastery";
 import { DAILY_CAP, pointsOnDay } from "@/lib/domain/rewards";
 import { sgDate } from "@/lib/domain/time";
-import { FROG_QUEST, questEvidence, questStops, questSummary, sessionPicks } from "@/lib/learn/frog-quest";
+import { FROG_QUEST, FROG_QUEST_CARD, questCardArt, questEvidence, questStops, questSummary, sessionPicks } from "@/lib/learn/frog-quest";
 import { learnContext, questData } from "@/lib/learn/server";
 
 export const metadata: Metadata = { title: "Quest complete · myKx" };
@@ -37,21 +37,22 @@ async function Done({ params }: { params: Promise<{ quest: string }> }) {
   const complete = stops.every((s) => s.state === "mastered");
   const paidToday = ledger.filter((e) => e.amount > 0 && e.day === today);
   const lastPaid = paidToday[paidToday.length - 1] ?? null;
-  const labels = Object.fromEntries(FROG_QUEST.stops.map((s) => [s.itemId, s.label]));
-  const card = lastPaid ? (cardsFromLedger([lastPaid], labels)[0] ?? null) : null;
-  // Mastery before today vs now, per subskill touched in this quest.
-  const subs = [...new Set(items.map((i) => subskillKey(i)))];
-  const labelOf = (sub: string) => FROG_QUEST.stops.find((s) => items.find((i) => i.id === s.itemId && subskillKey(i) === sub))?.label ?? sub;
-  const lines: DoneLine[] = subs.flatMap((sub) => {
-    const mine = attempts.filter((a) => subskillKey(a) === sub);
+  const card = lastPaid ? (cardsFromLedger([lastPaid], questCardArt(), FROG_QUEST_CARD)[0] ?? null) : null;
+  // Each stop's mastery before today and now, out of 100 (stops with no evidence are left out).
+  const pct = (events: typeof attempts) => {
+    const m = events.length ? recompute(events, now).m : null;
+    return m === null ? null : Math.round(m * 100);
+  };
+  const doneStops: DoneStop[] = FROG_QUEST.stops.flatMap((s) => {
+    const item = items.find((i) => i.id === s.itemId);
+    if (!item) return [];
+    const mine = attempts.filter((a) => subskillKey(a) === subskillKey(item));
     if (!mine.length) return [];
-    const before = mine.filter((a) => sgDate(a.at) < today);
-    return [{ label: labelOf(sub), before: describeMastery(recompute(before, now)), after: describeMastery(recompute(mine, now)) }];
+    return [{ label: s.label, before: pct(mine.filter((a) => sgDate(a.at) < today)), after: pct(mine) }];
   });
+  const subs = [...new Set(items.map((i) => subskillKey(i)))];
   const masteryStates = subs.map((sub) => recompute(attempts.filter((a) => subskillKey(a) === sub), now));
   const stage = stageFromMilestones(milestonesFrom(attempts, masteryStates));
-  const names = STAGES.frog;
-  const pipLine = stage >= names.length - 1 ? `Pip is a ${names[stage]}!` : `Pip is a ${names[stage]}. Next: ${names[stage + 1]}.`;
   const starsToday = pointsOnDay(ledger, today);
   return (
     <QuestDoneScreen
@@ -65,8 +66,9 @@ async function Done({ params }: { params: Promise<{ quest: string }> }) {
       hints={summary.hints}
       starsToday={starsToday}
       capReached={starsToday >= DAILY_CAP}
-      lines={lines}
-      pipLine={pipLine}
+      stops={doneStops}
+      stage={stage}
+      stageNames={STAGES.frog}
       evidenceLabel={questEvidence(attempts).label}
     />
   );

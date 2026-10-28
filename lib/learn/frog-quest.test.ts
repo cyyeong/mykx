@@ -48,6 +48,16 @@ describe("questStops", () => {
     expect(questStops(ids, right, session).map((s) => s.state)).toEqual(["mastered", "current", "next", "locked", "locked"]);
   });
 
+  it("never masters on a retry: wrong, then right on the same stop stays open", () => {
+    const session = [ids[0], ids[1], ids[2]];
+    const retry = [
+      attempt({ itemId: ids[0], family: ids[0], marks: 0, at: NOW }),
+      attempt({ itemId: ids[0], family: ids[0], firstTry: false, at: "2026-10-28T19:01:00+08:00" }),
+    ];
+    expect(questStops(ids, retry, session)[0].state).toBe("current");
+    expect(questSummary(ids, retry).correct).toBe(0);
+  });
+
   it("a hinted success leaves the stop current: only independent success masters", () => {
     const session = [ids[0], ids[1], ids[2]];
     const assisted = [attempt({ itemId: ids[0], family: ids[0], hintsBeforeSubmit: 1, at: NOW })];

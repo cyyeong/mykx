@@ -39,15 +39,16 @@ const ICONS: Record<KidTabId, { body: React.ReactNode; fill: boolean }> = {
   },
 };
 
-export function KidNav() {
+/** `demoLabel` is the server-rendered honesty line (DemoLabel variant "bar"): present for the demo family only. */
+export function KidNav({ demoLabel }: { demoLabel?: React.ReactNode }) {
   const pathname = usePathname();
   if (isKidNavHidden(pathname)) return null;
   const current = kidNavCurrent(pathname);
   return (
       <nav className="kidnav" aria-label="Main">
-        {/* The honesty label rides inside the bar on phones; on the rail the
-            standalone label sits right of the rail (see demoLabel.css). */}
-        <p className="kidnav-demo">Demo family · synthetic data</p>
+        {/* The honesty label rides inside the bar on phones, for the demo family only; on the
+            rail the standalone label sits right of the rail (see demoLabel.css). */}
+        {demoLabel}
         <ul className="kidnav-list">
           {KID_TABS.map((tab) => {
             const active = current === tab.id && !tab.soon;

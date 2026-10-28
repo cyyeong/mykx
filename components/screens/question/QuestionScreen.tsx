@@ -32,6 +32,8 @@ export interface QuestionPlayerProps {
   /** Next session pick, or null: the session is done. */
   nextId: string | null;
   starsToday: number;
+  /** This stop's reward card: shown only when the answer earns stars. */
+  card: { label: string; art: string };
 }
 
 type Phase = "answering" | "checking" | "wrong" | "correct" | "revealed";
@@ -83,15 +85,10 @@ const RULE_LINES: Record<string, string> = {
 };
 
 function awardLine(outcome: AttemptOutcome): string {
-  if (!outcome.awards.length) {
-    return outcome.capReached
-      ? "You've earned today's 15 stars. Your learning still counts."
-      : "Solved! Stars need your own explanation — say why next time.";
-  }
   return outcome.awards.map((a) => `+${a.amount} stars: ${RULE_LINES[a.rule] ?? a.rule}.`).join(" ");
 }
 
-export function QuestionPlayer({ item, questSlug, questTitle, position, total, doneCount, nextId, starsToday }: QuestionPlayerProps) {
+export function QuestionPlayer({ item, questSlug, questTitle, position, total, doneCount, nextId, starsToday, card }: QuestionPlayerProps) {
   const router = useRouter();
   const { play } = useSound();
   const [selected, setSelected] = useState<number | null>(null);
@@ -115,7 +112,7 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
   const nextHref = nextId ? `/question/${nextId}` : `/learn/${questSlug}/done`;
 
   const bubble: ReactNode = (() => {
-    if (phase === "correct") return "Yes! That's it. Collect your card.";
+    if (phase === "correct") return outcome?.awards.length ? "Yes! That's it. Collect your card." : "Yes! That's it.";
     if (phase === "revealed") return "Here's how it works. Read it over, then keep going.";
     if (phase === "wrong" && outcome?.note) return outcome.note;
     if (hintIdx > 0) return item.hints[Math.min(hintIdx, item.hints.length) - 1];
@@ -358,20 +355,18 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
                     </svg>
                   ))}
               </div>
-              {phase === "correct" && outcome && (
+              {phase === "correct" && outcome && outcome.awards.length > 0 && (
                 <div ref={cardRef} className="q-rise qp-reward" style={{ display: "flex", gap: 16, padding: 14, borderRadius: "var(--radius-lg)", background: "var(--surface-raised)", boxShadow: "inset 0 0 0 3px var(--border-control), var(--shadow-glow)" }}>
-                  <div style={{ position: "relative", width: 108, height: 140, flex: "none", borderRadius: "var(--radius-md)", overflow: "hidden", display: "grid", placeItems: "center", background: "var(--surface)" }}>
-                    <svg viewBox="0 0 24 24" aria-hidden="true" style={{ width: 56, height: 56, color: "var(--reward)" }}>
-                      <path fill="currentColor" d={SPARKLE} />
-                    </svg>
+                  <div className="qp-card-art" style={{ position: "relative", width: 108, height: 140, flex: "none", borderRadius: "var(--radius-md)", overflow: "hidden", background: "var(--surface)" }}>
+                    <Art base={card.art} alt={`Reward card: ${card.label}`} sizes="108px" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                    <span className="qp-card-foil" aria-hidden="true" />
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", gap: 6, minWidth: 0 }}>
                     <span style={{ alignSelf: "flex-start", padding: "2px 10px", borderRadius: "var(--radius-pill)", background: "var(--reward)", color: "var(--on-reward)", fontSize: 13, lineHeight: "20px", fontWeight: 800 }}>
                       New card
                     </span>
-                    <span style={{ fontFamily: "var(--font-display)", fontSize: 24, lineHeight: "28px" }}>{questTitle}</span>
+                    <span style={{ fontFamily: "var(--font-display)", fontSize: 24, lineHeight: "28px" }}>{card.label}</span>
                     <span style={{ fontSize: 15, lineHeight: "20px", fontWeight: 600, color: "var(--ink-muted)" }}>{awardLine(outcome)}</span>
-                    <span style={{ fontSize: 13, lineHeight: "18px", fontWeight: 600, color: "var(--ink-muted)" }}>{outcome.mastery}</span>
                     {collected ? (
                       <Link
                         href="/treasure"
@@ -388,6 +383,15 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
                       </Button>
                     )}
                   </div>
+                </div>
+              )}
+              {/* Right, but no stars this time (no explanation, or today's cap): no card is promised. */}
+              {phase === "correct" && outcome && outcome.awards.length === 0 && (
+                <div className="q-rise qp-reward" style={{ display: "flex", flexDirection: "column", gap: 6, padding: 16, borderRadius: "var(--radius-lg)", background: "var(--surface-raised)", boxShadow: "inset 0 0 0 3px var(--border-control)" }}>
+                  <span style={{ fontFamily: "var(--font-display)", fontSize: 24, lineHeight: "28px" }}>Solved!</span>
+                  <span style={{ fontSize: 15, lineHeight: "20px", fontWeight: 600, color: "var(--ink-muted)" }}>
+                    {outcome.capReached ? "You've earned today's 15 stars. Your learning still counts." : "Say why in your own words next time to earn stars and this stop's card."}
+                  </span>
                 </div>
               )}
               {phase === "revealed" && outcome?.working && (

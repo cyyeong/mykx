@@ -36,10 +36,12 @@ select '00000000-0000-4000-8000-00000000a101'::uuid, '00000000-0000-4000-8000-00
 union all
 select '00000000-0000-4000-8000-00000000a102'::uuid, '00000000-0000-4000-8000-000000000001'::uuid, '00000000-0000-4000-8000-000000000011'::uuid, 'p3-science', '1.0.0', 'p3sci-demo-02', 'cycles.animal', 'stage_features', '{"response": 1, "explanation": null, "revised": false}'::jsonb, 0, 2, false, true, 0, false, 'seed:ari:p3sci-demo-02-try1', t + interval '2 minutes' from yesterday
 union all
-select '00000000-0000-4000-8000-00000000a103'::uuid, '00000000-0000-4000-8000-000000000001'::uuid, '00000000-0000-4000-8000-000000000011'::uuid, 'p3-science', '1.0.0', 'p3sci-demo-02', 'cycles.animal', 'stage_features', '{"response": 2, "explanation": "Tadpoles swim with their tails; legs come later.", "revised": true}'::jsonb, 2, 2, true, false, 0, false, 'seed:ari:p3sci-demo-02-try2', t + interval '4 minutes' from yesterday;
+select '00000000-0000-4000-8000-00000000a103'::uuid, '00000000-0000-4000-8000-000000000001'::uuid, '00000000-0000-4000-8000-000000000011'::uuid, 'p3-science', '1.0.0', 'p3sci-demo-02', 'cycles.animal', 'stage_features', '{"response": 2, "explanation": "Tadpoles swim with their tails; legs come later.", "revised": true}'::jsonb, 2, 2, true, false, 0, false, 'seed:ari:p3sci-demo-02-try2', t + interval '4 minutes' from yesterday
+on conflict do nothing;
 
 with yesterday as (select ((date_trunc('day', (now() + interval '8 hours') at time zone 'UTC') - interval '1 day' + interval '8 hours 4 minutes') at time zone 'UTC') as t)
 insert into ledger (household_id, profile_id, kind, ref, amount, rule, idempotency_key, created_at)
 select '00000000-0000-4000-8000-000000000001'::uuid, '00000000-0000-4000-8000-000000000011'::uuid, 'stars', 'p3sci-demo-01', 2, 'first_attempt', '00000000-0000-4000-8000-000000000011:first_attempt:p3sci-demo-01', t from yesterday
 union all
-select '00000000-0000-4000-8000-000000000001'::uuid, '00000000-0000-4000-8000-000000000011'::uuid, 'stars', 'p3sci-demo-02', 3, 'retry_revised', '00000000-0000-4000-8000-000000000011:retry_revised:p3sci-demo-02', t + interval '4 minutes' from yesterday;
+select '00000000-0000-4000-8000-000000000001'::uuid, '00000000-0000-4000-8000-000000000011'::uuid, 'stars', 'p3sci-demo-02', 3, 'retry_revised', '00000000-0000-4000-8000-000000000011:retry_revised:p3sci-demo-02', t + interval '4 minutes' from yesterday
+on conflict do nothing;

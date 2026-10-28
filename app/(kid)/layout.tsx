@@ -12,7 +12,7 @@ export default function KidLayout({ children }: LayoutProps<"/">) {
     <ThemeRoot>
       <SoundProvider kidArea>
         <div className="kid-shell">
-          <KidNav />
+          <KidNav demoLabel={<DemoLabel variant="bar" />} />
           <div className="kid-shell-main">
             {children}
             {/* Inside the shell so it sits right of the rail from 600 px (see demoLabel.css);

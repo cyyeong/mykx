@@ -90,3 +90,8 @@
   .qp-actions > *{flex:0 0 auto}
   .qp-actions .mk-btn,.qp-reward .mk-btn{white-space:nowrap;padding:0 24px}
 }
+
+/* The new card's foil: a slow holographic sweep over the stop's art (still under reduced motion). */
+.qp-card-foil{position:absolute;inset:0;background:conic-gradient(from 210deg at 30% 20%,rgba(255,61,203,.0),rgba(61,245,255,.35),rgba(255,227,138,.4),rgba(185,167,245,.35),rgba(255,61,203,.0));background-size:200% 200%;mix-blend-mode:color-dodge;opacity:.55;animation:qp-foil 3.2s ease-in-out infinite alternate;pointer-events:none}
+@keyframes qp-foil{from{background-position:0% 0%}to{background-position:100% 100%}}
+@media (prefers-reduced-motion: reduce){.qp-card-foil{animation:none}}

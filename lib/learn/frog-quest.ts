@@ -21,15 +21,25 @@ export const FROG_QUEST = {
   /** Pack version the items came from (skill.json); stored on every attempt. */
   version: "1.0.0",
   topics: ["cycles.animal"] as const,
-  /** One stop per reviewed frog item, easiest first. Labels are the quest's own. */
+  /** Subject chip on the quest's reward cards. */
+  chip: "P3 Science",
+  /** One stop per reviewed frog item, easiest first. Labels are the quest's own; `card` is the stop's reward-card art. */
   stops: [
-    { itemId: "p3sci-demo-01", label: "Order the stages" },
-    { itemId: "p3sci-demo-02", label: "Pip the tadpole" },
-    { itemId: "p3sci-demo-03", label: "Frog and mosquito" },
-    { itemId: "p3sci-demo-04", label: "No first or last" },
-    { itemId: "p3sci-demo-05", label: "How long as a tadpole" },
+    { itemId: "p3sci-demo-01", label: "Order the stages", card: "/art/cards/gecko-and-frog" },
+    { itemId: "p3sci-demo-02", label: "Pip the tadpole", card: "/art/cards/gecko-and-frog" },
+    { itemId: "p3sci-demo-03", label: "Frog and mosquito", card: "/art/cards/gecko-and-frog" },
+    { itemId: "p3sci-demo-04", label: "No first or last", card: "/art/cards/gecko-and-frog" },
+    { itemId: "p3sci-demo-05", label: "How long as a tadpole", card: "/art/cards/gecko-and-frog" },
   ] as const,
 };
+
+/** The quest's card defaults, for ledger entries that aren't tied to one stop. */
+export const FROG_QUEST_CARD = { art: "/art/cards/gecko-and-frog", chip: FROG_QUEST.chip };
+
+/** What a reward card shows for each stop (Treasure, the question's reward panel, the done page). */
+export function questCardArt(): Record<string, { label: string; art: string }> {
+  return Object.fromEntries(FROG_QUEST.stops.map((s) => [s.itemId, { label: s.label, art: s.card }]));
+}
 
 export type QuestStopState = "mastered" | "current" | "next" | "locked";
 
@@ -63,8 +73,13 @@ export function loadFrogItems(): SkillItem[] {
 }
 
 /** Families with an independent success (the evidence mastery reads). */
+/** Right on the first try, with no hint and no reveal: the only success a stop counts (a retry never does). */
+function firstTrySuccess(a: AttemptEvent): boolean {
+  return a.firstTry && isIndependentSuccess(a);
+}
+
 function masteredFamilies(attempts: readonly AttemptEvent[]): Set<string> {
-  return new Set(attempts.filter(isIndependentSuccess).map((a) => a.family));
+  return new Set(attempts.filter(firstTrySuccess).map((a) => a.family));
 }
 
 /**
@@ -208,7 +223,7 @@ export function questSummary(itemIds: readonly string[], attempts: readonly Atte
   let correct = 0;
   let hints = 0;
   for (const events of byFamily.values()) {
-    if (events.some(isIndependentSuccess)) correct += 1;
+    if (events.some(firstTrySuccess)) correct += 1;
     hints += Math.max(...events.map((e) => e.hintsBeforeSubmit));
   }
   return { total: ids.size, attempted: byFamily.size, correct, hints };
