@@ -6,6 +6,7 @@ import { randomUUID } from "node:crypto";
 import type { AuthStore, StoredAttempt } from "../auth/store.ts";
 import { familyOf, subskillKey, type AttemptEvent } from "../domain/attempts.ts";
 import { markItem } from "../domain/marking.ts";
+import { checkReason, modelReason, type ReasonQuality } from "../domain/reason.ts";
 import { describeMastery, recompute } from "../domain/mastery.ts";
 import { awardsFor, pointsOnDay, DAILY_CAP, type LedgerEntry } from "../domain/rewards.ts";
 import { sgDate } from "../domain/time.ts";
@@ -47,6 +48,9 @@ export interface SubmitResult {
   capReached: boolean;
   /** The child's reason held distress or safety words: Kix's caring reply and the helplines (rule 12). */
   care: { reply: string; helplines: typeof HELPLINES } | null;
+  /** The reason, checked in code: only an on-topic reason earns the explanation stars. `better` is a model reason
+   *  from the worked steps, given once the answer is right or shown (never before, so a retry isn't spoiled). */
+  reason: { quality: ReasonQuality; used: string[]; better: string | null };
 }
 
 const nowIso = () => new Date().toISOString();
@@ -80,6 +84,9 @@ export async function submitAttempt(
   const firstTry = !before.some((a) => a.itemId === item.id);
   const mark = markItem(item, input.response);
   const explanationText = input.explanation?.trim() ? input.explanation.trim() : null;
+  const reason = checkReason(item, explanationText);
+  // Only a real reason (three words or more, using the question's ideas) counts as the child's explanation (FR10).
+  const counted = reason.quality === "on-topic";
   const at = nowIso();
   const attempt: AttemptEvent = {
     id: randomUUID(),
@@ -95,10 +102,10 @@ export async function submitAttempt(
     hintsBeforeSubmit: Math.max(0, Math.floor(input.hintsUsed)),
     revealed: input.revealed,
     confirmed: mark.confirmed,
-    ...(explanationText ? { explanation: true } : {}),
+    ...(counted ? { explanation: true } : {}),
     // A retry's fresh explanation is the revised one (the player asks the
     // child to say it again in their own words); copying a reveal never pays.
-    ...(!firstTry && explanationText && !input.revealed ? { explanationRevised: true } : {}),
+    ...(!firstTry && counted && !input.revealed ? { explanationRevised: true } : {}),
     ...(typeof input.durationMs === "number" ? { durationMs: Math.max(0, Math.round(input.durationMs)) } : {}),
   };
   const note = mark.correct ? null : wrongNote(item, input.response);
@@ -143,6 +150,7 @@ export async function submitAttempt(
     starsToday,
     capReached: starsToday >= DAILY_CAP,
     care,
+    reason: { quality: reason.quality, used: reason.used, better: mark.correct || input.revealed ? modelReason(item) : null },
   };
 }
 
@@ -176,5 +184,6 @@ async function submitState(store: AuthStore, householdId: string, kidId: string,
     starsToday,
     capReached: starsToday >= DAILY_CAP,
     care: null, // the first submission already answered with care; a resend doesn't repeat it
+    reason: { quality: attempt.explanation ? "on-topic" : "none", used: [], better: null },
   };
 }

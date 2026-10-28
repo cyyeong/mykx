@@ -52,7 +52,14 @@ interface AttemptOutcome {
   capReached: boolean;
   /** The child's reason held distress words: Kix's caring reply and the helplines (rule 12). */
   care: Care | null;
+  /** The reason, checked in code (lib/domain/reason.ts); `better` once the answer is right or shown. */
+  reason?: { quality: "none" | "short" | "off-topic" | "on-topic"; used: string[]; better: string | null };
 }
+
+/** Kix's feedback on the child's reason (/api/kix/reason): narration only, never the stars. */
+type Coach = { verdict: "good" | "partly" | "not-yet"; feedback: string; better: string | null };
+const COACH_LABEL: Record<Coach["verdict"], string> = { good: "Strong reason", partly: "Good start", "not-yet": "Your reason needs work" };
+const COACH_RING: Record<Coach["verdict"], string> = { good: "var(--success)", partly: "var(--reward)", "not-yet": "var(--warn)" };
 
 type Mood = "idle" | "hint" | "thinking" | "cheer";
 
@@ -124,6 +131,8 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
   const [askText, setAskText] = useState("");
   const [spoken, setSpoken] = useState<string | null>(null);
   const [askCare, setAskCare] = useState<Care | null>(null);
+  const [coach, setCoach] = useState<Coach | null>(null);
+  const [coachBusy, setCoachBusy] = useState(false);
 
   const isMcq = item.options.length > 0;
   const resolved = phase === "correct" || phase === "revealed";
@@ -144,6 +153,7 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
       ));
     }
     if (phase === "answering" && tutor !== null) return tutor || "Kix is thinking…";
+    if (phase === "correct" && coach?.verdict === "not-yet") return "Yes, that's the right answer! But your reason doesn't explain it yet. Read what I wrote under your reason.";
     if (phase === "correct") return outcome?.awards.length ? "Yes! That's it. Collect your card." : "Yes! That's it.";
     if (phase === "revealed") return "Here's how it works. Read it over, then keep going.";
     if (phase === "wrong" && outcome?.note) return outcome.note;
@@ -153,6 +163,7 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
 
   async function send(revealed: boolean) {
     setTutor(null);
+    setCoach(null);
     setPhase("checking");
     setFailed(false);
     let data: AttemptOutcome & { ok: boolean };
@@ -179,6 +190,7 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
     }
     setOutcome(data);
     setStars(data.starsToday);
+    if (!revealed && !data.care) void coachReason(data);
     if (data.correct) {
       setPhase("correct");
       play("correct");
@@ -188,6 +200,32 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
       setPhase("wrong");
       setTries((t) => t + 1);
     }
+  }
+
+  /** Kix reads the child's reason after marking: what's right or missing, and a stronger reason once it's right. */
+  async function coachReason(data: AttemptOutcome) {
+    const reason = explanation.trim();
+    const better = data.reason?.better ?? null;
+    if (!reason) {
+      setCoach(data.correct ? { verdict: "not-yet", feedback: "You didn't say why. Next time, give a reason in your own words: it earns stars.", better } : null);
+      return;
+    }
+    // The check in code answers at once; Kix's own words replace it when they arrive.
+    const quality = data.reason?.quality;
+    setCoach(quality === "on-topic" ? null : { verdict: "not-yet", feedback: `"${reason.slice(0, 60)}" doesn't explain the science yet.`, better });
+    setCoachBusy(true);
+    try {
+      const res = await fetch("/api/kix/reason", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ itemId: item.id, choice: isMcq ? (selected === null ? null : selected + 1) : typed.trim() || null, reason, correct: Boolean(data.correct) }),
+      });
+      const json = (await res.json()) as { ok: boolean; coach: Coach | null };
+      if (json.ok && json.coach) setCoach(json.coach);
+    } catch {
+      // Keep the check in code's feedback.
+    }
+    setCoachBusy(false);
   }
 
   /** Asks Kix Tutor; every ask counts as a hint (a helped answer is never mastery evidence). */
@@ -421,9 +459,32 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
                 disabled={resolved || phase === "checking"}
                 maxLength={500}
                 placeholder="Because…"
-                style={{ minHeight: 56, padding: "0 16px", borderRadius: "var(--radius-lg)", border: 0, background: "var(--surface)", color: "var(--ink)", fontSize: 18, boxShadow: "inset 0 0 0 3px var(--line)" }}
+                aria-describedby={coach ? "qp-coach" : undefined}
+                style={{ minHeight: 56, padding: "0 16px", borderRadius: "var(--radius-lg)", border: 0, background: "var(--surface)", color: "var(--ink)", fontSize: 18, boxShadow: `inset 0 0 0 3px ${coach ? COACH_RING[coach.verdict] : "var(--line)"}` }}
               />
             </label>
+            {(coach || coachBusy) && (
+              <section id="qp-coach" className="q-rise qp-coach" data-verdict={coach?.verdict ?? "busy"} aria-live="polite" aria-label="Kix on your reason">
+                <p className="qp-coach-head">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d={coach?.verdict === "good" ? "M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" : SPARKLE} />
+                  </svg>
+                  {coach ? COACH_LABEL[coach.verdict] : "Kix is reading your reason…"}
+                </p>
+                {coach && <p className="qp-coach-text">{coach.feedback}</p>}
+                {coach?.better && (
+                  <div className="qp-better">
+                    <span className="qp-better-label">{coach.verdict === "good" ? "Kix's way to say it" : "A stronger reason"}</span>
+                    <p>{coach.better}</p>
+                    <button type="button" className="qp-better-say" onClick={() => say(coach.better!)} aria-label="Read the stronger reason aloud">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M4 9v6h4l5 4V5L8 9H4zM16.5 8.5a5 5 0 0 1 0 7" />
+                      </svg>
+                    </button>
+                  </div>
+                )}
+              </section>
+            )}
           </main>
 
           <p className="qp-note" style={{ margin: 0, fontSize: 15, lineHeight: "20px", fontWeight: 600, color: "var(--ink-muted)" }}>
@@ -512,7 +573,9 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
                 <div className="q-rise qp-reward" style={{ display: "flex", flexDirection: "column", gap: 6, padding: 16, borderRadius: "var(--radius-lg)", background: "var(--surface-raised)", boxShadow: "inset 0 0 0 3px var(--border-control)" }}>
                   <span style={{ fontFamily: "var(--font-display)", fontSize: 24, lineHeight: "28px" }}>Solved!</span>
                   <span style={{ fontSize: 15, lineHeight: "20px", fontWeight: 600, color: "var(--ink-muted)" }}>
-                    {outcome.capReached ? "You've earned today's 15 stars. Your learning still counts." : "Say why in your own words next time to earn stars and this stop's card."}
+                    {outcome.capReached
+                      ? "You've earned today's 15 stars. Your learning still counts."
+                      : "Stars come with a real reason: say why using the science, in your own words, to earn stars and this stop's card."}
                   </span>
                 </div>
               )}
