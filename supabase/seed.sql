@@ -45,3 +45,15 @@ select '00000000-0000-4000-8000-000000000001'::uuid, '00000000-0000-4000-8000-00
 union all
 select '00000000-0000-4000-8000-000000000001'::uuid, '00000000-0000-4000-8000-000000000011'::uuid, 'stars', 'p3sci-demo-02', 3, 'retry_revised', '00000000-0000-4000-8000-000000000011:retry_revised:p3sci-demo-02', t + interval '4 minutes' from yesterday
 on conflict do nothing;
+
+-- Guardian (docs/prd/GUARDIAN.md): the demo family's synthetic Home and School pins in Sengkang and who shares
+-- location (lib/auth/store-demo.ts DEMO_PLACES). No points: the Home simulator sends those.
+insert into places (id, household_id, name, kind, lat, lng, radius_m) values
+  ('00000000-0000-4000-8000-0000000000b1', '00000000-0000-4000-8000-000000000001', 'Home', 'home', 1.3895, 103.9003, 150),
+  ('00000000-0000-4000-8000-0000000000b2', '00000000-0000-4000-8000-000000000001', 'School', 'school', 1.3966, 103.8865, 200)
+on conflict (id) do nothing;
+insert into kid_location (profile_id, household_id, enabled, mode) values
+  ('00000000-0000-4000-8000-000000000011', '00000000-0000-4000-8000-000000000001', true, 'balanced'),
+  ('00000000-0000-4000-8000-000000000012', '00000000-0000-4000-8000-000000000001', true, 'school'),
+  ('00000000-0000-4000-8000-000000000013', '00000000-0000-4000-8000-000000000001', true, 'balanced')
+on conflict (profile_id) do nothing;

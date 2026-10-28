@@ -14,10 +14,12 @@ import {
   DEMO_PARENT_USER_ID,
   KAI_ID,
   KAI_SECRET_HASH,
+  MEI_ID,
   OTHER_HOUSEHOLD_ID,
   OTHER_PARENT_EMAIL,
   OTHER_PARENT_ID,
   OTHER_PARENT_USER_ID,
+  ZARA_ID,
 } from "./demo-family.ts";
 import type { AttemptEvent } from "../domain/attempts.ts";
 import type { LedgerEntry } from "../domain/rewards.ts";
@@ -27,6 +29,8 @@ import { sampleGuardianWeek } from "../guardian/sample.ts";
 import type { KnowledgeUpload, Review, SkillUpdate } from "../knowledge/knowledge.ts";
 import { findFields, findKey, runCounts, type FindStatus, type PaperFind, type ScoutRun } from "../papers/finds.ts";
 import type { ScoutRow } from "../papers/scan.ts";
+import { KEEP_POINTS_DAYS, type KidLocationSettings, type Place, type PlaceEvent, type StoredPoint } from "../location/location.ts";
+import { DEFAULT_PREFS, KEEP_STATUS_DAYS, type DeviceKind, type GuardianPrefs, type HomeCamera, type HomeDevice, type HomeStatus, type RoomKind } from "../home-watch/home-watch.ts";
 import type { FlashcardSpec } from "../vibe/flashcards.ts";
 import type { FamilyMessage, Sticker } from "../family/messages.ts";
 import type { PageSlug } from "../notebook/notebook.ts";
@@ -38,7 +42,7 @@ import { sessionSecret, signToken, verifyToken } from "./tokens.ts";
 
 export const DEMO_PARENT_COOKIE = "mykx_demo_parent";
 /** Bump when the store's shape changes: a running dev server then rebuilds it on the next request (see demoStore). */
-const DEMO_STORE_SHAPE = 10; // 9: game progress; 10: paper scout
+const DEMO_STORE_SHAPE = 11; // 9: game progress; 10: paper scout; 11: Guardian
 const DEMO_TTL_SEC = 7 * 24 * 60 * 60;
 const LABEL = "demo-parent";
 
@@ -125,6 +129,15 @@ export class DemoStore implements AuthStore {
   /** The paper scout's finds by key (findKey), and its runs. */
   readonly paperFindRows = new Map<string, PaperFind>();
   readonly scoutRunRows: ScoutRun[] = [];
+  /** Guardian: kids' sharing settings, points, places and their events; Home watch devices, cameras, statuses and prefs. */
+  readonly locationSettingRows = new Map<string, KidLocationSettings & { householdId: string }>();
+  readonly pointRows: (StoredPoint & { householdId: string })[] = [];
+  readonly placeRows = new Map<string, Place & { householdId: string }>();
+  readonly placeEventRows: (PlaceEvent & { householdId: string })[] = [];
+  readonly guardianPrefRows = new Map<string, GuardianPrefs>();
+  readonly deviceRows = new Map<string, HomeDevice & { tokenHash: string | null; pairCodeHash: string | null; framesDay: string | null; framesCount: number }>();
+  readonly cameraRows = new Map<string, HomeCamera & { householdId: string }>();
+  readonly statusRows: (HomeStatus & { householdId: string })[] = [];
   /** Vibe Zone creations by id, with the household and the shared recipients. */
   readonly creationRows = new Map<string, Creation & { householdId: string; sharedWith: string[] }>();
   readonly runRows: StoredRun[] = [];
@@ -610,6 +623,129 @@ export class DemoStore implements AuthStore {
     runs: async (limit: number) => [...this.scoutRunRows].reverse().slice(0, limit).map((r) => structuredClone(r)),
   };
 
+  readonly whereabouts = {
+    settings: async (householdId: string) => [...this.locationSettingRows.values()].filter((r) => r.householdId === householdId).map(withoutHousehold),
+    saveSettings: async (householdId: string, kidId: string, patch: Partial<Omit<KidLocationSettings, "kidId">>) => {
+      const old = this.locationSettingRows.get(kidId);
+      const row = { kidId, enabled: false, mode: "balanced" as const, pausedUntil: null, ...(old?.householdId === householdId ? old : {}), ...patch, householdId };
+      this.locationSettingRows.set(kidId, row);
+      return withoutHousehold(row);
+    },
+    addPoints: async (householdId: string, points: readonly StoredPoint[]) => {
+      let added = 0;
+      for (const p of points) {
+        if (this.pointRows.some((r) => r.kidId === p.kidId && r.at === p.at)) continue;
+        this.pointRows.push({ ...p, householdId });
+        added += 1;
+      }
+      const cutoff = Date.now() - KEEP_POINTS_DAYS * 86_400_000;
+      for (let i = this.pointRows.length - 1; i >= 0; i--) if (Date.parse(this.pointRows[i].at) < cutoff) this.pointRows.splice(i, 1);
+      return added;
+    },
+    track: async (householdId: string, kidId: string, sinceIso: string) =>
+      this.pointRows.filter((r) => r.householdId === householdId && r.kidId === kidId && r.at >= sinceIso).sort((a, b) => a.at.localeCompare(b.at)).map(withoutHousehold),
+    latest: async (householdId: string) => {
+      const last = new Map<string, StoredPoint>();
+      for (const { householdId: h, ...r } of this.pointRows) if (h === householdId && (!last.has(r.kidId) || last.get(r.kidId)!.at < r.at)) last.set(r.kidId, { ...r });
+      return [...last.values()];
+    },
+    places: async (householdId: string) => [...this.placeRows.values()].filter((r) => r.householdId === householdId).map(withoutHousehold),
+    savePlace: async (householdId: string, place: Omit<Place, "id"> & { id?: string }) => {
+      if (place.id && this.placeRows.get(place.id)?.householdId !== householdId) return null;
+      const row = { ...place, id: place.id ?? randomUUID(), householdId };
+      this.placeRows.set(row.id, row);
+      return withoutHousehold(row);
+    },
+    deletePlace: async (householdId: string, id: string) => {
+      if (this.placeRows.get(id)?.householdId !== householdId) return false;
+      this.placeRows.delete(id);
+      for (let i = this.placeEventRows.length - 1; i >= 0; i--) if (this.placeEventRows[i].placeId === id) this.placeEventRows.splice(i, 1);
+      return true;
+    },
+    addEvents: async (householdId: string, events: readonly Omit<PlaceEvent, "id">[]) => {
+      for (const e of events) this.placeEventRows.push({ ...e, id: randomUUID(), householdId });
+    },
+    events: async (householdId: string, sinceIso: string) =>
+      this.placeEventRows.filter((r) => r.householdId === householdId && r.at >= sinceIso).sort((a, b) => b.at.localeCompare(a.at)).map(withoutHousehold),
+  };
+
+  readonly homeWatch = {
+    prefs: async (householdId: string) => structuredClone(this.guardianPrefRows.get(householdId) ?? DEFAULT_PREFS),
+    savePrefs: async (householdId: string, prefs: GuardianPrefs) => {
+      this.guardianPrefRows.set(householdId, structuredClone(prefs));
+      return structuredClone(prefs);
+    },
+    createDevice: async (householdId: string, d: { name: string; kind: DeviceKind; pairCodeHash: string; pairExpiresAt: string; createdBy: string | null }) => {
+      const row = { id: randomUUID(), householdId, name: d.name, kind: d.kind, createdAt: new Date().toISOString(), lastSeenAt: null, revokedAt: null, paired: false, pairExpiresAt: d.pairExpiresAt, tokenHash: null, pairCodeHash: d.pairCodeHash, framesDay: null, framesCount: 0 };
+      this.deviceRows.set(row.id, row);
+      return this.publicDevice(row);
+    },
+    claimDevice: async (pairCodeHash: string, tokenHash: string, nowIso: string) => {
+      const row = [...this.deviceRows.values()].find((d) => d.pairCodeHash === pairCodeHash && !d.revokedAt && d.pairExpiresAt && d.pairExpiresAt > nowIso);
+      if (!row) return null;
+      Object.assign(row, { tokenHash, pairCodeHash: null, pairExpiresAt: null, paired: true, lastSeenAt: nowIso });
+      return this.publicDevice(row);
+    },
+    deviceByToken: async (tokenHash: string) => {
+      const row = [...this.deviceRows.values()].find((d) => d.tokenHash === tokenHash && !d.revokedAt);
+      return row ? this.publicDevice(row) : null;
+    },
+    devices: async (householdId: string) => [...this.deviceRows.values()].filter((d) => d.householdId === householdId).map((d) => this.publicDevice(d)),
+    revokeDevice: async (householdId: string, id: string) => {
+      const row = this.deviceRows.get(id);
+      if (!row || row.householdId !== householdId) return false;
+      row.revokedAt = new Date().toISOString();
+      row.tokenHash = null;
+      row.pairCodeHash = null;
+      return true;
+    },
+    spendFrames: async (deviceId: string, day: string, n: number, max: number, nowIso: string) => {
+      const row = this.deviceRows.get(deviceId);
+      if (!row) return false;
+      const used = row.framesDay === day ? row.framesCount : 0;
+      row.lastSeenAt = nowIso;
+      if (used + n > max) return false;
+      row.framesDay = day;
+      row.framesCount = used + n;
+      return true;
+    },
+    syncCameras: async (householdId: string, deviceId: string, cameras: readonly { key: string; room: string; roomKind: RoomKind; enabled: boolean }[]) => {
+      const mine = [...this.cameraRows.values()].filter((c) => c.deviceId === deviceId);
+      for (const c of mine) if (!cameras.some((x) => x.key === c.key)) c.enabled = false;
+      for (const x of cameras) {
+        const old = mine.find((c) => c.key === x.key);
+        if (old) Object.assign(old, { room: x.room, roomKind: x.roomKind, enabled: x.enabled });
+        else {
+          const id = randomUUID();
+          this.cameraRows.set(id, { id, deviceId, householdId, key: x.key, room: x.room, roomKind: x.roomKind, enabled: x.enabled, lastFrameAt: null, lastStatusAt: null });
+        }
+      }
+      return [...this.cameraRows.values()].filter((c) => c.deviceId === deviceId).map(withoutHousehold);
+    },
+    cameras: async (householdId: string) => [...this.cameraRows.values()].filter((c) => c.householdId === householdId).map(withoutHousehold),
+    touchCameras: async (householdId: string, cameraIds: readonly string[], at: string) => {
+      for (const id of cameraIds) {
+        const c = this.cameraRows.get(id);
+        if (c && c.householdId === householdId) c.lastFrameAt = at;
+      }
+    },
+    saveStatuses: async (householdId: string, rows: readonly Omit<HomeStatus, "id">[]) => {
+      for (const r of rows) {
+        this.statusRows.push({ ...structuredClone(r), id: randomUUID(), householdId });
+        const c = this.cameraRows.get(r.cameraId);
+        if (c && c.householdId === householdId) c.lastStatusAt = r.at;
+      }
+      const cutoff = Date.now() - KEEP_STATUS_DAYS * 86_400_000;
+      for (let i = this.statusRows.length - 1; i >= 0; i--) if (Date.parse(this.statusRows[i].at) < cutoff) this.statusRows.splice(i, 1);
+    },
+    statuses: async (householdId: string, sinceIso: string) =>
+      this.statusRows.filter((r) => r.householdId === householdId && r.at >= sinceIso).sort((a, b) => b.at.localeCompare(a.at)).map((r) => structuredClone(withoutHousehold(r))),
+  };
+
+  private publicDevice(d: HomeDevice & { tokenHash: string | null; pairCodeHash: string | null; framesDay: string | null; framesCount: number }): HomeDevice {
+    return { id: d.id, householdId: d.householdId, name: d.name, kind: d.kind, createdAt: d.createdAt, lastSeenAt: d.lastSeenAt, revokedAt: d.revokedAt, paired: d.paired, pairExpiresAt: d.pairExpiresAt };
+  }
+
   // Admin
 
   readonly admin = {
@@ -784,4 +920,20 @@ export function seedDemoHistory(store: DemoStore): void {
   const week = sampleGuardianWeek();
   for (const b of week.beats) store.beatRows.set(`${ARI_ID}|${Date.parse(b.at)}`, { ...b, householdId: DEMO_HOUSEHOLD_ID, kidId: ARI_ID });
   for (const m of week.messages) store.kixMessageRows.push({ ...m, householdId: DEMO_HOUSEHOLD_ID, kidId: ARI_ID });
+  // Guardian: the demo family's Home and School pins in Sengkang (synthetic), and who shares (same as supabase/seed.sql).
+  for (const p of DEMO_PLACES) store.placeRows.set(p.id, { ...p, householdId: DEMO_HOUSEHOLD_ID });
+  for (const [kidId, mode] of [[ARI_ID, "balanced"], [ZARA_ID, "school"], [MEI_ID, "balanced"]] as const) store.locationSettingRows.set(kidId, { kidId, enabled: true, mode, pausedUntil: null, householdId: DEMO_HOUSEHOLD_ID });
 }
+
+/** A copy of a row without its household id (the store contract's shapes don't carry it). */
+function withoutHousehold<T extends { householdId: string }>(row: T): Omit<T, "householdId"> {
+  const out: Partial<T> = { ...row };
+  delete out.householdId;
+  return out as Omit<T, "householdId">;
+}
+
+/** The demo family's synthetic pins (GUARDIAN §2.1): a block near Sengkang's riverside and a primary school about 1.6 km away. */
+export const DEMO_PLACES: readonly Place[] = [
+  { id: "00000000-0000-4000-8000-0000000000b1", name: "Home", kind: "home", lat: 1.3895, lng: 103.9003, radiusM: 150 },
+  { id: "00000000-0000-4000-8000-0000000000b2", name: "School", kind: "school", lat: 1.3966, lng: 103.8865, radiusM: 200 },
+];

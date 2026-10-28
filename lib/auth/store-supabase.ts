@@ -18,6 +18,8 @@ import type { PageSlug } from "../notebook/notebook.ts";
 import type { GameProgress } from "../games/progress.ts";
 import { findFields, findKey, runCounts, type FindStatus, type PaperFind, type ScoutRun } from "../papers/finds.ts";
 import type { ScoutRow } from "../papers/scan.ts";
+import { KEEP_POINTS_DAYS, type KidLocationSettings, type Motion, type Place, type PlaceEvent, type StoredPoint } from "../location/location.ts";
+import { DEFAULT_PREFS, KEEP_STATUS_DAYS, type DeviceKind, type GuardianPrefs, type HomeCamera, type HomeDevice, type HomeStatus, type RoomKind } from "../home-watch/home-watch.ts";
 import { NicknameTakenError } from "./store.ts";
 
 export interface SupabaseEnv {
@@ -109,6 +111,36 @@ function toFind(r: Record<string, unknown>): PaperFind {
   };
 }
 const toRun = (r: Record<string, unknown>): ScoutRun => ({ id: r.id as string, at: new Date(r.at as string).toISOString(), trigger: r.trigger as ScoutRun["trigger"], found: Number(r.found), fresh: Number(r.fresh), auto: Number(r.auto), manual: Number(r.manual), skip: Number(r.skip), problems: (r.problems as string[]) ?? [] });
+
+const toPoint = (r: Record<string, unknown>): StoredPoint => ({
+  kidId: r.profile_id as string,
+  at: new Date(r.at as string).toISOString(),
+  lat: Number(r.lat),
+  lng: Number(r.lng),
+  accuracyM: Number(r.accuracy_m),
+  speed: r.speed === null ? null : Number(r.speed),
+  heading: r.heading === null ? null : Number(r.heading),
+  battery: r.battery === null ? null : Number(r.battery),
+  motion: r.motion as Motion,
+  source: r.source as StoredPoint["source"],
+});
+const toPlace = (r: Record<string, unknown>): Place => ({ id: r.id as string, name: r.name as string, kind: r.kind as Place["kind"], lat: Number(r.lat), lng: Number(r.lng), radiusM: Number(r.radius_m) });
+const toPlaceEvent = (r: Record<string, unknown>): PlaceEvent => ({ id: r.id as string, kidId: r.profile_id as string, placeId: r.place_id as string, placeName: r.place_name as string, kind: r.kind as PlaceEvent["kind"], at: new Date(r.at as string).toISOString() });
+const DEVICE_COLUMNS = "id, household_id, name, kind, token_hash, pair_expires_at, created_at, last_seen_at, revoked_at";
+const iso = (v: unknown) => (v ? new Date(v as string).toISOString() : null);
+const toDevice = (r: Record<string, unknown>): HomeDevice => ({ id: r.id as string, householdId: r.household_id as string, name: r.name as string, kind: r.kind as DeviceKind, createdAt: iso(r.created_at)!, lastSeenAt: iso(r.last_seen_at), revokedAt: iso(r.revoked_at), paired: Boolean(r.token_hash), pairExpiresAt: iso(r.pair_expires_at) });
+const toCamera = (r: Record<string, unknown>): HomeCamera => ({ id: r.id as string, deviceId: r.device_id as string, key: r.key as string, room: r.room as string, roomKind: r.room_kind as RoomKind, enabled: Boolean(r.enabled), lastFrameAt: iso(r.last_frame_at), lastStatusAt: iso(r.last_status_at) });
+const toStatus = (r: Record<string, unknown>): HomeStatus => ({ id: String(r.id), cameraId: r.camera_id as string, at: iso(r.at)!, reading: r.reading as HomeStatus["reading"] });
+const toPrefs = (r: Record<string, unknown>): GuardianPrefs => ({
+  homeArea: r.home_area as string,
+  radiusKm: Number(r.radius_km) as GuardianPrefs["radiusKm"],
+  interests: (r.interests as string[]) ?? [],
+  camDays: ((r.cam_days as number[]) ?? []).map(Number),
+  camFrom: r.cam_from as string,
+  camTo: r.cam_to as string,
+  camsPausedUntil: iso(r.cams_paused_until),
+  descriptions: (r.descriptions as Record<string, string>) ?? {},
+});
 
 function check(error: DbError) {
   if (!error) return;
@@ -922,6 +954,187 @@ export class SupabaseStore implements AuthStore {
         const p = r.payload as Pick<SkillUpdate, "archetypes" | "traps" | "markingCues" | "items">;
         return { id: r.id as string, pack: r.pack as string, version: r.version as string, publishedBy: (r.published_by as string | null) ?? "", publishedAt: new Date(r.published_at as string).toISOString(), summary: r.summary as string, archetypes: p.archetypes ?? [], traps: p.traps ?? [], markingCues: p.markingCues ?? [], items: p.items ?? [] };
       });
+    },
+  };
+
+  // Guardian, where they are (kid_location, locations, places, place_events): the routes check who is asking.
+  readonly whereabouts = {
+    settings: async (householdId: string): Promise<KidLocationSettings[]> => {
+      const { data, error } = await this.db.from("kid_location").select("profile_id, enabled, mode, paused_until").eq("household_id", householdId);
+      check(error);
+      return (data ?? []).map((r) => ({ kidId: r.profile_id as string, enabled: Boolean(r.enabled), mode: r.mode as KidLocationSettings["mode"], pausedUntil: iso(r.paused_until) }));
+    },
+    saveSettings: async (householdId: string, kidId: string, patch: Partial<Omit<KidLocationSettings, "kidId">>): Promise<KidLocationSettings> => {
+      const row: Record<string, unknown> = { profile_id: kidId, household_id: householdId, updated_at: new Date().toISOString() };
+      if (patch.enabled !== undefined) row.enabled = patch.enabled;
+      if (patch.mode !== undefined) row.mode = patch.mode;
+      if (patch.pausedUntil !== undefined) row.paused_until = patch.pausedUntil;
+      const { data, error } = await this.db.from("kid_location").upsert(row, { onConflict: "profile_id" }).select("profile_id, enabled, mode, paused_until").single();
+      check(error);
+      return { kidId, enabled: Boolean(data!.enabled), mode: data!.mode as KidLocationSettings["mode"], pausedUntil: iso(data!.paused_until) };
+    },
+    addPoints: async (householdId: string, points: readonly StoredPoint[]): Promise<number> => {
+      if (!points.length) return 0;
+      const rows = points.map((p) => ({ household_id: householdId, profile_id: p.kidId, at: p.at, lat: p.lat, lng: p.lng, accuracy_m: p.accuracyM, speed: p.speed, heading: p.heading, motion: p.motion, source: p.source, battery: p.battery }));
+      const { data, error } = await this.db.from("locations").upsert(rows, { onConflict: "profile_id,at", ignoreDuplicates: true }).select("id");
+      check(error);
+      const cutoff = new Date(Date.now() - KEEP_POINTS_DAYS * 86_400_000).toISOString();
+      const kids = [...new Set(points.map((p) => p.kidId))];
+      const { error: e2 } = await this.db.from("locations").delete().eq("household_id", householdId).in("profile_id", kids).lt("at", cutoff);
+      check(e2);
+      return data?.length ?? 0;
+    },
+    track: async (householdId: string, kidId: string, sinceIso: string): Promise<StoredPoint[]> => {
+      const { data, error } = await this.db.from("locations").select("*").eq("household_id", householdId).eq("profile_id", kidId).gte("at", sinceIso).order("at").limit(2000);
+      check(error);
+      return (data ?? []).map(toPoint);
+    },
+    latest: async (householdId: string): Promise<StoredPoint[]> => {
+      const kids = (await this.kids(householdId)).map((k) => k.id);
+      const out: StoredPoint[] = [];
+      for (const kid of kids) {
+        const { data, error } = await this.db.from("locations").select("*").eq("household_id", householdId).eq("profile_id", kid).order("at", { ascending: false }).limit(1);
+        check(error);
+        if (data?.[0]) out.push(toPoint(data[0]));
+      }
+      return out;
+    },
+    places: async (householdId: string): Promise<Place[]> => {
+      const { data, error } = await this.db.from("places").select("*").eq("household_id", householdId).order("created_at");
+      check(error);
+      return (data ?? []).map(toPlace);
+    },
+    savePlace: async (householdId: string, place: Omit<Place, "id"> & { id?: string }): Promise<Place | null> => {
+      const row = { household_id: householdId, name: place.name, kind: place.kind, lat: place.lat, lng: place.lng, radius_m: place.radiusM };
+      const q = place.id ? this.db.from("places").update(row).eq("id", place.id).eq("household_id", householdId) : this.db.from("places").insert(row);
+      const { data, error } = await q.select("*").maybeSingle();
+      check(error);
+      return data ? toPlace(data) : null;
+    },
+    deletePlace: async (householdId: string, id: string): Promise<boolean> => {
+      const { data, error } = await this.db.from("places").delete().eq("id", id).eq("household_id", householdId).select("id");
+      check(error);
+      return Boolean(data?.length);
+    },
+    addEvents: async (householdId: string, events: readonly Omit<PlaceEvent, "id">[]): Promise<void> => {
+      if (!events.length) return;
+      const { error } = await this.db.from("place_events").insert(events.map((e) => ({ household_id: householdId, profile_id: e.kidId, place_id: e.placeId, place_name: e.placeName, kind: e.kind, at: e.at })));
+      check(error);
+    },
+    events: async (householdId: string, sinceIso: string): Promise<PlaceEvent[]> => {
+      const { data, error } = await this.db.from("place_events").select("*").eq("household_id", householdId).gte("at", sinceIso).order("at", { ascending: false }).limit(500);
+      check(error);
+      return (data ?? []).map(toPlaceEvent);
+    },
+  };
+
+  // Guardian, Home watch (guardian_prefs, home_devices, home_cameras, home_status): words only, never frames.
+  readonly homeWatch = {
+    prefs: async (householdId: string): Promise<GuardianPrefs> => {
+      const { data, error } = await this.db.from("guardian_prefs").select("*").eq("household_id", householdId).maybeSingle();
+      check(error);
+      return data ? toPrefs(data) : structuredClone(DEFAULT_PREFS);
+    },
+    savePrefs: async (householdId: string, p: GuardianPrefs): Promise<GuardianPrefs> => {
+      const { data, error } = await this.db
+        .from("guardian_prefs")
+        .upsert({ household_id: householdId, home_area: p.homeArea, radius_km: p.radiusKm, interests: p.interests, cam_days: p.camDays, cam_from: p.camFrom, cam_to: p.camTo, cams_paused_until: p.camsPausedUntil, descriptions: p.descriptions, updated_at: new Date().toISOString() }, { onConflict: "household_id" })
+        .select("*")
+        .single();
+      check(error);
+      return toPrefs(data!);
+    },
+    createDevice: async (householdId: string, d: { name: string; kind: DeviceKind; pairCodeHash: string; pairExpiresAt: string; createdBy: string | null }): Promise<HomeDevice> => {
+      const { data, error } = await this.db.from("home_devices").insert({ household_id: householdId, name: d.name, kind: d.kind, pair_code_hash: d.pairCodeHash, pair_expires_at: d.pairExpiresAt, created_by: d.createdBy }).select(DEVICE_COLUMNS).single();
+      check(error);
+      return toDevice(data!);
+    },
+    claimDevice: async (pairCodeHash: string, tokenHash: string, nowIso: string): Promise<HomeDevice | null> => {
+      const { data, error } = await this.db
+        .from("home_devices")
+        .update({ token_hash: tokenHash, pair_code_hash: null, pair_expires_at: null, last_seen_at: nowIso })
+        .eq("pair_code_hash", pairCodeHash)
+        .is("revoked_at", null)
+        .gt("pair_expires_at", nowIso)
+        .select(DEVICE_COLUMNS)
+        .maybeSingle();
+      check(error);
+      return data ? toDevice(data) : null;
+    },
+    deviceByToken: async (tokenHash: string): Promise<HomeDevice | null> => {
+      const { data, error } = await this.db.from("home_devices").select(DEVICE_COLUMNS).eq("token_hash", tokenHash).is("revoked_at", null).maybeSingle();
+      check(error);
+      return data ? toDevice(data) : null;
+    },
+    devices: async (householdId: string): Promise<HomeDevice[]> => {
+      const { data, error } = await this.db.from("home_devices").select(DEVICE_COLUMNS).eq("household_id", householdId).order("created_at");
+      check(error);
+      return (data ?? []).map(toDevice);
+    },
+    revokeDevice: async (householdId: string, id: string): Promise<boolean> => {
+      const { data, error } = await this.db.from("home_devices").update({ revoked_at: new Date().toISOString(), token_hash: null, pair_code_hash: null }).eq("id", id).eq("household_id", householdId).select("id");
+      check(error);
+      return Boolean(data?.length);
+    },
+    spendFrames: async (deviceId: string, day: string, n: number, max: number, nowIso: string): Promise<boolean> => {
+      // Read, then a conditional write on the count we read: two racing uploads can't both spend the same budget.
+      for (let tries = 0; tries < 3; tries++) {
+        const { data, error } = await this.db.from("home_devices").select("frames_day, frames_count").eq("id", deviceId).maybeSingle();
+        check(error);
+        if (!data) return false;
+        const sameDay = data.frames_day === day;
+        const used = sameDay ? Number(data.frames_count) : 0;
+        if (used + n > max) {
+          await this.db.from("home_devices").update({ last_seen_at: nowIso }).eq("id", deviceId);
+          return false;
+        }
+        let q = this.db.from("home_devices").update({ frames_day: day, frames_count: used + n, last_seen_at: nowIso }).eq("id", deviceId);
+        q = sameDay ? q.eq("frames_count", used) : data.frames_day === null ? q.is("frames_day", null) : q.eq("frames_day", data.frames_day as string);
+        const { data: done, error: e2 } = await q.select("id");
+        check(e2);
+        if (done?.length) return true;
+      }
+      return false;
+    },
+    syncCameras: async (householdId: string, deviceId: string, cameras: readonly { key: string; room: string; roomKind: RoomKind; enabled: boolean }[]): Promise<HomeCamera[]> => {
+      const keys = cameras.map((c) => c.key);
+      let off = this.db.from("home_cameras").update({ enabled: false }).eq("device_id", deviceId).eq("household_id", householdId);
+      if (keys.length) off = off.not("key", "in", `(${keys.map((k) => `"${k}"`).join(",")})`);
+      const { error: e1 } = await off;
+      check(e1);
+      if (cameras.length) {
+        const { error } = await this.db.from("home_cameras").upsert(cameras.map((c) => ({ household_id: householdId, device_id: deviceId, key: c.key, room: c.room, room_kind: c.roomKind, enabled: c.enabled })), { onConflict: "device_id,key" });
+        check(error);
+      }
+      const { data, error } = await this.db.from("home_cameras").select("*").eq("device_id", deviceId).order("key");
+      check(error);
+      return (data ?? []).map(toCamera);
+    },
+    cameras: async (householdId: string): Promise<HomeCamera[]> => {
+      const { data, error } = await this.db.from("home_cameras").select("*").eq("household_id", householdId).order("room");
+      check(error);
+      return (data ?? []).map(toCamera);
+    },
+    touchCameras: async (householdId: string, cameraIds: readonly string[], at: string): Promise<void> => {
+      if (!cameraIds.length) return;
+      const { error } = await this.db.from("home_cameras").update({ last_frame_at: at }).eq("household_id", householdId).in("id", [...cameraIds]);
+      check(error);
+    },
+    saveStatuses: async (householdId: string, rows: readonly Omit<HomeStatus, "id">[]): Promise<void> => {
+      if (!rows.length) return;
+      const { error } = await this.db.from("home_status").insert(rows.map((r) => ({ household_id: householdId, camera_id: r.cameraId, at: r.at, reading: r.reading, concern: r.reading.concern })));
+      check(error);
+      for (const r of rows) {
+        const { error: e } = await this.db.from("home_cameras").update({ last_status_at: r.at }).eq("id", r.cameraId).eq("household_id", householdId);
+        check(e);
+      }
+      const { error: e3 } = await this.db.from("home_status").delete().eq("household_id", householdId).lt("at", new Date(Date.now() - KEEP_STATUS_DAYS * 86_400_000).toISOString());
+      check(e3);
+    },
+    statuses: async (householdId: string, sinceIso: string): Promise<HomeStatus[]> => {
+      const { data, error } = await this.db.from("home_status").select("id, camera_id, at, reading").eq("household_id", householdId).gte("at", sinceIso).order("at", { ascending: false }).limit(500);
+      check(error);
+      return (data ?? []).map(toStatus);
     },
   };
 

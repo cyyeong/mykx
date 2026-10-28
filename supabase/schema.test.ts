@@ -345,3 +345,49 @@ describe("migrations/20261030_paper_scout.sql and 20261030_focus_verdict.sql", (
     }
   });
 });
+
+describe("Guardian tables (migrations/20261028_guardian.sql)", () => {
+  it("keeps each household's locations and room statuses to itself, hides device keys, and runs twice", async () => {
+    const g = new PGlite();
+    try {
+      for (const f of ["test-auth-stub.sql", "schema.sql", "rls.sql", "seed.sql"]) await g.exec(sql(f));
+      await g.exec(`drop table home_alerts, home_status, home_cameras, home_devices, place_events, places, locations, kid_location, guardian_prefs;`);
+      const migration = sql("migrations/20261028_guardian.sql");
+      await g.exec(migration);
+      await g.exec(migration);
+      await g.exec(`
+        insert into auth.users (id) values ('${PARENT_A}'), ('${PARENT_B}');
+        update profiles set user_id = '${PARENT_A}' where id = '00000000-0000-4000-8000-000000000010';
+        insert into households (id, name) values ('${HOUSE_B}', 'Other family');
+        insert into profiles (household_id, user_id, role, nickname) values ('${HOUSE_B}', '${PARENT_B}', 'parent', 'Other Parent');
+        insert into profiles (id, household_id, role, nickname, band, level, pack) values ('${KID_B}', '${HOUSE_B}', 'child', 'Kai', 'junior', 'P3', 'toon-pop');
+        insert into locations (household_id, profile_id, at, lat, lng, accuracy_m, motion, source) values
+          ('${HOUSE_A}', '${ARI}', '2026-10-30T07:41:00Z', 1.3918, 103.8954, 8, 'still', 'sim'),
+          ('${HOUSE_B}', '${KID_B}', '2026-10-30T07:41:00Z', 1.30, 103.80, 8, 'walking', 'sim');
+        insert into home_devices (id, household_id, name, kind, token_hash) values
+          ('dddddddd-0000-4000-8000-00000000000a', '${HOUSE_A}', 'Study laptop', 'home-link', repeat('a', 64)),
+          ('dddddddd-0000-4000-8000-00000000000b', '${HOUSE_B}', 'Their laptop', 'home-link', repeat('b', 64));
+        insert into home_cameras (id, household_id, device_id, key, room, room_kind) values
+          ('eeeeeeee-0000-4000-8000-00000000000a', '${HOUSE_A}', 'dddddddd-0000-4000-8000-00000000000a', 'cam1', 'Living room', 'living'),
+          ('eeeeeeee-0000-4000-8000-00000000000b', '${HOUSE_B}', 'dddddddd-0000-4000-8000-00000000000b', 'cam1', 'Living room', 'living');
+        insert into home_status (household_id, camera_id, at, reading, concern) values
+          ('${HOUSE_A}', 'eeeeeeee-0000-4000-8000-00000000000a', now(), '{"activity":"reading"}', 'none'),
+          ('${HOUSE_B}', 'eeeeeeee-0000-4000-8000-00000000000b', now(), '{"activity":"watching a screen"}', 'none');
+      `);
+      await expect(g.exec(`insert into home_cameras (household_id, device_id, key, room, room_kind) values ('${HOUSE_A}', 'dddddddd-0000-4000-8000-00000000000a', 'cam1', 'Again', 'other')`)).rejects.toThrow(/duplicate key/);
+      await expect(g.exec(`insert into locations (household_id, profile_id, at, lat, lng, accuracy_m, motion, source) values ('${HOUSE_A}', '${ARI}', now(), 1.3, 103.8, 8, 'teleporting', 'sim')`)).rejects.toThrow(/check constraint/);
+      await g.query(`select set_config('request.jwt.claim.sub', $1, false)`, [PARENT_A]);
+      await g.exec("set role authenticated");
+      expect((await g.query<{ motion: string }>("select motion from locations")).rows).toEqual([{ motion: "still" }]);
+      expect((await g.query<{ reading: { activity: string } }>("select reading from home_status")).rows.map((r) => r.reading.activity)).toEqual(["reading"]);
+      await expect(g.query("select token_hash from home_devices")).rejects.toThrow(/permission denied/);
+      await expect(g.query(`insert into locations (household_id, profile_id, at, lat, lng, accuracy_m, motion, source) values ('${HOUSE_A}', '${ARI}', now(), 1.3, 103.8, 8, 'still', 'web')`)).rejects.toThrow(/permission denied/);
+      // A parent may delete their own kid's points, and only theirs.
+      await g.exec(`delete from locations`);
+      await g.exec("reset role");
+      expect((await g.query<{ n: number }>("select count(*)::int as n from locations")).rows[0].n).toBe(1);
+    } finally {
+      await g.close();
+    }
+  });
+});

@@ -14,6 +14,8 @@ import type { PageSlug } from "../notebook/notebook.ts";
 import type { GameProgress } from "../games/progress.ts";
 import type { FindStatus, PaperFind, ScoutRun } from "../papers/finds.ts";
 import type { ScoutRow } from "../papers/scan.ts";
+import type { KidLocationSettings, Place, PlaceEvent, StoredPoint } from "../location/location.ts";
+import type { DeviceKind, GuardianPrefs, HomeCamera, HomeDevice, HomeStatus, RoomKind } from "../home-watch/home-watch.ts";
 import type { Band, Level, Pack, SecretEvent, SecretKind } from "./schemas.ts";
 
 /** A profiles row, server side. Holds the secret hash: never send one of these to a client as is. */
@@ -357,6 +359,50 @@ export interface AuthStore {
     setStatus(ids: readonly string[], status: Exclude<FindStatus, "read">): Promise<number>;
     /** Newest first. */
     runs(limit: number): Promise<ScoutRun[]>;
+  };
+
+  // Guardian, where they are (docs/prd/GUARDIAN.md §2.1): household-scoped; the routes check who is asking.
+  whereabouts: {
+    /** The kids' sharing settings that exist (a kid without a row isn't shared). */
+    settings(householdId: string): Promise<KidLocationSettings[]>;
+    saveSettings(householdId: string, kidId: string, patch: Partial<Omit<KidLocationSettings, "kidId">>): Promise<KidLocationSettings>;
+    /** Stores points (a repeated kid-and-time is skipped) and drops points older than 30 days; returns how many were new. */
+    addPoints(householdId: string, points: readonly StoredPoint[]): Promise<number>;
+    /** One kid's points since `sinceIso`, oldest first. */
+    track(householdId: string, kidId: string, sinceIso: string): Promise<StoredPoint[]>;
+    /** Each kid's newest point. */
+    latest(householdId: string): Promise<StoredPoint[]>;
+    places(householdId: string): Promise<Place[]>;
+    /** Adds a place, or updates one by id; null if the id isn't this household's. */
+    savePlace(householdId: string, place: Omit<Place, "id"> & { id?: string }): Promise<Place | null>;
+    deletePlace(householdId: string, id: string): Promise<boolean>;
+    addEvents(householdId: string, events: readonly Omit<PlaceEvent, "id">[]): Promise<void>;
+    /** Arrived and left events since `sinceIso`, newest first. */
+    events(householdId: string, sinceIso: string): Promise<PlaceEvent[]>;
+  };
+
+  // Guardian, Home watch (GUARDIAN §2.2): devices, cameras and room statuses (words only, never frames).
+  homeWatch: {
+    /** The family's Guardian preferences, or the defaults. */
+    prefs(householdId: string): Promise<GuardianPrefs>;
+    savePrefs(householdId: string, prefs: GuardianPrefs): Promise<GuardianPrefs>;
+    createDevice(householdId: string, device: { name: string; kind: DeviceKind; pairCodeHash: string; pairExpiresAt: string; createdBy: string | null }): Promise<HomeDevice>;
+    /** Swaps an unexpired, unused pairing code for a token (both as hashes); null if the code is wrong, used or late. */
+    claimDevice(pairCodeHash: string, tokenHash: string, nowIso: string): Promise<HomeDevice | null>;
+    /** The paired, unrevoked device with this token hash. */
+    deviceByToken(tokenHash: string): Promise<HomeDevice | null>;
+    devices(householdId: string): Promise<HomeDevice[]>;
+    revokeDevice(householdId: string, id: string): Promise<boolean>;
+    /** Notes the visit and spends `n` frames from the device's budget for `day`; false (nothing spent) when over `max`. */
+    spendFrames(deviceId: string, day: string, n: number, max: number, nowIso: string): Promise<boolean>;
+    /** Upserts a device's cameras by key; cameras it no longer lists are switched off. */
+    syncCameras(householdId: string, deviceId: string, cameras: readonly { key: string; room: string; roomKind: RoomKind; enabled: boolean }[]): Promise<HomeCamera[]>;
+    cameras(householdId: string): Promise<HomeCamera[]>;
+    touchCameras(householdId: string, cameraIds: readonly string[], at: string): Promise<void>;
+    /** Stores readings (and each camera's last status time), dropping statuses older than 14 days. */
+    saveStatuses(householdId: string, rows: readonly Omit<HomeStatus, "id">[]): Promise<void>;
+    /** Statuses since `sinceIso`, newest first. */
+    statuses(householdId: string, sinceIso: string): Promise<HomeStatus[]>;
   };
 
   // Admin only: callers check the admin flag first (lib/auth/context.ts requireAdmin).

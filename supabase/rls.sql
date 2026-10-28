@@ -38,6 +38,15 @@ alter table knowledge_uploads enable row level security;
 alter table skill_updates enable row level security;
 alter table paper_finds enable row level security;
 alter table scout_runs enable row level security;
+alter table guardian_prefs enable row level security;
+alter table kid_location enable row level security;
+alter table locations enable row level security;
+alter table places enable row level security;
+alter table place_events enable row level security;
+alter table home_devices enable row level security;
+alter table home_cameras enable row level security;
+alter table home_status enable row level security;
+alter table home_alerts enable row level security;
 
 create policy households_own on households for select to authenticated using (id = my_household());
 
@@ -89,6 +98,18 @@ create policy knowledge_uploads_admin_read on knowledge_uploads for select to au
 create policy skill_updates_admin_read on skill_updates for select to authenticated using (i_am_admin());
 create policy paper_finds_admin_read on paper_finds for select to authenticated using (i_am_admin());
 create policy scout_runs_admin_read on scout_runs for select to authenticated using (i_am_admin());
+-- Guardian: the household reads; only the server writes (and the parent may delete points, statuses and alerts).
+create policy guardian_prefs_read on guardian_prefs for select to authenticated using (household_id = my_household());
+create policy kid_location_read on kid_location for select to authenticated using (household_id = my_household());
+create policy locations_read on locations for select to authenticated using (household_id = my_household());
+create policy locations_delete on locations for delete to authenticated using (household_id = my_household());
+create policy places_read on places for select to authenticated using (household_id = my_household());
+create policy place_events_read on place_events for select to authenticated using (household_id = my_household());
+create policy home_cameras_read on home_cameras for select to authenticated using (household_id = my_household());
+create policy home_status_read on home_status for select to authenticated using (household_id = my_household());
+create policy home_status_delete on home_status for delete to authenticated using (household_id = my_household());
+create policy home_alerts_read on home_alerts for select to authenticated using (household_id = my_household());
+create policy home_alerts_delete on home_alerts for delete to authenticated using (household_id = my_household());
 
 -- Creations and shares stay inside the household.
 create policy creations_all on creations for all to authenticated
@@ -102,7 +123,7 @@ create policy shares_all on shares for all to authenticated
 
 -- Supabase grants every role everything on new public tables by default, so start from nothing and
 -- grant exactly what the browser needs. RLS still scopes every row by household.
-revoke all on households, profiles, attempts, ledger, creations, shares, summaries, model_runs, audit_log, signals, screen_beats, kix_messages, guardian_settings, flags_seen, knowledge_uploads, skill_updates, paper_finds, scout_runs, family_messages, notebook_pages, notebook_revisions, session_reads, game_progress from anon, authenticated;
+revoke all on households, profiles, attempts, ledger, creations, shares, summaries, model_runs, audit_log, signals, screen_beats, kix_messages, guardian_settings, flags_seen, knowledge_uploads, skill_updates, paper_finds, scout_runs, guardian_prefs, kid_location, locations, places, place_events, home_devices, home_cameras, home_status, home_alerts, family_messages, notebook_pages, notebook_revisions, session_reads, game_progress from anon, authenticated;
 grant usage on schema public to authenticated;
 grant select on households, attempts, ledger, summaries, model_runs, audit_log to authenticated;
 -- Every profile column except secret_hash and pin_hash (kid secrets and the parent PIN are checked by the server only).
@@ -119,6 +140,8 @@ grant select, delete on signals to authenticated;
 grant select, delete on screen_beats, kix_messages to authenticated;
 grant select on guardian_settings, flags_seen to authenticated;
 grant select on knowledge_uploads, skill_updates, paper_finds, scout_runs to authenticated;
+grant select on guardian_prefs, kid_location, places, place_events, home_cameras to authenticated;
+grant select, delete on locations, home_status, home_alerts to authenticated;
 grant select, delete on family_messages, notebook_pages, session_reads to authenticated;
 grant select on notebook_revisions to authenticated;
 grant select, delete on game_progress to authenticated;
