@@ -14,6 +14,7 @@ import type { PageSlug } from "../notebook/notebook.ts";
 import type { GameProgress } from "../games/progress.ts";
 import type { FindStatus, PaperFind, ScoutRun } from "../papers/finds.ts";
 import type { ScoutRow } from "../papers/scan.ts";
+import type { OutingRun } from "../outings/outings.ts";
 import type { KidLocationSettings, Place, PlaceEvent, StoredPoint } from "../location/location.ts";
 import type { DeviceKind, GuardianPrefs, HomeAlert, HomeCamera, HomeDevice, HomeStatus, RoomKind } from "../home-watch/home-watch.ts";
 import type { Band, Level, Pack, SecretEvent, SecretKind } from "./schemas.ts";
@@ -379,6 +380,12 @@ export interface AuthStore {
     addEvents(householdId: string, events: readonly Omit<PlaceEvent, "id">[]): Promise<void>;
     /** Arrived and left events since `sinceIso`, newest first. */
     events(householdId: string, sinceIso: string): Promise<PlaceEvent[]>;
+  };
+
+  // Do something together (GUARDIAN §2.6): each family's latest outing run (a cache of the last search and plan).
+  outings: {
+    latest(householdId: string): Promise<OutingRun | null>;
+    save(householdId: string, run: OutingRun): Promise<void>;
   };
 
   // Guardian, Home watch (GUARDIAN §2.2): devices, cameras and room statuses (words only, never frames).

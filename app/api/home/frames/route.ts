@@ -83,6 +83,7 @@ export async function POST(request: Request) {
       });
       if (!draft) continue;
       // 4. Keep this camera's frames for the parent to check: the last one with SAM's outlines of the children.
+      logRunsFor("whos-who", hh, null);
       const kept = await Promise.all(r.frames.map(async (f, i) => (i === r.frames.length - 1 ? (await outlineChildren(f.bytes, r.reading.people, colourOf)).webp : await shrink(f.bytes))));
       const paths = await store.homeWatch.saveAlertFrames(hh, `${r.camera.id}-${Date.parse(r.at)}`, kept);
       await store.homeWatch.addAlert(hh, { ...draft, cameraId: r.camera.id, at: r.at, framePaths: paths, framesExpireAt: new Date(now.getTime() + KEEP_FRAMES_MS).toISOString() });

@@ -18,6 +18,7 @@ import type { PageSlug } from "../notebook/notebook.ts";
 import type { GameProgress } from "../games/progress.ts";
 import { findFields, findKey, runCounts, type FindStatus, type PaperFind, type ScoutRun } from "../papers/finds.ts";
 import type { ScoutRow } from "../papers/scan.ts";
+import type { OutingRun } from "../outings/outings.ts";
 import { KEEP_POINTS_DAYS, type KidLocationSettings, type Motion, type Place, type PlaceEvent, type StoredPoint } from "../location/location.ts";
 import { DEFAULT_PREFS, KEEP_STATUS_DAYS, type DeviceKind, type GuardianPrefs, type HomeAlert, type HomeCamera, type HomeDevice, type HomeStatus, type RoomKind } from "../home-watch/home-watch.ts";
 import { NicknameTakenError } from "./store.ts";
@@ -156,6 +157,18 @@ function check(error: DbError) {
 const MINUTE_KIND = "camera-minute";
 const NOTE_KIND = "focus-watch";
 const NOTE_COLUMNS = "id, profile_id, minute, until, evidence, confidence, synthetic, verdict";
+/** The same columns before migration 20261030_focus_verdict.sql: a production database that hasn't run it yet still
+ *  answers (notes just have no check), instead of failing every page that reads them. */
+const NOTE_COLUMNS_NO_VERDICT = "id, profile_id, minute, until, evidence, confidence, synthetic";
+let noteColumns = NOTE_COLUMNS;
+async function withNoteColumns<T extends { error: DbError }>(run: (columns: string) => PromiseLike<T>): Promise<T> {
+  const used = noteColumns;
+  const first = await run(used);
+  // Retry whenever the request that failed asked for the verdict column, even if a parallel one already switched.
+  if (first.error?.code !== "42703" || used !== NOTE_COLUMNS) return first;
+  noteColumns = NOTE_COLUMNS_NO_VERDICT;
+  return run(NOTE_COLUMNS_NO_VERDICT);
+}
 
 function toFocusMinute(r: Row): FocusMinute {
   const c = (r.counts ?? {}) as Record<string, unknown>;
@@ -506,42 +519,48 @@ export class SupabaseStore implements AuthStore {
       return (data ?? []).map(toFocusMinute);
     },
     latestFocusNote: async (householdId: string, kidId: string) => {
-      const { data, error } = await this.db
-        .from("signals")
-        .select(NOTE_COLUMNS)
-        .eq("household_id", householdId)
-        .eq("profile_id", kidId)
-        .eq("kind", NOTE_KIND)
-        .order("minute", { ascending: false })
-        .limit(1)
-        .maybeSingle();
+      const { data, error } = await withNoteColumns((cols) =>
+        this.db
+          .from("signals")
+          .select(cols)
+          .eq("household_id", householdId)
+          .eq("profile_id", kidId)
+          .eq("kind", NOTE_KIND)
+          .order("minute", { ascending: false })
+          .limit(1)
+          .maybeSingle(),
+      );
       check(error);
-      return data ? toFocusNote(data) : null;
+      return data ? toFocusNote(data as unknown as Row) : null;
     },
     saveFocusNote: async (householdId: string, kidId: string, note: NewFocusNote) => {
       if (!(await this.ownsKid(householdId, kidId))) return null;
-      const { data, error } = await this.db
-        .from("signals")
-        .upsert(
-          { household_id: householdId, profile_id: kidId, kind: NOTE_KIND, minute: note.from, until: note.to, evidence: note.evidence, confidence: note.confidence },
-          { onConflict: "profile_id,kind,minute", ignoreDuplicates: true },
-        )
-        .select(NOTE_COLUMNS);
+      const { data, error } = await withNoteColumns((cols) =>
+        this.db
+          .from("signals")
+          .upsert(
+            { household_id: householdId, profile_id: kidId, kind: NOTE_KIND, minute: note.from, until: note.to, evidence: note.evidence, confidence: note.confidence },
+            { onConflict: "profile_id,kind,minute", ignoreDuplicates: true },
+          )
+          .select(cols),
+      );
       check(error);
-      const row = (data ?? [])[0];
+      const row = (data as unknown as Row[] | null)?.[0];
       return row ? toFocusNote(row) : null;
     },
     focusNotes: async (householdId: string, sinceIso: string) => {
-      const { data, error } = await this.db
-        .from("signals")
-        .select(NOTE_COLUMNS)
-        .eq("household_id", householdId)
-        .eq("kind", NOTE_KIND)
-        .or(`minute.gte."${sinceIso}",synthetic.is.true`)
-        .order("minute", { ascending: false })
-        .limit(50);
+      const { data, error } = await withNoteColumns((cols) =>
+        this.db
+          .from("signals")
+          .select(cols)
+          .eq("household_id", householdId)
+          .eq("kind", NOTE_KIND)
+          .or(`minute.gte."${sinceIso}",synthetic.is.true`)
+          .order("minute", { ascending: false })
+          .limit(50),
+      );
       check(error);
-      return (data ?? []).map(toFocusNote);
+      return ((data ?? []) as unknown as Row[]).map(toFocusNote);
     },
     removeFocusNote: async (householdId: string, noteId: string) => {
       if (!UUID.test(noteId)) return null;
@@ -1028,6 +1047,29 @@ export class SupabaseStore implements AuthStore {
       const { data, error } = await this.db.from("place_events").select("*").eq("household_id", householdId).gte("at", sinceIso).order("at", { ascending: false }).limit(500);
       check(error);
       return (data ?? []).map(toPlaceEvent);
+    },
+  };
+
+  // Do something together: one JSON file per family in a private Storage bucket (a cache of the last search and plan,
+  // so no table is needed). Only the server reads it.
+  readonly outings = {
+    latest: async (householdId: string): Promise<OutingRun | null> => {
+      const { data, error } = await this.db.storage.from("outings").download(`${householdId}/latest.json`);
+      if (error || !data) return null;
+      try {
+        return JSON.parse(await data.text()) as OutingRun;
+      } catch {
+        return null;
+      }
+    },
+    save: async (householdId: string, run: OutingRun): Promise<void> => {
+      const made = await this.db.storage.getBucket("outings");
+      if (made.error) {
+        const c = await this.db.storage.createBucket("outings", { public: false, fileSizeLimit: "256KB", allowedMimeTypes: ["application/json"] });
+        if (c.error && !/exists/i.test(c.error.message)) check(c.error);
+      }
+      const { error } = await this.db.storage.from("outings").upload(`${householdId}/latest.json`, new Blob([JSON.stringify(run)], { type: "application/json" }), { upsert: true, contentType: "application/json" });
+      check(error);
     },
   };
 

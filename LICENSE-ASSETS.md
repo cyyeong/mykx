@@ -14,6 +14,8 @@ These are licensed under [Creative Commons Attribution-NonCommercial 4.0 Interna
 - all images in `public/art/`, `art-src/` and `docs/design/explorations/`
 - the skill packs in `content/skills/` (questions, passages, figures, references)
 
+The synthetic home-camera frames in `public/art/sim/` (and the Home simulator's copy of them) are Muse Image art of fictional characters in a made-up flat, one with SAM 3.1 outlines drawn on it. They show no real person or home and are labelled "Synthetic" wherever they appear.
+
 Credit as: "myKx by cyyeong (https://github.com/cyyeong/mykx), CC BY-NC 4.0".
 
 Most art was made with Meta's Muse Image and cut into layers with SAM 3.1; `public/art/manifest.json` records the prompt and model for each file. These rights apply only as far as the authors hold rights in that art.
@@ -26,6 +28,8 @@ The names "myKx" and "Kix" are not licensed for use as trademarks (CC BY-NC 4.0 
 |---|---|---|
 | Fonts: Fredoka, Grandstander, Lilita One, M PLUS Rounded 1c, Nunito, Outfit, Unbounded | `public/fonts/`, `docs/design/boards/ds/mykx/fonts/` | SIL Open Font License 1.1 (`OFL.txt` in each folder) |
 | Twemoji word icons in the P3 Chinese pack | `content/skills/p3-chinese/figures/` | CC BY 4.0, Twitter, Inc. and other contributors (credited in that pack's `skill.json`) |
+| Map tiles on the parent's "Where they are" map | loaded from OneMap, not stored | © Singapore Land Authority; OneMap's logo and credit are shown as its terms require |
+| Leaflet 1.9.4 (map library) | npm `leaflet` | BSD-2-Clause |
 | `ui-ux-pro-max` skill | `.agents/skills/ui-ux-pro-max/` | MIT (its `LICENSE`) |
 | `frontend-design` skill | `.agents/skills/frontend-design/` | Apache-2.0 (its `LICENSE.txt`) |
 

@@ -29,6 +29,8 @@ import { sampleGuardianWeek } from "../guardian/sample.ts";
 import type { KnowledgeUpload, Review, SkillUpdate } from "../knowledge/knowledge.ts";
 import { findFields, findKey, runCounts, type FindStatus, type PaperFind, type ScoutRun } from "../papers/finds.ts";
 import type { ScoutRow } from "../papers/scan.ts";
+import { DEMO_OUTINGS } from "../outings/sample.ts";
+import type { OutingRun } from "../outings/outings.ts";
 import { KEEP_POINTS_DAYS, type KidLocationSettings, type Place, type PlaceEvent, type StoredPoint } from "../location/location.ts";
 import { DEFAULT_PREFS, KEEP_STATUS_DAYS, type DeviceKind, type GuardianPrefs, type HomeAlert, type HomeCamera, type HomeDevice, type HomeStatus, type RoomKind } from "../home-watch/home-watch.ts";
 import type { FlashcardSpec } from "../vibe/flashcards.ts";
@@ -139,6 +141,7 @@ export class DemoStore implements AuthStore {
   readonly cameraRows = new Map<string, HomeCamera & { householdId: string }>();
   readonly statusRows: (HomeStatus & { householdId: string })[] = [];
   readonly alertRows: (HomeAlert & { householdId: string })[] = [];
+  readonly outingRuns = new Map<string, OutingRun>();
   /** Flagged frames as data URLs by path (the demo's stand-in for the private Storage bucket). */
   readonly alertFrameRows = new Map<string, string>();
   /** Vibe Zone creations by id, with the household and the shared recipients. */
@@ -670,6 +673,16 @@ export class DemoStore implements AuthStore {
     },
     events: async (householdId: string, sinceIso: string) =>
       this.placeEventRows.filter((r) => r.householdId === householdId && r.at >= sinceIso).sort((a, b) => b.at.localeCompare(a.at)).map(withoutHousehold),
+  };
+
+  readonly outings = {
+    latest: async (householdId: string) => {
+      const run = this.outingRuns.get(householdId) ?? (householdId === DEMO_HOUSEHOLD_ID ? DEMO_OUTINGS : null);
+      return run ? structuredClone(run) : null;
+    },
+    save: async (householdId: string, run: OutingRun) => {
+      this.outingRuns.set(householdId, structuredClone(run));
+    },
   };
 
   readonly homeWatch = {

@@ -75,6 +75,14 @@ Today `lib/sound/engine.ts` plays short synthesised effects and, for some worlds
 - **Locally:** `SIM_HOME_LINK_TOKEN=… SIM_PASSCODE=… MYKX_URL=http://localhost:3200 node sim/dev.mjs` serves it on port 3300.
 - **Database:** the same production Supabase. The simulator has no database; it posts to myKx's routes as the demo family. If `SUPABASE_DB_URL` is in `.env.local`, `scripts/db-migrate.ts` runs migrations; otherwise the founder pastes the SQL.
 
+## Guardian demo and the outings (28 Oct)
+
+- **Do something together** (`/together`, `app/api/outings`): one Muse Spark web search plus one planner call per refresh, three a day. The latest run is one JSON file per family in the private Storage bucket `outings` (no migration). `scripts/guardian/outings-seed.ts` records a real run for the production demo household as source "cached" so the page opens full; run it again if the ideas get stale (about a minute, $0.20).
+- **Tonight** (`/api/guardian/tonight`, `components/parent/TonightCard.tsx`): facts come from the database and the Guardian rollups; Muse Spark only narrates, the rules' sentence stands in if it fails.
+- **Between video takes:** `node --env-file=.env.local scripts/guardian/reset-demo.ts` clears the demo household's points, arrivals, readings, alerts, stored frames and pauses (refuses unless every profile is synthetic). The take itself is in `docs/plan/GUARDIAN_DEMO.md`.
+- **The founder still has to run one SQL:** `supabase/migrations/20261030_focus_verdict.sql` (adds `signals.verdict` and `signals.verdict_at`; paste it into Supabase's SQL editor). Until then the store retries without those columns, so nothing breaks, but a parent's "Right / Not right" on a focus note isn't saved.
+- **Home Link** (`clients/home-link/`): the desktop client for the family's own cameras; see its README. It is a separate small Node package and is not part of the Next.js build.
+
 ## Things only the founder or Claude Code do
 
 - Publish to the Claude Design canvas (Claude Code); copy boards back into `docs/design/boards/` after.

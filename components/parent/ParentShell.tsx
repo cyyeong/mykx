@@ -15,6 +15,7 @@ import { WhereTab } from "@/components/location/WhereTab";
 import { ParentMessages } from "./ParentMessages";
 import { ParentNotebook } from "./ParentNotebook";
 import { ParentToday } from "./ParentToday";
+import { TonightCard } from "./TonightCard";
 import "./parent.css";
 
 type Tab = "today" | "where" | "home" | "messages" | "notebook" | "family";
@@ -136,7 +137,16 @@ export function ParentShell({ name, isAdmin }: { name: string | null; isAdmin: b
                 </Link>
               </div>
             ) : (
-              <ParentToday />
+              <>
+                <TonightCard />
+                <Link className="pshell-card" href="/together" style={{ textDecoration: "none", color: "inherit", marginBottom: 14 }}>
+                  <h2 className="pshell-h2" style={{ margin: 0, fontSize: 18 }}>
+                    Do something together
+                  </h2>
+                  <p className="pshell-p" style={{ margin: 0 }}>Weekend ideas near home: badminton, swimming, cycling and food, planned around the weather. Muse Spark searches the web for them.</p>
+                </Link>
+                <ParentToday />
+              </>
             )}
           </section>
         ) : tab === "where" ? (

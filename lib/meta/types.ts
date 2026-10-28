@@ -1,6 +1,6 @@
 // Shared types for the Meta Model API client. Type-only module.
 
-export type MetaOperation = "chat" | "chat_stream" | "structured" | "image_edit" | "sam_segment" | "transcribe";
+export type MetaOperation = "chat" | "chat_stream" | "structured" | "image_edit" | "sam_segment" | "transcribe" | "web_search";
 
 /**
  * One model call, shaped to become a `model_runs` row.
