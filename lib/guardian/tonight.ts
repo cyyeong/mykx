@@ -47,16 +47,8 @@ export const hasTonight = (i: TonightInput) => i.kids.some((k) => k.screenMin > 
 
 export const tonightSchema = z.strictObject({ text: z.string().min(20).max(620) });
 
-export const TONIGHT_PROMPT = [
-  "You write a short evening summary for a parent about their children's day, from the facts below.",
-  "Rules:",
-  "- Three or four plain, warm sentences, at most 70 words in all. No headings, lists or emoji. Short sentences.",
-  "- Use only the facts given. Never invent an event, a time, a place or a feeling. Say 'possibly' for anything uncertain.",
-  "- Start with what most needs the parent's attention (notes, unseen flags, an over-limit day, late use); if nothing does, say the day looked calm.",
-  "- Then where the children were and what they did at home, then screen time and learning, in the order that reads naturally. Leave out anything with nothing to say (a child with no use today, a calm room).",
-  "- Never diagnose, label or judge a child. A note the parent marked 'not right' was a false alarm: say it was checked and left it there.",
-  "- If a weekend plan is listed, close with it in one short sentence. Name children by the nicknames given. Do not name adults.",
-].join("\n");
+// Tonight's prompt (its editable instructions and fixed guardrails) is in lib/agents/instructions.ts ("tonight");
+// the route reads the published version with instructionsFor.
 
 /** The same facts in words without a model (rule 7). */
 export function fallbackTonight(i: TonightInput): string {

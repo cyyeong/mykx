@@ -6,6 +6,7 @@ import { withAuth } from "@/lib/auth/context";
 import { fail, ok } from "@/lib/auth/http";
 import { pinLockedResponse } from "@/lib/auth/pin";
 import { AGENTS, manifestSummary, packCards, publicRun, publicSkillEvent, totalsByModel } from "@/lib/admin/hood";
+import { agentList } from "@/lib/agents/catalog";
 import { hasMetaApiKey } from "@/lib/meta/client";
 
 export async function GET(request: Request) {
@@ -15,11 +16,14 @@ export async function GET(request: Request) {
     const admin = await requireAdmin(store, jar);
     if (!admin) return fail(403, "not-allowed");
     const [runs, updates, skillEvents] = await Promise.all([store.runs.recent(500).catch(() => []), store.knowledge.updates().catch(() => []), store.skills.recent(200).catch(() => [])]);
+    const agentRows = await store.agents.versions().catch(() => []);
     return ok({
       live: hasMetaApiKey(),
       packs: packCards(),
       updates: updates.map((u) => ({ pack: u.pack, version: u.version, publishedAt: u.publishedAt })),
       agents: AGENTS,
+      // Which agents have instructions an admin can edit, and the version each uses (the agent editor).
+      editors: agentList(agentRows),
       totals: totalsByModel(runs),
       runs: runs.slice(0, 60).map(publicRun),
       skills: {

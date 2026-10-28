@@ -3,12 +3,15 @@
 // Admin → Under the hood (PRD_REVIEW demo 2:35, USER_STORIES A-23): Kix's agents and what each may never do, every
 // model call summed per Meta model (from model_runs: ids and numbers, never prompts or a child's words), the newest
 // calls, and the art made during the event (public/art/manifest.json). Synthetic data is labelled (rule 8).
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { api } from "@/components/account/api";
 import type { Agent, ManifestSummary, ModelTotal, PublicRun, PublicSkillEvent } from "@/lib/admin/hood";
+import type { AgentListRow } from "@/lib/agents/catalog";
 import { AdminFrame } from "../AdminFrame";
+import "./agents.css";
 
-type Hood = { live: boolean; agents: Agent[]; totals: ModelTotal[]; runs: PublicRun[]; manifest: ManifestSummary; skills?: { loads: number; tools: number; refusals: number; events: PublicSkillEvent[] } };
+type Hood = { live: boolean; agents: Agent[]; editors?: AgentListRow[]; totals: ModelTotal[]; runs: PublicRun[]; manifest: ManifestSummary; skills?: { loads: number; tools: number; refusals: number; events: PublicSkillEvent[] } };
 
 const n = (v: number) => v.toLocaleString("en-SG");
 const usd = (v: number) => (v < 0.01 && v > 0 ? `$${v.toFixed(4)}` : `$${v.toFixed(2)}`);
@@ -72,11 +75,20 @@ export function HoodScreen() {
           </section>
 
           <section className="ad-col" aria-label="Agents">
-            <h2 className="ad-h2">Kix&apos;s agents</h2>
+            <div className="ad-head">
+              <h2 className="ad-h2">Kix&apos;s agents</h2>
+              <span className="ad-muted">Click an agent to read its instructions, edit them and see every version.</span>
+            </div>
             <div className="ad-agentgrid">
-              {data.agents.map((a) => (
-                <article key={a.id} className="ad-agentcard">
-                  <h3 className="ad-h3">{a.name}</h3>
+              {data.agents.map((a) => {
+                const key = a.route ?? a.id;
+                const ed = data.editors?.find((e) => e.key === key);
+                return (
+                <Link key={a.id} href={`/admin/under-the-hood/agents/${key}`} className="ad-agentcard ad-agentlink">
+                  <div className="ad-agenttop">
+                    <h3 className="ad-h3">{a.name}</h3>
+                    <span className="ad-agentver">{ed?.editable ? (ed.published === 1 ? "Default" : `v${ed.published}`) + (ed.draft ? " · draft" : "") : "Fixed"}</span>
+                  </div>
                   <div className="ad-models">
                     {a.models.length ? (
                       a.models.map((m) => (
@@ -92,8 +104,10 @@ export function HoodScreen() {
                   <p className="ad-never">
                     <strong>Never</strong> {a.never.charAt(0).toLowerCase() + a.never.slice(1)}.
                   </p>
-                </article>
-              ))}
+                  <span className="ad-agentcta">{ed?.editable ? "Instructions and versions" : "Why there is nothing to edit"} →</span>
+                </Link>
+                );
+              })}
             </div>
           </section>
 

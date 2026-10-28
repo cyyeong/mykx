@@ -2,12 +2,14 @@
 // faces, shrunk and stripped of metadata), and a stage: hint, steps or full. Muse Spark (Standard) reads it and
 // answers with a validated explanation spec drawn by trusted components. The photo is read once and never stored
 // or logged; only the question text is kept, like any words to Kix. Distress words take the caring path instead.
+// The lesson prompt starts with Ask Kix's published instructions (editable in Under the hood) and its guardrails.
 import { z } from "zod";
+import { instructionsFor } from "@/lib/agents/runtime";
 import { requireFamily } from "@/lib/auth/guard";
 import { fail, ok, readBody } from "@/lib/auth/http";
 import { caringReply, checkWords, HELPLINES } from "@/lib/guardian/words";
 import { notebookNotes } from "@/lib/notebook/notebook";
-import { enforceStage, explanationSchema, packsForLevel, sampleExplanation, STAGES, systemPrompt, teachingNotes } from "@/lib/kix/homework";
+import { askKixVars, enforceStage, explanationSchema, packsForLevel, sampleExplanation, STAGES, systemPrompt, teachingNotes } from "@/lib/kix/homework";
 import { updateNotes } from "@/lib/knowledge/knowledge";
 import { hasMetaApiKey } from "@/lib/meta/client";
 import { sparkStructured, sparkTools } from "@/lib/meta/spark";
@@ -72,11 +74,13 @@ export async function POST(request: Request) {
   const packNotesText = research.reads.length ? `## What Kix read in the ${research.loaded.join(" and ")} pack\n${research.reads.map((r) => r.text).join("\n\n")}` : teachingNotes(kid.level);
   const notes = [packNotesText, updateNotes(published), remembered].filter(Boolean).join("\n\n");
   const skills = { loaded: research.loaded, read: research.reads.map((r) => cleanTitle(r.title)), sections: research.reads.map((r) => r.id) };
+  const asked = { nickname: kid.nickname, level: kid.level, band: kid.band, stage: input.stage };
+  const head = await instructionsFor("ask-kix", askKixVars(asked), { store });
   try {
     const { data } = await sparkStructured(
       {
         messages: [
-          { role: "system", content: systemPrompt({ nickname: kid.nickname, level: kid.level, band: kid.band, stage: input.stage, notes }) },
+          { role: "system", content: systemPrompt({ ...asked, notes }, head) },
           { role: "user", content: userParts },
         ],
         schema: explanationSchema,

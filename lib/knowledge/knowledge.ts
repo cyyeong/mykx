@@ -7,6 +7,7 @@
 // Rights (AGENTS.md rule 10): a school paper kept for private reference yields patterns and statistics only. The
 // prompt asks for no question text, and this file drops any items from such uploads whatever the model returns.
 import { z } from "zod";
+import { compose, curatorVars } from "../agents/instructions.ts";
 import { packFor, type Level } from "../papers/scout.ts";
 
 export const RIGHTS = ["school-private", "own", "licensed"] as const;
@@ -72,19 +73,10 @@ export const extractionSchema = z.strictObject({
 });
 export type Extraction = z.infer<typeof extractionSchema>;
 
-export function extractionPrompt(rights: Rights, packTopics: Record<string, string[]>): string {
-  return [
-    "You are the Content Curator for myKx, a Singapore learning app. Read the attached document and return what a tutor needs from it, as JSON.",
-    "1. paper: the level, subject, year, exam type, school (if printed), pages, number of questions and total marks.",
-    "2. archetypes: group the questions into patterns. Describe each pattern in your own words (e.g. \"before-and-after ratio where the total stays the same\"), with its marks, how many questions follow it, difficulty 1-4, format and the pages it's on. Never copy a question's wording, numbers or names.",
-    "3. traps: the mistakes the paper is built to catch, in your own words. 4. markingCues: what the answer key rewards (keywords, units, steps).",
-    rights === "school-private"
-      ? "5. items: this is a school paper kept for private reference. Return items as an empty array. Never reproduce its questions."
-      : "5. items: this is our own or licensed material. Return each question as an item (stem, options, answer, marks, difficulty) so a reviewer can approve it.",
-    "Tag topics with the pack topic ids below when one fits; otherwise a short plain topic name.",
-    `Pack topics: ${JSON.stringify(packTopics)}`,
-    "If pages are unreadable or the answer key is missing, say so in notes and lower confidence. Don't guess numbers you can't read.",
-  ].join("\n");
+/** The Content Curator's prompt. Its wording lives in lib/agents/instructions.ts (editable in Under the hood, with the
+ *  rights rule as a fixed guardrail); read.ts passes the published version as `text`. */
+export function extractionPrompt(rights: Rights, packTopics: Record<string, string[]>, text?: string | null): string {
+  return compose("knowledge-agent", curatorVars(rights, packTopics), text);
 }
 
 /** Applies the rights rule whatever the model returned, and fixes the route deterministically. */

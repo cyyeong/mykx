@@ -538,3 +538,20 @@ create table skill_events (
   created_at timestamptz not null default now()
 );
 create index skill_events_created on skill_events (created_at desc);
+
+-- Agents you can edit (lib/agents; migration 20261030_agent_versions.sql): versions of each Muse Spark agent's
+-- instructions, saved and published by admins. Version 1 is the built-in default in code and is never a row.
+-- Safety guardrails stay in code. Platform content, never a child's data. Server only; soft delete.
+create table agent_versions (
+  id uuid primary key default gen_random_uuid(),
+  agent_id text not null check (agent_id ~ '^[a-z][a-z-]{1,39}$'),
+  version integer not null check (version >= 2),
+  instructions text not null check (char_length(instructions) between 1 and 8000),
+  note text check (char_length(note) <= 120),
+  status text not null check (status in ('draft', 'published')),
+  created_by uuid references profiles (id) on delete set null,
+  created_at timestamptz not null default now(),
+  deleted_at timestamptz,
+  unique (agent_id, version)
+);
+create index agent_versions_live on agent_versions (agent_id, version desc) where deleted_at is null;

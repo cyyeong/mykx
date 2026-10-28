@@ -75,16 +75,8 @@ export const hasAnything = (i: BriefInput) => briefFacts(i).split("\n").some((l)
 
 export const briefSchema = z.strictObject({ text: z.string().min(10).max(360) });
 
-export const BRIEF_PROMPT = [
-  "You write one short status line for a parent, about their kids and home, from the facts below.",
-  "Rules:",
-  "- One or two plain sentences, at most 45 words. Warm, calm, specific. No headings, no lists, no emoji.",
-  "- Use only the facts given. Never invent a place, person, activity or time. Never give coordinates.",
-  "- Say 'possibly' for anything marked possibly. Never diagnose, label or judge a child; describe what is visible or known.",
-  "- If an unchecked note is listed, mention it first and say it needs a look. If an urgent note is listed, say so plainly.",
-  "- Name children by the nicknames given. Do not name adults. If the home cameras are off, don't mention rooms.",
-  "- If everything is calm, say that, and where the kids are.",
-].join("\n");
+// The Brief's prompt (its editable instructions and fixed guardrails) is in lib/agents/instructions.ts
+// ("guardian-brief"); the route reads the published version with instructionsFor.
 
 /** The same facts in words, without a model: used when Muse Spark is unavailable (rule 7). */
 export function fallbackBrief(i: BriefInput): string {

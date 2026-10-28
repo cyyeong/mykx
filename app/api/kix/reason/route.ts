@@ -3,9 +3,12 @@
 // and their own words, and says kindly what is right or missing in THEIR reason. When the answer was right it also
 // gives a better reason in a child's words; when it was wrong it never gives the answer away (the retry is theirs).
 // Narration only: the stars were already decided in code (lib/domain/reason.ts, rule 5). Without a model, or if it
-// fails, the same check in code answers with the item's worked steps (rule 7).
+// fails, the same check in code answers with the item's worked steps (rule 7). The prompt is the Kix Tutor's
+// "Reason feedback" instructions (editable in Under the hood) and their fixed guardrails (lib/agents).
 import { z } from "zod";
+import { instructionsFor } from "@/lib/agents/runtime";
 import { requireFamily } from "@/lib/auth/guard";
+import { reasonSystem, tutorVars } from "@/lib/kix/tutor-prompt";
 import { fail, ok, readBody } from "@/lib/auth/http";
 import { checkWords } from "@/lib/guardian/words";
 import { packNotes } from "@/lib/kix/homework";
@@ -39,21 +42,8 @@ export async function POST(request: Request) {
   if (!hasMetaApiKey() || !input.reason.trim()) return ok({ coach: fallback, source: "code" });
 
   const right = item.type === "mcq" && typeof item.answer === "number" ? (item.options?.[item.answer - 1] ?? "") : String(item.answer);
-  const system = [
-    `You are Kix, ${kid.nickname}'s kind study sidekick (Singapore ${kid.level ?? "P3"}). You are looking at the child's reason for their answer.`,
-    "Speak to the child, warm and plain, in at most two short sentences a 9-year-old can read aloud.",
-    "`feedback` is about their REASON only. The app already tells them whether the answer was right, so never praise or judge the answer in `feedback`. Always start with \"Your reason\" (for example: \"Your reason, 'because I am smart', doesn't say why yet. A good reason uses the table: …\" or \"Your reason uses the table well, but say which stage you counted.\").",
-    "Judge THEIR reason: is it about the science of this question? Does it give evidence and say why? If it is off-topic or empty, say so gently and say what a reason should talk about. If it holds a wrong idea, name the idea kindly.",
-    input.correct
-      ? "The answer was right. Give `better`: a stronger reason in the child's own voice, one or two short sentences, using claim, evidence and reasoning."
-      : "The answer was wrong. Set `better` to null and NEVER say or hint which option is right; help them think about the science so they can try again.",
-    "Never mention stars, marks or scores. Never call the child's words silly, bad or wrong-headed, and never mock them: say what their reason is missing and what a good reason talks about (for example: \"That doesn't explain the science yet. A good reason talks about…\").",
-    "",
-    `# The question\n${item.stem}${item.options?.length ? `\nOptions: ${item.options.map((o, i) => `(${i + 1}) ${o}`).join("  ")}` : ""}`,
-    `# The right answer (for you only${input.correct ? "" : "; do not reveal it"})\n${right}`,
-    `# Worked steps (for you only)\n${(item.working ?? []).join("\n")}`,
-    `# Pack notes (${FROG_QUEST.skill})\n${packNotes(FROG_QUEST.skill)}`,
-  ].join("\n");
+  const head = await instructionsFor("tutor", tutorVars(kid, { correct: input.correct }), { part: "reason" });
+  const system = reasonSystem({ kid, item, correct: input.correct, right, pack: FROG_QUEST.skill, notes: packNotes(FROG_QUEST.skill) }, head);
   try {
     const { data } = await sparkStructured(
       {

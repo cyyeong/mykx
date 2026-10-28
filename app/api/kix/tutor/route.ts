@@ -3,8 +3,11 @@
 // (lib/skills/runtime.ts): the quest's pack is loaded, and Kix calls tools to read the section it needs, find a
 // similar practice question, check one by code or load another of the child's packs; every load and tool call is
 // logged as a skill event. Every ask counts as a hint, so a helped answer is never mastery evidence (rule 5).
-// Without a model, or if the agent fails, the item's own next hint answers instead (rule 7).
+// Without a model, or if the agent fails, the item's own next hint answers instead (rule 7). The prompt starts with
+// the tutor's published instructions (editable in Under the hood) and its fixed guardrails (lib/agents).
 import { z } from "zod";
+import { instructionsFor } from "@/lib/agents/runtime";
+import { hintSystem, tutorVars } from "@/lib/kix/tutor-prompt";
 import { requireFamily } from "@/lib/auth/guard";
 import { fail, ok, readBody } from "@/lib/auth/http";
 import { getStore } from "@/lib/auth/context";
@@ -50,29 +53,13 @@ export async function POST(request: Request) {
   }
 
   const hints = item.hints ?? [];
-  const choices = item.options ?? [];
   const cached = hints[Math.min(input.hint, hints.length) - 1] ?? "Read the question again slowly. What is it really asking?";
   if (!hasMetaApiKey()) return textReply(cached, "cached");
 
   const store = getStore();
   const pages = (await store?.notebook.pages(family.householdId, kid.id).catch(() => [])) ?? [];
   const remembered = notebookNotes(kid.nickname, pages);
-  const options = choices.length ? `\nOptions: ${choices.map((o, i) => `(${i + 1}) ${o}`).join("  ")}` : "";
-  const system = [
-    `You are Kix, ${kid.nickname}'s friendly study sidekick (Singapore ${kid.level ?? "P3"}). You are helping with one question during a quest.`,
-    "Answer in at most two short sentences a 9-year-old can read aloud. Warm, concrete, no baby talk.",
-    "NEVER say the answer, which option is right, or the final word or number. Point to the thinking: what to notice, what to compare, the next small step.",
-    "Use the pack's method (e.g. claim, evidence, reasoning for science explanations).",
-    "If the child asks something off-topic or unsafe, kindly bring them back to the question.",
-    "",
-    `# The question\n${item.stem}${options}`,
-    `# The worked steps (for you only; never repeat the conclusion)\n${(item.working ?? []).join("\n")}`,
-    `# The item's own hints, in order\n${hints.map((h, i) => `${i + 1}. ${h}`).join("\n")}`,
-    `This question is item ${item.id}. You may never check_answer it: the child submits their own answer.`,
-    remembered,
-  ]
-    .filter(Boolean)
-    .join("\n");
+  const system = hintSystem({ kid, item, remembered }, await instructionsFor("tutor", tutorVars(kid), { part: "hint", store }));
   const user = input.ask ? `${kid.nickname} asks: ${input.ask}` : `Give hint ${input.hint}: a nudge that builds on the earlier hints.`;
 
   try {

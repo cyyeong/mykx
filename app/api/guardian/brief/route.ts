@@ -1,13 +1,15 @@
 // "Right now" (GUARDIAN §2.5): the Guardian Brief for the grown-up's map and Home now. Facts are collected here from the
 // household's own rows (place names, motion, room readings, unchecked alerts); Muse Spark (Standard) writes one or two
 // sentences from them; if it can't, the rules' own sentence is returned and labelled. Cached per family: a new brief
-// is written only when the facts change, and at most every two minutes. Raw coordinates never reach the model.
+// is written only when the facts change, and at most every two minutes. Raw coordinates never reach the model. The
+// prompt is the Brief's published instructions (editable in Under the hood) with fixed guardrails (lib/agents).
+import { instructionsFor } from "@/lib/agents/runtime";
 import { currentParent, withAuth } from "@/lib/auth/context";
 import type { AuthStore } from "@/lib/auth/store";
 import { fail, ok } from "@/lib/auth/http";
 import { takeToken } from "@/lib/auth/lockout";
 import { pinLockedResponse } from "@/lib/auth/pin";
-import { BRIEF_PROMPT, briefDigest, briefFacts, briefSchema, fallbackBrief, hasAnything, type BriefInput } from "@/lib/home-watch/brief";
+import { briefDigest, briefFacts, briefSchema, fallbackBrief, hasAnything, type BriefInput } from "@/lib/home-watch/brief";
 import { camerasOn } from "@/lib/home-watch/home-watch";
 import { placeAt, sharingNow } from "@/lib/location/location";
 import { hasMetaApiKey } from "@/lib/meta/client";
@@ -102,8 +104,9 @@ export async function GET(request: Request) {
     if (hasMetaApiKey()) {
       try {
         logRunsFor("guardian-brief", hh, null);
+        const system = await instructionsFor("guardian-brief", {}, { store });
         const { data } = await sparkStructured(
-          { messages: [{ role: "system", content: BRIEF_PROMPT }, { role: "user", content: `Facts:\n${briefFacts(input)}` }], schema: briefSchema, schemaName: "guardian_brief", reasoningEffort: "low" },
+          { messages: [{ role: "system", content: system }, { role: "user", content: `Facts:\n${briefFacts(input)}` }], schema: briefSchema, schemaName: "guardian_brief", reasoningEffort: "low" },
           { timeoutMs: 15_000, signal: request.signal },
         );
         entry = { digest, text: data.text.trim(), at: now, source: "live" };

@@ -3,6 +3,7 @@
 // frame the simulator sends that was read live before uses that earlier reading, labelled "cached" (rule 7); a real
 // camera's frame just isn't read this tick.
 import sharp from "sharp";
+import { instructionsFor } from "../agents/runtime.ts";
 import { hasMetaApiKey } from "../meta/client.ts";
 import { sparkStructured } from "../meta/spark.ts";
 import { sha256Hex, type RoomReading } from "./home-watch.ts";
@@ -52,7 +53,7 @@ export async function readTick(frames: readonly TickFrame[], kids: readonly Read
       for (const f of list) content.push({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${(await shrink(f.bytes)).toString("base64")}` } });
     }
     const { data } = await sparkStructured(
-      { messages: [{ role: "system", content: readerPrompt(kids) }, { role: "user", content }], schema: readerSchema, schemaName: "home_reading", reasoningEffort: "low" },
+      { messages: [{ role: "system", content: readerPrompt(kids, await instructionsFor("home-reader", {})) }, { role: "user", content }], schema: readerSchema, schemaName: "home_reading", reasoningEffort: "low" },
       { timeoutMs: 40_000, signal: options.signal },
     );
     const readings = new Map<string, RoomReading>();

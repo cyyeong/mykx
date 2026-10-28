@@ -10,6 +10,7 @@ import { familyOf, type AttemptEvent } from "../domain/attempts.ts";
 import { sgDate } from "../domain/time.ts";
 import type { LedgerEntry } from "../domain/rewards.ts";
 import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt, StoredBeat, StoredGuardianSettings, StoredKixMessage, Creation, NotebookPage, NotebookRevision, StoredSessionRead, StoredRun, StoredSkillEvent } from "./store.ts";
+import { AgentVersionsMissingError, type StoredAgentVersion } from "./store.ts";
 import { BEAT_MS, type ActivityKind } from "../guardian/screen-time.ts";
 import type { Extraction, KnowledgeUpload, Review, Rights, SkillUpdate } from "../knowledge/knowledge.ts";
 import type { FlashcardSpec } from "../vibe/flashcards.ts";
@@ -148,6 +149,19 @@ const toPrefs = (r: Record<string, unknown>): GuardianPrefs => ({
 
 /** Postgres or PostgREST saying a table isn't there yet (a migration not applied). */
 const tableMissing = (e: { code?: string }) => e.code === "42P01" || e.code === "PGRST205";
+
+const AGENT_VERSION_COLUMNS = "id, agent_id, version, instructions, note, status, created_by, created_at, deleted_at";
+const toAgentVersion = (r: Record<string, unknown>): StoredAgentVersion => ({
+  id: r.id as string,
+  agentId: r.agent_id as string,
+  version: Number(r.version),
+  instructions: r.instructions as string,
+  note: (r.note as string | null) ?? null,
+  status: r.status as StoredAgentVersion["status"],
+  createdBy: (r.created_by as string | null) ?? null,
+  createdAt: r.created_at as string,
+  deletedAt: (r.deleted_at as string | null) ?? null,
+});
 
 function check(error: DbError) {
   if (!error) return;
@@ -1388,6 +1402,57 @@ export class SupabaseStore implements AuthStore {
     setBanned: async (userId: string, banned: boolean) => {
       const { error } = await this.db.auth.admin.updateUserById(userId, { ban_duration: banned ? "876000h" : "none" });
       if (error) throw new Error("accounts store: could not update the sign-in ban");
+    },
+  };
+
+  // agent_versions (migration 20261030_agent_versions.sql). Until it is applied every agent reads its built-in
+  // default (versions answers empty) and saving throws AgentVersionsMissingError, which the admin route explains.
+  readonly agents = {
+    versions: async (agentId?: string): Promise<StoredAgentVersion[]> => {
+      let q = this.db.from("agent_versions").select(AGENT_VERSION_COLUMNS);
+      if (agentId) q = q.eq("agent_id", agentId);
+      const { data, error } = await q.order("agent_id").order("version");
+      if (error && tableMissing(error)) return [];
+      check(error);
+      return (data ?? []).map(toAgentVersion);
+    },
+    add: async (v: { agentId: string; instructions: string; note: string | null; status: StoredAgentVersion["status"]; createdBy: string | null }): Promise<StoredAgentVersion> => {
+      // One past every earlier row; two admins saving at once collide on (agent_id, version), so try again.
+      for (let attempt = 0; ; attempt++) {
+        const last = await this.db.from("agent_versions").select("version").eq("agent_id", v.agentId).order("version", { ascending: false }).limit(1);
+        if (last.error && tableMissing(last.error)) throw new AgentVersionsMissingError();
+        check(last.error);
+        const version = Math.max(1, Number(last.data?.[0]?.version ?? 1)) + 1;
+        const { data, error } = await this.db
+          .from("agent_versions")
+          .insert({ agent_id: v.agentId, version, instructions: v.instructions, note: v.note, status: v.status, created_by: v.createdBy })
+          .select(AGENT_VERSION_COLUMNS)
+          .single();
+        if (error?.code === "23505" && attempt < 2) continue;
+        if (error && tableMissing(error)) throw new AgentVersionsMissingError();
+        check(error);
+        return toAgentVersion(data!);
+      }
+    },
+    updateDraft: async (agentId: string, version: number, patch: { instructions: string; note: string | null; status: StoredAgentVersion["status"] }) => {
+      const { data, error } = await this.db
+        .from("agent_versions")
+        .update({ instructions: patch.instructions, note: patch.note, status: patch.status })
+        .eq("agent_id", agentId)
+        .eq("version", version)
+        .eq("status", "draft")
+        .is("deleted_at", null)
+        .select(AGENT_VERSION_COLUMNS)
+        .maybeSingle();
+      if (error && tableMissing(error)) throw new AgentVersionsMissingError();
+      check(error);
+      return data ? toAgentVersion(data) : null;
+    },
+    remove: async (agentId: string, version: number, atIso: string) => {
+      const { data, error } = await this.db.from("agent_versions").update({ deleted_at: atIso }).eq("agent_id", agentId).eq("version", version).is("deleted_at", null).select("id");
+      if (error && tableMissing(error)) throw new AgentVersionsMissingError();
+      check(error);
+      return (data ?? []).length > 0;
     },
   };
 

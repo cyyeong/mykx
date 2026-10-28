@@ -391,3 +391,27 @@ describe("Guardian tables (migrations/20261028_guardian.sql)", () => {
     }
   });
 });
+
+describe("migrations/20261030_agent_versions.sql (agents you can edit)", () => {
+  it("adds the table, runs twice, keeps version numbers unique and lets no browser read it, not even an admin's", async () => {
+    const g = new PGlite();
+    try {
+      for (const f of ["test-auth-stub.sql", "schema.sql", "rls.sql", "seed.sql"]) await g.exec(sql(f));
+      await g.exec("drop table agent_versions");
+      const migration = sql("migrations/20261030_agent_versions.sql");
+      await g.exec(migration);
+      await g.exec(migration);
+      await g.exec(`insert into agent_versions (agent_id, version, instructions, status) values ('tutor', 2, 'Be brief.', 'published')`);
+      await expect(g.exec(`insert into agent_versions (agent_id, version, instructions, status) values ('tutor', 2, 'Again', 'draft')`)).rejects.toThrow(/duplicate key/);
+      await expect(g.exec(`insert into agent_versions (agent_id, version, instructions, status) values ('tutor', 1, 'The default is code', 'draft')`)).rejects.toThrow(/check constraint/);
+      await expect(g.exec(`insert into agent_versions (agent_id, version, instructions, status) values ('tutor', 3, repeat('x', 8001), 'draft')`)).rejects.toThrow(/check constraint/);
+      await g.exec(`insert into auth.users (id) values ('${PARENT_A}'); update profiles set user_id = '${PARENT_A}', is_admin = true where id = '00000000-0000-4000-8000-000000000010';`);
+      await g.query(`select set_config('request.jwt.claim.sub', $1, false)`, [PARENT_A]);
+      await g.exec("set role authenticated");
+      await expect(g.query("select instructions from agent_versions")).rejects.toThrow(/permission denied/);
+      await g.exec("reset role");
+    } finally {
+      await g.close();
+    }
+  });
+});

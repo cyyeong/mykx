@@ -2,8 +2,9 @@
 // forgetting the frog life cycle"); Muse Spark (Standard) writes a flashcard spec, checked against this schema and
 // drawn by trusted components (AGENTS.md rule 4: no model-authored code runs). "Change something" makes a new
 // version; saving pays the deterministic creation_saved reward once (rule 5); sharing sends one version to the
-// family's grown-ups and can be revoked.
+// family's grown-ups and can be revoked. The prompt's instructions are editable in Under the hood (lib/agents).
 import { z } from "zod";
+import { compose, type Vars } from "../agents/instructions.ts";
 
 /** Pictures the cards may use: the frog life cycle frames we have art for. Anything else is words only. */
 export const PICTURES = ["frogspawn", "tadpole", "froglet", "frog"] as const;
@@ -25,12 +26,13 @@ export const flashcardSpecSchema = z.strictObject({
 export type FlashcardSpec = z.infer<typeof flashcardSpecSchema>;
 export type Card = z.infer<typeof cardSchema>;
 
-export function makePrompt(o: { nickname: string; level: string | null; notes: string; revise: { spec: FlashcardSpec; change: string } | null }): string {
+/** What the Vibe Zone maker's instructions may fill in (lib/agents/instructions.ts). */
+export const vibeVars = (o: { nickname: string; level: string | null; band?: string | null }): Vars => ({ nickname: o.nickname, level: o.level ?? "primary", band: o.band === "teen" ? "teen" : "junior" });
+
+/** The maker's instructions (the published version, which the route passes as `head`) and guardrails, then the request's context. */
+export function makePrompt(o: { nickname: string; level: string | null; band?: string | null; notes: string; revise: { spec: FlashcardSpec; change: string } | null }, head = compose("vibe", vibeVars(o))): string {
   return [
-    `You make study flashcards for ${o.nickname}, a Singapore ${o.level ?? "primary"} student, in myKx's Vibe Zone.`,
-    "Return 4 to 6 cards (8 at most if asked): a short question or prompt on the front, the answer on the back in a child's words. Facts must match the Singapore MOE syllabus and the pack notes below. Use picture only for frog life-cycle stages (frogspawn, tadpole, froglet, frog), otherwise null.",
-    "Make them fun to remember: a tiny rhyme, pattern or picture-in-words on a back is welcome. No names of real people, brands or characters.",
-    "If the request isn't about learning, or isn't safe for a child, make a gentle 3-card set about how to ask Kix for study help instead.",
+    head,
     o.revise ? `Revise this set: ${o.revise.change}\nCurrent set: ${JSON.stringify(o.revise.spec)}` : "",
     "",
     "# Pack notes",

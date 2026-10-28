@@ -225,6 +225,32 @@ export interface StoredKixMessage {
   synthetic?: boolean;
 }
 
+// Agents you can edit (agent_versions; lib/agents). Platform content: written and read by admin routes only.
+/** One saved version of an agent's instructions. Version 1 is the built-in default in code and is never a row. */
+export interface StoredAgentVersion {
+  id: string;
+  /** An editable agent's id (lib/agents/instructions.ts EDITABLE_AGENTS). */
+  agentId: string;
+  /** 2 and up, never reused (deleted rows keep theirs). */
+  version: number;
+  instructions: string;
+  note: string | null;
+  status: "draft" | "published";
+  /** The admin's profile id. */
+  createdBy: string | null;
+  createdAt: string;
+  /** Soft delete: the row stays for the audit trail but no longer counts. */
+  deletedAt: string | null;
+}
+
+/** agent_versions isn't in the database yet (migration 20261030_agent_versions.sql not applied): saving can't work. */
+export class AgentVersionsMissingError extends Error {
+  constructor() {
+    super("The agent_versions table isn't there yet: run supabase/migrations/20261030_agent_versions.sql.");
+    this.name = "AgentVersionsMissingError";
+  }
+}
+
 export interface AuthStore {
   readonly mode: "supabase" | "demo";
 
@@ -453,5 +479,18 @@ export interface AuthStore {
     emails(userIds: string[]): Promise<Map<string, string>>;
     /** Blocks or unblocks sign-in at the auth provider (disable/enable). */
     setBanned(userId: string, banned: boolean): Promise<void>;
+  };
+
+  // Agents you can edit (agent_versions): admin routes write, lib/agents/runtime.ts reads the published version.
+  // Writes throw AgentVersionsMissingError while the migration isn't applied; reads answer empty (the defaults).
+  agents: {
+    /** Every version, deleted ones included, by agent and then version; one agent's when `agentId` is given. */
+    versions(agentId?: string): Promise<StoredAgentVersion[]>;
+    /** Adds the agent's next version (one past every earlier one, deleted ones too; at least 2) and returns it. */
+    add(version: { agentId: string; instructions: string; note: string | null; status: StoredAgentVersion["status"]; createdBy: string | null }): Promise<StoredAgentVersion>;
+    /** Rewrites a live draft, or publishes it in place; null when that version isn't a live draft. */
+    updateDraft(agentId: string, version: number, patch: { instructions: string; note: string | null; status: StoredAgentVersion["status"] }): Promise<StoredAgentVersion | null>;
+    /** Soft-deletes a live version; false when there isn't one. */
+    remove(agentId: string, version: number, atIso: string): Promise<boolean>;
   };
 }

@@ -4,8 +4,10 @@
 //         one), checked against the schema; a cached sample when the model is unavailable (rule 7).
 //   POST { action: "save" }:  keeps a version; the first save of a creation pays creation_saved (+5, rule 5).
 //   POST { action: "share" }: shares the current version with this device's grown-up, or stops sharing.
-// Specs are data drawn by trusted components; no model-written code runs (rule 4).
+// Specs are data drawn by trusted components; no model-written code runs (rule 4). The maker's instructions are the
+// published version (editable in Under the hood), with fixed guardrails (lib/agents).
 import { z } from "zod";
+import { instructionsFor } from "@/lib/agents/runtime";
 import { requireFamily } from "@/lib/auth/guard";
 import { currentParent, getStore } from "@/lib/auth/context";
 import { fail, ok, readBody, RequestCookieJar } from "@/lib/auth/http";
@@ -15,7 +17,7 @@ import { caringReply, checkWords, HELPLINES } from "@/lib/guardian/words";
 import { teachingNotes } from "@/lib/kix/homework";
 import { hasMetaApiKey } from "@/lib/meta/client";
 import { sparkStructured } from "@/lib/meta/spark";
-import { flashcardSpecSchema, makePrompt, SAMPLE_SET } from "@/lib/vibe/flashcards";
+import { flashcardSpecSchema, makePrompt, SAMPLE_SET, vibeVars } from "@/lib/vibe/flashcards";
 import { logRunsFor } from "@/lib/runs/log";
 
 const body = z.discriminatedUnion("action", [
@@ -48,10 +50,12 @@ export async function POST(request: Request) {
     if (check.distress) return ok({ care: { reply: caringReply(kid.nickname), helplines: HELPLINES }, spec: null, sample: false });
     if (!hasMetaApiKey()) return ok({ care: null, spec: SAMPLE_SET, sample: true });
     try {
+      const who = { nickname: kid.nickname, level: kid.level, band: kid.band };
+      const head = await instructionsFor("vibe", vibeVars(who), { store });
       const { data } = await sparkStructured(
         {
           messages: [
-            { role: "system", content: makePrompt({ nickname: kid.nickname, level: kid.level, notes: teachingNotes(kid.level), revise: input.revise ?? null }) },
+            { role: "system", content: makePrompt({ ...who, notes: teachingNotes(kid.level), revise: input.revise ?? null }, head) },
             { role: "user", content: `${kid.nickname} asks: ${input.request}` },
           ],
           schema: flashcardSpecSchema,

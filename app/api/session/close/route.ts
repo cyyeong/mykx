@@ -3,7 +3,9 @@
 // returns a mood reading for the grown-up (a possibility with the words behind it, rule 12) and short Notebook
 // patches, applied in code that refuses any label or diagnosis (rule 11). Family messages never come here. Never
 // touches mastery or rewards (rule 5). Without a key, or if the model fails, the deterministic word reading stands
-// in and the Notebook is left alone.
+// in and the Notebook is left alone. Its instructions are the published version (editable in Under the hood),
+// with fixed guardrails (lib/agents).
+import { instructionsFor } from "@/lib/agents/runtime";
 import { currentKid, currentParent, withAuth } from "@/lib/auth/context";
 import { fail, ok } from "@/lib/auth/http";
 import type { StoredSessionRead } from "@/lib/auth/store";
@@ -12,7 +14,7 @@ import { moodFromWords } from "@/lib/guardian/words";
 import { hasMetaApiKey } from "@/lib/meta/client";
 import { sparkStructured } from "@/lib/meta/spark";
 import { applyPatches, PAGES, type PageSlug } from "@/lib/notebook/notebook";
-import { sessionClosePrompt, sessionReadSchema } from "@/lib/notebook/session-close";
+import { memoryKeeperVars, sessionClosePrompt, sessionReadSchema } from "@/lib/notebook/session-close";
 import { logRunsFor } from "@/lib/runs/log";
 
 const WINDOW_MS = 3 * 3_600_000;
@@ -50,10 +52,12 @@ export async function POST(request: Request) {
     }
     try {
       const pages = Object.fromEntries((await store.notebook.pages(h, kid.id)).map((p) => [p.slug, p.body])) as Partial<Record<PageSlug, string>>;
+      const who = { nickname: kid.nickname, level: kid.level, band: kid.band };
+      const head = await instructionsFor("memory-keeper", memoryKeeperVars(who), { store });
       const { data } = await sparkStructured(
         {
           messages: [
-            { role: "system", content: sessionClosePrompt({ nickname: kid.nickname, level: kid.level, stats, pages }) },
+            { role: "system", content: sessionClosePrompt({ ...who, stats, pages }, head) },
             { role: "user", content: words.map((w) => `- ${w.text}`).join("\n") },
           ],
           schema: sessionReadSchema,

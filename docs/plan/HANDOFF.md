@@ -88,6 +88,12 @@ Today `lib/sound/engine.ts` plays short synthesised effects and, for some worlds
 - The Kix Tutor and Ask Kix call tools (`lib/skills/runtime.ts`; design in `docs/ARCHITECTURE.md` §4.10). Tool results and the policy are code; the model only chooses.
 - **The founder runs one SQL:** `supabase/migrations/20261029_skill_events.sql` in Supabase's SQL editor. Until then the agents work, but nothing is logged and Under the hood's Skill Engine card stays empty.
 
+## Agents you can edit (29 Oct, batch F built)
+
+- Under the hood → click an agent → `/admin/under-the-hood/agents/[agent]`: instructions (editable), guardrails (fixed in code, always appended), tools, and versions with diff, restore and delete; the built-in default (v1) can't be deleted. Code in `lib/agents/`, routes `/api/admin/agents` and `/api/admin/agents/[id]`; design in `docs/ARCHITECTURE.md` §4.11.
+- **The founder runs one SQL:** `supabase/migrations/20261030_agent_versions.sql` in Supabase's SQL editor (server-only table, no browser policies). Until then every agent uses its default and Save draft or Publish answers that the table is missing.
+- A publish reaches Kix within a minute (each server keeps the published text in memory for 60 s). New prompts (for example batch E's paper pairing) belong in `lib/agents/instructions.ts` with their guardrails, so they show in the editor; `lib/agents/agents.test.ts` checks the defaults against `lib/agents/today-prompts.json`.
+
 ## Founder's batch, 29 Oct (design on the canvas first, then build; freeze Mon 2 Nov 22:00)
 
 Order: designs (canvas page "Admin and sign-in, 29 Oct") → B → C → A → F → D → E → docs and video stories.
@@ -97,7 +103,7 @@ Order: designs (canvas page "Admin and sign-in, 29 Oct") → B → C → A → F
 - **C. Kids sign out.** A sign-out in the kid's avatar menu; after 14 minutes idle a "Still there?" card counts down, and at 15 minutes the kid is signed out.
 - **D. Skills you can edit.** Skill versions in the database (`skill_versions`): the pack on disk is the default and can't be deleted. Admin can edit files, ask Muse to enhance (a proposed diff to accept), import a standard agent skill (`.zip` or `.skill`; scripts are never kept or run, rule 10), and restore, diff or delete versions. The runtime reads the published version, else the default.
 - **E. Knowledge refines a skill.** A review session holds several PDFs (a question paper now, its answer sheet later); Muse pairs them, sorts papers by subject and level (admin can override level, subject and tier), cross-checks answers and spelling and flags anything unusual; every entry is editable. Publishing makes a new skill version (D). School papers still give patterns plus Kix's own new questions, never their own questions (rule 10); our own or licensed material may keep its questions.
-- **F. Agents you can edit.** Under the hood: click an agent to see its instructions; edit and publish versions; diff, restore and delete; the built-in default can't be deleted. Safety guardrails stay fixed in code and are shown read-only.
+- **F. Agents you can edit.** Under the hood: click an agent to see its instructions; edit and publish versions; diff, restore and delete; the built-in default can't be deleted. Safety guardrails stay fixed in code and are shown read-only. ✅ Built 29 Oct ("Agents you can edit" above).
 - Then: ARCHITECTURE, SKILL_ENGINE, ACCOUNTS, PROGRESS, the video beat sheet.
 
 ## Things only the founder or Claude Code do

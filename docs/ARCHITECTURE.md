@@ -138,23 +138,24 @@ The browser never talks to Meta or to Supabase's service role. Keys live in the 
 |---|---|
 | `app/(kid)` | Kid pages: `home`, `learn/[quest]` and `done`, `question/[id]`, `treasure`, `studio`, `vibe`, `ask`, `talk`, `arcade/*`, `critters`, `squadron`, `messages`, `me`, `me/papers`, `me/sharing`. The layout mounts the kid nav, sound, theme, the heartbeat (`GuardianWatch`) and the focus camera (`FocusWatch`). |
 | `app/(parent)` | Grown-up pages: `parent` (Today, Messages, Notebook), `family` and `family/guardian` (controls, Location and home cameras), `papers`, `together` |
-| `app/(admin)` | Admin pages: `admin/people`, `admin/skills`, `admin/knowledge`, `admin/under-the-hood` |
+| `app/(admin)` | Admin pages: `admin/people`, `admin/skills`, `admin/knowledge`, `admin/under-the-hood`, `admin/under-the-hood/agents/[agent]` (the agent editor, §4.11) |
 | `app/(signin)` | The living-city door, kid doors (`doors/[kid]`), grown-up sign-in |
 | `app/api` | Every server route (§2.2) |
 | `components/` | UI by area: `screens/`, `kix/`, `voice/`, `camera/`, `guardian/`, `home-watch/`, `location/`, `outings/`, `studio/`, `vibe/`, `games/`, `papers/`, `scene/` (living art), `sound/`, `theme/`, `admin/` |
 | `lib/meta` | Meta Model API client: Spark chat, stream and structured output; Muse Image edits; SAM 3.1 segment and cutouts; Voice Transcribe; pricing; run timing; Standard-model guard; secret redaction |
 | `lib/runs` | `logRunsFor(route, household, kid)` and the hook that writes every call to `model_runs` |
+| `lib/agents` | Agents you can edit (§4.11): each Muse Spark agent's built-in instructions and fixed guardrails (`instructions.ts`), the version rules (`versions.ts`), `instructionsFor` with its one-minute cache (`runtime.ts`), and what the editor shows (`catalog.ts`) |
 | `lib/auth` | Store contract and both stores, sessions, kid secrets (scrypt), lockout and per-key limiter, parent PIN, admin check, request helpers |
 | `lib/domain` | Deterministic learning engine: marking, mastery (PRD §6), selection, rewards ledger (FR10), reason check, companion, squadron |
 | `lib/learn` | The frog life-cycle quest wired to the engine; attempt submission |
-| `lib/kix` | Ask Kix (homework) prompt, schema, stage rules and sample; reason coach schema and code fallback |
+| `lib/kix` | Ask Kix (homework) prompt builder, schema and sample; the Kix Tutor's hint and reason prompts (`tutor-prompt.ts`); reason coach schema and code fallback |
 | `lib/notebook` | Kix's Notebook pages, patch application with refusals, the Memory Keeper's prompt and schema |
 | `lib/guardian` | Screen time from heartbeats, sessions and focus, the safety word check, flags, Kix's next step, Tonight |
 | `lib/signals` | Focus camera: per-minute counts in the browser, dip detection, baselines, corrections from verdicts, the face-outline replay |
 | `lib/location` | Motion classifier, places, arrived and left events, battery modes |
 | `lib/home-watch` | Device pairing and tokens, cameras, the Home Reader, alert rules, SAM outlines, rollups, the Guardian Brief |
 | `lib/outings` | Outing Scout (web search), Outing Planner, source check, NEA weather |
-| `lib/knowledge` | Content Curator: extraction schema and prompt, rights rule, routing, review, publishing |
+| `lib/knowledge` | Content Curator: extraction schema and prompt builder (its wording and guardrails are in `lib/agents`), rights rule, routing, review, publishing |
 | `lib/papers` | Past-paper scout: allowlist, robots.txt, listing parsers, download decisions, finds |
 | `lib/skills` | Pack and item schemas, the safety scanner, trusted SVG figure renderers |
 | `lib/print` | Deterministic printable papers from reviewed items, with blueprints and answer guides |
@@ -179,7 +180,7 @@ The browser never talks to Meta or to Supabase's service role. Keys live in the 
 | Guardian, location | `api/location` (POST from a device, GET for the parent), `api/location/{mine,pause,places,settings}` | device token or session |
 | Guardian, home | `api/home` (Home now), `api/home/{pair,devices,cameras,frames,family,prefs,alerts}` | device token or grown-up |
 | Family time | `api/outings` | grown-up |
-| Admin | `api/admin/{people,people/[id],hood,knowledge,knowledge/publish,papers,papers/read}` | admin behind the PIN |
+| Admin | `api/admin/{people,people/[id],hood,knowledge,knowledge/publish,papers,papers/read}`, `api/admin/agents`, `api/admin/agents/[id]` | admin behind the PIN |
 | Cron | `api/cron/papers`, `api/cron/guardian` | Vercel scheduler with `CRON_SECRET` |
 
 ---
@@ -197,7 +198,7 @@ All persistence goes through one interface, `AuthStore` in `lib/auth/store.ts`, 
 
 ### 3.2 Tables by domain
 
-All 32 tables are in `supabase/schema.sql`; migrations in `supabase/migrations/` bring an older database up to it and are written to run twice safely.
+All 34 tables are in `supabase/schema.sql`; migrations in `supabase/migrations/` bring an older database up to it and are written to run twice safely.
 
 | Domain | Tables | Notes |
 |---|---|---|
@@ -209,6 +210,7 @@ All 32 tables are in `supabase/schema.sql`; migrations in `supabase/migrations/`
 | Platform content (admin) | `knowledge_uploads`, `skill_updates`, `paper_finds`, `scout_runs` | Uploads keep the extraction and the review marks, never the PDF. `skill_updates` is one row per published pack version (`unique (pack, version)`). Finds hold links and decisions, never papers. |
 | Guardian, location | `guardian_prefs`, `kid_location`, `locations`, `places`, `place_events` | Points carry motion and source (`web`, `android`, `sim`). Places are the parent's own pins, so no map service sees where a child is. |
 | Guardian, home | `home_devices`, `home_cameras`, `home_status`, `home_alerts` | Devices keep only SHA-256 hashes of the pairing code and token (`char_length = 64`), plus a daily frame counter. `home_status` is words only. Alerts keep frame paths in a private bucket, `frames_expire_at`, and the parent's verdict. |
+| Agents (admin) | `agent_versions` | Versions of each Muse Spark agent's instructions (§4.11): agent id, version (2 and up, unique per agent and never reused; the built-in default is version 1 and is code, not a row), instructions (at most 8,000 characters), note, `draft` or `published`, the admin who saved it, and a soft-delete time. Platform content, never a child's data; the guardrails are code. |
 | Observability | `model_runs` | One row per model call: route, operation, model, ids, latency, first-token time, tokens, images, audio seconds, cost, ok and a short error. Never a prompt, an output, audio or a key. |
 | Reserved | `summaries` | In the schema for persisted evening summaries; Tonight caches in memory today (see §12). |
 
@@ -220,6 +222,7 @@ All 32 tables are in `supabase/schema.sql`; migrations in `supabase/migrations/`
 - RLS is enabled on every table. Household tables have `select` (and, where a parent may remove data, `delete`) policies of the form `household_id = my_household()`. Platform content tables are readable by admins only. `model_runs` is readable by the household it belongs to or an admin.
 - **Start from nothing:** `revoke all … from anon, authenticated`, then grant exactly what the browser needs. `profiles` is granted column by column, so `secret_hash` and `pin_hash` are never readable by a client; parents may update only `pack`, `interests`, `kix_url`, `voice_enabled`, `camera_enabled` and `daily_limit_min`. Nicknames, secrets, locks and the admin flag change only through audited server routes.
 - `attempts`, `ledger` and `model_runs` are read-only to the browser: only server code writes progress.
+- `agent_versions` is server only, like `skill_events`: RLS on, no policies and no grants, so not even an admin's browser reads it directly; the admin routes do.
 - `supabase/schema.test.ts` runs the schema in PGlite and checks household isolation, server-only progress writes, idempotency, the contributor-model refusal, secret-hash invisibility, admin-only audit reads, and the signals shape.
 
 ### 3.4 Storage
@@ -259,7 +262,7 @@ There is no agent framework. An agent is a route handler plus a small library mo
 | 3. Credit the calls | `logRunsFor(route, householdId, kidId)` puts the route into an `AsyncLocalStorage` context; every model call made later in the request is logged under it | `lib/runs/log.ts`, `lib/meta/run.ts` |
 | 4. Strict input | A zod `strictObject` body (unknown keys refused, sizes capped; a 16 KB JSON limit in `readBody`) | `lib/auth/http.ts` |
 | 5. Deterministic pre-checks | The safety word check on any child text, before any model sees it; consent switches (voice on, camera on, cameras' hours, sharing on) | `lib/guardian/words.ts` (`checkWords`) |
-| 6. Context by id | Exactly the pack sections, Notebook lines, item steps or facts the task needs, chosen by code, trimmed to a cap | `lib/kix/homework.ts` (`packNotes`, `teachingNotes`), `lib/notebook/notebook.ts` (`notebookNotes`), `briefFacts`, `tonightFacts` |
+| 6. The prompt | The agent's published instructions (an admin may have edited them), then its fixed guardrails, then the context: exactly the pack sections, Notebook lines, item steps or facts the task needs, chosen by code, trimmed to a cap | `instructionsFor` in `lib/agents/runtime.ts` (§4.11); `lib/kix/homework.ts` (`packNotes`, `teachingNotes`), `lib/notebook/notebook.ts` (`notebookNotes`), `briefFacts`, `tonightFacts` |
 | 7. The call | `sparkStructured` (zod to `json_schema`, output validated), `sparkTools` (function tools, for the Skill Engine's loop), `sparkStream`, `sparkSearch`, `museImageEdit`, `samSegment` or `transcribe`; a timeout, the caller's abort signal, SDK retries | `lib/meta/spark.ts`, `lib/outings/search.ts`, `lib/meta/image.ts`, `lib/meta/sam.ts`, `lib/meta/voice.ts` |
 | 8. Settle in code | Rules applied to whatever came back: stage gates, rights rule, adults unnamed, sources checked, labels refused | `enforceStage`, `settle`, `settleReading`, `settleIdeas`, `applyPatches` |
 | 9. Fallback | A cached or rule-written answer when there is no key, an error or a timeout, labelled with its source | §8.1 |
@@ -308,6 +311,8 @@ The structured-output path (`lib/meta/schema.ts`) converts a zod schema to JSON 
 | Outing Planner | The Scout's text and cited URLs, NEA's outlook, each kid's nickname, level and average minutes a day on myKx | Use the web; keep an idea whose source the Scout didn't cite | `plannerSchema`; `settleIdeas` drops ideas whose URL isn't among the Scout's citations | As above |
 | Tonight | Screen time and learning per kid, unseen flags, arrivals, rolled-up home stretches, alerts and their verdicts, the weekend plan | Add a fact, diagnose or judge | `tonightSchema` (20 to 620 characters); cached per family by digest, at most every 5 minutes | `fallbackTonight`, labelled |
 | Past-paper scout | Listing pages of five allowlisted sites, robots.txt first | Bypass a CAPTCHA, a sign-in or a robots rule; download anything | Pure parsers and decision rules with tests | n/a |
+
+The ten Muse Spark agents (Kix Tutor, Ask Kix, Memory Keeper, Vibe Zone maker, Content Curator, Home Reader, Guardian Brief, Outing Scout, Outing Planner, Tonight) have instructions an admin can edit in Under the hood (§4.11). Their "May never" lines that live in the prompt are fixed guardrails, appended after the instructions whatever an admin writes, and the "Output checked by" column holds in code either way. Sidekick Studio, Talk to Kix, Who's who and the two rules-only agents have nothing to edit; the editor says why.
 
 ### 4.3 A worked request path: a hint from the Kix Tutor
 
@@ -481,6 +486,28 @@ A refresh takes about a minute and was measured at about $0.20 (36 s and 12 sear
 **Ask Kix's research step:** Muse Spark sees the question (text or photo) and the child's packs, calls `load_skill` for the subject, then `read_reference` for the method sections. The structured explanation is then written from what code read, not from the model's own summary. Later stages send the section ids back and code re-reads them, so research runs once per question. Measured on 29 Oct: a P6 "before and after" word problem loaded `p6-maths` and read "Before-and-After, 4 types" by itself; the hint took 13 s in all, a tutor hint 4 to 5 s.
 
 **Still to build** (Roadmap): client-executed `tool_search` over skill namespaces on the Responses API, `learner_summary`, unloading between quests, the Vibe Zone maker and the parent's narrator on the engine, and `agent_policies` as a table an admin can edit.
+
+### 4.11 Agents you can edit: instructions, guardrails and versions
+
+**Built** (founder's batch F, 29 Oct; `lib/agents/`, `app/api/admin/agents/*`, the editor at `/admin/under-the-hood/agents/[agent]`, board `AgentEditor`; tests in `lib/agents/agents.test.ts`). An admin clicks an agent in Under the hood, reads its instructions, edits them, and saves and publishes versions; any version can be diffed against the published one, restored or deleted, except the built-in default, which can't be deleted, so myKx always keeps a copy.
+
+**Each prompt has three parts**, in this order:
+
+| Part | What | Who changes it |
+|---|---|---|
+| Instructions | Persona, tone, style and method. `{{variables}}` are filled in by code (`nickname`, `level` and, per agent, `pages`, `packTopics`, `area`, `radiusKm`, `dates`, `interests`); any other `{{name}}` is left out, and a value is never expanded again. A line that starts with `[junior]` or `[teen]` is used for that band only (Ask Kix's tone lines use it). | An admin, as versions; the default is today's wording |
+| Guardrails | The safety lines: never give the answer, never check the current question, guide first by stage, never name an adult or guess anyone's gender, never label or diagnose, no copying a school paper's questions (and the rights rule), no real brands or people, only the facts given, sources exactly as given. Some apply only for a value (the Ask Kix stage, a right or wrong answer, a school paper). | Code only; shown read-only, always appended after the instructions |
+| Context | The question and its steps, pack notes, the Notebook, the facts | Code, per request (§4.1 step 6) |
+
+The editor also shows, read-only, what holds in code whatever the model says (the zod schema, the settle function, the distress path, the Skill Engine policy) and each agent's models and tools.
+
+**The defaults are the prompts as they were.** Each builder (`lib/kix/tutor-prompt.ts`, `systemPrompt`, `sessionClosePrompt`, `makePrompt`, `extractionPrompt`, `readerPrompt`, `scoutPrompt`) takes the published head and falls back to the default, so a test compares them with the prompts captured from the 29 Oct code (`lib/agents/today-prompts.json`): word for word for nine of the eleven prompts, and line for line for the Kix Tutor's hints and the Outing Planner, where a method line that sat among the safety lines moved up into the instructions. The Kix Tutor's text has two parts, `## Hints` and `## Reason feedback` (the reason coach); saving refuses a text without both headings.
+
+**Versions** (`agent_versions`, `lib/agents/versions.ts`): the published instructions are the newest live published version, else the default. Save draft writes or rewrites the one draft; Publish turns it into the published version in place while it is newer than the published one, else adds a new version and drops the stale draft. Restore publishes an older version's text (or the default's) again as a new version. Delete is a soft delete of any version but the default; deleting the published one falls back to the one before it, or the default. Numbers are never reused. Every change writes `audit_log` (`agent.draft`, `agent.publish`, `agent.restore`, `agent.delete`, with the agent and version, never the text).
+
+**Runtime:** `instructionsFor(agent, vars, { part })` reads the published text through the store, caches it in memory for a minute per agent (dropped on that server when an admin publishes, restores or deletes; other instances pick it up within the minute) and composes instructions plus guardrails. A store that fails, or a database without the table, means the default. Verified live on 29 Oct: a published tutor line ("end with Ribbit power!") changed the next hint, which still didn't give the answer away.
+
+**Not editable:** Sidekick Studio (its Muse Image prompt is built from the canon, the world and chips; no free text), Talk to Kix (transcription has no instructions), Who's who (one fixed SAM prompt), and the Guardian rules and the past-paper scout (no model). Ask Kix's research step, which loads the pack and reads its method, stays in code with the Skill Engine.
 
 ---
 
@@ -880,6 +907,7 @@ Values are never printed, logged or committed.
 | `20261029_games.sql` | `game_progress` |
 | `20261030_focus_verdict.sql` | `signals.verdict`, `verdict_at` |
 | `20261030_paper_scout.sql` | `paper_finds`, `scout_runs` |
+| `20261030_agent_versions.sql` | `agent_versions` (agents you can edit, §4.11). Until it runs, every agent uses its built-in default and the editor's Save and Publish answer that the table is missing. |
 
 Apply them with `node --env-file=.env.local scripts/db-migrate.ts <files>` (each file in its own transaction; `--check` lists which tables exist), or paste them into the Supabase SQL editor. `supabase/schema.test.ts` runs the migrations against older and fresh databases in PGlite.
 
@@ -1102,3 +1130,6 @@ The specs in `docs/prd/` describe more than the hackathon build does. These are 
 | Arcade content comes from the packs through `find_items` (GAMES.md §2) | The games use their own original word lists and short questions per level | `lib/games/typing/` |
 | Retention for every Guardian and wellbeing table | Rules for frames, statuses and points; none yet for `screen_beats`, `kix_messages`, `place_events`, alert rows and `model_runs` | §3.5 |
 | Rate limits per household | In-memory per function instance | `lib/auth/lockout.ts` |
+| The agent editor has a "Try it" button (board `AgentEditor`) | No Try it: an edit is checked by publishing it and using the agent (Diff and Restore undo it) | `components/admin/hood/AgentEditor.tsx` |
+| Guardrails are appended after the instructions, and the defaults are today's prompts (HANDOFF batch F) | Both hold; for the Kix Tutor's hints and the Outing Planner the default keeps every line but moves the method lines above the guardrails | `lib/agents/instructions.ts`, §4.11 |
+| A publish changes the agent at once | Within a minute on other server instances (the in-memory cache); at once on the one that took the publish | `lib/agents/runtime.ts` |
