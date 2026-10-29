@@ -322,8 +322,32 @@ function InstructionsTab({ detail, text, setText, note, setNote, published }: { 
 function GuardrailsTab({ detail, full = false }: { detail: AgentDetail; full?: boolean }) {
   const ed = detail.editable!;
   const parts = ed.parts.map((p) => ({ title: p.title, lines: ed.guardrails.filter((g) => g.part === p.title) })).filter((p) => p.lines.length);
+  const learned = detail.learned ?? [];
   return (
     <>
+      <div className="ag-guard ag-learned">
+        <h3 className="ag-h3">Learned cautions (Kix Synapse), added after the instructions and before the guardrails</h3>
+        {learned.length ? (
+          <ul>
+            {learned.map((c) => (
+              <li key={c.id} data-status={c.status}>
+                {c.line}{" "}
+                <small>
+                  {c.status === "live" ? "live" : c.status} · by {c.by} · {new Date(c.at).toLocaleDateString("en-SG", { day: "numeric", month: "short" })}
+                  {c.reportId && (
+                    <>
+                      {" "}
+                      · <Link href={`/admin/synapse/${c.reportId}`}>the report</Link>
+                    </>
+                  )}
+                </small>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="ad-muted">None yet. When a kid&apos;s report shows this agent made a mistake and the fix is proven, the caution appears here; undo it in Kix Synapse → Learned.</p>
+        )}
+      </div>
       <div className="ag-guard">
         <h3 className="ag-h3">
           <Icon d={LOCK} /> Guardrails (fixed in code, always added after the instructions)

@@ -7,7 +7,7 @@ import { deidentify, holdsName } from "./deid.ts";
 import { codeCheck } from "./expect.ts";
 import { DEFAULT_SETTINGS } from "./settings.ts";
 import { checkTurn, signTurn } from "./turn.ts";
-import type { ItemSnapshot, Review } from "./types.ts";
+import type { ItemSnapshot, LearnedCaution, Review } from "./types.ts";
 
 const item: ItemSnapshot = { id: "p6math-x-01", packId: "p6-maths", type: "short", stem: "Tank A holds water. Tank B is empty. How tall is the water in Tank C?", passage: null, options: null, answer: "20", accept: null, working: ["Total volume 54000 cm3", "Height is 20 cm in both"], hints: null, figure: "figures/tanks.svg" };
 const review = (over: Partial<Review> = {}, fix: Partial<Review["fix"]> = {}): Review => ({
@@ -113,5 +113,44 @@ describe("code-checked tests", () => {
     expect(codeCheck({ kind: "number", expect: "153" }, "…", "135 marbles")).toBe(false);
     expect(codeCheck({ kind: "not-contains", expect: "flies" }, "I eat algae and soft plants.")).toBe(true);
     expect(codeCheck({ kind: "judge", expect: "kind" }, "x")).toBeNull();
+  });
+});
+
+describe("undo is a deterministic revert", () => {
+  const files = { "items/a.json": JSON.stringify([{ id: "q1", type: "short", stem: "Tank B is full", answer: "20", accept: ["20 cm"] }, { id: "q2", type: "mcq", stem: "Pick", options: ["a", "b", "c"], answer: 2 }]) };
+  const item = (f: Record<string, string>, id: string) => JSON.parse(f["items/a.json"]).find((x: { id: string }) => x.id === id);
+
+  it("puts the words back, takes an extra answer out, and restores an old answer", async () => {
+    const { revertItemFix } = await import("./checks.ts");
+    const text = revertItemFix(files, { itemId: "q1", change: "text", field: "stem", before: "Tank C", after: "Tank B", previous: null });
+    expect(text.ok && item(text.files, "q1").stem).toBe("Tank C is full");
+    const accept = revertItemFix(files, { itemId: "q1", change: "accept", field: null, before: null, after: "20 cm", previous: null });
+    expect(accept.ok && item(accept.files, "q1").accept).toBeUndefined();
+    const answer = revertItemFix(files, { itemId: "q2", change: "answer", field: null, before: null, after: "2", previous: "3" });
+    expect(answer.ok && item(answer.files, "q2").answer).toBe(3);
+  });
+
+  it("refuses when the question no longer holds what the fix wrote", async () => {
+    const { revertItemFix } = await import("./checks.ts");
+    expect(revertItemFix(files, { itemId: "q1", change: "text", field: "stem", before: "Tank C", after: "Tank D", previous: null })).toEqual({ ok: false, reason: "changed-since" });
+  });
+});
+
+describe("the change log", () => {
+  it("lists what changed, by whom, and whether it's still live", async () => {
+    const { changesFrom } = await import("./admin.ts");
+    const base = { id: "r1", householdId: "h", profileId: "p", by: "kid", createdAt: "2026-10-29T10:00:00Z", updatedAt: "2026-10-29T10:01:00Z", surface: "ask-kix", kind: "other", turn: { agent: "ask-kix" }, case: { note: "dont use the word fun" }, decidedBy: "synapse", decidedAt: "2026-10-29T10:01:00Z" };
+    const caution = { id: "c1", agent: "ask-kix", when: "replying to a learner", check: "don't use the word \"fun\"", scope: { level: null, subject: null }, status: "active", reportIds: ["r1"], evalCaseIds: [], createdAt: "2026-10-29T10:01:00Z", createdBy: "synapse", expiresAt: null } as LearnedCaution;
+    const reports = [
+      { ...base, status: "auto-fixed", fixRef: { type: "caution", cautionId: "c1", agent: "ask-kix", line: "When replying to a learner, don't use the word \"fun\"." } },
+      { ...base, id: "r2", status: "kix-was-right", fixRef: null },
+      { ...base, id: "r3", status: "undone", decidedBy: "admin-1", fixRef: { type: "skill-version", packId: "p6-maths", versionId: "v", version: "1.4.0", change: "text", field: "stem", before: "Tank C", after: "Tank B" }, undo: { at: "2026-10-29T11:00:00Z", by: "admin-1", versionId: "v2", version: "1.5.0" } },
+    ] as unknown as Parameters<typeof changesFrom>[0];
+    const log = changesFrom(reports, [caution]);
+    expect(log.map((c) => [c.reportId, c.target.id, c.kind, c.status, c.by])).toEqual([
+      ["r1", "ask-kix", "caution", "live", "synapse"],
+      ["r3", "p6-maths", "text", "undone", "admin"],
+    ]);
+    expect(log[1].undo?.version).toBe("1.5.0");
   });
 });

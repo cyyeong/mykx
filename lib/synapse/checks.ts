@@ -115,6 +115,45 @@ export function applyItemFix(files: PackFiles, itemId: string, review: Review): 
   return { ok: false, reason: "item-not-found" };
 }
 
+/** The pack files with a shipped fix reversed on its item: the words put back, the extra answer taken out, the old
+ *  answer restored. Fails (and changes nothing) when the item no longer holds what the fix wrote. */
+export function revertItemFix(files: PackFiles, ref: { itemId: string; change: "text" | "accept" | "answer"; field: string | null; before: string | null; after: string | null; previous: string | null }): { ok: true; files: PackFiles } | { ok: false; reason: string } {
+  for (const [path, text] of Object.entries(files)) {
+    if (!path.startsWith("items/")) continue;
+    let list: unknown;
+    try {
+      list = JSON.parse(text);
+    } catch {
+      continue;
+    }
+    if (!Array.isArray(list)) continue;
+    const i = list.findIndex((x) => x && typeof x === "object" && (x as Item).id === ref.itemId);
+    if (i < 0) continue;
+    const item = { ...(list[i] as Item) };
+    if (ref.change === "text") {
+      const value = ref.field ? readField(item, ref.field) : null;
+      if (value === null || !ref.after || ref.before === null || count(value, ref.after) !== 1) return { ok: false, reason: "changed-since" };
+      const back = value.replace(ref.after, ref.before);
+      const [key, n] = ref.field!.split(".");
+      if (n === undefined) item[key] = back;
+      else item[key] = (item[key] as string[]).map((v, j) => (j === Number(n) ? back : v));
+    } else if (ref.change === "accept") {
+      const acc = (item.accept as string[] | undefined) ?? [];
+      if (!ref.after || !acc.includes(ref.after)) return { ok: false, reason: "changed-since" };
+      const rest = acc.filter((a) => a !== ref.after);
+      if (rest.length) item.accept = rest;
+      else delete item.accept;
+    } else {
+      if (ref.previous === null) return { ok: false, reason: "no-previous" };
+      item.answer = item.type === "mcq" ? Number(ref.previous) : ref.previous;
+    }
+    const next = [...list];
+    next[i] = item;
+    return { ok: true, files: { ...files, [path]: `${JSON.stringify(next, null, 2)}\n` } };
+  }
+  return { ok: false, reason: "item-not-found" };
+}
+
 /** The item as the reviewer reads it. */
 export function snapshotItem(item: Record<string, unknown>, packId: string): ItemSnapshot {
   const arr = (v: unknown) => (Array.isArray(v) ? v.map(String) : null);

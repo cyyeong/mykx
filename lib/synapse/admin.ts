@@ -3,6 +3,8 @@
 // docs/prd/SYNAPSE.md §9: a kid's own report shares that one turn).
 import { hasOpenModelKey } from "../meta/open.ts";
 import type { AuthStore } from "../auth/store.ts";
+import { describeFix } from "./apply.ts";
+import { isLive } from "./cautions.ts";
 import { caseGroup } from "./evals.ts";
 import { MODEL_CHOICES } from "./settings.ts";
 import { CLOSED, type EvalCase, type EvalRun, type LearnedCaution, type SynapseReport, type SynapseSettings } from "./types.ts";
@@ -22,12 +24,59 @@ export function reportTitle(r: Pick<SynapseReport, "case" | "kind">): string {
   return { typo: "A word is spelt wrong", "marked-wrong": "My answer was marked wrong", figure: "The picture doesn't match", hint: "The hint didn't help", "question-wrong": "The question looks wrong", "answer-wrong": "Kix's answer looks wrong", confusing: "Doesn't make sense", "pet-wrong": "Not true for this stage", other: "Something else" }[r.kind];
 }
 
+/** One change Kix Synapse made, for the change log (Learned): what, where, who decided, and whether it's still live. */
+export interface Change {
+  reportId: string;
+  at: string;
+  by: "synapse" | "admin";
+  target: { type: "agent"; id: string } | { type: "pack"; id: string };
+  kind: "caution" | "text" | "accept" | "answer";
+  summary: string;
+  before: string | null;
+  after: string | null;
+  version: string | null;
+  status: "live" | "undone" | "expired";
+  undo: { at: string; version: string | null } | null;
+  cautionId: string | null;
+  expiresAt: string | null;
+  report: string;
+}
+
+export function changesFrom(reports: readonly SynapseReport[], cautions: readonly LearnedCaution[], now = Date.now()): Change[] {
+  const byId = new Map(cautions.map((c) => [c.id, c]));
+  return reports
+    .filter((r) => r.fixRef && (r.status === "auto-fixed" || r.status === "approved" || r.status === "undone"))
+    .map((r): Change => {
+      const ref = r.fixRef!;
+      const c = ref.type === "caution" ? byId.get(ref.cautionId) : undefined;
+      const status: Change["status"] = r.status === "undone" || c?.status === "retired" ? "undone" : c && !isLive(c, now) ? "expired" : "live";
+      return {
+        reportId: r.id,
+        at: r.decidedAt ?? r.updatedAt,
+        by: r.status === "auto-fixed" || r.decidedBy === "synapse" ? "synapse" : "admin",
+        target: ref.type === "caution" ? { type: "agent", id: ref.agent } : { type: "pack", id: ref.packId },
+        kind: ref.type === "caution" ? "caution" : (ref.change ?? "text"),
+        summary: describeFix(ref),
+        before: ref.type === "skill-version" ? (ref.before ?? null) : null,
+        after: ref.type === "skill-version" ? (ref.after ?? null) : null,
+        version: ref.type === "skill-version" ? ref.version : null,
+        status,
+        undo: r.undo ? { at: r.undo.at, version: r.undo.version } : null,
+        cautionId: ref.type === "caution" ? ref.cautionId : null,
+        expiresAt: c?.expiresAt ?? null,
+        report: reportTitle(r),
+      };
+    })
+    .sort((a, b) => b.at.localeCompare(a.at));
+}
+
 export interface Overview {
   reports: AdminReport[];
   stages: { flagged: number; traced: number; reviewed: number; fixed: number; bySynapse: number; byAdmin: number; retested: number; retestedGreen: number };
   waiting: number;
   medianFixMs: number | null;
   cautions: LearnedCaution[];
+  changes: Change[];
   cases: EvalCase[];
   evals: { group: string; points: number[]; last: { passed: number; total: number } }[];
   failing: { caseId: string; group: string; label: string; detail: string }[];
@@ -69,6 +118,7 @@ export async function overview(store: AuthStore, settings: SynapseSettings, nowI
   const failing = cases.filter((c) => c.active && c.last && !c.last.pass).map((c) => ({ caseId: c.id, group: caseGroup(c), label: c.label, detail: `${c.test.kind}: ${c.test.expect}` }));
 
   const all = await store.synapse.reports({ limit: 1000 });
+  const changes = changesFrom(all, cautions, Date.parse(nowIso));
   const consent = new Set(consenting);
   const fromConsent = all.filter((r) => consent.has(r.householdId) && (r.status === "auto-fixed" || r.status === "approved"));
   const today = sgDay(nowIso);
@@ -88,6 +138,7 @@ export async function overview(store: AuthStore, settings: SynapseSettings, nowI
     waiting: reports.filter((r) => !CLOSED.includes(r.status) && r.status !== "for-team").length,
     medianFixMs: times.length ? times[Math.floor(times.length / 2)] : null,
     cautions,
+    changes,
     cases,
     evals,
     failing,

@@ -21,6 +21,8 @@ export function CaseScreen({ id }: { id: string }) {
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
   const [edit, setEdit] = useState<{ before: string; after: string; when: string; check: string; kidNote: string } | null>(null);
+  // Overruling the reviewer: a caution for the agent, or new words for the question.
+  const [over, setOver] = useState<{ type: "caution" | "item-text"; field: string; before: string; after: string; when: string; check: string } | null>(null);
 
   const load = useCallback(async () => {
     const res = await api<{ report: AdminReport }>("GET", `/api/admin/synapse/${id}`);
@@ -51,6 +53,7 @@ export function CaseScreen({ id }: { id: string }) {
     setBusy(true);
     setMsg(null);
     const body: Record<string, unknown> = { action };
+    if (action === "approve" && over) body.fix = over.type === "caution" ? { type: "caution", when: over.when, check: over.check } : { type: "item-text", field: over.field, before: over.before, after: over.after };
     if (action === "approve" && edit) body.fix = { before: edit.before || null, after: edit.after || null, when: edit.when || null, check: edit.check || null };
     if ((action === "approve" || action === "reject") && edit?.kidNote) body.kidNote = edit.kidNote;
     const res = await api<{ report: AdminReport }>("POST", `/api/admin/synapse/${r.id}`, body);
@@ -58,6 +61,7 @@ export function CaseScreen({ id }: { id: string }) {
     if (res.ok && res.data) {
       setR(res.data.report);
       setEdit(null);
+      setOver(null);
       setMsg(action === "approve" ? "Approved and shipped." : action === "reject" ? "Closed." : action === "undo" ? "Undone." : "Reviewing again…");
     } else setMsg(`That didn't go through${res.reason ? ` (${res.reason})` : ""}.`);
   }
@@ -66,6 +70,7 @@ export function CaseScreen({ id }: { id: string }) {
   const f = review?.fix;
   const chip = r ? statusChip(r.status, r) : null;
   const decided = r && ["auto-fixed", "approved", "kix-was-right", "rejected", "undone"].includes(r.status);
+  // A "Kix was right" or closed case can still be overruled from What changed; a fixed one is undone instead.
   const scoring = f?.type === "item-accept" || f?.type === "item-answer";
 
   return (
@@ -161,8 +166,13 @@ export function CaseScreen({ id }: { id: string }) {
                         </span>
                       )}
                     </div>
+                    {r.overruled && (
+                      <p className="sx-note" style={{ marginTop: 8 }}>
+                        Overruled by an admin {when(r.overruled.at)}: the reviewer had said <b>{VERDICT[r.overruled.verdict]}</b> ({Math.round(r.overruled.confidence)}).
+                      </p>
+                    )}
                     <p className="sx-verdict">
-                      <b>{VERDICT[review.verdict]}</b> ({review.kind.replace("-", " ")}). {review.rationale}
+                      <b>{VERDICT[r.overruled?.verdict ?? review.verdict]}</b> ({(r.overruled?.kind ?? review.kind).replace("-", " ")}). {review.rationale}
                     </p>
                     {review.evidence.length > 0 && (
                       <ul className="sx-evidence">
@@ -222,6 +232,130 @@ export function CaseScreen({ id }: { id: string }) {
                 ) : (
                   <div className="ad-card">
                     <p className="sx-muted">{r.status === "failed" ? "The review didn't finish. Retry it below." : "Reviewing… this takes about a minute."}</p>
+                  </div>
+                )}
+
+                {review && (
+                  <div className="ad-card sx-changed" data-changed={r.fixRef ? "yes" : "no"}>
+                    <div className="sx-row" style={{ marginTop: 0 }}>
+                      <h2 className="ad-h2">What changed</h2>
+                      {r.fixRef && (
+                        <span className="sx-chip" data-tone={r.status === "undone" ? "def" : "ok"}>
+                          {r.status === "undone" ? `Undone${r.undo ? ` ${when(r.undo.at)}` : ""}` : "Live"}
+                        </span>
+                      )}
+                    </div>
+                    {r.fixRef ? (
+                      <>
+                        {r.fixRef.type === "caution" ? (
+                          <p className="sx-verdict">
+                            A learned caution for <b>{AGENT_NAME[r.fixRef.agent] ?? r.fixRef.agent}</b>, added after its instructions and before its fixed guardrails:
+                          </p>
+                        ) : (
+                          <p className="sx-verdict">
+                            <b>{r.fixRef.packId}</b> version <b>{r.fixRef.version}</b>, question {r.fixRef.itemId ?? r.turn.itemId}:
+                          </p>
+                        )}
+                        <p className="sx-code">
+                          {r.fixRef.type === "caution" ? (
+                            (r.fixRef.line ?? `${review.fix.when}, ${review.fix.check}`)
+                          ) : r.fixRef.change === "accept" ? (
+                            <>also accept <ins>{r.fixRef.after}</ins></>
+                          ) : r.fixRef.change === "answer" ? (
+                            <>answer <del>{r.fixRef.previous}</del> → <ins>{r.fixRef.after}</ins></>
+                          ) : (
+                            <>
+                              {r.fixRef.field ?? review.fix.field}: <del>{r.fixRef.before ?? review.fix.before}</del> → <ins>{r.fixRef.after ?? review.fix.after}</ins>
+                            </>
+                          )}
+                        </p>
+                        <p className="sx-muted">
+                          {r.status === "auto-fixed" ? "Fixed by itself" : "Approved by an admin"}
+                          {r.decidedAt ? ` · ${when(r.decidedAt)}` : ""}
+                          {r.undo?.version ? ` · undone by v${r.undo.version}, the inverse change` : ""} ·{" "}
+                          <Link className="sx-link" href={r.fixRef.type === "caution" ? `/admin/under-the-hood/agents/${r.fixRef.agent}` : `/admin/skills/${r.fixRef.packId}`}>
+                            {r.fixRef.type === "caution" ? "See the agent" : "See the pack's versions"}
+                          </Link>{" "}
+                          ·{" "}
+                          <Link className="sx-link" href="/admin/synapse#learned">
+                            See it in Learned
+                          </Link>
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <p className="sx-verdict">
+                          <b>Nothing was changed.</b>{" "}
+                          {r.status === "kix-was-right"
+                            ? "The reviewer found Kix right, and the learner got its explanation. No agent, skill or setting was touched."
+                            : r.status === "rejected"
+                              ? "Closed as not a problem. No agent, skill or setting was touched."
+                              : "Nothing changes until this is approved."}
+                        </p>
+                        {!["auto-fixed", "approved"].includes(r.status) && !over && (
+                          <div className="sx-acts" style={{ flexWrap: "wrap", marginTop: 8 }}>
+                            {r.turn.agent && (
+                              <button type="button" className="mk-btn mk-btn--secondary" onClick={() => setOver({ type: "caution", field: "", before: "", after: "", when: "replying to a learner", check: r.case.note ?? "" })}>
+                                Add a caution for {AGENT_NAME[r.turn.agent] ?? r.turn.agent} anyway
+                              </button>
+                            )}
+                            {r.case.item && (
+                              <button type="button" className="mk-btn mk-btn--secondary" onClick={() => setOver({ type: "item-text", field: "stem", before: "", after: "", when: "", check: "" })}>
+                                Fix the question&apos;s words anyway
+                              </button>
+                            )}
+                          </div>
+                        )}
+                        {over && (
+                          <div className="sx-edit">
+                            {over.type === "caution" ? (
+                              <>
+                                <label>
+                                  When <input value={over.when} maxLength={110} onChange={(e) => setOver({ ...over, when: e.target.value })} />
+                                </label>
+                                <label>
+                                  check <input value={over.check} maxLength={140} placeholder="e.g. don't use the word “fun”" onChange={(e) => setOver({ ...over, check: e.target.value })} />
+                                </label>
+                                <p className="sx-muted">A caution can only make the agent more careful; code checks it like any other. It applies from the next reply, and Undo retires it.</p>
+                              </>
+                            ) : (
+                              <>
+                                <label>
+                                  Field
+                                  <select value={over.field} onChange={(e) => setOver({ ...over, field: e.target.value })}>
+                                    <option value="stem">The question</option>
+                                    {(r.case.item?.options ?? []).map((_, i) => (
+                                      <option key={i} value={`options.${i}`}>
+                                        Option {i + 1}
+                                      </option>
+                                    ))}
+                                    {(r.case.item?.hints ?? []).map((_, i) => (
+                                      <option key={`h${i}`} value={`hints.${i}`}>
+                                        Hint {i + 1}
+                                      </option>
+                                    ))}
+                                  </select>
+                                </label>
+                                <label>
+                                  Words now <input value={over.before} maxLength={400} onChange={(e) => setOver({ ...over, before: e.target.value })} />
+                                </label>
+                                <label>
+                                  New words <input value={over.after} maxLength={400} onChange={(e) => setOver({ ...over, after: e.target.value })} />
+                                </label>
+                              </>
+                            )}
+                            <div className="sx-acts">
+                              <button type="button" className="mk-btn mk-btn--primary" disabled={busy || (over.type === "caution" ? !over.when.trim() || !over.check.trim() : !over.before || !over.after)} onClick={() => void act("approve")}>
+                                {over.type === "caution" ? "Add the caution" : "Publish the fix"}
+                              </button>
+                              <button type="button" className="mk-btn mk-btn--secondary" onClick={() => setOver(null)}>
+                                Cancel
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </>
+                    )}
                   </div>
                 )}
 

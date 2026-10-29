@@ -75,6 +75,23 @@ export interface ItemSnapshot {
   figure: string | null;
 }
 
+/** What a fix changed, precisely enough to show it and to revert it deterministically. */
+export type FixRef =
+  | {
+      type: "skill-version";
+      packId: string;
+      versionId: string;
+      version: string;
+      itemId?: string;
+      change?: "text" | "accept" | "answer";
+      field?: string | null;
+      before?: string | null;
+      after?: string | null;
+      /** The answer before an answer-key change. */
+      previous?: string | null;
+    }
+  | { type: "caution"; cautionId: string; agent: string; line?: string };
+
 export interface SynapseReport {
   id: string;
   householdId: string;
@@ -100,7 +117,11 @@ export interface SynapseReport {
   confidence: number | null;
   caps: string[];
   threshold: number;
-  fixRef: { type: "skill-version"; packId: string; versionId: string; version: string } | { type: "caution"; cautionId: string; agent: string } | null;
+  fixRef: FixRef | null;
+  /** Set when an admin undid the fix: a skill fix is reverted by a new version with the inverse change. */
+  undo?: { at: string; by: string; versionId: string | null; version: string | null } | null;
+  /** Set when an admin overruled the reviewer: what the reviewer had said. */
+  overruled?: { at: string; by: string; verdict: Review["verdict"]; kind: Review["kind"]; confidence: number } | null;
   evalCaseId: string | null;
   kidNote: string | null;
   decidedBy: string | null;

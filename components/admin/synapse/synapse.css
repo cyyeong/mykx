@@ -167,3 +167,10 @@
   .sx-tests, .sx-budget { grid-template-columns: 1fr; }
   .sx-stage { padding-left: 34px; min-width: 96px; }
 }
+.sx-group { margin: 10px 12px 4px; font: 800 11px/1 var(--font-text); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-muted); }
+.sx-group:first-child { margin-top: 2px; }
+.sx-pad { padding: 0 12px; }
+.sx-caution[data-status="undone"], .sx-caution[data-status="expired"] { opacity: .7; }
+.sx-caution .sx-code { margin-top: 8px; }
+.sx-changed[data-changed="yes"] { box-shadow: inset 0 0 0 2px #2E9E5B; }
+.sx-edit select { min-height: 36px; padding: 0 10px; border-radius: 10px; border: 0; box-shadow: inset 0 0 0 2px var(--line); background: var(--surface); color: var(--ink); font: 600 13px var(--font-text); }

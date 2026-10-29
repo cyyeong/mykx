@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { api } from "@/components/account/api";
 import type { AdminReport, Overview } from "@/lib/synapse/admin";
-import type { LearnedCaution, ReportStatus, SynapseSettings } from "@/lib/synapse/types";
+import type { ReportStatus, SynapseSettings } from "@/lib/synapse/types";
 import "./synapse.css";
 
 type Tab = "inbox" | "learned" | "evals" | "settings" | "retrain";
@@ -77,7 +77,7 @@ export function SynapseScreen() {
   const [failed, setFailed] = useState<string | null>(null);
   const [tab, setTab] = useState<Tab>("inbox");
   const [filter, setFilter] = useState("all");
-  const [agent, setAgent] = useState("ask-kix");
+  const [target, setTarget] = useState("agent:ask-kix");
   const [busy, setBusy] = useState<string | null>(null);
   const [note, setNote] = useState<string | null>(null);
   const [draft, setDraft] = useState<SynapseSettings | null>(null);
@@ -102,11 +102,19 @@ export function SynapseScreen() {
     history.replaceState(null, "", `#${t}`);
   };
 
-  async function caution(c: LearnedCaution, action: "confirm" | "retire") {
-    setBusy(c.id);
-    const r = await api("POST", "/api/admin/synapse/cautions", { id: c.id, action });
+  async function confirmCaution(id: string, busyKey: string) {
+    setBusy(busyKey);
+    const r = await api("POST", "/api/admin/synapse/cautions", { id, action: "confirm" });
     setBusy(null);
-    setNote(r.ok ? (action === "confirm" ? "Confirmed: it no longer expires." : "Retired: the agent stops using it within a minute.") : "That didn't save.");
+    setNote(r.ok ? "Kept: it no longer expires." : "That didn't save.");
+    await load();
+  }
+
+  async function undo(reportId: string) {
+    setBusy(reportId);
+    const r = await api("POST", `/api/admin/synapse/${reportId}`, { action: "undo" });
+    setBusy(null);
+    setNote(r.ok ? "Undone. Kix stops using it within a minute; a skill fix gets the inverse change as a new version." : (r.note ?? "That couldn't be undone."));
     await load();
   }
 
@@ -130,8 +138,15 @@ export function SynapseScreen() {
 
   const s = data?.stages;
   const list = data ? data.reports.filter(FILTERS.find((f) => f[0] === filter)![2]) : [];
-  const agents = data ? [...new Set(["ask-kix", "tutor", "critter-keeper", ...data.cautions.map((c) => c.agent)])] : [];
-  const live = (c: LearnedCaution) => c.status === "active";
+  // The change log's targets: every agent that can learn, and every pack Synapse has fixed.
+  const targets = data
+    ? [
+        ...[...new Set(["ask-kix", "tutor", "critter-keeper", ...data.changes.filter((c) => c.target.type === "agent").map((c) => c.target.id)])].map((id) => ({ key: `agent:${id}`, type: "agent" as const, id })),
+        ...[...new Set(data.changes.filter((c) => c.target.type === "pack").map((c) => c.target.id))].map((id) => ({ key: `pack:${id}`, type: "pack" as const, id })),
+      ].map((g) => ({ ...g, live: data.changes.filter((c) => `${c.target.type}:${c.target.id}` === g.key && c.status === "live").length }))
+    : [];
+  const picked = targets.find((g) => g.key === target) ?? targets[0] ?? null;
+  const shownChanges = data && picked ? data.changes.filter((c) => `${c.target.type}:${c.target.id}` === picked.key) : [];
 
   return (
     <>
@@ -256,75 +271,102 @@ export function SynapseScreen() {
 
         {data && tab === "learned" && (
           <div className="sx-learned">
-            <nav className="ad-card sx-agents" aria-label="Agents">
-              {agents.map((a) => (
-                <button key={a} type="button" aria-pressed={agent === a} onClick={() => setAgent(a)}>
-                  {AGENT_NAME[a] ?? a}
-                  <small>{data.cautions.filter((c) => c.agent === a && live(c)).length}</small>
+            <nav className="ad-card sx-agents" aria-label="What changed">
+              <p className="sx-group">Agents</p>
+              {targets.filter((g) => g.type === "agent").map((g) => (
+                <button key={g.key} type="button" aria-pressed={target === g.key} onClick={() => setTarget(g.key)}>
+                  {AGENT_NAME[g.id] ?? g.id}
+                  <small>{g.live}</small>
+                </button>
+              ))}
+              <p className="sx-group">Skill packs</p>
+              {targets.filter((g) => g.type === "pack").length === 0 && <p className="sx-muted sx-pad">No skill fixes yet.</p>}
+              {targets.filter((g) => g.type === "pack").map((g) => (
+                <button key={g.key} type="button" aria-pressed={target === g.key} onClick={() => setTarget(g.key)}>
+                  {g.id}
+                  <small>{g.live}</small>
                 </button>
               ))}
             </nav>
             <section className="sx-col">
               <div className="ad-card">
-                <h2 className="ad-h2">
-                  {AGENT_NAME[agent] ?? agent}: {data.cautions.filter((c) => c.agent === agent && live(c)).length} learned cautions
-                </h2>
-                <p className="sx-muted">Each came from a report, was proven by a test, and only narrows what the agent does. 12 at most; each expires after 30 days unless you confirm it.</p>
+                <div className="sx-row">
+                  <h2 className="ad-h2">{picked ? (picked.type === "agent" ? `${AGENT_NAME[picked.id] ?? picked.id}: what Kix learned` : `${picked.id}: what Kix fixed`) : "What Kix learned"}</h2>
+                  <span className="sx-muted">{shownChanges.filter((c) => c.status === "live").length} live · {shownChanges.length} in all</span>
+                </div>
+                <p className="sx-muted">Every change Kix Synapse made, with the report it came from. Undo reverts it deterministically: a caution is retired; a skill fix gets a new version with the exact inverse change, so the history keeps both.</p>
                 <div className="sx-cautions">
-                  {data.cautions
-                    .filter((c) => c.agent === agent && c.status !== "retired")
-                    .map((c) => (
-                      <article key={c.id} className="sx-caution">
-                        <p>
-                          <b>When</b> {c.when.replace(/[.,;]+$/, "")}, <b>check</b>: {c.check.replace(/\.+$/, "")}.
+                  {shownChanges.map((c) => (
+                    <article key={c.reportId} className="sx-caution" data-status={c.status}>
+                      <div className="sx-row" style={{ marginTop: 0 }}>
+                        <span className="sx-chip" data-tone={c.kind === "caution" ? "open" : "def"}>
+                          {c.kind === "caution" ? "Learned caution" : c.kind === "text" ? "Question words" : c.kind === "accept" ? "Accepted answer" : "Answer key"}
+                          {c.version ? ` · v${c.version}` : ""}
+                        </span>
+                        <span className="sx-chip" data-tone={c.status === "live" ? "ok" : c.status === "expired" ? "wait" : "def"}>
+                          {c.status === "live" ? "Live" : c.status === "expired" ? "Expired" : `Undone${c.undo ? ` ${when(c.undo.at)}${c.undo.version ? ` · v${c.undo.version}` : ""}` : ""}`}
+                        </span>
+                      </div>
+                      {c.kind === "caution" ? (
+                        <p>{c.summary}</p>
+                      ) : c.kind === "text" ? (
+                        <p className="sx-code">
+                          <del>{c.before}</del> → <ins>{c.after}</ins>
                         </p>
-                        <div className="sx-meta">
-                          {[c.scope.level ?? "All levels", c.scope.subject].filter(Boolean).map((t) => (
-                            <span key={t} className="sx-chip" data-tone="def">
-                              {t}
-                            </span>
-                          ))}
-                          <span className="sx-muted">
-                            From {c.reportIds.length} report{c.reportIds.length === 1 ? "" : "s"} · {c.createdBy === "synapse" ? "added by Synapse" : "approved by an admin"} · {when(c.createdAt)}
-                          </span>
-                        </div>
+                      ) : (
+                        <p>{c.summary}</p>
+                      )}
+                      <div className="sx-meta">
+                        <span className="sx-muted">
+                          {c.by === "synapse" ? "Fixed by itself" : "Approved by an admin"} · {when(c.at)} · from{" "}
+                          <Link href={`/admin/synapse/${c.reportId}`} className="sx-link">
+                            &ldquo;{c.report}&rdquo;
+                          </Link>
+                          {c.expiresAt && c.status === "live" ? ` · expires ${when(c.expiresAt)}` : ""}
+                        </span>
+                      </div>
+                      {c.status === "live" && (
                         <div className="sx-row">
-                          <span className="sx-chip" data-tone={c.expiresAt ? "wait" : "ok"}>
-                            {c.expiresAt ? `expires ${when(c.expiresAt)}` : "confirmed"}
-                          </span>
+                          <span />
                           <span className="sx-acts">
-                            {c.expiresAt && (
-                              <button type="button" className="mk-btn mk-btn--secondary" disabled={busy === c.id} onClick={() => void caution(c, "confirm")}>
-                                Confirm
+                            {c.cautionId && c.expiresAt && (
+                              <button type="button" className="mk-btn mk-btn--secondary" disabled={busy === c.reportId} onClick={() => void confirmCaution(c.cautionId!, c.reportId)}>
+                                Keep it (no expiry)
                               </button>
                             )}
-                            <button type="button" className="mk-btn mk-btn--secondary sx-del" disabled={busy === c.id} onClick={() => void caution(c, "retire")}>
-                              Retire
+                            <button type="button" className="mk-btn mk-btn--secondary sx-del" disabled={busy === c.reportId} onClick={() => void undo(c.reportId)}>
+                              Undo
                             </button>
                           </span>
                         </div>
-                      </article>
-                    ))}
-                  {!data.cautions.some((c) => c.agent === agent && c.status !== "retired") && <p className="sx-muted">None yet. When a kid reports a mistake this agent made and the fix is proven, it appears here.</p>}
+                      )}
+                    </article>
+                  ))}
+                  {shownChanges.length === 0 && <p className="sx-muted">Nothing changed here yet. A change appears when Kix Synapse fixes a report by itself or an admin approves one; a report where Kix was right changes nothing.</p>}
                 </div>
               </div>
-              <div className="ad-card">
-                <h2 className="ad-h2">How {AGENT_NAME[agent] ?? agent}&apos;s prompt is put together</h2>
-                <ol className="sx-stack">
-                  <li data-k="1">
-                    <span>Instructions</span>
-                    <small>editable in Under the hood</small>
-                  </li>
-                  <li data-k="2">
-                    <span>Learned cautions</span>
-                    <small>only the ones whose level and subject fit the question</small>
-                  </li>
-                  <li data-k="3">
-                    <span>Guardrails, fixed in code</span>
-                    <small>always last, always win</small>
-                  </li>
-                </ol>
-              </div>
+              {picked?.type === "agent" && (
+                <div className="ad-card">
+                  <h2 className="ad-h2">How {AGENT_NAME[picked.id] ?? picked.id}&apos;s prompt is put together</h2>
+                  <ol className="sx-stack">
+                    <li data-k="1">
+                      <span>Instructions</span>
+                      <small>editable in Under the hood</small>
+                    </li>
+                    <li data-k="2">
+                      <span>Learned cautions ({shownChanges.filter((c) => c.status === "live").length} live)</span>
+                      <small>only the ones whose level and subject fit the question</small>
+                    </li>
+                    <li data-k="3">
+                      <span>Guardrails, fixed in code</span>
+                      <small>always last, always win</small>
+                    </li>
+                  </ol>
+                  <Link href={`/admin/under-the-hood/agents/${picked.id}`} className="sx-link" style={{ display: "inline-block", marginTop: 10 }}>
+                    Open {AGENT_NAME[picked.id] ?? picked.id} in Under the hood
+                  </Link>
+                </div>
+              )}
             </section>
           </div>
         )}

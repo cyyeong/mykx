@@ -67,8 +67,13 @@ describe("a typo in a question", () => {
     expect(findItem(ITEM)!.item.stem).toContain("same number of stamp.");
     const run = await runEvals(store, deps(base), "manual");
     expect(run).toMatchObject({ passed: 1, total: 1 });
-    await undoFix(store, r);
+    const undone = await undoFix(store, r, null);
+    expect(undone.ok).toBe(true);
+    // Reverted by a new version with the inverse change: the history keeps both.
     expect(findItem(ITEM)!.item.stem).toContain("same number of stamps");
+    const versions = await store.skillVersions.list("p6-maths");
+    expect(versions.filter((v) => v.source === "synapse" && !v.deletedAt)).toHaveLength(2);
+    expect(r.fixRef).toMatchObject({ type: "skill-version", change: "text", field: "stem", before: "same number of stamps", after: "same number of stamp" });
   });
 
   it("joins a second report on the same question, and stops at 10 a day", async () => {

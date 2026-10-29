@@ -1,6 +1,7 @@
 // Server only: what Under the hood's agent editor shows for each agent. Its instructions and versions (editable
 // agents), the guardrails, what code checks whatever the model says, the models and tools it uses; or, for the
 // five with nothing to edit, why. Platform content only: never a child's data (rule 13).
+import { cautionLine, isLive } from "../synapse/cautions.ts";
 import { AGENTS, type Agent } from "../admin/hood.ts";
 import type { AuthStore, StoredAgentVersion } from "../auth/store.ts";
 import { POLICY } from "../skills/runtime.ts";
@@ -176,9 +177,15 @@ export async function agentDetail(store: AuthStore, key: string) {
     { version: 1, kind: "default", current: current.version === 1, note: "Built into myKx; can't be deleted", at: null, by: null, text: defaultText(key) },
   ];
   const prompt = AGENT_PROMPTS[key];
+  // Kix Synapse's learned cautions for this agent (lib/synapse): traceable to the report each came from.
+  const learned = (await store.synapse.cautions().catch(() => []))
+    .filter((c) => c.agent === key)
+    .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+    .map((c) => ({ id: c.id, line: cautionLine(c), status: c.status === "active" && isLive(c) ? ("live" as const) : c.status === "active" ? ("expired" as const) : ("retired" as const), at: c.createdAt, by: c.createdBy === "synapse" ? "Kix Synapse" : "an admin", reportId: c.reportIds[0] ?? null, expiresAt: c.expiresAt }));
   return {
     agent,
     readOnly: null,
+    learned,
     editable: {
       parts: prompt.parts.map((p) => ({ key: p.key, title: p.title })),
       multiPart: prompt.parts.length > 1,
