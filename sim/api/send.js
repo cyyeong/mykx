@@ -13,7 +13,8 @@ let lastAt = 0;
 function passcodeOk(request) {
   const want = process.env.SIM_PASSCODE ?? "";
   const got = request.headers.get("x-sim-passcode") ?? "";
-  if (want.length < 8 || got.length !== want.length) return false;
+  // At least 6 characters (the founder's choice, 29 Oct): it only guards sending synthetic data into the sample household.
+  if (want.length < 6 || got.length !== want.length) return false;
   return timingSafeEqual(Buffer.from(got), Buffer.from(want));
 }
 
