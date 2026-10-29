@@ -20,10 +20,10 @@ const NOW = "2026-10-29T09:00:00.000Z";
 const CJK = /[㐀-鿿]/u;
 
 describe("a kid's subjects are their level's packs", () => {
-  it("gives Jordan (P3) four subjects, Abby (P6) two and Leonard (Sec 2) one, in school order", () => {
+  it("gives Jordan (P3) four subjects, Abby (P6) three and Leonard (Sec 2) two, in school order", () => {
     expect(subjectsFor("P3").map((s) => s.id)).toEqual(["p3-english", "p3-maths", "p3-science", "p3-chinese"]);
-    expect(subjectsFor("P6").map((s) => s.id)).toEqual(["p6-maths", "p6-science"]);
-    expect(subjectsFor("Sec 2").map((s) => s.id)).toEqual(["s2-science"]);
+    expect(subjectsFor("P6").map((s) => s.id)).toEqual(["p6-maths", "p6-science", "p6-chinese"]);
+    expect(subjectsFor("Sec 2").map((s) => s.id)).toEqual(["s2-science", "s2-chinese"]);
     expect(subjectsFor(null)).toEqual([]);
     expect(subjectsFor("P4")).toEqual([]);
   });

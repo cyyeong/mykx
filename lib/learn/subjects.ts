@@ -1,6 +1,6 @@
 // One source of truth for a kid's subjects (founder, 29 Oct: "every data point and interaction is scoped to their
 // subjects"). A kid's subjects are the published skill packs whose skill.json `level` is the kid's level: P3 gets
-// English, Maths, Science and Chinese; P6 gets Maths and Science; Sec 2 gets Science. Packs are read through the
+// English, Maths, Science and Chinese; P6 gets Maths, Science and Chinese; Sec 2 gets Science and Chinese. Packs are read through the
 // Skill Engine's loader (lib/skills/runtime.ts `loadPack`), so an admin's published version wins over the pack on
 // disk and only reviewed items are ever served. Every learning surface asks here: the Learn hub and subject pages,
 // the question player, POST /api/attempts and the Kix routes (tutor, reason, spark), which refuse an item from

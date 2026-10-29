@@ -1,0 +1,186 @@
+[
+  {
+    "id": "s2chi-word-cards-01",
+    "skill": "s2-chinese",
+    "topic": "words.vocab",
+    "subskill": "recognise",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "card",
+    "stem": "珍惜",
+    "answer": "zhēn xī — to treasure; to value and not waste",
+    "card": {
+      "pinyin": "zhēn xī",
+      "meaning": "to treasure; to value and not waste"
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE 2021 G3 MTL — Language Knowledge: Linguistics (Lexicon). Exam: practises 一 语文应用 (综合填空, 词语替换) and 阅读理解."
+  },
+  {
+    "id": "s2chi-word-cards-02",
+    "skill": "s2-chinese",
+    "topic": "words.vocab",
+    "subskill": "recognise",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "card",
+    "stem": "体谅",
+    "answer": "tǐ liàng — to be understanding of how others feel",
+    "card": {
+      "pinyin": "tǐ liàng",
+      "meaning": "to be understanding of how others feel"
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE 2021 G3 MTL — Language Knowledge: Linguistics (Lexicon). Exam: practises 一 语文应用 (综合填空, 词语替换) and 阅读理解."
+  },
+  {
+    "id": "s2chi-word-cards-03",
+    "skill": "s2-chinese",
+    "topic": "words.vocab",
+    "subskill": "recognise",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "card",
+    "stem": "敷衍",
+    "answer": "fū yǎn — to do something half-heartedly, just for show",
+    "card": {
+      "pinyin": "fū yǎn",
+      "meaning": "to do something half-heartedly, just for show"
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE 2021 G3 MTL — Language Knowledge: Linguistics (Lexicon). Exam: practises 一 语文应用 (综合填空, 词语替换) and 阅读理解."
+  },
+  {
+    "id": "s2chi-word-cards-04",
+    "skill": "s2-chinese",
+    "topic": "words.vocab",
+    "subskill": "recognise",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "card",
+    "stem": "犹豫",
+    "answer": "yóu yù — to hesitate; unable to decide",
+    "card": {
+      "pinyin": "yóu yù",
+      "meaning": "to hesitate; unable to decide"
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE 2021 G3 MTL — Language Knowledge: Linguistics (Lexicon). Exam: practises 一 语文应用 (综合填空, 词语替换) and 阅读理解."
+  },
+  {
+    "id": "s2chi-word-cards-05",
+    "skill": "s2-chinese",
+    "topic": "words.vocab",
+    "subskill": "recognise",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "card",
+    "stem": "沮丧",
+    "answer": "jǔ sàng — dejected; feeling down after a setback",
+    "card": {
+      "pinyin": "jǔ sàng",
+      "meaning": "dejected; feeling down after a setback"
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE 2021 G3 MTL — Language Knowledge: Linguistics (Lexicon). Exam: practises 一 语文应用 (综合填空, 词语替换) and 阅读理解."
+  },
+  {
+    "id": "s2chi-word-cards-06",
+    "skill": "s2-chinese",
+    "topic": "words.vocab",
+    "subskill": "recognise",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "card",
+    "stem": "欣慰",
+    "answer": "xīn wèi — relieved and gratified",
+    "card": {
+      "pinyin": "xīn wèi",
+      "meaning": "relieved and gratified"
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE 2021 G3 MTL — Language Knowledge: Linguistics (Lexicon). Exam: practises 一 语文应用 (综合填空, 词语替换) and 阅读理解."
+  },
+  {
+    "id": "s2chi-word-cards-07",
+    "skill": "s2-chinese",
+    "topic": "words.vocab",
+    "subskill": "recognise",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "card",
+    "stem": "承担",
+    "answer": "chéng dān — to take on (a duty or responsibility)",
+    "card": {
+      "pinyin": "chéng dān",
+      "meaning": "to take on (a duty or responsibility)"
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE 2021 G3 MTL — Language Knowledge: Linguistics (Lexicon). Exam: practises 一 语文应用 (综合填空, 词语替换) and 阅读理解."
+  },
+  {
+    "id": "s2chi-word-cards-08",
+    "skill": "s2-chinese",
+    "topic": "words.vocab",
+    "subskill": "recognise",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "card",
+    "stem": "尴尬",
+    "answer": "gān gà — awkward; embarrassed",
+    "card": {
+      "pinyin": "gān gà",
+      "meaning": "awkward; embarrassed"
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE 2021 G3 MTL — Language Knowledge: Linguistics (Lexicon). Exam: practises 一 语文应用 (综合填空, 词语替换) and 阅读理解."
+  }
+]

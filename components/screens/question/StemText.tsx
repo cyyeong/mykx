@@ -53,10 +53,10 @@ function Block({ block, ask }: { block: TextBlock; ask: boolean }) {
 }
 
 /** A comprehension or cloze passage: every block as text (no heading), in its own scrolling box. */
-export function PassageText({ text }: { text: string }) {
+export function PassageText({ text, lang }: { text: string; lang?: string | null }) {
   const blocks = splitParagraphs(text).flatMap((p) => parseBlocks(p));
   return (
-    <section className="qp-passage" aria-label="Read this first" tabIndex={0}>
+    <section className="qp-passage" aria-label="Read this first" tabIndex={0} lang={lang ?? undefined}>
       {blocks.map((b, i) => (
         <Block key={i} block={b} ask={false} />
       ))}
@@ -64,7 +64,7 @@ export function PassageText({ text }: { text: string }) {
   );
 }
 
-export function StemText({ text, figure }: { text: string; figure?: StemFigure | null }) {
+export function StemText({ text, figure, lang }: { text: string; figure?: StemFigure | null; lang?: string | null }) {
   const blocks = splitParagraphs(text).flatMap((p) => parseBlocks(p));
   // The last paragraph is the question itself (the heading); a figure goes just before it when there is context.
   const askAt = blocks.map((b) => b.t).lastIndexOf("p");
@@ -78,7 +78,11 @@ export function StemText({ text, figure }: { text: string; figure?: StemFigure |
     );
     out.splice(askAt > 0 ? askAt : out.length, 0, fig);
   }
-  return <div className="qp-q">{out}</div>;
+  return (
+    <div className="qp-q" lang={lang ?? undefined}>
+      {out}
+    </div>
+  );
 }
 
 /** The question as plain sentences for the device's voice. */

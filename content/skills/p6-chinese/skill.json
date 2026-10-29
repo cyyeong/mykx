@@ -1,0 +1,237 @@
+{
+  "id": "p6-chinese",
+  "version": "1.0.0",
+  "status": "published",
+  "title": "P6 Chinese (PSLE)",
+  "description": "Primary 6 / PSLE Chinese Language (MOE 小学华文课程标准2015; SEAB PSLE Chinese 0005 format): Paper 2 language use (拼音, 字, 词, 成语, 短语, 句子), 短文填空, 阅读理解一, 完成对话 and 阅读理解二 with 实用文 and 书面互动. English-first coaching around Chinese content, idiom cards.",
+  "subject": "chinese",
+  "level": "P6",
+  "tier": "standard",
+  "syllabus": "MOE 小学华文课程标准2015 (华文, 小五至小六); SEAB PSLE Chinese Language 0005 (format for examination from 2017, examined in 2026)",
+  "language": "zh-Hans",
+  "agents": {
+    "tutor": "auto",
+    "vibe": "on_demand",
+    "parent": "on_demand",
+    "curator": "auto"
+  },
+  "topics": [
+    {
+      "id": "words.idioms",
+      "title": "成语卡 idiom cards",
+      "weight": 0,
+      "source_tag": "成语",
+      "subskills": ["recognise"]
+    },
+    {
+      "id": "paper2.yuwen",
+      "title": "语文应用 language use (汉语拼音、字、词、短语、句子)",
+      "weight": 0.15,
+      "source_tag": "语文应用",
+      "subskills": ["pinyin", "char_choice", "word_choice", "idiom", "phrase", "sentence"]
+    },
+    {
+      "id": "paper2.tiankong",
+      "title": "短文填空 cloze",
+      "weight": 0.05,
+      "source_tag": "短文填空",
+      "subskills": ["cloze"]
+    },
+    {
+      "id": "paper2.yuedu1",
+      "title": "阅读理解一 reading (multiple choice)",
+      "weight": 0.05,
+      "source_tag": "阅读理解一",
+      "subskills": ["rc_mcq"]
+    },
+    {
+      "id": "paper2.duihua",
+      "title": "完成对话 complete the dialogue",
+      "weight": 0.04,
+      "source_tag": "完成对话",
+      "subskills": ["dialogue"]
+    },
+    {
+      "id": "paper2.yuedu2",
+      "title": "阅读理解二 实用文 and passage (open, with 书面互动)",
+      "weight": 0.16,
+      "source_tag": "阅读理解二",
+      "subskills": ["practical_text", "written_interaction", "word_meaning", "explain_reason", "character_feeling"]
+    },
+    {
+      "id": "composition",
+      "title": "试卷一 写作 composition (命题作文 or 看图作文)",
+      "weight": 0.2,
+      "source_tag": "写作",
+      "subskills": ["topic_composition", "picture_composition"]
+    },
+    {
+      "id": "oral",
+      "title": "口试 oral (朗读篇章, 会话)",
+      "weight": 0.25,
+      "source_tag": "口试",
+      "subskills": ["reading_aloud", "video_conversation"]
+    },
+    {
+      "id": "listening",
+      "title": "听力理解 listening",
+      "weight": 0.1,
+      "source_tag": "听力理解",
+      "subskills": ["listening"]
+    }
+  ],
+  "archetypes": [
+    {
+      "id": "ZH6-PY",
+      "topic": "paper2.yuwen",
+      "subskill": "pinyin",
+      "marks": 2,
+      "pattern": "汉语拼音: pick the tone-marked pinyin of an underlined word in a sentence; distractors change one tone, the initial or the final; 多音字 (着, 得, 长, 重) are favourites",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "ZH6-ZI",
+      "topic": "paper2.yuwen",
+      "subskill": "char_choice",
+      "marks": 2,
+      "pattern": "字: a sentence with one missing character; same-sound or same-shape options, the radical decides (扣/叩/抠, 赞/暂/攒)",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "ZH6-CI",
+      "topic": "paper2.yuwen",
+      "subskill": "word_choice",
+      "marks": 2,
+      "pattern": "词: near-synonyms sharing a character (提醒/提高/提供/提出), fit-the-noun words (设施齐全), 关联词 pairs read from the partner word (即使……也)",
+      "exam_weight": 0.04
+    },
+    {
+      "id": "ZH6-CY",
+      "topic": "paper2.yuwen",
+      "subskill": "idiom",
+      "marks": 2,
+      "pattern": "成语: a context clue in the sentence (一会儿……一会儿……) points to one idiom; two options mean the opposite",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "ZH6-DY",
+      "topic": "paper2.yuwen",
+      "subskill": "phrase",
+      "marks": 2,
+      "pattern": "短语: verb–noun collocation in a sentence frame (提高效率, 实现愿望, 克服困难, 达到目标); three options pair a verb with the wrong noun",
+      "exam_weight": 0.02
+    },
+    {
+      "id": "ZH6-JZ",
+      "topic": "paper2.yuwen",
+      "subskill": "sentence",
+      "marks": 2,
+      "pattern": "句子: pick the correct sentence (病句: missing subject after 通过……使, wrong pair, 大约……多) or the meaning of a 反问句 (哪里是……)",
+      "exam_weight": 0.03
+    },
+    {
+      "id": "ZH6-TK",
+      "topic": "paper2.tiankong",
+      "subskill": "cloze",
+      "marks": 2,
+      "pattern": "短文填空: a 200-character everyday story with five numbered blanks; each blank's options are one word class (all adverbs, all ……心 words), the sentence around it decides",
+      "exam_weight": 0.05
+    },
+    {
+      "id": "ZH6-YD1",
+      "topic": "paper2.yuedu1",
+      "subskill": "rc_mcq",
+      "marks": 2,
+      "pattern": "阅读理解一: a 350-character story with a turn; ask the cause, a feeling in other words, an effect, and the main message",
+      "exam_weight": 0.05
+    },
+    {
+      "id": "ZH6-DH",
+      "topic": "paper2.duihua",
+      "subskill": "dialogue",
+      "marks": 2,
+      "pattern": "完成对话: a phone call or counter conversation with four blanks; the line after each blank is the reply that decides it",
+      "exam_weight": 0.04
+    },
+    {
+      "id": "ZH6-SYW",
+      "topic": "paper2.yuedu2",
+      "subskill": "practical_text",
+      "marks": 2,
+      "pattern": "实用文: an email or notice; ask for conditions, steps and deadlines, two ideas for two marks",
+      "exam_weight": 0.05
+    },
+    {
+      "id": "ZH6-SMHD",
+      "topic": "paper2.yuedu2",
+      "subskill": "written_interaction",
+      "marks": 4,
+      "pattern": "书面互动: reply to the 实用文 in a short email that covers every point it asks for, in the right form and register",
+      "exam_weight": 0.04
+    },
+    {
+      "id": "ZH6-PZ",
+      "topic": "paper2.yuedu2",
+      "marks": 2,
+      "pattern": "篇章: a family or community story; find-a-word from a named paragraph, why (隐含信息), a character trait with evidence",
+      "exam_weight": 0.07
+    }
+  ],
+  "references": [
+    {
+      "file": "references/syllabus-map.md",
+      "title": "P6 Chinese syllabus map",
+      "sections": [
+        "Which syllabus and format apply",
+        "Topic and subskill tags",
+        "Upper-primary objectives (2015 syllabus, 小五至小六)",
+        "Item alignment",
+        "Out of scope"
+      ]
+    },
+    {
+      "file": "references/exam-blueprint.md",
+      "title": "PSLE Chinese (0005): format and marks",
+      "sections": [
+        "The 200 marks",
+        "Paper 2 at a glance: 90 marks, 1 h 40 min",
+        "Instructions, section by section",
+        "Marking open answers"
+      ]
+    },
+    {
+      "file": "references/answer-strategies.md",
+      "title": "How to answer: a routine for every Paper 2 section",
+      "sections": [
+        "1. 语文应用: say it, then test each option",
+        "2. 短文填空: the words around the blank",
+        "3. 阅读理解一: question first, then find",
+        "4. 完成对话: read the line after the blank",
+        "5. 阅读理解二: find, copy, fix the pronoun, count the marks",
+        "6. 书面互动: every point, in the right form",
+        "7. Time plan for 100 minutes"
+      ]
+    }
+  ],
+  "tools": ["read_reference", "find_items", "check_answer"],
+  "sources": [
+    {
+      "kind": "generated",
+      "note": "Items, passages, cards and references written fresh by Claude Code for myKx from the public syllabus and exam format below; every item was re-solved blind by a second agent and fixed where they disagreed; pending founder review. No exam or school paper was read or copied."
+    },
+    {
+      "kind": "licensed",
+      "note": "Format, sections, instructions and marks: SEAB, PSLE Chinese Language (0005) syllabus, 'For Examination from 2017', listed under PSLE Formats Examined in 2026 (https://www.seab.gov.sg/psle/psle-formats-examined-in-2026/). Consulted; only section names and short instructions are quoted."
+    },
+    {
+      "kind": "licensed",
+      "note": "Learning objectives: MOE 小学华文课程标准2015 (2015 Syllabus Chinese Language Primary), 第五章 分项目标, 小五至小六 (https://www.moe.gov.sg/media/files/primary/cfafc1ab-b80f-4c19-8735-cd1755d4b3e8.pdf). The P6 cohort of 2026 started P1 in 2021 and is on this syllabus; the 2024 syllabus (https://www.moe.gov.sg/media/files/primary/f41062a6-3a90-4ed1-bf93-2f1aaabeec43.pdf) reaches P6 in 2029."
+    }
+  ],
+  "licence": "Content CC BY-NC 4.0 (myKx); items, passages and cards original.",
+  "excluded": [],
+  "legacy_scripts": {
+    "note": "kept privately; never executed",
+    "files": []
+  }
+}

@@ -1,0 +1,1100 @@
+[
+  {
+    "id": "s2chi-p2-01-q1",
+    "skill": "s2-chinese",
+    "topic": "paper2.zonghe",
+    "marks": 1,
+    "type": "mcq",
+    "passage": "升上中学以后，我几乎每天都抱着手机不放，不是看短视频，就是和朋友聊天。成绩一落千丈，我却___(1)___，总觉得下次再努力就行了。\n\n有一天，妈妈没有责备我，只是递给我一张纸，请我写下一天的时间是怎么用的。写完以后，我___(2)___：原来我每天花在手机上的时间，竟然超过五个小时！\n\n从那天起，我给自己定下规则：做完功课才能用手机，晚上十点以后把手机交给妈妈保管。刚开始时，我总是忍不住偷偷看手机，___(3)___我没有放弃，慢慢地，我学会了控制自己。\n\n现在，我不但有更多时间温习，___(4)___重新拾起了画笔。我终于明白，手机本身没有好坏，关键在于我们能不能做它的___(5)___。",
+    "stem": "根据短文内容和上下文的意思，选出最适当的答案。\n\n哪一个答案最适合填在 (1)？",
+    "subskill": "idiom",
+    "archetype": "ZH2-ZH-I",
+    "difficulty": 2,
+    "options": [
+      "满不在乎",
+      "恍然大悟",
+      "全神贯注",
+      "愁眉苦脸"
+    ],
+    "answer": 1,
+    "working": [
+      "The clause after the blank shows the attitude: 总觉得下次再努力就行了 — he didn't care. 满不在乎 = not caring at all. 却 marks the contrast with 成绩一落千丈."
+    ],
+    "distractors": {
+      "2": "恍然大悟 = suddenly understand; that happens later, after the list.",
+      "3": "全神贯注 = fully focused; he was not focused on his studies.",
+      "4": "愁眉苦脸 = worried-looking; he wasn't worried at all."
+    },
+    "hints": [
+      "Read the words after the blank: how did he feel about his falling grades?",
+      "却 shows a contrast: grades fell, BUT he …?"
+    ],
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Language Knowledge: Linguistics (Lexicon); SEAB K320 考试目标 “词语的认识和语言的应用”. Exam: G3 华文 试卷二 一 语文应用 A 综合填空 (成语), 1 mark.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2chi-p2-01-q2",
+    "skill": "s2-chinese",
+    "topic": "paper2.zonghe",
+    "marks": 1,
+    "type": "mcq",
+    "passage": "升上中学以后，我几乎每天都抱着手机不放，不是看短视频，就是和朋友聊天。成绩一落千丈，我却___(1)___，总觉得下次再努力就行了。\n\n有一天，妈妈没有责备我，只是递给我一张纸，请我写下一天的时间是怎么用的。写完以后，我___(2)___：原来我每天花在手机上的时间，竟然超过五个小时！\n\n从那天起，我给自己定下规则：做完功课才能用手机，晚上十点以后把手机交给妈妈保管。刚开始时，我总是忍不住偷偷看手机，___(3)___我没有放弃，慢慢地，我学会了控制自己。\n\n现在，我不但有更多时间温习，___(4)___重新拾起了画笔。我终于明白，手机本身没有好坏，关键在于我们能不能做它的___(5)___。",
+    "stem": "根据短文内容和上下文的意思，选出最适当的答案。\n\n哪一个答案最适合填在 (2)？",
+    "subskill": "idiom",
+    "archetype": "ZH2-ZH-I",
+    "difficulty": 2,
+    "options": [
+      "胸有成竹",
+      "大吃一惊",
+      "理所当然",
+      "无动于衷"
+    ],
+    "answer": 2,
+    "working": [
+      "After the colon comes the discovery with 竟然 (unexpectedly) and an exclamation mark: more than five hours a day. That is a shock: 大吃一惊."
+    ],
+    "distractors": {
+      "1": "胸有成竹 = confident, with a plan ready; he was surprised, not prepared.",
+      "3": "理所当然 = only natural, to be expected; 竟然 says it was unexpected.",
+      "4": "无动于衷 = unmoved; the ! and 竟然 show he was moved."
+    },
+    "hints": [
+      "Look at 竟然 and the ! after the blank.",
+      "Which idiom means 'very surprised'?"
+    ],
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Language Knowledge: Linguistics (Lexicon); SEAB K320 考试目标 “词语的认识和语言的应用”. Exam: G3 华文 试卷二 一 语文应用 A 综合填空 (成语), 1 mark.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2chi-p2-01-q3",
+    "skill": "s2-chinese",
+    "topic": "paper2.zonghe",
+    "marks": 1,
+    "type": "mcq",
+    "passage": "升上中学以后，我几乎每天都抱着手机不放，不是看短视频，就是和朋友聊天。成绩一落千丈，我却___(1)___，总觉得下次再努力就行了。\n\n有一天，妈妈没有责备我，只是递给我一张纸，请我写下一天的时间是怎么用的。写完以后，我___(2)___：原来我每天花在手机上的时间，竟然超过五个小时！\n\n从那天起，我给自己定下规则：做完功课才能用手机，晚上十点以后把手机交给妈妈保管。刚开始时，我总是忍不住偷偷看手机，___(3)___我没有放弃，慢慢地，我学会了控制自己。\n\n现在，我不但有更多时间温习，___(4)___重新拾起了画笔。我终于明白，手机本身没有好坏，关键在于我们能不能做它的___(5)___。",
+    "stem": "根据短文内容和上下文的意思，选出最适当的答案。\n\n哪一个答案最适合填在 (3)？",
+    "subskill": "connector",
+    "archetype": "ZH2-ZH-C",
+    "difficulty": 2,
+    "options": [
+      "因此",
+      "而且",
+      "但是",
+      "于是"
+    ],
+    "answer": 3,
+    "working": [
+      "He kept sneaking looks at his phone (a setback), yet he didn't give up: the two clauses contrast, so 但是."
+    ],
+    "distractors": {
+      "1": "因此 = therefore; 'kept looking, therefore didn't give up' makes no sense.",
+      "2": "而且 adds a similar point; these two clauses pull in opposite directions.",
+      "4": "于是 = so then (what happened next as a result); it isn't a result."
+    },
+    "hints": [
+      "Is 'I kept looking at my phone' good news or bad news for his plan?",
+      "And 'I didn't give up'? Which connector joins two opposite ideas?"
+    ],
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Language Knowledge: Linguistics (Grammar); SEAB K320 考试目标 “词语的认识和语言的应用”. Exam: G3 华文 试卷二 一 语文应用 A 综合填空 (关联词), 1 mark.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2chi-p2-01-q4",
+    "skill": "s2-chinese",
+    "topic": "paper2.zonghe",
+    "marks": 1,
+    "type": "mcq",
+    "passage": "升上中学以后，我几乎每天都抱着手机不放，不是看短视频，就是和朋友聊天。成绩一落千丈，我却___(1)___，总觉得下次再努力就行了。\n\n有一天，妈妈没有责备我，只是递给我一张纸，请我写下一天的时间是怎么用的。写完以后，我___(2)___：原来我每天花在手机上的时间，竟然超过五个小时！\n\n从那天起，我给自己定下规则：做完功课才能用手机，晚上十点以后把手机交给妈妈保管。刚开始时，我总是忍不住偷偷看手机，___(3)___我没有放弃，慢慢地，我学会了控制自己。\n\n现在，我不但有更多时间温习，___(4)___重新拾起了画笔。我终于明白，手机本身没有好坏，关键在于我们能不能做它的___(5)___。",
+    "stem": "根据短文内容和上下文的意思，选出最适当的答案。\n\n哪一个答案最适合填在 (4)？",
+    "subskill": "connector",
+    "archetype": "ZH2-ZH-C",
+    "difficulty": 1,
+    "options": [
+      "而且",
+      "所以",
+      "却",
+      "否则"
+    ],
+    "answer": 1,
+    "working": [
+      "不但 earlier in the sentence asks for its partner: 不但……而且…… (not only … but also …)."
+    ],
+    "distractors": {
+      "2": "所以 pairs with 因为.",
+      "3": "却 shows a contrast; both things here are good news.",
+      "4": "否则 = otherwise; it gives a warning."
+    },
+    "hints": [
+      "Find the connector earlier in the same sentence.",
+      "What is the partner of 不但?"
+    ],
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Language Knowledge: Linguistics (Grammar); SEAB K320 考试目标 “词语的认识和语言的应用”. Exam: G3 华文 试卷二 一 语文应用 A 综合填空 (关联词), 1 mark.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2chi-p2-01-q5",
+    "skill": "s2-chinese",
+    "topic": "paper2.zonghe",
+    "marks": 1,
+    "type": "mcq",
+    "passage": "升上中学以后，我几乎每天都抱着手机不放，不是看短视频，就是和朋友聊天。成绩一落千丈，我却___(1)___，总觉得下次再努力就行了。\n\n有一天，妈妈没有责备我，只是递给我一张纸，请我写下一天的时间是怎么用的。写完以后，我___(2)___：原来我每天花在手机上的时间，竟然超过五个小时！\n\n从那天起，我给自己定下规则：做完功课才能用手机，晚上十点以后把手机交给妈妈保管。刚开始时，我总是忍不住偷偷看手机，___(3)___我没有放弃，慢慢地，我学会了控制自己。\n\n现在，我不但有更多时间温习，___(4)___重新拾起了画笔。我终于明白，手机本身没有好坏，关键在于我们能不能做它的___(5)___。",
+    "stem": "根据短文内容和上下文的意思，选出最适当的答案。\n\n哪一个答案最适合填在 (5)？",
+    "subskill": "word_choice",
+    "archetype": "ZH2-ZH-W",
+    "difficulty": 3,
+    "options": [
+      "奴隶",
+      "对手",
+      "主人",
+      "敌人"
+    ],
+    "answer": 3,
+    "working": [
+      "The whole story is about learning to control his phone use (学会了控制自己). 做它的主人 = to be its master: you control the phone, not the other way round."
+    ],
+    "distractors": {
+      "1": "奴隶 = slave: being controlled by the phone, which is what he escaped.",
+      "2": "对手 = opponent; the phone isn't something to beat in a contest.",
+      "4": "敌人 = enemy, but he says 手机本身没有好坏."
+    },
+    "hints": [
+      "What did he learn to do in paragraph 3?",
+      "If you control something, what are you to it?"
+    ],
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Language Knowledge: Linguistics (Lexicon); SEAB K320 考试目标 “词语的认识和语言的应用”. Exam: G3 华文 试卷二 一 语文应用 A 综合填空 (词语), 1 mark.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2chi-p2-01-q6",
+    "skill": "s2-chinese",
+    "topic": "paper2.zonghe",
+    "marks": 1,
+    "type": "mcq",
+    "passage": "我家住在一栋老组屋里。以前，邻居们见面时只是点点头，___(1)___说上几句话。\n\n去年中秋节，住在隔壁的李阿姨提议在走廊上办一个小小的提灯会。她挨家挨户地邀请大家，还___(2)___准备了月饼和柚子。那天晚上，小孩子提着灯笼跑来跑去，大人们坐在一起喝茶聊天，走廊里充满了欢声笑语。\n\n从那以后，邻居之间的关系越来越___(3)___。谁家有老人生病了，大家就轮流帮忙买菜；谁家的孩子考试，大家也会___(4)___地送上祝福。\n\n俗话说：“远亲不如近邻。”___(5)___我们愿意主动走出家门，冷冰冰的走廊就能变成温暖的大家庭。",
+    "stem": "根据短文内容和上下文的意思，选出最适当的答案。\n\n哪一个答案最适合填在 (1)？",
+    "subskill": "word_choice",
+    "archetype": "ZH2-ZH-W",
+    "difficulty": 1,
+    "options": [
+      "很少",
+      "经常",
+      "总是",
+      "已经"
+    ],
+    "answer": 1,
+    "working": [
+      "只是点点头 (they only nodded) shows they hardly talked: 很少说上几句话. The story then shows how this changed."
+    ],
+    "distractors": {
+      "2": "经常 = often; it contradicts 只是点点头.",
+      "3": "总是 = always; same problem.",
+      "4": "已经 = already; it doesn't fit 'before'."
+    },
+    "hints": [
+      "只是 means 'only'. Did the neighbours talk a lot before?",
+      "The next paragraphs tell how things changed. So how was it at first?"
+    ],
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Language Knowledge: Linguistics (Lexicon); SEAB K320 考试目标 “词语的认识和语言的应用”. Exam: G3 华文 试卷二 一 语文应用 A 综合填空 (词语), 1 mark.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2chi-p2-01-q7",
+    "skill": "s2-chinese",
+    "topic": "paper2.zonghe",
+    "marks": 1,
+    "type": "mcq",
+    "passage": "我家住在一栋老组屋里。以前，邻居们见面时只是点点头，___(1)___说上几句话。\n\n去年中秋节，住在隔壁的李阿姨提议在走廊上办一个小小的提灯会。她挨家挨户地邀请大家，还___(2)___准备了月饼和柚子。那天晚上，小孩子提着灯笼跑来跑去，大人们坐在一起喝茶聊天，走廊里充满了欢声笑语。\n\n从那以后，邻居之间的关系越来越___(3)___。谁家有老人生病了，大家就轮流帮忙买菜；谁家的孩子考试，大家也会___(4)___地送上祝福。\n\n俗话说：“远亲不如近邻。”___(5)___我们愿意主动走出家门，冷冰冰的走廊就能变成温暖的大家庭。",
+    "stem": "根据短文内容和上下文的意思，选出最适当的答案。\n\n哪一个答案最适合填在 (2)？",
+    "subskill": "word_choice",
+    "archetype": "ZH2-ZH-W",
+    "difficulty": 3,
+    "options": [
+      "特殊",
+      "特地",
+      "独特",
+      "特点"
+    ],
+    "answer": 2,
+    "working": [
+      "The blank sits before a verb (准备), so it needs an adverb: 特地 = specially, on purpose. She took the trouble to prepare mooncakes and pomelos."
+    ],
+    "distractors": {
+      "1": "特殊 = special, unusual; an adjective (特殊情况), not used before a verb like this.",
+      "3": "独特 = unique; an adjective (独特的风格).",
+      "4": "特点 = a feature; a noun."
+    },
+    "hints": [
+      "What comes right after the blank? A noun or a verb?",
+      "Only one option can describe how she did something: on purpose."
+    ],
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Language Knowledge: Linguistics (Lexicon); SEAB K320 考试目标 “词语的认识和语言的应用”. Exam: G3 华文 试卷二 一 语文应用 A 综合填空 (词语辨析), 1 mark.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2chi-p2-01-q8",
+    "skill": "s2-chinese",
+    "topic": "paper2.zonghe",
+    "marks": 1,
+    "type": "mcq",
+    "passage": "我家住在一栋老组屋里。以前，邻居们见面时只是点点头，___(1)___说上几句话。\n\n去年中秋节，住在隔壁的李阿姨提议在走廊上办一个小小的提灯会。她挨家挨户地邀请大家，还___(2)___准备了月饼和柚子。那天晚上，小孩子提着灯笼跑来跑去，大人们坐在一起喝茶聊天，走廊里充满了欢声笑语。\n\n从那以后，邻居之间的关系越来越___(3)___。谁家有老人生病了，大家就轮流帮忙买菜；谁家的孩子考试，大家也会___(4)___地送上祝福。\n\n俗话说：“远亲不如近邻。”___(5)___我们愿意主动走出家门，冷冰冰的走廊就能变成温暖的大家庭。",
+    "stem": "根据短文内容和上下文的意思，选出最适当的答案。\n\n哪一个答案最适合填在 (3)？",
+    "subskill": "word_choice",
+    "archetype": "ZH2-ZH-W",
+    "difficulty": 2,
+    "options": [
+      "热闹",
+      "严密",
+      "密集",
+      "融洽"
+    ],
+    "answer": 4,
+    "working": [
+      "关系 (relationship) goes with 融洽 (harmonious, getting along well). The examples after it (helping with groceries, wishing luck) prove it."
+    ],
+    "distractors": {
+      "1": "热闹 = lively, describes a place or event, not a relationship.",
+      "2": "严密 = tight, watertight (组织严密).",
+      "3": "密集 = dense, crowded together (人口密集)."
+    },
+    "hints": [
+      "Which word can describe 关系 between people?",
+      "Read the examples after the blank: are the neighbours getting along?"
+    ],
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Language Knowledge: Linguistics (Lexicon); SEAB K320 考试目标 “词语的认识和语言的应用”. Exam: G3 华文 试卷二 一 语文应用 A 综合填空 (词语搭配), 1 mark.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2chi-p2-01-q9",
+    "skill": "s2-chinese",
+    "topic": "paper2.zonghe",
+    "marks": 1,
+    "type": "mcq",
+    "passage": "我家住在一栋老组屋里。以前，邻居们见面时只是点点头，___(1)___说上几句话。\n\n去年中秋节，住在隔壁的李阿姨提议在走廊上办一个小小的提灯会。她挨家挨户地邀请大家，还___(2)___准备了月饼和柚子。那天晚上，小孩子提着灯笼跑来跑去，大人们坐在一起喝茶聊天，走廊里充满了欢声笑语。\n\n从那以后，邻居之间的关系越来越___(3)___。谁家有老人生病了，大家就轮流帮忙买菜；谁家的孩子考试，大家也会___(4)___地送上祝福。\n\n俗话说：“远亲不如近邻。”___(5)___我们愿意主动走出家门，冷冰冰的走廊就能变成温暖的大家庭。",
+    "stem": "根据短文内容和上下文的意思，选出最适当的答案。\n\n哪一个答案最适合填在 (4)？",
+    "subskill": "word_choice",
+    "archetype": "ZH2-ZH-W",
+    "difficulty": 1,
+    "options": [
+      "冷淡",
+      "勉强",
+      "热情",
+      "粗心"
+    ],
+    "answer": 3,
+    "working": [
+      "The paragraph shows neighbours caring for each other, so they send good wishes warmly: 热情地送上祝福."
+    ],
+    "distractors": {
+      "1": "冷淡 = cold, distant; the opposite of the story's mood.",
+      "2": "勉强 = reluctantly; nothing suggests they don't want to.",
+      "4": "粗心 = careless; it doesn't describe how you wish someone well."
+    },
+    "hints": [
+      "What is the mood of this paragraph?",
+      "How do caring neighbours send their wishes?"
+    ],
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Language Knowledge: Linguistics (Lexicon); SEAB K320 考试目标 “词语的认识和语言的应用”. Exam: G3 华文 试卷二 一 语文应用 A 综合填空 (词语), 1 mark.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2chi-p2-01-q10",
+    "skill": "s2-chinese",
+    "topic": "paper2.zonghe",
+    "marks": 1,
+    "type": "mcq",
+    "passage": "我家住在一栋老组屋里。以前，邻居们见面时只是点点头，___(1)___说上几句话。\n\n去年中秋节，住在隔壁的李阿姨提议在走廊上办一个小小的提灯会。她挨家挨户地邀请大家，还___(2)___准备了月饼和柚子。那天晚上，小孩子提着灯笼跑来跑去，大人们坐在一起喝茶聊天，走廊里充满了欢声笑语。\n\n从那以后，邻居之间的关系越来越___(3)___。谁家有老人生病了，大家就轮流帮忙买菜；谁家的孩子考试，大家也会___(4)___地送上祝福。\n\n俗话说：“远亲不如近邻。”___(5)___我们愿意主动走出家门，冷冰冰的走廊就能变成温暖的大家庭。",
+    "stem": "根据短文内容和上下文的意思，选出最适当的答案。\n\n哪一个答案最适合填在 (5)？",
+    "subskill": "connector",
+    "archetype": "ZH2-ZH-C",
+    "difficulty": 2,
+    "options": [
+      "无论",
+      "只要",
+      "尽管",
+      "宁可"
+    ],
+    "answer": 2,
+    "working": [
+      "The sentence sets a condition and its result, joined by 就: 只要……就…… (as long as we take the first step, a cold corridor can become a warm family)."
+    ],
+    "distractors": {
+      "1": "无论 needs a choice after it (无论刮风还是下雨).",
+      "3": "尽管 = even though; it would mean the change happens despite our effort.",
+      "4": "宁可 pairs with 也不 and means 'would rather'."
+    },
+    "hints": [
+      "Find the helper word in the second half of the sentence.",
+      "Is the first half a condition (if this happens) or a contrast?"
+    ],
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Language Knowledge: Linguistics (Grammar); SEAB K320 考试目标 “词语的认识和语言的应用”. Exam: G3 华文 试卷二 一 语文应用 A 综合填空 (关联词), 1 mark.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2chi-p2-01-q11",
+    "skill": "s2-chinese",
+    "topic": "paper2.tihuan",
+    "subskill": "replace_word",
+    "archetype": "ZH2-TH",
+    "marks": 2,
+    "type": "short",
+    "passage": "上个月，我们班参加了学校的环保项目，负责在食堂推行“自备餐具”运动。一开始，同学们的反应十分(1)__冷静__，很少有人愿意配合。我们没有灰心，而是想出了新的办法：每天在食堂门口(2)__摆设__海报，还请同学分享减少垃圾的好处。\n\n一个月后，自备餐具的人数(3)__提高__了一倍。校长在周会上(4)__批评__了我们的努力，鼓励全校同学向我们学习。这次的经验让我明白，要改变别人的习惯，必须有耐心，也要(5)__发明__适当的方法。",
+    "stem": "根据短文内容和上下文的意思，替换运用不当的词语。\n\n画线词语 (1)“冷静”运用不当。写出一个适当的词语来替换它。",
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Language Knowledge: Linguistics (Lexicon); SEAB K320 考试目标 “词语的认识和语言的应用”. Exam: G3 华文 试卷二 一 语文应用 B 词语替换, 2 marks.",
+    "difficulty": 2,
+    "answer": "冷淡",
+    "accept": [
+      "平淡",
+      "冷漠",
+      "消极"
+    ],
+    "working": [
+      "反应冷淡 = a lukewarm response: few classmates wanted to join (很少人愿意配合). 冷静 means calm and clear-headed, which describes a person keeping cool, not a response to a campaign."
+    ],
+    "hints": [
+      "What does 冷静 really mean? Is that what the classmates' reaction was like?",
+      "The next words say few people wanted to join. Find a word that means 'not interested'."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2chi-p2-01-q12",
+    "skill": "s2-chinese",
+    "topic": "paper2.tihuan",
+    "subskill": "replace_word",
+    "archetype": "ZH2-TH",
+    "marks": 2,
+    "type": "short",
+    "passage": "上个月，我们班参加了学校的环保项目，负责在食堂推行“自备餐具”运动。一开始，同学们的反应十分(1)__冷静__，很少有人愿意配合。我们没有灰心，而是想出了新的办法：每天在食堂门口(2)__摆设__海报，还请同学分享减少垃圾的好处。\n\n一个月后，自备餐具的人数(3)__提高__了一倍。校长在周会上(4)__批评__了我们的努力，鼓励全校同学向我们学习。这次的经验让我明白，要改变别人的习惯，必须有耐心，也要(5)__发明__适当的方法。",
+    "stem": "根据短文内容和上下文的意思，替换运用不当的词语。\n\n画线词语 (2)“摆设”运用不当。写出一个适当的词语来替换它。",
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Language Knowledge: Linguistics (Lexicon); SEAB K320 考试目标 “词语的认识和语言的应用”. Exam: G3 华文 试卷二 一 语文应用 B 词语替换, 2 marks.",
+    "difficulty": 2,
+    "answer": "张贴",
+    "accept": [
+      "贴",
+      "张挂",
+      "挂",
+      "展示",
+      "摆放"
+    ],
+    "working": [
+      "Posters are put up on a wall or board: 张贴海报. 摆设 is mostly a noun (ornaments) or means arranging furniture."
+    ],
+    "hints": [
+      "What do you do with a poster so people can see it?",
+      "The verb usually goes with 海报, 告示 and 通知."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2chi-p2-01-q13",
+    "skill": "s2-chinese",
+    "topic": "paper2.tihuan",
+    "subskill": "replace_word",
+    "archetype": "ZH2-TH",
+    "marks": 2,
+    "type": "short",
+    "passage": "上个月，我们班参加了学校的环保项目，负责在食堂推行“自备餐具”运动。一开始，同学们的反应十分(1)__冷静__，很少有人愿意配合。我们没有灰心，而是想出了新的办法：每天在食堂门口(2)__摆设__海报，还请同学分享减少垃圾的好处。\n\n一个月后，自备餐具的人数(3)__提高__了一倍。校长在周会上(4)__批评__了我们的努力，鼓励全校同学向我们学习。这次的经验让我明白，要改变别人的习惯，必须有耐心，也要(5)__发明__适当的方法。",
+    "stem": "根据短文内容和上下文的意思，替换运用不当的词语。\n\n画线词语 (3)“提高”运用不当。写出一个适当的词语来替换它。",
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Language Knowledge: Linguistics (Lexicon); SEAB K320 考试目标 “词语的认识和语言的应用”. Exam: G3 华文 试卷二 一 语文应用 B 词语替换, 2 marks.",
+    "difficulty": 2,
+    "answer": "增加",
+    "accept": [
+      "增长",
+      "上升"
+    ],
+    "working": [
+      "人数 (a number of people) 增加了一倍 = doubled. 提高 goes with a level or quality: 提高水平、提高效率."
+    ],
+    "hints": [
+      "Is 人数 a level, or an amount you can count?",
+      "Which verb do we use when an amount goes up?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2chi-p2-01-q14",
+    "skill": "s2-chinese",
+    "topic": "paper2.tihuan",
+    "subskill": "replace_word",
+    "archetype": "ZH2-TH",
+    "marks": 2,
+    "type": "short",
+    "passage": "上个月，我们班参加了学校的环保项目，负责在食堂推行“自备餐具”运动。一开始，同学们的反应十分(1)__冷静__，很少有人愿意配合。我们没有灰心，而是想出了新的办法：每天在食堂门口(2)__摆设__海报，还请同学分享减少垃圾的好处。\n\n一个月后，自备餐具的人数(3)__提高__了一倍。校长在周会上(4)__批评__了我们的努力，鼓励全校同学向我们学习。这次的经验让我明白，要改变别人的习惯，必须有耐心，也要(5)__发明__适当的方法。",
+    "stem": "根据短文内容和上下文的意思，替换运用不当的词语。\n\n画线词语 (4)“批评”运用不当。写出一个适当的词语来替换它。",
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Language Knowledge: Linguistics (Lexicon); SEAB K320 考试目标 “词语的认识和语言的应用”. Exam: G3 华文 试卷二 一 语文应用 B 词语替换, 2 marks.",
+    "difficulty": 1,
+    "answer": "表扬",
+    "accept": [
+      "称赞",
+      "赞扬",
+      "肯定",
+      "表彰",
+      "夸奖",
+      "赞赏"
+    ],
+    "working": [
+      "The principal then asks the school to learn from them, so he praised their effort: 表扬了我们的努力. 批评 (criticise) is the opposite meaning."
+    ],
+    "hints": [
+      "What does the principal ask everyone to do right after this?",
+      "Would you criticise someone, then tell everyone to copy them?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2chi-p2-01-q15",
+    "skill": "s2-chinese",
+    "topic": "paper2.tihuan",
+    "subskill": "replace_word",
+    "archetype": "ZH2-TH",
+    "marks": 2,
+    "type": "short",
+    "passage": "上个月，我们班参加了学校的环保项目，负责在食堂推行“自备餐具”运动。一开始，同学们的反应十分(1)__冷静__，很少有人愿意配合。我们没有灰心，而是想出了新的办法：每天在食堂门口(2)__摆设__海报，还请同学分享减少垃圾的好处。\n\n一个月后，自备餐具的人数(3)__提高__了一倍。校长在周会上(4)__批评__了我们的努力，鼓励全校同学向我们学习。这次的经验让我明白，要改变别人的习惯，必须有耐心，也要(5)__发明__适当的方法。",
+    "stem": "根据短文内容和上下文的意思，替换运用不当的词语。\n\n画线词语 (5)“发明”运用不当。写出一个适当的词语来替换它。",
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Language Knowledge: Linguistics (Lexicon); SEAB K320 考试目标 “词语的认识和语言的应用”. Exam: G3 华文 试卷二 一 语文应用 B 词语替换, 2 marks.",
+    "difficulty": 3,
+    "answer": "采用",
+    "accept": [
+      "采取",
+      "找到",
+      "运用",
+      "使用",
+      "寻找",
+      "想出",
+      "掌握",
+      "用"
+    ],
+    "working": [
+      "You 发明 a new machine or thing. A suitable method is chosen, found or used: 采用／找到适当的方法."
+    ],
+    "hints": [
+      "What kind of thing is 发明-ed? Is a 'method' that kind of thing?",
+      "You need a verb meaning 'choose and use' or 'find'."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2chi-p2-01-q16",
+    "skill": "s2-chinese",
+    "topic": "paper2.yuedu1",
+    "subskill": "flyer_ad",
+    "archetype": "ZH2-YD1-F",
+    "marks": 2,
+    "type": "mcq",
+    "passage": "【旧物新生 · 社区修理站】\n东西坏了，先别急着丢！让义工帮你修一修。\n\n日期：每月第一个星期六\n时间：上午10时至下午1时\n地点：晨光联络所一楼活动室\n可修理的物品：小型电器（如风扇、电饭锅）、衣物、玩具、雨伞\n不接受：手机、电脑及大型家具\n费用：修理免费；如需更换零件，零件费用由物主负责\n\n注意事项：\n1. 每人每次最多带两件物品。\n2. 请在现场排队登记，额满即止。\n3. 物主须留在现场，与义工一起修理，学习简单的修理技巧。\n\n主办：晨光联络所　协办：绿手指义工团",
+    "stem": "根据所提供的语料内容，选出最适当的答案。\n\n以下哪一件物品可以拿到修理站修理？",
+    "difficulty": 1,
+    "options": [
+      "一台不能开机的旧电脑",
+      "一把骨架断了的雨伞",
+      "一张破了洞的旧沙发",
+      "一部屏幕裂了的手机"
+    ],
+    "answer": 2,
+    "working": [
+      "The flyer lists 雨伞 under 可修理的物品. Computers, phones and large furniture (a sofa) are under 不接受."
+    ],
+    "distractors": {
+      "1": "电脑 is under 不接受.",
+      "3": "A sofa is 大型家具, which is not accepted.",
+      "4": "手机 is under 不接受."
+    },
+    "hints": [
+      "Find two lists on the flyer: what they repair, and what they don't.",
+      "Check each option against the 不接受 line first."
+    ],
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Reading: “Understand the underlying messages of reading materials related to daily life” (传单); SEAB K320 考试目标 “阅读理解”. Exam: G3 华文 试卷二 二 阅读理解一, 2 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2chi-p2-01-q17",
+    "skill": "s2-chinese",
+    "topic": "paper2.yuedu1",
+    "subskill": "flyer_ad",
+    "archetype": "ZH2-YD1-F",
+    "marks": 2,
+    "type": "mcq",
+    "passage": "【旧物新生 · 社区修理站】\n东西坏了，先别急着丢！让义工帮你修一修。\n\n日期：每月第一个星期六\n时间：上午10时至下午1时\n地点：晨光联络所一楼活动室\n可修理的物品：小型电器（如风扇、电饭锅）、衣物、玩具、雨伞\n不接受：手机、电脑及大型家具\n费用：修理免费；如需更换零件，零件费用由物主负责\n\n注意事项：\n1. 每人每次最多带两件物品。\n2. 请在现场排队登记，额满即止。\n3. 物主须留在现场，与义工一起修理，学习简单的修理技巧。\n\n主办：晨光联络所　协办：绿手指义工团",
+    "stem": "根据所提供的语料内容，选出最适当的答案。\n\n关于修理站的费用，以下哪一项是正确的？",
+    "difficulty": 2,
+    "options": [
+      "每件物品不论大小，修理费一律是十元。",
+      "修理和更换零件的费用，全部由联络所负责。",
+      "修理不收钱，但更换零件要自己付钱。",
+      "只有住在本区的居民，才可以享受免费修理。"
+    ],
+    "answer": 3,
+    "working": [
+      "费用：修理免费；如需更换零件，零件费用由物主负责. 物主 = the owner, so the owner pays for parts."
+    ],
+    "distractors": {
+      "1": "No price per item is given; repair is free.",
+      "2": "Parts are paid by the owner (物主), not the CC.",
+      "4": "The flyer sets no residents-only rule."
+    },
+    "hints": [
+      "Find the line that starts with 费用.",
+      "Who is the 物主: the CC, the volunteers, or the person who owns the item?"
+    ],
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Reading: “Understand the underlying messages of reading materials related to daily life” (传单); SEAB K320 考试目标 “阅读理解”. Exam: G3 华文 试卷二 二 阅读理解一, 2 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2chi-p2-01-q18",
+    "skill": "s2-chinese",
+    "topic": "paper2.yuedu1",
+    "subskill": "flyer_ad",
+    "archetype": "ZH2-YD1-F",
+    "marks": 2,
+    "type": "mcq",
+    "passage": "【旧物新生 · 社区修理站】\n东西坏了，先别急着丢！让义工帮你修一修。\n\n日期：每月第一个星期六\n时间：上午10时至下午1时\n地点：晨光联络所一楼活动室\n可修理的物品：小型电器（如风扇、电饭锅）、衣物、玩具、雨伞\n不接受：手机、电脑及大型家具\n费用：修理免费；如需更换零件，零件费用由物主负责\n\n注意事项：\n1. 每人每次最多带两件物品。\n2. 请在现场排队登记，额满即止。\n3. 物主须留在现场，与义工一起修理，学习简单的修理技巧。\n\n主办：晨光联络所　协办：绿手指义工团",
+    "stem": "根据所提供的语料内容，选出最适当的答案。\n\n主办单位要求物主留在现场，主要目的是什么？",
+    "difficulty": 2,
+    "options": [
+      "让物主学习简单的修理技巧。",
+      "防止物主把修好的物品忘在活动室里。",
+      "让物主帮义工为其他居民排队登记。",
+      "方便义工随时向物主收取零件的费用。"
+    ],
+    "answer": 1,
+    "working": [
+      "Rule 3 gives the purpose in the same sentence: 与义工一起修理，学习简单的修理技巧."
+    ],
+    "distractors": {
+      "2": "Forgetting items is never mentioned.",
+      "3": "Owners queue to register themselves; they don't help the volunteers with it.",
+      "4": "Collecting payment is not the reason given; the rule explains its own purpose."
+    },
+    "hints": [
+      "Find rule 3 under 注意事项.",
+      "Read to the end of that sentence: what will the owner do there?"
+    ],
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Reading: “Understand the underlying messages of reading materials related to daily life” (传单); SEAB K320 考试目标 “阅读理解”. Exam: G3 华文 试卷二 二 阅读理解一, 2 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2chi-p2-01-q19",
+    "skill": "s2-chinese",
+    "topic": "paper2.yuedu1",
+    "subskill": "news_report",
+    "archetype": "ZH2-YD1-N",
+    "marks": 2,
+    "type": "mcq",
+    "passage": "本报讯　一群中学生利用假期，为独居老人设计了一款“按铃报平安”装置，获得社区创新比赛冠军。\n\n这个装置的使用方法很简单：老人每天早上起床后按一下门边的按钮，系统就会自动发出“平安”信息给家人和义工。如果到了上午十点还没有人按铃，义工便会上门探访，了解老人的情况。\n\n参赛学生之一、中二学生陈思远说，他们是在参加社区服务时发现，许多独居老人担心自己在家中跌倒却没人知道。“我们希望用简单的科技，让老人安心，也让家人放心。”\n\n主办单位表示，这个装置成本低、容易安装，明年将在本区五十户独居老人家中试用。",
+    "stem": "根据所提供的语料内容，选出最适当的答案。\n\n这篇新闻报道的主要内容是什么？",
+    "difficulty": 2,
+    "options": [
+      "独居老人在家中跌倒的情况越来越多，需要社会关注。",
+      "社区创新比赛的参赛规则、评审方法和奖品。",
+      "义工每天早上十点都会上门探访本区的独居老人。",
+      "一群中学生为独居老人设计报平安的装置，获得比赛冠军。"
+    ],
+    "answer": 4,
+    "working": [
+      "In a news report the first paragraph (导语) gives the main point: students designed a check-in device for elderly people living alone and won the competition."
+    ],
+    "distractors": {
+      "1": "The report never says falls are increasing; it is the worry behind the idea.",
+      "2": "Rules and prizes are not described.",
+      "3": "Volunteers visit only when no one presses the button by 10 a.m."
+    },
+    "hints": [
+      "In a news report, which paragraph usually sums up the whole story?",
+      "Pick the option that covers who, what, and the result."
+    ],
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Reading: “Understand the underlying messages of reading materials related to daily life” (新闻报道); SEAB K320 考试目标 “阅读理解”. Exam: G3 华文 试卷二 二 阅读理解一, 2 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2chi-p2-01-q20",
+    "skill": "s2-chinese",
+    "topic": "paper2.yuedu1",
+    "subskill": "news_report",
+    "archetype": "ZH2-YD1-N",
+    "marks": 2,
+    "type": "mcq",
+    "passage": "本报讯　一群中学生利用假期，为独居老人设计了一款“按铃报平安”装置，获得社区创新比赛冠军。\n\n这个装置的使用方法很简单：老人每天早上起床后按一下门边的按钮，系统就会自动发出“平安”信息给家人和义工。如果到了上午十点还没有人按铃，义工便会上门探访，了解老人的情况。\n\n参赛学生之一、中二学生陈思远说，他们是在参加社区服务时发现，许多独居老人担心自己在家中跌倒却没人知道。“我们希望用简单的科技，让老人安心，也让家人放心。”\n\n主办单位表示，这个装置成本低、容易安装，明年将在本区五十户独居老人家中试用。",
+    "stem": "根据所提供的语料内容，选出最适当的答案。\n\n如果老人到了上午十点还没有按铃，会发生什么事？",
+    "difficulty": 1,
+    "options": [
+      "系统会自动打电话给警察。",
+      "义工会上门了解老人的情况。",
+      "装置会发出很大的警报声。",
+      "家人会收到“平安”信息。"
+    ],
+    "answer": 2,
+    "working": [
+      "Paragraph 2: 如果到了上午十点还没有人按铃，义工便会上门探访，了解老人的情况."
+    ],
+    "distractors": {
+      "1": "The police are not mentioned.",
+      "3": "No alarm sound is mentioned.",
+      "4": "The 平安 message is sent only when the button IS pressed."
+    },
+    "hints": [
+      "Find 上午十点 in the report.",
+      "Read the rest of that sentence."
+    ],
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Reading: “Understand the underlying messages of reading materials related to daily life” (新闻报道); SEAB K320 考试目标 “阅读理解”. Exam: G3 华文 试卷二 二 阅读理解一, 2 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2chi-p2-01-q21",
+    "skill": "s2-chinese",
+    "topic": "paper2.yuedu1",
+    "subskill": "news_report",
+    "archetype": "ZH2-YD1-N",
+    "marks": 2,
+    "type": "mcq",
+    "passage": "本报讯　一群中学生利用假期，为独居老人设计了一款“按铃报平安”装置，获得社区创新比赛冠军。\n\n这个装置的使用方法很简单：老人每天早上起床后按一下门边的按钮，系统就会自动发出“平安”信息给家人和义工。如果到了上午十点还没有人按铃，义工便会上门探访，了解老人的情况。\n\n参赛学生之一、中二学生陈思远说，他们是在参加社区服务时发现，许多独居老人担心自己在家中跌倒却没人知道。“我们希望用简单的科技，让老人安心，也让家人放心。”\n\n主办单位表示，这个装置成本低、容易安装，明年将在本区五十户独居老人家中试用。",
+    "stem": "根据所提供的语料内容，选出最适当的答案。\n\n从陈思远的话中，可以知道学生设计这个装置的原因是什么？",
+    "difficulty": 2,
+    "options": [
+      "他们发现许多独居老人担心在家跌倒时没人知道。",
+      "他们想赢得比赛的奖金，用来购买更多科技器材。",
+      "老师要求他们在假期里完成一个和科技有关的作业。",
+      "独居老人的家人担心老人的安全，请他们帮忙设计。"
+    ],
+    "answer": 1,
+    "working": [
+      "Paragraph 3: during community service they found that many elderly people living alone worried about falling at home with no one knowing. That worry led to the idea."
+    ],
+    "distractors": {
+      "2": "Prize money is never mentioned.",
+      "3": "No teacher or assignment is mentioned; they used their holidays.",
+      "4": "The families did not ask them; the students noticed the problem themselves."
+    },
+    "hints": [
+      "Find the paragraph where the student speaks.",
+      "What did they notice during their community service?"
+    ],
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Reading: “Understand the underlying messages of reading materials related to daily life” (新闻报道); SEAB K320 考试目标 “阅读理解”. Exam: G3 华文 试卷二 二 阅读理解一, 2 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2chi-p2-01-q22",
+    "skill": "s2-chinese",
+    "topic": "paper2.yuedu2",
+    "type": "short",
+    "stem": "根据短文的内容回答问题。\n\n从第三段中找出一个词语，意思是“处境困难，样子很难看”。",
+    "subskill": "word_meaning",
+    "archetype": "ZH2-YD2-N",
+    "difficulty": 2,
+    "marks": 2,
+    "passage": "那年我读中一，被选进学校的华乐团，负责吹笛子。第一次合奏时，我一紧张，竟然吹错了好几个音。指挥停下来，全场三十多双眼睛一齐望向我，我的脸一下子红到了耳根。\n\n排练结束后，我一个人躲在音乐室外的楼梯口，心想：“我根本不是吹笛子的料，还是退出算了。”就在这时，团长阿伦走了过来。他没有安慰我，反而从书包里拿出一张旧照片。照片里的男孩站在舞台角落，手里紧紧握着一支笛子。\n\n“这是我中一时第一次演出，”阿伦笑着说，“那天我在台上整整吹错了一段，回家哭了一个晚上。”我惊讶地看着他，怎么也不敢相信，这个在台上从容自信的团长，也曾经那么狼狈。\n\n阿伦把照片塞进我的手里：“音不准，可以练；心不定，才可怕。”\n\n从那天起，我每天提早半个小时到校练习。嘴唇常常吹得发麻，手指也按得又酸又痛，可是我再也没有想过放弃。一年后的校庆晚会上，我站在舞台中央，吹起了独奏。最后一个音落下时，台下响起了雷鸣般的掌声。我望向观众席，看见阿伦正对着我竖起大拇指。",
+    "answer": "狼狈",
+    "working": [
+      "In paragraph 3 the narrator can't believe the confident leader was once 那么狼狈: in a sorry, embarrassing state after playing a whole section wrong."
+    ],
+    "hints": [
+      "Look at the sentence where the narrator is surprised by the leader's story.",
+      "The word describes how the leader looked on that bad day long ago."
+    ],
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Reading: “Comprehend and appreciate texts of various genres, such as newspapers, narrative texts and informative texts” (记叙文: 词义); SEAB K320 考试目标 “阅读理解”. Exam: G3 华文 试卷二 三 阅读理解二, 2 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2chi-p2-01-q23",
+    "skill": "s2-chinese",
+    "topic": "paper2.yuedu2",
+    "type": "open",
+    "stem": "根据短文的内容回答问题。\n\n第一次合奏后，“我”为什么想退出华乐团？",
+    "subskill": "explain_reason",
+    "archetype": "ZH2-YD2-N",
+    "difficulty": 2,
+    "marks": 3,
+    "passage": "那年我读中一，被选进学校的华乐团，负责吹笛子。第一次合奏时，我一紧张，竟然吹错了好几个音。指挥停下来，全场三十多双眼睛一齐望向我，我的脸一下子红到了耳根。\n\n排练结束后，我一个人躲在音乐室外的楼梯口，心想：“我根本不是吹笛子的料，还是退出算了。”就在这时，团长阿伦走了过来。他没有安慰我，反而从书包里拿出一张旧照片。照片里的男孩站在舞台角落，手里紧紧握着一支笛子。\n\n“这是我中一时第一次演出，”阿伦笑着说，“那天我在台上整整吹错了一段，回家哭了一个晚上。”我惊讶地看着他，怎么也不敢相信，这个在台上从容自信的团长，也曾经那么狼狈。\n\n阿伦把照片塞进我的手里：“音不准，可以练；心不定，才可怕。”\n\n从那天起，我每天提早半个小时到校练习。嘴唇常常吹得发麻，手指也按得又酸又痛，可是我再也没有想过放弃。一年后的校庆晚会上，我站在舞台中央，吹起了独奏。最后一个音落下时，台下响起了雷鸣般的掌声。我望向观众席，看见阿伦正对着我竖起大拇指。",
+    "answer": "因为“我”第一次合奏时太紧张，吹错了好几个音，全团的人都望着“我”，“我”觉得很丢脸，认为自己根本不是吹笛子的料，所以想退出。",
+    "working": [
+      "Paragraph 1 gives what happened (wrong notes, everyone staring, face turning red); paragraph 2 gives what he concluded (不是吹笛子的料). Three marks = three points."
+    ],
+    "marking": [
+      "合奏时太紧张，吹错了好几个音（1分）",
+      "全场的人都望着他，觉得丢脸／难为情（1分）",
+      "认为自己不是吹笛子的料／没有信心（1分）"
+    ],
+    "keywords": [
+      "吹错",
+      "丢脸",
+      "不是吹笛子的料"
+    ],
+    "hints": [
+      "Three marks: look for three reasons across paragraphs 1 and 2.",
+      "What happened, how did he feel, and what did he decide about himself?"
+    ],
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Reading: “Comprehend and appreciate texts of various genres, such as newspapers, narrative texts and informative texts” (记叙文: 原因); SEAB K320 考试目标 “阅读理解”. Exam: G3 华文 试卷二 三 阅读理解二, 3 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2chi-p2-01-q24",
+    "skill": "s2-chinese",
+    "topic": "paper2.yuedu2",
+    "type": "open",
+    "stem": "根据短文的内容回答问题。\n\n阿伦给“我”看照片的用意是什么？",
+    "subskill": "explain_reason",
+    "archetype": "ZH2-YD2-N",
+    "difficulty": 3,
+    "marks": 3,
+    "passage": "那年我读中一，被选进学校的华乐团，负责吹笛子。第一次合奏时，我一紧张，竟然吹错了好几个音。指挥停下来，全场三十多双眼睛一齐望向我，我的脸一下子红到了耳根。\n\n排练结束后，我一个人躲在音乐室外的楼梯口，心想：“我根本不是吹笛子的料，还是退出算了。”就在这时，团长阿伦走了过来。他没有安慰我，反而从书包里拿出一张旧照片。照片里的男孩站在舞台角落，手里紧紧握着一支笛子。\n\n“这是我中一时第一次演出，”阿伦笑着说，“那天我在台上整整吹错了一段，回家哭了一个晚上。”我惊讶地看着他，怎么也不敢相信，这个在台上从容自信的团长，也曾经那么狼狈。\n\n阿伦把照片塞进我的手里：“音不准，可以练；心不定，才可怕。”\n\n从那天起，我每天提早半个小时到校练习。嘴唇常常吹得发麻，手指也按得又酸又痛，可是我再也没有想过放弃。一年后的校庆晚会上，我站在舞台中央，吹起了独奏。最后一个音落下时，台下响起了雷鸣般的掌声。我望向观众席，看见阿伦正对着我竖起大拇指。",
+    "answer": "阿伦想让“我”知道，他刚开始时也会犯错，也曾经很狼狈；只要不放弃、努力练习，就能进步。他用自己的经历鼓励“我”不要退出。",
+    "working": [
+      "The photo shows the leader at his own first performance, when he played a whole section wrong. He shares a failure instead of comforting: if he could improve, so can the narrator."
+    ],
+    "marking": [
+      "让“我”知道他以前也犯过错／也很狼狈（1分）",
+      "只要坚持练习就能进步（1分）",
+      "鼓励“我”不要放弃／不要退出（1分）"
+    ],
+    "keywords": [
+      "也犯过错",
+      "练习",
+      "鼓励",
+      "不要放弃"
+    ],
+    "hints": [
+      "Who is the boy in the photo, and what happened to him that day?",
+      "Why tell a failure story to someone who wants to quit?"
+    ],
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Reading: “Comprehend and appreciate texts of various genres, such as newspapers, narrative texts and informative texts” (记叙文: 人物用意); SEAB K320 考试目标 “阅读理解”. Exam: G3 华文 试卷二 三 阅读理解二, 3 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2chi-p2-01-q25",
+    "skill": "s2-chinese",
+    "topic": "paper2.yuedu2",
+    "type": "open",
+    "stem": "根据短文的内容回答问题。\n\n阿伦说：“音不准，可以练；心不定，才可怕。”这句话是什么意思？",
+    "subskill": "word_meaning",
+    "archetype": "ZH2-YD2-N",
+    "difficulty": 4,
+    "marks": 3,
+    "passage": "那年我读中一，被选进学校的华乐团，负责吹笛子。第一次合奏时，我一紧张，竟然吹错了好几个音。指挥停下来，全场三十多双眼睛一齐望向我，我的脸一下子红到了耳根。\n\n排练结束后，我一个人躲在音乐室外的楼梯口，心想：“我根本不是吹笛子的料，还是退出算了。”就在这时，团长阿伦走了过来。他没有安慰我，反而从书包里拿出一张旧照片。照片里的男孩站在舞台角落，手里紧紧握着一支笛子。\n\n“这是我中一时第一次演出，”阿伦笑着说，“那天我在台上整整吹错了一段，回家哭了一个晚上。”我惊讶地看着他，怎么也不敢相信，这个在台上从容自信的团长，也曾经那么狼狈。\n\n阿伦把照片塞进我的手里：“音不准，可以练；心不定，才可怕。”\n\n从那天起，我每天提早半个小时到校练习。嘴唇常常吹得发麻，手指也按得又酸又痛，可是我再也没有想过放弃。一年后的校庆晚会上，我站在舞台中央，吹起了独奏。最后一个音落下时，台下响起了雷鸣般的掌声。我望向观众席，看见阿伦正对着我竖起大拇指。",
+    "answer": "这句话的意思是：吹错音、技术不好并不可怕，只要多练习就能改进；真正可怕的是意志不坚定，一遇到困难就想放弃。",
+    "working": [
+      "Two halves, contrasted: 音不准 (playing out of tune) can be fixed by practice; 心不定 (a wavering heart, no resolve) is the real danger."
+    ],
+    "marking": [
+      "技术不好／吹错音可以通过练习改进（1分）",
+      "“心不定”指意志不坚定、没有信心、想放弃（1分）",
+      "后者才是真正的问题（1分）"
+    ],
+    "keywords": [
+      "练习",
+      "意志不坚定",
+      "放弃"
+    ],
+    "hints": [
+      "Explain each half separately: what is 音不准, and what is 心不定?",
+      "Which of the two does the leader say is worse?"
+    ],
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Reading: “Comprehend and appreciate texts of various genres, such as newspapers, narrative texts and informative texts” (记叙文: 句意); SEAB K320 考试目标 “阅读理解”. Exam: G3 华文 试卷二 三 阅读理解二, 3 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2chi-p2-01-q26",
+    "skill": "s2-chinese",
+    "topic": "paper2.yuedu2",
+    "type": "open",
+    "stem": "根据短文的内容回答问题。\n\n比较第二段和最后一段，“我”的心情有什么变化？请从文中找出依据。",
+    "subskill": "character_feeling",
+    "archetype": "ZH2-YD2-N",
+    "difficulty": 4,
+    "marks": 3,
+    "passage": "那年我读中一，被选进学校的华乐团，负责吹笛子。第一次合奏时，我一紧张，竟然吹错了好几个音。指挥停下来，全场三十多双眼睛一齐望向我，我的脸一下子红到了耳根。\n\n排练结束后，我一个人躲在音乐室外的楼梯口，心想：“我根本不是吹笛子的料，还是退出算了。”就在这时，团长阿伦走了过来。他没有安慰我，反而从书包里拿出一张旧照片。照片里的男孩站在舞台角落，手里紧紧握着一支笛子。\n\n“这是我中一时第一次演出，”阿伦笑着说，“那天我在台上整整吹错了一段，回家哭了一个晚上。”我惊讶地看着他，怎么也不敢相信，这个在台上从容自信的团长，也曾经那么狼狈。\n\n阿伦把照片塞进我的手里：“音不准，可以练；心不定，才可怕。”\n\n从那天起，我每天提早半个小时到校练习。嘴唇常常吹得发麻，手指也按得又酸又痛，可是我再也没有想过放弃。一年后的校庆晚会上，我站在舞台中央，吹起了独奏。最后一个音落下时，台下响起了雷鸣般的掌声。我望向观众席，看见阿伦正对着我竖起大拇指。",
+    "answer": "第二段中，“我”因为吹错音而感到灰心、丢脸，想退出华乐团；最后一段中，“我”成功完成了独奏，听到雷鸣般的掌声，又看见阿伦竖起大拇指，感到自豪和开心。",
+    "working": [
+      "Paragraph 2: he hides alone and thinks of quitting (灰心、沮丧). Last paragraph: centre stage, thunderous applause, the leader's thumbs-up (自豪、开心、有成就感).",
+      "A 'change' answer needs both feelings and the evidence for them."
+    ],
+    "marking": [
+      "第二段的心情（灰心／沮丧／难为情，想放弃），并有依据，如躲在楼梯口、想退出（1分）",
+      "最后一段的心情（自豪／开心／有成就感），并有依据，如独奏成功、掌声热烈、阿伦竖起大拇指（1分）",
+      "说出变化：从想放弃变成坚持下去并获得成功（1分）"
+    ],
+    "keywords": [
+      "灰心",
+      "自豪",
+      "掌声",
+      "竖起大拇指"
+    ],
+    "hints": [
+      "Name one feeling for paragraph 2 and one for the last paragraph.",
+      "Then point to what happens in each paragraph that shows the feeling."
+    ],
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Reading: “Comprehend and appreciate texts of various genres, such as newspapers, narrative texts and informative texts” (记叙文: 心情变化); SEAB K320 考试目标 “阅读理解”. Exam: G3 华文 试卷二 三 阅读理解二, 3 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2chi-p2-01-q27",
+    "skill": "s2-chinese",
+    "topic": "paper2.yuedu2",
+    "type": "open",
+    "stem": "根据短文的内容回答问题。\n\n第一段中，“穿上了绿衣”指的是什么？",
+    "subskill": "word_meaning",
+    "archetype": "ZH2-YD2-E",
+    "difficulty": 2,
+    "marks": 2,
+    "passage": "走在新加坡的街头，你也许会发现，越来越多建筑物的外墙和屋顶都“穿上了绿衣”。这种在高楼的墙面、阳台和屋顶种植物的做法，叫作空中绿化。\n\n空中绿化的好处不少。首先，植物能遮挡阳光，降低建筑物的温度。有研究发现，长满植物的墙面，温度可以比普通墙面低好几度，大楼里的人也就不必整天开着冷气。其次，植物能吸附空气中的灰尘，减少噪音，让城市的环境更舒适。此外，一片片绿色还能为鸟类和昆虫提供栖息的地方。\n\n不过，空中绿化也有它的难处。墙上的植物需要定期浇水和修剪，如果没有好好照顾，枯萎的植物反而会影响市容。因此，要让城市真正“绿”起来，除了政府和发展商的投入，也需要每一位居民的爱护。",
+    "answer": "指建筑物的外墙、阳台和屋顶种满了植物，也就是进行了空中绿化。",
+    "working": [
+      "Buildings can't wear clothes: the phrase is figurative (拟人). The next sentence explains it: planting on walls, balconies and roofs, called 空中绿化 (skyrise greenery)."
+    ],
+    "marking": [
+      "建筑物的外墙、阳台和屋顶（1分）",
+      "种满了植物／进行了空中绿化（1分）"
+    ],
+    "keywords": [
+      "外墙",
+      "屋顶",
+      "植物",
+      "空中绿化"
+    ],
+    "hints": [
+      "Can a building really put on clothes? What is green on a building?",
+      "The very next sentence explains the phrase."
+    ],
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Reading: “Comprehend and appreciate texts of various genres, such as newspapers, narrative texts and informative texts” (说明文: 词句理解); SEAB K320 考试目标 “阅读理解”. Exam: G3 华文 试卷二 三 阅读理解二, 2 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2chi-p2-01-q28",
+    "skill": "s2-chinese",
+    "topic": "paper2.yuedu2",
+    "type": "open",
+    "stem": "根据短文的内容回答问题。\n\n根据第二段，空中绿化有哪三个好处？",
+    "subskill": "summary",
+    "archetype": "ZH2-YD2-E",
+    "difficulty": 2,
+    "marks": 3,
+    "passage": "走在新加坡的街头，你也许会发现，越来越多建筑物的外墙和屋顶都“穿上了绿衣”。这种在高楼的墙面、阳台和屋顶种植物的做法，叫作空中绿化。\n\n空中绿化的好处不少。首先，植物能遮挡阳光，降低建筑物的温度。有研究发现，长满植物的墙面，温度可以比普通墙面低好几度，大楼里的人也就不必整天开着冷气。其次，植物能吸附空气中的灰尘，减少噪音，让城市的环境更舒适。此外，一片片绿色还能为鸟类和昆虫提供栖息的地方。\n\n不过，空中绿化也有它的难处。墙上的植物需要定期浇水和修剪，如果没有好好照顾，枯萎的植物反而会影响市容。因此，要让城市真正“绿”起来，除了政府和发展商的投入，也需要每一位居民的爱护。",
+    "answer": "一、植物能遮挡阳光，降低建筑物的温度，减少使用冷气；二、植物能吸附灰尘，减少噪音，让城市环境更舒适；三、能为鸟类和昆虫提供栖息的地方。",
+    "working": [
+      "The paragraph signposts each benefit: 首先、其次、此外. One mark for each."
+    ],
+    "marking": [
+      "遮挡阳光，降低建筑物温度（减少用冷气）（1分）",
+      "吸附灰尘、减少噪音，让环境更舒适（1分）",
+      "为鸟类和昆虫提供栖息的地方（1分）"
+    ],
+    "keywords": [
+      "降低温度",
+      "灰尘",
+      "噪音",
+      "鸟类和昆虫"
+    ],
+    "hints": [
+      "Look for the signpost words that count the benefits.",
+      "One point after each of 首先, 其次 and 此外."
+    ],
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Reading: “Comprehend and appreciate texts of various genres, such as newspapers, narrative texts and informative texts” (说明文: 归纳要点); SEAB K320 考试目标 “阅读理解”. Exam: G3 华文 试卷二 三 阅读理解二, 3 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  },
+  {
+    "id": "s2chi-p2-01-q29",
+    "skill": "s2-chinese",
+    "topic": "paper2.yuedu2",
+    "type": "open",
+    "stem": "根据短文的内容回答问题。\n\n作者认为，要让城市真正“绿”起来，需要哪些人的努力？你认为身为学生，可以怎样出一份力？",
+    "subskill": "opinion",
+    "archetype": "ZH2-YD2-E",
+    "difficulty": 3,
+    "marks": 3,
+    "passage": "走在新加坡的街头，你也许会发现，越来越多建筑物的外墙和屋顶都“穿上了绿衣”。这种在高楼的墙面、阳台和屋顶种植物的做法，叫作空中绿化。\n\n空中绿化的好处不少。首先，植物能遮挡阳光，降低建筑物的温度。有研究发现，长满植物的墙面，温度可以比普通墙面低好几度，大楼里的人也就不必整天开着冷气。其次，植物能吸附空气中的灰尘，减少噪音，让城市的环境更舒适。此外，一片片绿色还能为鸟类和昆虫提供栖息的地方。\n\n不过，空中绿化也有它的难处。墙上的植物需要定期浇水和修剪，如果没有好好照顾，枯萎的植物反而会影响市容。因此，要让城市真正“绿”起来，除了政府和发展商的投入，也需要每一位居民的爱护。",
+    "answer": "作者认为需要政府、发展商和每一位居民的努力。身为学生，我可以爱护学校和社区里的植物，不随便摘花踩草；也可以参加社区花园的义工活动，帮忙浇水和修剪植物。",
+    "working": [
+      "Part 1 is in the last sentence: 政府、发展商 and 每一位居民 (1 mark).",
+      "Part 2 is your own view: two reasonable, specific actions a student can take (2 marks)."
+    ],
+    "marking": [
+      "写出政府、发展商和居民三者（1分）",
+      "提出一个合理、具体、学生做得到的做法（1分）",
+      "再提出第二个做法，或说明这个做法有什么帮助（1分）；言之有理即可"
+    ],
+    "keywords": [
+      "政府",
+      "发展商",
+      "居民",
+      "爱护"
+    ],
+    "hints": [
+      "The first part is answered in the last sentence of the passage.",
+      "For the second part, think of two things a student could really do at school or near home."
+    ],
+    "notes": "Syllabus: MOE 2021 G1/G2/G3 MTL syllabus — Reading: “Comprehend and appreciate texts of various genres, such as newspapers, narrative texts and informative texts” (说明文: 作者观点与个人看法); SEAB K320 考试目标 “阅读理解”. Exam: G3 华文 试卷二 三 阅读理解二, 3 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Chinese practice written by Claude Code for myKx from the MOE 2021 secondary MTL syllabus and the SEAB G3 Chinese (K320) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0"
+  }
+]

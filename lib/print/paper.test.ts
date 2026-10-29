@@ -236,7 +236,7 @@ describe("real packs", () => {
   });
 
   it("short papers have about ten questions for every pack with enough items", () => {
-    for (const id of ["p3-science", "p3-chinese", "p3-english", "p3-maths", "p6-science", "s2-science"]) {
+    for (const id of ["p3-science", "p3-chinese", "p3-english", "p3-maths", "p6-science", "p6-chinese", "s2-science", "s2-chinese"]) {
       const b = loadPrintBank(id)!;
       for (const seed of ["a", "b"]) {
         const p = assemblePaper(b, { seed, length: "short" });
@@ -244,6 +244,18 @@ describe("real packs", () => {
         expect(p.questionCount, id).toBeGreaterThanOrEqual(9);
         expect(p.questionCount, id).toBeLessThanOrEqual(12);
       }
+    }
+  });
+
+  it("P6 and Sec 2 Chinese full papers follow the PSLE and G3 Paper 2 order, cloze passages whole", () => {
+    const want: Record<string, string[]> = { "p6-chinese": ["yuwen", "tiankong", "yuedu1", "duihua", "yuedu2"], "s2-chinese": ["zonghe", "tihuan", "yuedu1", "yuedu2"] };
+    for (const [id, order] of Object.entries(want)) {
+      const bank = loadPrintBank(id)!;
+      const p = assemblePaper(bank, { seed: "demo", length: "full" });
+      checkInvariants(p, bank);
+      expect(p.sections.map((s) => s.id), id).toEqual(order);
+      expect(p.sections[0].groups[0].instruction, id).toMatch(/选出最适当的答案/);
+      for (const g of p.sections[1].groups) expect(g.questions, id).toHaveLength(bank.items.filter((i) => i.passage === g.passage).length);
     }
   });
 

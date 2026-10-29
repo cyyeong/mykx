@@ -169,6 +169,9 @@
 .qp-passage{flex:none;max-height:min(260px,34cqh);overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;gap:10px;padding:16px 18px;border-radius:var(--radius-md);background:var(--surface);box-shadow:inset 4px 0 0 var(--accent-2),inset 0 0 0 1.5px var(--line);scrollbar-width:thin}
 .qp-passage .qp-q-p{font:600 18px/1.55 var(--font-text)}
 .qp-passage:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+/* Answer blanks in stems and passages ("____", "___(1)___"): a ruled gap with its number on it. */
+.qp-root .pp-blank{display:inline-block;min-width:2.4em;margin:0 .2em;border-bottom:2px solid currentColor;text-align:center;line-height:1.05;vertical-align:baseline}
+.qp-root .pp-blank-n{font-size:.8em;font-weight:800;color:var(--accent)}
 .qp-word{flex:none;align-self:flex-start;display:grid;justify-items:center;gap:6px;min-width:180px;padding:18px 28px;border-radius:var(--radius-lg);background:var(--surface);box-shadow:inset 0 0 0 3px var(--border-control),0 6px 0 var(--accent-2)}
 .qp-word-glyph{font:500 clamp(56px,7vw,84px)/1.1 "Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;color:var(--ink);letter-spacing:.06em}
 .qp-word-pinyin{font:400 clamp(32px,4vw,44px)/1.15 var(--font-display);color:var(--ink)}

@@ -1,0 +1,1152 @@
+[
+  {
+    "id": "p6chi-p2-01-q1",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.yuwen",
+    "marks": 2,
+    "type": "mcq",
+    "subskill": "pinyin",
+    "archetype": "ZH6-PY",
+    "difficulty": 2,
+    "stem": "根据句子的意思，从选项中选出最适当的答案。\n\n奶奶把晒干的衣服叠好，__整齐__地放进衣柜里。\n\n画线词语的正确汉语拼音是哪一个？",
+    "options": [
+      "zhēng qí",
+      "zhěng qǐ",
+      "zhěng qí",
+      "zhěn qí"
+    ],
+    "answer": 3,
+    "working": [
+      "整 is third tone, zhěng (as in 整理 zhěng lǐ). 齐 is second tone, qí (as in 一齐 yì qí). So 整齐 = zhěng qí."
+    ],
+    "distractors": {
+      "1": "zhēng is first tone: that is 争 or 蒸, not 整.",
+      "2": "qǐ (third tone) is 起. 齐 rises: qí.",
+      "4": "zhěn has no g: that is 枕 (pillow)."
+    },
+    "hints": [
+      "Say 整理 (to tidy up) aloud and listen to the tone of 整.",
+      "Now say 一齐 (together): does 齐 go up, or dip down?"
+    ],
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能辨识字形、字音、字义（小五、小六 1600至1700字）; SEAB 0005 考试目标 “对汉字形、音、义的辨认”. Exam: PSLE 试卷二 一 语文应用 (汉语拼音), 2 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q2",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.yuwen",
+    "marks": 2,
+    "type": "mcq",
+    "subskill": "pinyin",
+    "archetype": "ZH6-PY",
+    "difficulty": 3,
+    "stem": "根据句子的意思，从选项中选出最适当的答案。\n\n比赛只剩下一分钟了，我们还落后一分，大家都很__着急__。\n\n画线词语的正确汉语拼音是哪一个？",
+    "options": [
+      "zhuó jí",
+      "zháo jí",
+      "zhe jí",
+      "zhāo jí"
+    ],
+    "answer": 2,
+    "working": [
+      "着 is a 多音字 (one character, several sounds). In 着急 (anxious) it is zháo, the same as in 着火 and 睡着.",
+      "zhuó is for 着陆 and 衣着; zhe is the light-tone helper in 看着; zhāo means a move in chess (高着)."
+    ],
+    "distractors": {
+      "1": "zhuó is 着 in 着陆 (to land) and 衣着 (clothing).",
+      "3": "zhe is the light-tone helper word in 看着, 走着.",
+      "4": "zhāo is 着 meaning a move or trick, as in 高着."
+    },
+    "hints": [
+      "着 changes its sound with its meaning. Here it means feeling worried.",
+      "Think of 睡着 and 着火: 着急 uses the same sound as those two."
+    ],
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能辨识字形、字音、字义（小五、小六 1600至1700字）; SEAB 0005 考试目标 “对汉字形、音、义的辨认”. Exam: PSLE 试卷二 一 语文应用 (汉语拼音, 多音字), 2 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q3",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.yuwen",
+    "marks": 2,
+    "type": "mcq",
+    "subskill": "char_choice",
+    "archetype": "ZH6-ZI",
+    "difficulty": 2,
+    "stem": "根据句子的意思，从选项中选出最适当的答案。\n\n这次数学测验，我因为太粗心，被老师____了三分。",
+    "options": [
+      "扣",
+      "叩",
+      "抠",
+      "加"
+    ],
+    "answer": 1,
+    "working": [
+      "扣分 kòu fēn = to take marks off. Careless mistakes lose marks, so the verb means 'take away'. 扣 has the hand radical 扌."
+    ],
+    "distractors": {
+      "2": "叩 kòu sounds the same but has 口: it means to knock (叩门).",
+      "3": "抠 kōu means to dig or pick at something with a finger.",
+      "4": "加 = add. Being careless doesn't earn extra marks."
+    },
+    "hints": [
+      "When you are careless in a test, do you gain marks or lose them?",
+      "Two options sound kòu. Which one has a hand radical?"
+    ],
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能辨识字形、字音、字义；写作：能书写常用字; SEAB 0005 考试目标 “对汉字形、音、义的辨认”. Exam: PSLE 试卷二 一 语文应用 (字), 2 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q4",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.yuwen",
+    "marks": 2,
+    "type": "mcq",
+    "subskill": "char_choice",
+    "archetype": "ZH6-ZI",
+    "difficulty": 2,
+    "stem": "根据句子的意思，从选项中选出最适当的答案。\n\n哥哥在演讲比赛中表现出色，得到了评判的____赏。",
+    "options": [
+      "暂",
+      "攒",
+      "站",
+      "赞"
+    ],
+    "answer": 4,
+    "working": [
+      "赞赏 zàn shǎng = to praise and appreciate. 赞 has 贝 at the bottom, as in 称赞 and 赞美."
+    ],
+    "distractors": {
+      "1": "暂 zàn has 日: it means 'for a short time' (暂时).",
+      "2": "攒 zǎn has 扌: it means to save up (攒钱).",
+      "3": "站 zhàn = to stand."
+    },
+    "hints": [
+      "The missing character makes a word that means 'praise'.",
+      "Two options sound zàn. One is in 暂时 (for now); the other is in 称赞."
+    ],
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能辨识字形、字音、字义；写作：能书写常用字; SEAB 0005 考试目标 “对汉字形、音、义的辨认”. Exam: PSLE 试卷二 一 语文应用 (字), 2 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q5",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.yuwen",
+    "marks": 2,
+    "type": "mcq",
+    "subskill": "word_choice",
+    "archetype": "ZH6-CI",
+    "difficulty": 2,
+    "stem": "根据句子的意思，从选项中选出最适当的答案。\n\n这个公园的设施十分____，有游乐场、跑道和健身角，吸引了许多居民。",
+    "options": [
+      "齐全",
+      "齐心",
+      "整齐",
+      "丰盛"
+    ],
+    "answer": 1,
+    "working": [
+      "齐全 = complete, with everything you need (设施齐全). The sentence then lists what the park has."
+    ],
+    "distractors": {
+      "2": "齐心 = of one mind; it describes people working together (齐心协力).",
+      "3": "整齐 = neat and in rows (排得很整齐), not 'has everything'.",
+      "4": "丰盛 = plentiful, used for food (丰盛的晚餐)."
+    },
+    "hints": [
+      "The sentence lists many things the park has. Which word means 'has everything'?",
+      "Ask what each word usually describes: people, rows, meals or facilities?"
+    ],
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能推断词、句的意思; SEAB 0005 考试目标 “词语的认识和运用（包括成语和习用语）”. Exam: PSLE 试卷二 一 语文应用 (词), 2 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q6",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.yuwen",
+    "marks": 2,
+    "type": "mcq",
+    "subskill": "word_choice",
+    "archetype": "ZH6-CI",
+    "difficulty": 2,
+    "stem": "根据句子的意思，从选项中选出最适当的答案。\n\n____明天下大雨，学校的运动会也会照常举行。",
+    "options": [
+      "因为",
+      "只要",
+      "即使",
+      "虽然"
+    ],
+    "answer": 3,
+    "working": [
+      "Look for the partner word in the second half: 也. 即使……也…… = even if …, still …. Tomorrow's rain hasn't happened yet, so it is a 'what if'."
+    ],
+    "distractors": {
+      "1": "因为 pairs with 所以 and gives a real reason.",
+      "2": "只要 pairs with 就: 'as long as … then …'.",
+      "4": "虽然 pairs with 但是／可是 and talks about a fact, not 'what if'."
+    },
+    "hints": [
+      "Find the helper word in the second half of the sentence.",
+      "Is the rain a fact, or only 'what if'?"
+    ],
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能推断词、句的意思；写作：能写完整的句子; SEAB 0005 考试目标 “句子结构的认识和运用”. Exam: PSLE 试卷二 一 语文应用 (词: 关联词), 2 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q7",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.yuwen",
+    "marks": 2,
+    "type": "mcq",
+    "subskill": "word_choice",
+    "archetype": "ZH6-CI",
+    "difficulty": 2,
+    "stem": "根据句子的意思，从选项中选出最适当的答案。\n\n妹妹常常忘记带水壶，妈妈每天出门前都会____她。",
+    "options": [
+      "提高",
+      "提供",
+      "提出",
+      "提醒"
+    ],
+    "answer": 4,
+    "working": [
+      "提醒 tí xǐng = to remind. Mum reminds her so that she won't forget the bottle."
+    ],
+    "distractors": {
+      "1": "提高 = to raise (提高水平).",
+      "2": "提供 = to provide (提供帮助).",
+      "3": "提出 = to put forward (提出意见)."
+    },
+    "hints": [
+      "What does Mum do every morning so that 妹妹 won't leave the bottle behind?",
+      "All four start with 提. Which second character is about being awake and alert?"
+    ],
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能推断词、句的意思; SEAB 0005 考试目标 “词语的认识和运用（包括成语和习用语）”. Exam: PSLE 试卷二 一 语文应用 (词), 2 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q8",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.yuwen",
+    "marks": 2,
+    "type": "mcq",
+    "subskill": "phrase",
+    "archetype": "ZH6-DY",
+    "difficulty": 3,
+    "stem": "根据句子的意思，从选项中选出最适当的答案。\n\n大家分工合作，可以____。",
+    "options": [
+      "增加水平",
+      "提高效率",
+      "克服目标",
+      "达到愿望"
+    ],
+    "answer": 2,
+    "working": [
+      "提高效率 = to work more efficiently: 提高 goes with 效率 and 水平.",
+      "The others are wrong pairs: 水平 is 提高-ed (not 增加-ed); we 克服 a difficulty and 达到 a target; we 实现 a wish."
+    ],
+    "distractors": {
+      "1": "水平 goes with 提高, not 增加 (增加 is for amounts: 增加人数).",
+      "3": "克服 goes with 困难; a 目标 is 达到-ed.",
+      "4": "A 愿望 is 实现-ed, not 达到-ed."
+    },
+    "hints": [
+      "Read each phrase and ask: does this verb really go with this noun?",
+      "We 克服困难 and 实现愿望. Now check the other two pairs."
+    ],
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 写作：能通顺、生动地表达（词语搭配）; SEAB 0005 考试目标 “词语的认识和运用（包括成语和习用语）”. Exam: PSLE 试卷二 一 语文应用 (短语: 搭配), 2 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q9",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.yuwen",
+    "marks": 2,
+    "type": "mcq",
+    "subskill": "idiom",
+    "archetype": "ZH6-CY",
+    "difficulty": 2,
+    "stem": "根据句子的意思，从选项中选出最适当的答案。\n\n哥哥做功课时总是____，一会儿看手机，一会儿吃零食，结果很晚才做完。",
+    "options": [
+      "一心一意",
+      "一举两得",
+      "三心二意",
+      "专心致志"
+    ],
+    "answer": 3,
+    "working": [
+      "三心二意 = not focused, the mind wandering from one thing to another. The clue is 一会儿……一会儿…… and 很晚才做完."
+    ],
+    "distractors": {
+      "1": "一心一意 = with your whole heart on one thing: the opposite.",
+      "2": "一举两得 = one action, two gains (kill two birds with one stone).",
+      "4": "专心致志 = fully focused: the opposite."
+    },
+    "hints": [
+      "He keeps switching between things. Is that focused or not focused?",
+      "Two options mean 'focused'. Cross them out first."
+    ],
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能推断词、句的意思（成语）; SEAB 0005 考试目标 “词语的认识和运用（包括成语和习用语）”. Exam: PSLE 试卷二 一 语文应用 (词: 成语), 2 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q10",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.yuwen",
+    "marks": 2,
+    "type": "mcq",
+    "subskill": "sentence",
+    "archetype": "ZH6-JZ",
+    "difficulty": 3,
+    "stem": "根据句子的意思，从选项中选出最适当的答案。\n\n下面哪一个句子是正确的？",
+    "options": [
+      "通过这次活动，使我明白了合作的重要性。",
+      "他写作文写得又快又好。",
+      "我们要不断改进学习水平。",
+      "大约有五十多人参加了这次比赛。"
+    ],
+    "answer": 2,
+    "working": [
+      "Option 2 has no mistake.",
+      "1 has no subject: 通过……使…… hides who understood (fix: 通过这次活动，我明白了……). 3 is a wrong pair: 水平 is 提高-ed. 4 says 'about' twice: 大约 and 多 both mean roughly."
+    ],
+    "distractors": {
+      "1": "通过……使…… leaves the sentence with no subject. Drop 使 (or drop 通过).",
+      "3": "水平 goes with 提高, not 改进 (改进 goes with 方法).",
+      "4": "大约 and 多 both mean 'about'. Keep only one."
+    },
+    "hints": [
+      "Check each sentence: who does the action? does the verb fit the noun? is anything said twice?",
+      "One sentence uses two words that both mean 'about'."
+    ],
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 写作：能写完整的句子；检查并修改文字; SEAB 0005 考试目标 “句子结构的认识和运用”. Exam: PSLE 试卷二 一 语文应用 (句子: 病句), 2 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q11",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.yuwen",
+    "marks": 2,
+    "type": "mcq",
+    "subskill": "sentence",
+    "archetype": "ZH6-JZ",
+    "difficulty": 3,
+    "stem": "根据句子的意思，从选项中选出最适当的答案。\n\n“他哪里是不想去，只是没有时间罢了。”这句话的意思是什么？",
+    "options": [
+      "他不想去，也没有时间。",
+      "他不知道要去哪里。",
+      "他有时间，可是不想去。",
+      "他想去，可是没有时间。"
+    ],
+    "answer": 4,
+    "working": [
+      "哪里是…… is a rhetorical question (反问): it means 'it is not that …'. So it is not that he doesn't want to go; he just has no time (只是……罢了)."
+    ],
+    "distractors": {
+      "1": "The sentence says it is NOT that he doesn't want to go.",
+      "2": "哪里 here is not asking about a place.",
+      "3": "The opposite: the problem is time, not wanting."
+    },
+    "hints": [
+      "哪里 here is not asking 'where'. It is a question that expects the answer 'no'.",
+      "So, does he want to go or not? And what is the real reason?"
+    ],
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能推断词、句的意思；能理解隐含信息; SEAB 0005 考试目标 “句子结构的认识和运用”. Exam: PSLE 试卷二 一 语文应用 (句子: 句意, 反问句), 2 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q12",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.tiankong",
+    "subskill": "cloze",
+    "archetype": "ZH6-TK",
+    "marks": 2,
+    "type": "mcq",
+    "passage": "每个星期六早上，我都会和爷爷到组屋楼下的社区花园帮忙。刚开始的时候，我觉得浇水、拔草又累又___(1)___，一点儿也不好玩。爷爷却笑着说：“种菜就像读书一样，要有___(2)___，才会有收获。”\n\n几个月过去了，我们种的小白菜和番茄___(3)___长大了。邻居们经过菜园，看到一片绿油油的景象，都___(4)___称赞。那天，我把亲手摘下的番茄送给楼上的陈奶奶，她高兴得合不拢嘴。那一刻，我终于明白：付出的汗水是___(5)___的。",
+    "stem": "根据短文的内容和上下文的意思，从选项中选出最适当的答案。\n\n哪一个词语最适合填在 (1)？",
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能推断词、句的意思; SEAB 0005 考试目标 “词语的认识和运用（包括成语和习用语）”. Exam: PSLE 试卷二 一 短文填空, 2 marks.",
+    "difficulty": 2,
+    "options": [
+      "无聊",
+      "无辜",
+      "无奈",
+      "无数"
+    ],
+    "answer": 1,
+    "working": [
+      "The next words, 一点儿也不好玩, explain the blank: the work felt boring. 又累又无聊 = tiring and boring."
+    ],
+    "distractors": {
+      "2": "无辜 = innocent (not guilty).",
+      "3": "无奈 = having no choice; it doesn't match 不好玩.",
+      "4": "无数 = countless; it describes an amount."
+    },
+    "hints": [
+      "Read the words right after the blank.",
+      "Which word means 'not fun, nothing interesting'?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q13",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.tiankong",
+    "subskill": "cloze",
+    "archetype": "ZH6-TK",
+    "marks": 2,
+    "type": "mcq",
+    "passage": "每个星期六早上，我都会和爷爷到组屋楼下的社区花园帮忙。刚开始的时候，我觉得浇水、拔草又累又___(1)___，一点儿也不好玩。爷爷却笑着说：“种菜就像读书一样，要有___(2)___，才会有收获。”\n\n几个月过去了，我们种的小白菜和番茄___(3)___长大了。邻居们经过菜园，看到一片绿油油的景象，都___(4)___称赞。那天，我把亲手摘下的番茄送给楼上的陈奶奶，她高兴得合不拢嘴。那一刻，我终于明白：付出的汗水是___(5)___的。",
+    "stem": "根据短文的内容和上下文的意思，从选项中选出最适当的答案。\n\n哪一个词语最适合填在 (2)？",
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能推断词、句的意思; SEAB 0005 考试目标 “词语的认识和运用（包括成语和习用语）”. Exam: PSLE 试卷二 一 短文填空, 2 marks.",
+    "difficulty": 2,
+    "options": [
+      "粗心",
+      "伤心",
+      "耐心",
+      "灰心"
+    ],
+    "answer": 3,
+    "working": [
+      "Growing vegetables, like studying, takes time before you see results: 要有耐心 (be patient), 才会有收获."
+    ],
+    "distractors": {
+      "1": "粗心 = careless. You wouldn't 'need carelessness'.",
+      "2": "伤心 = sad.",
+      "4": "灰心 = discouraged; the opposite of what Grandpa means."
+    },
+    "hints": [
+      "Grandpa compares growing vegetables with studying. What do both need before you get results?",
+      "All four end in 心. Which one is a good quality to have?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q14",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.tiankong",
+    "subskill": "cloze",
+    "archetype": "ZH6-TK",
+    "marks": 2,
+    "type": "mcq",
+    "passage": "每个星期六早上，我都会和爷爷到组屋楼下的社区花园帮忙。刚开始的时候，我觉得浇水、拔草又累又___(1)___，一点儿也不好玩。爷爷却笑着说：“种菜就像读书一样，要有___(2)___，才会有收获。”\n\n几个月过去了，我们种的小白菜和番茄___(3)___长大了。邻居们经过菜园，看到一片绿油油的景象，都___(4)___称赞。那天，我把亲手摘下的番茄送给楼上的陈奶奶，她高兴得合不拢嘴。那一刻，我终于明白：付出的汗水是___(5)___的。",
+    "stem": "根据短文的内容和上下文的意思，从选项中选出最适当的答案。\n\n哪一个词语最适合填在 (3)？",
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能推断词、句的意思; SEAB 0005 考试目标 “句子结构的认识和运用”. Exam: PSLE 试卷二 一 短文填空, 2 marks.",
+    "difficulty": 2,
+    "options": [
+      "立刻",
+      "渐渐",
+      "忽然",
+      "难道"
+    ],
+    "answer": 2,
+    "working": [
+      "几个月过去了 tells you it happened slowly, over months: 渐渐 = gradually."
+    ],
+    "distractors": {
+      "1": "立刻 = at once; it took months.",
+      "3": "忽然 = suddenly; plants grow slowly.",
+      "4": "难道 starts a rhetorical question; this is a statement."
+    },
+    "hints": [
+      "How long did it take? Look at the start of the paragraph.",
+      "Did the plants grow fast or slowly?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q15",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.tiankong",
+    "subskill": "cloze",
+    "archetype": "ZH6-TK",
+    "marks": 2,
+    "type": "mcq",
+    "passage": "每个星期六早上，我都会和爷爷到组屋楼下的社区花园帮忙。刚开始的时候，我觉得浇水、拔草又累又___(1)___，一点儿也不好玩。爷爷却笑着说：“种菜就像读书一样，要有___(2)___，才会有收获。”\n\n几个月过去了，我们种的小白菜和番茄___(3)___长大了。邻居们经过菜园，看到一片绿油油的景象，都___(4)___称赞。那天，我把亲手摘下的番茄送给楼上的陈奶奶，她高兴得合不拢嘴。那一刻，我终于明白：付出的汗水是___(5)___的。",
+    "stem": "根据短文的内容和上下文的意思，从选项中选出最适当的答案。\n\n哪一个词语最适合填在 (4)？",
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能推断词、句的意思; SEAB 0005 考试目标 “句子结构的认识和运用”. Exam: PSLE 试卷二 一 短文填空, 2 marks.",
+    "difficulty": 2,
+    "options": [
+      "纷纷",
+      "匆匆",
+      "偷偷",
+      "慢慢"
+    ],
+    "answer": 1,
+    "working": [
+      "Many neighbours praised it, one after another: 纷纷称赞. 纷纷 goes with a group of people (都)."
+    ],
+    "distractors": {
+      "2": "匆匆 = in a hurry.",
+      "3": "偷偷 = secretly; praise is said openly.",
+      "4": "慢慢 = slowly; it doesn't describe how a group praises."
+    },
+    "hints": [
+      "Who is praising? One person or many?",
+      "Which word means 'one after another, many people'?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q16",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.tiankong",
+    "subskill": "cloze",
+    "archetype": "ZH6-TK",
+    "marks": 2,
+    "type": "mcq",
+    "passage": "每个星期六早上，我都会和爷爷到组屋楼下的社区花园帮忙。刚开始的时候，我觉得浇水、拔草又累又___(1)___，一点儿也不好玩。爷爷却笑着说：“种菜就像读书一样，要有___(2)___，才会有收获。”\n\n几个月过去了，我们种的小白菜和番茄___(3)___长大了。邻居们经过菜园，看到一片绿油油的景象，都___(4)___称赞。那天，我把亲手摘下的番茄送给楼上的陈奶奶，她高兴得合不拢嘴。那一刻，我终于明白：付出的汗水是___(5)___的。",
+    "stem": "根据短文的内容和上下文的意思，从选项中选出最适当的答案。\n\n哪一个词语最适合填在 (5)？",
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能推断词、句的意思；能理解隐含信息; SEAB 0005 考试目标 “词语的认识和运用（包括成语和习用语）”. Exam: PSLE 试卷二 一 短文填空, 2 marks.",
+    "difficulty": 2,
+    "options": [
+      "可惜",
+      "难得",
+      "普通",
+      "值得"
+    ],
+    "answer": 4,
+    "working": [
+      "The hard work paid off: the vegetables grew and made others happy. 付出的汗水是值得的 = the effort was worth it."
+    ],
+    "distractors": {
+      "1": "可惜 = a pity; the story ends happily.",
+      "2": "难得 = rare; that isn't what he learned.",
+      "3": "普通 = ordinary; it doesn't say what he realised."
+    },
+    "hints": [
+      "How does the story end: happily or sadly?",
+      "What did the narrator finally understand about all that hard work?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q17",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.yuedu1",
+    "subskill": "rc_mcq",
+    "archetype": "ZH6-YD1",
+    "marks": 2,
+    "type": "mcq",
+    "passage": "小婷是学校篮球队的队员。上个月，她在练习时扭伤了脚，医生说她至少要休息四个星期。眼看校际比赛就要到了，小婷急得直掉眼泪。\n\n教练没有让她回家休息，而是请她每天坐在场边，帮忙记录队员们投篮的次数。小婷心里很不服气：“我是来打球的，又不是来写字的！”可是，她还是乖乖地拿起了笔记本。\n\n记着记着，小婷发现了一个秘密：队长在左边投篮，十次里只进三次；在右边投篮，十次里却能进七次。她把这个发现告诉了教练。教练听了，马上调整了比赛的战术。\n\n比赛那天，队长多从右边进攻，球队最后以两分险胜。大家把小婷围了起来，队长笑着说：“这场胜利，有一半是你的功劳！”小婷这才明白，坐在场边的人，也能为球队出一份力。",
+    "stem": "根据篇章的内容，选出最适当的答案。\n\n小婷为什么急得直掉眼泪？",
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能理解隐含信息; SEAB 0005 考试目标 “阅读理解”. Exam: PSLE 试卷二 二 阅读理解一, 2 marks.",
+    "difficulty": 2,
+    "options": [
+      "因为教练不让她继续留在篮球队里。",
+      "因为她的脚很痛，连走路都很困难。",
+      "因为比赛快到了，她却不能上场。",
+      "因为医生说她以后再也不能打篮球了。"
+    ],
+    "answer": 3,
+    "working": [
+      "Paragraph 1: she must rest at least four weeks (至少要休息四个星期), and the inter-school match is coming (眼看校际比赛就要到了). That is why she is so anxious."
+    ],
+    "distractors": {
+      "1": "The coach kept her in the team; he gave her a job at the side.",
+      "2": "The passage never says she could hardly walk, or that pain made her cry; it was the match.",
+      "4": "The doctor said rest for at least four weeks, not never play again."
+    },
+    "hints": [
+      "The answer is in the first paragraph. What is coming soon?",
+      "Put two facts together: how long must she rest, and when is the match?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q18",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.yuedu1",
+    "subskill": "rc_mcq",
+    "archetype": "ZH6-YD1",
+    "marks": 2,
+    "type": "mcq",
+    "passage": "小婷是学校篮球队的队员。上个月，她在练习时扭伤了脚，医生说她至少要休息四个星期。眼看校际比赛就要到了，小婷急得直掉眼泪。\n\n教练没有让她回家休息，而是请她每天坐在场边，帮忙记录队员们投篮的次数。小婷心里很不服气：“我是来打球的，又不是来写字的！”可是，她还是乖乖地拿起了笔记本。\n\n记着记着，小婷发现了一个秘密：队长在左边投篮，十次里只进三次；在右边投篮，十次里却能进七次。她把这个发现告诉了教练。教练听了，马上调整了比赛的战术。\n\n比赛那天，队长多从右边进攻，球队最后以两分险胜。大家把小婷围了起来，队长笑着说：“这场胜利，有一半是你的功劳！”小婷这才明白，坐在场边的人，也能为球队出一份力。",
+    "stem": "根据篇章的内容，选出最适当的答案。\n\n小婷说“我是来打球的，又不是来写字的！”，这时她的心情是怎样的？",
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能推断词、句的意思；能理解隐含信息; SEAB 0005 考试目标 “阅读理解”. Exam: PSLE 试卷二 二 阅读理解一, 2 marks.",
+    "difficulty": 3,
+    "options": [
+      "很感激",
+      "不情愿",
+      "很害怕",
+      "很得意"
+    ],
+    "answer": 2,
+    "working": [
+      "Just before, the passage says 心里很不服气 (not convinced, unhappy about it). She does the job, but unwillingly: 不情愿. The exam often gives the feeling in different words from the passage."
+    ],
+    "distractors": {
+      "1": "很感激 = grateful; she was not thankful at that moment.",
+      "3": "很害怕 = afraid; nothing scared her.",
+      "4": "很得意 = pleased with herself; she was unhappy."
+    },
+    "hints": [
+      "Find the sentence just before her words. What word describes her feeling?",
+      "The options use other words for that feeling. Which one means 'doing it, but not wanting to'?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q19",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.yuedu1",
+    "subskill": "rc_mcq",
+    "archetype": "ZH6-YD1",
+    "marks": 2,
+    "type": "mcq",
+    "passage": "小婷是学校篮球队的队员。上个月，她在练习时扭伤了脚，医生说她至少要休息四个星期。眼看校际比赛就要到了，小婷急得直掉眼泪。\n\n教练没有让她回家休息，而是请她每天坐在场边，帮忙记录队员们投篮的次数。小婷心里很不服气：“我是来打球的，又不是来写字的！”可是，她还是乖乖地拿起了笔记本。\n\n记着记着，小婷发现了一个秘密：队长在左边投篮，十次里只进三次；在右边投篮，十次里却能进七次。她把这个发现告诉了教练。教练听了，马上调整了比赛的战术。\n\n比赛那天，队长多从右边进攻，球队最后以两分险胜。大家把小婷围了起来，队长笑着说：“这场胜利，有一半是你的功劳！”小婷这才明白，坐在场边的人，也能为球队出一份力。",
+    "stem": "根据篇章的内容，选出最适当的答案。\n\n小婷的发现对球队有什么帮助？",
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能推断、预测事情的发展和结果; SEAB 0005 考试目标 “阅读理解”. Exam: PSLE 试卷二 二 阅读理解一, 2 marks.",
+    "difficulty": 2,
+    "options": [
+      "让队长以后每天都留在球场左边，专心练习投篮。",
+      "让教练发现队长投篮不准，决定换一个人当队长。",
+      "让小婷不必再休息，可以马上回到球场上比赛。",
+      "让教练改变了比赛的战术，帮助球队赢了比赛。"
+    ],
+    "answer": 4,
+    "working": [
+      "Paragraph 3: the coach 马上调整了比赛的战术 after hearing her finding. Paragraph 4: the captain attacked more from the right, and the team won by two points."
+    ],
+    "distractors": {
+      "1": "The finding was that the captain scored more on the RIGHT, and the team used that.",
+      "2": "Nothing is said about changing the captain.",
+      "3": "She still had to rest; her foot is not mentioned again."
+    },
+    "hints": [
+      "What did the coach do right after hearing her secret?",
+      "Then look at what happened on match day."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q20",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.yuedu1",
+    "subskill": "rc_mcq",
+    "archetype": "ZH6-YD1",
+    "marks": 2,
+    "type": "mcq",
+    "passage": "小婷是学校篮球队的队员。上个月，她在练习时扭伤了脚，医生说她至少要休息四个星期。眼看校际比赛就要到了，小婷急得直掉眼泪。\n\n教练没有让她回家休息，而是请她每天坐在场边，帮忙记录队员们投篮的次数。小婷心里很不服气：“我是来打球的，又不是来写字的！”可是，她还是乖乖地拿起了笔记本。\n\n记着记着，小婷发现了一个秘密：队长在左边投篮，十次里只进三次；在右边投篮，十次里却能进七次。她把这个发现告诉了教练。教练听了，马上调整了比赛的战术。\n\n比赛那天，队长多从右边进攻，球队最后以两分险胜。大家把小婷围了起来，队长笑着说：“这场胜利，有一半是你的功劳！”小婷这才明白，坐在场边的人，也能为球队出一份力。",
+    "stem": "根据篇章的内容，选出最适当的答案。\n\n这篇短文主要想告诉我们什么？",
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能概括内容（文章主旨）; SEAB 0005 考试目标 “阅读理解”. Exam: PSLE 试卷二 二 阅读理解一, 2 marks.",
+    "difficulty": 3,
+    "options": [
+      "运动时受了伤，一定要听医生的话，好好休息。",
+      "不能上场的人，也能用其他方法为团队出力。",
+      "打篮球时，从右边进攻比从左边进攻更容易得分。",
+      "比赛的输赢并不重要，最重要的是大家玩得开心。"
+    ],
+    "answer": 2,
+    "working": [
+      "The last sentence gives the message: 坐在场边的人，也能为球队出一份力. Option 2 says the same thing in other words."
+    ],
+    "distractors": {
+      "1": "Resting is part of the story, not its message.",
+      "3": "That worked for this captain only; it is a detail, not the lesson.",
+      "4": "The story celebrates the win; it never says winning doesn't matter."
+    },
+    "hints": [
+      "The lesson is often in the last sentence of a story.",
+      "Which option says the last sentence in other words?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q21",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.duihua",
+    "subskill": "dialogue",
+    "archetype": "ZH6-DH",
+    "marks": 2,
+    "type": "mcq",
+    "passage": "美玲：喂，是家乐吗？我是美玲。\n家乐：美玲，你好！___(1)___\n美玲：下个星期六，学校要举办义卖会，我想请你和我一起去帮忙。\n家乐：好啊！不过，___(2)___\n美玲：早上八点开始，下午一点结束。\n家乐：那我们要做些什么呢？\n美玲：我们负责卖手工书签。___(3)___\n家乐：没问题！我家里还有一些彩色纸，可以拿来做书签。\n美玲：太好了！___(4)___\n家乐：好，星期六见！",
+    "stem": "根据对话的内容，选出最适当的答案。\n\n哪一句最适合填在 (1)？",
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 书面互动：能提出问题，并对他人的提问作出适当的书面回应; SEAB 0005 考试目标 “阅读理解 (书面互动的理解)”. Exam: PSLE 试卷二 三 完成对话, 2 marks.",
+    "difficulty": 2,
+    "options": [
+      "找我有什么事吗？",
+      "你吃过午饭了吗？",
+      "我现在没有空。",
+      "你在哪里买书签？"
+    ],
+    "answer": 1,
+    "working": [
+      "Read the line AFTER the blank: 美玲 explains why she called (the charity sale). So 家乐 must have asked what she wants: 找我有什么事吗？"
+    ],
+    "distractors": {
+      "2": "美玲's next line doesn't answer a lunch question.",
+      "3": "If he had no time, the friendly plan that follows wouldn't fit.",
+      "4": "Bookmarks haven't been mentioned yet."
+    },
+    "hints": [
+      "Cover the options. Read what 美玲 says next.",
+      "Her next line is an answer. What question was she answering?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q22",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.duihua",
+    "subskill": "dialogue",
+    "archetype": "ZH6-DH",
+    "marks": 2,
+    "type": "mcq",
+    "passage": "美玲：喂，是家乐吗？我是美玲。\n家乐：美玲，你好！___(1)___\n美玲：下个星期六，学校要举办义卖会，我想请你和我一起去帮忙。\n家乐：好啊！不过，___(2)___\n美玲：早上八点开始，下午一点结束。\n家乐：那我们要做些什么呢？\n美玲：我们负责卖手工书签。___(3)___\n家乐：没问题！我家里还有一些彩色纸，可以拿来做书签。\n美玲：太好了！___(4)___\n家乐：好，星期六见！",
+    "stem": "根据对话的内容，选出最适当的答案。\n\n哪一句最适合填在 (2)？",
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 书面互动：能提出问题，并对他人的提问作出适当的书面回应; SEAB 0005 考试目标 “阅读理解 (书面互动的理解)”. Exam: PSLE 试卷二 三 完成对话, 2 marks.",
+    "difficulty": 2,
+    "options": [
+      "义卖会在学校的哪个地方举行呢？",
+      "义卖会上要卖些什么东西呢？",
+      "义卖会是从几点到几点呢？",
+      "义卖会筹到的钱要捐给谁呢？"
+    ],
+    "answer": 3,
+    "working": [
+      "美玲 answers with a start and an end time (早上八点开始，下午一点结束), so 家乐 asked about the hours: 从几点到几点."
+    ],
+    "distractors": {
+      "1": "The reply gives times, not a place.",
+      "2": "The reply gives times, not things to sell.",
+      "4": "The reply gives times, not who gets the money."
+    },
+    "hints": [
+      "Look at 美玲's reply: what kind of information does it give?",
+      "Which question asks for exactly that information?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q23",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.duihua",
+    "subskill": "dialogue",
+    "archetype": "ZH6-DH",
+    "marks": 2,
+    "type": "mcq",
+    "passage": "美玲：喂，是家乐吗？我是美玲。\n家乐：美玲，你好！___(1)___\n美玲：下个星期六，学校要举办义卖会，我想请你和我一起去帮忙。\n家乐：好啊！不过，___(2)___\n美玲：早上八点开始，下午一点结束。\n家乐：那我们要做些什么呢？\n美玲：我们负责卖手工书签。___(3)___\n家乐：没问题！我家里还有一些彩色纸，可以拿来做书签。\n美玲：太好了！___(4)___\n家乐：好，星期六见！",
+    "stem": "根据对话的内容，选出最适当的答案。\n\n哪一句最适合填在 (3)？",
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 书面互动：能提出问题，并对他人的提问作出适当的书面回应; SEAB 0005 考试目标 “阅读理解 (书面互动的理解)”. Exam: PSLE 试卷二 三 完成对话, 2 marks.",
+    "difficulty": 3,
+    "options": [
+      "你平时最喜欢看哪一种类型的书？",
+      "我们做的书签，每张卖两块钱。",
+      "我已经把义卖会要用的书签全部做好了。",
+      "你能在星期五以前帮我做二十张书签吗？"
+    ],
+    "answer": 4,
+    "working": [
+      "家乐 replies 没问题 (no problem) and offers paper to make bookmarks. So 美玲 must have asked him to help make bookmarks."
+    ],
+    "distractors": {
+      "1": "家乐's reply is not about books he likes.",
+      "2": "A price needs no 没问题, and his reply is about making bookmarks.",
+      "3": "If they were all made, he wouldn't offer paper to make more."
+    },
+    "hints": [
+      "没问题 answers a request. What could 美玲 have asked him to do?",
+      "His reply is about making bookmarks."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q24",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.duihua",
+    "subskill": "dialogue",
+    "archetype": "ZH6-DH",
+    "marks": 2,
+    "type": "mcq",
+    "passage": "美玲：喂，是家乐吗？我是美玲。\n家乐：美玲，你好！___(1)___\n美玲：下个星期六，学校要举办义卖会，我想请你和我一起去帮忙。\n家乐：好啊！不过，___(2)___\n美玲：早上八点开始，下午一点结束。\n家乐：那我们要做些什么呢？\n美玲：我们负责卖手工书签。___(3)___\n家乐：没问题！我家里还有一些彩色纸，可以拿来做书签。\n美玲：太好了！___(4)___\n家乐：好，星期六见！",
+    "stem": "根据对话的内容，选出最适当的答案。\n\n哪一句最适合填在 (4)？",
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 书面互动：能提出问题，并对他人的提问作出适当的书面回应; SEAB 0005 考试目标 “阅读理解 (书面互动的理解)”. Exam: PSLE 试卷二 三 完成对话, 2 marks.",
+    "difficulty": 2,
+    "options": [
+      "谢谢你上次在我生日的时候送我礼物。",
+      "那我们星期六早上七点半在校门口见吧！",
+      "可是我星期六早上要先陪外婆去看医生。",
+      "你的彩色纸是在哪一家书店买的？"
+    ],
+    "answer": 2,
+    "working": [
+      "The last line is 好，星期六见！ — agreeing to meet on Saturday. So 美玲 suggested when and where to meet."
+    ],
+    "distractors": {
+      "1": "A thank-you for a gift doesn't lead to 星期六见.",
+      "3": "If she were busy on Saturday morning, 家乐 wouldn't simply say 星期六见.",
+      "4": "The reply would name a shop, not 星期六见."
+    },
+    "hints": [
+      "Read the very last line of the conversation.",
+      "Which option makes 好，星期六见！ a natural reply?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q25",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.yuedu2",
+    "type": "open",
+    "subskill": "practical_text",
+    "archetype": "ZH6-SYW",
+    "difficulty": 2,
+    "marks": 2,
+    "passage": "收件人：全体六年级学生\n寄件人：林老师（华文学会顾问）\n主题：“书香满校园”旧书交换活动\n\n各位同学：\n\n你们好！为了鼓励大家多阅读，华文学会将在8月14日下午2时至4时，在学校图书馆举办“书香满校园”旧书交换活动。\n\n参加的同学可以带一至三本旧书来交换。每交一本书，就能领取一张换书券，再用换书券换取别人的书。请注意，书本必须干净、没有破损，漫画和考试练习本不能交换。\n\n活动当天，图书馆还会设立“好书推介角”。如果你想向同学推荐一本好书，请在8月7日以前用电邮告诉我书名和推荐的原因。被选中的同学可以在活动中上台分享。\n\n欢迎大家踊跃参加！\n\n林老师\n华文学会",
+    "stem": "阅读下面的电邮，然后回答问题。\n\n哪些书不能拿来交换？写出两种情况。",
+    "answer": "不干净或有破损的书不能交换；漫画和考试练习本也不能交换。（写出其中任何两种即可）",
+    "working": [
+      "Paragraph 3 lists the rules after 请注意: books that are not clean, damaged books, comics and exam practice books. Any two of these = two marks."
+    ],
+    "marking": [
+      "写出以下任何两种，每种1分：不干净的书、有破损的书、漫画、考试练习本",
+      "Copying the exact phrase from the email is fine; answer in a full sentence."
+    ],
+    "keywords": [
+      "干净",
+      "破损",
+      "漫画",
+      "考试练习本"
+    ],
+    "hints": [
+      "Find the words 请注意 (please note) in the email.",
+      "The question asks for two kinds of books: give one for each mark."
+    ],
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 书面互动（材料类型：电邮）：掌握交流媒介的格式与用语；阅读：能理解阅读材料; SEAB 0005 考试目标 “阅读理解”. Exam: PSLE 试卷二 四 阅读理解二 (实用文: 电邮), 2 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q26",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.yuedu2",
+    "type": "open",
+    "subskill": "practical_text",
+    "archetype": "ZH6-SYW",
+    "difficulty": 2,
+    "marks": 2,
+    "passage": "收件人：全体六年级学生\n寄件人：林老师（华文学会顾问）\n主题：“书香满校园”旧书交换活动\n\n各位同学：\n\n你们好！为了鼓励大家多阅读，华文学会将在8月14日下午2时至4时，在学校图书馆举办“书香满校园”旧书交换活动。\n\n参加的同学可以带一至三本旧书来交换。每交一本书，就能领取一张换书券，再用换书券换取别人的书。请注意，书本必须干净、没有破损，漫画和考试练习本不能交换。\n\n活动当天，图书馆还会设立“好书推介角”。如果你想向同学推荐一本好书，请在8月7日以前用电邮告诉我书名和推荐的原因。被选中的同学可以在活动中上台分享。\n\n欢迎大家踊跃参加！\n\n林老师\n华文学会",
+    "stem": "阅读下面的电邮，然后回答问题。\n\n如果想在活动中上台分享，同学要怎么做？",
+    "answer": "同学要在8月7日以前，用电邮把书名和推荐的原因告诉林老师。被选中的同学才可以上台分享。",
+    "working": [
+      "Paragraph 4 gives the steps: email 林老师 before 7 August (1 mark) with the book title and the reason for recommending it (1 mark)."
+    ],
+    "marking": [
+      "在8月7日以前发电邮给林老师（1分）",
+      "写出书名和推荐的原因（1分）",
+      "Change 我 in the email to 林老师 in your answer."
+    ],
+    "keywords": [
+      "8月7日以前",
+      "电邮",
+      "书名",
+      "推荐的原因"
+    ],
+    "hints": [
+      "Look for the paragraph about 好书推介角.",
+      "Two things matter: the deadline, and what to put in the email."
+    ],
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 书面互动（材料类型：电邮）：掌握交流媒介的格式与用语；阅读：能理解阅读材料; SEAB 0005 考试目标 “阅读理解”. Exam: PSLE 试卷二 四 阅读理解二 (实用文: 电邮), 2 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q27",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.yuedu2",
+    "type": "open",
+    "subskill": "written_interaction",
+    "archetype": "ZH6-SMHD",
+    "difficulty": 3,
+    "marks": 4,
+    "passage": "收件人：全体六年级学生\n寄件人：林老师（华文学会顾问）\n主题：“书香满校园”旧书交换活动\n\n各位同学：\n\n你们好！为了鼓励大家多阅读，华文学会将在8月14日下午2时至4时，在学校图书馆举办“书香满校园”旧书交换活动。\n\n参加的同学可以带一至三本旧书来交换。每交一本书，就能领取一张换书券，再用换书券换取别人的书。请注意，书本必须干净、没有破损，漫画和考试练习本不能交换。\n\n活动当天，图书馆还会设立“好书推介角”。如果你想向同学推荐一本好书，请在8月7日以前用电邮告诉我书名和推荐的原因。被选中的同学可以在活动中上台分享。\n\n欢迎大家踊跃参加！\n\n林老师\n华文学会",
+    "stem": "阅读下面的电邮，然后回答问题。\n\n你想在“好书推介角”推荐一本书。请根据电邮的要求，写一封简短的电邮回复林老师（不少于40个字）。",
+    "answer": "林老师：\n您好！我想在“好书推介角”推荐《海边的小灯塔》。这本书讲的是一个男孩每天晚上帮忙点亮灯塔，帮助渔船平安回家的故事。故事很感人，让我明白了坚持和助人为乐的道理。希望我能在活动中和同学们分享这本好书。\n祝您\n工作顺利！\n学生 小文\n8月5日",
+    "working": [
+      "SEAB lists 书面互动 as part of 阅读理解二. A reply must do what the email asked: give the book title and the reason (paragraph 4), before the deadline.",
+      "Keep the email form: greeting (林老师：您好！), the content, a closing wish, your name and the date."
+    ],
+    "marking": [
+      "格式：称呼、问候、结尾祝语、署名（1分）",
+      "写出想推荐的书名（1分）",
+      "写出至少一个推荐的原因（1分）",
+      "语句通顺，用词恰当，不少于40个字（1分）"
+    ],
+    "keywords": [
+      "林老师",
+      "推荐",
+      "书名",
+      "原因"
+    ],
+    "hints": [
+      "Reread what 林老师 asked for in paragraph 4: which two things must your email contain?",
+      "Start with 林老师：您好！ and end with a wish, your name and the date."
+    ],
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 书面互动：掌握交流媒介的格式与用语（如电邮）；能根据情境和对象选择书面互动的内容和用语; SEAB 0005 考试目标 “写作／书面互动”. Exam: PSLE 试卷二 四 阅读理解二 (书面互动: 回复电邮), 4 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q28",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.yuedu2",
+    "type": "short",
+    "subskill": "word_meaning",
+    "archetype": "ZH6-PZ",
+    "difficulty": 2,
+    "marks": 2,
+    "passage": "外公在巴刹里卖了三十年的豆腐。每天凌晨四点，他就起床磨豆子、煮豆浆、点豆花，再把豆花一勺一勺地舀进木框里。我问外公：“现在超市里的豆腐又便宜又方便，为什么您还要这么辛苦？”外公一边擦汗，一边说：“机器做的豆腐，少了一点儿人情味。”\n\n去年，外公的腰受了伤，不能再搬重的东西了。我们都劝他把摊位关了，好好在家休息。外公沉默了好久，最后只说了一句：“老顾客怎么办？”\n\n于是，每个周末，我都到巴刹帮外公的忙。我学会了磨豆子，也学会了笑着对顾客说“早安”。有一位老奶奶每次都买一块豆腐。她告诉我，她吃外公的豆腐已经吃了二十年，这是她每天最期待的味道。\n\n那天收摊的时候，我看着外公布满皱纹的双手，忽然明白了他坚持的原因。原来，他卖的不只是豆腐，更是一份不变的情谊。",
+    "stem": "阅读下面的短文，然后回答问题。\n\n从第一段中找出一个词语，意思是“人与人之间的温暖和关怀”。",
+    "answer": "人情味",
+    "working": [
+      "Grandpa says machine-made tofu 少了一点儿人情味: it lacks the human warmth of something made by a person for people he knows."
+    ],
+    "hints": [
+      "The word is in something 外公 says in paragraph 1.",
+      "It describes what machine-made tofu does NOT have."
+    ],
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能推断词、句的意思; SEAB 0005 考试目标 “词语的认识和运用（包括成语和习用语）”. Exam: PSLE 试卷二 四 阅读理解二 (篇章: 词义), 2 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q29",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.yuedu2",
+    "type": "open",
+    "subskill": "explain_reason",
+    "archetype": "ZH6-PZ",
+    "difficulty": 3,
+    "marks": 2,
+    "passage": "外公在巴刹里卖了三十年的豆腐。每天凌晨四点，他就起床磨豆子、煮豆浆、点豆花，再把豆花一勺一勺地舀进木框里。我问外公：“现在超市里的豆腐又便宜又方便，为什么您还要这么辛苦？”外公一边擦汗，一边说：“机器做的豆腐，少了一点儿人情味。”\n\n去年，外公的腰受了伤，不能再搬重的东西了。我们都劝他把摊位关了，好好在家休息。外公沉默了好久，最后只说了一句：“老顾客怎么办？”\n\n于是，每个周末，我都到巴刹帮外公的忙。我学会了磨豆子，也学会了笑着对顾客说“早安”。有一位老奶奶每次都买一块豆腐。她告诉我，她吃外公的豆腐已经吃了二十年，这是她每天最期待的味道。\n\n那天收摊的时候，我看着外公布满皱纹的双手，忽然明白了他坚持的原因。原来，他卖的不只是豆腐，更是一份不变的情谊。",
+    "stem": "阅读下面的短文，然后回答问题。\n\n外公受伤后，家人劝他关掉摊位。外公为什么不愿意？",
+    "answer": "因为外公担心老顾客吃不到他的豆腐。他卖的不只是豆腐，还有他和老顾客之间多年的情谊，所以他舍不得关掉摊位。",
+    "working": [
+      "Paragraph 2: 外公 only says 老顾客怎么办？ — he worries about his regular customers (1 mark).",
+      "Paragraph 4 explains why they matter: what he sells is also 一份不变的情谊 (1 mark)."
+    ],
+    "marking": [
+      "担心老顾客（吃不到他的豆腐）（1分）",
+      "他和老顾客之间有多年的情谊／他卖的不只是豆腐（1分）"
+    ],
+    "keywords": [
+      "老顾客",
+      "情谊"
+    ],
+    "hints": [
+      "What is the only thing 外公 says when the family asks him to stop?",
+      "The last paragraph tells you why those people matter so much to him."
+    ],
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能理解隐含信息; SEAB 0005 考试目标 “阅读理解”. Exam: PSLE 试卷二 四 阅读理解二 (篇章: 原因), 2 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  },
+  {
+    "id": "p6chi-p2-01-q30",
+    "skill": "p6-chinese",
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "topic": "paper2.yuedu2",
+    "type": "open",
+    "subskill": "character_feeling",
+    "archetype": "ZH6-PZ",
+    "difficulty": 4,
+    "marks": 3,
+    "passage": "外公在巴刹里卖了三十年的豆腐。每天凌晨四点，他就起床磨豆子、煮豆浆、点豆花，再把豆花一勺一勺地舀进木框里。我问外公：“现在超市里的豆腐又便宜又方便，为什么您还要这么辛苦？”外公一边擦汗，一边说：“机器做的豆腐，少了一点儿人情味。”\n\n去年，外公的腰受了伤，不能再搬重的东西了。我们都劝他把摊位关了，好好在家休息。外公沉默了好久，最后只说了一句：“老顾客怎么办？”\n\n于是，每个周末，我都到巴刹帮外公的忙。我学会了磨豆子，也学会了笑着对顾客说“早安”。有一位老奶奶每次都买一块豆腐。她告诉我，她吃外公的豆腐已经吃了二十年，这是她每天最期待的味道。\n\n那天收摊的时候，我看着外公布满皱纹的双手，忽然明白了他坚持的原因。原来，他卖的不只是豆腐，更是一份不变的情谊。",
+    "stem": "阅读下面的短文，然后回答问题。\n\n你认为外公是一个怎样的人？试从短文中举一个例子说明。",
+    "answer": "外公是一个勤劳的人。例如，他三十年来每天凌晨四点就起床磨豆子、煮豆浆，从来不怕辛苦。（也可以答：外公是一个重情义的人。例如，他受伤后仍然担心老顾客，不愿意关掉摊位。）",
+    "working": [
+      "Name one quality (1 mark), then back it with an example from the text that really shows it (2 marks).",
+      "勤劳／吃苦耐劳 → up at 4 a.m. for thirty years. 重情义／关心顾客 → 老顾客怎么办？ after his injury."
+    ],
+    "marking": [
+      "写出外公的一个性格特点，如勤劳、吃苦耐劳、重情义、关心顾客（1分）",
+      "从短文中举出能说明这个特点的例子（2分）；例子和特点不相符，只给特点的分"
+    ],
+    "keywords": [
+      "勤劳",
+      "凌晨四点",
+      "重情义",
+      "老顾客"
+    ],
+    "hints": [
+      "First pick one word for the kind of person he is.",
+      "Then find one thing he does in the story that proves it."
+    ],
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能概括内容（人物性格特点）；能就内容（如人物言行）发表看法; SEAB 0005 考试目标 “阅读理解”. Exam: PSLE 试卷二 四 阅读理解二 (篇章: 人物特点), 3 marks.",
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    }
+  }
+]

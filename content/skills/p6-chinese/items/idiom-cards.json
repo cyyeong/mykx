@@ -1,0 +1,186 @@
+[
+  {
+    "id": "p6chi-idiom-cards-01",
+    "skill": "p6-chinese",
+    "topic": "words.idioms",
+    "subskill": "recognise",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "card",
+    "stem": "迫不及待",
+    "answer": "pò bù jí dài — too eager to wait; can't wait",
+    "card": {
+      "pinyin": "pò bù jí dài",
+      "meaning": "too eager to wait; can't wait"
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能推断词、句的意思; SEAB 0005 考试目标 “词语的认识和运用（包括成语和习用语）”. Exam: practises 一 语文应用 (成语) and 阅读理解."
+  },
+  {
+    "id": "p6chi-idiom-cards-02",
+    "skill": "p6-chinese",
+    "topic": "words.idioms",
+    "subskill": "recognise",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "card",
+    "stem": "依依不舍",
+    "answer": "yī yī bù shě — reluctant to part; sad to say goodbye",
+    "card": {
+      "pinyin": "yī yī bù shě",
+      "meaning": "reluctant to part; sad to say goodbye"
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能推断词、句的意思; SEAB 0005 考试目标 “词语的认识和运用（包括成语和习用语）”. Exam: practises 一 语文应用 (成语) and 阅读理解."
+  },
+  {
+    "id": "p6chi-idiom-cards-03",
+    "skill": "p6-chinese",
+    "topic": "words.idioms",
+    "subskill": "recognise",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "card",
+    "stem": "小心翼翼",
+    "answer": "xiǎo xīn yì yì — very carefully and cautiously",
+    "card": {
+      "pinyin": "xiǎo xīn yì yì",
+      "meaning": "very carefully and cautiously"
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能推断词、句的意思; SEAB 0005 考试目标 “词语的认识和运用（包括成语和习用语）”. Exam: practises 一 语文应用 (成语) and 阅读理解."
+  },
+  {
+    "id": "p6chi-idiom-cards-04",
+    "skill": "p6-chinese",
+    "topic": "words.idioms",
+    "subskill": "recognise",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "card",
+    "stem": "恍然大悟",
+    "answer": "huǎng rán dà wù — to suddenly understand",
+    "card": {
+      "pinyin": "huǎng rán dà wù",
+      "meaning": "to suddenly understand"
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能推断词、句的意思; SEAB 0005 考试目标 “词语的认识和运用（包括成语和习用语）”. Exam: practises 一 语文应用 (成语) and 阅读理解."
+  },
+  {
+    "id": "p6chi-idiom-cards-05",
+    "skill": "p6-chinese",
+    "topic": "words.idioms",
+    "subskill": "recognise",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "card",
+    "stem": "目不转睛",
+    "answer": "mù bù zhuǎn jīng — to watch without taking your eyes off",
+    "card": {
+      "pinyin": "mù bù zhuǎn jīng",
+      "meaning": "to watch without taking your eyes off"
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能推断词、句的意思; SEAB 0005 考试目标 “词语的认识和运用（包括成语和习用语）”. Exam: practises 一 语文应用 (成语) and 阅读理解."
+  },
+  {
+    "id": "p6chi-idiom-cards-06",
+    "skill": "p6-chinese",
+    "topic": "words.idioms",
+    "subskill": "recognise",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "card",
+    "stem": "井井有条",
+    "answer": "jǐng jǐng yǒu tiáo — neat and in good order",
+    "card": {
+      "pinyin": "jǐng jǐng yǒu tiáo",
+      "meaning": "neat and in good order"
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能推断词、句的意思; SEAB 0005 考试目标 “词语的认识和运用（包括成语和习用语）”. Exam: practises 一 语文应用 (成语) and 阅读理解."
+  },
+  {
+    "id": "p6chi-idiom-cards-07",
+    "skill": "p6-chinese",
+    "topic": "words.idioms",
+    "subskill": "recognise",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "card",
+    "stem": "汗流浃背",
+    "answer": "hàn liú jiā bèi — dripping with sweat",
+    "card": {
+      "pinyin": "hàn liú jiā bèi",
+      "meaning": "dripping with sweat"
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能推断词、句的意思; SEAB 0005 考试目标 “词语的认识和运用（包括成语和习用语）”. Exam: practises 一 语文应用 (成语) and 阅读理解."
+  },
+  {
+    "id": "p6chi-idiom-cards-08",
+    "skill": "p6-chinese",
+    "topic": "words.idioms",
+    "subskill": "recognise",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "card",
+    "stem": "争先恐后",
+    "answer": "zhēng xiān kǒng hòu — rushing to be first",
+    "card": {
+      "pinyin": "zhēng xiān kǒng hòu",
+      "meaning": "rushing to be first"
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Chinese practice written by Claude Code for myKx from the MOE primary Chinese syllabus and the SEAB PSLE Chinese Language (0005) format; checked by an independent re-solve; pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: 小学华文课程标准2015 分项目标 — 阅读：能推断词、句的意思; SEAB 0005 考试目标 “词语的认识和运用（包括成语和习用语）”. Exam: practises 一 语文应用 (成语) and 阅读理解."
+  }
+]
