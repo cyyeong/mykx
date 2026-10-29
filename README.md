@@ -169,7 +169,7 @@ For a real home, **Home Link** (`clients/home-link/`) is a small app on the fami
 
 ## Where Kix goes next
 
-<img src="docs/readme/roadmap.webp" alt="Where Kix goes next: the MVP now, the myKx mobile app, Home Link and devices, more to learn and earn, Kix on Meta devices, and then Kix goes global, with flags for Singapore, Malaysia, Indonesia, Australia, Japan, China, India, Korea, the UK and the USA." width="100%">
+<img src="docs/readme/roadmap.webp" alt="Where Kix goes next: the MVP now, the myKx mobile app, Home Link and devices, more to learn and earn, Kix on Meta devices, and then Kix goes global: a deck of country flag cards being dealt into a line, starting with Singapore, with more countries in flight and every country next." width="100%">
 
 - **Now:** the MVP above, live at [mykx.vercel.app](https://mykx.vercel.app).
 - **Next: the myKx mobile app.** Android first, then iPhone: precise location from the phone's GPS and motion from its sensors (walking, cycling, playing). Planned in [GUARDIAN.md §5a](docs/prd/GUARDIAN.md).

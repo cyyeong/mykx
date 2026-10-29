@@ -30,7 +30,7 @@ The names "myKx" and "Kix" are not licensed for use as trademarks (CC BY-NC 4.0 
 | Twemoji word icons in the P3 Chinese pack | `content/skills/p3-chinese/figures/` | CC BY 4.0, Twitter, Inc. and other contributors (credited in that pack's `skill.json`) |
 | Map tiles on the parent's "Where they are" map | loaded from OneMap, not stored | © Singapore Land Authority; OneMap's logo and credit are shown as its terms require |
 | Leaflet 1.9.4 (map library) | npm `leaflet` | BSD-2-Clause |
-| Country flags on the roadmap image (Singapore, Malaysia, Indonesia, Australia, Japan, China, India, Korea, UK, USA) | `docs/readme/roadmap.webp` | MIT, flag-icons 7.2.3 by Panayiotis Lipiridis |
+| Country flags on the roadmap image (22 countries) | `docs/readme/roadmap.webp` | MIT, flag-icons 7.2.3 by Panayiotis Lipiridis |
 | `ui-ux-pro-max` skill | `.agents/skills/ui-ux-pro-max/` | MIT (its `LICENSE`) |
 | `frontend-design` skill | `.agents/skills/frontend-design/` | Apache-2.0 (its `LICENSE.txt`) |
 

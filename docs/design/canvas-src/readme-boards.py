@@ -344,10 +344,10 @@ board("ReadmeSim", "myKx README: the simulator", build_sim, True, sim_css)
 # 8. Roadmap --------------------------------------------------------------------------------------------------------
 road_css = """
 .r-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% 50%;opacity:.13}
-.r-head{position:absolute;left:88px;top:60px;width:1424px}
-.r-head .rd-lede{margin-top:14px;font-size:23px;line-height:33px}
+.r-head{position:absolute;left:88px;top:48px;width:1424px}
+.r-head .rd-lede{margin-top:12px;font-size:23px;line-height:33px}
 .r-path{position:absolute;left:0;top:0;width:1600px;height:900px}
-.r-stops{position:absolute;left:88px;right:88px;top:228px;display:grid;grid-template-columns:repeat(5,1fr);gap:24px}
+.r-stops{position:absolute;left:88px;right:88px;top:196px;display:grid;grid-template-columns:repeat(5,1fr);gap:24px}
 .r-stop{position:relative;padding-top:64px}
 .r-dot{position:absolute;top:0;left:0;width:40px;height:40px;border-radius:50%;background:#1C1B4A;box-shadow:inset 0 0 0 3px #FFE38A}
 .r-stop.now .r-dot{background:#FFE38A;box-shadow:0 0 0 8px rgba(255,227,138,.25),0 0 24px rgba(255,227,138,.8)}
@@ -357,23 +357,42 @@ road_css = """
 .r-stop li{position:relative;padding-left:24px;font:700 17px/24px "Nunito",sans-serif;color:#D9D3FF}
 .r-stop li svg{position:absolute;left:0;top:6px;width:14px;height:14px;fill:#B9A7F5}
 .r-stop .rd-m{margin-top:16px}
-.r-ask{position:absolute;left:88px;bottom:40px;font:600 26px/34px "Fredoka",sans-serif;color:#FFE38A}
-.r-world{position:absolute;left:88px;right:88px;top:598px;display:grid;grid-template-columns:790px 1fr;gap:28px;padding:20px 28px;border-radius:28px;background:rgba(43,42,92,.82);box-shadow:inset 0 0 0 2px rgba(255,227,138,.55)}
+.r-world{position:absolute;left:88px;right:88px;top:566px;padding:18px 28px 16px;border-radius:28px;background:rgba(43,42,92,.82);box-shadow:inset 0 0 0 2px rgba(255,227,138,.55)}
+.r-whead{display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
 .r-world .r-when{color:#FFE38A}
 .r-world h3{margin-top:2px;font:600 28px/34px "Fredoka",sans-serif;color:#fff}
-.r-world ul{margin:12px 0 0;padding:0;list-style:none;display:grid;gap:7px}
+.r-ask{margin:0 0 4px;font:600 21px/28px "Fredoka",sans-serif;color:#FFE38A;text-align:right}
+.r-world ul{margin:10px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:6px 28px}
 .r-world li{position:relative;padding-left:24px;font:700 16px/22px "Nunito",sans-serif;color:#D9D3FF}
 .r-world li svg{position:absolute;left:0;top:5px;width:14px;height:14px;fill:#FFE38A}
-.r-flags{display:grid;grid-template-columns:repeat(5,1fr);gap:10px 8px;align-content:center}
-.r-flag{display:flex;flex-direction:column;align-items:center;gap:6px;margin:0}
-.r-flag img{width:64px;height:48px;border-radius:8px;box-shadow:0 0 0 1px rgba(255,255,255,.35),0 8px 18px rgba(10,8,40,.4);object-fit:cover}
-.r-flag figcaption{font:700 13px/16px "Nunito",sans-serif;color:#D9D3FF;text-align:center}
+.r-deal{position:relative;height:118px;margin-top:12px}
+.r-card{position:absolute;width:62px;height:47px;padding:3px;box-sizing:border-box;border-radius:8px;background:#fff;box-shadow:0 6px 14px rgba(8,6,30,.45)}
+.r-card img{display:block;width:100%;height:100%;border-radius:5px;object-fit:cover}
+.r-card.back{background:linear-gradient(135deg,#8C7BE8,#2B2A5C);box-shadow:0 0 0 2px #fff inset,0 4px 10px rgba(8,6,30,.4)}
+.r-card.back::after{content:"";position:absolute;inset:0;margin:auto;width:18px;height:18px;background:#FFE38A;clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%)}
+.r-streak{position:absolute;height:4px;border-radius:4px;background:linear-gradient(90deg,rgba(255,227,138,.55),rgba(255,227,138,0));transform-origin:0 50%}
+.r-pin{position:absolute;left:0;top:30px;font:800 13px/16px "Nunito",sans-serif;color:#FFE38A}
+.r-next{position:absolute;top:100px;font:800 13px/16px "Nunito",sans-serif;color:#D9D3FF;text-align:center;width:120px}
 """
 stop = lambda cls, when, title, items, extra="": f'<div class="r-stop {cls}"><span class="r-dot"></span><div class="r-when">{when}</div><h3>{title}</h3><ul>{"".join(li(i) for i in items)}</ul>{extra}</div>'
+LANDED = [("sg", "Singapore"), ("my", "Malaysia"), ("id", "Indonesia"), ("ph", "Philippines"), ("vn", "Vietnam"), ("th", "Thailand"), ("au", "Australia"), ("nz", "New Zealand"), ("jp", "Japan"), ("kr", "Korea"), ("cn", "China"), ("in", "India"), ("gb", "UK"), ("us", "USA")]
+# In flight from the deck to the line: x, y, tilt, opacity, blur (px). Further from the line = higher, more tilted, fainter.
+FLYING = [("ae", "UAE", 838, 52, -3, 1, 0), ("de", "Germany", 912, 40, -8, .96, 0), ("fr", "France", 992, 27, -12, .92, .3), ("ca", "Canada", 1076, 14, -16, .86, .5), ("br", "Brazil", 1162, 4, -20, .78, .8)]
+def card(code, name, x, y, rot=0, op=1, blur=0):
+    style = f"left:{x}px;top:{y}px;transform:rotate({rot}deg);opacity:{op}" + (f";filter:blur({blur}px)" if blur else "")
+    return f'<div class="r-card" style="{style}"><img src="{img("flag-" + code)}" alt="{name} flag"></div>'
+def streak(x, y, rot, length):
+    return f'<span class="r-streak" style="left:{x + 60}px;top:{y + 22}px;width:{length}px;transform:rotate({rot}deg)"></span>'
+deal = "".join(card(c, n, i * 58, 58) for i, (c, n) in enumerate(LANDED))
+deal += "".join(streak(x, y, r, 26 + k * 12) + card(c, n, x, y, r, o, b) for k, (c, n, x, y, r, o, b) in enumerate(FLYING))
+# The deck: card backs stepping down and right under the top card, with Kenya sliding out to be dealt next.
+deal += "".join(f'<div class="r-card back" style="left:{1268 + j * 5}px;top:{40 + j * 3}px"></div>' for j in range(6, 0, -1))
+deal += card("mx", "Mexico", 1268, 40) + card("ke", "Kenya", 1228, 46, -10)
+deal += '<span class="r-pin">Singapore first</span><span class="r-next" style="left:1252px;top:12px">every country next</span>'
 build_road = f"""
 <img class="r-art" src="{img('hero')}" alt="">
 <div class="r-head"><h1 class="rd-h2">Where Kix goes next.</h1><p class="rd-lede">The MVP works end to end in Singapore today. Each next step builds on what's already running. Then Kix goes global.</p></div>
-<svg class="r-path" viewBox="0 0 1600 900"><path d="M108 248 C 200 208, 300 288, 398 248 S 590 208, 687 248 S 880 208, 977 248 S 1170 208, 1266 248" fill="none" stroke="#FFE38A" stroke-width="3" stroke-dasharray="2 12" stroke-linecap="round"/></svg>
+<svg class="r-path" viewBox="0 0 1600 900"><path d="M108 216 C 200 176, 300 256, 398 216 S 590 176, 687 216 S 880 176, 977 216 S 1170 176, 1266 216" fill="none" stroke="#FFE38A" stroke-width="3" stroke-dasharray="2 12" stroke-linecap="round"/></svg>
 <div class="r-stops">
 {stop("now", "Now", "The MVP, live", ["Learning loops, Treasure, Vibe Zone and Arcade", "A Kix that remembers and sparks", "Guardian, the simulator and Home Link"], muse("mykx.vercel.app"))}
 {stop("", "Next", "myKx mobile app", ["Android first, then iPhone", "Precise location from the phone's GPS", "Motion: walking, cycling, playing"])}
@@ -382,10 +401,10 @@ build_road = f"""
 {stop("", "Later", "Kix on Meta devices", ["Hands-free, at home and outdoors", "Sees and hears only with permission", "More personal support for every child"])}
 </div>
 <section class="r-world">
-  <div><div class="r-when">Beyond</div><h3>Kix goes global</h3><ul>{"".join(li(i) for i in ["A Curriculum Scout per country maps its syllabus, grades and exams into new skill packs", "A Local Coach agent teaches in the child's language, with local examples, money and places", "Each country's child-privacy law built into the rules (PDPA, COPPA, GDPR and more)", "Our own specialised tutor model: faster, more local, more adaptable"])}</ul></div>
-  <div class="r-flags">{"".join(f'<figure class="r-flag"><img src="{img("flag-" + c)}" alt="{n} flag"><figcaption>{n}</figcaption></figure>' for c, n in [("sg", "Singapore"), ("my", "Malaysia"), ("id", "Indonesia"), ("au", "Australia"), ("jp", "Japan"), ("cn", "China"), ("in", "India"), ("kr", "Korea"), ("gb", "UK"), ("us", "USA")])}</div>
+  <div class="r-whead"><div><div class="r-when">Beyond</div><h3>Kix goes global</h3></div><p class="r-ask">Built in Singapore. Help us take Kix to every family, everywhere.</p></div>
+  <ul>{"".join(li(i) for i in ["A Curriculum Scout maps each country's syllabus and exams into skill packs", "A Local Coach teaches in the child's language, with local examples", "Each country's child-privacy law built in (PDPA, COPPA, GDPR and more)", "Our own specialised tutor model: faster, more local, more adaptable"])}</ul>
+  <div class="r-deal">{deal}</div>
 </section>
-<p class="r-ask">Built in Singapore. Help us take Kix from a hackathon MVP to every family, everywhere.</p>
 """
 board("ReadmeRoadmap", "myKx README: roadmap", build_road, True, road_css)
 
