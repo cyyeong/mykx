@@ -26,11 +26,17 @@ export function TonightCard() {
   }, []);
 
   if (!t) return null;
+  // Styled by parent.css (.ptonight): a glass card inside the Today header, in the grown-up's look.
   return (
-    <section aria-label={t.title} style={{ display: "flex", flexDirection: "column", gap: 8, padding: "14px 16px", borderRadius: "var(--radius-md)", background: "#1B2350", color: "#fff", marginBottom: 14 }}>
-      <h2 style={{ margin: 0, fontFamily: "var(--font-display)", fontSize: 18, lineHeight: "24px" }}>{t.title}</h2>
-      <p style={{ margin: 0, fontSize: 15, lineHeight: "22px" }}>{t.text}</p>
-      <small style={{ fontSize: 12, lineHeight: "17px", color: "#B9C3EA" }}>{t.source === "live" ? `Muse Spark, from today’s screen time, learning, the map and the cameras · ${clock(t.at)}` : `Summary from the rules (Muse Spark wasn’t available) · ${clock(t.at)}`}</small>
+    <section className="ptonight" aria-label={t.title}>
+      <h2>
+        <svg viewBox="0 0 24 24" aria-hidden="true" width="14" height="14">
+          <path fill="currentColor" d="M12 2c.6 4.8 4.2 8.4 9 9-4.8.6-8.4 4.2-9 9-.6-4.8-4.2-8.4-9-9 4.8-.6 8.4-4.2 9-9z" />
+        </svg>
+        {t.title}
+      </h2>
+      <p>{t.text}</p>
+      <small>{t.source === "live" ? `Muse Spark, from today’s screen time, learning, the map and the cameras · ${clock(t.at)}` : `Summary from the rules (Muse Spark wasn’t available) · ${clock(t.at)}`}</small>
     </section>
   );
 }

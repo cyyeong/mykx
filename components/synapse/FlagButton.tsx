@@ -165,7 +165,13 @@ export function FlagButton(props: {
         return;
       }
       if (!res.ok || !data.report) {
-        setError(data.reason === "daily-limit" ? "That's 10 reports today. Thank you! Kix's crew will check those first." : "That didn't send. Try again in a moment.");
+        setError(
+          data.reason === "daily-limit"
+            ? "That's 10 reports today. Thank you! Kix's crew will check those first."
+            : data.reason === "not-configured"
+              ? "Kix's crew isn't taking reports here yet. Please tell your grown-up."
+              : "That didn't send. Try again in a moment.",
+        );
         return;
       }
       setReportId(data.report.id);

@@ -1,5 +1,7 @@
 # myKx Guardian: location and home cameras (PRD 2)
 
+> **Names (founder, 29 Oct):** in the parent dashboard, "Where they are" is the **Location** tab and "Home now" is the **Sentry** tab; the family settings are **Guild Options**.
+
 **Written:** Wed 28 Oct 2026, 17:45 SGT, from the founder's request the same afternoon. **Status:** approved by the founder, 28 Oct 18:00 (§3 as written; §8 answered). AGENTS.md rules 2 and 12 carry the exceptions and rule 15 is new. Schedule and cut lines: `docs/plan/IMPLEMENTATION_PLAN.md`, stream F.
 
 ## 0. Verdict

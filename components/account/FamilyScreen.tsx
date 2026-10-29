@@ -29,7 +29,7 @@ const NICK_MAX = 20;
 const PW_MIN = 8;
 /** Daily time choices in minutes; null is no limit. */
 const LIMITS: readonly (number | null)[] = [15, 30, 45, 60, 90, null];
-const BACK = { href: "/parent", label: "Back to the dashboard" };
+const BACK = { href: "/parent?tab=today", label: "Back to the dashboard" };
 const TRY_AGAIN = "That didn't work. Try again in a moment.";
 const KIDS_URL = "/api/family/kids";
 const FOCUS_URL = "/api/signals/focus";

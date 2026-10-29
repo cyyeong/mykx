@@ -72,7 +72,7 @@ export function WhereTab({ onTab }: { onTab: (tab: "messages") => void }) {
   if (!kids.length) {
     return (
       <div className="wh-empty">
-        <h2 className="pshell-h2">Where they are</h2>
+        <h2 className="pshell-h2">Location</h2>
         <p className="pshell-p">Location sharing is off for every kid. Turn it on, add Home and School, and pick how often.</p>
         <Link className="mk-btn mk-btn--primary" href="/family/guardian">
           Location and home cameras
@@ -91,7 +91,7 @@ export function WhereTab({ onTab }: { onTab: (tab: "messages") => void }) {
     <div className="wh-root">
       <div className="wh-head">
         <h2 className="pshell-h2" style={{ margin: 0 }}>
-          Where they are
+          Location
         </h2>
         <span className="wh-note">Today, {clock(new Date(now).toISOString())}</span>
       </div>

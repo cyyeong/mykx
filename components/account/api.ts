@@ -8,6 +8,8 @@ export type ApiResult<T> = {
   ok: boolean;
   data: T | null;
   reason: FailReason | null;
+  /** Plain words from the server for a failure, when it sent some. */
+  note?: string | null;
 };
 
 export async function api<T>(method: "GET" | "POST" | "PATCH" | "DELETE", url: string, body?: unknown): Promise<ApiResult<T>> {
@@ -18,9 +20,9 @@ export async function api<T>(method: "GET" | "POST" | "PATCH" | "DELETE", url: s
       headers: body === undefined ? undefined : { "content-type": "application/json" },
       body: body === undefined ? undefined : JSON.stringify(body),
     });
-    const json = (await res.json().catch(() => null)) as (T & { ok?: boolean; reason?: FailReason }) | null;
+    const json = (await res.json().catch(() => null)) as (T & { ok?: boolean; reason?: FailReason; note?: string }) | null;
     const ok = res.ok && json?.ok !== false;
-    return { status: res.status, ok, data: ok ? json : null, reason: ok ? null : (json?.reason ?? null) };
+    return { status: res.status, ok, data: ok ? json : null, reason: ok ? null : (json?.reason ?? null), note: ok ? null : (json?.note ?? null) };
   } catch {
     return { status: 0, ok: false, data: null, reason: null };
   }

@@ -80,12 +80,12 @@ export function HomeNowTab({ onTab }: { onTab: (tab: "messages") => void }) {
     setVersion((n) => n + 1);
   };
 
-  if (denied) return <p className="hn-empty">Sign in as a grown-up to see Home now.</p>;
-  if (!data) return <p className="hn-note" role="status">Loading Home now…</p>;
+  if (denied) return <p className="hn-empty">Sign in as a grown-up to see Sentry.</p>;
+  if (!data) return <p className="hn-note" role="status">Loading Sentry…</p>;
   if (!data.devices.length) {
     return (
       <div className="hn-empty">
-        <h2 className="pshell-h2">Home now</h2>
+        <h2 className="pshell-h2">Sentry</h2>
         <p className="pshell-p">Pair a computer running myKx Home Link (or the Home simulator) to see each room as words: who’s where and what they’re doing. Pictures are read by Muse Spark and then dropped.</p>
         <Link className="mk-btn mk-btn--primary" href="/family/guardian">
           Location and home cameras
@@ -130,7 +130,7 @@ export function HomeNowTab({ onTab }: { onTab: (tab: "messages") => void }) {
       <div className="hn-head">
         <div>
           <h2 className="pshell-h2" style={{ margin: 0 }}>
-            Home now
+            Sentry
           </h2>
           <p className="hn-status">{status}</p>
         </div>

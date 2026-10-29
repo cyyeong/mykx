@@ -7,6 +7,8 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { api } from "@/components/account/api";
+import { useParentLook } from "@/components/parent/look";
+import "@/components/parent/parent.css";
 import { clock } from "@/components/location/types";
 import { dayName, inviteText, sortIdeas, type OutingIdea, type OutingRun } from "@/lib/outings/outings";
 import "./outings.css";
@@ -18,6 +20,8 @@ const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 export function OutingsScreen() {
   const [data, setData] = useState<Reply | null>(null);
   const [denied, setDenied] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const [look] = useParentLook(null);
   const [version, setVersion] = useState(0);
   const [off, setOff] = useState<string[]>([]);
   const [asking, setAsking] = useState(false);
@@ -31,7 +35,10 @@ export function OutingsScreen() {
     void api<Reply>("GET", "/api/outings").then((r) => {
       if (!live) return;
       if (r.status === 401 || r.status === 403) setDenied(true);
-      else if (r.ok && r.data) setData(r.data);
+      else if (r.ok && r.data) {
+        setData(r.data);
+        setFailed(false);
+      } else setFailed(true);
     });
     return () => {
       live = false;
@@ -41,6 +48,15 @@ export function OutingsScreen() {
   const run = data?.run ?? null;
   const tags = useMemo(() => [...new Set([...(data?.prefs.interests ?? []).map(cap), ...(run?.ideas.map((i) => i.tag) ?? [])])], [data, run]);
   if (denied) return <main className="ot-main"><p className="ot-note">Sign in as a grown-up to see ideas.</p></main>;
+  if (!data && failed)
+    return (
+      <main className="ot-main">
+        <p className="ot-note">The weekend ideas didn&apos;t load.</p>
+        <button type="button" className="mk-btn mk-btn--secondary" onClick={() => setVersion((v) => v + 1)}>
+          Try again
+        </button>
+      </main>
+    );
   if (!data) return <main className="ot-main"><p className="ot-note" role="status">Loading…</p></main>;
 
   const ask = async () => {
@@ -49,7 +65,7 @@ export function OutingsScreen() {
     const r = await api<{ run: OutingRun }>("POST", "/api/outings");
     setAsking(false);
     if (r.ok) setVersion((v) => v + 1);
-    else setMsg(r.reason === "slow-down" ? "That’s three searches today. Tomorrow you get three more." : r.reason === "not-configured" ? "Muse Spark isn’t set up on this server, so there’s nothing new to search with." : "Muse couldn’t finish that search. Try again in a minute.");
+    else setMsg(r.note ?? (r.reason === "slow-down" ? "That’s three searches today. Tomorrow you get three more." : r.reason === "not-configured" ? "Muse Spark isn’t set up on this server, so there’s nothing new to search with." : "Muse couldn’t finish that search. Try again in a minute."));
   };
   const plan = async (i: OutingIdea) => {
     await api("PATCH", "/api/outings", { id: i.id, planned: !run!.planned.includes(i.id) });
@@ -76,7 +92,7 @@ export function OutingsScreen() {
   const prov = !run ? "" : run.source === "sample" ? "Sample: a real Muse Spark web search from 28 Oct, kept so the demo never waits." : `Muse Spark with live web search · ${run.searches} searches · ${run.ideas.length} sourced ideas · weather from NEA · ${run.source === "cached" ? "saved from a search at" : ""} ${clock(run.at)}`.replace("  ", " ");
 
   return (
-    <div className="ot-root" data-theme="anime-sky" data-band="teen">
+    <div className="ot-root" data-theme="anime-sky" data-band="teen" data-look={look}>
       <main className="ot-main">
         <header>
           <Link className="ot-back" href="/parent">
