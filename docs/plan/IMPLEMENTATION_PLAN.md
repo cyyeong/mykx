@@ -214,7 +214,7 @@ Founder brief, 29 Oct: kids flag what's wrong on any AI screen; an open model re
 | **Sun 1 Nov** (4.5h) | **S3 Admin.** Kix Synapse section: Inbox, Case (trace timeline, diff, test, approve, edit, reject, undo), Learned, Evals, Settings (threshold, scoring needs me, caps, model per role, budget), Retrain (JSONL export, adapter "Not connected yet"); `audit_log`; two agents in `lib/admin/hood.ts`; `/api/cron/synapse` (sweep, nightly evals, expiry), Vercel daily cron and the `pg_cron` 5-minute sweep | The whole loop runs in production on the guest site |
 | **Mon 2 Nov** (2h, morning) | **S4 Finish.** Two live demo cases recorded (the typo, the Ask Kix caution); docs (ARCHITECTURE §6 loop 6, agents, routes, tables; AGENTS.md rule changes; README section and board); device pass on the sheet and the admin pages | Freeze at 22:00 includes Synapse |
 
-**Founder, before Sat 31 Oct:** a Baseten API key on your own pay-as-you-go account (partner credits weren't granted; Synapse costs cents a day at our volume), added to `.env.local` and to Vercel as `BASETEN_API_KEY`. Without it the reviewer runs on Muse Spark 1.3 and is labelled so.
+**Baseten (founder, 29 Oct):** the key stays empty, so Synapse's reviewer and judge run on Muse Spark 1.3 and are labelled so. The open-model path is in code already (`lib/meta/open.ts`, tested): setting `BASETEN_API_KEY` switches them to Muse Spark Open.
 
 **Cut order inside Synapse** (never cut: the flag on Learn and Ask Kix, the reviewer, the reproduce-and-test gate, the admin approve and undo):
 1. Flags on the Vibe Zone and the parent surfaces.
@@ -289,7 +289,7 @@ Script target: about 360 words of voice-over (130 a minute), finished by Day 5. 
 | Synapse auto-ships a wrong fix | a demo case or a nightly eval goes red after an auto-fix | Threshold 100 by default; reproduce-and-test before any fix; score changes wait for the admin; every fix is a version with one-click Undo. |
 | A kid's note steers the reviewer (prompt injection) | S2 tests with hostile notes | Notes are data in the reviewer prompt; cautions only in the fixed form, screened by code, narrowing only, after a passing re-test. |
 | Report spam | more than 10 reports a day from one child | Per-child daily limit, one open report per item, duplicates merged, no rewards for reporting. |
-| No Baseten key by Sat 31 Oct | S2 start | Reviewer on Muse Spark 1.3 (labelled); the open-model claim waits for the key. |
+| No Baseten key (the founder's choice, 29 Oct) | n/a | Reviewer on Muse Spark 1.3 (labelled); the Baseten path is built and tested, and switches on with the key. |
 
 **Cut order when a checkpoint slips** (the stretch items, Study Song and Baseten, only start when ahead, so they go first):
 1. Baseten (dropped 29 Oct: no partner credits; back for Kix Synapse on the founder's own pay-as-you-go key, §4a), then camera signals. Then Guardian's canvas boards (F9).

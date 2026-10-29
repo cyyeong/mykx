@@ -12,7 +12,7 @@ Meet **Kix**: a specialist AI tutor, a creative companion and your helping hand.
 
 **Built for my kids. Made for yours.**
 
-Built for the **Meta Global AI Developer Hackathon** (track: Build for Your World). Powered by **Meta Muse**: 15 of myKx's 17 specialist agents run on Muse Spark, Muse Image, SAM 3.1 or Muse Voice Transcribe.
+Built for the **Meta Global AI Developer Hackathon** (track: Build for Your World). Powered by **Meta Muse**: 15 of myKx's 17 specialist agents run on Muse Spark, Muse Image, SAM 3.1 or Muse Voice Transcribe, and Meta's open-weight **Muse Spark Open** is supported too.
 
 [Live app](https://mykx.vercel.app) · [Home simulator](https://mykx-sim.vercel.app) (passcode on request) · [Architecture](docs/ARCHITECTURE.md) · [Docs index](docs/README.md)
 
@@ -189,6 +189,18 @@ The full design is in [docs/prd/PETS.md](docs/prd/PETS.md).
 | Outing Planner | Plans the weekend around the weather and the week | Muse Spark 1.3 |
 | Tonight | The evening summary for the parent | Muse Spark 1.3 |
 
+### Meta open weights: Muse Spark Open, supported
+
+| Meta model | Used for | Status |
+|---|---|---|
+| Muse Spark 1.3 | twelve agents above | live |
+| Muse Image 1.0 | Sidekick Studio, all the art | live |
+| SAM 3.1 | Studio cutouts, Who's who | live |
+| Muse Voice Transcribe 1.0 | Talk to Kix | live |
+| **Muse Spark Open** (open weights, on Baseten) | Kix Synapse's reviewer and eval judge: a different model checks the work of the one that made the mistake | **supported**: in code and tested; runs on Muse Spark 1.3 until a Baseten key is set |
+
+`lib/meta/open.ts` puts Baseten's OpenAI-compatible API behind **model roles**: each job names the model it wants, and the same structured, logged, validated call runs on either provider. Baseten keeps no inputs or outputs by default, and only de-identified cases go to it. We run without a Baseten key for now, so those roles fall back to Muse Spark 1.3 and every result records which model really answered; setting `BASETEN_API_KEY` moves them to Muse Spark Open with no code change. Try it: `node --env-file=.env.local scripts/smoke-open-model.ts`.
+
 **Where Muse stops and code starts.** Muse reads, explains, imagines and narrates. Scores, mastery, rewards, screen-time rules, motion and every alert are decided by plain, tested code, and a model can never change them. Every model call is logged in **Under the hood** with its model, time, tokens and cost. Children's data only ever goes to Standard models, never contributor mode.
 
 ## Beyond the screen: Guardian
@@ -265,7 +277,7 @@ npm run dev          # http://localhost:3000
 
 `db:local` builds the database from `supabase/schema.sql`, `rls.sql` and `seed.sql`, adds a local sign-in for the grown-up (`demo@mykx.ai` / `local-demo-only`, also the admin), and writes `.env.development.local` so the app uses it. Kids' magic names are `jordan`, `abby` and `leonard`; Abby and Leonard use `local-demo-only`, Jordan the picture code Kix smiling, Kix cheering, Kix the pilot, Starry Kix. These sign-ins are local-only. Add your own Meta key (`MODEL_API_KEY`, Standard mode) to that file for live Muse calls; without it every agent uses its cached fallback. `npm run db:local -- reset` re-seeds, `npm run db:local -- stop` stops it, and Supabase Studio is at http://127.0.0.1:54323.
 
-Live model calls, Supabase and art generation need keys (names in `.env.example`: `MODEL_API_KEY`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SECRET_KEY`, `KID_SESSION_SECRET`). Keys stay on the server.
+Live model calls, Supabase and art generation need keys (names in `.env.example`: `MODEL_API_KEY`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SECRET_KEY`, `KID_SESSION_SECRET`; optional `BASETEN_API_KEY` for Muse Spark Open). Keys stay on the server.
 
 **Stack:** Next.js 16 (App Router, Cache Components) · React 19 · TypeScript · Tailwind CSS v4 with per-world themes · `motion` · Tone.js (every sound synthesised) · Supabase (Auth, Postgres with row-level security, Storage) · the OpenAI SDK pointed at `api.meta.ai/v1` · Vercel.
 

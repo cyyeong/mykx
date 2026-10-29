@@ -14,6 +14,18 @@ export {
 export { MetaApiError, MetaConfigError, redactSecrets } from "./errors.ts";
 export { ContributorModelError, assertStandardModel } from "./guard.ts";
 export { museImageEdit } from "./image.ts";
+export {
+  BASETEN_BASE_URL,
+  MUSE_SPARK_OPEN_MODEL,
+  OPEN_FALLBACK,
+  ROLE_DEFAULTS,
+  createOpenModelClient,
+  hasOpenModelKey,
+  openModelId,
+  resolveRole,
+  roleStructured,
+} from "./open.ts";
+export type { ModelRole, RoleChoice, RoleModel, RoleStructuredRequest, RoleStructuredResult } from "./open.ts";
 export type { ImageOutputFormat, MuseImageEditRequest, MuseImageResult } from "./image.ts";
 export { alphaBox, alphaCoverage, applyAlpha, fillHoles, maskArea, masksToAlpha, selectMasks } from "./mask.ts";
 export type { MaskRaster, Size } from "./mask.ts";
@@ -34,6 +46,6 @@ export type {
   SparkStructuredRequest,
   SparkStructuredResult,
 } from "./spark.ts";
-export type { CallOptions, ImageInput, MetaOperation, PixelBox, RunInfo } from "./types.ts";
+export type { CallOptions, ImageInput, MetaOperation, ModelProvider, PixelBox, RunInfo } from "./types.ts";
 export { MAX_CLIP_MS, VOICE_MODEL, checkWav, transcribe } from "./voice.ts";
 export type { TranscribeRequest, TranscribeResult, TranscribeTurn } from "./voice.ts";

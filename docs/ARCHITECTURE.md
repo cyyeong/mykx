@@ -79,6 +79,10 @@ flowchart LR
     VOX["muse-voice-transcribe-1.0"]
   end
 
+  subgraph BT [Baseten Model API, optional]
+    OPEN["meta-models/muse-spark-open<br/>Meta open weights"]
+  end
+
   subgraph S [Supabase]
     AUTH["Auth for grown-ups"]
     PG[("Postgres with RLS<br/>32 tables")]
@@ -101,6 +105,7 @@ flowchart LR
   MC --> IMG
   MC --> SAM
   MC --> VOX
+  MC -.->|key set| OPEN
   MC --> LOG
   AG --> PACKS
   ROUTES --> PG
@@ -110,7 +115,7 @@ flowchart LR
   AG --> EXT
 ```
 
-The browser never talks to Meta or to Supabase's service role. Keys live in the server's environment (`lib/meta/client.ts` reads the key on every call and never caches or logs it). The server's only outbound calls besides Meta and Supabase are the paper scout's polite reads of five allowlisted sites (`lib/papers/scan.ts`), NEA's keyless four-day outlook (`lib/outings/weather.ts`), and Muse Spark's own `web_search` tool for outings (`lib/outings/search.ts`).
+The browser never talks to Meta or to Supabase's service role. Keys live in the server's environment (`lib/meta/client.ts` reads the key on every call and never caches or logs it). The server's only outbound calls besides Meta and Supabase are the paper scout's polite reads of five allowlisted sites (`lib/papers/scan.ts`), NEA's keyless four-day outlook (`lib/outings/weather.ts`), and Muse Spark's own `web_search` tool for outings (`lib/outings/search.ts`) and, only when `BASETEN_API_KEY` is set, Baseten's Model API for Muse Spark Open (`lib/meta/open.ts`).
 
 ### 1.3 Stack
 
@@ -121,7 +126,7 @@ The browser never talks to Meta or to Supabase's service role. Keys live in the 
 | Styling | Tailwind CSS v4 with CSS custom-property themes: two bands (junior, teen) times five style packs | `app/styles/tokens.css`, `components/theme/` |
 | Motion and sound | `motion` 14.6; Tone.js 15.1, lazy-loaded, every sound synthesised (music as JSON scores) | `lib/sound/engine.ts`, `lib/sound/music/*.json` |
 | Data | Supabase Auth, Postgres with RLS, Storage; an in-memory demo store for keyless development | `lib/auth/store.ts`, `store-supabase.ts`, `store-demo.ts` |
-| Models | OpenAI SDK 7.45 pointed at `https://api.meta.ai/v1`; SAM masks parsed with `@meta-sam/parser` | `lib/meta/` |
+| Models | OpenAI SDK 7.45 pointed at `https://api.meta.ai/v1`; SAM masks parsed with `@meta-sam/parser`; the same SDK pointed at Baseten (`https://inference.baseten.co/v1`) for Meta's open-weight Muse Spark Open, optional | `lib/meta/` |
 | On-device vision | MediaPipe Tasks Vision 1.1.1 (face landmarks for the focus camera; face detector for homework photos) | `components/camera/mediapipe.ts` |
 | Images on the server | `sharp` 0.35 (frame checks, resizing, outlines, cutouts) | `lib/home-watch/read.ts`, `lib/meta/mask.ts` |
 | Maps | Leaflet 1.9.4 on OneMap tiles | `components/location/` |
@@ -142,7 +147,7 @@ The browser never talks to Meta or to Supabase's service role. Keys live in the 
 | `app/(signin)` | The living-city door, kid doors (`doors/[kid]`), grown-up sign-in |
 | `app/api` | Every server route (§2.2) |
 | `components/` | UI by area: `screens/`, `kix/`, `voice/`, `camera/`, `guardian/`, `home-watch/`, `location/`, `outings/`, `studio/`, `vibe/`, `games/`, `papers/`, `scene/` (living art), `sound/`, `theme/`, `admin/` |
-| `lib/meta` | Meta Model API client: Spark chat, stream and structured output; Muse Image edits; SAM 3.1 segment and cutouts; Voice Transcribe; pricing; run timing; Standard-model guard; secret redaction |
+| `lib/meta` | Meta Model API client: Spark chat, stream and structured output; Muse Image edits; SAM 3.1 segment and cutouts; Voice Transcribe; pricing; run timing; Standard-model guard; secret redaction; model roles with Muse Spark Open on Baseten and a Muse Spark 1.3 fallback (`open.ts`) |
 | `lib/runs` | `logRunsFor(route, household, kid)` and the hook that writes every call to `model_runs` |
 | `lib/agents` | Agents you can edit (§4.11): each Muse Spark agent's built-in instructions and fixed guardrails (`instructions.ts`), the version rules (`versions.ts`), `instructionsFor` with its one-minute cache (`runtime.ts`), and what the editor shows (`catalog.ts`) |
 | `lib/auth` | Store contract and both stores, sessions, kid secrets (scrypt), lockout and per-key limiter, parent PIN, admin check, request helpers |
@@ -885,6 +890,7 @@ From `lib/meta/pricing.ts` (Meta's pricing page, checked 27 Oct 2026; estimates,
 | `muse-image-1.0` | $0.01 an image |
 | `sam-3.1` | $0.0025 an image ($2.50 per 1,000) |
 | `muse-voice-transcribe-1.0` | $0.18 an audio hour, billed per whole second |
+| `meta-models/muse-spark-open` (Baseten) | listed at $1.25 / $4.25 / $0.15 per 1M input / output / cached tokens across its launch hosts (third-party listing; confirm on Baseten) |
 
 ### 8.4 Measured latencies
 

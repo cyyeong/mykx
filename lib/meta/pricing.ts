@@ -17,6 +17,8 @@ export interface ModelPrice {
 export const PRICES: Readonly<Record<string, ModelPrice>> = {
   "muse-spark-1.3": { inputPerM: 1.25, outputPerM: 4.25, cachedInputPerM: 0.15 },
   "muse-wonder-1.0": { inputPerM: 4, outputPerM: 20, cachedInputPerM: 0.2 },
+  // Muse Spark Open on Baseten: the launch hosts' listed price (third-party listing, 29 Oct); confirm on Baseten.
+  "meta-models/muse-spark-open": { inputPerM: 1.25, outputPerM: 4.25, cachedInputPerM: 0.15 },
   // Image responses carry token usage "for reference only"; billing is per image.
   "muse-image-1.0": { perImage: 0.01 },
   "sam-3.1": { perImage: 0.0025 },

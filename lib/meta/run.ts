@@ -1,6 +1,6 @@
 import { MetaApiError, summarizeError } from "./errors.ts";
 import { estimateCostUsd } from "./pricing.ts";
-import type { MetaOperation, RunInfo } from "./types.ts";
+import type { MetaOperation, ModelProvider, RunInfo } from "./types.ts";
 
 export interface RunFields {
   requestId?: string | null;
@@ -42,7 +42,7 @@ export interface RunClock {
   toError(err: unknown, fields: RunFields, timedOut: boolean): MetaApiError;
 }
 
-export function startRun(operation: MetaOperation, model: string): RunClock {
+export function startRun(operation: MetaOperation, model: string, provider: ModelProvider = "meta"): RunClock {
   const t0 = performance.now();
   const startedAt = new Date().toISOString();
   const elapsed = () => Math.round(performance.now() - t0);
@@ -68,7 +68,7 @@ export function startRun(operation: MetaOperation, model: string): RunClock {
       audioSeconds: fields.audioSeconds ?? null,
     };
     return {
-      provider: "meta",
+      provider,
       operation,
       model,
       requestId: fields.requestId ?? null,

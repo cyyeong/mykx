@@ -54,3 +54,11 @@ Blocked: `.env.local` has no `MODEL_API_KEY` yet. `lib/meta` and this script wer
 | 0. List models (free) | – | pass | – | – | – | – | – | – | 9 models; muse-spark-1.3 listed, muse-image-1.0 listed, sam-3.1 listed. id-like headers: x-request-id (matched: x-request-id) |
 | f. Voice transcribe | `muse-voice-transcribe-1.0` | pass | 2,139 ms | – | – | $0.0001 | – | `voyager/transcribe/C4F50A4006FB40D68CAA92A51B0CFA98` | said "Kix, why does the tadpole lose its tail?" → heard "Kicks, why does the tadpole lose its tail?." (2400 ms audio, session voyager/transcribe/C4F50A4006FB40D68CAA92A51B0CFA98) |
 
+
+## 29 Oct 2026, 21:18 SGT
+
+`scripts/smoke-open-model.ts` · Node v24.22.0 · `BASETEN_API_KEY` empty (founder's choice), so the open-model role falls back
+
+| Step | Role | Wanted | Answered by | Result | Latency | Tokens in/out | Est. cost | Notes |
+|---|---|---|---|---|---|---|---|---|
+| Structured review | `synapse.reviewer` | `baseten:meta-models/muse-spark-open` | `meta:muse-spark-1.3` (fallback: no-key) | pass | 5,260 ms | 234/1,280 | $0.0057 | synthetic typo report → problem · typo · 95 · "recieve" → "receive". A first run capped at 1,200 output tokens came back empty (all reasoning): don't cap Spark's tokens for reviews |

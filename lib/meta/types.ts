@@ -6,8 +6,11 @@ export type MetaOperation = "chat" | "chat_tools" | "chat_stream" | "structured"
  * One model call, shaped to become a `model_runs` row.
  * Holds no prompt, output or key, so it is safe to log and show in "under the hood".
  */
+/** Who served a call: Meta's Model API, or Baseten for Muse Spark Open (lib/meta/open.ts). */
+export type ModelProvider = "meta" | "baseten";
+
 export interface RunInfo {
-  provider: "meta";
+  provider: ModelProvider;
   operation: MetaOperation;
   model: string;
   /** Request id from the HTTP response headers, when the API sends one. */

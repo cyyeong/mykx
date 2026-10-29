@@ -92,13 +92,14 @@ Box and point prompt JSON shapes: see the "segmenting with prompts" guide (**unv
 
 **Voice is child data:** push-to-talk only, never always listening; audio is never stored or logged (only the transcript, like typed text); clips ≤ 30 s; Standard key; the parent can turn voice off per child.
 
-## Open weights: Muse Spark Open via Baseten (dropped 29 Oct)
+## Open weights: Muse Spark Open on Baseten (supported, 29 Oct)
 
-**Not used.** The founder dropped Baseten and Fireworks on 29 Oct (no partner credits); the key is removed from `.env.local`. Kept below for reference only.
-
-- Endpoint `https://inference.baseten.co/v1/chat/completions` (OpenAI-compatible), model **`meta-models/muse-spark-open-1026`** (hackathon alias; the docs say `muse-spark-open`). Key: `BASETEN_API_KEY`.
-- Bounded role: de-identified topic tagging (≤ 2k input / 128 output) behind the same typed adapter as Spark, so one env flag switches providers.
-- Access and credits are **unverified** (Baseten credits are request-and-review). Cap setup at 45 min. If access fails, ship without it.
+- Meta released **Muse Spark Open** on 15 Oct 2026 (816B MoE, 42B active, 1M context; Muse Model License). Meta doesn't serve it on api.meta.ai; Baseten, OpenRouter, Fireworks, Groq, Together and others do. myKx uses **Baseten**: zero data retention by default.
+- `lib/meta/open.ts`: OpenAI SDK at `https://inference.baseten.co/v1`, model **`meta-models/muse-spark-open`** (`MUSE_SPARK_OPEN_MODEL` overrides, e.g. the event alias `meta-models/muse-spark-open-1026`), key `BASETEN_API_KEY`.
+- **Model roles:** `roleStructured(role, req)` runs a job on the model its role names (`synapse.reviewer` and `synapse.judge` want Muse Spark Open; `synapse.second` is Muse Spark 1.3). No key, or a Baseten failure, runs it on Muse Spark 1.3; `choice.fallback` says why (`no-key`, `provider-error`) and `run.provider` says who answered.
+- **The founder keeps the key empty for now (29 Oct)**, so the roles run on the fallback; setting the key switches them with no code change.
+- `json_schema` on Baseten is unverified: a 400 retries once in JSON mode with the schema in a system message; zod validates either way. `reasoning_effort` isn't sent to Baseten; `max_completion_tokens` goes as `max_tokens`.
+- Only de-identified content goes to the open model (rule 1). Smoke: `node --env-file=.env.local scripts/smoke-open-model.ts`.
 
 ## Logging (every call)
 
