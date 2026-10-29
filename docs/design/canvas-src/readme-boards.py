@@ -366,7 +366,7 @@ build_road = f"""
 {stop("now", "Now", "The MVP, live", ["Learning loops, Treasure, Vibe Zone and Arcade", "A Kix that remembers and sparks", "Guardian, the simulator and Home Link"], muse("mykx.vercel.app"))}
 {stop("", "Next", "myKx mobile app", ["Android first, then iPhone", "Precise location from the phone's GPS", "Motion: walking, cycling, playing"])}
 {stop("", "Then", "Home Link and devices", ["Live CCTV streams, read at home", "Only changes reach Muse", "Health and motion peripherals on the same protocol"])}
-{stop("", "Also", "More to learn and earn", ["More STEM learning games", "A rewards store for stars earned, never real money", "Brand partners for picks the parent approves"])}
+{stop("", "Also", "More to learn and earn", ["Vibe an app in the Vibe Zone, and more STEM games", "A rewards store for stars earned, never real money", "Brand partners for picks the parent approves"])}
 {stop("", "Later", "Kix on Meta devices", ["Hands-free, at home and outdoors", "Sees and hears only with permission", "More personal support for every child"])}
 </div>
 <p class="r-ask">Help us take Kix from a hackathon MVP to every family in Singapore.</p>

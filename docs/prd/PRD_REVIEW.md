@@ -141,7 +141,7 @@ A games section that keeps growing, where every game practises the child's own s
 | Game Arcade and typing game (E14) | **Add (core)** | Arcade hub and registry; typing engine with ghost-hands keyboard; Star Typer, Word Garden, Neon Strike; typing path, saved progress, share to family | 17.5 (E) |
 | FR07 parent summary | **Keep (core)** | "Generate tonight's summary" button + Spark narration of deterministic aggregates + offline activity; no scheduler/worker | 4 |
 | FR08 skills/PDF/variants/patterns | **Cut** (P1: one print-CSS practice sheet) | — | 0 |
-| FR09 Vibe mini factory | **Simplify** | brief → Spark JSON spec → trusted React flashcards/planner with Muse Image art → revise → save → share/revoke | 5 |
+| FR09 Vibe mini factory (roadmap: vibe an app from a validated app spec, "Coming soon" on the page since 29 Oct) | **Simplify** | brief → Spark JSON spec → trusted React flashcards/planner with Muse Image art → revise → save → share/revoke | 5 |
 | FR10 Treasure/rewards/shares | **Expand (core)** | Treasure Realm visuals + ledger + collectible cards + share/revoke | 8 |
 | FR11 provider switching | **Best-effort** | one adapter interface; Baseten Spark Open tagging only if access arrives (≤ 2h) | 2 |
 | FR12 admin | **Back, as skills admin (27 Oct)** | catalogue, skill detail, add knowledge, agents × skills matrix (E11) | see E11 |

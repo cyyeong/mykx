@@ -157,6 +157,9 @@ export function VibeZone({ nickname }: { nickname: string }) {
                 <button type="button" className={s.choice} disabled title="Planners come in a later version">
                   Planner <small>soon</small>
                 </button>
+                <button type="button" className={s.choice} disabled title="Vibing an app is coming soon">
+                  An app <small>soon</small>
+                </button>
               </div>
             </>
           )}
@@ -176,6 +179,14 @@ export function VibeZone({ nickname }: { nickname: string }) {
           {care && <CareCard care={care} />}
           {error && <p className={s.warn}>{error}</p>}
         </div>
+
+        {/* Roadmap (founder, 29 Oct): apps follow the same rule as flashcards. Kix writes a checked spec and trusted
+            components build it; no code a model wrote ever runs (AGENTS.md rule 4). */}
+        <aside className={s.soon} aria-label="Coming soon">
+          <span className={s.soonChip}>Coming soon</span>
+          <p className={s.soonTitle}>Vibe an app</p>
+          <p className={s.soonText}>Describe a tiny app, like a revision timer, a quiz game or a habit tracker, and Kix builds it from safe parts you can play with.</p>
+        </aside>
 
         {mine.length > 0 && (
           <div className={s.mine}>

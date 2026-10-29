@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, type ReactNode } from "react";
 import { FocusWatch } from "@/components/camera/FocusWatch";
 import { GuardianWatch } from "@/components/guardian/GuardianWatch";
 import { KidIdle } from "@/components/nav/KidIdle";
@@ -7,11 +7,21 @@ import { SoundProvider } from "@/components/sound/SoundProvider";
 import { SoundToggle } from "@/components/sound/SoundToggle";
 import { ThemeRoot } from "@/components/theme/ThemeRoot";
 import { DemoLabel } from "@/components/ui/DemoLabel";
+import { getSignedInKid } from "@/lib/auth/server";
 
 export default function KidLayout({ children }: LayoutProps<"/">) {
-  // Day 3: initialPack and initialBand come from the signed-in child's profile.
+  // The kid's own world and band wear every kid page from the first paint (the kid is read from their session).
   return (
-    <ThemeRoot>
+    <Suspense fallback={<div style={{ minHeight: "var(--screen-h, 100dvh)", background: "#1C1B4A" }} />}>
+      <KidWorld>{children}</KidWorld>
+    </Suspense>
+  );
+}
+
+async function KidWorld({ children }: { children: ReactNode }) {
+  const kid = await getSignedInKid();
+  return (
+    <ThemeRoot initialPack={kid?.pack ?? "dreamlight"} initialBand={kid?.band ?? "junior"}>
       <SoundProvider kidArea>
         <div className="kid-shell">
           <KidNav demoLabel={<DemoLabel variant="bar" />} />
