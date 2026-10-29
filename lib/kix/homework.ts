@@ -114,12 +114,28 @@ export function systemPrompt(o: PromptKid & { notes: string }, head = compose("a
   return [head, "", "# Pack notes", o.notes].join("\n");
 }
 
-/** Guide first, enforced here rather than trusted to the model: before the full stage there's no final answer
- *  and no try-this (its answer would give the game away), and the stage is the one the child asked for. */
+/** Guide first, enforced here rather than trusted to the model (a live run on 29 Oct wrote every step, answer
+ *  included, into a hint). Before the full stage there's no final answer and no try-this (its answer would give the
+ *  game away). The hint keeps only what starts the child off: the words, the memory hook and the first step; the
+ *  bar model and the CER frame wait for the steps. At the steps stage the child writes the CER reasoning themselves.
+ *  The stage is always the one the child asked for. */
 export function enforceStage(e: Explanation, stage: Stage): Explanation {
   if (stage === "full") return { ...e, stage };
-  const blocks = e.blocks.filter((b) => b.kind !== "try-this");
-  return { ...e, stage, finalAnswer: null, blocks: blocks.length ? blocks : e.blocks.slice(0, 1) };
+  let blocks = e.blocks.filter((b) => b.kind !== "try-this");
+  if (stage === "hint") {
+    let firstStep = true;
+    blocks = blocks.flatMap((b): Block[] => {
+      if (b.kind === "say" || b.kind === "memory-hook") return [b];
+      if (b.kind === "steps" && firstStep && b.steps?.length) {
+        firstStep = false;
+        return [{ ...b, title: b.title ?? "Start here", steps: b.steps.slice(0, 1) }];
+      }
+      return [];
+    });
+  } else {
+    blocks = blocks.map((b) => (b.kind === "cer" ? { ...b, reasoning: null } : b));
+  }
+  return { ...e, stage, finalAnswer: null, blocks: blocks.length ? blocks : e.blocks.slice(0, 1).map((b) => ({ ...b, steps: b.steps?.slice(0, 1) ?? null })) };
 }
 
 /** Shown when the model is unavailable (no key, error or timeout): the demo path never depends on a live call (rule 7). */

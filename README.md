@@ -111,6 +111,24 @@ None of this changes a score or a reward: mastery stays deterministic, and an an
 
 Steps 4 to 6 repeat every session, so the questions follow the child, and the packs get better as the Curator learns what the exams ask. The full loops are in [the architecture doc](docs/ARCHITECTURE.md).
 
+## Ask Kix and Learn, up close
+
+What a child sees on a hard question. Every question here comes from myKx's own skill packs, written for myKx to the MOE syllabus and PSLE formats and never copied from a school or exam paper. The replies are live from Muse Spark, asked as Abby (P6) in the sample family.
+
+**Ask Kix guides first.** A child types or photographs a homework question. Kix reads it, loads the right skill pack and teaches with that pack's method, in three steps that code enforces whatever the model writes:
+
+1. **A hint.** One step and a memory hook, never the answer.
+2. **The steps.** The method with its picture: a bar model in Maths, a Claim–Evidence–Reasoning frame in Science (the reasoning is left for the child), KEEP, CHANGE, CHECK for English synthesis. The last line is the child's.
+3. **The full answer.** The worked answer, the memory hook, and a fresh question to try.
+
+<img src="docs/readme/ask-kix-maths.webp" alt="Ask Kix on a hard PSLE maths problem: Box A had 3 times as many marbles as Box B; after 85 marbles moved from A to B, B had 2 times as many as A; how many were in A at first? Three stages from the app: a hint (what stayed the same? the total) with a story to remember it; the steps with a before-and-after bar model of 9 units and 3 units becoming 4 units and 8 units; and the full answer, 153 marbles, checked, with a fresh question to try." width="100%">
+
+<img src="docs/readme/ask-kix-science-english.webp" alt="Ask Kix in Science and English. Science: a gardener removed a ring of a stem's food-carrying tubes and the plant died; the steps trace the food and give a CER frame with the claim and evidence and the reasoning left for the child; the full answer explains that the roots got no food. English: rewrite 'The bell rang. The pupils rushed out of the classroom.' starting with 'No sooner'; the steps keep the facts, change to the pattern and check; the full answer is 'No sooner had the bell rung than the pupils rushed out of the classroom.'" width="100%">
+
+**Learn: what the questions look like.** In a session, questions come from the packs for the child's own level, chosen by what they most need next. Figures and experiments are drawn into the question. The first try counts toward mastery and hints are always free. Kix coaches the child's reason in their own words. Written science answers are practice: the child compares them with Kix's answer, and no model ever marks them.
+
+<img src="docs/readme/learn-questions.webp" alt="What the questions look like in Learn, signed in as Abby (P6). Top row, asking: a maths problem about two water tanks with its figure and Kix's hint; a science experiment with two cups of hot water, one wrapped in cotton wool, with its diagram; an English reported-speech rewrite with a hint. Bottom row, answered: 20 cm marked right by code with Kix praising the reason; the science answer compared with Kix's answer; the English answer right, with Kix showing a stronger reason that mentions the pronouns." width="100%">
+
 ## Critter Lab: raise a critter, learn its life cycle
 
 <img src="docs/readme/pets.webp" alt="Raise a critter, learn its life cycle. Four steps from the app: a tadpole turns down a cricket because it has no legs to catch one; Bloop grows into a froglet; the life-cycle track marks the froglet stage; a hen lays an egg and a new generation starts. Beside them, real replies from the Critter Keeper: a froglet growing lungs, a pupa that doesn't eat, a caterpillar that only munches leaves, and a hen that pecks corn and greens." width="100%">

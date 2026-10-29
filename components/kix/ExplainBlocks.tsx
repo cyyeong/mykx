@@ -118,9 +118,7 @@ export function ExplainBlocks({ blocks, finalAnswer = null }: { blocks: Block[];
                   </div>
                   <div data-k="r">
                     <dt>Reasoning</dt>
-                    <dd>
-                      <InlineMarkup text={b.reasoning} />
-                    </dd>
+                    <dd>{b.reasoning ? <InlineMarkup text={b.reasoning} /> : <em>Your turn: say how the evidence leads to the claim. Kix shows its reasoning in the full answer.</em>}</dd>
                   </div>
                 </dl>
               </section>

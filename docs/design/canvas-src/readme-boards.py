@@ -567,4 +567,87 @@ build_pets = f"""
 """
 board("ReadmePets", "myKx README: Critter Lab pets", build_pets, True, pets_css)
 
+# 13. Ask Kix and Learn up close: hard questions, guided ------------------------------------------------------------
+ak_css = """
+.k-head{position:absolute;left:64px;right:64px;top:36px;display:flex;justify-content:space-between;align-items:flex-end;gap:32px}
+.k-head .rd-h2{font-size:48px;line-height:54px}
+.k-head .rd-lede{max-width:560px;font-size:19px;line-height:27px;text-align:right}
+.k-kick{margin-bottom:8px;font:800 17px/22px "Nunito",sans-serif;color:#B8B2E8}
+.k-q{padding:14px 18px;border-radius:18px;background:#2B2A5C;box-shadow:inset 0 0 0 1px rgba(185,167,245,.3)}
+.k-q small{display:flex;align-items:center;gap:8px;margin-bottom:6px;font:800 14px/18px "Nunito",sans-serif;color:#FFE38A}
+.k-q p{font:700 18px/25px "Nunito",sans-serif;color:#F4F1FF}
+.k-pane{position:relative;overflow:hidden;border-radius:16px;background:#fff;box-shadow:0 0 0 1px rgba(185,167,245,.35),0 14px 30px rgba(0,0,0,.35)}
+.k-pane img{display:block;width:100%}
+.k-cap{display:flex;gap:10px;align-items:baseline;margin-top:10px;font:700 16px/22px "Nunito",sans-serif;color:#D9D3FF}
+.k-cap b{flex:none;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#FFE38A;color:#1C1B4A;font:800 14px/1 "Nunito",sans-serif}
+.k-cap strong{color:#fff}
+.k-three{position:absolute;left:64px;right:64px;top:252px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.k-three .k-pane{height:520px}
+.k-qwide{position:absolute;left:64px;right:64px;top:150px}
+.k-halves{position:absolute;left:64px;right:64px;top:150px;display:grid;grid-template-columns:1fr 1fr;gap:36px}
+.k-half .k-q{min-height:112px}
+.k-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.k-pair .k-pane{height:470px}
+"""
+def kpane(key, n, title, text):
+    return f'<figure style="margin:0"><div class="k-pane"><img src="{img(key)}" alt=""></div><p class="k-cap"><b>{n}</b><span><strong>{title}.</strong> {text}</span></p></figure>'
+BOX_Q = "Box A had 3 times as many marbles as Box B. After 85 marbles were moved from Box A to Box B, Box B had 2 times as many marbles as Box A. How many marbles were in Box A at first?"
+build_ask = f"""
+<div class="k-head">
+  <div><p class="k-kick">Ask Kix, a P6 Maths word problem typed in by Abby</p><h1 class="rd-h2" style="font-size:46px;line-height:52px">A hard PSLE problem, step by step.</h1></div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px;flex:none"><div class="rd-chips">{muse("Muse Spark 1.3")}{rules("Guide first, in code")}</div><p class="rd-lede" style="max-width:470px;font-size:17px;line-height:24px">Kix loads the P6 Maths skill pack and teaches its method, the way Singapore schools do. Live replies.</p></div>
+</div>
+<div class="k-qwide"><div class="k-q"><small>{SPARK}The question</small><p>{html.escape(BOX_Q)}</p></div></div>
+<div class="k-three">
+{kpane("ask-m-hint", 1, "A hint first", "One step and a memory hook: what stayed the same? Never the answer.")}
+{kpane("ask-m-steps", 2, "Then the method", "Before-and-After with a bar model: make the totals equal, find 1 unit. The last line is the child's.")}
+{kpane("ask-m-full", 3, "Then the full answer", "153 marbles, checked, a story to remember it by, and a fresh question to try.")}
+</div>
+"""
+board("ReadmeAskKix", "myKx README: Ask Kix on a hard PSLE problem", build_ask, True, ak_css)
+
+SCI_Q = "A gardener removed a ring of the outer layer of the main stem of a plant, just below all the leaves. This removed the food-carrying tubes in that part of the stem, but not the water-carrying tubes. The plant died after some months. Explain why."
+ENG_Q = "Rewrite as one sentence, keeping the meaning: The bell rang. The pupils rushed out of the classroom. No sooner …"
+build_ask2 = f"""
+<div class="k-head" style="top:30px">
+  <div><p class="k-kick">Ask Kix, P6 Science and English</p><h1 class="rd-h2">Science in CER. English in KEEP, CHANGE, CHECK.</h1></div>
+  <div class="rd-chips">{muse("Muse Spark 1.3")}{rules("Guide first, in code")}</div>
+</div>
+<div class="k-halves" style="top:140px">
+  <section class="k-half">
+    <div class="k-q"><small>{SPARK}Science · explain why</small><p style="font-size:16px;line-height:22px">{html.escape(SCI_Q)}</p></div>
+    <div class="k-pair">
+      {kpane("ask-s-steps", 1, "The steps", "Trace the food. The CER frame gives the claim and the evidence; the reasoning is the child's turn.")}
+      {kpane("ask-s-full", 2, "The full answer", "Roots got no food, so the plant died. A picture to remember, and a new case to try.")}
+    </div>
+  </section>
+  <section class="k-half">
+    <div class="k-q"><small>{SPARK}English · synthesis and transformation</small><p style="font-size:16px;line-height:22px">{html.escape(ENG_Q)}</p></div>
+    <div class="k-pair">
+      {kpane("ask-e-steps", 1, "The steps", "Keep the facts, change to the pattern (No sooner had … than), check it's one sentence.")}
+      {kpane("ask-e-full", 2, "The full answer", "No sooner had the bell rung than … A chant: no sooner THAN, hardly WHEN.")}
+    </div>
+  </section>
+</div>
+"""
+board("ReadmeAskKix2", "myKx README: Ask Kix in Science and English", build_ask2, True, ak_css)
+
+lq_tiles = [
+    ("learn-m-ask", "Maths: a figure, and a hint", "Two tanks, one volume. Kix's hint: no water leaves, so the total stays the same.", muse("Kix Tutor")),
+    ("learn-s-ask", "Science: an experiment", "Two cups, one wrapped in cotton wool. Predict, then explain in full sentences.", rules()),
+    ("learn-e-ask", "English: reported speech", "Rewrite what Ravi said. The hint asks who is talking and whose book it is.", muse("Kix Tutor")),
+    ("learn-m-done", "Marked by code, coached by Kix", "20 cm is right; the first try counts for mastery. Kix praises the reason and shows a clearer one.", rules() + muse("Muse Spark")),
+    ("learn-s-done", "Compared with Kix's answer", "Written answers are practice: the child checks their key ideas against Kix's. Never marked by a model.", rules()),
+    ("learn-e-done", "A stronger reason", "Right answer; the reason is on track but misses the pronouns. Kix shows a stronger one.", muse("Muse Spark")),
+]
+lq_html = "".join(f'<figure class="m-tile" style="margin:0"><div class="rd-shot"><img src="{img(k)}" alt="{html.escape(t)}"></div><div class="m-cap"><div><b>{html.escape(t)}</b><span class="d">{html.escape(d)}</span></div><div class="rd-chips">{c}</div></div></figure>' for k, t, d, c in lq_tiles)
+build_learnq = f"""
+<div class="m-head">
+  <div><p class="m-kick">Learn, signed in as Abby (P6): questions from the skill packs, written for myKx to the MOE syllabus</p><h1 class="rd-h2">What the questions look like.</h1></div>
+  <div class="m-power"><p>{SPARK}Powered by Meta Muse</p><div class="rd-chips">{muse("Muse Spark 1.3")}{rules("Mastery in code")}</div><small>Top row: asking, with a hint. Bottom row: answered and marked.</small></div>
+</div>
+<div class="m-grid" style="row-gap:16px">{lq_html}</div>
+"""
+board("ReadmeLearnQuestions", "myKx README: what the questions look like", build_learnq, True, mvp_css + ".m-cap span.d{font-size:14px;line-height:19px}.m-cap b{font-size:18px;line-height:23px}.m-tile .rd-shot img{aspect-ratio:16/9}.m-grid{top:166px}")
+
 print("boards written")
