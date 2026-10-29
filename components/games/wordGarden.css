@@ -50,3 +50,35 @@
 .wg-actions{display:flex;flex-wrap:wrap;gap:10px}
 .wg-actions a{text-decoration:none}
 @media (min-width: 1024px) and (min-aspect-ratio: 5/4){.wg-root{height:var(--screen-h);min-height:0}.wg-field{min-height:0}}
+/* Touch screens: no tap flash, no double-tap zoom, no selection while typing fast (see keyboard.css). */
+.wg-root{-webkit-tap-highlight-color:transparent;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+/* Below desktop (founder, 29 Oct: flicker on phones and foldables): the game is exactly the small viewport, so the
+   page never scrolls and the browser's bars never slide in and out under the keys; pills drop their backdrop blur. */
+@media (max-width: 1023px), (max-aspect-ratio: 5/4) {
+  .wg-root { --screen-h: 100vh; height: 100vh; min-height: 0; overscroll-behavior: none; }
+  @supports (height: 100svh) { .wg-root { --screen-h: 100svh; height: 100svh; } }
+  .wg-field { min-height: 0; }
+  .wg-pill { -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+/* Phones: everything fits the small viewport (about 660 px tall with the browser's bars showing), so the page never
+   scrolls under the keys. A tighter header, a smaller picture and letters, and a low flower bed that still grows. */
+@media (max-width: 599px) {
+  .wg-hud { padding: 10px 12px; gap: 6px 8px; }
+  .wg-title { flex: 1 1 100%; order: -1; padding: 6px 14px; border-radius: 18px; }
+  .wg-title strong { font-size: 20px; }
+  .wg-title span { font-size: 12px; }
+  .wg-pill { min-height: 36px; padding: 0 12px; font-size: 13px; }
+  .wg-seg button { min-height: 32px; padding: 0 10px; font-size: 13px; }
+  .wg-field { gap: 6px; }
+  .wg-card { gap: 6px; padding: 10px 12px; border-radius: 20px; }
+  .wg-pic { width: 112px; height: 84px; border-radius: 14px; }
+  .wg-ask { font-size: 15px; }
+  .wg-letters span { width: 26px; height: 32px; font-size: 18px; }
+  .wg-bed { height: 74px; }
+  .wg-pot { width: 30px; height: 26px; border-radius: 4px 4px 12px 12px; }
+  .wg-stem { bottom: 24px; height: calc(var(--g) * 40px); width: 4px; margin-left: -2px; }
+  .wg-stem::before, .wg-stem::after { width: 14px; height: 8px; }
+  .wg-bloom { bottom: calc(24px + var(--g) * 40px); width: 28px; height: 28px; margin: 0 0 -10px -14px; }
+  .wg-drop { top: -80px; }
+  .wg-keys { padding-bottom: 8px; }
+}

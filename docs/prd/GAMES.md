@@ -61,7 +61,7 @@ Every game scene keeps moving and reacts to play (the living-scenes rule in `doc
 
 | Look | Always moving | Heats up as you play well | Hidden taps (a different reaction each tap) |
 |---|---|---|---|
-| **Neon Strike** | four sweeping spotlights, light running along the grid lines, a pulsing horizon, drifting fog, rising sparks | combo 1/4/8: brighter spots and floor, then a laser fan | light rig (colour swap, strobe, laser fan, spotlight search); fog machines in both corners (puff, smoke ring, burst) |
+| **Neon Strike** | four sweeping spotlights, light running along the grid lines, a pulsing horizon, drifting fog, rising sparks | combo 1/4/8: brighter spots and floor, then a laser fan | light rig (colour swap, a gentle double pulse, laser fan, spotlight search); fog machines in both corners (puff, smoke ring, burst) |
 | **Star Typer** | three parallax star layers, nebula fog, shooting stars, drifting sparkles | words done 3/6/9: more sparkles, then warp-speed lines | the sky (a constellation draws itself: frog, rocket, crown; or a meteor shower); the planet (a moon swings round, the ring glints, a sparkle) |
 | **Word Garden** | swaying sun rays, low mist, dust in the light, fireflies, drops sliding down the glass, a falling leaf | blooms 2/4/6: brighter rays, more fireflies | the pond (ripple, bubbles, double ripple, plip); the fern (spores, dew sparkles, fireflies) |
 | **Arcade hub** | the living space scene, chasing marquee bulbs on every cabinet | — | — |
@@ -83,7 +83,7 @@ Built for a laptop or a tablet with a keyboard. On a touch screen the on-screen 
 
 ### Accessibility
 
-Big, high-contrast keys; a dyslexia-friendly letter style option (more spacing); captions on everything spoken; reduced motion swaps meteors for cards that slide in; no flashing.
+Big, high-contrast keys; a dyslexia-friendly letter style option (more spacing); captions on everything spoken; reduced motion swaps meteors for cards that slide in; no flashing: never more than three flashes a second (WCAG 2.3.1), so the light rig's "strobe" is a slow double pulse. On phones, foldables and portrait tablets (founder, 29 Oct: flicker) each game fits the small viewport exactly (no page scroll under the keys), the keys have no tap flash or double-tap zoom, blurred backdrops and the fine moving line patterns (warp rings, the neon floor's lines) are off, and finishing a word replaces only its own meteor.
 
 ## 4. Sound
 

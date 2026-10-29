@@ -35,3 +35,11 @@
 .kb-hint-n{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:rgb(var(--f));color:#1E1C45;font:800 14px/1 var(--font-display);text-shadow:none;box-shadow:0 0 0 1.5px rgba(255,255,255,.9)}
 .kb-hint-n:last-of-type{margin-right:4px}
 @media (prefers-reduced-motion: reduce){.kb-key--next,.kb-key--wrong{animation:none}.kb-finger,.kb-thumb,.kb-num{transition:none}}
+/* Touch screens (founder, 29 Oct: the games flickered on phones and foldables): no tap-highlight flash on every key,
+   no double-tap zoom when the same letter comes twice ("ee", "ll"), no text selection or callout on a long press. */
+.kb,.kb-key{-webkit-tap-highlight-color:transparent;touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+/* Blur re-drawn every frame over a moving scene flickers on phone GPUs: the see-through hands drop their backdrop
+   blur on touch screens and smaller windows (their outline and tint stay). */
+@media (max-width: 1023px), (max-aspect-ratio: 5/4), (pointer: coarse) {
+  .kb-palm { -webkit-backdrop-filter: none; backdrop-filter: none; }
+}

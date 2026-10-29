@@ -155,7 +155,8 @@ export function StarTyper({ words, stage, level, stageName, band, nickname }: { 
       <main className="st-field" aria-label="Type the word on a meteor to fire Kix's star-bolts">
         {meteors.map(({ i, w, spot, n }) =>
           w ? (
-            <div key={`${i}-${w}-${s.nextFromQueue}`} className="st-meteor" style={{ left: `${spot[0]}%`, top: `${spot[1]}%`, animationDelay: `${-i * 2.1}s` }} data-locked={s.target === i ? "yes" : "no"} data-hit={hit[i] ?? ""}>
+            // Keyed by slot and word: finishing a word replaces only its meteor; the others keep drifting (no jump).
+            <div key={`${i}-${w}`} className="st-meteor" style={{ left: `${spot[0]}%`, top: `${spot[1]}%`, animationDelay: `${-i * 2.1}s` }} data-locked={s.target === i ? "yes" : "no"} data-hit={hit[i] ?? ""}>
               <div className="st-rock" />
               <div className="st-word" aria-label={w}>
                 <b>{w.slice(0, n)}</b>

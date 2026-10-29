@@ -29,7 +29,7 @@ const fake = vi.hoisted(() => {
       return this;
     }
   }
-  const destination = { kind: "Destination", volume: new Param(), mute: false };
+  const destination = { kind: "Destination", volume: new Param(), mute: false, chained: [] as unknown[], chain(...n: unknown[]) { this.chained = n; return this; } };
   const nodes: FakeNode[] = [];
   class FakeNode {
     kind: string;
@@ -124,6 +124,8 @@ vi.mock("tone", () => ({
   MonoSynth: fake.make("MonoSynth"),
   MembraneSynth: fake.make("MembraneSynth"),
   NoiseSynth: fake.make("NoiseSynth"),
+  Compressor: fake.make("Compressor"),
+  Limiter: fake.make("Limiter"),
 }));
 
 let engine: typeof import("./engine");
@@ -214,7 +216,7 @@ describe("music sessions", () => {
     expect(engine.musicSessions().retiring).toEqual([a]);
     expect(node(a.bus).gain.ramps.at(-1)).toEqual([0, 1.5]);
     const [to, over] = node(b.bus).gain.ramps.at(-1)!;
-    expect(to).toBeCloseTo(busDb(-24), 9);
+    expect(to).toBeCloseTo(busDb(-16), 9);
     expect(over).toBe(1.5);
     expect(fake.transport.repeats.size).toBe(1);
 
@@ -343,7 +345,7 @@ describe("music sessions", () => {
     expect(gain.ramps).toHaveLength(n);
     engine.setDucked(true);
     expect(gain.ramps).toHaveLength(n + 1);
-    expect(gain.ramps.at(-1)![0]).toBeCloseTo(busDb(-34), 9);
+    expect(gain.ramps.at(-1)![0]).toBeCloseTo(busDb(-26), 9);
     engine.setDucked(true);
     expect(gain.ramps).toHaveLength(n + 1);
   });
@@ -357,7 +359,7 @@ describe("music sessions", () => {
     expect(gain.ramps.at(-1)![0]).toBe(0);
     engine.setHidden(false);
     expect(fake.transport.state).toBe("started");
-    expect(gain.ramps.at(-1)![0]).toBeCloseTo(busDb(-24), 9);
+    expect(gain.ramps.at(-1)![0]).toBeCloseTo(busDb(-16), 9);
   });
 
   it("treat starting the same world, mood and seed as a no-op, and never start before audio is unlocked", async () => {

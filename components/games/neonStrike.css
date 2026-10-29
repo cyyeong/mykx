@@ -55,3 +55,13 @@
 .ns-note{margin:0;font:600 13px/1.45 var(--font-text);color:#B9B2D8}
 @media (min-width: 1024px) and (min-aspect-ratio: 5/4){.ns-root{height:var(--screen-h);min-height:0}.ns-stage{min-height:0}}
 @media (max-width: 1023px){.ns-kix{display:none}}
+/* Touch screens: no tap flash, no double-tap zoom, no selection while typing fast (see keyboard.css). */
+.ns-root{-webkit-tap-highlight-color:transparent;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+/* Below desktop (founder, 29 Oct: flicker on phones and foldables): the game is exactly the small viewport, so the
+   page never scrolls and the browser's bars never slide in and out under the keys; pills drop their backdrop blur. */
+@media (max-width: 1023px), (max-aspect-ratio: 5/4) {
+  .ns-root { --screen-h: 100vh; height: 100vh; min-height: 0; overscroll-behavior: none; }
+  @supports (height: 100svh) { .ns-root { --screen-h: 100svh; height: 100svh; } }
+  .ns-stage { min-height: 0; }
+  .ns-q { -webkit-backdrop-filter: none; backdrop-filter: none; }
+}

@@ -109,6 +109,12 @@
     padding-bottom: calc(var(--kidnav-h) + 24px);
   }
 
+  /* A typing game fills the screen exactly (it has no tab bar): no padding under it, so the page never scrolls and
+     the browser's bars never slide in and out under the keys (founder, 29 Oct: flicker on phones). */
+  .kid-shell-main:has(> .st-root, > .ns-root, > .wg-root) {
+    padding-bottom: 0;
+  }
+
   .kidnav {
     position: fixed;
     left: 0;

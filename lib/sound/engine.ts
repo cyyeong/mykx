@@ -7,9 +7,11 @@ import { THEMES } from "./music";
 import { BEAT_PARTS, planPass, type Part, type PassPlan, type PlannedEvent } from "./music/plan";
 import type { ThemeMood, ThemeScore } from "./music/schema";
 
-const MASTER_DB = -12;
+/** Full level at the output (founder, 29 Oct: −12 dB was barely audible on phone and tablet speakers even at full
+ *  volume). A gentle compressor lifts the quiet effects and a −1 dB limiter stops any peak from clipping. */
+const MASTER_DB = 0;
 /** The music bed sits well under the effects (Music brief). */
-const MUSIC_DB = -24;
+const MUSIC_DB = -16;
 const DUCK_DB = -10;
 /** Seconds: a theme fades in, two themes crossfade, and the music fades out when stopped. */
 const FADE_IN = 1.5;
@@ -35,7 +37,9 @@ function releaseTransport(id: string) {
 export async function start(): Promise<void> {
   if (started) return;
   const resumed = Tone.start(); // must be called inside the user gesture on iOS Safari
-  Tone.getDestination().volume.value = MASTER_DB;
+  const out = Tone.getDestination();
+  out.volume.value = MASTER_DB;
+  out.chain(new Tone.Compressor({ threshold: -24, ratio: 3, attack: 0.004, release: 0.2 }), new Tone.Limiter(-1));
   started = true; // notes scheduled now play as soon as the context is running
   await resumed;
 }

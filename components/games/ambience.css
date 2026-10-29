@@ -68,9 +68,10 @@
 /* Light-rig taps: colour swap, strobe, a laser fan, then every spot hunts for the centre. */
 .am[data-show="rig-swap"] .am-spots{animation:am-swap 2.2s ease-in-out}
 @keyframes am-swap{0%,100%{filter:none}50%{filter:hue-rotate(150deg) saturate(1.4)}}
-.am[data-show="rig-strobe"] .am-spots{animation:am-strobe .18s steps(1) 6}
-.am[data-show="rig-strobe"] .am-edge{animation:am-strobe .18s steps(1) 6}
-@keyframes am-strobe{0%{opacity:1}50%{opacity:.08}}
+/* The "strobe" is a gentle double pulse: never more than three flashes a second (WCAG 2.3.1), and kids play here. */
+.am[data-show="rig-strobe"] .am-spots{animation:am-strobe 1.6s ease-in-out}
+.am[data-show="rig-strobe"] .am-edge{animation:am-strobe 1.6s ease-in-out}
+@keyframes am-strobe{0%,50%,100%{opacity:1}25%,75%{opacity:.45}}
 .am[data-show="rig-fan"] .am-lasers{animation:am-fanburst 2.4s ease-out}
 @keyframes am-fanburst{0%{opacity:0}12%,70%{opacity:1}100%{opacity:0}}
 .am[data-show="rig-search"] .am-spot{animation:am-search 2.4s ease-in-out}
@@ -161,3 +162,10 @@
 .am-poke--fern[data-act="dew"] .am-r3{left:40%;top:72%;animation-delay:.5s}
 
 @media (prefers-reduced-motion: reduce){.am,.am *,.am *::before{animation:none!important;transition:none!important}.am-warp,.am-lasers,.am-shoot,.am-run,.am-mote,.am-fly,.am-drip,.am-leaf,.am-edge>b{display:none!important}}
+/* Phones, foldables and tablets in portrait (founder, 29 Oct: the typing games flickered there). Fine moving line
+   patterns alias into a shimmer on small, dense screens, so the warp rings and the neon floor's lines go; the rest of
+   the scene stays. */
+@media (max-width: 1023px), (max-aspect-ratio: 5/4), (pointer: coarse) {
+  .am-warp { display: none; }
+  .am-floor::before { animation: none; }
+}
