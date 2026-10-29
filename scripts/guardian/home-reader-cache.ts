@@ -7,7 +7,8 @@ import { sparkStructured } from "../../lib/meta/spark.ts";
 import { frameHash, shrink } from "../../lib/home-watch/read.ts";
 import { readerPrompt, readerSchema, settleReading } from "../../lib/home-watch/reader.ts";
 
-const FRAMES = ["living-reading", "living-tv", "kitchen-snack", "study-homework", "living-argument", "living-window", "entrance-arrive", "kitchen-empty"];
+// Every simulator frame (sim/script.js CAMERAS): four fixed cameras, each with its scenes.
+const FRAMES = ["living-empty", "living-reading", "living-tv", "living-argument", "living-window", "kitchen-empty", "kitchen-snack", "study-empty", "study-homework", "entrance-empty", "entrance-arrive"];
 const ROOM: Record<string, string> = { living: "Living room", kitchen: "Kitchen", study: "Study", entrance: "Entrance" };
 const KIDS = [
   { nickname: "Jordan", band: "junior" as const, description: "Youngest, about 9, short straight black hair, often a light blue T-shirt" },

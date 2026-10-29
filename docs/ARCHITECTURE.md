@@ -767,7 +767,7 @@ Each verdict is a fixed rule applied to a person's judgement, not a model learni
 
 - **`model_runs`** records every call (route, operation, model, request and response ids, latency, first-token time, tokens, images, audio seconds, estimated cost, ok, a short key-free error). `lib/runs/log.ts` writes it through a hook in `lib/meta/run.ts`, so no route can forget; logging never breaks a call.
 - **Under the hood** (`/admin/under-the-hood`, `app/api/admin/hood/route.ts`, `lib/admin/hood.ts`) shows the sixteen agents with what they read and may never do, per-model totals (calls, failures, average latency, tokens, images, audio seconds, cost), the latest 60 calls by agent name (never by child: `publicRun` reports only whether a call was for a child), the packs, published versions and the art manifest.
-- **Refreshing fallbacks from live runs:** `scripts/guardian/home-reader-cache.ts` runs the real Home Reader on the eight synthetic frames and stores its answers by frame hash as the cached fallback; `scripts/guardian/outings-seed.ts` records a real outing run as the demo's cached run.
+- **Refreshing fallbacks from live runs:** `scripts/guardian/home-reader-cache.ts` runs the real Home Reader on the eleven synthetic frames and stores its answers by frame hash as the cached fallback; `scripts/guardian/outings-seed.ts` records a real outing run as the demo's cached run.
 - **Engine checks:** the soak test and the content scanner run offline and deterministically.
 
 ### 6.6 What is deliberately not self-learning
@@ -942,7 +942,7 @@ A Sec 2 child costs less (shorter teaching notes). Prefix caching (stable pack n
 | `mykx-guest` | The guest walkthrough at https://mykx-guest.vercel.app: the same app built with `NEXT_PUBLIC_MYKX_GUEST=1`, with no Supabase or Meta keys and its own `KID_SESSION_SECRET` (§7, guest site) | Vercel builds every push to `main` |
 | `mykx-sim` | The Home simulator at https://mykx-sim.vercel.app: a static page plus `sim/api/send.js` (60 s), behind Vercel's sign-in protection and a passcode | From git on every push, with the project's Root Directory set to `sim` (29 Oct: the project had been connected to the repo without it, so pushes built the whole app into it and the simulator went down) |
 
-The simulator holds a real Home Link device token for the synthetic demo household and posts only its own bundled frames (`public/art/sim/`, eight Muse Image frames in the manifest, labelled "Synthetic camera frames") and scripted points to the real ingest routes, so myKx can't tell it from a real client. It answers each send with what myKx said, newest first.
+The simulator holds a real Home Link device token for the synthetic demo household and posts only its own bundled frames (`public/art/sim/`, eleven Muse Image frames from four fixed cameras, each scene an edit of its camera's one view so the angle never changes, in the manifest, labelled "Synthetic camera frames") and scripted points to the real ingest routes, so myKx can't tell it from a real client. It answers each send with what myKx said, newest first.
 
 `next.config.ts` traces the skill-pack files and the Kix base image into the functions that read them at request time (`outputFileTracingIncludes`), because Vercel functions don't ship `public/` or `content/` by default.
 

@@ -2,16 +2,19 @@
 // Image art (public/art/sim on myKx) and the points are a made-up route around the demo family's pins in Sengkang.
 // Shared by the page (sim/app.js) and the server (sim/api/send.js).
 
-export const FRAMES = {
-  "living-reading": { room: "Living room", what: "reading on the sofa" },
-  "living-tv": { room: "Living room", what: "two kids watching TV" },
-  "kitchen-snack": { room: "Kitchen", what: "eating noodles" },
-  "study-homework": { room: "Study", what: "homework at the desk" },
-  "living-argument": { room: "Living room", what: "tug-of-war over the remote" },
-  "living-window": { room: "Living room", what: "walking to an open window" },
-  "entrance-arrive": { room: "Entrance", what: "arriving home" },
-  "kitchen-empty": { room: "Kitchen", what: "an empty kitchen" },
-};
+/**
+ * The home's four cameras. Each is one fixed ceiling camera, so every scene from it shares one angle (founder, 29 Oct);
+ * only the people in the room change. Frame ids are files in myKx's public/art/sim.
+ */
+export const CAMERAS = [
+  { room: "Living room", cam: "CAM 1", scenes: [["living-empty", "Empty"], ["living-reading", "Jordan reading"], ["living-tv", "Jordan and Abby watching TV"], ["living-argument", "Tug-of-war over the remote"], ["living-window", "Walking to an open window"]] },
+  { room: "Kitchen", cam: "CAM 2", scenes: [["kitchen-empty", "Empty"], ["kitchen-snack", "Jordan eating noodles"]] },
+  { room: "Study", cam: "CAM 3", scenes: [["study-empty", "Empty"], ["study-homework", "Leonard doing homework"]] },
+  { room: "Entrance", cam: "CAM 4", scenes: [["entrance-empty", "Empty"], ["entrance-arrive", "Jordan arriving home"]] },
+];
+
+/** Every frame, with its camera's room and what it shows. */
+export const FRAMES = Object.fromEntries(CAMERAS.flatMap((c) => c.scenes.map(([id, what]) => [id, { room: c.room, what }])));
 
 export const ROOMS = ["Living room", "Kitchen", "Study", "Entrance"];
 export const cameraKey = (room) => room.toLowerCase().replace(/[^a-z]+/g, "-");

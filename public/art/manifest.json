@@ -2608,13 +2608,15 @@
     "kind": "sim-frame",
     "model": "muse-image-1.0",
     "route": "api",
-    "prompt": "A living room with a grey sofa, a low wooden coffee table and a switched-off TV on a cabinet. Child A sits cross-legged on the sofa reading a picture book, calm and absorbed. Nobody else is in the room. Fictional characters only. A: a small child about 9 years old with short straight black hair, a light blue T-shirt and navy shorts. B: a child about 12 years old with a curly chin-length bob, a mustard-yellow T-shirt and grey shorts. C: a teenager about 14 years old with a long black ponytail and round glasses, a grey hoodie. Stylised 3D animated-feature render with soft clay-like materials, warm afternoon light, a tidy Singapore public-housing flat interior with a pale tiled floor and a ceiling fan. Seen from a security camera mounted high in a corner of the room, looking down at an angle, slight wide-angle lens distortion, gently desaturated colours, soft sensor grain. The people are small in the frame and fully clothed. No text, no letters, no numbers, no timestamp, no logos, no watermark.",
-    "refs": [],
+    "prompt": "The same CCTV camera frame: keep exactly the same ceiling camera position, angle, fisheye lens distortion, framing, room layout, furniture, walls, windows, door and lighting, in the same stylised 3D look. Only add or remove people as described; everything else stays identical. Add a boy about 9 with short straight black hair in a light blue T-shirt and shorts sitting on the sofa reading a picture book, calm. No text, no timestamp, no logos, no watermark.",
+    "refs": [
+      "art-src/sim/living-base.webp"
+    ],
     "size": "1792x1024",
-    "created": "2026-10-28",
-    "sha256": "5f7cdd0bc2ea86b3a1e150d9f7f9c49d30c94ff8747265b1d2504daa49856ead",
+    "created": "2026-10-29",
+    "sha256": "9978b58bc32a81950e2b73bfac7b72977236bf1c86cc74d6fac0f84cca00f8ea",
     "cut_by": null,
-    "note": "Synthetic home-camera frame for the Home simulator and Guardian designs (GUARDIAN.md §2.3); fictional characters; label as synthetic."
+    "note": "29 Oct: redrawn as an edit of this camera's fixed view, so every scene from one camera shares one angle (founder). Synthetic."
   },
   {
     "id": "sim-living-tv",
@@ -2626,13 +2628,15 @@
     "kind": "sim-frame",
     "model": "muse-image-1.0",
     "route": "api",
-    "prompt": "A living room with a grey sofa and a TV on a cabinet showing a bright abstract blue and green glow. Exactly two children sit side by side on the sofa watching the screen, relaxed, a bowl of crackers between them: a small child about 9 years old with short straight black hair, a light blue T-shirt and navy shorts, and a child about 12 years old with a curly chin-length bob, a mustard-yellow T-shirt and grey shorts. No other people anywhere in the frame. Stylised 3D animated-feature render with soft clay-like materials, warm afternoon light, a tidy Singapore public-housing flat interior with a pale tiled floor and a ceiling fan. Seen from a security camera mounted high in a corner of the room, looking down at an angle, slight wide-angle lens distortion, gently desaturated colours, soft sensor grain. The people are small in the frame and fully clothed. No text, no letters, no numbers, no timestamp, no logos, no watermark.",
-    "refs": [],
+    "prompt": "The same CCTV camera frame: keep exactly the same ceiling camera position, angle, fisheye lens distortion, framing, room layout, furniture, walls, windows, door and lighting, in the same stylised 3D look. Only add or remove people as described; everything else stays identical. Add a boy about 9 with short straight black hair in a light blue T-shirt and shorts and a girl about 12 with curly chin-length hair in a mustard-yellow T-shirt sitting side by side on the sofa watching the TV, which is switched on showing a colourful cartoon; a bowl of snacks between them. No text, no timestamp, no logos, no watermark.",
+    "refs": [
+      "art-src/sim/living-base.webp"
+    ],
     "size": "1792x1024",
-    "created": "2026-10-28",
-    "sha256": "f1c5c97a1e50c7413642b787cf3df3847a4d25cbab563b0c40247cd464ec994e",
+    "created": "2026-10-29",
+    "sha256": "954dd019cf8fc4327bc1ecb5d08892a4cbe2c418410dea80794ffc54a2db9f71",
     "cut_by": null,
-    "note": "Synthetic home-camera frame for the Home simulator and Guardian designs (GUARDIAN.md §2.3); fictional characters; label as synthetic."
+    "note": "29 Oct: redrawn as an edit of this camera's fixed view, so every scene from one camera shares one angle (founder). Synthetic."
   },
   {
     "id": "sim-kitchen-snack",
@@ -2644,13 +2648,15 @@
     "kind": "sim-frame",
     "model": "muse-image-1.0",
     "route": "api",
-    "prompt": "A small galley kitchen with white cabinets, a two-burner stove that is switched off, and a small round table by the wall. Exactly one person: a small child about 9 years old with short straight black hair, a light blue T-shirt and navy shorts, sitting at the table eating a bowl of noodles with a spoon, a glass of water beside the bowl. No other people anywhere in the frame. Stylised 3D animated-feature render with soft clay-like materials, warm afternoon light, a tidy Singapore public-housing flat interior with a pale tiled floor and a ceiling fan. Seen from a security camera mounted high in a corner of the room, looking down at an angle, slight wide-angle lens distortion, gently desaturated colours, soft sensor grain. The people are small in the frame and fully clothed. No text, no letters, no numbers, no timestamp, no logos, no watermark.",
-    "refs": [],
+    "prompt": "The same CCTV camera frame: keep exactly the same ceiling camera position, angle, fisheye lens distortion, framing, room layout, furniture, walls, windows, door and lighting, in the same stylised 3D look. Only add or remove people as described; everything else stays identical. Add a boy about 9 with short straight black hair in a light blue T-shirt and shorts sitting at the round table eating a bowl of noodles with a fork, calm. No text, no timestamp, no logos, no watermark.",
+    "refs": [
+      "public/art/sim/kitchen-empty.webp"
+    ],
     "size": "1792x1024",
-    "created": "2026-10-28",
-    "sha256": "4102988140cf928ada9d489e95b258e1c9bf06b988618a60bcd1bd644b520300",
+    "created": "2026-10-29",
+    "sha256": "03e98f52d314702cdea6bc4594cd0e3790b39d38e320c6904efac08e53195119",
     "cut_by": null,
-    "note": "Synthetic home-camera frame for the Home simulator and Guardian designs (GUARDIAN.md §2.3); fictional characters; label as synthetic."
+    "note": "29 Oct: redrawn as an edit of this camera's fixed view, so every scene from one camera shares one angle (founder). Synthetic."
   },
   {
     "id": "sim-study-homework",
@@ -2698,13 +2704,15 @@
     "kind": "sim-frame",
     "model": "muse-image-1.0",
     "route": "api",
-    "prompt": "A living room with a large window whose glass pane is swung wide open, no window grille, white curtains blowing inward, tall apartment blocks in the distance. A wooden dining chair has been pushed against the low window ledge, and a small toy rests on the outer ledge. Exactly one person: a small child about 9 years old with short straight black hair, a light blue T-shirt and navy shorts, walking toward the chair and looking at the toy. No other people anywhere in the frame. Stylised 3D animated-feature render with soft clay-like materials, warm afternoon light, a tidy Singapore public-housing flat interior with a pale tiled floor and a ceiling fan. Seen from a security camera mounted high in a corner of the room, looking down at an angle, slight wide-angle lens distortion, gently desaturated colours, soft sensor grain. The people are small in the frame and fully clothed. No text, no letters, no numbers, no timestamp, no logos, no watermark.",
-    "refs": [],
+    "prompt": "The same CCTV camera frame: keep exactly the same ceiling camera position, angle, fisheye lens distortion, framing, room layout, furniture, walls, windows, door and lighting, in the same stylised 3D look. Only add or remove people as described; everything else stays identical. Add a boy about 9 with short straight black hair in a light blue T-shirt and shorts walking towards the window; the window panes are swung wide open and the curtains blow inwards in the wind; the child is a few steps from the open window. No text, no timestamp, no logos, no watermark.",
+    "refs": [
+      "art-src/sim/living-base.webp"
+    ],
     "size": "1792x1024",
-    "created": "2026-10-28",
-    "sha256": "8115c0c21e14e26fe871cc712aeee0b6f17b77dfb2f0a9e273779b61d49f68db",
+    "created": "2026-10-29",
+    "sha256": "7aa77390039a1e61c14af1712d5918b3a024777fb387023ab224f1bf09ecd182",
     "cut_by": null,
-    "note": "Synthetic home-camera frame for the Home simulator and Guardian designs (GUARDIAN.md §2.3); fictional characters; label as synthetic."
+    "note": "29 Oct: redrawn as an edit of this camera's fixed view, so every scene from one camera shares one angle (founder). Synthetic."
   },
   {
     "id": "sim-entrance-arrive",
@@ -2801,5 +2809,65 @@
       "public/art/scenes/anime-room-800.webp"
     ],
     "note": "Abby's room for the Anime Sky world (founder, 29 Oct): original characters only; picked from 6 candidates (2 prompts x 3)."
+  },
+  {
+    "id": "sim-living-empty",
+    "path": "public/art/sim/living-empty.webp",
+    "variants": [
+      "public/art/sim/living-empty-640.webp"
+    ],
+    "pack": null,
+    "kind": "sim-frame",
+    "model": "muse-image-1.0",
+    "route": "api",
+    "prompt": "The same CCTV camera frame: keep exactly the same ceiling camera position, angle, fisheye lens distortion, framing, room layout, furniture, walls, windows, door and lighting, in the same stylised 3D look. Remove both children: the living room is empty, the TV remote lies on the coffee table area of the floor, the sofa cushions are tidy. Exactly the same view, nothing else changed. No people. No text, no timestamp, no logos, no watermark.",
+    "refs": [
+      "public/art/sim/living-argument.webp"
+    ],
+    "size": "1792x1024",
+    "created": "2026-10-29",
+    "sha256": "ede30627b814643923dc964edd51797170f39e778cbe61df5f07caeaa384cd00",
+    "cut_by": null,
+    "note": "29 Oct: redrawn as an edit of this camera's fixed view, so every scene from one camera shares one angle (founder). Synthetic."
+  },
+  {
+    "id": "sim-study-empty",
+    "path": "public/art/sim/study-empty.webp",
+    "variants": [
+      "public/art/sim/study-empty-640.webp"
+    ],
+    "pack": null,
+    "kind": "sim-frame",
+    "model": "muse-image-1.0",
+    "route": "api",
+    "prompt": "The same CCTV camera frame: keep exactly the same ceiling camera position, angle, fisheye lens distortion, framing, room layout, furniture, walls, windows, door and lighting, in the same stylised 3D look. Only add or remove people as described; everything else stays identical. Remove the person: the study is empty, the chair pushed in at the desk, the desk lamp switched off. No text, no timestamp, no logos, no watermark.",
+    "refs": [
+      "public/art/sim/study-homework.webp"
+    ],
+    "size": "1792x1024",
+    "created": "2026-10-29",
+    "sha256": "c0621c7ca1d129a6e1d8ba090a9a5a7ef3d5a2a973f4dfa54ccec43a880ed93f",
+    "cut_by": null,
+    "note": "29 Oct: redrawn as an edit of this camera's fixed view, so every scene from one camera shares one angle (founder). Synthetic."
+  },
+  {
+    "id": "sim-entrance-empty",
+    "path": "public/art/sim/entrance-empty.webp",
+    "variants": [
+      "public/art/sim/entrance-empty-640.webp"
+    ],
+    "pack": null,
+    "kind": "sim-frame",
+    "model": "muse-image-1.0",
+    "route": "api",
+    "prompt": "The same CCTV camera frame: keep exactly the same ceiling camera position, angle, fisheye lens distortion, framing, walls, shoe rack, metal gate and door in exactly the same open positions, corridor and lighting, in the same stylised 3D look. Only remove the child crouching near the shoe rack; the floor there is empty. Nothing else changes. No people. No text, no timestamp, no logos, no watermark.",
+    "refs": [
+      "public/art/sim/entrance-arrive.webp"
+    ],
+    "size": "1792x1024",
+    "created": "2026-10-29",
+    "sha256": "f69e2421b9b8b38382e4938606bf23426ab9ca697527e650e4ce055bc3775570",
+    "cut_by": null,
+    "note": "29 Oct: redrawn as an edit of this camera's fixed view, so every scene from one camera shares one angle (founder). Synthetic."
   }
 ]

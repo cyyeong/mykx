@@ -1,5 +1,14 @@
 {
-  "34006c8d8d34d0cade741b6993273b39ffdc53834e497d68f4bcaa4374cbd4cf": {
+  "0f4c24fcebc38ba93bd8db41bb5ba98abaaa4ebe566f0e5d262cd30989272338": {
+    "people": [],
+    "activity": "nobody here",
+    "note": "Empty living room with sofa and TV.",
+    "hazard": "none",
+    "concern": "none",
+    "reason": "Living room is empty with no visible issues.",
+    "confidence": 0.98
+  },
+  "dba10e668b3f6ff4b7b99f8cf329d9b4953f9c2f9136c588a0ea20f0506d2549": {
     "people": [
       {
         "who": "child",
@@ -9,18 +18,18 @@
       }
     ],
     "activity": "reading or homework",
-    "note": "Child sitting on sofa reading a book",
+    "note": "kid reading book alone on sofa",
     "hazard": "none",
     "concern": "none",
-    "reason": "Jordan is quietly reading alone on the sofa.",
-    "confidence": 0.9
+    "reason": "Child matching Jordan reading quietly alone on sofa.",
+    "confidence": 0.92
   },
-  "d5c77b37516ae7c2e07dcb8a9cb8ca4ad92da593c87621f7bcbcf0cf4c22c6b7": {
+  "566fd9d798808930c318c521d0150c6cd4add1deb40cd4cbe47200a2655ee20c": {
     "people": [
       {
         "who": "child",
         "likely": "Jordan",
-        "confidence": 0.85,
+        "confidence": 0.9,
         "cue": "calm"
       },
       {
@@ -31,67 +40,35 @@
       }
     ],
     "activity": "watching a screen",
-    "note": "Two kids sitting on couch watching TV together",
+    "note": "Two kids on couch watching cartoon on TV",
     "hazard": "none",
     "concern": "none",
-    "reason": "Both kids appear settled watching TV with no risk visible.",
-    "confidence": 0.9
-  },
-  "5dfe50828d2cad94fd3f997b9e37df20c26fe048803e108a26c9843d25a72e35": {
-    "people": [
-      {
-        "who": "child",
-        "likely": "Jordan",
-        "confidence": 0.85,
-        "cue": "calm"
-      }
-    ],
-    "activity": "eating or drinking",
-    "note": "Child eating bowl of food at table.",
-    "hazard": "none",
-    "concern": "none",
-    "reason": "Child possibly Jordan eating calmly in kitchen, no hazard visible.",
-    "confidence": 0.9
-  },
-  "1ebfeca31c6e17fb4116701809a18133af760952468c2ff60831cfe2cb253401": {
-    "people": [
-      {
-        "who": "child",
-        "likely": "Leonard",
-        "confidence": 0.9,
-        "cue": "calm"
-      }
-    ],
-    "activity": "reading or homework",
-    "note": "child in grey hoodie studying at desk",
-    "hazard": "none",
-    "concern": "none",
-    "reason": "Leonard appears focused on homework at the study desk.",
-    "confidence": 0.92
+    "reason": "Both kids calmly watching TV together in living room.",
+    "confidence": 0.95
   },
   "a77239a16240f2541ef7642ea6b507285e5bda075a507770305ba95daca8e5b5": {
     "people": [
       {
         "who": "child",
         "likely": "Abby",
-        "confidence": 0.88,
+        "confidence": 0.9,
         "cue": "frowning"
       },
       {
         "who": "child",
         "likely": "Jordan",
         "confidence": 0.9,
-        "cue": "frowning"
+        "cue": "unclear"
       }
     ],
     "activity": "arguing",
     "note": "Two kids tugging remote in living room",
     "hazard": "none",
     "concern": "watch",
-    "reason": "Abby and Jordan possibly arguing over remote, worth checking.",
+    "reason": "Abby and Jordan possibly arguing over remote, might be play.",
     "confidence": 0.82
   },
-  "e5344cf5a46db00cd39009af08846547f7a8491c67f906f45a4e99fcb05ee685": {
+  "3bc9f897267347e828cf77c7a14511866a44f7290b8585107d90d396d6c88d02": {
     "people": [
       {
         "who": "child",
@@ -101,13 +78,22 @@
       }
     ],
     "activity": "moving around",
-    "note": "Child walking toward wide-open high-rise windows",
+    "note": "kid in blue near sofa facing open window",
     "hazard": "child near an open window or ledge",
     "concern": "urgent",
-    "reason": "Possibly Jordan walking toward wide-open windows with fall risk.",
-    "confidence": 0.9
+    "reason": "Possibly Jordan standing close to wide-open window facing balcony.",
+    "confidence": 0.72
   },
-  "b570df556884e317c8fc3b3b35e8ea80b8f27e2daac0645c7f97fa5d051281b9": {
+  "fe058f3e9aa50b96554af4aa9821e4f6d1d8339ae5e8283a5051a81ecbef9ca3": {
+    "people": [],
+    "activity": "nobody here",
+    "note": "Empty kitchen with cabinets sink and table.",
+    "hazard": "none",
+    "concern": "none",
+    "reason": "Kitchen is empty with no people or hazards visible.",
+    "confidence": 0.98
+  },
+  "5248f804d9f28602c54f02716aca026660fae108b8309203253007c1b0db4c7c": {
     "people": [
       {
         "who": "child",
@@ -116,20 +102,61 @@
         "cue": "calm"
       }
     ],
-    "activity": "moving around",
-    "note": "Kid with backpack bending over shoes by open gate",
+    "activity": "eating or drinking",
+    "note": "child sitting at table eating bowl of food",
     "hazard": "none",
     "concern": "none",
-    "reason": "Possibly Jordan getting ready by the open entrance gate.",
-    "confidence": 0.85
+    "reason": "Child possibly Jordan calmly eating at kitchen table with no hazard visible.",
+    "confidence": 0.9
   },
-  "fe058f3e9aa50b96554af4aa9821e4f6d1d8339ae5e8283a5051a81ecbef9ca3": {
+  "d8717e9bf082d4958bc1d21a8c3f0e0597c551d1f3eddcf09c0f087f5ceadf9d": {
     "people": [],
     "activity": "nobody here",
-    "note": "Empty kitchen with cabinets table and window",
+    "note": "Empty study with desk books and window",
     "hazard": "none",
     "concern": "none",
-    "reason": "Kitchen is empty with no visible issues.",
+    "reason": "Room is empty with no visible risks.",
+    "confidence": 0.97
+  },
+  "1ebfeca31c6e17fb4116701809a18133af760952468c2ff60831cfe2cb253401": {
+    "people": [
+      {
+        "who": "child",
+        "likely": "Leonard",
+        "confidence": 0.9,
+        "cue": "unclear"
+      }
+    ],
+    "activity": "reading or homework",
+    "note": "child at desk reading book under lamp",
+    "hazard": "none",
+    "concern": "none",
+    "reason": "Possibly Leonard studying quietly at desk.",
+    "confidence": 0.9
+  },
+  "246fcf4b5516b1d6f6fcebbc6c5ba602d113411b658cc8727b501132143d961c": {
+    "people": [],
+    "activity": "nobody here",
+    "note": "Empty entrance with open security gate",
+    "hazard": "none",
+    "concern": "none",
+    "reason": "No one is visible in the entrance area.",
     "confidence": 0.98
+  },
+  "b570df556884e317c8fc3b3b35e8ea80b8f27e2daac0645c7f97fa5d051281b9": {
+    "people": [
+      {
+        "who": "child",
+        "likely": "Jordan",
+        "confidence": 0.75,
+        "cue": "calm"
+      }
+    ],
+    "activity": "moving around",
+    "note": "Child with backpack bending over shoes by open gate",
+    "hazard": "none",
+    "concern": "none",
+    "reason": "Possibly Jordan putting on shoes at the entrance.",
+    "confidence": 0.85
   }
 }

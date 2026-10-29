@@ -203,7 +203,7 @@ All in the [myKx Screens canvas](https://claude.ai/artifact/8crEyKVQm9QxCHLDqPXi
 
 Home now and the map now open with Muse's "Right now" brief. The alert's second frame carries real SAM 3.1 outlines (`public/art/sim/living-argument-sam.webp`). Settings gains "Things to do together" (home area, radius, interests).
 
-The eight synthetic frames are in `public/art/sim/` (Muse Image, in the manifest). Two first prompts, a shove and a child kneeling at an open window, were refused by Muse Image's content filter, as expected. Their softer versions (a tug-of-war over the remote, and a chair by an open window with the child walking toward it) were generated and are still honest tests of "possibly".
+The synthetic frames are in `public/art/sim/` (Muse Image, in the manifest). Since 29 Oct there are eleven from four fixed cameras (living room, kitchen, study, entrance): each scene is a Muse Image edit of its camera's one view, so a camera never changes angle and only the people in the room change (founder). Two first prompts, a shove and a child kneeling at an open window, were refused by Muse Image's content filter, as expected. Their softer versions (a tug-of-war over the remote, and a chair by an open window with the child walking toward it) were generated and are still honest tests of "possibly".
 
 ## 3. Rule changes (approved by the founder, 28 Oct)
 
