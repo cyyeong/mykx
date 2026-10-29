@@ -213,7 +213,7 @@ loop_css = """
 steps = [
     ("Past-paper scout", "Every Monday it checks approved Singapore paper sites, within each site's robots rules, for new papers.", rules("Rules"), False),
     ("Content Curator", "Reads new papers for patterns, traps and how often a topic comes up. It never keeps a school's questions, and an admin approves every change.", muse("Muse Spark"), True),
-    ("Seven skill packs", "P3 English, Maths, Science and Chinese; P6 Maths and Science; Sec 2 Science. Original questions in each exam's format.", rules("Reviewed by the founder"), False),
+    ("Twelve skill packs", "English, Maths, Science and Chinese for P3, P6 and Sec 2, each on the latest MOE syllabus. Original questions in each exam's format.", rules("Checked against MOE syllabuses"), False),
     ("Kix Tutor", "Picks the next question on the child's weakest sub-skill and gives hints that never hand over the answer.", muse("Muse Spark") + rules("Selection rules"), True),
     ("Mastery and Treasure", "Scores and rewards are plain code: a holographic card, a critter that grows, a jet that unlocks. No loot boxes, no rankings, no money.", rules("Rules"), False),
     ("Memory Keeper", "Writes Kix's Notebook: how this child asks, slips and wins, so tomorrow starts where today ended. The parent can edit or wipe it.", muse("Muse Spark"), True),
@@ -402,11 +402,11 @@ fw_css = """
 tiles = [
     ("jordan-studio", "Sidekick Studio", "Kix transforms into your world"), ("jordan-home", "Junior home", "Today's quest and Kix"), ("jordan-learn", "Quest map", "Mastery you can see"), ("jordan-spark", "Question player", "Hints, voice and sparks"), ("jordan-treasure", "Treasure Realm", "Cards you earn, never buy"),
     ("jordan-critters", "Critter Lab", "Real life cycles, raised"), ("jordan-squadron", "Sky Squadron", "Jets earned with fresh questions"), ("jordan-arcade", "Arcade", "Typing games on one engine"), ("leonard-neon", "Neon Strike", "Science words at speed"), ("abby-home", "Teen study deck", "Exam-week focus"),
-    ("parent-today", "Parent Today", "Flags with the evidence"), ("admin-skills", "Skills admin", "Seven packs, versioned"), ("parent-home", "Home now", "Cameras read by Muse"), ("parent-together", "Do together", "Weekend ideas, sourced"), ("admin-hood", "Under the hood", "Every model call, logged"),
+    ("parent-today", "Parent Today", "Flags with the evidence"), ("admin-skills", "Skills admin", "Twelve packs, versioned"), ("parent-home", "Home now", "Cameras read by Muse"), ("parent-together", "Do together", "Weekend ideas, sourced"), ("admin-hood", "Under the hood", "Every model call, logged"),
 ]
 tiles_html = "".join(f'<figure class="f-tile" style="margin:0"><div class="rd-shot"><img src="{img(k)}" alt="{t}"></div><p>{t}<span>{d}</span></p></figure>' for k, t, d in tiles)
 build_fw = f"""
-<div class="f-head"><h1 class="rd-h2">A working MVP, end to end.</h1><p class="rd-lede">Every screen here is the real app, signed in as the sample family. Seven skill packs, three age bands, five worlds.</p></div>
+<div class="f-head"><h1 class="rd-h2">A working MVP, end to end.</h1><p class="rd-lede">Every screen here is the real app, signed in as the sample family. Twelve skill packs, three age bands, five worlds.</p></div>
 <div class="f-grid">{tiles_html}</div>
 """
 board("ReadmeFeatures", "myKx README: feature wall", build_fw, True, fw_css)

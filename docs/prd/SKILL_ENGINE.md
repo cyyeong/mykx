@@ -2,6 +2,8 @@
 
 **Written:** Tue 27 Oct 2026 (Day 1). **Status:** in scope as PRD_REVIEW E11; scheduled in `docs/plan/IMPLEMENTATION_PLAN.md` (stream C). **MVP levels:** P3, P6 and Sec 2, because that's where the real material is.
 
+> **29 Oct: twelve packs.** Every MVP level now has English, Maths, Science and Chinese: five new packs (`p6-english`, `p6-chinese`, `s2-english`, `s2-maths`, `s2-chinese`) and items for the empty topics of `p6-maths`, `p6-science` and `s2-science`, written by Claude Code from the latest public MOE syllabuses and SEAB formats (never past papers) and checked by blind re-solves and an independent audit. Founder review is pending. Details: ARCHITECTURE §5.2.
+
 ## 1. The idea
 
 Every Kix conversation is driven by **skill packs**: versioned bundles of teaching method, syllabus knowledge and reviewed questions for one subject at one level. Kid-facing **agents** (Kix Tutor, Kix Vibe Maker) and adult-facing agents (Parent Narrator, Content Curator) **load and unload skills as the lesson needs them**, using Muse Spark's tool calling with client-executed `tool_search` on the Responses API. Admins manage the catalogue, and every upload of new questions or notes makes a skill better through a review-then-publish version step.

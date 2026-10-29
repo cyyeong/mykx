@@ -85,7 +85,7 @@ flowchart LR
     ST[("Private Storage<br/>home-alerts, outings")]
   end
 
-  PACKS[["content/skills<br/>7 skill packs on disk"]]
+  PACKS[["content/skills<br/>12 skill packs on disk"]]
   EXT["Outside sources<br/>allowlisted paper sites,<br/>NEA weather, web_search"]
 
   KID --> ROUTES
@@ -537,20 +537,27 @@ content/skills/p3-science/
 
 The schemas are in `lib/skills/schema.ts` (zod) and `lib/types.ts`. An item has an id, skill, topic, subskill, archetype, difficulty, marks, type (`mcq`, `short`, `open`, `card`), stem, options, answer, working, distractor notes, hints, an optional figure, provenance (`own`, `licensed`, `generated`) and a review status (`draft`, `reviewed`, `retired`). `mcq` and `short` items are marked by code. A `card` becomes a question code marks (`lib/learn/cards.ts`, §5.3a). An `open` item is saved as practice, unconfirmed: it never moves mastery until a grown-up confirms a score (PRD FR04-05; there is no review screen yet, §12).
 
-### 5.2 The seven packs
+### 5.2 The twelve packs
 
-All are version 1.0.0, status `published`, reviewed by the founder, licensed CC BY-NC 4.0 (`LICENSE-ASSETS.md`).
+Every MVP level has the four core subjects (English, Maths, Science and Chinese). All packs are `published`, licensed CC BY-NC 4.0 (`LICENSE-ASSETS.md`), and each `skill.json` names the MOE syllabus and SEAB format it follows.
 
-| Pack | Level | Topics | Archetypes | References | Items (all reviewed) | Figures |
-|---|---|---|---|---|---|---|
-| `p3-chinese` | P3 | 11 | 11 | 4 | 450 | 15 |
-| `p3-english` | P3 | 6 | 40 | 6 | 84 | 3 |
-| `p3-maths` | P3 | 10 | 66 | 5 | 97 | 26 |
-| `p3-science` | P3 | 7 | 53 | 8 | 94 | 41 |
-| `p6-maths` | P6 | 15 | 63 | 5 | 44 | 17 |
-| `p6-science` | P6 | 15 | 88 | 6 | 29 | 18 |
-| `s2-science` | Sec 2 | 8 | 49 | 5 | 21 | 7 |
-| **Total** | | **72** | **370** | **39** | **819** | **127** |
+| Pack | Level | Version | Topics | Archetypes | References | Items (reviewed) | Figures | Syllabus and format |
+|---|---|---|---|---|---|---|---|---|
+| `p3-english` | P3 | 1.0.0 | 6 | 40 | 6 | 84 | 3 | MOE English Language Syllabus 2020 (STELLAR 2.0), P3 Paper 2 |
+| `p3-maths` | P3 | 1.0.0 | 10 | 66 | 5 | 97 | 26 | MOE 2021 Primary Mathematics |
+| `p3-science` | P3 | 1.0.0 | 7 | 53 | 8 | 94 | 41 | MOE 2023 Primary Science |
+| `p3-chinese` | P3 | 1.0.0 | 11 | 11 | 4 | 450 | 15 | MOE 小学华文课程标准 2024 |
+| `p6-english` | P6 | 1.0.0 | 9 | 31 | 3 | 33 (all new) | 1 | MOE English Language Syllabus 2020 (Primary); SEAB PSLE English 0001, format from 2025 |
+| `p6-maths` | P6 | 1.1.0 | 15 | 63 | 6 | 67 (23 new) | 21 | MOE 2021 Primary Mathematics (updated Oct 2025); SEAB PSLE Mathematics 0008 (2026) |
+| `p6-science` | P6 | 1.1.0 | 15 | 88 | 7 | 60 (31 new) | 20 | MOE Primary Science 2023 (updated Jan 2026); SEAB PSLE Science 0009 (2026) |
+| `p6-chinese` | P6 | 1.0.0 | 9 | 12 | 3 | 38 (all new) | 0 | MOE 小学华文课程标准 2015 (the one this cohort follows); SEAB PSLE Chinese 0005 |
+| `s2-english` | Sec 2 | 1.0.0 | 5 | 19 | 3 | 30 (all new) | 1 | MOE English Language Syllabus 2020, Secondary G2/G3; SEAB SEC G3 English K300 (2027) |
+| `s2-maths` | Sec 2 | 1.0.0 | 11 | 37 | 3 | 43 (all new) | 1 | MOE G2 and G3 Mathematics Syllabuses (2024 edition); SEAB SEC G3 Mathematics K310 (2027) |
+| `s2-science` | Sec 2 | 1.1.0 | 8 | 49 | 5 | 73 (52 new) | 9 | MOE Lower Secondary Science G2/G3 (2024 edition) |
+| `s2-chinese` | Sec 2 | 1.0.0 | 9 | 10 | 3 | 37 (all new) | 0 | MOE 2021 Secondary Mother Tongue Languages Syllabus; SEAB SEC G3 Chinese K320 (2027) |
+| **Total** | | | **115** | **479** | **56** | **1,106** | **138** | |
+
+**Who reviewed what.** The original seven packs at 1.0.0 were imported from the founder's own tutor skills and reviewed by the founder. The 287 items added on 29 Oct (five new packs, and the empty topics of `p6-maths`, `p6-science` and `s2-science`) were written by Claude Code from the latest public MOE syllabuses and SEAB formats, never from past papers (AGENTS.md rule 10). Each was re-solved blind by a separate agent, a further independent audit sampled every pack, and each item's `notes` name the syllabus outcome it tests; their `reviewed_by` says so, and founder review is pending (Admin → Skills). The same work corrected the older packs where they had drifted from the syllabus (for example photosynthesis at P6, life cycles at P3, Sec 2 Science topic names and depth limits). Writing, oral and listening carry weight in the Chinese and English manifests but have no items, and a few skills are still empty; the subject pages say so.
 
 The figures are drawn by trusted code, not stored as model output: `lib/skills/figures/` has renderers for bar graphs, line graphs, circuits, electromagnets, life cycles, food webs, magnets, flowcharts, posters and more.
 

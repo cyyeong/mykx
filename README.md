@@ -83,11 +83,11 @@ None of this changes a score or a reward: mastery stays deterministic, and an an
 
 ## How the learning works
 
-<img src="docs/readme/learning-loop.webp" alt="From past papers to the next right question: past-paper scout, Content Curator, seven skill packs, Kix Tutor, mastery and Treasure, Memory Keeper." width="100%">
+<img src="docs/readme/learning-loop.webp" alt="From past papers to the next right question: past-paper scout, Content Curator, twelve skill packs, Kix Tutor, mastery and Treasure, Memory Keeper." width="100%">
 
 1. **Past-paper scout** checks approved Singapore paper sites every Monday, within each site's robots rules.
 2. **Content Curator** (Muse Spark) reads new papers for patterns, common traps and how often each topic comes up. It never keeps a school's questions; an admin approves every change before it reaches a child.
-3. **Seven skill packs** hold original questions in each exam's format: P3 English, Maths, Science and Chinese; P6 Maths and Science; Sec 2 Science.
+3. **Twelve skill packs** hold original questions in each exam's format: English, Maths, Science and Chinese for each of P3, P6 and Sec 2, over 1,100 in all, each pack following the latest MOE syllabus and SEAB format it names. Questions from school papers are never used; only their patterns are.
 4. **Kix Tutor** (Muse Spark) works on the child's weakest sub-skill and gives hints that never hand over the answer. Which question comes next is decided by code.
 5. **Mastery and Treasure** are deterministic: a holographic card, a critter that grows through its real life cycle, a display jet that unlocks. No loot boxes, no rankings, no money.
 6. **Memory Keeper** (Muse Spark) writes Kix's Notebook: how this child asks, slips and wins, so tomorrow starts where today ended, and more gently after a hard day. The parent can read, edit or wipe every page.
