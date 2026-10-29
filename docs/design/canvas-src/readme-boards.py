@@ -256,27 +256,29 @@ groups = [
     ("Home and outdoors", [("Home Reader", "Reads the family's own camera frames, with vision", muse("Muse Spark")), ("Who's who", "Outlines the children on a flagged frame", muse("SAM 3.1")), ("Guardian Brief", "The “Right now” line for the parent", muse("Muse Spark"))]),
     ("Memory and care", [("Memory Keeper", "Keeps Kix's Notebook about each child", muse("Muse Spark")), ("Critter Keeper", "Speaks as the child's pet at its life stage and coaches its care", muse("Muse Spark")), ("Screen-time guardian", "Breaks, quiet hours, the day's balance", rules())]),
     ("Family time", [("Outing Scout", "Searches the web for things to do near home", muse("Muse Spark")), ("Outing Planner", "Plans the weekend around the weather", muse("Muse Spark")), ("Tonight", "The evening summary for the parent", muse("Muse Spark"))]),
+    ("Self-learning: Kix Synapse", [("Synapse Reviewer", "Reviews what kids flag; drafts the fix", muse("Spark Open")), ("Synapse Judge", "Checks the evals code can't", muse("Spark Open"))]),
 ]
 def grp(name, agents):
     return f'<div class="a-group"><h3>{name}</h3>' + "".join(f'<div class="a-agent"><div class="a-top"><b>{a}</b><div class="rd-chips">{c}</div></div><span class="d">{d}</span></div>' for a, d, c in agents) + "</div>"
-cols = [grp(*groups[0]), grp(*groups[1]) + grp(*groups[4]), grp(*groups[2]) + grp(*groups[3])]
+cols = [grp(*groups[0]) + grp(*groups[5]), grp(*groups[1]) + grp(*groups[4]), grp(*groups[2]) + grp(*groups[3])]
 build_agents = f"""
 <div class="a-head">
-  <h1 class="rd-h2">17 specialists. 15 of them run on Meta Muse.</h1>
+  <h1 class="rd-h2">19 specialists. 17 of them run on Meta Muse.</h1>
   <p class="rd-lede">Muse reads, explains and imagines. Plain rules decide every score, reward and alert.</p>
 </div>
 <div class="a-grid">{''.join(f'<div>{c}</div>' for c in cols)}</div>
 <aside class="a-side">
   <h3>Meta models in myKx</h3>
   <div class="a-count"><b>12</b><span>Muse Spark 1.3<small>Standard mode: chat, vision, structured output, web search</small></span></div>
+  <div class="a-count"><b>2</b><span>Muse Spark Open<small>Meta open weights: Kix Synapse's reviewer and judge</small></span></div>
   <div class="a-count"><b>2</b><span>SAM 3.1<small>Kix cut-outs and outlines on flagged frames</small></span></div>
   <div class="a-count"><b>1</b><span>Muse Image 1.0<small>Kix in every world, cards, critters and jets</small></span></div>
   <div class="a-count"><b>1</b><span>Muse Voice Transcribe 1.0<small>Talk to Kix</small></span></div>
   <div class="a-count"><b>2</b><span>Rules only<small>No model at all</small></span></div>
-  <p class="a-note">Children's data only ever goes to Standard models, never contributor mode. Every call is logged in Under the hood with its model, time, tokens and cost.</p>
+  <p class="a-note">Children's data only goes to Standard models. Every call is logged in Under the hood.</p>
 </aside>
 """
-board("ReadmeAgents", "myKx README: 17 agents", build_agents, True, ag_css)
+board("ReadmeAgents", "myKx README: 19 agents", build_agents, True, ag_css)
 
 # 6. Beyond the screen --------------------------------------------------------------------------------------------
 out_css = """
@@ -435,7 +437,7 @@ def mvp_board(name, n, title, tiles, models):
     build = f"""
 <div class="m-head">
   <div><p class="m-kick">Everything in the MVP, {n} of 3 · the real app, signed in as the sample family</p><h1 class="rd-h2">{title}</h1></div>
-  <div class="m-power"><p>{SPARK}Powered by Meta Muse</p><div class="rd-chips">{''.join(muse(MUSE_MODELS[m]) for m in models)}</div><small>17 specialist agents, 15 on Muse · twelve skill packs · three age bands</small></div>
+  <div class="m-power"><p>{SPARK}Powered by Meta Muse</p><div class="rd-chips">{''.join(muse(MUSE_MODELS[m]) for m in models)}</div><small>19 specialist agents, 17 on Muse · Kix Synapse learns from every flag · twelve skill packs · three age bands</small></div>
 </div>
 <div class="m-grid">{tiles_html}</div>
 """
@@ -463,7 +465,7 @@ mvp_board("ReadmeMvpFamily", 3, "For grown-ups and the team.", [
     ("mvp-parent-together", "Do something together", "Weekend ideas, sourced from the web", muse("Muse Spark")),
     ("mvp-parent-messages", "Messages", "Kix suggests a cheer, never reads them", rules()),
     ("mvp-admin-skills", "Skills admin", "Twelve packs, versioned and reviewed", muse("Muse Spark")),
-    ("mvp-admin-hood", "Under the hood", "17 agents, every model call logged", muse("Muse Spark") + rules()),
+    ("mvp-admin-hood", "Under the hood", "19 agents, every model call logged", muse("Muse Spark") + rules()),
 ], ["Muse Spark", "SAM 3.1"])
 
 # 10. The door (design inspiration) --------------------------------------------------------------------------------

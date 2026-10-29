@@ -37,6 +37,7 @@ import { KEEP_POINTS_DAYS, type KidLocationSettings, type Place, type PlaceEvent
 import { DEFAULT_PREFS, KEEP_STATUS_DAYS, type DeviceKind, type GuardianPrefs, type HomeAlert, type HomeCamera, type HomeDevice, type HomeStatus, type RoomKind } from "../home-watch/home-watch.ts";
 import type { FlashcardSpec } from "../vibe/flashcards.ts";
 import type { FamilyMessage, Sticker } from "../family/messages.ts";
+import type { EvalCase, EvalRun, LearnedCaution, SynapseReport, SynapseSettings } from "../synapse/types.ts";
 import type { PageSlug } from "../notebook/notebook.ts";
 import type { GameProgress } from "../games/progress.ts";
 import type { PetRecord } from "../pets/care.ts";
@@ -49,7 +50,7 @@ import { sessionSecret, signToken, verifyToken } from "./tokens.ts";
 
 export const DEMO_PARENT_COOKIE = "mykx_demo_parent";
 /** Bump when the store's shape changes: a running dev server then rebuilds it on the next request (see demoStore). */
-const DEMO_STORE_SHAPE = 17; // 9: game progress; 10: paper scout; 11: Guardian; 12: magic names; 13: agent versions; 14: skill versions and review sessions; 15: kid interests; 16: local-only demo secrets; 17: pets
+const DEMO_STORE_SHAPE = 18; // 9: game progress; 10: paper scout; 11: Guardian; 12: magic names; 13: agent versions; 14: skill versions and review sessions; 15: kid interests; 16: local-only demo secrets; 17: pets; 18: Kix Synapse
 const DEMO_TTL_SEC = 7 * 24 * 60 * 60;
 const LABEL = "demo-parent";
 
@@ -937,6 +938,31 @@ export class DemoStore implements AuthStore {
       if (banned) this.banned.add(userId);
       else this.banned.delete(userId);
     },
+  };
+
+  // Kix Synapse (lib/synapse): reports, cautions, eval cases and runs, settings and consents.
+  readonly synapseRows = { reports: new Map<string, SynapseReport>(), cautions: new Map<string, LearnedCaution>(), cases: new Map<string, EvalCase>(), runs: [] as EvalRun[], settings: null as SynapseSettings | null, consents: new Set<string>() };
+
+  readonly synapse = {
+    saveReport: async (r: SynapseReport) => void this.synapseRows.reports.set(r.id, structuredClone(r)),
+    report: async (id: string) => structuredClone(this.synapseRows.reports.get(id) ?? null),
+    reports: async (q: { householdId?: string; profileId?: string; sinceIso?: string; limit?: number } = {}) =>
+      [...this.synapseRows.reports.values()]
+        .filter((r) => (!q.householdId || r.householdId === q.householdId) && (!q.profileId || r.profileId === q.profileId) && (!q.sinceIso || r.createdAt >= q.sinceIso))
+        .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+        .slice(0, q.limit ?? 500)
+        .map((r) => structuredClone(r)),
+    saveCaution: async (c: LearnedCaution) => void this.synapseRows.cautions.set(c.id, structuredClone(c)),
+    cautions: async () => [...this.synapseRows.cautions.values()].map((c) => structuredClone(c)),
+    saveEvalCase: async (c: EvalCase) => void this.synapseRows.cases.set(c.id, structuredClone(c)),
+    evalCases: async () => [...this.synapseRows.cases.values()].map((c) => structuredClone(c)),
+    saveEvalRun: async (r: EvalRun) => void this.synapseRows.runs.push(structuredClone(r)),
+    evalRuns: async (limit: number) => [...this.synapseRows.runs].sort((a, b) => b.at.localeCompare(a.at)).slice(0, limit).map((r) => structuredClone(r)),
+    settings: async () => structuredClone(this.synapseRows.settings),
+    saveSettings: async (s: SynapseSettings) => void (this.synapseRows.settings = structuredClone(s)),
+    consent: async (householdId: string) => this.synapseRows.consents.has(householdId),
+    setConsent: async (householdId: string, on: boolean) => void (on ? this.synapseRows.consents.add(householdId) : this.synapseRows.consents.delete(householdId)),
+    consenting: async () => [...this.synapseRows.consents],
   };
 
   // Agents you can edit (agent_versions): every version, deleted ones kept with deletedAt (lib/agents).

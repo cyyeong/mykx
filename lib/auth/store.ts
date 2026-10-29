@@ -20,6 +20,7 @@ import type { OutingRun } from "../outings/outings.ts";
 import type { KidLocationSettings, Place, PlaceEvent, StoredPoint } from "../location/location.ts";
 import type { DeviceKind, GuardianPrefs, HomeAlert, HomeCamera, HomeDevice, HomeStatus, RoomKind } from "../home-watch/home-watch.ts";
 import type { Band, Level, Pack, SecretEvent, SecretKind } from "./schemas.ts";
+import type { EvalCase, EvalRun, LearnedCaution, SynapseReport, SynapseSettings } from "../synapse/types.ts";
 
 /** A profiles row, server side. Holds the secret hash: never send one of these to a client as is. */
 export interface Profile {
@@ -279,6 +280,13 @@ export class AgentVersionsMissingError extends Error {
   constructor() {
     super("The agent_versions table isn't there yet: run supabase/migrations/20261030_agent_versions.sql.");
     this.name = "AgentVersionsMissingError";
+  }
+}
+
+export class SynapseTablesMissingError extends Error {
+  constructor() {
+    super("Kix Synapse's tables aren't there yet: run supabase/migrations/20261030_synapse.sql.");
+    this.name = "SynapseTablesMissingError";
   }
 }
 
@@ -557,5 +565,29 @@ export interface AuthStore {
     updateDraft(agentId: string, version: number, patch: { instructions: string; note: string | null; status: StoredAgentVersion["status"] }): Promise<StoredAgentVersion | null>;
     /** Soft-deletes a live version; false when there isn't one. */
     remove(agentId: string, version: number, atIso: string): Promise<boolean>;
+  };
+
+  // Kix Synapse (docs/prd/SYNAPSE.md, migration 20261030_synapse.sql): kids' reports with their de-identified turn,
+  // learned cautions, eval cases and runs, the admin's settings and each family's "Help Kix learn" choice. Server
+  // only; admin routes read across households. Until the migration is applied, reads answer empty and writes throw
+  // SynapseTablesMissingError.
+  synapse: {
+    saveReport(report: SynapseReport): Promise<void>;
+    report(id: string): Promise<SynapseReport | null>;
+    /** Newest first. */
+    reports(q?: { householdId?: string; profileId?: string; sinceIso?: string; limit?: number }): Promise<SynapseReport[]>;
+    saveCaution(caution: LearnedCaution): Promise<void>;
+    cautions(): Promise<LearnedCaution[]>;
+    saveEvalCase(c: EvalCase): Promise<void>;
+    evalCases(): Promise<EvalCase[]>;
+    saveEvalRun(run: EvalRun): Promise<void>;
+    /** Newest first. */
+    evalRuns(limit: number): Promise<EvalRun[]>;
+    settings(): Promise<Partial<SynapseSettings> | null>;
+    saveSettings(settings: SynapseSettings): Promise<void>;
+    consent(householdId: string): Promise<boolean>;
+    setConsent(householdId: string, on: boolean): Promise<void>;
+    /** Households that turned on "Help Kix learn". */
+    consenting(): Promise<string[]>;
   };
 }

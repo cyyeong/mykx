@@ -12,6 +12,7 @@ import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties, 
 import { useSound } from "@/components/sound/SoundProvider";
 import { Art } from "@/components/ui/Art";
 import { TalkButton } from "@/components/voice/TalkButton";
+import { FlagButton, type SignedFlag } from "@/components/synapse/FlagButton";
 import { useKixVoice } from "@/components/voice/useKixVoice";
 import { CRITTERS } from "@/lib/critters/catalog";
 import { barsNow, jobsLeft, moodOf, readyToGrow, stageOf, type Mood, type PetRecord, type Reaction } from "@/lib/pets/care";
@@ -20,8 +21,8 @@ import { DIRT, HABITAT_ART, foodArt, spriteOf } from "./habitats";
 import { PetActor, zoneFor, type PetHandle } from "./PetActor";
 import "./pets.css";
 
-type Line = { from: "kid" | "pet" | "kix"; text: string; helplines?: { name: string; number: string }[] };
-type Reply = { ok?: boolean; pet?: PetRecord; now?: string; outcome?: { ok: boolean; reaction: Reaction; say: string } | null; reply?: string; feeling?: string; source?: string; care?: { reply: string; helplines: { name: string; number: string }[] } };
+type Line = { from: "kid" | "pet" | "kix"; text: string; helplines?: { name: string; number: string }[]; flag?: SignedFlag | null };
+type Reply = { ok?: boolean; pet?: PetRecord; now?: string; outcome?: { ok: boolean; reaction: Reaction; say: string } | null; reply?: string; feeling?: string; source?: string; flag?: SignedFlag | null; care?: { reply: string; helplines: { name: string; number: string }[] } };
 
 const BAR_LABEL: Record<Bar, string> = { food: "Food", clean: "Clean", love: "Love", warm: "Warm" };
 const MOOD_LABEL: Record<Mood, string> = { happy: "Happy", okay: "Content", hungry: "Hungry", sad: "Sad", angry: "Cross" };
@@ -319,7 +320,7 @@ export function PetsScreen({ initial, serverNow, band, voice }: { initial: PetRe
       const r = (await res.json()) as Reply;
       if (r.care) add({ from: "kix", text: r.care.reply, helplines: r.care.helplines });
       else if (r.reply) {
-        add({ from: "pet", text: r.reply });
+        add({ from: "pet", text: r.reply, flag: r.flag ?? null });
         if (r.pet) put(r.pet);
         if (shown.current !== asked) return setTalking(false);
         setSay(r.reply);
@@ -490,6 +491,7 @@ export function PetsScreen({ initial, serverNow, band, voice }: { initial: PetRe
               <li key={i} className={`pt-line pt-line--${l.from}`}>
                 {l.from === "kix" && <b>Kix: </b>}
                 {l.text}
+                {l.from === "pet" && l.flag && <FlagButton surface="critter" band={band} flag={l.flag} what={`what ${name} said`} className="pt-flag" />}
                 {l.helplines && (
                   <span className="pt-help">
                     {l.helplines.map((h) => (

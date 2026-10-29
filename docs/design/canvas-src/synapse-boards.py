@@ -8,6 +8,9 @@ B = {
     "q": "a731cc9b4c7ef7ec8b04bdb9fb5302ed", "hero": "82decf82e608e07ac43d134a4688bc09", "wmLight": "f52e18857979369421011da66fdb9de3",
     "wmDark": "86d2ad40444eabc4ba4c8a0e9f1d4603", "idle": "02f791d67e720a2bf4fdb268ff6b6b8a", "think": "322dfed5486a583d4343e28bcb22c301",
     "cheer": "f506e58a602297834bce49cc9565bca7",
+    # Live captures from the review server, 29 Oct (sample family): the typo flagged and fixed.
+    "sheet": "da2e550dc9ff5b130e329169cea878e3", "outcome": "d3b4df3fd68d16d43941a118c3038824", "fixed": "2445981e5945e68106934223d933ba96",
+    "case": "ab314a766e66cf4438d0bedf0438d286", "inbox": "7e2ffef6f981ad0a361e586635a18cb0",
 }
 img = lambda k: f"/_blob/{B[k]}"
 
@@ -487,4 +490,34 @@ st = f"""{NAV()}
  </div>
 </main>"""
 board("SynapseSettings", "Kix Synapse: settings and retrain", 1440, 900, "anime-sky", st, st_css)
+
+# ---------------------------------------------------------------------------------------------------------------------
+# 7. README: Kix Synapse, live (1600x900): a typo flagged and fixed, from real captures on the review server.
+rl_css = """
+.bd{background:radial-gradient(120% 90% at 85% 0%,#2E2C6E 0%,#16143E 55%);color:#fff}
+.hd{position:absolute;left:48px;top:34px;right:48px}
+.hd .k{display:flex;align-items:center;gap:10px;color:#FFE38A;font:800 16px/1 var(--font-text)}
+.hd h1{margin-top:10px;font:600 40px/46px var(--font-display);color:#fff}
+.hd p{margin-top:8px;font:700 16px/23px var(--font-text);color:#D9D3FF;max-width:1180px}
+.fr{position:absolute;display:flex;flex-direction:column;gap:8px}
+.fr .cap{display:flex;align-items:center;gap:8px;font:800 15px/20px var(--font-text);color:#fff}
+.fr .cap b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#FFE38A;color:#1C1B4A;font:800 13px/1 var(--font-text)}
+.fr img{display:block;width:100%;border-radius:16px;box-shadow:0 0 0 1px rgba(185,167,245,.35),0 18px 40px rgba(6,4,30,.45)}
+.facts{position:absolute;left:1076px;top:636px;width:476px;display:flex;flex-wrap:wrap;gap:8px}
+.facts span{display:inline-flex;align-items:center;gap:6px;min-height:30px;padding:4px 12px;border-radius:999px;background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1px rgba(185,167,245,.35);font:700 13px/1.2 var(--font-text);color:#EDE9FF}
+.facts span b{color:#FFE38A}
+.loop{position:absolute;left:48px;right:48px;bottom:30px;height:64px;border-radius:18px;background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px rgba(185,167,245,.3);display:flex;align-items:center;justify-content:space-between;padding:0 26px}
+.loop span{display:flex;align-items:center;gap:10px;font:800 15px/1 var(--font-text);color:#fff}
+.loop span i{width:12px;height:12px;border-radius:50%;background:#FFE38A;box-shadow:0 0 14px 4px rgba(255,227,138,.5)}
+.loop span small{font:700 13px/1 var(--font-text);color:#C9C3F0}
+.loop em{flex:1;height:2px;margin:0 14px;background:linear-gradient(90deg,rgba(255,227,138,.15),rgba(255,227,138,.7));font-style:normal}
+"""
+rl = f"""<div class="hd"><div class="k">{ico(SPARK, 18, fill=True)}Kix Synapse, live</div><h1>A typo flagged and fixed in 6 seconds</h1>
+<p>Recorded on the sample family: a typo slipped into an edit of a P6 question, and Abby flagged it. The reviewer judged it a typo at 100, code checked the fix and found the word in the published pack, and the pack's next version went live. The admin can undo it in one click.</p></div>
+<div class="fr" style="left:48px;top:178px;width:500px"><span class="cap"><b>1</b>The flag, on the question</span><img src="{img("sheet")}" alt=""></div>
+<div class="fr" style="left:574px;top:178px;width:476px"><span class="cap"><b>2</b>What Abby hears back</span><img src="{img("outcome")}" alt=""><span class="cap" style="margin-top:8px"><b>3</b>The question, a moment later</span><img src="{img("fixed")}" alt=""></div>
+<div class="fr" style="left:1076px;top:178px;width:476px"><span class="cap"><b>4</b>The case in Admin → Kix Synapse</span><img src="{img("case")}" alt=""></div>
+<div class="facts"><span><b>Muse Spark 1.3</b> reviewed it, standing in for Muse Spark Open</span><span>Code checks <b>4 of 4</b></span><span>Confidence <b>100</b></span><span><b>p6-maths v1.8.0</b> published</span><span><b>6 s</b> flag to fix</span><span><b>$0.005</b></span></div>
+<div class="loop"><span><i></i>Flag<small>the kid</small></span><em></em><span><i></i>Trace<small>the turn they saw</small></span><em></em><span><i></i>Review<small>a different model</small></span><em></em><span><i></i>Fix<small>a version, by itself at 100</small></span><em></em><span><i></i>Re-test<small>every night</small></span></div>"""
+board("ReadmeSynapse", "README: Kix Synapse, live", 1600, 900, "dreamlight", rl, rl_css)
 print("written")

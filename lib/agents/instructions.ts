@@ -384,14 +384,19 @@ function pickPart(prompt: AgentPrompt, key?: string): PromptPart {
  * An agent's instructions (the published `text`, else the default) for one part, filled in, followed by the fixed
  * guardrails. Builders add their context after it.
  */
-export function compose(agent: EditableAgent, vars: Vars, text?: string | null, partKey?: string): string {
+export function compose(agent: EditableAgent, vars: Vars, text?: string | null, partKey?: string, cautions: readonly string[] = []): string {
   const prompt = AGENT_PROMPTS[agent];
   const part = pickPart(prompt, partKey);
   const source = (text != null ? partText(agent, text, part.key) : null) ?? part.text;
   const instructions = trimBlank(fill(source, vars, prompt));
   const head = instructions ? [instructions, ...(part.gap ? [""] : [])] : [];
-  return [...head, ...guardrailsFor(agent, vars, part.key)].join("\n");
+  // Kix Synapse's learned cautions (lib/synapse/cautions.ts): after the instructions, before the guardrails.
+  const learned = cautions.length ? [LEARNED_HEADING, ...cautions.map((c) => `- ${c}`), ""] : [];
+  return [...head, ...learned, ...guardrailsFor(agent, vars, part.key)].join("\n");
 }
+
+/** The line above Kix Synapse's learned cautions in a prompt. */
+export const LEARNED_HEADING = "Learned cautions (each came from a checked report and passed a test; follow them):";
 
 /** Why a text can't be saved as this agent's instructions, in plain words; null when it can. */
 export function checkInstructions(agent: EditableAgent, text: string): string | null {

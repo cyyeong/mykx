@@ -10,7 +10,8 @@ import { familyOf, type AttemptEvent } from "../domain/attempts.ts";
 import { sgDate } from "../domain/time.ts";
 import type { LedgerEntry } from "../domain/rewards.ts";
 import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt, StoredBeat, StoredGuardianSettings, StoredKixMessage, Creation, NotebookPage, NotebookRevision, StoredSessionRead, StoredRun, StoredSkillEvent } from "./store.ts";
-import { AgentVersionsMissingError, type StoredAgentVersion } from "./store.ts";
+import { AgentVersionsMissingError, SynapseTablesMissingError, type StoredAgentVersion } from "./store.ts";
+import type { EvalCase, EvalRun, LearnedCaution, SynapseReport, SynapseSettings } from "../synapse/types.ts";
 import { BEAT_MS, type ActivityKind } from "../guardian/screen-time.ts";
 import type { Extraction, KnowledgeSession, KnowledgeUpload, Review, Rights, SkillUpdate, UploadState } from "../knowledge/knowledge.ts";
 import type { PackFiles, SkillVersion, SkillVersionMeta } from "../skills/versions.ts";
@@ -1616,6 +1617,93 @@ export class SupabaseStore implements AuthStore {
       if (error && tableMissing(error)) throw new AgentVersionsMissingError();
       check(error);
       return (data ?? []).length > 0;
+    },
+  };
+
+  // Kix Synapse (migration 20261030_synapse.sql): jsonb documents behind a few indexed columns. Reads answer empty
+  // until the migration is applied; writes throw SynapseTablesMissingError.
+  readonly synapse = {
+    saveReport: async (r: SynapseReport) => {
+      const { error } = await this.db.from("synapse_reports").upsert({ id: r.id, household_id: r.householdId, profile_id: r.profileId, status: r.status, created_at: r.createdAt, updated_at: r.updatedAt, doc: r });
+      if (error && tableMissing(error)) throw new SynapseTablesMissingError();
+      check(error);
+    },
+    report: async (id: string): Promise<SynapseReport | null> => {
+      const { data, error } = await this.db.from("synapse_reports").select("doc").eq("id", id).maybeSingle();
+      if (error && tableMissing(error)) return null;
+      check(error);
+      return (data?.doc as SynapseReport | undefined) ?? null;
+    },
+    reports: async (q: { householdId?: string; profileId?: string; sinceIso?: string; limit?: number } = {}): Promise<SynapseReport[]> => {
+      let s = this.db.from("synapse_reports").select("doc");
+      if (q.householdId) s = s.eq("household_id", q.householdId);
+      if (q.profileId) s = s.eq("profile_id", q.profileId);
+      if (q.sinceIso) s = s.gte("created_at", q.sinceIso);
+      const { data, error } = await s.order("created_at", { ascending: false }).limit(q.limit ?? 500);
+      if (error && tableMissing(error)) return [];
+      check(error);
+      return (data ?? []).map((r) => r.doc as SynapseReport);
+    },
+    saveCaution: async (c: LearnedCaution) => {
+      const { error } = await this.db.from("synapse_cautions").upsert({ id: c.id, agent_id: c.agent, status: c.status, created_at: c.createdAt, doc: c });
+      if (error && tableMissing(error)) throw new SynapseTablesMissingError();
+      check(error);
+    },
+    cautions: async (): Promise<LearnedCaution[]> => {
+      const { data, error } = await this.db.from("synapse_cautions").select("doc").order("created_at", { ascending: false }).limit(500);
+      if (error && tableMissing(error)) return [];
+      check(error);
+      return (data ?? []).map((r) => r.doc as LearnedCaution);
+    },
+    saveEvalCase: async (c: EvalCase) => {
+      const { error } = await this.db.from("synapse_evals").upsert({ id: c.id, kind: "case", created_at: c.createdAt, doc: c });
+      if (error && tableMissing(error)) throw new SynapseTablesMissingError();
+      check(error);
+    },
+    evalCases: async (): Promise<EvalCase[]> => {
+      const { data, error } = await this.db.from("synapse_evals").select("doc").eq("kind", "case").order("created_at", { ascending: false }).limit(1000);
+      if (error && tableMissing(error)) return [];
+      check(error);
+      return (data ?? []).map((r) => r.doc as EvalCase);
+    },
+    saveEvalRun: async (run: EvalRun) => {
+      const { error } = await this.db.from("synapse_evals").insert({ id: run.id, kind: "run", created_at: run.at, doc: run });
+      if (error && tableMissing(error)) throw new SynapseTablesMissingError();
+      check(error);
+    },
+    evalRuns: async (limit: number): Promise<EvalRun[]> => {
+      const { data, error } = await this.db.from("synapse_evals").select("doc").eq("kind", "run").order("created_at", { ascending: false }).limit(limit);
+      if (error && tableMissing(error)) return [];
+      check(error);
+      return (data ?? []).map((r) => r.doc as EvalRun);
+    },
+    settings: async (): Promise<Partial<SynapseSettings> | null> => {
+      const { data, error } = await this.db.from("synapse_settings").select("doc").eq("id", 1).maybeSingle();
+      if (error && tableMissing(error)) return null;
+      check(error);
+      return (data?.doc as Partial<SynapseSettings> | undefined) ?? null;
+    },
+    saveSettings: async (s: SynapseSettings) => {
+      const { error } = await this.db.from("synapse_settings").upsert({ id: 1, doc: s, updated_at: s.updatedAt ?? new Date().toISOString() });
+      if (error && tableMissing(error)) throw new SynapseTablesMissingError();
+      check(error);
+    },
+    consent: async (householdId: string): Promise<boolean> => {
+      const { data, error } = await this.db.from("synapse_consents").select("help_kix_learn").eq("household_id", householdId).maybeSingle();
+      if (error && tableMissing(error)) return false;
+      check(error);
+      return Boolean(data?.help_kix_learn);
+    },
+    setConsent: async (householdId: string, on: boolean) => {
+      const { error } = await this.db.from("synapse_consents").upsert({ household_id: householdId, help_kix_learn: on, updated_at: new Date().toISOString() });
+      if (error && tableMissing(error)) throw new SynapseTablesMissingError();
+      check(error);
+    },
+    consenting: async (): Promise<string[]> => {
+      const { data, error } = await this.db.from("synapse_consents").select("household_id").eq("help_kix_learn", true);
+      if (error && tableMissing(error)) return [];
+      check(error);
+      return (data ?? []).map((r) => r.household_id as string);
     },
   };
 

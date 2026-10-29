@@ -20,7 +20,7 @@ import "./skills.css";
 type PackData = { pack: string; hasDefault: boolean; defaultVersion: string | null; published: string | null; draft: string | null; versions: SkillVersionMeta[]; selected: string; files: Record<string, string> };
 type Files = Record<string, string>;
 
-const SOURCE: Record<string, string> = { edit: "Edited", enhance: "Enhance with Muse", import: "Imported", knowledge: "Knowledge", restore: "Restored" };
+const SOURCE: Record<string, string> = { edit: "Edited", enhance: "Enhance with Muse", import: "Imported", knowledge: "Knowledge", restore: "Restored", synapse: "Kix Synapse fix" };
 const when = (iso: string) => new Date(iso).toLocaleString("en-SG", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "Asia/Singapore" });
 const short = (v: string) => v.replace(/\.0$/, "");
 

@@ -1,0 +1,75 @@
+/* Kix Synapse's flag and sheet (board SynapseFlag). Pack tokens only; Junior gets bigger targets. */
+.sy-flagwrap { position: relative; display: inline-flex; align-items: center; gap: 8px; vertical-align: middle; }
+.sy-flag {
+  display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 0; cursor: pointer;
+  background: var(--surface-raised, #fff); color: var(--ink); box-shadow: inset 0 0 0 2px var(--line, rgba(0,0,0,.15));
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+.sy-flagwrap[data-band="junior"] .sy-flag { width: 56px; height: 56px; }
+.sy-flag:hover { box-shadow: inset 0 0 0 2px var(--accent); color: var(--accent); }
+.sy-flag:active { transform: scale(.94); }
+.sy-flag:focus-visible, .sy-status:focus-visible, .sy-sheet button:focus-visible, .sy-sheet textarea:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.sy-status {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 12px; border: 0; border-radius: 999px; cursor: pointer;
+  font: 800 13px/1.2 var(--font-text); white-space: nowrap;
+}
+.sy-checking { background: #FFF1D6; color: #7A4F00; }
+.sy-fixed { background: #DDF3E4; color: #1F5E37; }
+.sy-right, .sy-closed { background: #EDE9FF; color: #3B3780; }
+.sy-dot { width: 8px; height: 8px; border-radius: 50%; background: #F2A93B; box-shadow: 0 0 0 4px rgba(242,169,59,.25); animation: sy-pulse 1.4s ease-in-out infinite; }
+@keyframes sy-pulse { 50% { box-shadow: 0 0 0 7px rgba(242,169,59,.08); } }
+
+.sy-outcome {
+  position: absolute; z-index: 30; top: calc(100% + 8px); right: 0; width: min(320px, 80vw); padding: 12px 14px; border-radius: 18px;
+  background: var(--surface-raised, #fff); color: var(--ink); box-shadow: 0 0 0 1px var(--line, rgba(0,0,0,.12)), 0 16px 34px rgba(20,16,60,.22);
+  display: flex; flex-direction: column; gap: 6px; font: 600 14px/20px var(--font-text); text-align: left; white-space: normal;
+}
+.sy-outcome b { font: 600 17px/22px var(--font-display); }
+.sy-got { align-self: flex-start; min-height: 32px; padding: 0 14px; border: 0; border-radius: 999px; background: var(--ink); color: var(--surface); font: 800 13px var(--font-text); cursor: pointer; }
+
+.sy-scrim { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; padding: 16px; background: rgba(18, 14, 48, .45); }
+.sy-sheet {
+  width: min(520px, 100%); max-height: calc(100dvh - 32px); overflow: auto; padding: 22px; border-radius: 28px;
+  background: var(--surface-raised, #fff); color: var(--ink); box-shadow: 0 0 0 2px var(--ink), 0 8px 0 var(--ink);
+  display: flex; flex-direction: column; gap: 14px; text-align: left;
+}
+.sy-top { display: flex; gap: 12px; align-items: center; }
+.sy-mark { flex: none; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--accent); color: var(--on-accent, #fff); }
+.sy-top h2 { margin: 0; font: 600 26px/30px var(--font-display); }
+.sy-top p { margin: 2px 0 0; font: 700 15px/21px var(--font-text); color: var(--ink-muted); }
+.sy-kinds { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.sy-kinds button {
+  display: flex; align-items: center; gap: 10px; min-height: 56px; padding: 10px 12px; border: 0; border-radius: 18px; cursor: pointer; text-align: left;
+  background: var(--surface, #f6f3ff); color: var(--ink); box-shadow: inset 0 0 0 2px var(--line, rgba(0,0,0,.12)); font: 800 15px/19px var(--font-text);
+}
+.sy-flagwrap[data-band="junior"] .sy-kinds button { min-height: 64px; font-size: 17px; line-height: 21px; }
+.sy-kinds button.on { background: var(--accent); color: var(--on-accent, #fff); box-shadow: inset 0 0 0 3px var(--ink), 0 4px 0 var(--ink); }
+.sy-i { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 12px; background: var(--surface-raised, #fff); box-shadow: inset 0 0 0 2px var(--line, rgba(0,0,0,.12)); }
+.sy-kinds button.on .sy-i { background: rgba(255,255,255,.18); box-shadow: none; }
+.sy-label { font: 800 15px/20px var(--font-text); }
+.sy-label small { font-weight: 700; color: var(--ink-muted); }
+.sy-note { display: flex; flex-direction: column; gap: 8px; align-items: stretch; }
+.sy-note > :not(textarea) { align-self: flex-start; }
+.sy-note textarea {
+  width: 100%; box-sizing: border-box; min-height: 64px; resize: vertical; padding: 10px 12px; border: 0; border-radius: 16px; font: 700 16px/22px var(--font-text);
+  background: var(--surface, #f6f3ff); color: var(--ink); box-shadow: inset 0 0 0 2px var(--line, rgba(0,0,0,.12));
+}
+.sy-actions { display: flex; gap: 10px; justify-content: flex-end; align-items: center; }
+.sy-cancel { min-height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: transparent; color: var(--ink-muted); font: 800 15px var(--font-text); cursor: pointer; }
+.sy-send {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 52px; padding: 0 22px; border: 0; border-radius: 999px; cursor: pointer;
+  background: #FFD23F; color: #2A1E5C; box-shadow: inset 0 0 0 3px #2A1E5C, 0 5px 0 #2A1E5C; font: 900 17px var(--font-text);
+}
+.sy-send:disabled { opacity: .5; cursor: default; }
+.sy-fine { display: flex; gap: 8px; align-items: flex-start; margin: 0; font: 700 13px/18px var(--font-text); color: var(--ink-muted); }
+.sy-error { margin: 0; font: 700 14px/20px var(--font-text); color: #A21C1C; }
+.sy-care { margin: 0; padding: 12px 14px; border-radius: 16px; background: #FFF1F1; font: 700 16px/23px var(--font-text); color: #6B1D1D; }
+
+@media (max-width: 599px) {
+  .sy-scrim { place-items: end stretch; padding: 0; }
+  .sy-sheet { width: 100%; border-radius: 28px 28px 0 0; padding-bottom: calc(22px + env(safe-area-inset-bottom)); box-shadow: 0 -2px 0 var(--ink); }
+  .sy-kinds { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) { .sy-dot { animation: none; } .sy-flag { transition: none; } }
+.sy-end { margin-left: auto; order: 9; }

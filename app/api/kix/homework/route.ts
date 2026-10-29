@@ -6,7 +6,10 @@
 import { isGuest } from "@/lib/guest";
 import { guestLesson } from "@/lib/kix/guest-samples";
 import { z } from "zod";
-import { instructionsFor } from "@/lib/agents/runtime";
+import { instructionsFor, publishedInstructions } from "@/lib/agents/runtime";
+import { explanationText } from "@/lib/synapse/agents";
+import { flagFor } from "@/lib/synapse/turn";
+import { skillOverride } from "@/lib/skills/overrides";
 import { requireFamily } from "@/lib/auth/guard";
 import { fail, ok, readBody } from "@/lib/auth/http";
 import { caringReply, checkWords, HELPLINES } from "@/lib/guardian/words";
@@ -99,7 +102,27 @@ export async function POST(request: Request) {
       },
       { timeoutMs: 45_000, signal: request.signal },
     );
-    return ok({ care: null, explanation: enforceStage(data, input.stage), sample: false, skills });
+    const explanation = enforceStage(data, input.stage);
+    // Kix Synapse: a signed turn, so the kid can flag this exact reply (lib/synapse/turn.ts).
+    const pack = research.loaded[0] ?? null;
+    const flag = flagFor({
+      surface: "ask-kix",
+      kid: kid.id,
+      agent: "ask-kix",
+      agentVersion: (await publishedInstructions("ask-kix", store)).version,
+      packId: pack,
+      packVersion: pack ? (skillOverride(pack)?.version ?? null) : null,
+      itemId: null,
+      level: kid.level,
+      subject: explanation.subject,
+      stage: input.stage,
+      species: null,
+      petStage: null,
+      sections: skills.sections,
+      shown: explanationText(explanation),
+      ask: explanation.question,
+    });
+    return ok({ care: null, explanation, sample: false, skills, flag });
   } catch {
     // A slow or failed call never leaves the child stuck: the cached sample, labelled as one.
     return ok({ care: null, explanation: sampleExplanation(input.stage), sample: true });

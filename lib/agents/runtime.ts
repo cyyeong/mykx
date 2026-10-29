@@ -6,6 +6,7 @@ import { getStore } from "../auth/context.ts";
 import type { AuthStore } from "../auth/store.ts";
 import { compose, defaultText, type EditableAgent, type Vars } from "./instructions.ts";
 import { currentOf } from "./versions.ts";
+import { cautionsFor } from "../synapse/cautions.ts";
 
 export const INSTRUCTIONS_TTL_MS = 60_000;
 /** After a failed read, try again this soon. */
@@ -45,7 +46,15 @@ export async function publishedInstructions(agent: EditableAgent, store: AuthSto
  * The published instructions for one agent (and part), filled in with `vars`, followed by its fixed guardrails.
  * Builders add their context (the question, the facts, the Notebook) after it.
  */
-export async function instructionsFor(agent: EditableAgent, vars: Vars, o: { part?: string; store?: AuthStore | null; now?: number } = {}): Promise<string> {
-  const { text } = await publishedInstructions(agent, o.store === undefined ? getStore() : o.store, o.now);
-  return compose(agent, vars, text, o.part);
+export async function instructionsFor(
+  agent: EditableAgent,
+  vars: Vars,
+  o: { part?: string; store?: AuthStore | null; now?: number; scope?: { level?: string | null; subject?: string | null }; extraCautions?: readonly string[] } = {},
+): Promise<string> {
+  const store = o.store === undefined ? getStore() : o.store;
+  const { text } = await publishedInstructions(agent, store, o.now);
+  // Kix Synapse's learned cautions for this agent whose scope fits the call (by level, from vars unless given).
+  const scope = o.scope ?? { level: typeof vars.level === "string" ? vars.level : null };
+  const learned = await cautionsFor(store, agent, scope, o.now);
+  return compose(agent, vars, text, o.part, [...(o.extraCautions ?? []), ...learned]);
 }

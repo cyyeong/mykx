@@ -12,6 +12,7 @@ export const ADMIN_NAV = [
   { href: "/admin/knowledge", label: "Add knowledge" },
   { href: "/admin/people", label: "People" },
   { href: "/admin/under-the-hood", label: "Under the hood" },
+  { href: "/admin/synapse", label: "Kix Synapse" },
 ] as const;
 
 export function AdminFrame({ current, children }: { current: (typeof ADMIN_NAV)[number]["href"]; children: ReactNode }) {

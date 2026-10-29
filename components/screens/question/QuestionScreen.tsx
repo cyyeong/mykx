@@ -10,6 +10,7 @@
 "use client";
 
 import { InlineMarkup, PassageText, speakable, StemText, type StemFigure } from "./StemText";
+import { FlagButton } from "@/components/synapse/FlagButton";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
@@ -583,6 +584,14 @@ export function QuestionPlayer({ item, backHref, nextHref, questTitle, fresh = t
                   <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M4 9v6h4l5 4V5L8 9H4zM16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" />
                 </svg>
               </button>
+              <FlagButton
+                surface="learn"
+                band={playerBand}
+                itemId={item.id}
+                figure={Boolean(item.figure)}
+                marked={phase === "correct" ? true : phase === "wrong" ? false : null}
+                answer={phase === "correct" || phase === "wrong" ? (isMcq ? (selected === null ? null : `${selected + 1}. ${item.options[selected]}`) : typed.trim() || null) : null}
+              />
             </div>
             {isMcq ? (
               <div className="qp-options" role="group" aria-label="Answer options">

@@ -20,12 +20,15 @@ export interface PublishedOverride {
 }
 
 const TTL_MS = 60_000;
-let state: { at: number; gen: number; byPack: Map<string, PublishedOverride> } = { at: 0, gen: 0, byPack: new Map() };
-let inflight: Promise<void> | null = null;
+// On globalThis, like the agents' instructions, so every route bundle in one server process shares the cache and a
+// publish (an admin's, or a Kix Synapse fix) reaches every page at once. Separate instances catch up within the TTL.
+type OverrideState = { at: number; gen: number; byPack: Map<string, PublishedOverride> };
+const g = globalThis as typeof globalThis & { __mykxSkillOverrides?: { state: OverrideState; inflight: Promise<void> | null } };
+const shared = (g.__mykxSkillOverrides ??= { state: { at: 0, gen: 0, byPack: new Map() }, inflight: null });
 
 /** Replaces the cache (after a refresh, a publish, or in tests). Bumps the generation so loaders drop what they hold. */
 export function setSkillOverrides(list: readonly PublishedOverride[], now = Date.now()): void {
-  state = { at: now, gen: state.gen + 1, byPack: new Map(list.map((o) => [o.packId, o])) };
+  shared.state = { at: now, gen: shared.state.gen + 1, byPack: new Map(list.map((o) => [o.packId, o])) };
 }
 
 /** Back to the packs on disk only. */
@@ -35,15 +38,15 @@ export function clearSkillOverrides(): void {
 
 /** Changes whenever the overrides change: caches of parsed packs key on it. */
 export function overridesGeneration(): number {
-  return state.gen;
+  return shared.state.gen;
 }
 
 /** Loads the published versions from the store if the cache is older than 60 s (or `force`). Never throws. */
 export async function refreshSkillOverrides(store: AuthStore | null | undefined, o: { force?: boolean; now?: number } = {}): Promise<void> {
   if (!store) return;
   const now = o.now ?? Date.now();
-  if (!o.force && state.at && now - state.at < TTL_MS) return;
-  if (inflight && !o.force) return inflight;
+  if (!o.force && shared.state.at && now - shared.state.at < TTL_MS) return;
+  if (shared.inflight && !o.force) return shared.inflight;
   const run = (async () => {
     try {
       const rows = await store.skillVersions.published();
@@ -52,20 +55,20 @@ export async function refreshSkillOverrides(store: AuthStore | null | undefined,
         now,
       );
     } catch {
-      state = { ...state, at: now }; // keep what we had; try again after the TTL
+      shared.state = { ...shared.state, at: now }; // keep what we had; try again after the TTL
     }
   })();
-  inflight = run;
+  shared.inflight = run;
   try {
     await run;
   } finally {
-    if (inflight === run) inflight = null;
+    if (shared.inflight === run) shared.inflight = null;
   }
 }
 
 /** The published override of a pack, or null when the disk default is in charge. */
 export function skillOverride(packId: string): PublishedOverride | null {
-  return state.byPack.get(packId) ?? null;
+  return shared.state.byPack.get(packId) ?? null;
 }
 
 const skillsDir = (root: string) => join(root, "content", "skills");
@@ -85,7 +88,7 @@ export function hasDiskPack(packId: string, root = process.cwd()): boolean {
 
 /** Every pack id: on disk, plus imported packs that have a published version. */
 export function allPackIds(root = process.cwd()): string[] {
-  return [...new Set([...diskPackIds(root), ...state.byPack.keys()])].sort();
+  return [...new Set([...diskPackIds(root), ...shared.state.byPack.keys()])].sort();
 }
 
 /** One file of a pack as the runtime should see it: from the published version when there is one, else from disk. */

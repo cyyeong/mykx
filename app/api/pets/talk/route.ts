@@ -15,6 +15,8 @@ import { care } from "@/lib/pets/care";
 import { PET_IDS, type PetId } from "@/lib/pets/species";
 import { fallbackReply, petFacts, petReplySchema } from "@/lib/pets/voice";
 import { logRunsFor } from "@/lib/runs/log";
+import { publishedInstructions } from "@/lib/agents/runtime";
+import { flagFor, type Flag } from "@/lib/synapse/turn";
 
 const body = z.strictObject({ species: z.enum(PET_IDS as [PetId, ...PetId[]]), text: z.string().trim().min(1).max(200) });
 
@@ -37,6 +39,7 @@ export async function POST(request: Request) {
   const pet = (await store.pets.list(family.householdId, kid.id)).find((p) => p.species === input.species);
   if (!pet) return fail(404, "not-found");
   let answer = { ...fallbackReply(pet, now, input.text), source: "cached" as "cached" | "live" };
+  let flag: Flag | null = null;
   if (hasMetaApiKey()) {
     try {
       logRunsFor("critter-keeper", family.householdId, kid.id);
@@ -46,11 +49,13 @@ export async function POST(request: Request) {
         { timeoutMs: 10_000, signal: request.signal },
       );
       answer = { reply: data.reply.trim(), feeling: data.feeling, source: "live" };
+      // Kix Synapse: a signed turn, so the kid can flag what the pet said (lib/synapse/turn.ts).
+      flag = flagFor({ surface: "critter", kid: kid.id, agent: "critter-keeper", agentVersion: (await publishedInstructions("critter-keeper", store)).version, packId: null, packVersion: null, itemId: null, level: kid.level, subject: "science", stage: null, species: pet.species, petStage: pet.stage, sections: [], shown: answer.reply, ask: input.text });
     } catch {
       // The cached reply stands in.
     }
   }
   const after = care(pet, { kind: "talk" }, now).pet;
   await store.pets.save(family.householdId, kid.id, after);
-  return ok({ ...answer, pet: after, now });
+  return ok({ ...answer, pet: after, now, flag });
 }

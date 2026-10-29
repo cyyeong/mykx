@@ -10,6 +10,7 @@ import { CareCard, type Care } from "@/components/guardian/CareCard";
 import { Art } from "@/components/ui/Art";
 import type { Explanation, Stage } from "@/lib/kix/homework";
 import { ExplainBlocks } from "./ExplainBlocks";
+import { FlagButton, type SignedFlag } from "@/components/synapse/FlagButton";
 import s from "./ask.module.css";
 
 const MAX_SIDE = 1600;
@@ -51,6 +52,8 @@ export function AskKix({ nickname, samples }: { nickname: string; samples?: stri
   // The skill packs Kix loaded and the sections it read for this question (sent back for the later stages).
   const [skills, setSkills] = useState<Skills | null>(null);
   const [care, setCare] = useState<Care | null>(null);
+  // Kix Synapse: the signed turn for this reply, so the kid can flag it.
+  const [flag, setFlag] = useState<SignedFlag | null>(null);
   const camera = useRef<HTMLInputElement>(null);
   const upload = useRef<HTMLInputElement>(null);
 
@@ -82,12 +85,13 @@ export function AskKix({ nickname, samples }: { nickname: string; samples?: stri
             : { stage, question: answer?.question, ...(answer?.figure ? { figure: answer.figure } : {}), ...(skills?.sections.length ? { sections: skills.sections } : {}) },
         ),
       });
-      const data = (await res.json()) as { ok: boolean; explanation?: Explanation | null; sample?: boolean; care?: Care | null; skills?: Skills };
+      const data = (await res.json()) as { ok: boolean; explanation?: Explanation | null; sample?: boolean; care?: Care | null; skills?: Skills; flag?: SignedFlag | null };
       if (!data.ok) throw new Error("not-ok");
       setCare(data.care ?? null);
       if (data.explanation) {
         setAnswer(data.explanation);
         setSample(Boolean(data.sample));
+        setFlag(data.flag ?? null);
         if (data.skills?.sections.length) setSkills(data.skills);
         if (stage === "hint") setPhoto(null); // read once, then gone
       }
@@ -217,6 +221,7 @@ export function AskKix({ nickname, samples }: { nickname: string; samples?: stri
             <ExplainBlocks blocks={answer.blocks} finalAnswer={answer.finalAnswer} />
             {!answer.unclear && (
               <div className={s.next}>
+                <FlagButton surface="ask-kix" flag={flag} what="Kix's reply" className="sy-end" />
                 {answer.stage === "hint" && (
                   <button type="button" className="mk-btn mk-btn--primary" disabled={phase !== "idle"} onClick={() => void ask("steps")}>
                     {phase === "thinking" ? "Kix is thinking…" : "Show me the steps"}

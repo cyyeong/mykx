@@ -12,7 +12,7 @@ Meet **Kix**: a specialist AI tutor, a creative companion and your helping hand.
 
 **Built for my kids. Made for yours.**
 
-Built for the **Meta Global AI Developer Hackathon** (track: Build for Your World). Powered by **Meta Muse**: 15 of myKx's 17 specialist agents run on Muse Spark, Muse Image, SAM 3.1 or Muse Voice Transcribe, and Meta's open-weight **Muse Spark Open** is supported too.
+Built for the **Meta Global AI Developer Hackathon** (track: Build for Your World). Powered by **Meta Muse**: 17 of myKx's 19 specialist agents run on Muse Spark, Muse Image, SAM 3.1, Muse Voice Transcribe or Meta's open-weight **Muse Spark Open**. And with **Kix Synapse**, Kix learns from every mistake a child flags, and fixes by itself what it can prove.
 
 [Live app](https://mykx.vercel.app) · [Home simulator](https://mykx-sim.vercel.app) (passcode on request) · [Architecture](docs/ARCHITECTURE.md) · [Docs index](docs/README.md)
 
@@ -23,11 +23,11 @@ Built for the **Meta Global AI Developer Hackathon** (track: Build for Your Worl
 | Criterion | Where to see it |
 |---|---|
 | **Impact** (Build for Your World) | [Why I built it](#why-i-built-it): a problem the founder lives every day, in a country where most couples both work. myKx frees up a parent's time and mental space, and makes something possible that wasn't before: a child's own interests become their learning world. |
-| **Use of Meta AI tooling** | [17 specialists, 15 on Meta Muse](#17-specialists-15-of-them-on-meta-muse): four Meta models chained into pipelines (Muse Image + SAM 3.1 transforms; Muse Spark vision + rules + SAM 3.1 for home cameras; Muse Spark web search + planning), with every call logged in Under the hood. Muse Code built four of the branches. |
-| **Technical depth and execution** | [Architecture](docs/ARCHITECTURE.md), more than 900 automated tests run by CI on every push, deterministic engines for scores and alerts, row-level security per household, cached fallbacks for every generated surface.<br><br>A few ideas make it more than a chatbot on a syllabus:<br>• **Skills, not search.** Kix's agents load versioned skill packs for the child's level and read the exact section they need through tools that run as trusted code, and every step is logged.<br>• **It quietly gets better.** In the moment, a drifting child gets a spark from their own interests. Each day, the Memory Keeper updates Kix's Notebook, and a hard day yesterday means a gentler start today. Each week, new exam papers become admin-reviewed skill-pack versions, and agents' instructions are versioned with guardrails that stay fixed.<br>• **Models explain; code decides.** Mastery, rewards, alerts and when Kix adapts are plain, tested rules, so a score never moves without evidence.<br>• **Open, and safe by construction.** Each child's world arrives with their magic name, one device protocol (proven today by the simulator) carries phones, cameras and future peripherals, and the guest site has no keys that could reach real data. |
+| **Use of Meta AI tooling** | [19 specialists, 17 on Meta Muse](#19-specialists-17-of-them-on-meta-muse): five Meta models, Muse Spark Open's open weights included ([supported](#meta-open-weights-muse-spark-open-supported)), chained into pipelines (Muse Image + SAM 3.1 transforms; Muse Spark vision + rules + SAM 3.1 for home cameras; Muse Spark web search + planning), with every call logged in Under the hood. Muse Code built four of the branches. |
+| **Technical depth and execution** | [Kix Synapse](#kix-synapse-kix-learns-from-every-flag): a self-learning loop that reproduces each reported mistake, proves the fix and ships it by itself. [Architecture](docs/ARCHITECTURE.md), more than 1,000 automated tests run by CI on every push, deterministic engines for scores and alerts, row-level security per household, cached fallbacks for every generated surface.<br><br>A few ideas make it more than a chatbot on a syllabus:<br>• **Skills, not search.** Kix's agents load versioned skill packs for the child's level and read the exact section they need through tools that run as trusted code, and every step is logged.<br>• **It quietly gets better.** In the moment, a drifting child gets a spark from their own interests. Each day, the Memory Keeper updates Kix's Notebook, and a hard day yesterday means a gentler start today. Each week, new exam papers become admin-reviewed skill-pack versions, and agents' instructions are versioned with guardrails that stay fixed.<br>• **Models explain; code decides.** Mastery, rewards, alerts and when Kix adapts are plain, tested rules, so a score never moves without evidence.<br>• **Open, and safe by construction.** Each child's world arrives with their magic name, one device protocol (proven today by the simulator) carries phones, cameras and future peripherals, and the guest site has no keys that could reach real data. |
 | **Demo** | The video, the [guest walkthrough](https://mykx-guest.vercel.app) (one tap, no password), the [live app](#try-it-live) (sign-ins are in the submission form), the [Home simulator](https://mykx-sim.vercel.app), [raising a critter through its life cycle](#critter-lab-raise-a-critter-learn-its-life-cycle), and [everything in the MVP](#everything-in-the-mvp). |
 
-**Not a chatbot, not RAG, not medical advice.** Kix is one face on 17 specialist agents that run multi-step workflows: reading papers, choosing questions, keeping a memory, voicing a child's pet, reading a home, planning a weekend. Kix loads the right skill pack and reads the exact section it needs through tools that run as trusted code (and refuse to check the question a child is answering), with no vector search; every load and tool call is logged. Scores and rewards are plain code. Wellbeing notes say "possibly" and show the evidence against the child's own usual; they never diagnose, and distress words always bring in the parent and the helplines.
+**Not a chatbot, not RAG, not medical advice.** Kix is one face on 19 specialist agents that run multi-step workflows: reading papers, choosing questions, keeping a memory, voicing a child's pet, reading a home, planning a weekend. Kix loads the right skill pack and reads the exact section it needs through tools that run as trusted code (and refuse to check the question a child is answering), with no vector search; every load and tool call is logged. Scores and rewards are plain code. Wellbeing notes say "possibly" and show the evidence against the child's own usual; they never diagnose, and distress words always bring in the parent and the helplines.
 
 **Built during the hackathon.** Everything in this repository was built between 27 October and 4 November 2026: the first commit is the bootstrap on 27 October, every commit since is in the history, every generated image is dated in [`public/art/manifest.json`](public/art/manifest.json), and [`docs/plan/PROGRESS.md`](docs/plan/PROGRESS.md) logs each task with the models it used. Coding agents: Claude Code throughout, and Meta's Muse Code for four branches on 28 October.
 
@@ -98,6 +98,31 @@ myKx learns from every session and from every new exam. Muse provides the intell
 
 None of this changes a score or a reward: mastery stays deterministic, and an answer Kix helped with never counts as mastery.
 
+## Kix Synapse: Kix learns from every flag
+
+<img src="docs/readme/synapse.webp" alt="Kix Synapse, the self-learning engine inside myKx: Flag, Trace, Review, Fix, Re-test, and next, Retrain." width="100%">
+
+**This is the part we're proudest of.** Most AI tutors stay as good as the day they shipped, and their mistakes wait for an engineer. myKx learns from every mistake a child spots, and fixes the ones it can prove **by itself, in seconds**. A typo in a question, a right answer marked wrong, a hint that confuses, a pet that says a tadpole eats flies: every one makes Kix a little better, for every child, with as little human help as the admin allows.
+
+1. **Flag.** Every screen where AI speaks or a question is marked has a small flag. The child picks what's wrong ("A word is spelt wrong", "My answer was marked wrong", "Kix's answer looks wrong"…) and can say why, typed or held-to-talk.
+2. **Trace.** Each reply carries a signed turn: the agent, its instruction version, the pack version and a hash of the exact words shown. Nothing is stored until the child reports it; then the server checks the signature and the words, replaces every name with "Learner", and builds the case.
+3. **Review.** A *different* model checks the work of the one that made the mistake: **Muse Spark Open**, Meta's open-weight model, on Baseten with zero data retention (Muse Spark 1.3 stands in until a Baseten key is set, and every case says which model answered). It decides whether the problem is real, what kind it is, and proposes the smallest fix, a test, and a kind note for the child.
+4. **Prove it.** Code, not the model, decides how sure Synapse is. The fix must pass code checks (the words appear once, no number changes, no names, a caution can only narrow what an agent does); a mistake in a reply is **reproduced** three times on the same versions, and the fix is **re-tested** three more times and against the agent's other evals. A change that would affect a score also needs a second opinion from Muse Spark 1.3.
+5. **Fix.** At or above the admin's threshold (100 by default), the fix ships by itself as a version: a skill problem becomes the pack's next published version; a model problem becomes a **learned caution** added to that agent's prompt, between its instructions and its fixed guardrails. Everything else waits in the admin's inbox with the fix already drafted. Every fix has a one-click Undo.
+6. **Re-test, forever.** Every fix becomes an eval case, run before a fix ships, on demand and every night. If a fixed case starts failing, its report goes back to the admin.
+7. **Retrain, next.** Fixed cases from families who turn on *Help Kix learn* build a de-identified dataset (JSONL, supervised and preference pairs) behind a training adapter, ready for a myKx model of its own on Meta's open weights.
+
+<img src="docs/readme/synapse-live.webp" alt="Kix Synapse, live: a typo slipped into an edit of a P6 question; the learner flagged it; the reviewer judged it a typo at 100; code checks passed; the pack's next version went live 6 seconds later." width="100%">
+
+**Running today, recorded on the sample family** (Muse Spark 1.3 reviewing, as no Baseten key is set):
+- **A typo, fixed by itself in 6 seconds.** A typo slipped into an edit of a P6 question (we put it there for the demo). Abby flagged it; the reviewer called it a typo at 100, every code check passed, and P6 Maths' next version went live. Abby heard: *"Good catch! It's fixed now."*
+- **Kix was right, and said why.** Abby thought a ratio question was wrong ("Jun gave away stamps, so how can they have the same number?"). The reviewer found the question right at 95, under the threshold, so it waited for an admin. Once approved, Abby read: *"Great checking! Jun did not throw stamps away — he gave them to Kai… Jun goes down just as Kai goes up, and they can meet in the middle."* A report that turns out to be wrong still becomes a lesson.
+- **An Ask Kix reply, checked from its signed turn.** Abby flagged a hint on a marbles problem. The signature and the words matched what Ask Kix had shown, and the reviewer found the hint correct (88), so it waited for the admin.
+
+**The admin is in charge of how far it goes:** the threshold (50 to 100), whether answer-key and marking changes always need a person (on by default), a daily cap on fixes it makes by itself, which model does each job, and a daily budget. Kids get no points for reports, so nothing rewards spam; ten a day at most; upset words go to Kix's caring reply first and are never reviewed.
+
+**Why it's built this way, and why it scales.** Every fix is data: a version or a caution, never code (no model-authored code ever runs). Nothing trains on children's data without their family's yes. The loop runs on what myKx already has: Next.js `after()` on Vercel for the review, Postgres for reports, cautions and evals, a daily cron for the evals. Each new flag is one more case in the regression suite and one more training pair, so the more children use myKx, the better and safer Kix gets, for everyone. The full design: [docs/prd/SYNAPSE.md](docs/prd/SYNAPSE.md).
+
 ## How the learning works
 
 <img src="docs/readme/learning-loop.webp" alt="From past papers to the next right question: past-paper scout, Content Curator, twelve skill packs, Kix Tutor, mastery and Treasure, Memory Keeper." width="100%">
@@ -165,9 +190,9 @@ In myKx the P3 Science life cycles aren't a page to read: they're a pet to raise
 
 The full design is in [docs/prd/PETS.md](docs/prd/PETS.md).
 
-## 17 specialists, 15 of them on Meta Muse
+## 19 specialists, 17 of them on Meta Muse
 
-<img src="docs/readme/agents.webp" alt="17 specialists, 15 run on Meta Muse: Muse Spark 1.3 for twelve agents, SAM 3.1 for two, Muse Image 1.0 for one, Muse Voice Transcribe 1.0 for one, and two run on rules only." width="100%">
+<img src="docs/readme/agents.webp" alt="19 specialists, 17 run on Meta Muse: Muse Spark 1.3 for twelve agents, Muse Spark Open (Meta open weights) for Kix Synapse's two, SAM 3.1 for two, Muse Image 1.0 for one, Muse Voice Transcribe 1.0 for one, and two run on rules only." width="100%">
 
 | Agent | What it does | Meta model |
 |---|---|---|
@@ -188,6 +213,8 @@ The full design is in [docs/prd/PETS.md](docs/prd/PETS.md).
 | Outing Scout | Searches the web for things to do near home | Muse Spark 1.3 (web search) |
 | Outing Planner | Plans the weekend around the weather and the week | Muse Spark 1.3 |
 | Tonight | The evening summary for the parent | Muse Spark 1.3 |
+| Synapse Reviewer | Kix Synapse: reviews what kids flag, drafts the smallest fix, a test and a note for the child | Muse Spark Open (open weights, Baseten); Muse Spark 1.3 until a key is set, and for second opinions |
+| Synapse Judge | Kix Synapse: checks the evals code can't (meaning rather than a number or a phrase) | Muse Spark Open (open weights, Baseten); Muse Spark 1.3 until a key is set |
 
 ### Meta open weights: Muse Spark Open, supported
 
@@ -197,7 +224,7 @@ The full design is in [docs/prd/PETS.md](docs/prd/PETS.md).
 | Muse Image 1.0 | Sidekick Studio, all the art | live |
 | SAM 3.1 | Studio cutouts, Who's who | live |
 | Muse Voice Transcribe 1.0 | Talk to Kix | live |
-| **Muse Spark Open** (open weights, on Baseten) | Kix Synapse's reviewer and eval judge: a different model checks the work of the one that made the mistake | **supported**: in code and tested; runs on Muse Spark 1.3 until a Baseten key is set |
+| **Muse Spark Open** (open weights, on Baseten) | [Kix Synapse](#kix-synapse-kix-learns-from-every-flag)'s reviewer and eval judge: a different model checks the work of the one that made the mistake | **supported**: in code and tested; runs on Muse Spark 1.3 until a Baseten key is set |
 
 `lib/meta/open.ts` puts Baseten's OpenAI-compatible API behind **model roles**: each job names the model it wants, and the same structured, logged, validated call runs on either provider. Baseten keeps no inputs or outputs by default, and only de-identified cases go to it. We run without a Baseten key for now, so those roles fall back to Muse Spark 1.3 and every result records which model really answered; setting `BASETEN_API_KEY` moves them to Muse Spark Open with no code change. Try it: `node --env-file=.env.local scripts/smoke-open-model.ts`.
 
@@ -224,19 +251,19 @@ For a real home, **Home Link** (`clients/home-link/`) is a small app on the fami
 
 ## Everything in the MVP
 
-Every screen below is the real app, signed in as the sample family, **powered by Meta Muse**: 17 specialist agents, 15 of them on Muse Spark 1.3, Muse Image 1.0, SAM 3.1 or Muse Voice Transcribe 1.0, with twelve skill packs, three age bands and five worlds. Each screen is tagged with what powers it; "Rules" means plain, tested code decides it.
+Every screen below is the real app, signed in as the sample family, **powered by Meta Muse**: 19 specialist agents, 17 of them on Muse Spark 1.3, Muse Spark Open, Muse Image 1.0, SAM 3.1 or Muse Voice Transcribe 1.0, with Kix Synapse learning from every flag, twelve skill packs, three age bands and five worlds. Each screen is tagged with what powers it; "Rules" means plain, tested code decides it.
 
 <img src="docs/readme/mvp-learn.webp" alt="Everything in the MVP, 1 of 3, for kids: a world to learn in, powered by Meta Muse. Abby's own sky door (Muse Image, SAM 3.1), Sidekick Studio (Muse Image, SAM 3.1), Jordan's junior home with today's quest (rules), the frog life-cycle quest map (rules), the question player with hints, reasons, voice and sparks (Muse Spark, Muse Voice Transcribe), and Ask Kix homework help that guides first (Muse Spark)." width="100%">
 
 <img src="docs/readme/mvp-play.webp" alt="Everything in the MVP, 2 of 3, for kids: play, raise and make, powered by Meta Muse. Abby's teen study deck in her own room (rules), the Critter Lab with a tadpole turning down a cricket (Muse Spark, rules), Treasure Realm (rules, Muse Image), Sky Squadron (rules, Muse Image), the Arcade of learning games (rules), and Vibe Zone flashcards (Muse Spark)." width="100%">
 
-<img src="docs/readme/mvp-family.webp" alt="Everything in the MVP, 3 of 3, for grown-ups and the team, powered by Meta Muse. Parent Today with flags and their evidence (Muse Spark, rules), Home now with the family's cameras read by Muse (Muse Spark, SAM 3.1), Do something together with sourced weekend ideas (Muse Spark), Messages where Kix suggests a cheer (rules), the Skills admin with twelve versioned packs (Muse Spark), and Under the hood with 17 agents and every model call logged." width="100%">
+<img src="docs/readme/mvp-family.webp" alt="Everything in the MVP, 3 of 3, for grown-ups and the team, powered by Meta Muse. Parent Today with flags and their evidence (Muse Spark, rules), Home now with the family's cameras read by Muse (Muse Spark, SAM 3.1), Do something together with sourced weekend ideas (Muse Spark), Messages where Kix suggests a cheer (rules), the Skills admin with twelve versioned packs (Muse Spark), and Under the hood with 19 agents and every model call logged." width="100%">
 
-**For kids:** magic-name sign-in with their own door · Sidekick Studio · Home with today's quest · Quest map · Question player with hints, reasons, voice and sparks · Treasure Realm · Critter Lab pets raised through real life cycles · Sky Squadron · Vibe Zone flashcards · Arcade typing games · Ask Kix homework help · Talk to Kix · printable practice papers · family messages with Kix stickers.
+**For kids:** magic-name sign-in with their own door · Sidekick Studio · Home with today's quest · Quest map · Question player with hints, reasons, voice and sparks · Treasure Realm · Critter Lab pets raised through real life cycles · Sky Squadron · Vibe Zone flashcards · Arcade typing games · Ask Kix homework help · Talk to Kix · printable practice papers · family messages with Kix stickers · a flag on every question and AI reply to tell Kix's crew what's wrong (Kix Synapse).
 
 **For parents:** Today, with flags shown alongside their evidence · Tonight · wellbeing notes ("possibly tired", against the child's own baseline, never a diagnosis) · Kix's Notebook · Messages · Where they are · Home now · Do something together · Your family (sign-in codes, voice, focus camera, screen time).
 
-**For admins:** Skills catalogue (twelve versioned packs) · Add knowledge (the Content Curator) · weekly new papers · People · Under the hood (17 agents, editable instructions for 11 of them, every model call logged).
+**For admins:** Skills catalogue (twelve versioned packs) · Add knowledge (the Content Curator) · weekly new papers · People · Under the hood (19 agents, editable instructions for 11 of them, every model call logged) · **Kix Synapse** (the inbox of flags with each case's trace, review, fix and test; learned cautions; evals; settings; the retrain dataset).
 
 **Safety built in:** kids never need an email (picture codes or passwords, hashed on the server); push-to-talk only, and audio is never stored; no child's photo is ever used to generate art; distress words always bring Kix's caring reply, the helplines (Tinkle Friend 1800 274 4788, SOS 1767) and an urgent parent flag. All the rules are in [AGENTS.md](AGENTS.md).
 

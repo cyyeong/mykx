@@ -143,7 +143,7 @@ The browser never talks to Meta or to Supabase's service role. Keys live in the 
 |---|---|
 | `app/(kid)` | Kid pages: `home`, `learn` (the Learn hub), `learn/[quest]` (a subject such as `p6-maths`, or the frog quest map) and its `done`, `question/[id]`, `treasure`, `studio`, `vibe`, `ask`, `talk`, `arcade/*`, `critters`, `squadron`, `messages`, `me`, `me/papers`, `me/sharing`. The layout mounts the kid nav, sound, theme, the heartbeat (`GuardianWatch`) and the focus camera (`FocusWatch`). |
 | `app/(parent)` | Grown-up pages: `parent` (Today, Messages, Notebook), `family` and `family/guardian` (controls, Location and home cameras), `papers`, `together` |
-| `app/(admin)` | Admin pages: `admin/people`, `admin/skills`, `admin/knowledge`, `admin/under-the-hood`, `admin/under-the-hood/agents/[agent]` (the agent editor, §4.11) |
+| `app/(admin)` | Admin pages: `admin/synapse` and `admin/synapse/[id]` (Kix Synapse), `admin/people`, `admin/skills`, `admin/knowledge`, `admin/under-the-hood`, `admin/under-the-hood/agents/[agent]` (the agent editor, §4.11) |
 | `app/(signin)` | The living-city door, kid doors (`doors/[kid]`), grown-up sign-in |
 | `app/api` | Every server route (§2.2) |
 | `components/` | UI by area: `screens/`, `kix/`, `voice/`, `camera/`, `guardian/`, `home-watch/`, `location/`, `outings/`, `studio/`, `vibe/`, `games/`, `papers/`, `scene/` (living art), `sound/`, `theme/`, `admin/` |
@@ -167,6 +167,7 @@ The browser never talks to Meta or to Supabase's service role. Keys live in the 
 | `lib/games` | Arcade registry, typing engine, scoring, progress |
 | `lib/vibe`, `lib/studio` | Flashcard spec; Studio prompt and the Muse Image plus SAM transform |
 | `lib/sound`, `lib/scene`, `lib/critters`, `lib/pets` | Synthesised sound and music, living-art layers, Critter Lab catalogue, pets (species, care rules, the Critter Keeper's facts) |
+| `lib/synapse` | Kix Synapse: signed turns, intake and de-identification, the reviewer's prompts and schema, code checks, computed confidence and the decision, agent re-runs, fixes and undo, learned cautions at run time, evals, settings, the admin's overview and the retrain JSONL |
 | `content/skills/` | Seven child-agnostic skill packs (§5); `content/skills.test.ts` scans them |
 | `supabase/` | `schema.sql`, `rls.sql`, `seed.sql`, `migrations/`, `schema.test.ts` |
 | `clients/home-link/` | The Home Link desktop client (separate Node package, MIT) |
@@ -186,6 +187,7 @@ The browser never talks to Meta or to Supabase's service role. Keys live in the 
 | Guardian, home | `api/home` (Home now), `api/home/{pair,devices,cameras,frames,family,prefs,alerts}` | device token or grown-up |
 | Family time | `api/outings` | grown-up |
 | Admin | `api/admin/{people,people/[id],hood,knowledge,knowledge/publish,papers,papers/read}`, `api/admin/agents`, `api/admin/agents/[id]` | admin behind the PIN |
+| Kix Synapse | `api/synapse/report` (POST a flag, GET your own outcomes), `api/synapse/consent` (Help Kix learn); admin: `api/admin/synapse`, `api/admin/synapse/[id]` (approve, reject, undo, retry), `api/admin/synapse/{settings,cautions,evals,dataset}`; `api/cron/synapse` | kid session; grown-up; admin behind the PIN; cron |
 | Admin, skills and review sessions | `api/admin/skills` (catalogue), `api/admin/skills/[pack]` (files, versions; save, publish, restore, delete), `api/admin/skills/[pack]/enhance`, `api/admin/skills/import`, `api/admin/knowledge/{sessions,check,questions}` | admin behind the PIN |
 | Cron | `api/cron/papers`, `api/cron/guardian` | Vercel scheduler with `CRON_SECRET` |
 
@@ -204,7 +206,7 @@ All persistence goes through one interface, `AuthStore` in `lib/auth/store.ts`, 
 
 ### 3.2 Tables by domain
 
-All 36 tables are in `supabase/schema.sql`; migrations in `supabase/migrations/` bring an older database up to it and are written to run twice safely.
+All 41 tables are in `supabase/schema.sql`; migrations in `supabase/migrations/` bring an older database up to it and are written to run twice safely.
 
 | Domain | Tables | Notes |
 |---|---|---|
@@ -218,6 +220,7 @@ All 36 tables are in `supabase/schema.sql`; migrations in `supabase/migrations/`
 | Guardian, location | `guardian_prefs`, `kid_location`, `locations`, `places`, `place_events` | Points carry motion and source (`web`, `android`, `sim`). Places are the parent's own pins, so no map service sees where a child is. |
 | Guardian, home | `home_devices`, `home_cameras`, `home_status`, `home_alerts` | Devices keep only SHA-256 hashes of the pairing code and token (`char_length = 64`), plus a daily frame counter. `home_status` is words only. Alerts keep frame paths in a private bucket, `frames_expire_at`, and the parent's verdict. |
 | Agents (admin) | `agent_versions` | Versions of each Muse Spark agent's instructions (§4.11): agent id, version (2 and up, unique per agent and never reused; the built-in default is version 1 and is code, not a row), instructions (at most 8,000 characters), note, `draft` or `published`, the admin who saved it, and a soft-delete time. Platform content, never a child's data; the guardrails are code. |
+| Kix Synapse (migration `20261030_synapse.sql`) | `synapse_reports`, `synapse_cautions`, `synapse_evals`, `synapse_settings`, `synapse_consents` | Server only. A report is a jsonb document behind indexed household, profile, status and time columns: the de-identified words of the one reported turn, the trace, review, checks, tests, confidence, fix and the kid's note. Cautions, eval cases and runs likewise. `skill_versions.source` gains `synapse`. |
 | Observability | `model_runs` | One row per model call: route, operation, model, ids, latency, first-token time, tokens, images, audio seconds, cost, ok and a short error. Never a prompt, an output, audio or a key. |
 | Reserved | `summaries` | In the schema for persisted evening summaries; Tonight caches in memory today (see §12). |
 
@@ -243,6 +246,7 @@ All 36 tables are in `supabase/schema.sql`; migrations in `supabase/migrations/`
 
 | Data | Kept | Enforced by |
 |---|---|---|
+| Kix Synapse report words (the reported turn, note, answer, the better reply) | 90 days, then the numbers stay | `/api/cron/synapse` at 03:30 SGT |
 | Flagged camera frames | 24 h | `KEEP_FRAMES_MS` in `lib/home-watch/home-watch.ts`; `/api/cron/guardian` at 03:00 SGT |
 | Unflagged camera frames | Not at all: dropped after the read | `app/api/home/frames/route.ts` |
 | Room statuses | 14 days | Trimmed on write (`KEEP_STATUS_DAYS`) |
@@ -279,7 +283,7 @@ There is no agent framework. An agent is a route handler plus a small library mo
 
 The structured-output path (`lib/meta/schema.ts`) converts a zod schema to JSON Schema and refuses shapes Meta rejects: no `$ref` or `$defs`, no `allOf` or `oneOf`, a root object, every key required, `additionalProperties: false`. Output text is parsed (tolerating a fenced block) and validated with the same zod schema; a failure becomes a `MetaApiError` with code `invalid_output` and a logged failed run.
 
-### 4.2 The seventeen agents
+### 4.2 The nineteen agents
 
 **What each one is for:**
 
@@ -301,6 +305,8 @@ The structured-output path (`lib/meta/schema.ts`) converts a zod schema to JSON 
 | Outing Planner | Fits the Scout's sourced results to the family's week and the weather | Muse Spark | `api/outings` (`outing-planner`) | Built |
 | Tonight | The evening summary for the parent | Muse Spark | `api/guardian/tonight` (`tonight`) | Built |
 | Critter Keeper | Speaks as the child's pet at its life stage and coaches its care (§6.3b) | Muse Spark (structured) | `api/pets/talk` (`critter-keeper`) | Built |
+| Synapse Reviewer | Reviews a kid's flag: real or not, what kind, the smallest fix, a test and a note for the kid (§6.5a) | Muse Spark Open on Baseten (structured); Muse Spark 1.3 without a key or on failure; Muse Spark 1.3 for the second opinion | `api/synapse/report` via `after()` (`synapse-reviewer`) | Built |
+| Synapse Judge | Judges an eval case code can't check (§6.5a) | Muse Spark Open on Baseten; Muse Spark 1.3 fallback | `api/admin/synapse/evals`, `api/cron/synapse` (`synapse-judge`) | Built |
 | Past-paper scout | Finds the newest papers on five approved sites | none: rules | `api/cron/papers` | Built |
 
 **What each one reads, may never do, and how its output is checked:**
@@ -322,6 +328,7 @@ The structured-output path (`lib/meta/schema.ts`) converts a zod schema to JSON 
 | Outing Scout | The home area (a town name), radius, interests and dates | Get a child's name, age or whereabouts | Citations are extracted from `url_citation` annotations; no citations means the run fails | The last saved run (or the seeded run), labelled with its time |
 | Outing Planner | The Scout's text and cited URLs, NEA's outlook, each kid's nickname, level and average minutes a day on myKx | Use the web; keep an idea whose source the Scout didn't cite | `plannerSchema`; `settleIdeas` drops ideas whose URL isn't among the Scout's citations | As above |
 | Tonight | Screen time and learning per kid, unseen flags, arrivals, rolled-up home stretches, alerts and their verdicts, the weekend plan | Add a fact, diagnose or judge | `tonightSchema` (20 to 620 characters); cached per family by digest, at most every 5 minutes | `fallbackTonight`, labelled |
+| Synapse Reviewer | One de-identified case: the item from the pack or the flagged reply with what was asked, the kid's answer and note | See a name, a household, a chat history or the Notebook; ship a fix without code checks, reproduction and a re-test; loosen a guardrail; change a score without an admin (by default) | `reviewSchema`, then `checkFix` and `computeConfidence` in code | The report waits for an admin (`failed` or `waiting`) |
 | Critter Keeper | The child's words to the pet; the pet's species, stage, its foods, bars, mood and the care its stage still needs (`petFacts`) | Keep the chat; read anything else about the child (no name, no Notebook); change the pet's bars, mood or stage | `petReplySchema` (a reply of at most 220 characters and a feeling that only animates it); distress words skip the model | `fallbackReply`: true to the stage and mood, picked by what the child asked about |
 | Past-paper scout | Listing pages of five allowlisted sites, robots.txt first | Bypass a CAPTCHA, a sign-in or a robots rule; download anything | Pure parsers and decision rules with tests | n/a |
 
@@ -630,7 +637,7 @@ Knowledge published before 29 Oct is in `skill_updates`; publishing still writes
 
 ## 6. Self-learning and self-improvement
 
-myKx gets better in five loops. A sixth, **Kix Synapse** (kids flag what's wrong; an open model reviews; proven fixes ship as skill versions or learned cautions), is specified in `docs/prd/SYNAPSE.md` and not built yet; when it is, this section names all six loops under that brand. None of them trains a model on child data, rewrites a prompt by itself or lets a model change a score. Each loop has a named signal, a named guardrail, and a clear line between what is automatic and what a person approves.
+myKx gets better in six loops, together called **Kix Synapse**, the self-learning engine (founder, 29 Oct). Loops 1 to 5 never train a model on child data, rewrite a prompt or let a model change a score. Loop 6, where kids flag what's wrong (§6.5a, `docs/prd/SYNAPSE.md`), may *add* a bounded learned caution to an agent, but only after reproducing the problem and proving the fix; it never edits or removes instructions or guardrails. Each loop has a named signal, a named guardrail, and a clear line between what is automatic and what a person approves.
 
 | Loop | What improves | Signal | Who changes it | Guardrail | Automatic or approved |
 |---|---|---|---|---|---|
@@ -639,6 +646,7 @@ myKx gets better in five loops. A sixth, **Kix Synapse** (kids flag what's wrong
 | 3. Per-child memory | How Kix pitches hints and explanations to this child | The child's own words to Kix, session numbers | Memory Keeper proposes patches; code filters; the parent can edit or wipe | Label refusals, size caps, revisions, no family messages, no scores | Automatic, with parent review after the fact |
 | 4. Parent feedback | How readily Home watch and the focus camera raise a note for this family | Right / Not right verdicts | Fixed rules in code | Bounded easing for 14 days; urgent hazards never softened | Automatic from a person's verdict |
 | 5. Operations | Prompts, budgets, fallbacks, cost | `model_runs`, the soak test, cached-reading scripts | The team | Ids and numbers only in logs | Reviewed by people |
+| 6. Kids' flags (Kix Synapse proper) | A question's words, an extra accepted answer, an answer key; how an agent behaves | A kid's flag on a question or an AI reply | Synapse Reviewer (Muse Spark Open, Muse Spark 1.3 fallback) proposes; code checks, reproduces and re-tests; the admin's threshold decides | Signed turns, de-identified cases, code checks, reproduce and re-test, second opinion on scores, one-click undo, nightly evals | Automatic at the threshold (100 by default); score changes need an admin by default; the rest waits for an admin |
 
 ### 6.1 Loop 1: content (the knowledge flywheel)
 
@@ -785,14 +793,40 @@ Each verdict is a fixed rule applied to a person's judgement, not a model learni
 ### 6.5 Loop 5: operations and observability
 
 - **`model_runs`** records every call (route, operation, model, request and response ids, latency, first-token time, tokens, images, audio seconds, estimated cost, ok, a short key-free error). `lib/runs/log.ts` writes it through a hook in `lib/meta/run.ts`, so no route can forget; logging never breaks a call.
-- **Under the hood** (`/admin/under-the-hood`, `app/api/admin/hood/route.ts`, `lib/admin/hood.ts`) shows the seventeen agents with what they read and may never do, per-model totals (calls, failures, average latency, tokens, images, audio seconds, cost), the latest 60 calls by agent name (never by child: `publicRun` reports only whether a call was for a child), the packs, published versions and the art manifest.
+- **Under the hood** (`/admin/under-the-hood`, `app/api/admin/hood/route.ts`, `lib/admin/hood.ts`) shows the nineteen agents with what they read and may never do, per-model totals (calls, failures, average latency, tokens, images, audio seconds, cost), the latest 60 calls by agent name (never by child: `publicRun` reports only whether a call was for a child), the packs, published versions and the art manifest.
 - **Refreshing fallbacks from live runs:** `scripts/guardian/home-reader-cache.ts` runs the real Home Reader on the eleven synthetic frames and stores its answers by frame hash as the cached fallback; `scripts/guardian/outings-seed.ts` records a real outing run as the demo's cached run.
 - **Engine checks:** the soak test and the content scanner run offline and deterministically.
+
+### 6.5a Loop 6: kids' flags, Kix Synapse (founder, 29 Oct)
+
+Spec: `docs/prd/SYNAPSE.md`. Code: `lib/synapse/`, `components/synapse/FlagButton.tsx`, `components/admin/synapse/`.
+
+```mermaid
+flowchart LR
+  F["Flag on a question or a reply<br/>FlagButton"] --> R["POST /api/synapse/report<br/>signed turn checked, distress first,<br/>names → Learner, 10 a day"]
+  R -->|"after() on Vercel"| V["Synapse Reviewer<br/>roleStructured('synapse.reviewer')<br/>Muse Spark Open · Muse Spark 1.3 fallback"]
+  V --> C["Code checks<br/>checkFix: once, no numbers, no names,<br/>caution only narrows"]
+  C --> P["Reproduce × 3 (agent) or in the pack;<br/>re-test × 3 with the caution + other evals;<br/>second opinion on a score change"]
+  P --> K["computeConfidence → decide<br/>threshold, scoring needs admin, daily cap"]
+  K -->|auto| A["applyFix: skill version (source synapse)<br/>or learned caution; eval case"]
+  K -->|waiting| Q["Admin → Kix Synapse<br/>approve, edit, reject, undo, retry"]
+  Q --> A
+  A --> E["Evals: before a fix, Run now,<br/>nightly /api/cron/synapse"]
+  A --> N["Kid: Fixed, thanks to you /<br/>Kix double-checked"]
+```
+
+- **Signed turns** (`lib/synapse/turn.ts`): Ask Kix and the Critter Keeper return `flag: { token, shown, ask }` with every live reply. The token is an HMAC (the kid-session key) over the kid, agent and instruction version, pack and version, level, subject, stage, the sections read and a hash of the exact words; it is good for a day. A Learn report needs no token: the server looks the item up in the kid's own level's packs (`itemForKid`).
+- **Intake** (`lib/synapse/intake.ts`): distress words take Kix's caring reply and the helplines and are never reviewed; nicknames, magic names and grown-ups' names become "Learner"/"Parent"; emails, phone numbers, links and addresses are removed (`deid.ts`); one open report per question or reply (a second joins it); ten a day. The kid sees only `checking`, `fixed`, `right` or `closed` with the note written for them.
+- **Review** (`review.ts`): the reviewer reads the case as text (the item as JSON, the reply, what was asked, the kid's answer and note) and answers `reviewSchema`. Then code: `checkFix`; reproduce in the pack (item fixes) or by re-running the agent three times at once (`agents.ts`: Ask Kix at the full stage on the question as Kix read it, or the pet at its stage), judging each run with the reviewer's test (`expect.ts`: exact, contains, not-contains, number by code; judge by the Synapse Judge); re-test three times with the caution and against up to four of the agent's other eval cases; a second opinion (`synapse.second`, Muse Spark 1.3) for `item-accept` and `item-answer`. `computeConfidence` caps the reviewer's number (0 on a failed check; 60 not reproduced; 90 reproduced in some runs; 70 a re-test short of all; the second opinion's number for a score change). `decide` applies the settings.
+- **Fixes** (`apply.ts`): an item fix is the pack's next published version (`createVersion`, source `synapse`) through the override layer, which every reader shares process-wide (`globalThis`) and other instances pick up within 60 s; undo soft-deletes it. A caution is a `synapse_cautions` row scoped by level and subject, expiring in 30 days unless an admin confirms it, at most 12 live per agent; `instructionsFor` adds the fitting ones under "Learned cautions…" between the instructions and the guardrails (`compose`), cached a minute like the instructions; undo retires it. Every fix adds an eval case.
+- **Evals** (`evals.ts`): item cases check the published pack by code; agent cases re-run the agent once. A case that used to pass and now fails sends its report back to `waiting`. Run before a fix, by Run now (`POST /api/admin/synapse/evals`) and nightly.
+- **Admin** (`app/(admin)/admin/synapse`): the loop's numbers for the week, the inbox, each case's trace (`steps`), review, fix (editable before approving), tests, confidence and caps; learned cautions per agent; evals; settings (threshold 50–100, scoring needs an admin, repeat reports at 95, daily cap, model per role, budgets); Retrain (counts and a JSONL export of fixed cases from families who turned on Help Kix learn, `GET /api/admin/synapse/dataset`; the training adapter isn't connected). Learners show by level only.
+- **Not yet:** flags on the Kix Tutor's live hints, the Vibe Zone and the parent's Tonight; re-marking past attempts after a key change; the five-minute `pg_cron` sweep (the daily cron and the admin's Review again cover a review that dies); folding fixes back into git; a connected trainer.
 
 ### 6.6 What is deliberately not self-learning
 
 - No fine-tuning and no training on child data: child data goes only to Standard models, which don't train on prompts.
-- No automatic prompt rewriting and no self-modifying rules.
+- No automatic prompt rewriting and no self-modifying rules. Kix Synapse's learned cautions (§6.5a) are the one bounded exception: a single *When … check …* line added after an agent's instructions and before its fixed guardrails, only after the problem reproduced and the fix passed its re-test; never an edit or removal.
 - No model-written question is served as practice or counts as evidence without review. The Curator's items wait for an admin's approval. The study aids a child asks for (Vibe flashcards, Ask Kix's "try this" question at the full stage, Kix's hints) are labelled, are never marked, and never move mastery or pay rewards beyond the fixed `creation_saved` award.
 - Parent verdicts tune thresholds within fixed bounds; they never teach a model anything.
 
@@ -973,8 +1007,9 @@ The simulator holds a real Home Link device token for the synthetic demo househo
 |---|---|---|---|
 | `/api/cron/papers` | `0 22 * * 0` | Mondays 06:00 | The past-paper scout's weekly scan |
 | `/api/cron/guardian` | `0 19 * * *` | Daily 03:00 | Deletes flagged frames past 24 h |
+| `/api/cron/synapse` | `30 19 * * *` | Daily 03:30 | Kix Synapse: reviews reports stuck at `new`, retires expired cautions, runs every eval case, trims report words past 90 days |
 
-Both refuse any request without `Authorization: Bearer $CRON_SECRET` (timing-safe compare) and answer 503 when the secret isn't set.
+All three refuse any request without `Authorization: Bearer $CRON_SECRET` (timing-safe compare) and answer 503 when the secret isn't set.
 
 ### 9.3 Environment variables (names only)
 
@@ -982,6 +1017,7 @@ Both refuse any request without `Authorization: Bearer $CRON_SECRET` (timing-saf
 |---|---|---|
 | `MODEL_API_KEY` (or `META_API_KEY`) | `lib/meta/client.ts` | Standard-mode Meta key; without it every agent uses its fallback |
 | `META_API_BASE_URL` | `lib/meta/client.ts` | Optional override of `https://api.meta.ai/v1` |
+| `BASETEN_API_KEY`, `MUSE_SPARK_OPEN_MODEL`, `BASETEN_BASE_URL` | `lib/meta/open.ts` | Optional: Muse Spark Open on Baseten for Kix Synapse's reviewer and judge. Empty (the founder's choice for now) runs them on Muse Spark 1.3 |
 | `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (or `…_ANON_KEY`) | `lib/auth/context.ts` | Grown-up sessions |
 | `SUPABASE_SECRET_KEY` (or `SUPABASE_SERVICE_ROLE_KEY`) | `lib/auth/store-supabase.ts`, scripts | Server only |
 | `KID_SESSION_SECRET` | `lib/auth/tokens.ts` | HMAC key for kid, PIN and kids-here cookies, at least 32 bytes; production refuses kid sessions without it |
@@ -1010,6 +1046,7 @@ Values are never printed, logged or committed.
 | `20261029_games.sql` | `game_progress` |
 | `20261030_focus_verdict.sql` | `signals.verdict`, `verdict_at` |
 | `20261030_paper_scout.sql` | `paper_finds`, `scout_runs` |
+| `20261030_synapse.sql` | Kix Synapse's five tables and `skill_versions.source = 'synapse'`. Until it runs, a flag answers 503 and the admin page is empty |
 | `20261030_agent_versions.sql` | `agent_versions` (agents you can edit, §4.11). Until it runs, every agent uses its built-in default and the editor's Save and Publish answer that the table is missing. |
 
 Apply them with `node --env-file=.env.local scripts/db-migrate.ts <files>` (each file in its own transaction; `--check` lists which tables exist), or paste them into the Supabase SQL editor. `supabase/schema.test.ts` runs the migrations against older and fresh databases in PGlite.

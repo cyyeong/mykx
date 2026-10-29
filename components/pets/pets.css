@@ -250,3 +250,6 @@
 @keyframes pt-party-pop{from{transform:translateY(0) scale(1)}to{transform:translateY(-6px) scale(1.06)}}
 @keyframes pt-confetti{0%{opacity:0;transform:scale(.4)}20%{opacity:1}100%{opacity:0;transform:scale(1.25) translateY(30px)}}
 @media (prefers-reduced-motion:reduce){.pt-party,.pt-party-art,.pt-confetti{animation:none}}
+.pt-flag { margin-left: 8px; }
+.pt-flag .sy-flag { width: 32px; height: 32px; }
+.pt-flag[data-band="junior"] .sy-flag { width: 44px; height: 44px; }

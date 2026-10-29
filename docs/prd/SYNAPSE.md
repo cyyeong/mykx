@@ -4,7 +4,7 @@ Founder brief, 29 Oct 2026: trace every chat and its reasoning; let kids flag a 
 
 **Kix Synapse** is that brand. It names all of myKx's learning loops (ARCHITECTURE §6: content, per-child learning, memory, parent feedback, operations) and adds the sixth, the one this spec is about: **Flag → Trace → Review → Fix → Re-test**, with **Retrain** as a later step. Its promise to judges and parents: *Kix only ships a fix it can prove.* A fix is published only after the problem has been reproduced and the fixed version has passed the same test.
 
-Status: proposed, designed in the canvas (page "Kix Synapse, 29 Oct", boards `SynapseLoop`, `SynapseFlag`, `SynapseInbox`, `SynapseCase`, `SynapseLearned`, `SynapseSettings`; copies in `docs/design/boards/`, source `docs/design/canvas-src/synapse-boards.py`); not built. Build plan in `docs/plan/IMPLEMENTATION_PLAN.md` §4a.
+Status: **built 29 Oct** (the same evening it was designed), live-tested on the sample family; designed first in the canvas (page "Kix Synapse, 29 Oct", boards `SynapseLoop`, `SynapseFlag`, `SynapseInbox`, `SynapseCase`, `SynapseLearned`, `SynapseSettings`; copies in `docs/design/boards/`, source `docs/design/canvas-src/synapse-boards.py`). Code: `lib/synapse/`, `components/synapse/`, `components/admin/synapse/`, `app/api/synapse/`, `app/api/admin/synapse/`, `app/api/cron/synapse/`; architecture in `docs/ARCHITECTURE.md` §6.5a. Where the build differs from this spec, §15 says so.
 
 ## 1. Goals and limits
 
@@ -257,4 +257,16 @@ Abby flags "Tank B" in a P6 maths question whose figure says "Tank C". Twenty se
 
 ## 14. Not yet
 
+Flags on the Kix Tutor's live hints, the Vibe Zone and the parent's Tonight (cut order 1); re-marking past attempts after a key change (future attempts mark with the corrected key); the five-minute `pg_cron` sweep (cut order 3); 
 GitHub issues for app bugs; folding fixes back into git automatically; training a model; flags on printable papers.
+
+## 15. As built (29 Oct)
+
+- **Surfaces with a flag:** the Learn question player (the question, the marking, the hint; no token needed: the server looks the item up in the kid's own packs), every live Ask Kix reply and every live pet reply (signed turns). Cached samples carry no token, so they show no flag.
+- **The kid's outcome** shows on the flag itself: "Checking… Kix's crew has it", then "Fixed by your report" or "Kix double-checked" with the note; it is looked up again when the kid comes back to the question. The flag stays available for a new report once one is closed.
+- **Reproduce** runs the agent three times at once (Ask Kix at the full stage on the question as Kix read it, with the pack sections it read; the pet at its stage). A photo-only ask or the tutor can't be re-run: capped at 60. **Re-test** runs three more with the caution plus up to four of the agent's other eval cases.
+- **Cautions** are scoped by the case's level and subject (not by model-chosen tags) and merged by `instructionsFor`. The reviewer doesn't merge overlapping cautions yet; the admin retires duplicates.
+- **Model per job** is a setting: Muse Spark Open or Muse Spark 1.3 for the reviewer, the second opinion and the judge. **The Baseten key is empty by the founder's choice**, so the reviewer and judge run on Muse Spark 1.3 and every case says so.
+- **Durability:** the review runs in `after()`; a report left at `new` is reviewed by the daily cron, and the admin can press Review again. The five-minute `pg_cron` sweep is cut for now.
+- **Live checks on 29 Oct** (review server, sample family, Muse Spark 1.3): a typo slipped into an edit of a P6 question was flagged and fixed by itself in 6 seconds (reviewer 100, checks 4 of 4, reproduced in the pack, `p6-maths` next version published; undo restores the version before). A kid who thought a ratio question was wrong got "Kix was right" with an explanation after an admin approved the 95. An Ask Kix reply was flagged through its signed turn and judged correct (88). Each review cost about half a cent.
+- **Production:** run `supabase/migrations/20261030_synapse.sql` once in Supabase; until then a flag answers 503 and the admin page is empty.

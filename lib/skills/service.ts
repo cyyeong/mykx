@@ -114,7 +114,7 @@ export async function saveDraft(store: AuthStore, o: { packId: string; base: str
 }
 
 /** A whole new version in one step (an import's first draft, or the knowledge agent's refinement). */
-export async function createVersion(store: AuthStore, o: { packId: string; files: PackFiles; status: "draft" | "published"; source: VersionSource; note: string | null; by: string; version?: string; now?: string }): Promise<Outcome<SkillVersion>> {
+export async function createVersion(store: AuthStore, o: { packId: string; files: PackFiles; status: "draft" | "published"; source: VersionSource; note: string | null; by: string | null; version?: string; now?: string }): Promise<Outcome<SkillVersion>> {
   return guarded(async () => {
     const pv = await packVersions(store, o.packId);
     const version = o.version ?? nextPackVersion(pv.defaultVersion, pv.rows);

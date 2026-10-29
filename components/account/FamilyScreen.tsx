@@ -1202,6 +1202,9 @@ export function FamilyScreen() {
             </Link>
           </section>
 
+          {/* Kix Synapse: may this family's fixed reports help train a myKx model later? (docs/prd/SYNAPSE.md §8) */}
+          <HelpKixLearnCard />
+
           {/* The parent PIN: inside the page's theme, after Add a kid */}
           <PinSetupCard />
 
@@ -1398,5 +1401,45 @@ function MagicNameRow({ kid, onSaved }: { kid: FamilyKid; onSaved: () => Promise
         {note || "Unique across myKx. Keep it fun, and leave out their full name."}
       </span>
     </span>
+  );
+}
+
+/** "Help Kix learn": off by default. Kix Synapse fixes reports either way; this only says whether the family's fixed
+ *  reports, already de-identified, may join the retrain dataset. */
+function HelpKixLearnCard() {
+  const [on, setOn] = useState<boolean | null>(null);
+  const [saving, setSaving] = useState(false);
+  useEffect(() => {
+    let live = true;
+    void api<{ on: boolean }>("GET", "/api/synapse/consent").then((r) => {
+      if (live && r.ok && r.data) setOn(r.data.on);
+    });
+    return () => {
+      live = false;
+    };
+  }, []);
+  if (on === null) return null;
+  return (
+    <section aria-labelledby="fa-learn-h" style={{ ...card, gap: 8 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12 }}>
+        <h2 id="fa-learn-h" style={{ margin: 0, font: "800 20px/26px var(--font-display)" }}>
+          Help Kix learn
+        </h2>
+        <Switch
+          on={on}
+          labelledBy="fa-learn-h"
+          disabled={saving}
+          onToggle={async () => {
+            setSaving(true);
+            const r = await api<{ on: boolean }>("POST", "/api/synapse/consent", { on: !on });
+            if (r.ok && r.data) setOn(r.data.on);
+            setSaving(false);
+          }}
+        />
+      </div>
+      <p style={{ margin: 0, font: "500 15px/22px var(--font-text)", color: "var(--ink-muted)" }}>
+        When your kids flag a mistake, Kix Synapse checks it and fixes what it can prove, whatever you choose here. Turn this on to let those fixed reports, with every name removed, help train a myKx model later. Off by default; turning it off takes your family out of the next export.
+      </p>
+    </section>
   );
 }

@@ -155,3 +155,11 @@ revoke all on agent_versions from anon, authenticated;
 alter table skill_versions enable row level security;
 alter table knowledge_sessions enable row level security;
 revoke all on skill_versions, knowledge_sessions from anon, authenticated;
+
+-- Kix Synapse (migration 20261030_synapse.sql): server only, no policies and no grants.
+alter table synapse_reports enable row level security;
+alter table synapse_cautions enable row level security;
+alter table synapse_evals enable row level security;
+alter table synapse_settings enable row level security;
+alter table synapse_consents enable row level security;
+revoke all on synapse_reports, synapse_cautions, synapse_evals, synapse_settings, synapse_consents from anon, authenticated;

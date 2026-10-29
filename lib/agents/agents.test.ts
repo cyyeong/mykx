@@ -254,7 +254,7 @@ describe("admin routes", () => {
     const admin = new Browser();
     await admin.signIn();
     const list = await admin.call(agentsRoute.GET, "/api/admin/agents");
-    expect(list.body.agents).toHaveLength(17);
+    expect(list.body.agents).toHaveLength(19);
     expect(list.body.agents.filter((a: { editable: boolean }) => a.editable)).toHaveLength(11);
     const studio = await admin.call(agentRoute.GET, "/api/admin/agents/studio", { id: "studio" });
     expect(studio.body).toMatchObject({ editable: null, readOnly: expect.stringMatching(/Muse Image/) });

@@ -568,7 +568,7 @@ create table skill_versions (
   version text not null check (version ~ '^[0-9]+\.[0-9]+\.[0-9]+$'),
   files jsonb not null check (jsonb_typeof(files) = 'object'),
   status text not null check (status in ('draft', 'published')),
-  source text not null check (source in ('edit', 'enhance', 'import', 'knowledge', 'restore')),
+  source text not null check (source in ('edit', 'enhance', 'import', 'knowledge', 'restore', 'synapse')),
   note text check (char_length(note) <= 300),
   created_by uuid references profiles (id) on delete set null,
   created_at timestamptz not null default now(),
@@ -590,3 +590,46 @@ alter table knowledge_uploads add column session_id uuid references knowledge_se
 -- { overrides, pairWith, edits, checks, checkedAt, resolved }: the admin's review; never a school paper's questions
 alter table knowledge_uploads add column state jsonb not null default '{}'::jsonb;
 create index knowledge_uploads_session on knowledge_uploads (session_id, created_at);
+
+-- Kix Synapse, the self-learning engine (migration 20261030_synapse.sql; lib/synapse, docs/prd/SYNAPSE.md): kids'
+-- reports with the de-identified words of the one turn they reported, learned cautions, eval cases and runs, the
+-- admin's settings, and each family's "Help Kix learn" choice. Server only.
+create table synapse_reports (
+  id uuid primary key,
+  household_id uuid not null references households (id) on delete cascade,
+  profile_id uuid not null references profiles (id) on delete cascade,
+  status text not null check (char_length(status) <= 20),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  doc jsonb not null check (pg_column_size(doc) < 200000)
+);
+create index synapse_reports_time on synapse_reports (created_at desc);
+create index synapse_reports_household on synapse_reports (household_id, created_at desc);
+
+create table synapse_cautions (
+  id uuid primary key,
+  agent_id text not null check (agent_id ~ '^[a-z][a-z-]{1,39}$'),
+  status text not null check (status in ('active', 'waiting', 'retired')),
+  created_at timestamptz not null default now(),
+  doc jsonb not null
+);
+
+create table synapse_evals (
+  id uuid primary key,
+  kind text not null check (kind in ('case', 'run')),
+  created_at timestamptz not null default now(),
+  doc jsonb not null check (pg_column_size(doc) < 200000)
+);
+create index synapse_evals_kind_time on synapse_evals (kind, created_at desc);
+
+create table synapse_settings (
+  id smallint primary key check (id = 1),
+  doc jsonb not null,
+  updated_at timestamptz not null default now()
+);
+
+create table synapse_consents (
+  household_id uuid primary key references households (id) on delete cascade,
+  help_kix_learn boolean not null default false,
+  updated_at timestamptz not null default now()
+);

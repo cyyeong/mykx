@@ -11,7 +11,7 @@ import { findBanned, scannableText } from "./safety.ts";
 import { SkillItemSchema, SkillManifestSchema } from "./schema.ts";
 import type { SkillItem, SkillManifest } from "../types.ts";
 
-export const VERSION_SOURCES = ["edit", "enhance", "import", "knowledge", "restore"] as const;
+export const VERSION_SOURCES = ["edit", "enhance", "import", "knowledge", "restore", "synapse"] as const;
 export type VersionSource = (typeof VERSION_SOURCES)[number];
 export type VersionStatus = "draft" | "published";
 
