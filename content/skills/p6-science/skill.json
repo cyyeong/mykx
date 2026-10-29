@@ -1,12 +1,12 @@
 {
   "id": "p6-science",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "status": "published",
   "title": "P6 Science (PSLE)",
   "description": "Primary 6 / PSLE Science (Singapore MOE 2023 syllabus, 2026 format): all P3–P6 themes, with concept cards in the marker's words, the C.E.R. answer spine, misconceptions, experimental skills and statistically targeted practice.",
   "subject": "science",
   "level": "P6",
-  "syllabus": "MOE 2023 Primary Science; PSLE Science 0009 (from 2026)",
+  "syllabus": "MOE Primary Science syllabus 2023 (Standard; updated Jan 2026); PSLE Science 0009 (from 2026)",
   "language": "en",
   "agents": {
     "tutor": "auto",
@@ -25,7 +25,8 @@
         "populations",
         "adaptations",
         "human_impact",
-        "experimental_skills"
+        "experimental_skills",
+        "survival_factors"
       ]
     },
     {
@@ -65,7 +66,8 @@
         "digestive",
         "respiratory_circulatory",
         "systems_together",
-        "experimental_skills"
+        "experimental_skills",
+        "body_systems"
       ]
     },
     {
@@ -79,7 +81,9 @@
         "seed_dispersal",
         "germination",
         "human_reproduction",
-        "experimental_skills"
+        "experimental_skills",
+        "spores_and_seeds",
+        "cells_and_inheritance"
       ]
     },
     {
@@ -92,7 +96,8 @@
         "condensation",
         "evaporation",
         "water_cycle",
-        "experimental_skills"
+        "experimental_skills",
+        "water_pollution"
       ]
     },
     {
@@ -104,7 +109,8 @@
         "energy_chains",
         "gpe_ke",
         "energy_graphs",
-        "experimental_skills"
+        "experimental_skills",
+        "energy_sources"
       ]
     },
     {
@@ -115,7 +121,8 @@
       "subskills": [
         "photosynthesis_conditions",
         "gas_exchange",
-        "experimental_skills"
+        "experimental_skills",
+        "energy_from_food"
       ]
     },
     {
@@ -139,7 +146,8 @@
       "subskills": [
         "states_of_matter",
         "air_mass_volume",
-        "experimental_skills"
+        "experimental_skills",
+        "measure_mass_volume"
       ]
     },
     {
@@ -162,7 +170,8 @@
       "subskills": [
         "classification",
         "fungi_bacteria",
-        "experimental_skills"
+        "experimental_skills",
+        "living_characteristics"
       ]
     },
     {
@@ -731,6 +740,17 @@
   ],
   "references": [
     {
+      "file": "references/syllabus-map.md",
+      "title": "Syllabus map: MOE 2023 learning outcomes, pack topics and items",
+      "sections": [
+        "Source documents",
+        "Topics by theme and level",
+        "Learning outcomes → pack subskills",
+        "Not required by the 2023 syllabus (keep out of questions)",
+        "Items written from the syllabus (v1.1.0)"
+      ]
+    },
+    {
       "file": "references/syllabus.md",
       "title": "PSLE Science: syllabus, format and wording",
       "sections": [
@@ -825,6 +845,22 @@
     {
       "kind": "own",
       "note": "Topic weights and archetypes are statistics and patterns derived from school papers kept as private reference; no question text, school names or paper codes are included."
+    },
+    {
+      "kind": "generated",
+      "note": "Items in items/original-01.json (v1.1.0: human system, matter, plant system, living things, light, materials) written by Claude Code from the MOE learning outcomes and this pack's archetypes, with original wording, data and figure specs; every key re-solved independently; pending founder review."
+    },
+    {
+      "kind": "generated",
+      "note": "Topics, levels and learning outcomes checked on 29 Oct against MOE, Science Teaching and Learning Syllabus, Primary Three to Six (Standard/Foundation), implementation from the 2023 P3 cohort, updated Jan 2026 (https://www.moe.gov.sg/api/media/ba3562d3-5b31-4459-8693-45cde7b97273/Primary-Science-Syllabus-2023.pdf), including its 'not required' notes. Mapped in references/syllabus-map.md."
+    },
+    {
+      "kind": "generated",
+      "note": "Paper format checked against SEAB, PSLE Science (0009) for examination from 2026 (https://isomer-user-content.by.gov.sg/334/24bb2fea-a0e0-4aaf-9a11-ae1ef1b8840e/0009_y26_sy.pdf, listed at https://www.seab.gov.sg/psle/psle-formats-examined-in-2026/): Booklet A 30 MCQs x 2 marks, Booklet B 10-11 structured questions of 2-5 marks, 1 h 45 min."
+    },
+    {
+      "kind": "generated",
+      "note": "Common answering mistakes cross-checked with public commentary (https://geniebook.com/exam-preparation/psle/article/5-most-common-psle-science-mistakes-and-how-to-avoid-them): misread question words, wrong concept, answers without the key terms. No questions were taken from any source."
     }
   ],
   "licence": "Content CC BY-NC 4.0 (myKx).",

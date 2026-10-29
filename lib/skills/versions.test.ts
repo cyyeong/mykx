@@ -53,7 +53,7 @@ describe("version rules", () => {
     const m = JSON.parse(next["skill.json"]);
     expect(m.references.at(-1)).toEqual({ file: "references/bars.md", title: "Drawing bars", sections: ["Same length first"] });
     expect(JSON.parse(withManifest(disk, { version: "1.4.0" })["skill.json"]).version).toBe("1.4.0");
-    expect(withManifest(disk, { version: "1.0.0" })["skill.json"]).toBe(disk["skill.json"]);
+    expect(withManifest(disk, { version: JSON.parse(disk["skill.json"]).version })["skill.json"]).toBe(disk["skill.json"]);
   });
 });
 
@@ -73,9 +73,13 @@ describe("saving, publishing, restoring and deleting (demo store)", () => {
 
   it("serves a published edit, falls back when it's deleted, and restores the default as a new version", async () => {
     const disk = diskPackFiles("p6-maths")!;
+    // Versions follow the pack on disk (its default), whatever it is: the first saved draft is one minor up.
+    const base = JSON.parse(disk["skill.json"]).version as string;
+    const first = nextPackVersion(base, []);
+    const second = nextPackVersion(base, [{ version: first }]);
     const edited = `${disk["SKILL.md"].replace("# P6 Maths (PSLE)", "# P6 Maths (PSLE), edited")}`;
     const saved = await saveDraft(store, { packId: "p6-maths", base: "default", changes: { "SKILL.md": edited }, note: null, source: "edit", by: "admin" });
-    expect(saved).toMatchObject({ ok: true, value: { version: "1.1.0", status: "draft" } });
+    expect(saved).toMatchObject({ ok: true, value: { version: first, status: "draft" } });
     // A draft isn't served.
     expect(loadPack("p6-maths")?.core).not.toContain("edited");
     // Saving again updates the same draft.
@@ -84,18 +88,18 @@ describe("saving, publishing, restoring and deleting (demo store)", () => {
     if (!saved.ok) return;
     const pub = await publishDraft(store, { packId: "p6-maths", id: saved.value.id });
     expect(pub).toMatchObject({ ok: true, value: { status: "published" } });
-    expect(loadPack("p6-maths")?.version).toBe("1.1.0");
+    expect(loadPack("p6-maths")?.version).toBe(first);
     expect(loadPack("p6-maths")?.core).toContain("edited");
-    expect(JSON.parse(packFile("p6-maths", "skill.json")!).version).toBe("1.1.0");
+    expect(JSON.parse(packFile("p6-maths", "skill.json")!).version).toBe(first);
 
     const restored = await restoreVersion(store, { packId: "p6-maths", from: "default", by: "admin" });
-    expect(restored).toMatchObject({ ok: true, value: { version: "1.2.0", source: "restore", status: "published" } });
+    expect(restored).toMatchObject({ ok: true, value: { version: second, source: "restore", status: "published" } });
     expect(loadPack("p6-maths")?.core).not.toContain("edited");
     if (!restored.ok) return;
     expect(await deleteVersion(store, { packId: "p6-maths", id: restored.value.id })).toMatchObject({ ok: true });
-    expect(loadPack("p6-maths")?.core).toContain("edited"); // falls back to v1.1.0
+    expect(loadPack("p6-maths")?.core).toContain("edited"); // falls back to the first edit
     expect(await deleteVersion(store, { packId: "p6-maths", id: saved.value.id })).toMatchObject({ ok: true });
-    expect(loadPack("p6-maths")?.version).toBe("1.0.0"); // and then to the default
+    expect(loadPack("p6-maths")?.version).toBe(base); // and then to the default
     expect(await deletePack(store, { packId: "p6-maths" })).toMatchObject({ ok: false, status: 409 });
   });
 

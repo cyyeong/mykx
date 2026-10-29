@@ -1,12 +1,12 @@
 {
   "id": "p6-maths",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "status": "published",
   "title": "P6 Maths (PSLE)",
   "description": "Primary 6 / PSLE Mathematics (Singapore MOE 2021 syllabus, 2026 exam format): fractions, ratio and before-after problems, percentage, angles, circles, volume, data, algebra. Name-the-method heuristics, low-pressure sessions, statistically targeted practice.",
   "subject": "maths",
   "level": "P6",
-  "syllabus": "MOE 2021 Primary Mathematics (Standard), PSLE from 2026",
+  "syllabus": "MOE 2021 Primary Mathematics syllabus (Standard; updated Oct 2025), examined at PSLE from 2026 (SEAB 0008)",
   "language": "en",
   "agents": {
     "tutor": "auto",
@@ -134,7 +134,8 @@
       "subskills": [
         "decimal_operations",
         "compare_order_decimals",
-        "decimal_fraction_conversion"
+        "decimal_fraction_conversion",
+        "rounding_decimals"
       ]
     },
     {
@@ -177,7 +178,7 @@
     },
     {
       "id": "geometry.solids",
-      "title": "Nets, solids and views",
+      "title": "Nets and solid figures",
       "weight": 0.032,
       "source_tag": "SOLID",
       "subskills": [
@@ -583,6 +584,17 @@
   ],
   "references": [
     {
+      "file": "references/syllabus-map.md",
+      "title": "Syllabus map: MOE 2021 statements, pack topics and items",
+      "sections": [
+        "Source documents",
+        "What a P6 candidate is examined on",
+        "Syllabus → pack topics and subskills",
+        "Not in the 2021 syllabus (keep out of questions)",
+        "Items written from the syllabus (v1.1.0)"
+      ]
+    },
+    {
       "file": "references/exam-format.md",
       "title": "PSLE Mathematics: format, scope, time budgeting",
       "sections": [
@@ -678,6 +690,22 @@
     {
       "kind": "generated",
       "note": "Demo items (items/demo.json) drafted fresh by Claude Code following this pack's question-generation rules; pending founder review."
+    },
+    {
+      "kind": "generated",
+      "note": "Items in items/original-02.json (v1.1.0: whole numbers, decimals, measurement and time, nets and solids) written by Claude Code from the MOE syllabus and this pack's archetypes, with original wording, numbers and diagrams (scripts/make-figures.ts); every key re-solved independently; pending founder review."
+    },
+    {
+      "kind": "generated",
+      "note": "Scope and levels checked on 29 Oct against MOE, 2021 Primary Mathematics Syllabus P1 to P6, updated Oct 2025 (https://www.moe.gov.sg/api/media/92bff26d-b2b4-4535-b868-b8415c744b91/2021-Primary-Mathematics-Syllabus-P1-to-P6-Updated-October-2025.pdf): content statements per level, the P6 cohort on this syllabus from 2026, and what it leaves out (no speed, no named views, no alternate or corresponding angles). Mapped in references/syllabus-map.md."
+    },
+    {
+      "kind": "generated",
+      "note": "Paper format checked against SEAB, PSLE Mathematics (0008) for examination from 2026 (https://isomer-user-content.by.gov.sg/334/fe51f29b-04ae-4fcb-a907-8db04c028510/0008_y26_sy.pdf, listed at https://www.seab.gov.sg/psle/psle-formats-examined-in-2026/): 10 one-mark and 8 two-mark MCQs, 12 two-mark short answers, then 5 short and 10 structured questions; units are given and answers must use them."
+    },
+    {
+      "kind": "generated",
+      "note": "Common traps cross-checked with public commentary on the 2026 format (https://www.thelearninglab.com.sg/blog/psle-maths-2026-what-the-new-exam-format-really-means-for-your-child): conditions missed in two-mark questions, unit conversion, checking. No questions were taken from any source."
     }
   ],
   "licence": "Content CC BY-NC 4.0 (myKx).",
