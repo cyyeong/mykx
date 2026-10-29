@@ -236,7 +236,7 @@ describe("real packs", () => {
   });
 
   it("short papers have about ten questions for every pack with enough items", () => {
-    for (const id of ["p3-science", "p3-chinese", "p3-english", "p3-maths", "p6-science", "s2-science"]) {
+    for (const id of ["p3-science", "p3-chinese", "p3-english", "p3-maths", "p6-science", "s2-maths", "s2-science"]) {
       const b = loadPrintBank(id)!;
       for (const seed of ["a", "b"]) {
         const p = assemblePaper(b, { seed, length: "short" });

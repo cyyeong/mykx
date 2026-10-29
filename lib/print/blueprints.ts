@@ -82,6 +82,33 @@ export const BLUEPRINTS: Record<string, Blueprint> = {
       { id: "free", title: "Free-response questions", note: "Answer all questions. Show your working for calculations.", marks: 30, count: 3, order: "difficulty", newPage: true, accepts: notMcq },
     ],
   },
+  "s2-maths": {
+    // Sec 2 papers are school-set; this is the common two-paper pattern modelled on the national G3 paper (K310).
+    name: "End-of-year practice · Papers 1 and 2",
+    minutes: 150,
+    reference: "references/exam-blueprint.md#The paper",
+    sections: [
+      {
+        id: "p1",
+        title: "Paper 1 · Short questions",
+        note: "Answer all questions. A calculator may be used. Show your working: omitting essential working will lose marks.",
+        marks: 50,
+        count: 20,
+        order: "difficulty",
+        accepts: (b) => b.kind === "single" && blockMarks(b) <= 2,
+      },
+      {
+        id: "p2",
+        title: "Paper 2 · Structured questions",
+        note: "Answer all questions. Give non-exact answers correct to 3 significant figures, and angles to 1 decimal place.",
+        marks: 50,
+        count: 8,
+        order: "difficulty",
+        newPage: true,
+        accepts: () => true,
+      },
+    ],
+  },
   "p3-maths": {
     name: "End-of-year practice",
     minutes: 90,

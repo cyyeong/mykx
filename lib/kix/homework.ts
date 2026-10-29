@@ -64,6 +64,7 @@ const METHOD_REFS: Record<string, string[]> = {
   "p3-chinese": ["coaching-playbook.md"],
   "p6-maths": ["heuristics.md", "tutoring-method.md"],
   "p6-science": ["answer-techniques.md", "memory-strategies.md"],
+  "s2-maths": ["method-notes.md", "exam-blueprint.md"],
   "s2-science": ["coaching-playbook.md"],
 };
 

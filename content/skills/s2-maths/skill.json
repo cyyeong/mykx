@@ -1,0 +1,480 @@
+{
+  "id": "s2-maths",
+  "version": "1.0.0",
+  "status": "published",
+  "title": "Sec 2 G3 Maths",
+  "description": "Secondary 2 G3 Mathematics (Singapore MOE G3 syllabus, Secondary Two content): expansion and factorisation, algebraic fractions, inequalities, simultaneous equations, quadratics, proportion, congruence and similarity, Pythagoras and trigonometry, mensuration, statistics, probability. Worked steps, named errors, a check for every answer.",
+  "subject": "maths",
+  "level": "Sec 2",
+  "tier": "g3",
+  "syllabus": "MOE G2 and G3 Mathematics Syllabuses, Secondary One to Four (2020 Secondary One cohort onwards, 2024 edition): G3, Secondary Two content",
+  "language": "en",
+  "agents": {
+    "tutor": "auto",
+    "vibe": "on_demand",
+    "parent": "on_demand",
+    "curator": "auto"
+  },
+  "topics": [
+    {
+      "id": "algebra.expansion_factorisation",
+      "title": "Expansion and factorisation",
+      "weight": 0.13,
+      "source_tag": "MOE G3 Sec 2 N5.9, N5.12–N5.14",
+      "subskills": [
+        "expand_products",
+        "algebraic_identities",
+        "factorise_by_grouping",
+        "factorise_quadratic"
+      ]
+    },
+    {
+      "id": "algebra.fractions_formulae",
+      "title": "Algebraic fractions and formulae",
+      "weight": 0.09,
+      "source_tag": "MOE G3 Sec 2 N5.10, N5.11, N5.15, N5.16",
+      "subskills": [
+        "change_subject",
+        "evaluate_formula",
+        "multiply_divide_fractions",
+        "add_subtract_fractions"
+      ]
+    },
+    {
+      "id": "algebra.inequalities",
+      "title": "Simple inequalities",
+      "weight": 0.06,
+      "source_tag": "MOE G3 Sec 2 N7.5, N7.6",
+      "subskills": [
+        "inequality_concept",
+        "solve_simple_inequalities",
+        "number_line"
+      ]
+    },
+    {
+      "id": "algebra.simultaneous_equations",
+      "title": "Linear graphs and simultaneous equations",
+      "weight": 0.12,
+      "source_tag": "MOE G3 Sec 2 N7.7, N7.8, N7.10",
+      "subskills": [
+        "linear_graphs_two_variables",
+        "substitution_elimination",
+        "graphical_method",
+        "formulate_pair"
+      ]
+    },
+    {
+      "id": "algebra.quadratics",
+      "title": "Quadratic functions and equations",
+      "weight": 0.11,
+      "source_tag": "MOE G3 Sec 2 N6.6, N6.7, N7.9",
+      "subskills": [
+        "quadratic_functions",
+        "quadratic_graph_properties",
+        "solve_by_factorisation"
+      ]
+    },
+    {
+      "id": "number.proportion",
+      "title": "Direct and inverse proportion, map scales",
+      "weight": 0.08,
+      "source_tag": "MOE G3 Sec 2 N2.4, N2.5",
+      "subskills": [
+        "map_scales",
+        "direct_proportion",
+        "inverse_proportion"
+      ]
+    },
+    {
+      "id": "geometry.congruence_similarity",
+      "title": "Congruence and similarity",
+      "weight": 0.09,
+      "source_tag": "MOE G3 Sec 2 G2.1–G2.5",
+      "subskills": [
+        "congruent_figures",
+        "similar_figures",
+        "enlargement_reduction",
+        "congruence_similarity_problems"
+      ]
+    },
+    {
+      "id": "geometry.pythagoras_trigonometry",
+      "title": "Pythagoras' theorem and trigonometry",
+      "weight": 0.12,
+      "source_tag": "MOE G3 Sec 2 G4.1–G4.3",
+      "subskills": [
+        "pythagoras",
+        "right_angle_test",
+        "trig_ratios_sides",
+        "trig_ratios_angles"
+      ]
+    },
+    {
+      "id": "measurement.mensuration",
+      "title": "Pyramids, cones and spheres",
+      "weight": 0.09,
+      "source_tag": "MOE G3 Sec 2 G5.6",
+      "subskills": [
+        "pyramid",
+        "cone",
+        "sphere",
+        "composite_solids"
+      ]
+    },
+    {
+      "id": "statistics.data_analysis",
+      "title": "Statistical diagrams and averages",
+      "weight": 0.08,
+      "source_tag": "MOE G3 Sec 2 S1.5–S1.10",
+      "subskills": [
+        "statistical_diagrams",
+        "misinterpretation",
+        "averages",
+        "grouped_mean"
+      ]
+    },
+    {
+      "id": "statistics.probability",
+      "title": "Probability of single events",
+      "weight": 0.03,
+      "source_tag": "MOE G3 Sec 2 S2.1, S2.2",
+      "subskills": [
+        "measure_of_chance",
+        "single_events"
+      ]
+    }
+  ],
+  "archetypes": [
+    {
+      "id": "expand-and-simplify",
+      "topic": "algebra.expansion_factorisation",
+      "pattern": "Expand a product of two brackets and collect like terms",
+      "exam_weight": 0.026,
+      "subskill": "expand_products"
+    },
+    {
+      "id": "identity-substitution",
+      "topic": "algebra.expansion_factorisation",
+      "pattern": "Use (a ± b)² or a² − b² with given values, e.g. find (x − y)² from x² + y² and xy",
+      "exam_weight": 0.026,
+      "subskill": "algebraic_identities"
+    },
+    {
+      "id": "factorise-trinomial",
+      "topic": "algebra.expansion_factorisation",
+      "pattern": "Factorise ax² + bx + c; options built from sign and pairing errors",
+      "exam_weight": 0.026,
+      "subskill": "factorise_quadratic"
+    },
+    {
+      "id": "factorise-by-grouping",
+      "topic": "algebra.expansion_factorisation",
+      "pattern": "Four terms ax + bx + kay + kby grouped in pairs to a product",
+      "exam_weight": 0.026,
+      "subskill": "factorise_by_grouping"
+    },
+    {
+      "id": "factorise-completely",
+      "topic": "algebra.expansion_factorisation",
+      "pattern": "Common factor first, then a difference of two squares",
+      "exam_weight": 0.026,
+      "subskill": "algebraic_identities"
+    },
+    {
+      "id": "algebraic-fraction-operations",
+      "topic": "algebra.fractions_formulae",
+      "pattern": "Multiply, divide, add or subtract algebraic fractions to a single fraction",
+      "exam_weight": 0.045
+    },
+    {
+      "id": "subject-then-substitute",
+      "topic": "algebra.fractions_formulae",
+      "pattern": "Make x the subject when x appears twice, then find x for a given value",
+      "exam_weight": 0.045,
+      "subskill": "change_subject"
+    },
+    {
+      "id": "inequality-rules",
+      "topic": "algebra.inequalities",
+      "pattern": "Which statement follows from p < q (adding, scaling, multiplying by a negative)",
+      "exam_weight": 0.02,
+      "subskill": "inequality_concept"
+    },
+    {
+      "id": "integer-solutions-of-inequality",
+      "topic": "algebra.inequalities",
+      "pattern": "Smallest or greatest integer satisfying ax + b < c with a negative a",
+      "exam_weight": 0.02,
+      "subskill": "solve_simple_inequalities"
+    },
+    {
+      "id": "solve-and-show-on-number-line",
+      "topic": "algebra.inequalities",
+      "pattern": "Solve ax + b ≤ c and describe the circle and arrow on the number line",
+      "exam_weight": 0.02,
+      "subskill": "number_line"
+    },
+    {
+      "id": "intercepts-of-ax-by-c",
+      "topic": "algebra.simultaneous_equations",
+      "pattern": "Where the line ax + by = c meets the axes",
+      "exam_weight": 0.03,
+      "subskill": "linear_graphs_two_variables"
+    },
+    {
+      "id": "read-the-intersection",
+      "topic": "algebra.simultaneous_equations",
+      "pattern": "Two lines on one graph in context; the solution is the crossing point",
+      "exam_weight": 0.03,
+      "subskill": "graphical_method"
+    },
+    {
+      "id": "check-both-equations",
+      "topic": "algebra.simultaneous_equations",
+      "pattern": "Solve by substitution or elimination; distractors fit only one equation",
+      "exam_weight": 0.03,
+      "subskill": "substitution_elimination"
+    },
+    {
+      "id": "two-items-two-totals",
+      "topic": "algebra.simultaneous_equations",
+      "pattern": "Two purchases with two totals: form a pair of equations and find one price",
+      "exam_weight": 0.03,
+      "subskill": "formulate_pair"
+    },
+    {
+      "id": "solve-quadratic-by-factorising",
+      "topic": "algebra.quadratics",
+      "pattern": "Factorise and solve; in context, reject the impossible root and answer what is asked",
+      "exam_weight": 0.055,
+      "subskill": "solve_by_factorisation"
+    },
+    {
+      "id": "turning-point-and-symmetry",
+      "topic": "algebra.quadratics",
+      "pattern": "From a table of values or the sign of a: shape, turning point, line of symmetry",
+      "exam_weight": 0.055,
+      "subskill": "quadratic_graph_properties"
+    },
+    {
+      "id": "find-k-then-use",
+      "topic": "number.proportion",
+      "pattern": "y = kx: find k from one pair, then a new value",
+      "exam_weight": 0.027,
+      "subskill": "direct_proportion"
+    },
+    {
+      "id": "workers-and-days",
+      "topic": "number.proportion",
+      "pattern": "Inverse proportion in context (workers and days, speed and time)",
+      "exam_weight": 0.027,
+      "subskill": "inverse_proportion"
+    },
+    {
+      "id": "map-scale-area",
+      "topic": "number.proportion",
+      "pattern": "Map area to real area: convert units, square the scale",
+      "exam_weight": 0.027,
+      "subskill": "map_scales"
+    },
+    {
+      "id": "congruence-correspondence",
+      "topic": "geometry.congruence_similarity",
+      "pattern": "Read matching sides and angles from a congruence statement △ABC ≡ △PQR",
+      "exam_weight": 0.022,
+      "subskill": "congruent_figures"
+    },
+    {
+      "id": "parallel-line-similar-triangles",
+      "topic": "geometry.congruence_similarity",
+      "pattern": "DE parallel to BC (similarity given): find a side by proportion",
+      "exam_weight": 0.022,
+      "subskill": "congruence_similarity_problems"
+    },
+    {
+      "id": "similar-or-not-explain",
+      "topic": "geometry.congruence_similarity",
+      "pattern": "Decide whether two shapes are similar and explain with side ratios",
+      "exam_weight": 0.022,
+      "subskill": "similar_figures"
+    },
+    {
+      "id": "enlargement-image",
+      "topic": "geometry.congruence_similarity",
+      "pattern": "Apply a scale factor to lengths, then find the image's area or perimeter",
+      "exam_weight": 0.022,
+      "subskill": "enlargement_reduction"
+    },
+    {
+      "id": "pythagoras-in-context",
+      "topic": "geometry.pythagoras_trigonometry",
+      "pattern": "Ladder, cable or diagonal: a side of a right-angled triangle",
+      "exam_weight": 0.03,
+      "subskill": "pythagoras"
+    },
+    {
+      "id": "converse-check",
+      "topic": "geometry.pythagoras_trigonometry",
+      "pattern": "Which three lengths make a right-angled triangle",
+      "exam_weight": 0.03,
+      "subskill": "right_angle_test"
+    },
+    {
+      "id": "soh-cah-toa-side",
+      "topic": "geometry.pythagoras_trigonometry",
+      "pattern": "A side from an acute angle and one side, to 3 significant figures",
+      "exam_weight": 0.03,
+      "subskill": "trig_ratios_sides"
+    },
+    {
+      "id": "soh-cah-toa-angle",
+      "topic": "geometry.pythagoras_trigonometry",
+      "pattern": "An acute angle from two sides, to 1 decimal place",
+      "exam_weight": 0.03,
+      "subskill": "trig_ratios_angles"
+    },
+    {
+      "id": "solid-volume-formula",
+      "topic": "measurement.mensuration",
+      "pattern": "Pyramid or cone volume from base and height (the 1/3)",
+      "exam_weight": 0.022
+    },
+    {
+      "id": "cone-slant-height",
+      "topic": "measurement.mensuration",
+      "pattern": "Curved surface area of a cone after finding the slant height",
+      "exam_weight": 0.022,
+      "subskill": "cone"
+    },
+    {
+      "id": "sphere-reverse",
+      "topic": "measurement.mensuration",
+      "pattern": "From the surface area of a sphere to its radius, then its volume",
+      "exam_weight": 0.022,
+      "subskill": "sphere"
+    },
+    {
+      "id": "composite-solid",
+      "topic": "measurement.mensuration",
+      "pattern": "Hemisphere with cone, or cone with cylinder: add the parts",
+      "exam_weight": 0.022,
+      "subskill": "composite_solids"
+    },
+    {
+      "id": "read-stem-and-leaf",
+      "topic": "statistics.data_analysis",
+      "pattern": "Median or mode read from a stem-and-leaf diagram with a key",
+      "exam_weight": 0.02,
+      "subskill": "statistical_diagrams"
+    },
+    {
+      "id": "grouped-mean-midpoints",
+      "topic": "statistics.data_analysis",
+      "pattern": "Estimate the mean of grouped data with mid-values",
+      "exam_weight": 0.02,
+      "subskill": "grouped_mean"
+    },
+    {
+      "id": "choose-the-average",
+      "topic": "statistics.data_analysis",
+      "pattern": "Which average is typical when one value is extreme (dot diagram)",
+      "exam_weight": 0.02,
+      "subskill": "averages"
+    },
+    {
+      "id": "spot-the-misleading-diagram",
+      "topic": "statistics.data_analysis",
+      "pattern": "Explain why a diagram misleads (axis not from 0, unequal pictures)",
+      "exam_weight": 0.02,
+      "subskill": "misinterpretation"
+    },
+    {
+      "id": "single-event-probability",
+      "topic": "statistics.probability",
+      "pattern": "Equally likely outcomes, listed or counted; complement",
+      "exam_weight": 0.015,
+      "subskill": "single_events"
+    },
+    {
+      "id": "probability-scale",
+      "topic": "statistics.probability",
+      "pattern": "Probability lies from 0 to 1: impossible, likely, certain",
+      "exam_weight": 0.015,
+      "subskill": "measure_of_chance"
+    }
+  ],
+  "references": [
+    {
+      "file": "references/syllabus-map.md",
+      "title": "Sec 2 G3 Maths syllabus map: outcomes, subskill tags, depth limits",
+      "sections": [
+        "1. `algebra.expansion_factorisation`",
+        "2. `algebra.fractions_formulae`",
+        "3. `algebra.inequalities`",
+        "4. `algebra.simultaneous_equations`",
+        "5. `algebra.quadratics`",
+        "6. `number.proportion`",
+        "7. `geometry.congruence_similarity`",
+        "8. `geometry.pythagoras_trigonometry`",
+        "9. `measurement.mensuration`",
+        "10. `statistics.data_analysis`",
+        "11. `statistics.probability`",
+        "Not Sec 2: taught in another year"
+      ]
+    },
+    {
+      "file": "references/method-notes.md",
+      "title": "Method notes: worked steps, common errors, checks",
+      "sections": [
+        "The worked-step habit",
+        "Expansion and factorisation",
+        "Algebraic fractions and formulae",
+        "Inequalities",
+        "Linear graphs and simultaneous equations",
+        "Quadratic functions and equations",
+        "Proportion and map scales",
+        "Congruence and similarity",
+        "Pythagoras' theorem and trigonometry",
+        "Mensuration",
+        "Statistics and probability",
+        "Checking before moving on"
+      ]
+    },
+    {
+      "file": "references/exam-blueprint.md",
+      "title": "Exam blueprint: papers, conventions, marking, archetypes",
+      "sections": [
+        "The paper",
+        "Answer conventions",
+        "Marks and working",
+        "Recurring question archetypes",
+        "Difficulty calibration"
+      ]
+    }
+  ],
+  "tools": [
+    "read_reference",
+    "find_items",
+    "check_answer"
+  ],
+  "sources": [
+    {
+      "kind": "own",
+      "note": "Scope, topics, subskills and depth limits from MOE's G2 and G3 Mathematics Syllabuses, Secondary One to Four (implementation from the 2020 Secondary One cohort; 2024 edition), Section 3, G3 Mathematics, Content by Levels, Secondary Two: https://www.moe.gov.sg/api/media/d415c25d-cf29-4b05-83da-9713f38edd14/2020-G2-and-G3-Mathematics-Syllabuses.pdf"
+    },
+    {
+      "kind": "own",
+      "note": "Answer conventions and assessment objectives (calculator in both papers, 3 significant figures, angles to 1 decimal place, π as the calculator value or 3.142, essential working, given formulae) from SEAB's public Singapore-Cambridge SEC G3 Mathematics syllabus K310 for 2027."
+    },
+    {
+      "kind": "generated",
+      "note": "SKILL.md, the references and every item written fresh by Claude Code for myKx in October 2026 from the syllabus above; each item's key was confirmed by an independent blind re-solve. No exam paper was downloaded or used and no question text was copied. Topic and archetype weights are estimates from syllabus coverage, not paper statistics. Pending founder review."
+    }
+  ],
+  "licence": "Content CC BY-NC 4.0 (myKx); items original.",
+  "excluded": [],
+  "legacy_scripts": {
+    "note": "kept privately; never executed",
+    "files": []
+  }
+}

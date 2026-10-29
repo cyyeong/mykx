@@ -10,7 +10,7 @@ import type { SkillItem, SkillManifest } from "../lib/types.ts";
 
 const CONTENT = join(import.meta.dirname, ".");
 const SKILLS = join(CONTENT, "skills");
-const EXPECTED_PACKS = ["p3-chinese", "p3-english", "p3-maths", "p3-science", "p6-maths", "p6-science", "s2-science"];
+const EXPECTED_PACKS = ["p3-chinese", "p3-english", "p3-maths", "p3-science", "p6-maths", "p6-science", "s2-maths", "s2-science"];
 const TEXT = /\.(md|json|svg|txt|csv|ts)$/i;
 
 function walk(dir: string): string[] {
@@ -36,7 +36,7 @@ function loadPack(id: string) {
 }
 
 describe("skill packs", () => {
-  it("has the seven MVP packs", () => {
+  it("has the MVP packs: the seven imported ones and Sec 2 Maths", () => {
     expect(packs.sort()).toEqual(EXPECTED_PACKS);
   });
 
