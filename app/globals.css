@@ -45,3 +45,24 @@ body { margin: 0; -webkit-font-smoothing: antialiased; }
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-new(root) { animation: none; }
 }
+
+/* Browser autofill (founder, 29 Oct: the sign-in fields turned light blue with black text once Chrome filled them).
+   Chrome, Edge and Safari paint their own background and ink over a filled field; every themed field keeps its own
+   instead. The background change is held off by a transition that never finishes (the browser's style can't be
+   overridden directly), and the text keeps the theme's ink (a field can set --autofill-ink). */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: var(--autofill-ink, var(--ink));
+  caret-color: var(--autofill-ink, var(--ink));
+  transition: background-color 600000s 0s, color 600000s 0s;
+}
+input:autofill,
+textarea:autofill,
+select:autofill {
+  caret-color: var(--autofill-ink, var(--ink));
+  transition: background-color 600000s 0s, color 600000s 0s;
+}
