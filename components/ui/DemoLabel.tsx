@@ -1,16 +1,24 @@
-// "Demo family · synthetic data": shown on every signed-in page while the demo family is signed in, so the
-// synthetic learners and their sample progress are never mistaken for real children (AGENTS.md rule 8).
+// The sample family's honesty line, on every signed-in page while it is signed in (AGENTS.md rule 8). Jordan, Abby and
+// Leonard are sample learners and their history is made up, but what happens now is real (founder, 29 Oct): with a
+// model key, Kix and the other agents answer live from Meta's models, and new answers, reports and fixes are real.
+// Without one (the guest site, a fresh clone) the replies are ready-made samples, and the line says so.
 import { Suspense } from "react";
 import { isDemoFamily } from "@/lib/auth/server";
+import { hasMetaApiKey } from "@/lib/meta/client";
 import "./demoLabel.css";
 
 type Variant = "pill" | "bar";
 
 async function Label({ variant }: { variant: Variant }) {
   if (!(await isDemoFamily())) return null;
+  const live = hasMetaApiKey(); // false on the guest site (lib/guest.ts) and without MODEL_API_KEY
+  const what = live ? "live AI" : "sample replies";
+  const title = live
+    ? "Jordan, Abby and Leonard are sample learners, and their history (progress, messages, readings) is made up. What happens now is real: Kix's replies come live from Meta's models, and new answers, reports and fixes are real."
+    : "Jordan, Abby and Leonard are sample learners, and their history is made up. Kix answers here with ready-made sample replies.";
   return (
-    <p className={variant === "bar" ? "kidnav-demo" : "demo-label"} title="Jordan, Abby and Leonard are sample learners: their progress, messages and readings are made up.">
-      Demo family · synthetic data
+    <p className={variant === "bar" ? "kidnav-demo" : "demo-label"} title={title}>
+      {variant === "bar" ? `Sample family · ${what}` : `Sample family · made-up history · ${what}`}
     </p>
   );
 }

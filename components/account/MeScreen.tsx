@@ -729,7 +729,7 @@ export function MeScreen() {
         {me.synthetic && (
           <p className="km2-demo">
             <span className="km2-demo-tag">DEMO</span>
-            Demo account with synthetic data.
+            Sample account: the history is made up, and what you do now is real.
           </p>
         )}
       </div>

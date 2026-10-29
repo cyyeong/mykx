@@ -583,7 +583,7 @@ Jordan's Wi-Fi drops on question 2. A banner: "You're offline. Your answer is sa
 | Crash | `error.tsx`: "Something went wrong" + **Try again** + **Take me home** | Missing |
 | Bad URL | `not-found.tsx` with a way home per role | Missing |
 | Slow page load | Themed skeleton, not a blank colour | Partial: blank Suspense fallbacks |
-| Synthetic data | "Demo family · synthetic data" on signed-in pages | Built |
+| Synthetic data | "Sample family · made-up history · live AI" on signed-in pages (29 Oct: the history is synthetic, the replies are live; "sample replies" where no model key is set, as on the guest site) | Built |
 
 ---
 

@@ -45,7 +45,7 @@ export function HoodScreen() {
           <h1 className="ad-h1">Under the hood</h1>
           <p className="ad-lede">How Kix thinks: the agents, the Meta models they call, and what each one may never do. Every call is logged with its model, time, tokens and cost; never a prompt, an answer or a child&apos;s words.</p>
         </div>
-        <span className="ad-label">Demo family · synthetic data</span>
+        <span className="ad-label">{data ? (data.live ? "Live: real model calls" : "Sample data: no model key") : "Under the hood"}</span>
       </header>
       {failed && <p className="ad-lede">{failed}</p>}
       {!data && !failed && <p className="ad-lede">Loading…</p>}
