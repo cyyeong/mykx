@@ -1,0 +1,281 @@
+[
+  {
+    "id": "s2sci-original-06-t1",
+    "skill": "s2-science",
+    "topic": "biology.transport",
+    "subskill": "blood_vessels",
+    "archetype": "artery-vein-capillary-comparison",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which option correctly matches a blood vessel to its function?",
+    "options": [
+      "artery: carries blood towards the heart",
+      "vein: carries blood away from the heart",
+      "artery: the site where substances are exchanged between the blood and the body cells",
+      "capillary: the site where substances are exchanged between the blood and the body cells"
+    ],
+    "answer": 4,
+    "working": [
+      "Arteries carry blood away from the heart.",
+      "Veins carry blood towards the heart.",
+      "Capillaries are the tiny vessels where substances such as oxygen and digested food pass from the blood to the body cells, and wastes pass back.",
+      "Watch out: A for artery, A for away."
+    ],
+    "distractors": {
+      "1": "Arteries carry blood AWAY from the heart. Veins carry it towards the heart.",
+      "2": "Veins carry blood TOWARDS the heart. Arteries carry it away.",
+      "3": "Substances are exchanged with the body cells in the capillaries, not in the arteries."
+    },
+    "hints": [
+      "One kind of vessel carries blood away from the heart, one brings it back, and one links them in the tissues.",
+      "Where would the blood need to be very close to the body cells?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-06: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 15 (Transport Systems in Living Things); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 15 (Transport Systems in Living Things), LO 15.1 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-06-t2",
+    "skill": "s2-science",
+    "topic": "biology.transport",
+    "subskill": "plant_transport",
+    "archetype": "xylem-or-phloem",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which option correctly describes the transport tissues in a flowering plant?",
+    "options": [
+      "xylem: food from the leaves to other parts; phloem: water and mineral salts from the roots to other parts",
+      "xylem: water and mineral salts from the roots to other parts; phloem: food from the leaves to other parts",
+      "xylem: water and mineral salts from the leaves down to the roots; phloem: food from the leaves to other parts",
+      "xylem: water, mineral salts and food; phloem: oxygen and carbon dioxide"
+    ],
+    "answer": 2,
+    "working": [
+      "Xylem transports water and mineral salts, absorbed by the roots, to the other parts of the plant.",
+      "Phloem transports food (sugars) made in the leaves to the other parts of the plant.",
+      "Gases such as oxygen and carbon dioxide enter and leave by diffusion; they are not carried in the phloem.",
+      "Watch out: Xylem: water up from the roots. Phloem: food from the leaves."
+    ],
+    "distractors": {
+      "1": "Swapped. Xylem carries water and mineral salts; phloem carries food.",
+      "3": "Xylem carries water UP from the roots, not down to them.",
+      "4": "Xylem does not carry food, and gases move into and out of plant cells by diffusion, not in the phloem."
+    },
+    "hints": [
+      "Where does a plant take in water, and where does it make its food?",
+      "Match each tissue to one of those two jobs, then check the direction."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-06: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 15 (Transport Systems in Living Things); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 15 (Transport Systems in Living Things), LO 15.2 (G3) (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-06-t3",
+    "skill": "s2-science",
+    "topic": "biology.transport",
+    "subskill": "diffusion",
+    "archetype": "explain-the-direction-of-diffusion",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Oxygen moves from the blood in a capillary into the cells of a working muscle. Which statement explains why?",
+    "options": [
+      "The concentration of oxygen is higher in the muscle cells than in the blood, so oxygen diffuses from the blood into the cells.",
+      "The heart pumps the oxygen out of the blood and into the muscle cells.",
+      "The concentration of oxygen is higher in the blood than in the muscle cells, so oxygen diffuses from the blood into the cells.",
+      "Oxygen moves into the muscle cells by osmosis, carried by water."
+    ],
+    "answer": 3,
+    "working": [
+      "Diffusion is the net movement of particles from a region of higher concentration to a region of lower concentration.",
+      "Muscle cells use oxygen in respiration, so the oxygen concentration inside them stays low. The blood arriving from the lungs has a higher oxygen concentration.",
+      "So oxygen diffuses from the blood into the muscle cells, down the concentration gradient.",
+      "Watch out: Give the direction AND the reason: higher in the blood than in the cells, so it diffuses from the blood into the cells."
+    ],
+    "distractors": {
+      "1": "Particles diffuse from higher to lower concentration. If the cells had more oxygen, it would move the other way.",
+      "2": "The heart moves the blood around the body, but oxygen leaves the blood by diffusion; nothing pumps it into the cells.",
+      "4": "Osmosis is the movement of water molecules only. Oxygen moves by diffusion."
+    },
+    "hints": [
+      "Muscle cells keep using oxygen. Where is the oxygen concentration higher: in the blood or in the cells?",
+      "Particles diffuse from where they are more concentrated to where they are less concentrated."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-06: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 15 (Transport Systems in Living Things); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 15 (Transport Systems in Living Things), LO 15.4 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-06-t4",
+    "skill": "s2-science",
+    "topic": "biology.transport",
+    "subskill": "osmosis_in_plants",
+    "difficulty": 4,
+    "marks": 3,
+    "type": "open",
+    "stem": "Water from the soil normally enters the root hair cells of a plant. A gardener adds far too much fertiliser to a potted plant, so the water in the soil becomes a very concentrated solution of mineral salts. A day later, the plant wilts.\n\nExplain why the plant wilts.",
+    "answer": "Normally the soil water is more dilute than the cell sap of the root hair cells, so water enters the cells by osmosis through the partially permeable cell membrane. With too much fertiliser, the soil water becomes more concentrated than the cell sap, so water no longer enters the root hair cells by osmosis, and may even move out of them. The plant loses water faster than it takes it in, so its cells lose their firmness and the plant wilts.",
+    "working": [
+      "Osmosis is the movement of water molecules from a dilute solution to a more concentrated solution through a partially permeable membrane.",
+      "Root hair cells normally take in water because the soil water is more dilute than their cell sap.",
+      "Too much fertiliser makes the soil water more concentrated than the cell sap, so water stops entering the cells and may move out. Without enough water, the cells lose their firmness and the plant wilts.",
+      "Common error: Writing 'the fertiliser absorbs the water' or 'the salts diffuse in'. The answer needs WATER moving by OSMOSIS, with the direction explained."
+    ],
+    "hints": [
+      "Compare how concentrated the soil water and the cell sap are, before and after the fertiliser was added.",
+      "By osmosis, water moves from the more dilute solution to the more concentrated one. Which way would it move now?"
+    ],
+    "keywords": [
+      "osmosis",
+      "soil water more concentrated than the cell sap",
+      "water no longer enters, or leaves, the root hair cells",
+      "cells lose firmness"
+    ],
+    "marking": [
+      "1 mark: water normally enters the root hair cells by osmosis (through a partially permeable membrane) because the soil water is more dilute than the cell sap.",
+      "1 mark: now the soil water is more concentrated than the cell sap, so water does not enter the root hair cells (or moves out) by osmosis.",
+      "1 mark: the plant cannot replace the water it loses, so its cells lose firmness and it wilts."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-06: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 15 (Transport Systems in Living Things); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 15 (Transport Systems in Living Things), LO 15.6 (G3) (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-06-t5",
+    "skill": "s2-science",
+    "topic": "biology.transport",
+    "subskill": "plant_transport",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Priya stands a leafy stalk of celery in a beaker of water containing red dye. After three hours, she cuts a thin slice across the stalk and sees that only some small tubes, arranged in groups, are stained red. The edges of the leaves have also turned red.\n\nName the tissue that is stained red, and state what this experiment shows about its function.",
+    "answer": "Xylem. The experiment shows that the xylem transports water (and substances dissolved in it, such as mineral salts) up the stalk to the leaves.",
+    "working": [
+      "The dye is dissolved in the water, so it marks the tubes that carry water.",
+      "Water and dissolved mineral salts are carried up the stalk in the xylem, so the xylem is stained, and the dye reaches the leaves.",
+      "Common error: Naming the phloem. The phloem carries food from the leaves; the dye came in with the water at the bottom of the stalk."
+    ],
+    "hints": [
+      "The dye travelled with the water. Which tissue carries water up a plant?",
+      "Use the red leaf edges to say which way the tissue carries water."
+    ],
+    "keywords": [
+      "xylem",
+      "transports water upwards to the leaves"
+    ],
+    "marking": [
+      "1 mark: xylem.",
+      "1 mark: the xylem transports water (and dissolved mineral salts) up the stem or stalk to the leaves."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-06: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 15 (Transport Systems in Living Things); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 15 (Transport Systems in Living Things), LO 15.7 (G3), 15.2 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-06-t6",
+    "skill": "s2-science",
+    "topic": "biology.transport",
+    "subskill": "transport_need",
+    "difficulty": 5,
+    "marks": 3,
+    "type": "open",
+    "stem": "A flatworm is very thin and flat, and it has no blood system. Oxygen simply diffuses into its body from the water around it, and every cell gets enough. A human could not survive this way.\n\nExplain why a human needs a transport system to supply oxygen to its cells.",
+    "answer": "In a flatworm every cell is very close to the surface, so oxygen only has to diffuse a short distance and arrives fast enough. A human is large and thick, and most cells are far from the body surface. Diffusion over such long distances would be far too slow to supply the cells with enough oxygen, so a transport system (blood pumped by the heart through blood vessels) is needed to carry oxygen close to every cell, from where it diffuses a short distance into the cells.",
+    "working": [
+      "Diffusion is fast only over short distances.",
+      "In a thin, flat body every cell is near the surface, so diffusion alone is enough.",
+      "In a large, thick body most cells are deep inside. A transport system carries oxygen to capillaries close to each cell; from there the diffusion distance is short.",
+      "Common error: 'Humans need more oxygen.' The key idea is distance: diffusion over long distances is too slow."
+    ],
+    "hints": [
+      "How far does oxygen have to travel to reach the deepest cell in a flatworm, compared with in a human?",
+      "Diffusion is fast over a short distance and slow over a long one. Where does the blood system take the oxygen?"
+    ],
+    "keywords": [
+      "every flatworm cell is close to the surface",
+      "human cells are far from the surface",
+      "diffusion too slow over long distances",
+      "blood carries oxygen close to every cell"
+    ],
+    "marking": [
+      "1 mark: in the flatworm every cell is close to the surface, so the diffusion distances are short.",
+      "1 mark: in a human most cells are far from the surface, so diffusion alone would be too slow.",
+      "1 mark: the blood system carries oxygen close to every cell, where it diffuses a short distance into the cells."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-06: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 15 (Transport Systems in Living Things); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 15 (Transport Systems in Living Things), LO 15.3 (G3), 15.4 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-06-t7",
+    "skill": "s2-science",
+    "topic": "biology.transport",
+    "subskill": "gas_exchange",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "On a sunny day, carbon dioxide moves from the air into a leaf through tiny openings called stomata. Which statement explains why?",
+    "options": [
+      "The leaf cells use carbon dioxide in photosynthesis, so its concentration inside the leaf is lower than in the air, and carbon dioxide diffuses in.",
+      "The leaf cells produce carbon dioxide in respiration, so its concentration inside the leaf is higher than in the air, and carbon dioxide diffuses in.",
+      "Carbon dioxide is carried into the leaf by the xylem.",
+      "Carbon dioxide enters the leaf cells by osmosis."
+    ],
+    "answer": 1,
+    "working": [
+      "In sunlight, leaf cells use carbon dioxide for photosynthesis faster than respiration produces it.",
+      "So the concentration of carbon dioxide inside the leaf is lower than in the air outside.",
+      "Carbon dioxide diffuses from the higher concentration (the air) to the lower concentration (inside the leaf), through the stomata.",
+      "Watch out: Name the process that uses or makes the gas, then compare the concentrations on each side."
+    ],
+    "distractors": {
+      "2": "If the concentration were higher inside the leaf, carbon dioxide would diffuse OUT of it, not in.",
+      "3": "Xylem carries water and mineral salts from the roots. Gases enter and leave a leaf by diffusion through the stomata.",
+      "4": "Osmosis is the movement of water only. Gases move by diffusion."
+    },
+    "hints": [
+      "Which process in a sunlit leaf uses carbon dioxide?",
+      "If the leaf keeps using carbon dioxide, where is its concentration higher: inside the leaf or in the air?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-06: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 15 (Transport Systems in Living Things); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 15 (Transport Systems in Living Things), LO 15.5 (with 12.6) (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  }
+]

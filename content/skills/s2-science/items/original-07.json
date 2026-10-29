@@ -1,0 +1,316 @@
+[
+  {
+    "id": "s2sci-original-07-r1",
+    "skill": "s2-science",
+    "topic": "biology.reproduction",
+    "subskill": "fertilisation",
+    "archetype": "where-does-fertilisation-occur",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Where in the female reproductive system does fertilisation normally take place?",
+    "options": [
+      "ovary",
+      "uterus",
+      "vagina",
+      "oviduct"
+    ],
+    "answer": 4,
+    "working": [
+      "An ovary releases an egg into the oviduct.",
+      "Sperm swim through the uterus into the oviduct. If a sperm meets the egg there, the nucleus of the sperm fuses with the nucleus of the egg: this is fertilisation.",
+      "The fertilised egg then moves along the oviduct to the uterus, where it becomes embedded in the uterine lining."
+    ],
+    "distractors": {
+      "1": "The ovary produces and releases eggs, but fertilisation happens after the egg has left it.",
+      "2": "The uterus is where the embryo becomes embedded and develops, after fertilisation in the oviduct.",
+      "3": "Sperm are deposited in the vagina, but they must swim much further to reach the egg."
+    },
+    "hints": [
+      "The egg leaves the ovary and moves towards the uterus. Which tube is it in on the way?",
+      "Fertilisation happens before the fertilised egg reaches the place where it develops."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-07: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 16 (Human Sexual Reproductive System); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 16 (Human Sexual Reproductive System), LO 16.1, 16.5 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-07-r2",
+    "skill": "s2-science",
+    "topic": "biology.reproduction",
+    "subskill": "male_organs",
+    "archetype": "label-the-organ-and-give-its-function",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which option correctly matches a part of the human reproductive system to its function?",
+    "options": [
+      "sperm duct: produces sperm",
+      "ovary: where the embryo becomes embedded and develops",
+      "testis: produces sperm and male sex hormones",
+      "uterus: produces eggs"
+    ],
+    "answer": 3,
+    "working": [
+      "The testes produce sperm and male sex hormones. The sperm ducts carry sperm from the testes towards the urethra.",
+      "The ovaries produce eggs and female sex hormones. The uterus is where the embryo becomes embedded and develops."
+    ],
+    "distractors": {
+      "1": "The sperm duct carries sperm; it is the testis that produces them.",
+      "2": "The embryo becomes embedded and develops in the uterus, not in the ovary.",
+      "4": "Eggs are produced in the ovaries. The uterus is where the embryo develops."
+    },
+    "hints": [
+      "For each row, ask: does this part make cells, carry them, or hold a developing embryo?",
+      "Check the female rows too: which organ makes eggs, and which holds the embryo?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-07: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 16 (Human Sexual Reproductive System); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 16 (Human Sexual Reproductive System), LO 16.5 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-07-r3",
+    "skill": "s2-science",
+    "topic": "biology.reproduction",
+    "subskill": "menstrual_cycle",
+    "archetype": "menstrual-cycle-day-reasoning",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "A woman has a regular 28-day menstrual cycle. Her menstruation begins on 3 March, which is day 1 of the cycle. On which date is ovulation most likely to take place?",
+    "options": [
+      "7 March",
+      "16 March",
+      "24 March",
+      "31 March"
+    ],
+    "answer": 2,
+    "working": [
+      "In a regular 28-day cycle, ovulation (the release of an egg from an ovary) takes place at about day 14.",
+      "Day 1 is 3 March, so day 14 is 13 days later: 3 + 13 = 16 March.",
+      "Watch out: Day 1 is the first day itself, so day 14 is 13 days after it."
+    ],
+    "distractors": {
+      "1": "7 March is day 5, around the end of menstruation. Ovulation comes later, at about day 14.",
+      "3": "24 March is day 22, when the uterine lining is thickening. The egg has already been released, about a week earlier.",
+      "4": "31 March is day 29, the first day of the next cycle."
+    },
+    "hints": [
+      "On about which day of a 28-day cycle is an egg released?",
+      "Count carefully: 3 March is day 1, 4 March is day 2, and so on."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-07: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 16 (Human Sexual Reproductive System); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 16 (Human Sexual Reproductive System), LO 16.6 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-07-r4",
+    "skill": "s2-science",
+    "topic": "biology.reproduction",
+    "subskill": "stis",
+    "archetype": "bacterial-or-viral-STI",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which option about sexually transmitted infections (STIs) is correct?",
+    "options": [
+      "syphilis: caused by bacteria; can be cured with antibiotics",
+      "gonorrhoea: caused by a virus; cannot be cured",
+      "HIV/AIDS: caused by bacteria; can be cured with antibiotics",
+      "HIV/AIDS: caused by a virus; can be cured with antibiotics"
+    ],
+    "answer": 1,
+    "working": [
+      "Syphilis and gonorrhoea are caused by bacteria and can be cured with antibiotics, especially when they are treated early.",
+      "AIDS is caused by HIV, a virus. Antibiotics do not work against viruses, and there is no cure for HIV infection, although medicines can control it.",
+      "Watch out: Antibiotics act on bacteria. They do not work against viruses."
+    ],
+    "distractors": {
+      "2": "Gonorrhoea is caused by bacteria, and it can be cured with antibiotics.",
+      "3": "HIV/AIDS is caused by a virus (HIV), not by bacteria.",
+      "4": "The cause is right, but antibiotics do not work against viruses. There is no cure for HIV infection."
+    },
+    "hints": [
+      "Sort the infections first: which are caused by bacteria and which by a virus?",
+      "What kind of microorganism do antibiotics act on?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-07: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 16 (Human Sexual Reproductive System); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 16 (Human Sexual Reproductive System), LO 16.11, 16.12 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-07-r5",
+    "skill": "s2-science",
+    "topic": "biology.reproduction",
+    "subskill": "birth_control",
+    "archetype": "how-does-this-birth-control-method-work",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "A condom is a temporary method of birth control. A vasectomy, in which the sperm ducts are cut and tied, is a permanent method. Outline how each method prevents fertilisation.",
+    "answer": "Condom: it is a barrier that stops sperm from entering the female reproductive system, so sperm cannot reach an egg. Vasectomy: the sperm ducts are cut and tied, so sperm from the testes cannot travel along them and leave the body, and so they cannot reach an egg.",
+    "working": [
+      "Fertilisation needs a sperm to meet an egg in the oviduct. Each method stops this at a different point.",
+      "A condom physically blocks the sperm. A vasectomy blocks the route the sperm take from the testes.",
+      "Common error: Describing the method without the result. Finish with: so sperm cannot reach the egg, and fertilisation cannot take place."
+    ],
+    "hints": [
+      "Fertilisation needs a sperm to reach an egg. Where does each method block the sperm's route?",
+      "For the vasectomy, think about what the sperm ducts normally do."
+    ],
+    "keywords": [
+      "condom is a barrier",
+      "sperm ducts cut and tied",
+      "sperm cannot reach the egg"
+    ],
+    "marking": [
+      "1 mark: a condom acts as a barrier, so sperm do not enter the female reproductive system and cannot reach an egg.",
+      "1 mark: after a vasectomy, sperm cannot travel from the testes along the cut sperm ducts, so no sperm are released to reach an egg."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-07: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 16 (Human Sexual Reproductive System); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 16 (Human Sexual Reproductive System), LO 16.10 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-07-r6",
+    "skill": "s2-science",
+    "topic": "biology.reproduction",
+    "subskill": "heredity",
+    "difficulty": 4,
+    "marks": 3,
+    "type": "open",
+    "stem": "Two sisters have the same parents, but they do not look exactly alike, and each looks a little like each parent. Explain these observations.",
+    "answer": "Each child receives genetic information from both parents: from the mother through the egg and from the father through the sperm, so each sister looks a little like each parent. The sisters developed from different fertilised eggs, formed from a different egg and a different sperm. Each egg and each sperm carries a different selection of the parent's genetic information, so each sister received a unique combination of genetic information, and they look different.",
+    "working": [
+      "Heredity: genetic information is passed from parents to their children through the egg and the sperm.",
+      "When the nuclei of an egg and a sperm fuse, the fertilised egg has genetic information from both parents, so a child shares features with each parent.",
+      "Each egg and each sperm carries a different mix of the parent's genetic information, so two children of the same parents get different combinations.",
+      "Common error: Explaining only why they look like their parents. The question also asks why the sisters are different from each other."
+    ],
+    "hints": [
+      "Where does a child's genetic information come from?",
+      "Did the two sisters come from the same egg and the same sperm?"
+    ],
+    "keywords": [
+      "genetic information from both parents",
+      "different egg and different sperm",
+      "unique combination of genetic information"
+    ],
+    "marking": [
+      "1 mark: each child receives genetic information from both the mother (through the egg) and the father (through the sperm), so each resembles both parents.",
+      "1 mark: each sister came from a different egg and a different sperm.",
+      "1 mark: each egg and sperm carries a different combination of the parents' genetic information, so each child has a unique combination and they look different."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-07: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 16 (Human Sexual Reproductive System); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 16 (Human Sexual Reproductive System), LO 16.2, 16.3 (G3) (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-07-r7",
+    "skill": "s2-science",
+    "topic": "biology.reproduction",
+    "subskill": "female_organs",
+    "difficulty": 5,
+    "marks": 3,
+    "type": "open",
+    "stem": "A woman's ovaries release an egg each month and she has regular menstrual periods, but both of her oviducts are blocked. Explain why she cannot become pregnant naturally.",
+    "answer": "Fertilisation normally takes place in the oviduct. With both oviducts blocked, the egg released from the ovary cannot travel along the oviduct, and sperm cannot reach the egg. So the egg cannot be fertilised, no fertilised egg is formed, and nothing reaches the uterus to become embedded and develop. Her periods continue because her ovaries still release eggs and her uterine lining still thickens and breaks down each cycle.",
+    "working": [
+      "Normally an egg moves from the ovary along the oviduct, and sperm swim up to meet it there.",
+      "Blocked oviducts keep the egg and the sperm apart, so there is no fertilisation and no embryo to become embedded in the uterus.",
+      "The ovaries and the uterus still work, so she still ovulates and has periods: a fault in one part stops the whole system working.",
+      "Common error: Saying 'she has no eggs'. Her ovaries work; the problem is that the egg and the sperm cannot meet."
+    ],
+    "hints": [
+      "Where must the sperm and the egg meet?",
+      "Trace the path of the egg from the ovary, and of the sperm towards the egg. Where does each get stopped?"
+    ],
+    "keywords": [
+      "fertilisation takes place in the oviduct",
+      "sperm cannot reach the egg",
+      "no fertilised egg reaches the uterus"
+    ],
+    "marking": [
+      "1 mark: fertilisation takes place in the oviduct, where the sperm must meet the egg.",
+      "1 mark: blocked oviducts stop the sperm reaching the egg (and the egg moving towards the uterus), so fertilisation cannot take place.",
+      "1 mark: so no fertilised egg (embryo) reaches the uterus to become embedded and develop."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-07: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 16 (Human Sexual Reproductive System); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 16 (Human Sexual Reproductive System), LO 16.5, 16.6 (a fault in one part of a system) (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-07-r8",
+    "skill": "s2-science",
+    "topic": "biology.reproduction",
+    "subskill": "population_growth",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "The world's human population has grown very quickly over the last 200 years. Which statement best explains this growth?",
+    "options": [
+      "Fewer babies are born each year than in the past, so each child receives more care and attention.",
+      "Advances in medicine and improved sanitation mean fewer people die young, so more people live long enough to have children.",
+      "Puberty now begins later, so people have more years of their lives in which to have children.",
+      "More people now live in cities, where there is more space for large families to live."
+    ],
+    "answer": 2,
+    "working": [
+      "A population grows when more people are born than die.",
+      "Vaccines and medicines prevent and cure many diseases, and clean water and the safe disposal of sewage (sanitation) stop many diseases from spreading.",
+      "So fewer babies and children die, and people live longer, while many people still have children."
+    ],
+    "distractors": {
+      "1": "Fewer births would slow the growth of a population, not speed it up.",
+      "3": "If puberty began later, people would have fewer years in which to have children, not more.",
+      "4": "Cities have less space, not more, and moving house does not by itself change how many people are born or die."
+    },
+    "hints": [
+      "A population grows when more people are born than die.",
+      "Check each option: is it true, and would it really make the population grow faster?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-07: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 16 (Human Sexual Reproductive System); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 16 (Human Sexual Reproductive System), LO 16.9 (G3) (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  }
+]

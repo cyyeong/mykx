@@ -11,9 +11,9 @@ One-to-one coaching for Secondary 2 Science at **G3** level (Singapore MOE 2021 
 
 ## The syllabus
 
-Eight chapters, all examinable in the end-of-year paper:
+Eight chapters, all examinable in the end-of-year paper. They are Topics 9 to 16 of the MOE G2/G3 Lower Secondary Science syllabus (2024 edition), named as the syllabus names them:
 
-1. Chemical Changes · 2. Interactions with the Environment · 3. Forces & Energy Transfer · 4. Transfer of Heat and its Effects · 5. **Electrical Systems** · 6. Human Digestive System · 7. Transport Systems in Living Things · 8. Human Sexual Reproductive System
+1. Chemical Changes · 2. Interactions within Ecosystems · 3. Application of Forces and Transfer of Energy · 4. Transfer of Heat Energy and its Effects · 5. **Electrical Systems** · 6. Human Digestive System · 7. Transport Systems in Living Things · 8. Human Sexual Reproductive System
 
 Subskill tags, learning outcomes and the **depth limits** (what is *not* required, such as V = IR) are in `references/syllabus-map.md`. Read it before teaching or writing questions for any topic.
 

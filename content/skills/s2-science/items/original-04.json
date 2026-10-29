@@ -1,0 +1,453 @@
+[
+  {
+    "id": "s2sci-original-04-h1",
+    "skill": "s2-science",
+    "topic": "physics.heat",
+    "subskill": "temperature_units",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "What is the SI base unit of temperature?",
+    "options": [
+      "degree Celsius (°C)",
+      "kelvin (K)",
+      "joule (J)",
+      "watt (W)"
+    ],
+    "answer": 2,
+    "working": [
+      "The SI unit of temperature, one of the seven SI base units, is the kelvin (K).",
+      "The degree Celsius is used every day and is defined from the kelvin, but it is not the base unit.",
+      "The joule is the unit of energy, including heat energy, and the watt is the unit of power."
+    ],
+    "distractors": {
+      "1": "We use °C every day, but the SI base unit of temperature is the kelvin.",
+      "3": "The joule measures energy, such as the heat energy given to an object, not temperature.",
+      "4": "The watt is the unit of power: energy transferred per second."
+    },
+    "hints": [
+      "The SI unit is not the one used in a weather forecast.",
+      "It is named after a scientist, and it is written without a degree sign."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-04: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 10 (Transfer of Heat Energy and its Effects); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 10 (Transfer of Heat Energy and its Effects), LO 10.1 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-04-h2",
+    "skill": "s2-science",
+    "topic": "physics.heat",
+    "subskill": "expansion_contraction",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "A metal rod becomes slightly longer when it is heated. Which statement explains this?",
+    "options": [
+      "Each particle in the rod becomes bigger.",
+      "More particles are made in the rod.",
+      "The particles vibrate more vigorously and move slightly further apart.",
+      "Heat flows into the spaces between the particles and fills them up."
+    ],
+    "answer": 3,
+    "working": [
+      "When the rod absorbs heat energy, its particles gain energy and vibrate more vigorously.",
+      "They take up more space, so the distances between them increase slightly and the rod expands.",
+      "The particles do not change in size or number. The volume increases while the mass stays the same, so the density decreases slightly.",
+      "Watch out: Expansion changes the SPACING of the particles, never their size."
+    ],
+    "distractors": {
+      "1": "The particles stay the same size. It is the space between them that increases.",
+      "2": "No particles are made or lost: the number of particles stays the same.",
+      "4": "Heat is energy, not a substance, so it cannot fill the gaps. The particles gain energy and move further apart."
+    },
+    "hints": [
+      "Does heating change the particles themselves, or the way they move?",
+      "If the particles stay the same, what else could change to make the rod longer?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-04: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 10 (Transfer of Heat Energy and its Effects); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 10 (Transfer of Heat Energy and its Effects), LO 10.7, 10.8 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-04-h3",
+    "skill": "s2-science",
+    "topic": "physics.heat",
+    "subskill": "conduction",
+    "archetype": "why-does-metal-feel-colder",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "In an air-conditioned classroom, the metal leg of a chair and the wooden top of a desk have been in the room all night. Farah touches both. The metal feels much colder than the wood. Why?",
+    "options": [
+      "The metal is at a lower temperature than the wood, because metal stays colder in an air-conditioned room.",
+      "Metal gives out coldness to her hand faster than wood, because metal holds more cold.",
+      "Wood is a better conductor of heat, so it passes heat into her hand and warms it.",
+      "Metal is a better conductor of heat, so it conducts heat away from her hand faster than wood does."
+    ],
+    "answer": 4,
+    "working": [
+      "Both objects have been in the room all night, so they are at the same temperature, which is lower than that of her hand.",
+      "Heat flows from her warmer hand into each object. Metal is a good conductor, so heat is conducted away from her hand quickly; wood is a poor conductor, so heat is conducted away slowly.",
+      "Her hand loses heat faster to the metal, so the metal feels colder.",
+      "Watch out: 'Cold' does not flow. Only heat flows, from a hotter body to a colder one."
+    ],
+    "distractors": {
+      "1": "Both have been in the same room all night, so they are at the same temperature. Metal does not stay colder than its surroundings.",
+      "2": "Coldness is not something that flows. Heat flows out of her hand into the metal.",
+      "3": "Wood is a poor conductor. It feels less cold because it takes heat from her hand slowly."
+    },
+    "hints": [
+      "After a whole night in the same room, how do the temperatures of the metal and the wood compare?",
+      "Which way does heat flow between her hand and each object, and which material lets it flow faster?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-04: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 10 (Transfer of Heat Energy and its Effects); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 10 (Transfer of Heat Energy and its Effects), LO 10.3, 10.9 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-04-h4",
+    "skill": "s2-science",
+    "topic": "physics.heat",
+    "subskill": "convection",
+    "archetype": "where-to-put-the-heating-element",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Air-conditioners in Singapore homes are usually mounted high up on a wall. Which statement explains why this cools the whole room well?",
+    "options": [
+      "The cooled air is denser, so it sinks, and warmer, less dense air rises to the unit to be cooled: a convection current is set up.",
+      "Cool air rises in a convection current, so the unit must be high up to cool the air near the ceiling first.",
+      "The cold spreads downwards from the unit through the still air by conduction, until the whole room is cool.",
+      "Warm air particles become lighter and float up to the unit, where they are cooled and then fall to the floor."
+    ],
+    "answer": 1,
+    "working": [
+      "The unit cools the air near it. Cool air contracts, so it becomes denser than the warmer air around it, and it sinks.",
+      "Warmer, less dense air is pushed up to take its place, and is cooled in turn.",
+      "This circulation is a convection current, which carries the cooling through the whole room.",
+      "Watch out: Explain with DENSITY. 'Cold air sinks' alone is not enough."
+    ],
+    "distractors": {
+      "2": "Cool air is denser, so it sinks, not rises.",
+      "3": "Air is a poor conductor of heat. The room is cooled mainly by convection, the movement of the air itself.",
+      "4": "The particles do not become lighter. Warm air expands, so it becomes less dense, and it is pushed up by the denser, cooler air."
+    },
+    "hints": [
+      "When air is cooled, it contracts. What happens to its density?",
+      "Does denser air rise or sink? Follow the air around the room."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-04: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 10 (Transfer of Heat Energy and its Effects); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 10 (Transfer of Heat Energy and its Effects), LO 10.3, 10.5, 10.8 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-04-h5a",
+    "skill": "s2-science",
+    "topic": "physics.heat",
+    "subskill": "radiation_factors",
+    "archetype": "black-vs-white-cup-data",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Two identical metal cans are painted on the outside, one dull black and one shiny silver. Each is filled with the same volume of hot water at 80 °C and left on a bench. The graph shows the temperature of the water in each can over 20 minutes.\n\n(a) Using data from the graph, state which can loses heat faster.",
+    "answer": "The dull black can. Its water cooled from 80 °C to 54 °C (a fall of 26 °C) in 20 minutes, while the water in the shiny silver can cooled only to 66 °C (a fall of 14 °C).",
+    "working": [
+      "Read both lines at 20 minutes: black 54 °C, silver 66 °C. Both started at 80 °C.",
+      "The black can's water fell by 80 − 54 = 26 °C; the silver can's water fell by 80 − 66 = 14 °C. So the black can loses heat faster.",
+      "Common error: Naming the can without numbers. 'Using data' means quoting values from the graph."
+    ],
+    "hints": [
+      "Both cans start at 80 °C. Read each line at 20 minutes.",
+      "The can whose temperature fell more lost heat faster. Write down both falls in °C."
+    ],
+    "keywords": [
+      "dull black can",
+      "fell from 80 °C to 54 °C",
+      "silver only to 66 °C"
+    ],
+    "marking": [
+      "1 mark: the dull black can.",
+      "1 mark: data quoted, e.g. black fell by 26 °C (to 54 °C) and silver by 14 °C (to 66 °C) in 20 minutes."
+    ],
+    "figure": "figures/s2sci-original-04-h5ab.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "line_graph",
+          "w": 5.4,
+          "h": 3,
+          "xlabel": "Time (min)",
+          "ylabel": "Temperature (°C)",
+          "series": [
+            {
+              "label": "black",
+              "x": [
+                0,
+                5,
+                10,
+                15,
+                20
+              ],
+              "y": [
+                80,
+                72,
+                65,
+                59,
+                54
+              ],
+              "style": "-"
+            },
+            {
+              "label": "silver",
+              "x": [
+                0,
+                5,
+                10,
+                15,
+                20
+              ],
+              "y": [
+                80,
+                76,
+                72,
+                69,
+                66
+              ],
+              "style": "--"
+            }
+          ],
+          "xticks": [
+            0,
+            5,
+            10,
+            15,
+            20
+          ],
+          "yticks": [
+            50,
+            60,
+            70,
+            80
+          ],
+          "ylim": [
+            50,
+            85
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "original-04: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 10 (Transfer of Heat Energy and its Effects); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 10 (Transfer of Heat Energy and its Effects), LO 10.4 (data-response practice) (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending. Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "s2sci-original-04-h5b",
+    "skill": "s2-science",
+    "topic": "physics.heat",
+    "subskill": "radiation_factors",
+    "archetype": "black-vs-white-cup-data",
+    "difficulty": 4,
+    "marks": 3,
+    "type": "open",
+    "stem": "Two identical metal cans are painted on the outside, one dull black and one shiny silver. Each is filled with the same volume of hot water at 80 °C and left on a bench. The graph shows the temperature of the water in each can over 20 minutes.\n\n(b) Explain the difference in the results, and state one other variable that must be kept the same for a fair test.",
+    "answer": "A dull black surface is a better emitter of radiation than a shiny silver surface, so the black can gives out heat energy by radiation faster, and its water cools faster. Another variable to keep the same: the temperature of the surroundings (both cans in the same place, away from fans and sunlight), or whether the cans have lids.",
+    "working": [
+      "All objects give out (emit) heat energy by radiation. How fast depends on the surface: dull black is a good emitter, shiny silver a poor one.",
+      "Only the paint is different, so heat loss by conduction and convection is about the same for both cans. The extra heat loss from the black can is by radiation.",
+      "Common error: Saying 'black absorbs more heat'. Here the cans are LOSING heat, so the word is EMITTER."
+    ],
+    "hints": [
+      "Only one thing is different about the two cans. Which way of transferring heat depends on the colour and texture of a surface?",
+      "The cans are giving heat out, not taking it in. Which word describes a surface that is good at giving out radiation?"
+    ],
+    "keywords": [
+      "dull black is a better emitter",
+      "radiation",
+      "same surroundings"
+    ],
+    "marking": [
+      "1 mark: dull black surfaces are good emitters of radiation (shiny silver surfaces are poor emitters).",
+      "1 mark: so the black can loses heat by radiation faster, and its water cools faster.",
+      "1 mark: one valid controlled variable not already given (the cans, the volume of water and the starting temperature are given), e.g. the same surroundings or room temperature, the same position away from draughts and sunlight, both cans with identical lids or both open."
+    ],
+    "figure": "figures/s2sci-original-04-h5ab.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "line_graph",
+          "w": 5.4,
+          "h": 3,
+          "xlabel": "Time (min)",
+          "ylabel": "Temperature (°C)",
+          "series": [
+            {
+              "label": "black",
+              "x": [
+                0,
+                5,
+                10,
+                15,
+                20
+              ],
+              "y": [
+                80,
+                72,
+                65,
+                59,
+                54
+              ],
+              "style": "-"
+            },
+            {
+              "label": "silver",
+              "x": [
+                0,
+                5,
+                10,
+                15,
+                20
+              ],
+              "y": [
+                80,
+                76,
+                72,
+                69,
+                66
+              ],
+              "style": "--"
+            }
+          ],
+          "xticks": [
+            0,
+            5,
+            10,
+            15,
+            20
+          ],
+          "yticks": [
+            50,
+            60,
+            70,
+            80
+          ],
+          "ylim": [
+            50,
+            85
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "original-04: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 10 (Transfer of Heat Energy and its Effects); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 10 (Transfer of Heat Energy and its Effects), LO 10.4, 10.3 (fair-test practice) (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending. Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "s2sci-original-04-h6",
+    "skill": "s2-science",
+    "topic": "physics.heat",
+    "subskill": "insulation_applications",
+    "archetype": "vacuum-flask-feature-to-function",
+    "difficulty": 3,
+    "marks": 3,
+    "type": "open",
+    "stem": "A vacuum flask keeps soup hot for hours. Explain how each feature reduces heat loss.\n\n(i) the vacuum between the double walls\n(ii) the silvered (shiny) surfaces of the walls",
+    "answer": "(i) A vacuum has no particles, so heat cannot be transferred across it by conduction or convection, which both need a medium. (ii) Shiny silvered surfaces are poor emitters of radiation and reflect radiation back towards the soup, so less heat is lost by radiation.",
+    "working": [
+      "Conduction passes heat energy from particle to particle, and convection needs a fluid to move. Both need particles, so neither can happen across a vacuum.",
+      "Radiation can cross a vacuum, so a different feature is needed: silvered surfaces emit little radiation and reflect radiation back towards the soup.",
+      "Common error: Saying the vacuum 'stops all heat transfer'. Radiation can still cross a vacuum, which is why the walls are silvered."
+    ],
+    "hints": [
+      "Which ways of transferring heat need particles to carry the heat?",
+      "Which way of transferring heat can cross a vacuum, and how do shiny surfaces affect it?"
+    ],
+    "keywords": [
+      "vacuum has no particles",
+      "no conduction or convection",
+      "poor emitter, reflects radiation"
+    ],
+    "marking": [
+      "1 mark: a vacuum has no particles (no medium).",
+      "1 mark: so heat loss by conduction and convection across the gap is prevented.",
+      "1 mark: silvered surfaces are poor emitters and good reflectors of radiation, reducing heat loss by radiation."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-04: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 10 (Transfer of Heat Energy and its Effects); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 10 (Transfer of Heat Energy and its Effects), LO 10.5, 10.3 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-04-h7",
+    "skill": "s2-science",
+    "topic": "physics.heat",
+    "subskill": "radiation",
+    "difficulty": 5,
+    "marks": 3,
+    "type": "open",
+    "stem": "A rooftop solar water heater has a flat collector panel of pipes facing the Sun. Water heated in the pipes flows up into a storage tank placed above the panel, while cooler water from the bottom of the tank flows down into the panel. No pump is used.\n\nSuggest why the pipes in the panel are painted dull black, and explain why the hot water rises into the tank without a pump.",
+    "answer": "Dull black surfaces are good absorbers of radiation, so the pipes absorb more of the Sun's radiation and heat the water faster. Water heated in the pipes expands and becomes less dense, so it rises into the tank, while cooler, denser water sinks from the tank down into the panel to replace it. This convection current keeps the water circulating without a pump.",
+    "working": [
+      "Heat from the Sun reaches the panel by radiation. Dull black surfaces absorb radiation best, so the water in the pipes heats up quickly.",
+      "Heated water expands, so its density decreases. Less dense water rises; cooler, denser water sinks.",
+      "With the tank above the panel, this convection current carries hot water up to the tank on its own.",
+      "Common error: 'Hot water rises' with no reason. Give the link to density."
+    ],
+    "hints": [
+      "Which colour and texture of surface absorbs the Sun's radiation best?",
+      "What happens to the density of water when it is heated? Use that to explain which way it moves."
+    ],
+    "keywords": [
+      "good absorber of radiation",
+      "heated water expands, less dense",
+      "rises",
+      "convection current"
+    ],
+    "marking": [
+      "1 mark: dull black is a good absorber of radiation from the Sun, so the water heats up faster.",
+      "1 mark: heated water expands and becomes less dense, so it rises.",
+      "1 mark: cooler, denser water sinks to replace it, setting up a convection current."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-04: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 10 (Transfer of Heat Energy and its Effects); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 10 (Transfer of Heat Energy and its Effects), LO 10.6, 10.5, 10.8 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  }
+]

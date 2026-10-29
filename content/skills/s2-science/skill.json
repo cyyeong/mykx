@@ -1,12 +1,12 @@
 {
   "id": "s2-science",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "status": "published",
   "title": "Sec 2 G3 Science",
   "description": "Secondary 2 G3 Science (Singapore MOE 2021 lower secondary syllabus): chemical changes, environment, forces and energy, heat, electrical systems, digestion, transport, reproduction. Misconception-first teaching, State-Cause-Link answers, exam-format practice with real circuit diagrams.",
   "subject": "science",
   "level": "Sec 2",
-  "syllabus": "MOE 2021 Lower Secondary Science, G2/G3 course (updated 2024)",
+  "syllabus": "MOE Science Syllabus, Lower Secondary, G2 and G3 Courses (from the 2021 Sec 1 cohort; 2024 edition)",
   "language": "en",
   "agents": {
     "tutor": "auto",
@@ -34,7 +34,7 @@
     },
     {
       "id": "biology.environment",
-      "title": "Interactions with the environment",
+      "title": "Interactions within ecosystems",
       "weight": 0.1,
       "source_tag": "interactions_with_environment",
       "subskills": [
@@ -46,12 +46,13 @@
         "organism_interactions",
         "food_chains_webs",
         "energy_flow",
+        "decomposers",
         "experimental_design"
       ]
     },
     {
       "id": "physics.forces_energy",
-      "title": "Forces and energy transfer",
+      "title": "Application of forces and transfer of energy",
       "weight": 0.15,
       "source_tag": "forces_and_energy_transfer",
       "subskills": [
@@ -63,12 +64,13 @@
         "work_done",
         "energy_types",
         "conservation_of_energy",
+        "energy_sources",
         "experimental_design"
       ]
     },
     {
       "id": "physics.heat",
-      "title": "Transfer of heat and its effects",
+      "title": "Transfer of heat energy and its effects",
       "weight": 0.14,
       "source_tag": "heat_transfer",
       "subskills": [
@@ -132,10 +134,10 @@
         "diffusion",
         "osmosis",
         "osmosis_in_plants",
-        "blood_components",
         "blood_vessels",
         "plant_transport",
         "gas_exchange",
+        "transport_need",
         "experimental_design"
       ]
     },
@@ -145,7 +147,6 @@
       "weight": 0.1,
       "source_tag": "human_reproductive_system",
       "subskills": [
-        "asexual_vs_sexual",
         "puberty",
         "male_organs",
         "female_organs",
@@ -155,6 +156,7 @@
         "menstrual_cycle",
         "birth_control",
         "stis",
+        "population_growth",
         "experimental_design"
       ]
     }
@@ -460,6 +462,7 @@
       "file": "references/syllabus-map.md",
       "title": "Sec 2 G3 Science syllabus map",
       "sections": [
+        "Source document and outcome codes",
         "1. `chemistry.chemical_changes`",
         "2. `biology.environment`",
         "3. `physics.forces_energy`",
@@ -534,6 +537,18 @@
     {
       "kind": "generated",
       "note": "Demo items (items/demo.json) drafted fresh by Claude Code following this pack's question-generation rules; pending founder review."
+    },
+    {
+      "kind": "own",
+      "note": "Scope checked against MOE \"Science Syllabus, Lower Secondary, General 2 Course / General 3 Course\" (implementation from the 2021 Sec 1 cohort; 2024 edition, listed on moe.gov.sg as the 2023 G2/G3 Lower Secondary Science Syllabuses): https://www.moe.gov.sg/media/files/secondary/syllabuses/science/b6d63789-2ad0-4630-b847-42fd380ec404.pdf. Informed the topic list and titles, the learning-outcome codes and depth limits in references/syllabus-map.md, and the G3-only outcomes covered by items/original-*.json. No text copied beyond short outcome paraphrases."
+    },
+    {
+      "kind": "own",
+      "note": "Distractors and \"watch out\" lines informed by published research on misconceptions, read for ideas only: IOP Spark reviews of heat and particle-model misconceptions (spark.iop.org); RSC Beyond Appearances on chemical change and mass in open and closed systems (edu.rsc.org); NZCER ARBS \"A garden food web\" on reading food-web arrows (arbs.nzcer.org.nz); and studies of diffusion and osmosis misconceptions (openjournals.library.sydney.edu.au/CAL). No question text, numbers or tables came from any source."
+    },
+    {
+      "kind": "generated",
+      "note": "Items in items/original-01.json to original-07.json (52 questions for the seven non-electrical topics, version 1.1.0) written by Claude Code in October 2026 from the MOE syllabus above and this pack's references, each mapped to a syllabus outcome in its notes; every answer was re-derived in an independent re-solve before review. Founder review pending."
     }
   ],
   "licence": "Content CC BY-NC 4.0 (myKx); items and figures original.",

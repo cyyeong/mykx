@@ -1,0 +1,284 @@
+[
+  {
+    "id": "s2sci-original-01-c1",
+    "skill": "s2-science",
+    "topic": "chemistry.chemical_changes",
+    "subskill": "physical_vs_chemical",
+    "archetype": "physical-or-chemical-change",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which of these is a chemical change?",
+    "options": [
+      "Ice cubes melting in a glass of water.",
+      "An iron gate rusting after months of rain.",
+      "Sugar dissolving in a cup of hot tea.",
+      "A glass bottle breaking into pieces."
+    ],
+    "answer": 2,
+    "working": [
+      "A chemical change forms one or more new substances.",
+      "Rust is a new substance, formed when iron reacts with oxygen from the air in the presence of water, so rusting is a chemical change.",
+      "Melting, dissolving and breaking change only the state, the mixing or the shape. No new substance is formed, so they are physical changes.",
+      "Watch out: Dissolving is a physical change. The sugar is still sugar, and you can get it back by evaporating the water."
+    ],
+    "distractors": {
+      "1": "Melting is a change of state. The water is still water and can freeze again: no new substance is formed.",
+      "3": "Dissolving is a physical change. The sugar is still there, and evaporating the water gets it back.",
+      "4": "Breaking changes only the shape and size of the pieces. They are still glass."
+    },
+    "hints": [
+      "Ask of each change: is a new substance made, or is it the same substance in a new state, shape or mixture?",
+      "Which change leaves behind a substance with different properties from the one you started with?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-01: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 11 (Chemical Changes); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 11 (Chemical Changes), LO 11.1 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-01-c2",
+    "skill": "s2-science",
+    "topic": "chemistry.chemical_changes",
+    "subskill": "gas_tests",
+    "archetype": "which-gas-and-how-to-test-it",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Wei Ming adds small pieces of zinc to dilute hydrochloric acid in a test tube. Bubbles of gas are given off. Which test identifies this gas?",
+    "options": [
+      "Bubble the gas through limewater: the limewater turns chalky (a white precipitate forms).",
+      "Put a glowing splint into the test tube: the splint relights.",
+      "Hold damp blue litmus paper in the gas: the paper turns red.",
+      "Hold a lighted splint at the mouth of the test tube: the splint goes out with a 'pop' sound."
+    ],
+    "answer": 4,
+    "working": [
+      "An acid reacts with a metal to give a salt and hydrogen: acid + metal → salt + hydrogen.",
+      "The test for hydrogen: a lighted splint held at the mouth of the test tube goes out with a 'pop' sound.",
+      "Watch out: A glowing splint that relights is the test for OXYGEN. Hydrogen needs a LIGHTED splint and gives a pop."
+    ],
+    "distractors": {
+      "1": "Limewater tests for carbon dioxide, which an acid gives off with a carbonate, not with a metal.",
+      "2": "A glowing splint relighting is the test for oxygen. An acid and a metal do not give off oxygen.",
+      "3": "Litmus shows whether a gas is acidic, not which gas it is. Hydrogen is neutral, so this is not its test."
+    },
+    "hints": [
+      "First name the gas: what does an acid make when it reacts with a metal?",
+      "Each common gas has its own splint or limewater test. Which test goes with this gas?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-01: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 11 (Chemical Changes); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 11 (Chemical Changes), LO 11.6 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-01-c3",
+    "skill": "s2-science",
+    "topic": "chemistry.chemical_changes",
+    "subskill": "acid_reactions",
+    "archetype": "complete-the-word-equation",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Nurul adds dilute hydrochloric acid to some marble chips (calcium carbonate). The mixture fizzes. Which general word equation describes this reaction?",
+    "options": [
+      "acid + carbonate → salt + water + carbon dioxide",
+      "acid + carbonate → salt + hydrogen",
+      "acid + carbonate → salt + water",
+      "acid + carbonate → metal oxide + carbon dioxide"
+    ],
+    "answer": 1,
+    "working": [
+      "Marble chips are a carbonate, so this is an acid reacting with a carbonate.",
+      "acid + carbonate → salt + water + carbon dioxide. The fizzing is the carbon dioxide gas being given off.",
+      "Compare the other two: acid + alkali → salt + water; acid + metal → salt + hydrogen.",
+      "Watch out: Learn the three acid equations side by side. Only the carbonate gives carbon dioxide; only the metal gives hydrogen."
+    ],
+    "distractors": {
+      "2": "Hydrogen comes from an acid reacting with a METAL, not with a carbonate.",
+      "3": "Salt + water only is what an acid and an ALKALI give (neutralisation). A carbonate also gives off carbon dioxide, which causes the fizzing.",
+      "4": "A carbonate breaks down into a metal oxide and carbon dioxide when it is HEATED strongly (thermal decomposition). No acid is involved in that."
+    },
+    "hints": [
+      "The fizzing tells you a gas is made. Which gas comes from a carbonate?",
+      "Recall the three acid reactions: with an alkali, with a metal and with a carbonate. Which products go with the carbonate?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-01: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 11 (Chemical Changes); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 11 (Chemical Changes), LO 11.2, 11.6 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-01-c4",
+    "skill": "s2-science",
+    "topic": "chemistry.chemical_changes",
+    "subskill": "conservation_of_mass",
+    "archetype": "mass-before-and-after",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Hui Min puts an open flask of dilute acid and a small dish of marble chips together on an electronic balance. The balance reads 152.40 g. She tips the chips into the acid, and the mixture fizzes for a few minutes. What happens to the balance reading, and why?",
+    "options": [
+      "It increases, because new substances are formed in the flask.",
+      "It stays at 152.40 g, because mass is always conserved in a chemical reaction.",
+      "It decreases, because carbon dioxide gas escapes from the open flask into the air.",
+      "It decreases, because some atoms are destroyed as the chips react."
+    ],
+    "answer": 3,
+    "working": [
+      "Mass is conserved in every chemical reaction: the atoms are rearranged, never created or destroyed.",
+      "But the flask is open. The carbon dioxide made in the reaction escapes into the air, so its mass is no longer on the balance.",
+      "The reading therefore falls. In a sealed flask the gas could not escape, and the reading would stay at 152.40 g.",
+      "Watch out: 'Mass is conserved' counts ALL the products, gases included. Ask whether everything stays on the balance."
+    ],
+    "distractors": {
+      "1": "New substances form, but the atoms are only rearranged, so the total mass cannot go up. Here a gas also leaves the flask.",
+      "2": "True only if nothing can escape, as in a sealed flask. Here the flask is open and the gas escapes.",
+      "4": "Atoms are never destroyed in a chemical reaction. The mass missing from the balance is in the gas that escaped."
+    },
+    "hints": [
+      "What do you see when the chips meet the acid? Where does that gas go?",
+      "Mass is conserved for everything the reaction makes. Is everything still on the balance at the end?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-01: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 11 (Chemical Changes); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 11 (Chemical Changes), LO 11.3, 11.4 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-01-c5",
+    "skill": "s2-science",
+    "topic": "chemistry.chemical_changes",
+    "subskill": "indicators",
+    "archetype": "indicator-colour-table",
+    "difficulty": 5,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "An indicator can be made by soaking blue pea flowers in hot water. The table shows the colour of this extract in solutions of known pH.\n\n| pH | Colour of the extract |\n| --- | --- |\n| 2 | pink |\n| 4 | purple |\n| 7 | blue |\n| 10 | green |\n| 13 | yellow |\n\nIn a class demonstration, the teacher adds the extract to three liquids. Lime juice turns it pink, soapy water turns it green and a dilute oven cleaner turns it yellow. Which statement is correct?",
+    "options": [
+      "The soapy water is neutral, because green is in the middle of the colour range.",
+      "The lime juice is alkaline, because pink is at one end of the colour range.",
+      "The oven cleaner is the most strongly alkaline of the three liquids.",
+      "Red litmus paper would show which of the two alkaline liquids is more strongly alkaline."
+    ],
+    "answer": 3,
+    "working": [
+      "Match each colour to the table: pink is about pH 2, green about pH 10 and yellow about pH 13.",
+      "Lime juice (about pH 2) is strongly acidic. Soapy water (about pH 10) is alkaline. The oven cleaner (about pH 13) is the most strongly alkaline.",
+      "Litmus only shows whether a solution is acidic or alkaline. An indicator with many colours, like this extract or Universal Indicator, also shows how acidic or alkaline it is.",
+      "Watch out: Neutral is pH 7, which is blue for this extract, not green."
+    ],
+    "distractors": {
+      "1": "Neutral is pH 7, which turns this extract blue. Green matches about pH 10, so the soapy water is alkaline.",
+      "2": "Pink matches about pH 2. A pH below 7 means acidic, so lime juice is acidic.",
+      "4": "Red litmus turns blue in ANY alkali. It cannot tell a weakly alkaline solution from a strongly alkaline one."
+    },
+    "hints": [
+      "Use the table: write down the pH that matches each colour seen.",
+      "The further the pH is above 7, the more strongly alkaline the solution."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-01: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 11 (Chemical Changes); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 11 (Chemical Changes), LO 11.7 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-01-c6",
+    "skill": "s2-science",
+    "topic": "chemistry.chemical_changes",
+    "subskill": "reaction_types",
+    "archetype": "name-the-reaction-type",
+    "difficulty": 3,
+    "marks": 3,
+    "type": "open",
+    "stem": "Ahmad heats some green copper(II) carbonate powder in a test tube. The powder turns black, and a gas is given off that turns limewater chalky.\n\nName this type of chemical change, write a word equation for the reaction, and explain how the observations show that it is a chemical change.",
+    "answer": "Thermal decomposition: one substance is broken down by heat into two or more simpler substances. Word equation: copper(II) carbonate → copper(II) oxide + carbon dioxide. It is a chemical change because new substances are formed: a black solid (copper(II) oxide) that is different from the green powder, and a gas that turns limewater chalky (carbon dioxide).",
+    "working": [
+      "Heat breaks one substance down into simpler ones, so this is thermal decomposition. A metal carbonate breaks down into the metal oxide and carbon dioxide: copper(II) carbonate → copper(II) oxide + carbon dioxide.",
+      "A chemical change forms new substances. The evidence: a black solid with different properties from the green powder, and a gas that turns limewater chalky, which is carbon dioxide.",
+      "Common error: Calling it combustion. Combustion is burning in oxygen; here the powder is broken down by heat alone."
+    ],
+    "hints": [
+      "Is anything burning here, or is one substance being broken down by heat?",
+      "The limewater tells you the gas. What is left of a metal carbonate when that gas is driven off by heat?"
+    ],
+    "keywords": [
+      "thermal decomposition",
+      "copper(II) oxide + carbon dioxide",
+      "new substances formed"
+    ],
+    "marking": [
+      "1 mark: thermal decomposition. 'Decomposition' alone or 'combustion' scores 0: nothing burns and no oxygen is used.",
+      "1 mark: copper(II) carbonate → copper(II) oxide + carbon dioxide (accept copper carbonate and copper oxide).",
+      "1 mark: new substances are formed, shown by the black solid and by the gas turning limewater chalky (carbon dioxide)."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-01: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 11 (Chemical Changes); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 11 (Chemical Changes), LO 11.5, 11.8 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-01-c7",
+    "skill": "s2-science",
+    "topic": "chemistry.chemical_changes",
+    "subskill": "experimental_design",
+    "difficulty": 4,
+    "marks": 3,
+    "type": "open",
+    "stem": "Kumar sets up three test tubes, each with an identical clean iron nail, and leaves them for one week.\n\n| Tube | Conditions | Nail after one week |\n| --- | --- | --- |\n| A | tap water, open to the air | rusty |\n| B | water that was boiled to remove dissolved air, with a layer of oil on top | not rusty |\n| C | dry air (a drying agent removes water vapour), stoppered | not rusty |\n\nExplain why the layer of oil is added in tube B, and use the results to state what iron needs in order to rust.",
+    "answer": "The oil stops air from dissolving back into the boiled water, so the nail in B has water but no air (oxygen). Iron needs both air (oxygen) and water to rust: A had both and rusted; B had water but no air and did not rust; C had air but no water and did not rust.",
+    "working": [
+      "Rusting is an oxidation: iron reacts with oxygen from the air in the presence of water.",
+      "Boiling removes the dissolved air, and the oil layer stops air dissolving back in, so tube B tests 'water without air'.",
+      "Tube C tests 'air without water'. Tube A has both and is the only rusty nail, so both are needed.",
+      "Common error: Writing 'iron needs water' or 'iron needs air' alone. The data show it needs both, and the answer must refer to the tubes."
+    ],
+    "hints": [
+      "Boiling took the air out of the water in tube B. What could get back in if there were no oil?",
+      "Make a list: which tubes have air, and which have water? Compare it with which nails rusted."
+    ],
+    "keywords": [
+      "oil keeps air out of the water",
+      "needs both air (oxygen) and water",
+      "refers to the tubes"
+    ],
+    "marking": [
+      "1 mark: the oil stops air (oxygen) from dissolving into the water.",
+      "1 mark: iron needs both air (oxygen) and water to rust.",
+      "1 mark: supported by the tubes, e.g. B (no air) and C (no water) did not rust, while A (air and water) did."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-01: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 11 (Chemical Changes); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 11 (Chemical Changes), LO 11.5, 11.8 (rusting as oxidation; fair-test practice) (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  }
+]

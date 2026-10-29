@@ -110,13 +110,21 @@ describe("Start session: code chooses from the chosen subject only", () => {
     expect(sessionStep(maths.id, ids, ids[ids.length - 1]).nextHref).toBe(`/learn/p3-maths/done?session=${ids.join(",")}`);
   });
 
-  it("shows a thin pack honestly: Sec 2 Science has questions for one topic of eight", () => {
+  it("shows a thin pack honestly: P6 Science lists its empty topics last, as on the way", () => {
+    const view = subjectView(subjectFor("P6", "p6-science")!, [], NOW, "abby", "anime-sky");
+    expect(view.ready).toBeGreaterThan(0);
+    expect(view.ready).toBeLessThan(view.topics.length);
+    expect(view.gap).toMatch(/Questions for \w+ of \w+ topics so far\. The others are on the way\./);
+    const empty = view.topics.slice(view.ready); // topics with questions come first
+    expect(empty.every((t) => t.mastery === null && t.startHref === null && /on the way/.test(t.empty ?? ""))).toBe(true);
+  });
+
+  it("gives Sec 2 Science questions in all eight syllabus topics (v1.1.0), so it has no gap", () => {
     const view = subjectView(subjectFor("Sec 2", "s2-science")!, [], NOW, "leonard", "idol-stage");
-    expect(view.ready).toBe(1);
     expect(view.topics).toHaveLength(8);
-    expect(view.gap).toMatch(/one of eight topics.*More Sec 2 Science topics are on the way/);
-    expect(view.topics[0].title).toBe("Electrical systems"); // topics with questions come first
-    expect(view.topics.slice(1).every((t) => t.mastery === null && t.startHref === null && /on the way/.test(t.empty ?? ""))).toBe(true);
+    expect(view.ready).toBe(8);
+    expect(view.gap).toBeNull();
+    expect(view.topics.every((t) => t.startHref !== null)).toBe(true);
   });
 
   it("labels evidence honestly: no number until a family is answered", () => {
