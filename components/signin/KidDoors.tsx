@@ -11,7 +11,7 @@ import { Art } from "@/components/ui/Art";
 import { DEFAULT_SECRET_KIND, type Door } from "@/lib/auth/schemas";
 import type { LivingArtData } from "@/lib/scene/livingArt";
 import twilightCity from "@/public/art/living/city-twilight.json";
-import { LOOKS, kixSprite } from "./looks";
+import { LOOKS, kixSprite, lookFor } from "./looks";
 import "./kidDoors.css";
 
 const STARS: [number, number, number, number, number?][] = [
@@ -119,8 +119,9 @@ export function KidDoors({ grownUp, kids }: { grownUp: string; kids: Door[] }) {
 
         <ul className="kd-doors" role="list" aria-label="Kids in this family">
           {kids.map((kid) => {
-            const v = (kid.secretKind ?? DEFAULT_SECRET_KIND[kid.band]) === "pictures" ? "j" : "t";
-            const look = LOOKS[v === "j" ? "junior" : "teen"];
+            const id = lookFor((kid.secretKind ?? DEFAULT_SECRET_KIND[kid.band]) === "pictures" ? "junior" : "teen", kid.pack);
+            const v = id === "junior" ? "j" : id === "sky" ? "s" : "t";
+            const look = LOOKS[id];
             return (
               <li key={kid.id} className="kd-item">
                 <Link href={`/doors/${kid.id}`} className="kd-door">

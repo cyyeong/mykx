@@ -15,9 +15,10 @@ import { LivingArt } from "@/components/scene/LivingArt";
 import { Art } from "@/components/ui/Art";
 import type { LivingArtData } from "@/lib/scene/livingArt";
 import neonCity from "@/public/art/living/city-neon.json";
+import skyCity from "@/public/art/living/city-sky.json";
 import twilightCity from "@/public/art/living/city-twilight.json";
 import { GUEST_NOTE, GUEST_URL, isGuest } from "@/lib/guest";
-import { LOOKS, PAD_PICTURES, kixSprite, type DoorVariant, type PictureId } from "./looks";
+import { LOOKS, PAD_PICTURES, kixSprite, lookFor, type DoorVariant, type LookId, type PictureId } from "./looks";
 import "@/components/scene/scene.css";
 import "./signin.css";
 
@@ -53,6 +54,11 @@ const MOTES = [[5, 4, 16, -2, 40, 1], [13, 3, 20, -11, -30, 2], [21, 5, 14, -6, 
     return vars({ left: `${x}%`, width: s, height: s, animationDuration: `${d}s`, animationDelay: `${dl}s`, "--sway": `${sw}px`, background: `rgb(${g})`, boxShadow: `0 0 8px 2px rgba(${g}, 0.7)` });
   },
 );
+// Anime Sky: cherry petals instead of motes, larger, tumbling as they drift.
+const PETALS = [[4, 9, 19, -3, 46, 1], [12, 7, 23, -12, -34, 2], [20, 10, 17, -7, 28, 1], [31, 8, 25, -16, -22, 1], [42, 9, 21, -4, 36, 2], [55, 7, 18, -10, -40, 1], [65, 10, 24, -18, 24, 1], [74, 8, 20, -6, -28, 2], [84, 9, 22, -13, 38, 1], [93, 7, 18, -9, -30, 1], [37, 8, 27, -21, 20, 2], [88, 10, 26, -2, -18, 1]].map(
+  ([x, s, d, dl, sw, c]) => vars({ left: `${x}%`, width: s, height: s * 0.8, animationDuration: `${d}s`, animationDelay: `${dl}s`, "--sway": `${sw}px`, "--spin": `${sw * 9}deg`, background: c === 2 ? "#FFF4F8" : "#F7B6CF" }),
+);
+const CITY_LIFE: Record<string, LivingArtData> = { neon: neonCity as LivingArtData, sky: skyCity as LivingArtData, twilight: twilightCity as LivingArtData };
 const FIREFLIES = [[7, 62, 9, -2, 0, 5], [16, 78, 11, -6, 1, 4], [24, 55, 8, -1, 0, 4], [35, 84, 12, -7, 1, 5], [66, 58, 10, -3, 1, 4], [74, 80, 9, -5, 0, 5], [83, 64, 13, -9, 1, 4], [92, 86, 10, -4, 0, 5], [50, 92, 11, -8, 0, 4]].map(
   ([x, y, d, dl, b, s], i) => ({
     cls: b ? "lg-firefly lg-firefly-b" : "lg-firefly",
@@ -74,7 +80,7 @@ const WALK = [
 const SPARK = "M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z";
 
 /** Sky, lanterns or motes, fireflies and flying Kix. Decorative; never re-renders with the form. */
-const LivingCity = memo(function LivingCity({ variant, world }: { variant: DoorVariant; world?: string }) {
+const LivingCity = memo(function LivingCity({ variant, world }: { variant: LookId; world?: string }) {
   const look = LOOKS[variant];
   return (
     <div className="lg-scene" aria-hidden="true">
@@ -86,7 +92,7 @@ const LivingCity = memo(function LivingCity({ variant, world }: { variant: DoorV
         ) : (
           <>
             <Art base={look.city} className="lg-city-img" alt="" sizes="106vw" fetchPriority="high" />
-            <LivingArt data={(look.city.endsWith("neon") ? neonCity : twilightCity) as LivingArtData} oy="70%" />
+            <LivingArt data={CITY_LIFE[look.city.split("-").pop() ?? ""] ?? CITY_LIFE.twilight} oy="70%" />
           </>
         )}
       </div>
@@ -110,8 +116,9 @@ const LivingCity = memo(function LivingCity({ variant, world }: { variant: DoorV
         <div className="lg-shoot" style={{ left: "40%", top: "4%" }}>
           <span className="lg-shoot-line" style={{ width: 110, animationDuration: "17s", animationDelay: "-9s" }} />
         </div>
-        {variant !== "teen" && LANTERNS.map((style, i) => <span key={i} className="lg-lantern lg-tap" data-tap="lantern" data-i={i} style={style} />)}
+        {(variant === "default" || variant === "junior") && LANTERNS.map((style, i) => <span key={i} className="lg-lantern lg-tap" data-tap="lantern" data-i={i} style={style} />)}
         {variant === "teen" && MOTES.map((style, i) => <span key={i} className="lg-mote lg-tap" data-tap="lantern" data-i={i} style={style} />)}
+        {variant === "sky" && PETALS.map((style, i) => <span key={i} className="lg-mote lg-petal lg-tap" data-tap="lantern" data-i={i} style={style} />)}
         {FIREFLIES.map((ff, i) => (
           <span key={i} className={ff.cls} style={ff.style}>
             <span className="lg-blink" style={ff.blink} />
@@ -146,7 +153,7 @@ const LivingCity = memo(function LivingCity({ variant, world }: { variant: DoorV
 });
 
 /** Walkers pass behind the door; the time tunnel is centred on it. */
-const Door = memo(function Door({ variant, rattle }: { variant: DoorVariant; rattle: "" | "a" | "b" }) {
+const Door = memo(function Door({ variant, rattle }: { variant: LookId; rattle: "" | "a" | "b" }) {
   const look = LOOKS[variant];
   return (
     <div className="lg-doorzone" aria-hidden="true">
@@ -291,7 +298,8 @@ export function SignInScreen({
   const router = useRouter();
   const { play } = useSound();
   const { setBand } = useTheme();
-  const look = LOOKS[variant];
+  const lookId = lookFor(variant, pack);
+  const look = LOOKS[lookId];
   const theme: PackId = variant === "default" ? "dreamlight" : pack;
   const name = kid?.nickname.trim() ?? "";
 
@@ -506,16 +514,17 @@ export function SignInScreen({
       data-theme={theme}
       data-band={look.band}
       data-variant={variant}
+      data-look={lookId}
       data-state={phase}
       data-live={live ? "yes" : "no"}
       data-paused={hidden ? "yes" : "no"}
       style={{ background: "var(--twilight, #1E1C45)", color: "var(--ink)", fontFamily: "var(--font-text)" }}
     >
       <div onClick={onCityTap} className="lg-city-taps">
-        <LivingCity variant={variant} world={world} />
+        <LivingCity variant={lookId} world={world} />
       </div>
       <main className="lg-stage" onClick={onCityTap}>
-        <Door variant={variant} rattle={rattle} />
+        <Door variant={lookId} rattle={rattle} />
         {knock && phase !== "opening" && phase !== "tunnel" && (
           <span key={knock.n} className="ls-note lg-knock-note" role="status">
             {knock.line}

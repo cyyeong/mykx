@@ -39,15 +39,18 @@
 .kd-stage{position:relative;display:block;flex:none;height:var(--kd-h)}
 .kd-stage-j{width:calc(var(--kd-h) * .531)}
 .kd-stage-t{width:calc(var(--kd-h) * .631)}
+.kd-stage-s{width:calc(var(--kd-h) * .581)}
 .kd-halo{position:absolute;z-index:-1;left:-55%;right:-55%;top:-16%;bottom:-4%;border-radius:50%;opacity:.6;transform:scale(.9);transition:opacity var(--duration-base) var(--ease-soft),transform var(--duration-hero) var(--ease-soft)}
 .kd-halo-j{background:radial-gradient(closest-side,rgba(255,227,138,.5),rgba(255,201,168,.22) 55%,rgba(255,201,168,0))}
 .kd-halo-t{background:radial-gradient(closest-side,rgba(61,245,255,.38),rgba(201,184,255,.2) 55%,rgba(201,184,255,0))}
+.kd-halo-s{background:radial-gradient(closest-side,rgba(247,182,207,.5),rgba(90,169,240,.22) 55%,rgba(90,169,240,0))}
 .kd-ground{position:absolute;z-index:-1;left:-14%;right:-40%;bottom:-5%;height:10%;border-radius:50%;background:radial-gradient(closest-side,rgba(14,12,43,.6),rgba(14,12,43,0))}
 /* Kix hides behind the door's right edge and peeks out (mirrored so the free hand shows). */
 .kd-kix{position:absolute;bottom:0;left:calc(100% - var(--kd-h) * .108);width:calc(var(--kd-h) * .36);height:auto;transform-origin:50% 100%;transform:rotate(8deg) scaleX(-1);filter:drop-shadow(0 8px 12px rgba(14,12,43,.4))}
 .kd-light{position:absolute;left:5%;right:5%;top:4%;bottom:3%;opacity:.9;transition:opacity var(--duration-base) var(--ease-soft),filter var(--duration-base) var(--ease-soft)}
 .kd-light-j{border-radius:50% 50% 8px 8px / 30% 30% 8px 8px;background:radial-gradient(70% 55% at 50% 62%,#FFFBEA 0%,#FFE38A 38%,#FFB46B 78%,#F2924B 100%)}
 .kd-light-t{border-radius:6px;background:radial-gradient(70% 55% at 50% 55%,#FFFFFF 0%,#BFFBFF 35%,#3DF5FF 70%,#7A5CFF 100%)}
+.kd-light-s{border-radius:50% 50% 6px 6px / 30% 30% 6px 6px;background:radial-gradient(70% 55% at 50% 58%,#FFFFFF 0%,#FFE6F0 32%,#F7B6CF 66%,#5AA9F0 100%)}
 .kd-leaves{position:absolute;inset:0;perspective:900px}
 .kd-leaf{position:absolute;top:0;display:block;width:50%;height:100%;backface-visibility:hidden;transition:transform 520ms var(--ease-soft)}
 .kd-leaf-l{left:0;transform-origin:0 50%}
@@ -55,14 +58,16 @@
 .kd-seam{position:absolute;left:50%;top:9%;bottom:5%;width:3px;margin-left:-1.5px;border-radius:2px;opacity:.75;transition:opacity var(--duration-base) var(--ease-soft)}
 .kd-seam-j{background:linear-gradient(180deg,rgba(255,227,138,0),#FFE38A 18%,#FFE38A 82%,rgba(255,227,138,0));box-shadow:0 0 10px 2px rgba(255,227,138,.6)}
 .kd-seam-t{background:linear-gradient(180deg,rgba(61,245,255,0),#3DF5FF 15%,#3DF5FF 85%,rgba(61,245,255,0));box-shadow:0 0 10px 2px rgba(61,245,255,.55)}
+.kd-seam-s{background:linear-gradient(180deg,rgba(255,211,110,0),#FFE3A0 18%,#FFE3A0 82%,rgba(255,211,110,0));box-shadow:0 0 10px 2px rgba(247,182,207,.6)}
 .kd-plate{position:relative;z-index:2;display:flex;align-items:center;gap:12px;min-height:60px;box-sizing:border-box;margin-top:-30px;padding:8px 8px 8px 22px;border-radius:var(--radius-pill);background:var(--surface-glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);transition:box-shadow var(--duration-base) var(--ease-soft)}
 .kd-plate-j{box-shadow:inset 0 0 0 2px rgba(255,227,138,.5),var(--shadow-raised)}
 .kd-plate-t{box-shadow:inset 0 0 0 2px rgba(61,245,255,.5),var(--shadow-raised)}
+.kd-plate-s{box-shadow:inset 0 0 0 2px rgba(247,182,207,.6),var(--shadow-raised)}
 .kd-plate-text{display:flex;align-items:center;gap:10px;min-width:0}
 .kd-name{font:600 28px/1.1 var(--font-display);white-space:nowrap}
 .kd-level{padding:7px 12px;border-radius:var(--radius-pill);font:800 18px/1 var(--font-text);white-space:nowrap}
 .kd-level-j{background:var(--reward);color:var(--on-reward)}
-.kd-level-t{background:var(--accent-2);color:var(--on-accent-2)}
+.kd-level-t,.kd-level-s{background:var(--accent-2);color:var(--on-accent-2)}
 .kd-go{display:grid;place-items:center;width:44px;height:44px;flex:none;border-radius:50%;background:var(--accent);color:var(--on-accent);transition:transform var(--duration-base) var(--ease-bounce)}
 .kd-go svg{width:22px;height:22px}
 /* Hover, keyboard focus and touch: the door glows, opens a crack, Kix bobs. */
@@ -75,6 +80,7 @@
 .kd-door:hover .kd-kix,.kd-door:focus-visible .kd-kix,.kd-door:active .kd-kix{animation:kd-bob 1s var(--ease-soft) infinite}
 .kd-door:hover .kd-plate-j,.kd-door:focus-visible .kd-plate-j{box-shadow:inset 0 0 0 2px #FFE38A,0 0 28px rgba(255,227,138,.55),var(--shadow-raised)}
 .kd-door:hover .kd-plate-t,.kd-door:focus-visible .kd-plate-t{box-shadow:inset 0 0 0 2px #3DF5FF,0 0 28px rgba(61,245,255,.5),var(--shadow-raised)}
+.kd-door:hover .kd-plate-s,.kd-door:focus-visible .kd-plate-s{box-shadow:inset 0 0 0 2px #F7B6CF,0 0 28px rgba(247,182,207,.55),var(--shadow-raised)}
 .kd-door:hover .kd-go,.kd-door:focus-visible .kd-go{transform:translateX(4px)}
 /* Add a kid (grown-ups) */
 .kd-item-add{align-self:flex-end}
@@ -131,7 +137,7 @@
   .kd-door:hover,.kd-door:focus-visible{box-shadow:inset 0 0 0 2px var(--accent),var(--shadow-raised)}
   .kd-door:focus-visible{outline-offset:3px}
   .kd-stage{margin-right:calc(var(--kd-h) * .26)}
-  .kd-plate,.kd-door:hover .kd-plate-j,.kd-door:hover .kd-plate-t,.kd-door:focus-visible .kd-plate-j,.kd-door:focus-visible .kd-plate-t{flex:1 1 auto;min-width:0;align-self:center;justify-content:space-between;min-height:0;margin:0;padding:0;background:none;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
+  .kd-plate,.kd-door:hover .kd-plate-j,.kd-door:hover .kd-plate-t,.kd-door:hover .kd-plate-s,.kd-door:focus-visible .kd-plate-j,.kd-door:focus-visible .kd-plate-t,.kd-door:focus-visible .kd-plate-s{flex:1 1 auto;min-width:0;align-self:center;justify-content:space-between;min-height:0;margin:0;padding:0;background:none;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
   .kd-plate-text{flex-direction:column;align-items:flex-start;gap:8px}
   .kd-name{font-size:30px}
   .kd-item-add{align-self:stretch}

@@ -1,0 +1,159 @@
+{
+  "art": "city-sky",
+  "src": "public/art/login/city-sky.webp",
+  "width": 1600,
+  "height": 914,
+  "plate": "/art/living/city-sky/plate.webp",
+  "layers": [
+    {
+      "id": "tree-1",
+      "motion": "sway",
+      "src": "/art/living/city-sky/tree-1.webp",
+      "x": 0,
+      "y": 30.53,
+      "w": 19.5,
+      "h": 52.74,
+      "mask": false
+    },
+    {
+      "id": "tree-2",
+      "motion": "sway",
+      "src": "/art/living/city-sky/tree-2.webp",
+      "x": 86.94,
+      "y": 40.59,
+      "w": 13.06,
+      "h": 37.64,
+      "mask": false
+    },
+    {
+      "id": "tree-3",
+      "motion": "sway",
+      "src": "/art/living/city-sky/tree-3.webp",
+      "x": 77.44,
+      "y": 60.94,
+      "w": 10.81,
+      "h": 20.24,
+      "mask": false
+    },
+    {
+      "id": "tree-4",
+      "motion": "sway",
+      "src": "/art/living/city-sky/tree-4.webp",
+      "x": 17.75,
+      "y": 64.88,
+      "w": 7.75,
+      "h": 15.54,
+      "mask": false
+    },
+    {
+      "id": "island-1",
+      "motion": "float",
+      "src": "/art/living/city-sky/island-1.webp",
+      "x": 70.81,
+      "y": 45.84,
+      "w": 16.63,
+      "h": 8.32,
+      "mask": false
+    },
+    {
+      "id": "island-2",
+      "motion": "float",
+      "src": "/art/living/city-sky/island-2.webp",
+      "x": 7,
+      "y": 35.45,
+      "w": 11.06,
+      "h": 10.39,
+      "mask": false
+    },
+    {
+      "id": "island-3",
+      "motion": "float",
+      "src": "/art/living/city-sky/island-3.webp",
+      "x": 60.56,
+      "y": 24.84,
+      "w": 11.94,
+      "h": 7.55,
+      "mask": false
+    },
+    {
+      "id": "island-4",
+      "motion": "float",
+      "src": "/art/living/city-sky/island-4.webp",
+      "x": 88.13,
+      "y": 34.9,
+      "w": 10.38,
+      "h": 8.64,
+      "mask": false
+    },
+    {
+      "id": "island-5",
+      "motion": "float",
+      "src": "/art/living/city-sky/island-5.webp",
+      "x": 25.88,
+      "y": 34.25,
+      "w": 9.56,
+      "h": 7,
+      "mask": false
+    },
+    {
+      "id": "island-6",
+      "motion": "float",
+      "src": "/art/living/city-sky/island-6.webp",
+      "x": 32.31,
+      "y": 42.45,
+      "w": 9.31,
+      "h": 5.69,
+      "mask": false
+    },
+    {
+      "id": "water",
+      "motion": "shimmer",
+      "src": "/art/living/city-sky/water.webp",
+      "x": 20.69,
+      "y": 76.04,
+      "w": 61.19,
+      "h": 10.28,
+      "mask": true
+    },
+    {
+      "id": "cloud",
+      "motion": "haze",
+      "src": "/art/living/city-sky/cloud.webp",
+      "x": 0,
+      "y": 0,
+      "w": 100,
+      "h": 50.55,
+      "mask": false
+    },
+    {
+      "id": "stars-1",
+      "motion": "twinkle",
+      "src": "/art/living/city-sky/stars-1.webp",
+      "x": 0,
+      "y": 0,
+      "w": 33.31,
+      "h": 40.59,
+      "mask": true
+    },
+    {
+      "id": "stars-2",
+      "motion": "twinkle",
+      "src": "/art/living/city-sky/stars-2.webp",
+      "x": 33.31,
+      "y": 0,
+      "w": 33.38,
+      "h": 40.59,
+      "mask": true
+    },
+    {
+      "id": "stars-3",
+      "motion": "twinkle",
+      "src": "/art/living/city-sky/stars-3.webp",
+      "x": 66.69,
+      "y": 0,
+      "w": 33.31,
+      "h": 40.59,
+      "mask": true
+    }
+  ]
+}

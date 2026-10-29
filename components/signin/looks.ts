@@ -3,6 +3,8 @@ import type { PictureId } from "@/lib/auth/schemas";
 
 /** default: grown-ups at the grand door. junior: storybook door and a picture code. teen: glass portal and a password. */
 export type DoorVariant = "default" | "junior" | "teen";
+/** How the door looks. The variant decides how you sign in; a teen in the Anime Sky world gets the sky door and city. */
+export type LookId = DoorVariant | "sky";
 
 const KIX = "/art/login/kix.webp";
 const EXPLORER = "/art/login/kix-terrarium.webp";
@@ -20,7 +22,7 @@ type Look = {
   walkers: readonly [string, string, string];
 };
 
-export const LOOKS: Record<DoorVariant, Look> = {
+export const LOOKS: Record<LookId, Look> = {
   default: {
     city: "/art/login/city-twilight",
     leafL: "/art/login/door-grand-left.webp",
@@ -45,7 +47,20 @@ export const LOOKS: Record<DoorVariant, Look> = {
     flyers: [IDOL, ANIME, KIX],
     walkers: [ANIME, IDOL, KIX],
   },
+  sky: {
+    city: "/art/login/city-sky",
+    leafL: "/art/login/door-sky-left.webp",
+    leafR: "/art/login/door-sky-right.webp",
+    band: "teen",
+    flyers: [ANIME, KIX, ANIME],
+    walkers: [ANIME, KIX, EXPLORER],
+  },
 };
+
+/** The door a kid sees: Leonard's neon portal and Abby's sky door are both teen doors, told apart by world. */
+export function lookFor(variant: DoorVariant, pack?: PackId): LookId {
+  return variant === "teen" && pack === "anime-sky" ? "sky" : variant;
+}
 
 /** The cut-out Kix for a world: on the kid's door, in the sign-in card and on arrival. */
 export function kixSprite(pack: PackId): string {

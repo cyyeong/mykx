@@ -176,6 +176,21 @@ export const RECIPES: Recipe[] = [
     plate: { under: ["beams"], sigma: 30, grow: 4 },
   },
   {
+    art: "city-sky",
+    src: "public/art/login/city-sky.webp",
+    parts: [
+      { id: "tree", prompt: ["cherry blossom tree", "tree"], motion: "sway", each: 4 },
+      { id: "island", prompt: ["floating island", "floating rock island"], motion: "float", each: 6 },
+      { id: "water", prompt: ["canal water", "water"], motion: "shimmer" },
+      { id: "sky", prompt: "sky", motion: "sky", layer: false },
+    ],
+    pixels: [
+      { id: "cloud", motion: "haze", test: "luma", above: 0.5, inside: ["sky"], exclude: ["island", "tree"] },
+      { id: "stars", motion: "twinkle", test: "white", above: 0.4, split: 3, inside: ["sky"], exclude: ["island", "tree"] },
+    ],
+    plate: { under: ["island"], sigma: 36, grow: 8 },
+  },
+  {
     art: "transform-vortex",
     src: "public/art/scenes/transform-vortex.webp",
     parts: [],

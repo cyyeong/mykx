@@ -20,7 +20,7 @@ Kids never give an email. The magic-name door needs no grown-up on the device: t
 - **A grand double door** stands in the plaza with the sign-in card in front of it.
 - **On success:** the card folds away, the two door leaves swing open on their hinges, light floods out, and a **time tunnel** (the transform vortex art plus rushing rings and star streaks) zooms the person into their landing page, in about 3 seconds. With sound on, the transform whoosh plays, then the world's chord. Reduced motion: a short crossfade instead.
 - **Wrong password or code:** the door gives a small rattle and a calm message ("That's not it. Try again, or ask a grown-up."). After 5 tries there's a 1-minute pause, and the parent is told.
-- **Age-based looks:** *default* (parents and admins): the grand twilight door with gold filigree. *Junior:* a storybook arched door with frog knockers, picture code, Kix guiding in a bubble, 56 px targets. *Teen:* a sleek glass portal with neon lines, a password, minimal copy.
+- **Age-based looks:** *default* (parents and admins): the grand twilight door with gold filigree. *Junior:* a storybook arched door with frog knockers, picture code, Kix guiding in a bubble, 56 px targets. *Teen:* a sleek glass portal with neon lines in a neon city, a password, minimal copy. A teen in the Anime Sky world gets the same password door drawn as a pearl-and-sky arched door with cherry blossoms, in a sky city with floating islands and falling petals (founder, 29 Oct: Abby and Leonard each have their own door). The look follows the kid's world (`lookFor` in `components/signin/looks.ts`); how they sign in follows the band.
 
 ## 3. Managing accounts
 

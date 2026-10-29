@@ -769,6 +769,60 @@
     "cut_by": "sam-3.1 (\"plush toy\" + hat, magnifying glass, goggles, unioned)"
   },
   {
+    "id": "login-door-sky-left",
+    "path": "public/art/login/door-sky-left.webp",
+    "kind": "door",
+    "model": "muse-image-1.0",
+    "pack": "anime-sky",
+    "prompt": "The same closed double door as in the image, identical design, shape, carvings, cherry-blossom branches, sky-glass panels and glowing star crest at the centre seam, seen straight on and perfectly symmetrical, the vertical seam exactly in the centre, standing alone on a plain flat deep navy background. Crisp clean outer edge of the arched frame, no glow, light rays or sparkles around the outside of the door. modern Japanese anime key-visual style, cel shading, crisp clean line art. no text, no letters, no logos, no watermark",
+    "refs": [
+      "art-src/doors/door-sky-3.webp"
+    ],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "5d7bec4b6389d56f000b2c9c7911332447b6a1b631908702a70a653c442b3ba8",
+    "size": 56090,
+    "created": "2026-10-29",
+    "source": "art-src/doors/door-sky-navy-2.webp",
+    "cut_by": "sam-3.1 (\"door\", union), split at the seam (scripts/cut-door.ts)",
+    "note": "Abby's door (Anime Sky teens). First drawn from the base prompt (art-src/doors/door-sky-3.webp: A graceful closed double door seen straight on, perfectly symmetrical, filling the whole frame edge to edge, the vertical seam exactly in the centre. Tall arched doors of pearl-white and soft sky-blue lacquer with delicate pale-gold trim, each door with tall inlaid panels of clear sky glass showing drifting white clouds, curling cherry-blossom branches carved along the arch and frame, a glowing four-point star crest split exactly across the two doors at the seam, soft pink and gold light leaking around the edges. modern Japanese anime key-visual style, cel shading, crisp clean line art, gentle and elegant. no text, no letters, no logos, no watermark), then redrawn as an edit on a plain navy background so SAM could cut a clean edge."
+  },
+  {
+    "id": "login-door-sky-right",
+    "path": "public/art/login/door-sky-right.webp",
+    "kind": "door",
+    "model": "muse-image-1.0",
+    "pack": "anime-sky",
+    "prompt": "The same closed double door as in the image, identical design, shape, carvings, cherry-blossom branches, sky-glass panels and glowing star crest at the centre seam, seen straight on and perfectly symmetrical, the vertical seam exactly in the centre, standing alone on a plain flat deep navy background. Crisp clean outer edge of the arched frame, no glow, light rays or sparkles around the outside of the door. modern Japanese anime key-visual style, cel shading, crisp clean line art. no text, no letters, no logos, no watermark",
+    "refs": [
+      "art-src/doors/door-sky-3.webp"
+    ],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "7d5c907f22e805faa0696219cf378830c718273cded5648375e71ff00bdcf040",
+    "size": 54376,
+    "created": "2026-10-29",
+    "source": "art-src/doors/door-sky-navy-2.webp",
+    "cut_by": "sam-3.1 (\"door\", union), split at the seam (scripts/cut-door.ts)",
+    "note": "Abby's door (Anime Sky teens). First drawn from the base prompt (art-src/doors/door-sky-3.webp: A graceful closed double door seen straight on, perfectly symmetrical, filling the whole frame edge to edge, the vertical seam exactly in the centre. Tall arched doors of pearl-white and soft sky-blue lacquer with delicate pale-gold trim, each door with tall inlaid panels of clear sky glass showing drifting white clouds, curling cherry-blossom branches carved along the arch and frame, a glowing four-point star crest split exactly across the two doors at the seam, soft pink and gold light leaking around the edges. modern Japanese anime key-visual style, cel shading, crisp clean line art, gentle and elegant. no text, no letters, no logos, no watermark), then redrawn as an edit on a plain navy background so SAM could cut a clean edge."
+  },
+  {
+    "id": "login-city-sky",
+    "path": "public/art/login/city-sky.webp",
+    "kind": "scene",
+    "model": "muse-image-1.0",
+    "pack": "anime-sky",
+    "prompt": "A dreamy sky city at dusk seen from a wide open plaza: white towers with sky-blue roofs, arched bridges over a calm canal, cherry-blossom trees in full bloom along both edges, small floating islands and soft towering clouds, a gradient sky from sky blue to rose pink to deep navy with a crescent moon and the first stars, paper kites far away, no people, no characters. modern Japanese anime key-visual style, cel shading, crisp clean line art, dramatic sky with light rays, floating petals and light motes. calm uncluttered negative space in the centre for interface overlay. no text, no letters, no logos, no watermark",
+    "refs": [],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "6f95bc120edc67d7af7e7f980760f0f016bb204bf2cd2f9434912100361966fd",
+    "size": 158554,
+    "created": "2026-10-29",
+    "source": "art-src/doors/city-sky-1.webp",
+    "variants": [
+      "public/art/login/city-sky-800.webp"
+    ],
+    "note": "The city behind Abby's sky door."
+  },
+  {
     "id": "scene-study-room-lamp-off",
     "path": "public/art/scenes/study-room-lamp-off.webp",
     "kind": "scene",
@@ -2869,5 +2923,261 @@
     "sha256": "f69e2421b9b8b38382e4938606bf23426ab9ca697527e650e4ce055bc3775570",
     "cut_by": null,
     "note": "29 Oct: redrawn as an edit of this camera's fixed view, so every scene from one camera shares one angle (founder). Synthetic."
+  },
+  {
+    "id": "living-city-sky-tree-1",
+    "path": "public/art/living/city-sky/tree-1.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "cherry blossom tree",
+    "refs": [
+      "public/art/login/city-sky.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "796bc2c0c748a279b84c0a878f017bf2ba46aef61324f91564854f1a1bae48e2",
+    "size": 20668,
+    "created": "2026-10-29",
+    "note": "Living art: sway layer cut from city-sky."
+  },
+  {
+    "id": "living-city-sky-tree-2",
+    "path": "public/art/living/city-sky/tree-2.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "cherry blossom tree",
+    "refs": [
+      "public/art/login/city-sky.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "25e42159dec98a2f64e2555cda1f4f336531b1f636193034050b28654cafe086",
+    "size": 13358,
+    "created": "2026-10-29",
+    "note": "Living art: sway layer cut from city-sky."
+  },
+  {
+    "id": "living-city-sky-tree-3",
+    "path": "public/art/living/city-sky/tree-3.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "cherry blossom tree",
+    "refs": [
+      "public/art/login/city-sky.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "a4b74ebe10297ce7af6bd8e88407c324501487b3ef0db47a122a7e269f4c5046",
+    "size": 6400,
+    "created": "2026-10-29",
+    "note": "Living art: sway layer cut from city-sky."
+  },
+  {
+    "id": "living-city-sky-tree-4",
+    "path": "public/art/living/city-sky/tree-4.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "cherry blossom tree",
+    "refs": [
+      "public/art/login/city-sky.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "5acad872e74eb46c9bbf8e4b151151edaa66373bdbfee7821ae701c2ff5051e1",
+    "size": 3840,
+    "created": "2026-10-29",
+    "note": "Living art: sway layer cut from city-sky."
+  },
+  {
+    "id": "living-city-sky-island-1",
+    "path": "public/art/living/city-sky/island-1.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "floating island",
+    "refs": [
+      "public/art/login/city-sky.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "b67142c22b2a076dd4bf54dd8ddfe3ec3c543d87bdabbd22eeccabfc48c98efc",
+    "size": 3630,
+    "created": "2026-10-29",
+    "note": "Living art: float layer cut from city-sky."
+  },
+  {
+    "id": "living-city-sky-island-2",
+    "path": "public/art/living/city-sky/island-2.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "floating island",
+    "refs": [
+      "public/art/login/city-sky.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "f55c0395a41e7ddb69b6e3a417193a4becc7d81c2e23f5c543aac802ec7aff9f",
+    "size": 2690,
+    "created": "2026-10-29",
+    "note": "Living art: float layer cut from city-sky."
+  },
+  {
+    "id": "living-city-sky-island-3",
+    "path": "public/art/living/city-sky/island-3.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "floating island",
+    "refs": [
+      "public/art/login/city-sky.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "01f330cb1c49a8e14da10d2da4571f1c6f795ea6df533a93a8aedca337a1b031",
+    "size": 2256,
+    "created": "2026-10-29",
+    "note": "Living art: float layer cut from city-sky."
+  },
+  {
+    "id": "living-city-sky-island-4",
+    "path": "public/art/living/city-sky/island-4.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "floating island",
+    "refs": [
+      "public/art/login/city-sky.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "65855fe5562cb9ca30e3969d5791ae39e4dc89b8d18c9367e5b929fc3aedeeab",
+    "size": 2330,
+    "created": "2026-10-29",
+    "note": "Living art: float layer cut from city-sky."
+  },
+  {
+    "id": "living-city-sky-island-5",
+    "path": "public/art/living/city-sky/island-5.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "floating island",
+    "refs": [
+      "public/art/login/city-sky.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "3e4fb6b3d42e751dc1fa56d3574f469f7a81e3b46f7fd8a9908351cbd22095f1",
+    "size": 1934,
+    "created": "2026-10-29",
+    "note": "Living art: float layer cut from city-sky."
+  },
+  {
+    "id": "living-city-sky-island-6",
+    "path": "public/art/living/city-sky/island-6.webp",
+    "kind": "layer",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "floating island",
+    "refs": [
+      "public/art/login/city-sky.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "dc3a6041fb6b9d987d9b894838507ac115191ecc81a6190abf041c0e2e7fe86c",
+    "size": 1570,
+    "created": "2026-10-29",
+    "note": "Living art: float layer cut from city-sky."
+  },
+  {
+    "id": "living-city-sky-water",
+    "path": "public/art/living/city-sky/water.webp",
+    "kind": "mask",
+    "model": "sam-3.1",
+    "pack": null,
+    "prompt": "canal water",
+    "refs": [
+      "public/art/login/city-sky.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "28889e6e351d782969ad0dc4a2a08aa554052e71668106af0ed0bf8ef02d13fc",
+    "size": 1512,
+    "created": "2026-10-29",
+    "note": "Living art: shimmer layer cut from city-sky."
+  },
+  {
+    "id": "living-city-sky-cloud",
+    "path": "public/art/living/city-sky/cloud.webp",
+    "kind": "layer",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "luma pixels (threshold, no model)",
+    "refs": [
+      "public/art/login/city-sky.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "65e7f4e372a3a2692c412b3af785b2da948e255e82ab45eabf2af7d8c097ab3c",
+    "size": 151916,
+    "created": "2026-10-29",
+    "note": "Living art: haze layer cut from city-sky."
+  },
+  {
+    "id": "living-city-sky-stars-1",
+    "path": "public/art/living/city-sky/stars-1.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "white pixels (threshold, no model)",
+    "refs": [
+      "public/art/login/city-sky.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "a50ab501e4d595542fdbf61b43662e946e626bf4d8928b4df80cdae2f780d181",
+    "size": 15534,
+    "created": "2026-10-29",
+    "note": "Living art: twinkle layer cut from city-sky."
+  },
+  {
+    "id": "living-city-sky-stars-2",
+    "path": "public/art/living/city-sky/stars-2.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "white pixels (threshold, no model)",
+    "refs": [
+      "public/art/login/city-sky.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "7b2dc76ae0697d3040f15db94da00ea29735d244dce5f8c7e65501180dbf16a7",
+    "size": 6598,
+    "created": "2026-10-29",
+    "note": "Living art: twinkle layer cut from city-sky."
+  },
+  {
+    "id": "living-city-sky-stars-3",
+    "path": "public/art/living/city-sky/stars-3.webp",
+    "kind": "mask",
+    "model": "none (sharp threshold)",
+    "pack": null,
+    "prompt": "white pixels (threshold, no model)",
+    "refs": [
+      "public/art/login/city-sky.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "50701fe4fe266d1551bc5dce0097b1817f3b012e239af9c9d9b91dc7a2fb64f1",
+    "size": 4738,
+    "created": "2026-10-29",
+    "note": "Living art: twinkle layer cut from city-sky."
+  },
+  {
+    "id": "living-city-sky-plate",
+    "path": "public/art/living/city-sky/plate.webp",
+    "kind": "plate",
+    "model": "none (normalised blur fill)",
+    "pack": null,
+    "prompt": "city-sky with island filled in from the surrounding art",
+    "refs": [
+      "public/art/login/city-sky.webp"
+    ],
+    "route": "scripts/living-art.ts",
+    "sha256": "9517f450b0cc96786f0bf52d0dbc92d4c44d38a62ecc11179630d6e4fcac85e3",
+    "size": 148242,
+    "created": "2026-10-29",
+    "note": "Living art: base plate for city-sky, drawn under the moving layers."
   }
 ]

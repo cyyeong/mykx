@@ -11,7 +11,7 @@ import { Art } from "@/components/ui/Art";
 import type { PackId } from "@/components/theme/packs";
 import { useSound } from "@/components/sound/SoundProvider";
 import { isGuest } from "@/lib/guest";
-import { LOOKS } from "./looks";
+import { LOOKS, lookFor } from "./looks";
 import { SignInScreen } from "./SignInScreen";
 import "./magicName.css";
 
@@ -179,7 +179,7 @@ function MagicNameDialog({ onClose, onDoor }: { onClose: () => void; onDoor: (do
 /** The door's flight, over the city that turns into the kid's world. Lifts once the real door screen is under it. */
 function DoorSummon({ door, onDone }: { door: Door; onDone: () => void }) {
   const variant = door.secretKind === "pictures" ? "junior" : "teen";
-  const look = LOOKS[variant];
+  const look = LOOKS[lookFor(variant, door.pack)];
   const world = WORLDS[door.pack];
   const root = useRef<HTMLDivElement>(null);
   const flier = useRef<HTMLDivElement>(null);
