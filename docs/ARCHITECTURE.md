@@ -1191,6 +1191,7 @@ Dates are SGT. From `docs/plan/IMPLEMENTATION_PLAN.md` and `docs/prd/GUARDIAN.md
 | Memory | The remaining Notebook pages from the spec (events, weak spots linked to subskills, revision log); line-level parent edits in the UI |
 | Guardian | ONVIF discovery and streaming in Home Link; on-box person detection; push notifications; Supabase Realtime instead of polling; Activity Recognition through a native plugin |
 | Platform | Shared budgets and caches; an ingest queue for frames; retention jobs and rollups; prompt ordering for prefix caching; persisted evening summaries |
+| Models | A specialised myKx tutor model (founder, 29 Oct): starting from Meta's open-weight models, trained on the skill packs, local exam patterns and de-identified, consent-given learning traces, to make Kix faster and cheaper to run, more local in how it teaches and more adaptable to each child. The same rules hold: Standard-mode data handling, hints not answers, and code decides scores and rewards |
 | Reach | New levels and languages; school and tutor roles; Kix goes global (§10.3: a Curriculum Scout and a Local Coach per country, privacy rules as data; Malaysia, Indonesia, Australia, Japan, China, India, Korea, the UK and the USA after Singapore); the device adapters in §10.2 |
 
 ---

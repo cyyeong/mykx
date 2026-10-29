@@ -382,7 +382,7 @@ build_road = f"""
 {stop("", "Later", "Kix on Meta devices", ["Hands-free, at home and outdoors", "Sees and hears only with permission", "More personal support for every child"])}
 </div>
 <section class="r-world">
-  <div><div class="r-when">Beyond</div><h3>Kix goes global</h3><ul>{"".join(li(i) for i in ["A Curriculum Scout per country maps its syllabus, grades and exams into new skill packs", "A Local Coach agent teaches in the child's language, with local examples, money and places", "Each country's child-privacy law built into the rules (PDPA, COPPA, GDPR and more)"])}</ul></div>
+  <div><div class="r-when">Beyond</div><h3>Kix goes global</h3><ul>{"".join(li(i) for i in ["A Curriculum Scout per country maps its syllabus, grades and exams into new skill packs", "A Local Coach agent teaches in the child's language, with local examples, money and places", "Each country's child-privacy law built into the rules (PDPA, COPPA, GDPR and more)", "Our own specialised tutor model: faster, more local, more adaptable"])}</ul></div>
   <div class="r-flags">{"".join(f'<figure class="r-flag"><img src="{img("flag-" + c)}" alt="{n} flag"><figcaption>{n}</figcaption></figure>' for c, n in [("sg", "Singapore"), ("my", "Malaysia"), ("id", "Indonesia"), ("au", "Australia"), ("jp", "Japan"), ("cn", "China"), ("in", "India"), ("kr", "Korea"), ("gb", "UK"), ("us", "USA")])}</div>
 </section>
 <p class="r-ask">Built in Singapore. Help us take Kix from a hackathon MVP to every family, everywhere.</p>
