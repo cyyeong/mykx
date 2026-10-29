@@ -908,7 +908,7 @@ A Sec 2 child costs less (shorter teaching notes). Prefix caching (stable pack n
 | Project | What | How it deploys |
 |---|---|---|
 | `mykx` | The Next.js app at https://mykx.vercel.app | Vercel builds every push to `main` |
-| `mykx-sim` | The Home simulator at https://mykx-sim.vercel.app: a static page plus `sim/api/send.js` (60 s), behind Vercel's sign-in protection and a passcode | From the `sim/` folder with the Vercel CLI (`cd sim && npx vercel@65.1.0 deploy --prod`); not connected to git |
+| `mykx-sim` | The Home simulator at https://mykx-sim.vercel.app: a static page plus `sim/api/send.js` (60 s), behind Vercel's sign-in protection and a passcode | From git on every push, with the project's Root Directory set to `sim` (29 Oct: the project had been connected to the repo without it, so pushes built the whole app into it and the simulator went down) |
 
 The simulator holds a real Home Link device token for the synthetic demo household and posts only its own bundled frames (`public/art/sim/`, eight Muse Image frames in the manifest, labelled "Synthetic camera frames") and scripted points to the real ingest routes, so myKx can't tell it from a real client. It answers each send with what myKx said, newest first.
 
@@ -937,7 +937,8 @@ Both refuse any request without `Authorization: Bearer $CRON_SECRET` (timing-saf
 | `SIM_HOME_LINK_TOKEN`, `SIM_PASSCODE`, `MYKX_URL` | `sim/api/send.js` | Set on `mykx-sim`, the first two marked sensitive |
 | `MYKX_SERVER`, `MYKX_HOME_LINK_DIR`, `MYKX_HOME_LINK_FFMPEG` | `clients/home-link/` | Optional client settings |
 | `GOOGLE_API_KEY` | `scripts/papers/connect.ts` | Local paper connector only |
-| `DEMO_PASSWORD`, `DEMO_PICTURE_CODE` | `scripts/set-demo-secrets.ts` | Local only: the sample family's production sign-ins (the grown-up `demo@mykx.ai` and the password kids; the picture-code kids). Never in git; the in-memory demo store keeps its own local-only secrets |
+| `DEMO_PASSWORD`, `DEMO_PICTURE_CODE` | `scripts/local-supabase.ts` (`npm run db:local`) | The full stack on your own machine: a local Supabase in Docker (CLI 2.122.0 through npx, project in `dev/supabase`) built from `schema.sql`, `rls.sql` and `seed.sql` plus `dev/seed-local.sql` (a local-only sign-in for the demo grown-up), and `.env.development.local` pointing the app at it; `-- reset`, `-- stop` |
+| `scripts/set-demo-secrets.ts` | Local only: the sample family's production sign-ins (the grown-up `demo@mykx.ai` and the password kids; the picture-code kids). Never in git; the in-memory demo store keeps its own local-only secrets |
 
 Values are never printed, logged or committed.
 

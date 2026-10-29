@@ -5,6 +5,7 @@ Claude Code builds everything from 28 Oct afternoon (Muse Code retired). Read `A
 ## Run it
 
 - `npm install`, then `npm run dev` (port 3000; the founder's machine uses 3100), `npm run typecheck`, `npm run lint`, `npm test`, `npm run build`.
+- **Full stack locally (Docker):** `npm run db:local` starts a local Supabase built from `supabase/schema.sql`, `rls.sql` and `seed.sql`, with a local-only grown-up sign-in, and writes `.env.development.local` (which overrides `.env.local` in dev, so delete it to go back). Don't run it in the main checkout while a dev server there uses production.
 - **Without `.env.local`** (a fresh clone) the dev server uses an in-memory **demo family**: any email and password signs a grown-up in; kids are Jordan (P3, picture code: Kix smiling, Kix cheering, Kix the pilot, Starry Kix), Abby (P6) and Leonard (Sec 2), both with the local-only password `local-demo-only`. Production's sample family has its own sign-ins, kept only in `.env.local` (`DEMO_PASSWORD`, `DEMO_PICTURE_CODE`) and set with `node --env-file=.env.local scripts/set-demo-secrets.ts`; judges get them in the submission form (founder, 29 Oct). See `lib/auth/demo-family.ts`. That's all you need for UI work.
 - Live Meta model calls, Supabase and art generation need keys that only the founder's machine has. Don't ask for them; leave those steps to the founder or Claude Code.
 - Production: https://mykx.vercel.app (Vercel builds every push to `main`).
@@ -67,7 +68,7 @@ Today `lib/sound/engine.ts` plays short synthesised effects and, for some worlds
   Values are never printed in chat or committed.
 - **Done on 28 Oct (the founder signed the CLI in; Claude Code did the rest):**
   - `CRON_SECRET` is set on `mykx` (the founder added it; both cron routes answer 401 without it).
-  - The second project is `mykx-sim` (team `my-kx`), live at https://mykx-sim.vercel.app. It is deployed straight from the `sim/` folder, so a change to `sim/` goes live with `cd sim && npx vercel@65.1.0 deploy --prod`. It isn't connected to git. Vercel sign-in protection is on, so opening it asks for the founder's Vercel login, and then for the passcode.
+  - The second project is `mykx-sim` (team `my-kx`), live at https://mykx-sim.vercel.app. It deploys from git on every push, with its Root Directory set to `sim` (set 29 Oct; before that, pushes rebuilt the whole app into it and the simulator showed 404). Vercel sign-in protection is on, so opening it asks for the founder's Vercel login, and then for the passcode.
   - Its settings are `SIM_PASSCODE`, `SIM_HOME_LINK_TOKEN` and `MYKX_URL`, all production, with the first two marked sensitive. The passcode is in the Claude Code scratchpad (`sim-pass-prod.txt`); copy it with `pbcopy < <path>`.
   - Production's demo household is set up for it by `scripts/guardian/setup-sim.ts`: Home and School pins, each kid's sharing, the parent's descriptions, camera hours open all day and every day, and a simulator device. It only touches the household if every profile in it is synthetic.
   - Tested end to end against production: a location and a live Muse Spark reading of a camera frame.

@@ -174,6 +174,16 @@ npm run typecheck && npm run lint && npm run build
 
 Without `.env.local`, the dev server uses an in-memory sample family, so no keys are needed for UI work. Any email and password signs a grown-up in; the sample kids' codes are in the tests.
 
+**The full stack on your own machine (Docker).** To run myKx against a real Supabase (Postgres with row-level security, Auth and Storage) in your own sandbox:
+
+```bash
+npm install
+npm run db:local     # starts a local Supabase in Docker (first run pulls the images) and seeds the sample family
+npm run dev          # http://localhost:3000
+```
+
+`db:local` builds the database from `supabase/schema.sql`, `rls.sql` and `seed.sql`, adds a local sign-in for the grown-up (`demo@mykx.ai` / `local-demo-only`, also the admin), and writes `.env.development.local` so the app uses it. Kids' magic names are `jordan`, `abby` and `leonard`; Abby and Leonard use `local-demo-only`, Jordan the picture code Kix smiling, Kix cheering, Kix the pilot, Starry Kix. These sign-ins are local-only. Add your own Meta key (`MODEL_API_KEY`, Standard mode) to that file for live Muse calls; without it every agent uses its cached fallback. `npm run db:local -- reset` re-seeds, `npm run db:local -- stop` stops it, and Supabase Studio is at http://127.0.0.1:54323.
+
 Live model calls, Supabase and art generation need keys (names in `.env.example`: `MODEL_API_KEY`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SECRET_KEY`, `KID_SESSION_SECRET`). Keys stay on the server.
 
 **Stack:** Next.js 16 (App Router, Cache Components) · React 19 · TypeScript · Tailwind CSS v4 with per-world themes · `motion` · Tone.js (every sound synthesised) · Supabase (Auth, Postgres with row-level security, Storage) · the OpenAI SDK pointed at `api.meta.ai/v1` · Vercel.

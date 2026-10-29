@@ -38,3 +38,7 @@ scripts/soak/out/
 
 # Private judging plan (founder, 28 Oct): never published
 docs/plan/JUDGING.md
+
+# Local Supabase (scripts/local-supabase.ts builds these from supabase/schema.sql, rls.sql and seed.sql)
+dev/supabase/migrations/
+dev/supabase/seed.sql

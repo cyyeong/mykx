@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "db:local": "node scripts/local-supabase.ts"
   },
   "dependencies": {
     "@mediapipe/tasks-vision": "1.1.1",
