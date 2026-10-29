@@ -16,6 +16,7 @@ One index for humans and agents. If a reference isn't linked here, it isn't cano
 | [prd/GUARDIAN.md](prd/GUARDIAN.md) | **PRD 2: Guardian** (proposed 28 Oct): kid location with motion state on a OneMap map, Home watch from the family's RTSP/ONVIF cameras read by Muse Spark, the Home Link desktop client, the Home simulator; rule changes, Meta policy and Singapore law, feasibility and cost |
 | [plan/GUARDIAN_DEMO.md](plan/GUARDIAN_DEMO.md) | Guardian's demo runbook and video beat: reset, the take step by step, what's live or cached, the voice-over |
 | [prd/GAMES.md](prd/GAMES.md) | Game Arcade (proposed): learning games that follow each child's syllabus, starting with a touch-typing game with ghost hands; designs in canvas row 10 |
+| [RESEARCH.md](RESEARCH.md) | **The evidence behind myKx.** The market and the need (Singapore and worldwide), what research says about monitoring children, the learning science behind each design choice, and the claims we deliberately don't make; the full sourced brief is in [research/](research/evidence-brief-2026-10-29.md). |
 | [prd/myKx_PRD.md](prd/myKx_PRD.md) | Original PRD (26 Oct). Still canonical for the mastery maths (§6), reward ethics (FR10), parent summary rules (FR07) and data model (§9). |
 
 ## Design

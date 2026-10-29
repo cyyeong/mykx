@@ -47,11 +47,26 @@ Everything in this family is synthetic, and everyone trying it shares it, so you
 >
 > — the founder of myKx
 
-In Singapore, school ends around 1:30 and work ends after 6. In between, children learn, play, squabble and wander home, and a parent at work sees none of it. It's most families' problem: 56.6% of married couples here both work ([General Household Survey 2025](https://mothership.sg/2026/06/general-household-survey-2025-income/)), and families spent S$1.8 billion on private tuition in 2023 ([Household Expenditure Survey](https://www.malaymail.com/news/singapore/2025/01/20/singapore-families-spent-s18-billion-on-private-tuition-in-2023-with-the-richest-spending-over-s162-per-month/163937)). By the time everyone is home, there's dinner, homework and bedtime, and "How was school?" gets a shrug.
+In Singapore, school ends around 1:30 and work ends after 6. In between, children learn, play, squabble and wander home, and a parent at work sees none of it. It's most families' problem: **56.6%** of married couples here both work ([General Household Survey 2025](https://www.singstat.gov.sg/publication-resources/general-household-survey-2025)), parents already spend **7.9 hours** a week helping with schoolwork, above the 6.7-hour average across 29 countries ([Varkey Foundation](https://www.varkeyfoundation.org/_files/ugd/5c330e_08203a0b372c4a4fa9185c3ee517fcaa.pdf)), and families spent **S$1.8 billion** on private tuition in 2023, with the richest fifth of households spending four and a half times what the poorest fifth do ([Household Expenditure Survey 2023](https://www.singstat.gov.sg/news/parents-seem-persuaded-that-tuition-is-necessary-and-not-optional)). It isn't only Singapore: three in four South Korean students are in private education, three in ten teenagers in England and Wales have had tuition, and the global tutoring market is heading for an estimated US$155 billion by 2030 ([sources](docs/RESEARCH.md)). By the time everyone is home, there's dinner, homework and bedtime, and "How was school?" gets a shrug.
 
 myKx keeps the afternoon for the parent, and keeps each child's learning balanced: not more screen time, but the right questions at the right moment, breaks and quiet hours, and plans that get the family outdoors together.
 
 <img src="docs/readme/why.webp" alt="Working parents miss the afternoon. One Tuesday as the parent sees it: Leonard takes the bus home, Jordan finishes the frog life-cycle quest, Abby asks Kix about fractions, a possible tug-of-war at home is checked and marked not right, a Saturday cycling plan, and the evening summary." width="100%">
+
+## Built on evidence
+
+myKx's design follows the research, and says where the research stops. Full sources: [docs/RESEARCH.md](docs/RESEARCH.md).
+
+| What myKx does | Why |
+|---|---|
+| A patient tutor for every child, with step-by-step hints | Intelligent tutors beat teacher-led large-group teaching and match one-to-one human tutoring ([Ma et al., 2014](https://doi.org/10.1037/a0037123)) |
+| Hints, never answers | Unguarded GPT-4 left students 17% worse once it was taken away; a hint-only tutor largely avoided that ([Bastani et al., PNAS 2025](https://doi.org/10.1073/pnas.2422633122)) |
+| The next question chosen for the child's level; spaced, fresh questions | Adapting to the learner's level gave the largest effects in 16 trials of children aged 6–15 ([Major et al., 2021](https://eprints.whiterose.ac.uk/176999)); testing beats rereading a week later, 56% to 42% ([Roediger & Karpicke, 2006](https://psychology.ecu.edu/wp-content/pv-uploads/sites/216/2019/03/Roediger-Karpicke-2006.pdf)) |
+| Lessons framed in the child's own interests | Problems personalised to students' interests improved learning, most for those who struggled ([Walkington, 2013](https://edsurge.com/news/2013-11-08-can-interest-based-personalization-deliver-better-learning-outcomes); [Bernacki & Walkington, 2018](https://doi.org/10.1037/edu0000250)) |
+| A stunning world outside the lesson, a calm question player inside it; rewards that celebrate, no leaderboards | Relevant pictures help learning, decorative distractions hurt it ([Mayer](https://www.cambridge.org/core/books/abs/multimedia-learning/multimedia-principle/1CC3DE892B0431BA48B4C4DCA10D0B8F)); expected tangible rewards undermine children's motivation ([Deci et al., 1999](https://depts.washington.edu/techdocs/papers/deciExtrinsicRewardsAndIntrinsicMotivation99.pdf)) |
+| Guardian that the child can see, with a teen pause and "possibly" alerts | What children choose to tell parents, not surveillance, goes with good outcomes ([Kerr & Stattin, 2000](https://pubmed.ncbi.nlm.nih.gov/10830980)); more parental control went with more online risk ([Ghosh et al., CHI 2018](https://doi.org/10.1145/3173574.3173768)) |
+
+What we don't claim: Bloom's "two-sigma", that AI doubles learning, that games or visuals raise motivation by themselves, or that monitoring is proven to keep children safe. That evidence is weak or correlational.
 
 ## Three kids, three worlds, one sidekick each
 
