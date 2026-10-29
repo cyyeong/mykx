@@ -34,6 +34,10 @@ const ICONS: Record<KidTabId, { body: React.ReactNode; fill: boolean }> = {
       </>
     ),
   },
+  critters: {
+    fill: false,
+    body: <path d="M12 8a4.5 4.5 0 0 1 4.5 4.5v2a4.5 4.5 0 0 1-9 0v-2A4.5 4.5 0 0 1 12 8zm0 0v11M9.5 4.5 10.8 8M14.5 4.5 13.2 8M7.5 12H4.5M19.5 12h-3M7.6 16H5M19 16h-2.6" />,
+  },
   treasure: {
     fill: false,
     body: <path d="M6 4h12l4 5.5L12 20 2 9.5zm0 0L12 20M2 9.5h20M9.5 9.5 12 20M14.5 9.5 12 20M6 4l3.5 5.5M18 4l-3.5 5.5" />,

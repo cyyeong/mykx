@@ -79,3 +79,7 @@ button.cl-tile { cursor: pointer; }
 }
 @media (min-width: 1024px) and (min-aspect-ratio: 5/4) { .cl-page { height: var(--screen-h); min-height: 0; } }
 @media (prefers-reduced-motion: reduce) { .cl-critter, .cl-lid { animation: none !important; } }
+/* Inside the Critter Lab hub (components/pets/CritterHub.tsx): the hub has the heading, the page and the space. */
+.cl-page[data-embedded="yes"] { min-height: 0; height: auto; max-width: none; padding: 0; background: none; grid-template-rows: auto auto; grid-template-areas: "tabs tabs" "main games"; border-radius: 26px; }
+@media (max-width: 1023px) { .cl-page[data-embedded="yes"] { grid-template-areas: "tabs" "main" "games"; padding: 0; } }
+@media (min-width: 1024px) and (min-aspect-ratio: 5/4) { .cl-page[data-embedded="yes"] { height: auto; } }

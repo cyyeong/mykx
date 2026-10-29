@@ -23,7 +23,7 @@ Built for the **Meta Global AI Developer Hackathon** (track: Build for Your Worl
 | Criterion | Where to see it |
 |---|---|
 | **Impact** (Build for Your World) | [Why I built it](#why-i-built-it): a problem the founder lives every day, in a country where most couples both work. myKx frees up a parent's time and mental space, and makes something possible that wasn't before: a child's own interests become their learning world. |
-| **Use of Meta AI tooling** | [16 specialists, 14 on Meta Muse](#16-specialists-14-of-them-on-meta-muse): four Meta models chained into pipelines (Muse Image + SAM 3.1 transforms; Muse Spark vision + rules + SAM 3.1 for home cameras; Muse Spark web search + planning), with every call logged in Under the hood. Muse Code built four of the branches. |
+| **Use of Meta AI tooling** | [17 specialists, 15 on Meta Muse](#17-specialists-15-of-them-on-meta-muse): four Meta models chained into pipelines (Muse Image + SAM 3.1 transforms; Muse Spark vision + rules + SAM 3.1 for home cameras; Muse Spark web search + planning), with every call logged in Under the hood. Muse Code built four of the branches. |
 | **Technical depth and execution** | [Architecture](docs/ARCHITECTURE.md), more than 900 automated tests run by CI on every push, deterministic engines for scores and alerts, row-level security per household, cached fallbacks for every generated surface.<br><br>A few ideas make it more than a chatbot on a syllabus:<br>• **Skills, not search.** Kix's agents load versioned skill packs for the child's level and read the exact section they need through tools that run as trusted code, and every step is logged.<br>• **It quietly gets better.** In the moment, a drifting child gets a spark from their own interests. Each day, the Memory Keeper updates Kix's Notebook, and a hard day yesterday means a gentler start today. Each week, new exam papers become admin-reviewed skill-pack versions, and agents' instructions are versioned with guardrails that stay fixed.<br>• **Models explain; code decides.** Mastery, rewards, alerts and when Kix adapts are plain, tested rules, so a score never moves without evidence.<br>• **Open, and safe by construction.** Each child's world arrives with their magic name, one device protocol (proven today by the simulator) carries phones, cameras and future peripherals, and the guest site has no keys that could reach real data. |
 | **Demo** | The video, the [guest walkthrough](https://mykx-guest.vercel.app) (one tap, no password), the [live app](#try-it-live) (sign-ins are in the submission form), the [Home simulator](https://mykx-sim.vercel.app), and [everything in the MVP](#everything-in-the-mvp). |
 
@@ -106,14 +106,14 @@ None of this changes a score or a reward: mastery stays deterministic, and an an
 2. **Content Curator** (Muse Spark) reads new papers for patterns, common traps and how often each topic comes up. It never keeps a school's questions; an admin approves every change before it reaches a child.
 3. **Twelve skill packs** hold original questions in each exam's format: English, Maths, Science and Chinese for each of P3, P6 and Sec 2, over 1,100 in all, each pack following the latest MOE syllabus and SEAB format it names. Questions from school papers are never used; only their patterns are.
 4. **Kix Tutor** (Muse Spark) works on the child's weakest sub-skill and gives hints that never hand over the answer. Which question comes next is decided by code.
-5. **Mastery and Treasure** are deterministic: a holographic card, a critter that grows through its real life cycle, a display jet that unlocks. No loot boxes, no rankings, no money.
+5. **Mastery and Treasure** are deterministic: a holographic card, a critter that grows through its real life cycle, a display jet that unlocks. In the Critter Lab, kids also raise their own pets: a tadpole, a mealworm, a caterpillar or a chick, each stage needing its own care (the right food, a clean home, play, warmth) before it grows, while the life cycle stays in view. No loot boxes, no rankings, no money.
 6. **Memory Keeper** (Muse Spark) writes Kix's Notebook: how this child asks, slips and wins, so tomorrow starts where today ended, and more gently after a hard day. The parent can read, edit or wipe every page.
 
 Steps 4 to 6 repeat every session, so the questions follow the child, and the packs get better as the Curator learns what the exams ask. The full loops are in [the architecture doc](docs/ARCHITECTURE.md).
 
-## 16 specialists, 14 of them on Meta Muse
+## 17 specialists, 15 of them on Meta Muse
 
-<img src="docs/readme/agents.webp" alt="16 specialists, 14 run on Meta Muse: Muse Spark 1.3 for eleven agents, SAM 3.1 for two, Muse Image 1.0 for one, Muse Voice Transcribe 1.0 for one, and two run on rules only." width="100%">
+<img src="docs/readme/agents.webp" alt="17 specialists, 15 run on Meta Muse: Muse Spark 1.3 for twelve agents, SAM 3.1 for two, Muse Image 1.0 for one, Muse Voice Transcribe 1.0 for one, and two run on rules only." width="100%">
 
 | Agent | What it does | Meta model |
 |---|---|---|
@@ -126,6 +126,7 @@ Steps 4 to 6 repeat every session, so the questions follow the child, and the pa
 | Vibe Zone maker | Flashcards from a child's own brief, drawn by trusted components | Muse Spark 1.3 (structured output) |
 | Talk to Kix | Push-to-talk questions; the audio is never kept | Muse Voice Transcribe 1.0 |
 | Memory Keeper | Keeps Kix's Notebook about each child, and notes how each session went so tomorrow can start gently | Muse Spark 1.3 |
+| Critter Keeper | Speaks as the child's pet at its life stage (a tadpole can't catch flies yet) and coaches its care; the care rules in code decide every bar, mood and stage | Muse Spark 1.3 (structured output) |
 | Screen-time guardian | Breaks, quiet hours and the day's learning-to-play balance | rules only |
 | Home Reader | Reads the family's own camera frames into words | Muse Spark 1.3 (vision) |
 | Who's who | Outlines the children on a flagged frame | SAM 3.1 |
@@ -159,7 +160,7 @@ For a real home, **Home Link** (`clients/home-link/`) is a small app on the fami
 
 <img src="docs/readme/features.webp" alt="A working MVP end to end: fifteen real screens of the app signed in as the sample family." width="100%">
 
-**For kids:** magic-name sign-in with their own door · Sidekick Studio · Home with today's quest · Quest map · Question player with hints, reasons, voice and sparks · Treasure Realm · Critter Lab · Sky Squadron · Vibe Zone flashcards · Arcade typing games · Ask Kix homework help · Talk to Kix · printable practice papers · family messages with Kix stickers.
+**For kids:** magic-name sign-in with their own door · Sidekick Studio · Home with today's quest · Quest map · Question player with hints, reasons, voice and sparks · Treasure Realm · Critter Lab pets raised through real life cycles · Sky Squadron · Vibe Zone flashcards · Arcade typing games · Ask Kix homework help · Talk to Kix · printable practice papers · family messages with Kix stickers.
 
 **For parents:** Today, with flags shown alongside their evidence · Tonight · wellbeing notes ("possibly tired", against the child's own baseline, never a diagnosis) · Kix's Notebook · Messages · Where they are · Home now · Do something together · Your family (sign-in codes, voice, focus camera, screen time).
 

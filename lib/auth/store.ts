@@ -13,6 +13,7 @@ import type { FlashcardSpec } from "../vibe/flashcards.ts";
 import type { FamilyMessage, Sticker } from "../family/messages.ts";
 import type { PageSlug } from "../notebook/notebook.ts";
 import type { GameProgress } from "../games/progress.ts";
+import type { PetRecord } from "../pets/care.ts";
 import type { FindStatus, PaperFind, ScoutRun } from "../papers/finds.ts";
 import type { ScoutRow } from "../papers/scan.ts";
 import type { OutingRun } from "../outings/outings.ts";
@@ -365,6 +366,12 @@ export interface AuthStore {
   games: {
     progress(householdId: string, kidId: string): Promise<GameProgress[]>;
     save(householdId: string, kidId: string, progress: GameProgress): Promise<void>;
+  };
+
+  // Pets (lib/pets): kept as game_progress rows, "pet:<species>" (lib/pets/record.ts).
+  pets: {
+    list(householdId: string, kidId: string): Promise<PetRecord[]>;
+    save(householdId: string, kidId: string, pet: PetRecord): Promise<void>;
   };
 
   // Every model call (model_runs), for Under the hood and cost. Writes come from lib/runs/log.ts.

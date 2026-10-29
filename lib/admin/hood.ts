@@ -106,6 +106,7 @@ export const AGENTS: readonly Agent[] = [
   { id: "outing-scout", name: "Outing Scout (web search)", route: "outing-scout", models: ["muse-spark-1.3"], reads: "The web, told only the home area, the radius, the interests and the dates", never: "Gets a child's name, age or whereabouts" },
   { id: "outing-planner", name: "Outing Planner", route: "outing-planner", models: ["muse-spark-1.3"], reads: "The Scout's sourced results, NEA's weather and the family's week", never: "Uses the web, or keeps an idea whose source the Scout didn't cite (checked in code)" },
   { id: "tonight", name: "Tonight (evening summary)", route: "tonight", models: ["muse-spark-1.3"], reads: "Today's screen time, learning, unseen flags, the afternoon at home and the weekend plan, as facts", never: "Adds a fact, diagnoses, or judges a child" },
+  { id: "critter-keeper", name: "Critter Keeper (Pets)", route: "critter-keeper", models: ["muse-spark-1.3"], reads: "The child's words to their pet; the pet's species, life stage, foods, care bars, mood and the care its stage still needs", never: "Keeps the chat, reads anything else about the child, or changes the pet's care, mood or stage (the care rules in code do that)" },
   { id: "scout", name: "Past-paper scout", route: null, models: [], reads: "Admin-approved sites, respecting robots.txt and terms", never: "Bypasses a CAPTCHA, a sign-in or a robots block" },
 ];
 

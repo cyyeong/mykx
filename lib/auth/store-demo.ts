@@ -39,6 +39,8 @@ import type { FlashcardSpec } from "../vibe/flashcards.ts";
 import type { FamilyMessage, Sticker } from "../family/messages.ts";
 import type { PageSlug } from "../notebook/notebook.ts";
 import type { GameProgress } from "../games/progress.ts";
+import type { PetRecord } from "../pets/care.ts";
+import { petFromGame, petToGame } from "../pets/record.ts";
 import type { CookieJar } from "./http.ts";
 import type { AuditEntry, AuthStore, AuthUser, Household, NewFocusNote, NewKid, Profile, ProfilePatch, StoredAttempt, StoredBeat, StoredGuardianSettings, StoredKixMessage, Creation, NotebookPage, NotebookRevision, StoredSessionRead, StoredRun, StoredSkillEvent } from "./store.ts";
 import type { StoredAgentVersion } from "./store.ts";
@@ -47,7 +49,7 @@ import { sessionSecret, signToken, verifyToken } from "./tokens.ts";
 
 export const DEMO_PARENT_COOKIE = "mykx_demo_parent";
 /** Bump when the store's shape changes: a running dev server then rebuilds it on the next request (see demoStore). */
-const DEMO_STORE_SHAPE = 16; // 9: game progress; 10: paper scout; 11: Guardian; 12: magic names; 13: agent versions; 14: skill versions and review sessions; 15: kid interests; 16: local-only demo secrets
+const DEMO_STORE_SHAPE = 17; // 9: game progress; 10: paper scout; 11: Guardian; 12: magic names; 13: agent versions; 14: skill versions and review sessions; 15: kid interests; 16: local-only demo secrets; 17: pets
 const DEMO_TTL_SEC = 7 * 24 * 60 * 60;
 const LABEL = "demo-parent";
 
@@ -212,6 +214,13 @@ export class DemoStore implements AuthStore {
       }),
     ];
     for (const r of rows) this.profiles.set(r.id, r);
+    // The sample family's pets, each a job or two from growing, so a walkthrough sees a stage change.
+    const pet = (kidId: string, p: PetRecord) => this.gameRows.set(`${kidId}|${petToGame(p).game}`, { ...petToGame(p), householdId: DEMO_HOUSEHOLD_ID });
+    const bars = { food: 45, clean: 70, love: 55, warm: 70 };
+    pet(JORDAN_ID, { species: "frog", stage: 1, generation: 1, bars, at: created, done: { feed: 2, clean: 1 }, adoptedAt: created });
+    pet(JORDAN_ID, { species: "mealworm", stage: 2, generation: 1, bars, at: created, done: { warm: 1 }, adoptedAt: created });
+    pet(ABBY_ID, { species: "butterfly", stage: 1, generation: 1, bars, at: created, done: { feed: 2, clean: 1 }, adoptedAt: created });
+    pet(LEONARD_ID, { species: "chicken", stage: 2, generation: 1, bars, at: created, done: { feed: 2, warm: 1 }, adoptedAt: created });
     const from = yesterdayAfternoonSg();
     this.focusNoteRows.push({
       verdict: null,
@@ -498,6 +507,11 @@ export class DemoStore implements AuthStore {
       if (!this.ownsKid(householdId, kidId)) return;
       this.gameRows.set(`${kidId}|${progress.game}`, { ...structuredClone(progress), householdId });
     },
+  };
+
+  readonly pets = {
+    list: async (householdId: string, kidId: string): Promise<PetRecord[]> => (await this.games.progress(householdId, kidId)).flatMap((g) => petFromGame(g) ?? []),
+    save: (householdId: string, kidId: string, pet: PetRecord) => this.games.save(householdId, kidId, petToGame(pet)),
   };
 
   readonly runs = {

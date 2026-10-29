@@ -118,20 +118,23 @@ function InsectGame() {
   );
 }
 
-export function CritterLab({ pipStage, pipNext }: { pipStage: number; pipNext: string | null }) {
+/** `embedded`: inside the Critter Lab hub (components/pets/CritterHub.tsx), which has the page heading. */
+export function CritterLab({ pipStage, pipNext, embedded = false }: { pipStage: number; pipNext: string | null; embedded?: boolean }) {
   const { play } = useSound();
   const [id, setId] = useState("frog");
   const [game, setGame] = useState<"order" | "insects">("order");
   const critter = CRITTERS.find((c) => c.id === id) ?? CRITTERS[0];
   const isPip = critter.id === "frog";
   return (
-    <main className="cl-page" data-theme="terrarium" data-band="junior">
-      <header className="cl-head">
-        <div>
-          <h1 className="cl-h1">Critter Lab</h1>
-          <p className="cl-muted">Life cycles you can watch. Pip grows every time you learn something new.</p>
-        </div>
-      </header>
+    <div className="cl-page" data-theme="terrarium" data-band="junior" data-embedded={embedded ? "yes" : undefined}>
+      {!embedded && (
+        <header className="cl-head">
+          <div>
+            <h1 className="cl-h1">Critter Lab</h1>
+            <p className="cl-muted">Life cycles you can watch. Pip grows every time you learn something new.</p>
+          </div>
+        </header>
+      )}
       <nav className="cl-tabs" aria-label="Living things">
         {CRITTERS.map((c) => (
           <button
@@ -191,6 +194,6 @@ export function CritterLab({ pipStage, pipNext }: { pipStage: number; pipNext: s
         </div>
         {game === "order" ? <OrderGame key={critter.id} critter={critter} seed={7} /> : <InsectGame />}
       </div>
-    </main>
+    </div>
   );
 }

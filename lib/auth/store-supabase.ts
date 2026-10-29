@@ -18,6 +18,8 @@ import type { FlashcardSpec } from "../vibe/flashcards.ts";
 import type { FamilyMessage, Sticker } from "../family/messages.ts";
 import type { PageSlug } from "../notebook/notebook.ts";
 import type { GameProgress } from "../games/progress.ts";
+import type { PetRecord } from "../pets/care.ts";
+import { petFromGame, petToGame } from "../pets/record.ts";
 import { findFields, findKey, runCounts, type FindStatus, type PaperFind, type ScoutRun } from "../papers/finds.ts";
 import type { ScoutRow } from "../papers/scan.ts";
 import type { OutingRun } from "../outings/outings.ts";
@@ -850,6 +852,11 @@ export class SupabaseStore implements AuthStore {
       );
       check(error);
     },
+  };
+
+  readonly pets = {
+    list: async (householdId: string, kidId: string): Promise<PetRecord[]> => (await this.games.progress(householdId, kidId)).flatMap((g) => petFromGame(g) ?? []),
+    save: (householdId: string, kidId: string, pet: PetRecord) => this.games.save(householdId, kidId, petToGame(pet)),
   };
 
   // skill_events (migration 20261029_skill_events.sql). Until it is applied, logging is skipped and the list is empty.

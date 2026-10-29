@@ -33,7 +33,7 @@ The demo family is synthetic and labelled as such in the UI (`profiles.synthetic
 
 myKx gives a Singapore student an AI sidekick, **Kix**. A child learns in short quests that adapt to them, earns honest rewards in a Treasure Realm, makes study things in the Vibe Zone, restyles Kix in Sidekick Studio, plays syllabus typing games in the Arcade, and gets homework help from a photo. A parent gets a calm picture of the day: screen time, learning, wellbeing signals shown as possibilities, Kix's Notebook, family messages, and **Guardian**, which reads the family's own cameras and the child's whereabouts into plain status lines. An admin grows the content: a weekly scout finds new exam papers, and a knowledge agent turns them into patterns Kix teaches from, after a human approves each one.
 
-Sixteen agents do the work (`lib/admin/hood.ts`, `AGENTS`). Fourteen call Meta models: Muse Spark 1.3 in eleven, SAM 3.1 in two, Muse Image 1.0 in one and Muse Voice Transcribe 1.0 in one (Sidekick Studio uses both Muse Image and SAM). Two are rules only.
+Seventeen agents do the work (`lib/admin/hood.ts`, `AGENTS`). Fifteen call Meta models: Muse Spark 1.3 in twelve, SAM 3.1 in two, Muse Image 1.0 in one and Muse Voice Transcribe 1.0 in one (Sidekick Studio uses both Muse Image and SAM). Two are rules only.
 
 ### 1.1 Design principles, and where the code enforces them
 
@@ -161,7 +161,7 @@ The browser never talks to Meta or to Supabase's service role. Keys live in the 
 | `lib/print` | Deterministic printable papers from reviewed items, with blueprints and answer guides |
 | `lib/games` | Arcade registry, typing engine, scoring, progress |
 | `lib/vibe`, `lib/studio` | Flashcard spec; Studio prompt and the Muse Image plus SAM transform |
-| `lib/sound`, `lib/scene`, `lib/critters` | Synthesised sound and music, living-art layers, Critter Lab catalogue |
+| `lib/sound`, `lib/scene`, `lib/critters`, `lib/pets` | Synthesised sound and music, living-art layers, Critter Lab catalogue, pets (species, care rules, the Critter Keeper's facts) |
 | `content/skills/` | Seven child-agnostic skill packs (§5); `content/skills.test.ts` scans them |
 | `supabase/` | `schema.sql`, `rls.sql`, `seed.sql`, `migrations/`, `schema.test.ts` |
 | `clients/home-link/` | The Home Link desktop client (separate Node package, MIT) |
@@ -174,7 +174,7 @@ The browser never talks to Meta or to Supabase's service role. Keys live in the 
 | Area | Routes | Caller |
 |---|---|---|
 | Sign-in and accounts | `api/auth/{parent,kid,kids,pin,reset,signout}`, `api/me`, `api/family/kids`, `api/family/kids/[id]`, `api/family/shared` | browser |
-| Learning | `api/attempts`, `api/kix/tutor`, `api/kix/reason`, `api/kix/spark` (each takes only an item from the kid's own level's packs: 403 for another level's, 404 for an unknown one), `api/kix/homework`, `api/session/close`, `api/games/round` | kid session |
+| Learning | `api/attempts`, `api/kix/tutor`, `api/kix/reason`, `api/kix/spark` (each takes only an item from the kid's own level's packs: 403 for another level's, 404 for an unknown one), `api/kix/homework`, `api/session/close`, `api/games/round`, `api/pets`, `api/pets/talk` (§6.3b) | kid session |
 | Creating | `api/vibe`, `api/studio/transform`, `api/voice/transcribe` | kid session (a grown-up signed in on the device) |
 | Care | `api/guardian/{beat,words,summary,seen,brief,tonight}`, `api/signals/focus`, `api/notebook`, `api/messages`, `api/messages/mine` | kid or grown-up |
 | Guardian, location | `api/location` (POST from a device, GET for the parent), `api/location/{mine,pause,places,settings}` | device token or session |
@@ -204,7 +204,7 @@ All 36 tables are in `supabase/schema.sql`; migrations in `supabase/migrations/`
 | Domain | Tables | Notes |
 |---|---|---|
 | Accounts | `households`, `profiles`, `audit_log` | Kids are `profiles` rows with `role = 'child'`, a nickname (at most 20 characters), a magic name (`username`, unique, for the sign-in page's door), band, level and pack; `secret_hash` and `pin_hash` are scrypt strings (`check (secret_hash like 'scrypt$%')`). `audit_log` is append-only, written by the service role, and holds field names and reasons, never child content. |
-| Learning record | `attempts`, `ledger`, `game_progress` | `attempts` carries marks, `first_try`, `hints_used`, `revealed` and a unique `idempotency_key`; mastery is recomputed from it. A written (open) answer is saved as practice with `confirmed: false` in its `answer` envelope (there is no column), and the store reads it back unconfirmed, so it never counts as mastery evidence. `ledger` holds stars, cards, companion stages and squadron unlocks, each with the rule that granted it and a unique key. Game stars are separate and never mastery evidence. |
+| Learning record | `attempts`, `ledger`, `game_progress` | `attempts` carries marks, `first_try`, `hints_used`, `revealed` and a unique `idempotency_key`; mastery is recomputed from it. A written (open) answer is saved as practice with `confirmed: false` in its `answer` envelope (there is no column), and the store reads it back unconfirmed, so it never counts as mastery evidence. `ledger` holds stars, cards, companion stages and squadron unlocks, each with the rule that granted it and a unique key. Game stars are separate and never mastery evidence. Pets are `game_progress` rows too (game `pet:<species>`; `stage` is the life stage + 1, `keys.pet` the care record: bars and when they were set, the stage's jobs done, the generation; `lib/pets/record.ts`), so they needed no migration. |
 | Memory | `notebook_pages`, `notebook_revisions`, `session_reads` | Four pages per kid (`personality`, `asking`, `slips`, `moments`), each at most 4,000 characters in the database and 1,500 in code. Every write records a revision (`before`, `after`, `by`, `reason`). `session_reads` holds the Memory Keeper's mood reading with its evidence. |
 | Wellbeing and guardian | `screen_beats`, `kix_messages`, `guardian_settings`, `flags_seen`, `signals` | One beat per 30 s slot while a kid page is visible. `kix_messages` is the child's own words to Kix (never family messages), with `distress` and `self_talk` set by the server. Flags are computed on read; only "seen" marks are stored. `signals.counts` may contain only four keys (`awaySeconds`, `eyesClosedEvents`, `yawns`, `facePresentRatio`). |
 | Family | `family_messages`, `creations`, `shares` | Messages are household-only and never read by a model. Creations keep every version of a validated spec; shares can only target the household's own grown-ups (checked in RLS). |
@@ -274,7 +274,7 @@ There is no agent framework. An agent is a route handler plus a small library mo
 
 The structured-output path (`lib/meta/schema.ts`) converts a zod schema to JSON Schema and refuses shapes Meta rejects: no `$ref` or `$defs`, no `allOf` or `oneOf`, a root object, every key required, `additionalProperties: false`. Output text is parsed (tolerating a fenced block) and validated with the same zod schema; a failure becomes a `MetaApiError` with code `invalid_output` and a logged failed run.
 
-### 4.2 The sixteen agents
+### 4.2 The seventeen agents
 
 **What each one is for:**
 
@@ -295,6 +295,7 @@ The structured-output path (`lib/meta/schema.ts`) converts a zod schema to JSON 
 | Outing Scout | Searches the web for things to do near home this weekend | Muse Spark with `web_search` (Responses API) | `api/outings` (`outing-scout`) | Built |
 | Outing Planner | Fits the Scout's sourced results to the family's week and the weather | Muse Spark | `api/outings` (`outing-planner`) | Built |
 | Tonight | The evening summary for the parent | Muse Spark | `api/guardian/tonight` (`tonight`) | Built |
+| Critter Keeper | Speaks as the child's pet at its life stage and coaches its care (§6.3b) | Muse Spark (structured) | `api/pets/talk` (`critter-keeper`) | Built |
 | Past-paper scout | Finds the newest papers on five approved sites | none: rules | `api/cron/papers` | Built |
 
 **What each one reads, may never do, and how its output is checked:**
@@ -316,9 +317,10 @@ The structured-output path (`lib/meta/schema.ts`) converts a zod schema to JSON 
 | Outing Scout | The home area (a town name), radius, interests and dates | Get a child's name, age or whereabouts | Citations are extracted from `url_citation` annotations; no citations means the run fails | The last saved run (or the seeded run), labelled with its time |
 | Outing Planner | The Scout's text and cited URLs, NEA's outlook, each kid's nickname, level and average minutes a day on myKx | Use the web; keep an idea whose source the Scout didn't cite | `plannerSchema`; `settleIdeas` drops ideas whose URL isn't among the Scout's citations | As above |
 | Tonight | Screen time and learning per kid, unseen flags, arrivals, rolled-up home stretches, alerts and their verdicts, the weekend plan | Add a fact, diagnose or judge | `tonightSchema` (20 to 620 characters); cached per family by digest, at most every 5 minutes | `fallbackTonight`, labelled |
+| Critter Keeper | The child's words to the pet; the pet's species, stage, its foods, bars, mood and the care its stage still needs (`petFacts`) | Keep the chat; read anything else about the child (no name, no Notebook); change the pet's bars, mood or stage | `petReplySchema` (a reply of at most 220 characters and a feeling that only animates it); distress words skip the model | `fallbackReply`: true to the stage and mood, picked by what the child asked about |
 | Past-paper scout | Listing pages of five allowlisted sites, robots.txt first | Bypass a CAPTCHA, a sign-in or a robots rule; download anything | Pure parsers and decision rules with tests | n/a |
 
-The ten Muse Spark agents (Kix Tutor, Ask Kix, Memory Keeper, Vibe Zone maker, Content Curator, Home Reader, Guardian Brief, Outing Scout, Outing Planner, Tonight) have instructions an admin can edit in Under the hood (§4.11). Their "May never" lines that live in the prompt are fixed guardrails, appended after the instructions whatever an admin writes, and the "Output checked by" column holds in code either way. Sidekick Studio, Talk to Kix, Who's who and the two rules-only agents have nothing to edit; the editor says why.
+The eleven Muse Spark agents (Kix Tutor, Ask Kix, Memory Keeper, Vibe Zone maker, Content Curator, Home Reader, Guardian Brief, Outing Scout, Outing Planner, Tonight, Critter Keeper) have instructions an admin can edit in Under the hood (§4.11). Their "May never" lines that live in the prompt are fixed guardrails, appended after the instructions whatever an admin writes, and the "Output checked by" column holds in code either way. Sidekick Studio, Talk to Kix, Who's who and the two rules-only agents have nothing to edit; the editor says why.
 
 ### 4.3 A worked request path: a hint from the Kix Tutor
 
@@ -745,6 +747,18 @@ Two deterministic rules turn the memory into behaviour; Muse only voices them.
 
 Nothing about a drift is stored. Sparks and tender days never change mastery, rewards or the parent's flags.
 
+### 6.3b Pets in the Critter Lab (founder, 29 Oct)
+
+The Critters tab (every age band) opens the Critter Lab: **My pets** and **Life cycles** (the catalogue explorer and its two games). A kid adopts a frog, a mealworm beetle, a butterfly or a chicken and raises it through its four real stages (`lib/pets/species.ts`, matched to the P3 Science life cycles in `lib/critters/catalog.ts`).
+
+- **Care rules decide everything** (`lib/pets/care.ts`, pure, run by the server and mirrored on the page). Each stage has three bars from food, clean, love and warm; they run down by the hour (10, 6, 8 and 8 points). The mood comes from them: happy, content, hungry, sad or cross (a stage that doesn't eat is only ever sad). A pet never gets sick, dies or shrinks, and a stage once reached is kept.
+- **Every stage needs different care.** The right food for the stage (`eats`; a wrong one is turned down with the reason, e.g. a tadpole can't catch flies yet), scrubbing its home, play, warmth and the stage's own special job (add a rock for the froglet, let the pupa rest, turn the egg). A bar at 90 or more takes no more of the same care, so growing takes real time. When the stage's jobs are done and every bar is at least 50, it grows; an adult lays eggs and the next generation starts at stage 0. Deterministic: no chance, never touches mastery or the ledger (rule 5).
+- **The life cycle is always in view:** all four stages in order with the pet's stage marked, what this stage is like, what changes next, and the loop back to eggs.
+- **Routes:** `GET/POST /api/pets` (list; adopt; feed, clean, play, warm, special) and `POST /api/pets/talk`. Both are open to the guest walkthrough.
+- **The Critter Keeper** (Muse Spark, Standard; editable instructions, fixed guardrails) answers as the pet from its facts only and coaches its care when asked. Distress words skip it: Kix's caring reply and the helplines answer, and that one message is kept so the parent gets an urgent flag (rule 12). Other chats aren't stored and never feed mood readings. Talking tops up the love bar a little. Without a model, `fallbackReply` answers (rule 7).
+- **Motion** (`components/pets/PetActor.tsx`): one frame loop per pet moves it through its stage's zone of the habitat (`components/pets/habitats.ts`); CSS draws the body: a tadpole's tail sways as a separate half of the sprite, a butterfly's wings flap as two halves, frogs hop with squash and stretch, larvae inch, chicks waddle and peck, eggs wobble, a chrysalis sways. Mood sets the pace and posture, and an emote bubble shows how it feels. Reduced motion halves the pace and stops body animation.
+- **Art:** each stage sprite is a Muse Image edit of its life-cycle sheet, cut out with SAM 3.1 (`scripts/cut-pets.ts`, with a background flood fill where SAM found too little, recorded in the manifest); foods and the four habitats are Muse Image renders.
+
 ### 6.4 Loop 4: parent feedback (Right / Not right)
 
 ```mermaid
@@ -766,7 +780,7 @@ Each verdict is a fixed rule applied to a person's judgement, not a model learni
 ### 6.5 Loop 5: operations and observability
 
 - **`model_runs`** records every call (route, operation, model, request and response ids, latency, first-token time, tokens, images, audio seconds, estimated cost, ok, a short key-free error). `lib/runs/log.ts` writes it through a hook in `lib/meta/run.ts`, so no route can forget; logging never breaks a call.
-- **Under the hood** (`/admin/under-the-hood`, `app/api/admin/hood/route.ts`, `lib/admin/hood.ts`) shows the sixteen agents with what they read and may never do, per-model totals (calls, failures, average latency, tokens, images, audio seconds, cost), the latest 60 calls by agent name (never by child: `publicRun` reports only whether a call was for a child), the packs, published versions and the art manifest.
+- **Under the hood** (`/admin/under-the-hood`, `app/api/admin/hood/route.ts`, `lib/admin/hood.ts`) shows the seventeen agents with what they read and may never do, per-model totals (calls, failures, average latency, tokens, images, audio seconds, cost), the latest 60 calls by agent name (never by child: `publicRun` reports only whether a call was for a child), the packs, published versions and the art manifest.
 - **Refreshing fallbacks from live runs:** `scripts/guardian/home-reader-cache.ts` runs the real Home Reader on the eleven synthetic frames and stores its answers by frame hash as the cached fallback; `scripts/guardian/outings-seed.ts` records a real outing run as the demo's cached run.
 - **Engine checks:** the soak test and the content scanner run offline and deterministically.
 
@@ -857,6 +871,7 @@ The SDK client retries 408, 409, 429, 5xx and connection errors twice by default
 | `api/home/frames` | 40 s | low | 120 s | 30 a device | 300 frames (simulator), 3,000 (Home Link) |
 | `api/guardian/brief` | 15 s | low | 30 s | 12 a household | at most one new brief per 2 minutes |
 | `api/guardian/tonight` | 20 s | low | 30 s | 10 a household | at most one new summary per 5 minutes |
+| `api/pets/talk` | 10 s | minimal | default | 20 a household | |
 | `api/outings` | Scout 120 s, Planner 60 s | low (Planner) | 180 s | 2 a household | 3 refreshes |
 | Sign-in routes | n/a | n/a | default | 30 kid, 10 parent, 10 PIN, 5 reset, per address | lockout after 5 wrong tries |
 
@@ -1009,7 +1024,7 @@ Apply them with `node --env-file=.env.local scripts/db-migrate.ts <files>` (each
 | `scripts/db-migrate.ts` | Runs migrations |
 | `scripts/set-family-password.ts`, `scripts/link-demo-parent.ts` | Demo account housekeeping |
 | `scripts/set-demo-secrets.ts` | Sets the sample family's production sign-ins from `DEMO_PASSWORD` and `DEMO_PICTURE_CODE` (refuses unless the household is all synthetic; hashes like a reset in Your family; audited; prints nothing secret) |
-| `scripts/living-art.ts`, `scripts/cut-door.ts`, `scripts/make-figures.ts`, `scripts/render-figures.ts`, `scripts/critter-eyes.ts`, `scripts/port-board.ts` | Art and design tooling |
+| `scripts/living-art.ts`, `scripts/cut-door.ts`, `scripts/cut-pets.ts`, `scripts/make-figures.ts`, `scripts/render-figures.ts`, `scripts/critter-eyes.ts`, `scripts/port-board.ts` | Art and design tooling |
 
 Art generation (`.agents/skills/muse-image-assets/scripts/gen-image.mjs`) needs the Meta key and runs on the founder's machine.
 

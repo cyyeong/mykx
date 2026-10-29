@@ -69,7 +69,7 @@ describe("the built-in defaults reproduce the prompts as they were", () => {
   });
 
   it("covers every editable agent, and no default names a real child", () => {
-    expect(EDITABLE_AGENTS).toHaveLength(10);
+    expect(EDITABLE_AGENTS).toHaveLength(11);
     for (const a of EDITABLE_AGENTS) {
       expect(checkInstructions(a, defaultText(a))).toBeNull();
       expect(defaultText(a)).not.toMatch(/Jordan|Abby|Leonard/);
@@ -254,8 +254,8 @@ describe("admin routes", () => {
     const admin = new Browser();
     await admin.signIn();
     const list = await admin.call(agentsRoute.GET, "/api/admin/agents");
-    expect(list.body.agents).toHaveLength(16);
-    expect(list.body.agents.filter((a: { editable: boolean }) => a.editable)).toHaveLength(10);
+    expect(list.body.agents).toHaveLength(17);
+    expect(list.body.agents.filter((a: { editable: boolean }) => a.editable)).toHaveLength(11);
     const studio = await admin.call(agentRoute.GET, "/api/admin/agents/studio", { id: "studio" });
     expect(studio.body).toMatchObject({ editable: null, readOnly: expect.stringMatching(/Muse Image/) });
     const tutor = await admin.call(agentRoute.GET, "/api/admin/agents/tutor", { id: "tutor" });

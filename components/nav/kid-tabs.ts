@@ -1,9 +1,10 @@
 // One kid navigation shell for every kid browsing page (docs/prd/USER_STORIES.md §8.4 fix 1).
 // Pure helpers live here so Vitest can cover them without a browser; KidNav.tsx renders them.
-// Founder decision 28 Oct (§8.5): tabs are Home, Learn, Play (Arcade), Treasure, Vibe;
+// Founder decision 28 Oct (§8.5): tabs are Home, Learn, Play (Arcade), Treasure, Vibe; Critters (the pets and the
+// life cycles) joined on 29 Oct for every age;
 // Me and Switch profile stay in the avatar menu (components/nav/KidAvatarMenu.tsx).
 
-export type KidTabId = "home" | "learn" | "ask" | "play" | "treasure" | "vibe";
+export type KidTabId = "home" | "learn" | "ask" | "play" | "critters" | "treasure" | "vibe";
 
 export type KidTab = { id: KidTabId; label: string; href: string; soon?: true };
 
@@ -14,6 +15,8 @@ export const KID_TABS: readonly KidTab[] = [
   // Homework help (founder, 28 Oct): a typed question or a photo, explained the way the syllabus teaches it.
   { id: "ask", label: "Ask Kix", href: "/ask" },
   { id: "play", label: "Play", href: "/arcade" },
+  // Critter Lab (founder, 29 Oct): pets to raise through their life cycles, and the life-cycle explorer.
+  { id: "critters", label: "Critters", href: "/critters" },
   { id: "treasure", label: "Treasure", href: "/treasure" },
   { id: "vibe", label: "Vibe", href: "/vibe" },
 ];
@@ -30,6 +33,7 @@ export function kidNavCurrent(pathname: string): KidTabId | null {
   if (path === "/learn" || path.startsWith("/learn/")) return "learn";
   if (path === "/ask" || path.startsWith("/ask/")) return "ask";
   if (path === "/arcade" || path.startsWith("/arcade/")) return "play";
+  if (path === "/critters" || path.startsWith("/critters/")) return "critters";
   if (path === "/treasure" || path.startsWith("/treasure/")) return "treasure";
   if (path === "/vibe" || path.startsWith("/vibe/")) return "vibe";
   return null;

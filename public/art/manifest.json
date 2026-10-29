@@ -3179,5 +3179,525 @@
     "size": 148242,
     "created": "2026-10-29",
     "note": "Living art: base plate for city-sky, drawn under the moving layers."
+  },
+  {
+    "id": "pets-frog-2",
+    "path": "public/art/pets/frog-2.webp",
+    "kind": "sprite",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "From this life-cycle picture, draw only the froglet (the young frog with a short tail stub), seen from the side facing right. Keep exactly the same soft 3D picture-book style, materials and colours as in the image. Exactly one subject, large and centred with space around it, on a plain flat light-grey background, no ground shadow, no other stages, no arrows, no text, no letters, no logos, no watermark.",
+    "refs": [
+      "public/art/critters/frog-life-cycle.webp"
+    ],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "7bad79251b711a92898a831fae6959f7dd981f7d2113728121e2d210faeb9807",
+    "size": 17432,
+    "created": "2026-10-29",
+    "cut_by": "sam-3.1 (\"frog\")",
+    "source": "art-src/pets/frog-2.webp"
+  },
+  {
+    "id": "pets-frog-3",
+    "path": "public/art/pets/frog-3.webp",
+    "kind": "sprite",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "From this life-cycle picture, draw only the adult frog, sitting, seen from the side facing right. Keep exactly the same soft 3D picture-book style, materials and colours as in the image. Exactly one subject, large and centred with space around it, on a plain flat light-grey background, no ground shadow, no other stages, no arrows, no text, no letters, no logos, no watermark.",
+    "refs": [
+      "public/art/critters/frog-life-cycle.webp"
+    ],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "e21da6bf05588b6ca30fa67b836bef8bf209da1bc61cd8d7fd293ca32b645987",
+    "size": 24472,
+    "created": "2026-10-29",
+    "cut_by": "sam-3.1 (\"frog\")",
+    "source": "art-src/pets/frog-3.webp"
+  },
+  {
+    "id": "pets-mealworm-0",
+    "path": "public/art/pets/mealworm-0.webp",
+    "kind": "sprite",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "From this life-cycle picture, draw only the small cluster of tiny white oval eggs. Keep exactly the same soft 3D picture-book style, materials and colours as in the image. Exactly one subject, large and centred with space around it, on a plain flat light-grey background, no ground shadow, no other stages, no arrows, no text, no letters, no logos, no watermark.",
+    "refs": [
+      "public/art/critters/mealworm-life-cycle.webp"
+    ],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "b0ec9015aaf18ae6976eb21ff44f851d0f07b3f07848aedf90971ca3ff5b7e33",
+    "size": 12900,
+    "created": "2026-10-29",
+    "cut_by": "sam-3.1 (\"eggs + egg\", union)",
+    "source": "art-src/pets/mealworm-0.webp"
+  },
+  {
+    "id": "pets-mealworm-1",
+    "path": "public/art/pets/mealworm-1.webp",
+    "kind": "sprite",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "From this life-cycle picture, draw only the mealworm larva, seen from the side facing right, its body lying straight and flat. Keep exactly the same soft 3D picture-book style, materials and colours as in the image. Exactly one subject, large and centred with space around it, on a plain flat light-grey background, no ground shadow, no other stages, no arrows, no text, no letters, no logos, no watermark.",
+    "refs": [
+      "public/art/critters/mealworm-life-cycle.webp"
+    ],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "d2d76ad2ed53de1d3b903a58c04c97f6ddad252d76a1b9cf679ac99a98d51b08",
+    "size": 12988,
+    "created": "2026-10-29",
+    "cut_by": "sam-3.1 (\"larva\")",
+    "source": "art-src/pets/mealworm-1.webp"
+  },
+  {
+    "id": "pets-mealworm-2",
+    "path": "public/art/pets/mealworm-2.webp",
+    "kind": "sprite",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "From this life-cycle picture, draw only the pale cream pupa, lying on its side, head to the right. Keep exactly the same soft 3D picture-book style, materials and colours as in the image. Exactly one subject, large and centred with space around it, on a plain flat light-grey background, no ground shadow, no other stages, no arrows, no text, no letters, no logos, no watermark.",
+    "refs": [
+      "public/art/critters/mealworm-life-cycle.webp"
+    ],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "a3b2c2c3095cea10346c5d7c41eeee60a518272eb2a1e127884600e94c62fb9e",
+    "size": 12054,
+    "created": "2026-10-29",
+    "cut_by": "sam-3.1 (\"larva\")",
+    "source": "art-src/pets/mealworm-2.webp"
+  },
+  {
+    "id": "pets-mealworm-3",
+    "path": "public/art/pets/mealworm-3.webp",
+    "kind": "sprite",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "From this life-cycle picture, draw only the adult beetle, seen from the side facing right, standing on its six legs. Keep exactly the same soft 3D picture-book style, materials and colours as in the image. Exactly one subject, large and centred with space around it, on a plain flat light-grey background, no ground shadow, no other stages, no arrows, no text, no letters, no logos, no watermark.",
+    "refs": [
+      "public/art/critters/mealworm-life-cycle.webp"
+    ],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "e959e2f6740020e94a830a0bed7ee222085b5cc3ba657f4dcad1abfad1e2bd59",
+    "size": 24298,
+    "created": "2026-10-29",
+    "cut_by": "sam-3.1 (\"beetle\")",
+    "source": "art-src/pets/mealworm-3.webp"
+  },
+  {
+    "id": "pets-butterfly-1",
+    "path": "public/art/pets/butterfly-1.webp",
+    "kind": "sprite",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "From this life-cycle picture, draw only the green caterpillar, seen from the side facing right, its body lying straight. Keep exactly the same soft 3D picture-book style, materials and colours as in the image. Exactly one subject, large and centred with space around it, on a plain flat light-grey background, no ground shadow, no other stages, no arrows, no text, no letters, no logos, no watermark.",
+    "refs": [
+      "public/art/critters/butterfly-life-cycle.webp"
+    ],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "c01d531fe65c5d09ab7cc615b350bbe6c0b1ce90c68bd5ec6c9e337093a4718d",
+    "size": 17134,
+    "created": "2026-10-29",
+    "cut_by": "sam-3.1 (\"caterpillar\")",
+    "source": "art-src/pets/butterfly-1.webp"
+  },
+  {
+    "id": "pets-butterfly-3",
+    "path": "public/art/pets/butterfly-3.webp",
+    "kind": "sprite",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "From this life-cycle picture, draw only the butterfly, seen from directly above with both wings fully open, perfectly symmetrical. Keep exactly the same soft 3D picture-book style, materials and colours as in the image. Exactly one subject, large and centred with space around it, on a plain flat light-grey background, no ground shadow, no other stages, no arrows, no text, no letters, no logos, no watermark.",
+    "refs": [
+      "public/art/critters/butterfly-life-cycle.webp"
+    ],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "b574cac6faf383188003c44c36dfe44ebcd73eebbe5e6cbdd8a013aba26f84f1",
+    "size": 31696,
+    "created": "2026-10-29",
+    "cut_by": "sam-3.1 (\"butterfly\")",
+    "source": "art-src/pets/butterfly-3.webp"
+  },
+  {
+    "id": "pets-chicken-0",
+    "path": "public/art/pets/chicken-0.webp",
+    "kind": "sprite",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "From this life-cycle picture, draw only the white egg, standing upright. Keep exactly the same soft 3D picture-book style, materials and colours as in the image. Exactly one subject, large and centred with space around it, on a plain flat light-grey background, no ground shadow, no other stages, no arrows, no text, no letters, no logos, no watermark.",
+    "refs": [
+      "public/art/critters/chicken-life-cycle.webp"
+    ],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "2052707cdfba1711c38551ecf6491f2a24d0c97bd04392bb0b96f25c1aa914c2",
+    "size": 10022,
+    "created": "2026-10-29",
+    "cut_by": "sam-3.1 (\"egg\")",
+    "source": "art-src/pets/chicken-0.webp"
+  },
+  {
+    "id": "pets-chicken-1",
+    "path": "public/art/pets/chicken-1.webp",
+    "kind": "sprite",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "From this life-cycle picture, draw only the chick hatching out of its cracked egg shell. Keep exactly the same soft 3D picture-book style, materials and colours as in the image. Exactly one subject, large and centred with space around it, on a plain flat light-grey background, no ground shadow, no other stages, no arrows, no text, no letters, no logos, no watermark.",
+    "refs": [
+      "public/art/critters/chicken-life-cycle.webp"
+    ],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "f5807a4650b57537d34192a07660116f80b9b21810e2f5782133f97e67620985",
+    "size": 27334,
+    "created": "2026-10-29",
+    "cut_by": "sam-3.1 (\"chick + eggshell + egg\", union)",
+    "source": "art-src/pets/chicken-1.webp"
+  },
+  {
+    "id": "pets-chicken-2",
+    "path": "public/art/pets/chicken-2.webp",
+    "kind": "sprite",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "From this life-cycle picture, draw only the fluffy yellow chick, standing, seen from the side facing right. Keep exactly the same soft 3D picture-book style, materials and colours as in the image. Exactly one subject, large and centred with space around it, on a plain flat light-grey background, no ground shadow, no other stages, no arrows, no text, no letters, no logos, no watermark.",
+    "refs": [
+      "public/art/critters/chicken-life-cycle.webp"
+    ],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "1562d02d0401a8816dc2bff8a7eaf353f04ef69521c238441f3c281337664b96",
+    "size": 23428,
+    "created": "2026-10-29",
+    "cut_by": "sam-3.1 (\"chick\")",
+    "source": "art-src/pets/chicken-2.webp"
+  },
+  {
+    "id": "pets-chicken-3",
+    "path": "public/art/pets/chicken-3.webp",
+    "kind": "sprite",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "From this life-cycle picture, draw only the brown hen, standing, seen from the side facing right. Keep exactly the same soft 3D picture-book style, materials and colours as in the image. Exactly one subject, large and centred with space around it, on a plain flat light-grey background, no ground shadow, no other stages, no arrows, no text, no letters, no logos, no watermark.",
+    "refs": [
+      "public/art/critters/chicken-life-cycle.webp"
+    ],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "aae76e88ca7b7bb915a572c6335426359c560bd6e57d61e9efa62305c284cd38",
+    "size": 29298,
+    "created": "2026-10-29",
+    "cut_by": "sam-3.1 (\"chicken\")",
+    "source": "art-src/pets/chicken-3.webp"
+  },
+  {
+    "id": "pets-food-lettuce",
+    "path": "public/art/pets/food-lettuce.webp",
+    "kind": "sprite",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "one soft pale-green boiled lettuce leaf, friendly cute picture-book 3D illustration, soft clay look, warm soft light, exactly one item, large and centred on a plain flat light-grey background, no ground shadow, no text, no letters, no logos, no watermark.",
+    "refs": [],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "5f1b3831a4dc3275c13fd0bb85c6d5876e32a93f7bdf31f1dff61474ff3ac049",
+    "size": 20626,
+    "created": "2026-10-29",
+    "cut_by": "sam-3.1 (\"lettuce\")",
+    "source": "art-src/pets/food-lettuce.webp"
+  },
+  {
+    "id": "pets-food-flies",
+    "path": "public/art/pets/food-flies.webp",
+    "kind": "sprite",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "three tiny cute fruit flies flying close together, friendly cute picture-book 3D illustration, soft clay look, warm soft light, exactly one item, large and centred on a plain flat light-grey background, no ground shadow, no text, no letters, no logos, no watermark.",
+    "refs": [],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "82468ddf1cbe8396528968f26f3ccbe7b673879f868503f7ddc2de682efd589c",
+    "size": 29370,
+    "created": "2026-10-29",
+    "cut_by": "sam-3.1 (\"insect\", union)",
+    "source": "art-src/pets/food-flies.webp"
+  },
+  {
+    "id": "pets-food-cricket",
+    "path": "public/art/pets/food-cricket.webp",
+    "kind": "sprite",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "one small brown cricket insect, seen from the side, friendly cute picture-book 3D illustration, soft clay look, warm soft light, exactly one item, large and centred on a plain flat light-grey background, no ground shadow, no text, no letters, no logos, no watermark.",
+    "refs": [],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "5b6308ca5b21a53aef827ea518722b92e686aa8ab14eb28f92999bda41cbb9be",
+    "size": 34636,
+    "created": "2026-10-29",
+    "cut_by": "sam-3.1 (\"insect\")",
+    "source": "art-src/pets/food-cricket.webp"
+  },
+  {
+    "id": "pets-food-apple",
+    "path": "public/art/pets/food-apple.webp",
+    "kind": "sprite",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "one thin wedge of red apple, friendly cute picture-book 3D illustration, soft clay look, warm soft light, exactly one item, large and centred on a plain flat light-grey background, no ground shadow, no text, no letters, no logos, no watermark.",
+    "refs": [],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "39b0810146bfaa046858b546b1e125485a1596961e0af9d27f922674f0d99122",
+    "size": 19484,
+    "created": "2026-10-29",
+    "cut_by": "sam-3.1 (\"apple slice\")",
+    "source": "art-src/pets/food-apple.webp"
+  },
+  {
+    "id": "pets-food-flower",
+    "path": "public/art/pets/food-flower.webp",
+    "kind": "sprite",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "one bright pink nectar flower with an open yellow centre, friendly cute picture-book 3D illustration, soft clay look, warm soft light, exactly one item, large and centred on a plain flat light-grey background, no ground shadow, no text, no letters, no logos, no watermark.",
+    "refs": [],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "ce1fcbf6daec5ab05195c6aa6a96b09c66fc318c82c992117a25fbf2f036521a",
+    "size": 27702,
+    "created": "2026-10-29",
+    "cut_by": "sam-3.1 (\"flower\")",
+    "source": "art-src/pets/food-flower.webp"
+  },
+  {
+    "id": "pets-food-crumbs",
+    "path": "public/art/pets/food-crumbs.webp",
+    "kind": "sprite",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "a small heap of golden chick crumbs, friendly cute picture-book 3D illustration, soft clay look, warm soft light, exactly one item, large and centred on a plain flat light-grey background, no ground shadow, no text, no letters, no logos, no watermark.",
+    "refs": [],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "07bf788947c544479282a315654f5b97b3f3a3825b1e23e91106a7e7f9089dc2",
+    "size": 29912,
+    "created": "2026-10-29",
+    "cut_by": "sam-3.1 (\"pile\")",
+    "source": "art-src/pets/food-crumbs.webp"
+  },
+  {
+    "id": "pets-food-corn",
+    "path": "public/art/pets/food-corn.webp",
+    "kind": "sprite",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "a small heap of yellow corn kernels, friendly cute picture-book 3D illustration, soft clay look, warm soft light, exactly one item, large and centred on a plain flat light-grey background, no ground shadow, no text, no letters, no logos, no watermark.",
+    "refs": [],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "0dab3b4f357c6d2a90283f7941ed42ead6e559b55dd7ea2f0c1856a9e54e48d5",
+    "size": 21622,
+    "created": "2026-10-29",
+    "cut_by": "sam-3.1 (\"pile\")",
+    "source": "art-src/pets/food-corn.webp"
+  },
+  {
+    "id": "pets-hab-pond",
+    "path": "public/art/pets/hab-pond.webp",
+    "variants": [
+      "public/art/pets/hab-pond-800.webp"
+    ],
+    "kind": "background",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "A glass-tank pond habitat seen straight from the front like a classroom aquarium, cut away so you can see under the water: the left two thirds is clear shallow pond water up to about halfway, with soft green waterweed, smooth pebbles on the bottom and a few lily pads floating on the surface; the right third is a mossy bank of soft earth and flat stones rising above the water. lush miniature terrarium world, soft picture-book 3D illustration, warm soft light, gentle colours. Wide and calm, with open uncluttered floor space across the lower middle. No animals, no insects, no birds, no people, no characters, no text, no letters, no logos, no watermark.",
+    "refs": [],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "493e619a2d9f7cb6991974dfdb37ce1e8889bfaf7db13bc978ffa5f93fac8cb3",
+    "size": 103410,
+    "created": "2026-10-29",
+    "source": "art-src/pets/hab-pond-1.webp"
+  },
+  {
+    "id": "pets-hab-tub",
+    "path": "public/art/pets/hab-tub.webp",
+    "variants": [
+      "public/art/pets/hab-tub-800.webp"
+    ],
+    "kind": "background",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "A cosy clear plastic tub habitat seen from the front at a low angle, filled with a deep soft layer of golden wheat bran and oats, a few slices of carrot and pieces of egg carton half buried at the edges, warm lamp light. lush miniature terrarium world, soft picture-book 3D illustration, warm soft light, gentle colours. Wide and calm, with open uncluttered floor space across the lower middle. No animals, no insects, no birds, no people, no characters, no text, no letters, no logos, no watermark.",
+    "refs": [],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "10467cebe78fa998822b591dcf4973d0162438436bb5e169db6f735dddb4e60f",
+    "size": 124660,
+    "created": "2026-10-29",
+    "source": "art-src/pets/hab-tub-1.webp"
+  },
+  {
+    "id": "pets-hab-garden",
+    "path": "public/art/pets/hab-garden.webp",
+    "variants": [
+      "public/art/pets/hab-garden-800.webp"
+    ],
+    "kind": "background",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "A bright netted butterfly garden enclosure seen from the inside: potted leafy plants at the sides, a long thin twig across the upper part, pots of colourful nectar flowers along the bottom edges, soft sunbeams through fine white mesh. lush miniature terrarium world, soft picture-book 3D illustration, warm soft light, gentle colours. Wide and calm, with open uncluttered floor space across the lower middle. No animals, no insects, no birds, no people, no characters, no text, no letters, no logos, no watermark.",
+    "refs": [],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "c6b770265ecdf18aba4a2cf823b58b6e04635ab683a130f08ad8ef4dfe1c490a",
+    "size": 174300,
+    "created": "2026-10-29",
+    "source": "art-src/pets/hab-garden-2.webp"
+  },
+  {
+    "id": "pets-hab-coop",
+    "path": "public/art/pets/hab-coop.webp",
+    "variants": [
+      "public/art/pets/hab-coop-800.webp"
+    ],
+    "kind": "background",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "A cosy little chicken coop inside: a floor of golden straw, a wooden nesting box with straw on one side, a warm brooder lamp glowing above, a water dish and a feeder at the edges, soft morning light through a small window. lush miniature terrarium world, soft picture-book 3D illustration, warm soft light, gentle colours. Wide and calm, with open uncluttered floor space across the lower middle. No animals, no insects, no birds, no people, no characters, no text, no letters, no logos, no watermark.",
+    "refs": [],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "90e9e4340212be10f0d7196eb6daccda168baa28f8ee779ffa472dc4546c013d",
+    "size": 126988,
+    "created": "2026-10-29",
+    "source": "art-src/pets/hab-coop-1.webp"
+  },
+  {
+    "id": "pets-frog-0",
+    "path": "public/art/pets/frog-0.webp",
+    "kind": "sprite",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "From this life-cycle picture, draw only the clump of frogspawn: round clear jelly eggs with dark dots, seen from the side. Keep exactly the same soft 3D picture-book style, materials and colours as in the image. Exactly one subject, large and centred with space around it, on a plain flat light-grey background, no ground shadow, no other stages, no arrows, no text, no letters, no logos, no watermark.",
+    "refs": [
+      "public/art/critters/frog-life-cycle.webp"
+    ],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "d53c09aa2179cffbee810b0dcd74ef51e8620b9a730efca48c83aafb8af3490b",
+    "size": 19860,
+    "created": "2026-10-29",
+    "cut_by": "none (plain background flood-filled; sam-3.1 found nothing)",
+    "source": "art-src/pets/frog-0.webp"
+  },
+  {
+    "id": "pets-frog-1",
+    "path": "public/art/pets/frog-1.webp",
+    "kind": "sprite",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "From this life-cycle picture, draw only the tadpole, seen from the side facing right, its tail stretched straight out behind it. Keep exactly the same soft 3D picture-book style, materials and colours as in the image. Exactly one subject, large and centred with space around it, on a plain flat light-grey background, no ground shadow, no other stages, no arrows, no text, no letters, no logos, no watermark.",
+    "refs": [
+      "public/art/critters/frog-life-cycle.webp"
+    ],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "7c9e1cb5a152264d6abe13fae03b919060f9d7bb4a3df1111ec2c4eb61d6cf6c",
+    "size": 13086,
+    "created": "2026-10-29",
+    "cut_by": "none (plain background flood-filled; sam-3.1 found nothing)",
+    "source": "art-src/pets/frog-1.webp"
+  },
+  {
+    "id": "pets-butterfly-0",
+    "path": "public/art/pets/butterfly-0.webp",
+    "kind": "sprite",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "From this life-cycle picture, draw only the leaf with the little round butterfly eggs on it. Keep exactly the same soft 3D picture-book style, materials and colours as in the image. Exactly one subject, large and centred with space around it, on a plain flat light-grey background, no ground shadow, no other stages, no arrows, no text, no letters, no logos, no watermark.",
+    "refs": [
+      "public/art/critters/butterfly-life-cycle.webp"
+    ],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "2dd59e55152e7bac0736796f432575abe40f2997567816174ccd916cd1ab08c7",
+    "size": 14730,
+    "created": "2026-10-29",
+    "cut_by": "none (plain background flood-filled; sam-3.1 found only 5.9%)",
+    "source": "art-src/pets/butterfly-0.webp"
+  },
+  {
+    "id": "pets-butterfly-2",
+    "path": "public/art/pets/butterfly-2.webp",
+    "kind": "sprite",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "From this life-cycle picture, draw only the green chrysalis hanging straight down from its small twig. Keep exactly the same soft 3D picture-book style, materials and colours as in the image. Exactly one subject, large and centred with space around it, on a plain flat light-grey background, no ground shadow, no other stages, no arrows, no text, no letters, no logos, no watermark.",
+    "refs": [
+      "public/art/critters/butterfly-life-cycle.webp"
+    ],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "a54d77bc6e091b565bc4a8c34e22511e00399e2f3b67fc5761495de6a3145162",
+    "size": 14002,
+    "created": "2026-10-29",
+    "cut_by": "none (plain background flood-filled; sam-3.1 found only 4.6%)",
+    "source": "art-src/pets/butterfly-2.webp"
+  },
+  {
+    "id": "pets-food-algae",
+    "path": "public/art/pets/food-algae.webp",
+    "kind": "sprite",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "a small heap of soft green pond algae and waterweed, friendly cute picture-book 3D illustration, soft clay look, warm soft light, exactly one item, large and centred on a plain flat light-grey background, no ground shadow, no text, no letters, no logos, no watermark.",
+    "refs": [],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "ea53e52b6a3e0dd952baf930bafc6cbc24458a9cd6e7ee81812f9aed4473c36b",
+    "size": 43246,
+    "created": "2026-10-29",
+    "cut_by": "none (plain background flood-filled; sam-3.1 found nothing)",
+    "source": "art-src/pets/food-algae.webp"
+  },
+  {
+    "id": "pets-food-bran",
+    "path": "public/art/pets/food-bran.webp",
+    "kind": "sprite",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "a small heap of golden wheat bran and rolled oats, friendly cute picture-book 3D illustration, soft clay look, warm soft light, exactly one item, large and centred on a plain flat light-grey background, no ground shadow, no text, no letters, no logos, no watermark.",
+    "refs": [],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "982889ce65860c41c941297fb6c62eaf7560b90c225a447faa43d5dbfc27c175",
+    "size": 33132,
+    "created": "2026-10-29",
+    "cut_by": "none (plain background flood-filled; sam-3.1 found only 0.4%)",
+    "source": "art-src/pets/food-bran.webp"
+  },
+  {
+    "id": "pets-food-carrot",
+    "path": "public/art/pets/food-carrot.webp",
+    "kind": "sprite",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "one round slice of fresh orange carrot, friendly cute picture-book 3D illustration, soft clay look, warm soft light, exactly one item, large and centred on a plain flat light-grey background, no ground shadow, no text, no letters, no logos, no watermark.",
+    "refs": [],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "1034184a2f7d2b7f64b4a6c3138da2b8deaed94095d3f934e2ebe59c9b21d406",
+    "size": 40236,
+    "created": "2026-10-29",
+    "cut_by": "none (plain background flood-filled; sam-3.1 found nothing)",
+    "source": "art-src/pets/food-carrot.webp"
+  },
+  {
+    "id": "pets-food-leaves",
+    "path": "public/art/pets/food-leaves.webp",
+    "kind": "sprite",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "a small sprig of fresh green leaves, friendly cute picture-book 3D illustration, soft clay look, warm soft light, exactly one item, large and centred on a plain flat light-grey background, no ground shadow, no text, no letters, no logos, no watermark.",
+    "refs": [],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "484cad39424d6807192cec59ab9867f843320e2ea6f87f3a9601451d18bc38bf",
+    "size": 29370,
+    "created": "2026-10-29",
+    "cut_by": "none (plain background flood-filled; sam-3.1 found only 2.8%)",
+    "source": "art-src/pets/food-leaves.webp"
+  },
+  {
+    "id": "pets-food-greens",
+    "path": "public/art/pets/food-greens.webp",
+    "kind": "sprite",
+    "model": "muse-image-1.0",
+    "pack": "terrarium",
+    "prompt": "a small bunch of fresh dark-green leafy greens, friendly cute picture-book 3D illustration, soft clay look, warm soft light, exactly one item, large and centred on a plain flat light-grey background, no ground shadow, no text, no letters, no logos, no watermark.",
+    "refs": [],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "6126c2fbb336e9419d50bbd05c707268c06227782952fdcf7203468250626a74",
+    "size": 36824,
+    "created": "2026-10-29",
+    "cut_by": "none (plain background flood-filled; sam-3.1 found only 3.1%)",
+    "source": "art-src/pets/food-greens.webp"
   }
 ]

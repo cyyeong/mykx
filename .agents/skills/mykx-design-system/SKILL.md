@@ -114,7 +114,8 @@ Each surface gets **one** memorable moment. Keep everything around it calm.
 | **Question player** | correct answer → sparkle burst; a reward card flies toward the Treasure icon | Kix expression states: idle, thinking, hint, cheer |
 | **Treasure Realm** | dreamy vault: floating crystal islands, aurora, drifting lanterns; holographic collectible cards tilt with pointer; skill constellation lights up | see §5 |
 | **Vibe Zone** | brief → planner/flashcards appear with generated art in the child's pack | trusted React renderer from a JSON spec, never model-authored HTML |
-| **Critter companion** (Terrarium) | the adopted tadpole or mealworm grows to its next real life-cycle stage, with the growth track showing the whole cycle | stages keyed to reward-ledger milestones; never sick, sad or dying; the growth track doubles as the life-cycle diagram |
+| **Critter companion** (Terrarium; Pip on Home) | the adopted tadpole or mealworm grows to its next real life-cycle stage, with the growth track showing the whole cycle | stages keyed to reward-ledger milestones; never sick or dying; the growth track doubles as the life-cycle diagram |
+| **Critter Lab pets** (every band; founder, 29 Oct) | the pet really moves in its habitat (a tadpole swims with a swaying tail, wings flap, frogs hop, larvae inch, chicks peck), and growing to the next stage is a flash that lands on the life-cycle track's next step | the life cycle is always in view with the stage marked; moods (happy, hungry, sad, cross) come from care bars and show as posture, pace and an emote bubble, never a sick or dying pet; growth comes from each stage's own care, decided by code; sprites are Muse Image edits of the life-cycle sheets, cut out with SAM |
 | **Parent view** | calm, editorial evening summary; evidence chips; one offline activity card | Dreamlight palette, low motion, no game chrome |
 
 ## 4a. Living scenes (added 27 Oct)

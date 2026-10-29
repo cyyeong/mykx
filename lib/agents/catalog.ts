@@ -94,6 +94,16 @@ const FACTS: Record<EditableAgent, Facts> = {
     output: "tonight_summary: 20 to 620 characters.",
     enforced: ["Facts come from the database and the Guardian rollups; the model only narrates.", "Cached per family by digest, at most every 5 minutes.", "fallbackTonight answers when the model fails."],
   },
+  "critter-keeper": {
+    tools: [],
+    output: "pet_reply (petReplySchema): a reply of at most 220 characters and a feeling for the animation.",
+    enforced: [
+      "Distress words skip the model: Kix's caring reply and the helplines answer instead, and the parent gets an urgent flag (rule 12).",
+      "It is given only the pet's facts (species, stage, foods, bars, mood) and the child's words: no name, no Notebook, no other data.",
+      "The pet's mood, bars and stage come from the care rules (lib/pets/care.ts); the model's feeling only animates the reply.",
+      "Chats aren't stored. fallbackReply answers without a model.",
+    ],
+  },
 };
 
 /** Why an agent has nothing to edit. */

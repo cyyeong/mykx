@@ -25,6 +25,7 @@ const ALLOWED: readonly [string, RegExp][] = [
   ["DELETE", /^\/api\/auth\/parent$/],
   ["POST", /^\/api\/attempts$/],
   ["POST", /^\/api\/games\/round$/],
+  ["POST", /^\/api\/pets(\/talk)?$/],
   ["POST", /^\/api\/kix\/(tutor|reason|spark|homework)$/],
   ["POST", /^\/api\/session\/close$/],
   ["POST", /^\/api\/guardian\/beat$/],
