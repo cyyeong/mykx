@@ -8,7 +8,11 @@
 // it by writing styles straight to the DOM (no re-render per frame); CSS draws the body's own motion. The page drives
 // it through the handle: go to a food, eat, turn it down, follow a finger, cheer. Decorative: the page says in words
 // what happened.
-import { useEffect, useImperativeHandle, useRef, type Ref } from "react";
+//
+// Kids can touch it (founder, 30 Oct): a tap makes it react the way its stage moves (a tadpole darts off, a frog
+// hops, a caterpillar curls, an egg wobbles); press and drag picks it up and carries it, but only inside the part of
+// the habitat its stage lives in, so it stretches back at the edge and settles when let go.
+import { useEffect, useImperativeHandle, useRef, type PointerEvent as ReactPointerEvent, type Ref } from "react";
 import type { Mood } from "@/lib/pets/care";
 import type { Move, PetId } from "@/lib/pets/species";
 import { PETS } from "@/lib/pets/species";
@@ -29,7 +33,14 @@ export interface PetHandle {
   where(): { x: number; y: number };
   /** A point near it inside its zone, for dropping food. */
   near(): { x: number; y: number };
+  /** Something nearby was touched: a pet that moves turns and heads that way. */
+  notice(x: number, y: number): void;
 }
+
+/** How far (percent of the habitat) the pet stretches past the edge of its zone while carried. */
+const STRETCH = 5;
+/** A press that moves less than this many pixels is a tap. */
+const DRAG_PX = 8;
 
 /** Percent of the habitat per second, by how the stage moves; 0 stays put. */
 const SPEED: Record<Move, number> = { swim: 7, hop: 0, crawl: 2.4, scuttle: 15, walk: 5.5, flutter: 10, wobble: 0, rest: 0, hang: 0 };
@@ -46,7 +57,31 @@ export function zoneFor(species: PetId, stage: number): Rect {
   return ZONES[species][z] ?? { x0: 30, x1: 70, y0: 70, y1: 85, anchor: "feet" };
 }
 
-export function PetActor({ species, stage, mood, calm, ref }: { species: PetId; stage: number; mood: Mood; calm: boolean; ref?: Ref<PetHandle> }) {
+export function PetActor({
+  species,
+  stage,
+  mood,
+  calm,
+  touchable = false,
+  beckon = false,
+  onPoke,
+  onDrop,
+  ref,
+}: {
+  species: PetId;
+  stage: number;
+  mood: Mood;
+  calm: boolean;
+  /** Tap and drag are on (off while feeding, scrubbing or playing). */
+  touchable?: boolean;
+  /** A soft ring that says "touch me", until the kid first has. */
+  beckon?: boolean;
+  /** A tap; `rough` after too many quick taps. */
+  onPoke?: (rough: boolean) => void;
+  /** Let go after carrying; `outside` when the kid tried to take it out of its zone. */
+  onDrop?: (outside: boolean) => void;
+  ref?: Ref<PetHandle>;
+}) {
   const s = PETS[species].stages[stage];
   const move = s.move;
   const zone = zoneFor(species, stage);
@@ -69,7 +104,12 @@ export function PetActor({ species, stage, mood, calm, ref }: { species: PetId; 
     hop: null as { from: { x: number; y: number }; to: { x: number; y: number }; t: number } | null,
     mood,
     lastEmote: 0,
+    held: false,
+    settle: null as { from: { x: number; y: number }; to: { x: number; y: number }; t: number } | null,
+    boost: 0,
+    pokes: [] as number[],
   });
+  const press = useRef<{ id: number; x: number; y: number; dx: number; dy: number; dragging: boolean; outside: number } | null>(null);
   useEffect(() => {
     st.current.mood = mood;
   }, [mood]);
@@ -129,7 +169,109 @@ export function PetActor({ species, stage, mood, calm, ref }: { species: PetId; 
       if (STILL.has(move)) return { x: Math.min(zone.x1 + 6, m.x + 7), y: zone.anchor === "top" ? 84 : Math.max(zone.y0, m.y) };
       return clampTo(zone, { x: m.x + (m.x > (zone.x0 + zone.x1) / 2 ? -1 : 1) * rand(8, 16), y: m.y + rand(-4, 4) });
     },
+    notice: (x, y) => {
+      const m = st.current;
+      if (m.held || m.busy || STILL.has(move)) return;
+      m.dir = x < m.x ? -1 : 1;
+      m.target = clampTo(zone, { x: x + (x < m.x ? 5 : -5), y });
+      m.wait = 2.5;
+    },
   }));
+
+  /** Where a pointer is, in percent of the habitat. */
+  const at = (e: ReactPointerEvent) => {
+    const b = root.current?.parentElement?.getBoundingClientRect();
+    return b ? { x: ((e.clientX - b.left) / b.width) * 100, y: ((e.clientY - b.top) / b.height) * 100 } : { x: 50, y: 50 };
+  };
+
+  /** A tap: the stage's own reaction, a little heart, and "gently" after four taps in under three seconds. */
+  const poke = () => {
+    const m = st.current;
+    const now = performance.now();
+    m.pokes = [...m.pokes.filter((t) => now - t < 2800), now];
+    if (m.pokes.length >= 4) {
+      m.pokes = [];
+      showEmote("no", 1400);
+      void flash("is-no", 900);
+      onPoke?.(true);
+      return;
+    }
+    const away = m.x > (zone.x0 + zone.x1) / 2 ? -1 : 1;
+    if (move === "swim" || move === "scuttle" || move === "flutter") {
+      // Darts off, quick.
+      m.target = clampTo(zone, { x: m.x + away * rand(10, 20), y: m.y + rand(-8, 8) });
+      m.boost = now + 1200;
+      void flash("is-poke", 420);
+    } else if (move === "hop") {
+      m.target = clampTo(zone, { x: m.x + away * rand(8, 14), y: m.y + rand(-2, 2) });
+    } else if (move === "walk") {
+      m.target = clampTo(zone, { x: m.x + away * rand(4, 8), y: m.y });
+      void flash("is-joy", 900);
+    } else if (move === "crawl") {
+      void flash("is-curl", 900);
+    } else {
+      void flash("is-poke", 900);
+    }
+    showEmote(m.pokes.length % 2 ? "love" : "happy", 1400);
+    onPoke?.(false);
+  };
+
+  const grab = (e: ReactPointerEvent<HTMLSpanElement>) => {
+    if (!touchable || (e.pointerType === "mouse" && e.button !== 0)) return;
+    e.stopPropagation();
+    e.currentTarget.setPointerCapture(e.pointerId);
+    const p = at(e);
+    const m = st.current;
+    press.current = { id: e.pointerId, x: e.clientX, y: e.clientY, dx: m.x - p.x, dy: m.y - p.y, dragging: false, outside: 0 };
+  };
+
+  const carry = (e: ReactPointerEvent<HTMLSpanElement>) => {
+    const pr = press.current;
+    if (!pr || pr.id !== e.pointerId) return;
+    const m = st.current;
+    if (!pr.dragging) {
+      if (Math.hypot(e.clientX - pr.x, e.clientY - pr.y) < DRAG_PX) return;
+      pr.dragging = true;
+      m.held = true;
+      m.target = null;
+      m.hop = null;
+      m.settle = null;
+      body.current?.classList.remove("is-air");
+      root.current?.classList.add("is-held");
+    }
+    const p = at(e);
+    const want = { x: p.x + pr.dx, y: p.y + pr.dy };
+    const c = clampTo(zone, want);
+    const soft = (d: number) => Math.sign(d) * Math.min(STRETCH, Math.abs(d) * 0.35);
+    const x = c.x + soft(want.x - c.x);
+    if (Math.abs(x - m.x) > 0.4) m.dir = x < m.x ? -1 : 1;
+    m.x = x;
+    m.y = c.y + soft(want.y - c.y);
+    pr.outside = Math.max(pr.outside, Math.hypot(want.x - c.x, want.y - c.y));
+  };
+
+  const release = (e: ReactPointerEvent<HTMLSpanElement>, cancelled = false) => {
+    const pr = press.current;
+    if (!pr || pr.id !== e.pointerId) return;
+    press.current = null;
+    const m = st.current;
+    if (!pr.dragging) {
+      if (!cancelled) poke();
+      return;
+    }
+    m.held = false;
+    root.current?.classList.remove("is-held");
+    m.settle = { from: { x: m.x, y: m.y }, to: clampTo(zone, m), t: 0 };
+    m.wait = 1.6;
+    const b = body.current;
+    if (b) {
+      b.classList.remove("is-land");
+      void b.offsetWidth;
+      b.classList.add("is-land");
+      window.setTimeout(() => b.classList.remove("is-land"), 300);
+    }
+    onDrop?.(pr.outside > 6);
+  };
 
   useEffect(() => {
     const m = st.current;
@@ -160,7 +302,17 @@ export function PetActor({ species, stage, mood, calm, ref }: { species: PetId; 
       let lift = 0;
 
       if (m.follow) m.target = m.follow;
-      if (!STILL.has(move)) {
+      if (m.settle) {
+        // Let go: it settles back inside its zone.
+        m.settle.t += dt / 0.3;
+        const t = Math.min(1, m.settle.t);
+        const k = 1 - Math.pow(1 - t, 3);
+        m.x = m.settle.from.x + (m.settle.to.x - m.settle.from.x) * k;
+        m.y = m.settle.from.y + (m.settle.to.y - m.settle.from.y) * k;
+        if (t >= 1) m.settle = null;
+      }
+      if (m.held) lift = 10 + Math.sin(now / 160) * 2;
+      if (!STILL.has(move) && !m.held && !m.settle) {
         if (!m.target && !m.hop) {
           m.wait -= dt;
           if (m.wait <= 0) {
@@ -205,7 +357,7 @@ export function PetActor({ species, stage, mood, calm, ref }: { species: PetId; 
           const dx = m.target.x - m.x;
           const dy = m.target.y - m.y;
           const d = Math.hypot(dx, dy);
-          const v = speed * pace * (m.follow ? 1.6 : 1) * (move === "scuttle" ? (0.6 + 0.4 * Math.abs(Math.sin(now / 90))) : 1);
+          const v = speed * pace * (m.follow ? 1.6 : 1) * (now < m.boost ? 2.6 : 1) * (move === "scuttle" ? (0.6 + 0.4 * Math.abs(Math.sin(now / 90))) : 1);
           if (d < 0.6) {
             m.target = m.follow ? m.target : null;
             if (!m.follow) {
@@ -266,7 +418,7 @@ export function PetActor({ species, stage, mood, calm, ref }: { species: PetId; 
   const src = spriteOf(species, stage);
   const split = move === "swim" ? "tail" : move === "flutter" ? "wings" : null;
   return (
-    <div ref={root} className="pa" data-anchor={zone.anchor} style={{ width: `${s.size}%` }} aria-hidden="true">
+    <div ref={root} className={`pa${touchable ? " is-touchable" : ""}`} data-anchor={zone.anchor} style={{ width: `${s.size}%` }} aria-hidden="true">
       <div ref={face} className="pa-face">
         <div ref={body} className={`pa-body pa-${move}`} data-mood={mood}>
           {split === "tail" ? (
@@ -284,6 +436,16 @@ export function PetActor({ species, stage, mood, calm, ref }: { species: PetId; 
             <img className="pa-img" src={src} alt="" draggable={false} />
           )}
         </div>
+        {/* The touch target: bigger than a small sprite, and it moves with the pet. */}
+        <span
+          className="pa-hit"
+          data-beckon={beckon && touchable ? "" : undefined}
+          onPointerDown={grab}
+          onPointerMove={carry}
+          onPointerUp={release}
+          onPointerCancel={(e) => release(e, true)}
+          onLostPointerCapture={(e) => release(e, true)}
+        />
       </div>
       {zone.anchor === "feet" && <span className="pa-shadow" />}
       <span ref={bubble} className="pa-emote" />

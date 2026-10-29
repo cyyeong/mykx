@@ -7,7 +7,8 @@
 // hungry, sad or cross, never sick. When the stage's jobs are done and it's well looked after, it grows; an adult
 // lays eggs and the cycle starts again. Talk to it and the Critter Keeper answers as the pet (Muse Spark, or a
 // cached reply). The server's care rules decide everything (lib/pets/care.ts); the page runs the same rules to show
-// the bars running down, and animates what the server said happened.
+// the bars running down, and animates what the server said happened. The habitat is touchable (founder, 30 Oct):
+// tap or drag the pet, and tap its plants, water and rocks for a fact; touching never changes the bars.
 import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties, type FormEvent, type PointerEvent } from "react";
 import { useSound } from "@/components/sound/SoundProvider";
 import { Art } from "@/components/ui/Art";
@@ -17,8 +18,10 @@ import { useKixVoice } from "@/components/voice/useKixVoice";
 import { CRITTERS } from "@/lib/critters/catalog";
 import { barsNow, jobsLeft, moodOf, readyToGrow, stageOf, type Mood, type PetRecord, type Reaction } from "@/lib/pets/care";
 import { FOODS, PET_IDS, PETS, type Bar, type FoodId, type Job, type PetId } from "@/lib/pets/species";
-import { DIRT, HABITAT_ART, foodArt, spriteOf } from "./habitats";
+import { DIRT, HABITAT_ART, foodArt, spriteOf, type Spot } from "./habitats";
+import { HabitatSpots } from "./HabitatSpots";
 import { PetActor, zoneFor, type PetHandle } from "./PetActor";
+import { DROP_LINES, GENTLY, POKE_SOUND, SPOT_SOUND, TOUCH_HINT, markTouched, pokeLines, useTouched, zoneLine } from "./touch";
 import "./pets.css";
 
 type Line = { from: "kid" | "pet" | "kix"; text: string; helplines?: { name: string; number: string }[]; flag?: SignedFlag | null };
@@ -110,7 +113,9 @@ function LifeCycle({ species, stage, name, adopted, grew }: { species: PetId; st
 }
 
 export function PetsScreen({ initial, serverNow, band, voice }: { initial: PetRecord[]; serverNow: string; band: "junior" | "teen"; voice: boolean }) {
-  const { play } = useSound();
+  const { play, prop } = useSound();
+  const touched = useTouched();
+  const pokes = useRef(0);
   const { speak } = useKixVoice(band);
   const skew = useRef(0);
   const [now, setNow] = useState(serverNow);
@@ -332,7 +337,31 @@ export function PetsScreen({ initial, serverNow, band, voice }: { initial: PetRe
     setTalking(false);
   }
 
+  /** Touching the pet: its own line each time, "gently" after too many quick taps. Never changes the bars. */
+  function poked(rough: boolean) {
+    if (!touched.pet) markTouched((t) => ({ ...t, pet: true }));
+    if (rough) return setSay(GENTLY);
+    prop(POKE_SOUND[s.move]);
+    const said = pet ? pokeLines(sel, pet.stage, s.move) : [];
+    if (!said.length) return;
+    setSay(said[pokes.current++ % said.length]);
+  }
+
+  function dropped(outside: boolean) {
+    if (!touched.pet) markTouched((t) => ({ ...t, pet: true }));
+    prop("tink");
+    setSay(outside && pet ? zoneLine(sel, pet.stage, s.zone) : DROP_LINES[pokes.current++ % DROP_LINES.length]);
+  }
+
+  function touchSpot(spot: Spot, at: { x: number; y: number }) {
+    prop(SPOT_SOUND[spot.kind]);
+    setSay(spot.fact);
+    actor.current?.notice(at.x, at.y);
+  }
+
   const growing = pet ? readyToGrow(pet, now) : false;
+  const still = mode === null && !busy && !party;
+  const showTouchHint = Boolean(pet) && still && !touched.unknown && (!touched.pet || !touched.spots[sel]?.length);
   const chat = lines[sel] ?? [];
   const lastPet = [...chat].reverse().find((l) => l.from === "pet");
 
@@ -370,8 +399,9 @@ export function PetsScreen({ initial, serverNow, band, voice }: { initial: PetRe
             {food && (
               <img src={foodArt(food.id)} alt="" className={`pt-food is-${food.state}`} style={{ left: `${food.x}%`, top: `${food.y}%` }} />
             )}
+            {pet && <HabitatSpots species={sel} art={HABITAT_ART[sel]} off={!still} onTouch={touchSpot} />}
             {pet ? (
-              <PetActor key={`${sel}-${pet.stage}-${pet.generation}`} ref={actor} species={sel} stage={pet.stage} mood={mood} calm={calm} />
+              <PetActor key={`${sel}-${pet.stage}-${pet.generation}`} ref={actor} species={sel} stage={pet.stage} mood={mood} calm={calm} touchable={still} beckon={!touched.pet} onPoke={poked} onDrop={dropped} />
             ) : (
               <div className="pt-adopt">
                 <img src={spriteOf(sel, 0)} alt="" className="pt-adopt-art" />
@@ -393,6 +423,17 @@ export function PetsScreen({ initial, serverNow, band, voice }: { initial: PetRe
               </div>
             )}
             {mode === "clean" && <span className="pt-hint">Rub the spots to scrub them away</span>}
+            {showTouchHint && (
+              <span className="pt-hint pt-hint--touch">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M9 11V5a1.5 1.5 0 0 1 3 0v5.5M12 10V4a1.5 1.5 0 0 1 3 0v6.5M15 10.5V6a1.5 1.5 0 0 1 3 0v8a6 6 0 0 1-6 6h-.6a6 6 0 0 1-4.7-2.3L4 13.9a1.6 1.6 0 0 1 2.4-2.1L9 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span>
+                  Tap or drag {name}
+                  <span className="pt-hint-more">. Touch {TOUCH_HINT[sel]} too!</span>
+                </span>
+              </span>
+            )}
             {say && (
               <p className="pt-say" role="status">
                 <b>{name}:</b> {say}

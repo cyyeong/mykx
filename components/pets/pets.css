@@ -253,3 +253,88 @@
 .pt-flag { margin-left: 8px; }
 .pt-flag .sy-flag { width: 32px; height: 32px; }
 .pt-flag[data-band="junior"] .sy-flag { width: 44px; height: 44px; }
+
+/* Touch (founder, 30 Oct). The pet: a ring that says "touch me" until it has been, a lift and a dangle while it's
+   carried, and its stage's own reaction to a tap. */
+.pt-habitat{-webkit-touch-callout:none}
+/* Layers: the touchable parts (1), the spoken line (2), the pet (3), hints and effects (4). */
+.pt-say{z-index:2}
+.pt-hint{z-index:4}
+.pt-habitat .pa{z-index:3}
+.pt-habitat .pa.is-held{z-index:4}
+.pa-hit{position:absolute;left:50%;top:50%;width:max(120%,48px);height:max(120%,48px);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;-webkit-tap-highlight-color:transparent}
+.pa.is-touchable .pa-hit{pointer-events:auto;cursor:grab;touch-action:none}
+.pa.is-held .pa-hit{cursor:grabbing}
+.pa-hit[data-beckon]::before,.pa-hit[data-beckon]::after{content:"";position:absolute;inset:16%;border:2px solid rgba(255,255,255,.95);border-radius:50%;box-shadow:0 0 14px rgba(255,255,255,.7),inset 0 0 10px rgba(255,255,255,.4);opacity:0;animation:pa-beckon 2.4s ease-out infinite}
+.pa-hit[data-beckon]::after{animation-delay:1.2s}
+.pa.is-held .pa-body{animation:pa-dangle .42s ease-in-out infinite alternate}
+.pa.is-held .pa-img,.pa.is-held .pa-part{filter:drop-shadow(0 16px 12px rgba(20,30,20,.32))}
+.pa.is-held .pa-shadow{transform:scale(.6);opacity:.5}
+.pa-body.is-poke{animation:pa-poke .3s ease-in-out 3}
+.pa-hang.is-poke{transform-origin:50% 0;animation:pa-swing .45s ease-in-out 2}
+.pa-body.is-curl{animation:pa-curl .9s ease-in-out}
+@keyframes pa-beckon{0%{transform:scale(.7);opacity:0}25%{opacity:.95}100%{transform:scale(1.3);opacity:0}}
+@keyframes pa-dangle{from{transform:rotate(-6deg)}to{transform:rotate(6deg)}}
+@keyframes pa-poke{0%,100%{transform:scale(1,1)}35%{transform:scale(1.12,.86)}70%{transform:scale(.94,1.08)}}
+@keyframes pa-swing{0%,100%{transform:rotate(0)}30%{transform:rotate(12deg)}70%{transform:rotate(-9deg)}}
+@keyframes pa-curl{0%,100%{transform:scale(1,1) rotate(0)}30%{transform:scale(.8,1.1) rotate(-8deg)}60%{transform:scale(.86,1.05) rotate(6deg)}}
+
+/* The habitat's touchable parts: a button over each, a sparkle that visits the ones not touched yet, and on a tap the
+   same patch of the picture lifted and moved, with ripples, bubbles, puffs, petals or a glow where the finger landed. */
+.pt-spots{position:absolute;inset:0;z-index:1;pointer-events:none}
+.pt-spot{position:absolute;min-width:40px;min-height:40px;padding:0;border:0;border-radius:40%;background:none;transform:translate(-50%,-50%);cursor:pointer;pointer-events:auto;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.pt-spots.is-off .pt-spot{pointer-events:none}
+.pt-spot:focus-visible{outline:3px dashed rgba(255,255,255,.95);outline-offset:-3px}
+@media (hover:hover){.pt-spots:not(.is-off) .pt-spot:hover{background:radial-gradient(closest-side,rgba(255,255,255,.26),rgba(255,255,255,0))}}
+.pt-spark{position:absolute;left:50%;top:50%;width:clamp(22px,4cqw,36px);aspect-ratio:1;border-radius:50%;background:radial-gradient(closest-side,rgba(255,246,200,.75),rgba(255,246,200,0));transform:translate(-50%,-50%);pointer-events:none;animation:pt-spark 1.8s ease-in-out both}
+.pt-spark::before{content:"";position:absolute;inset:12%;background:#fff;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0z'/%3E%3C/svg%3E") center/contain no-repeat}
+.pt-spot-art{position:absolute;overflow:hidden;pointer-events:none;transform-origin:50% 100%;-webkit-mask:radial-gradient(closest-side,#000 62%,transparent);mask:radial-gradient(closest-side,#000 62%,transparent)}
+.pt-spot-art i{position:absolute;background:var(--hab) center/cover no-repeat}
+.pt-spot-art.is-plant,.pt-spot-art.is-flower{animation:pt-sway 1.4s ease-out both,pt-lit 1.2s ease-out both}
+.pt-spot-art.is-twig{transform-origin:50% 50%;animation:pt-bob 1.4s ease-out both,pt-lit 1.2s ease-out both}
+.pt-spot-art.is-rock,.pt-spot-art.is-carrot{animation:pt-rock .9s ease-out both,pt-lit .9s ease-out both}
+.pt-spot-art.is-water,.pt-spot-art.is-deep,.pt-spot-art.is-lily{transform-origin:50% 50%;animation:pt-wave 1.4s ease-out both,pt-lit 1.2s ease-out both}
+.pt-spot-art.is-bran,.pt-spot-art.is-straw,.pt-spot-art.is-grain{transform-origin:50% 50%;animation:pt-shuffle .7s ease-out both,pt-lit .9s ease-out both}
+.pt-spot-art.is-lamp,.pt-spot-art.is-sun{animation:pt-glow 1.5s ease-out both}
+.pt-spot-fx{position:absolute;width:clamp(60px,15cqw,150px);aspect-ratio:1;transform:translate(-50%,-50%);pointer-events:none}
+.pt-spot-fx::before,.pt-spot-fx::after{content:"";position:absolute;inset:0;opacity:0}
+/* Ripples on a surface */
+.pt-spot-fx.is-water::before,.pt-spot-fx.is-water::after,.pt-spot-fx.is-lily::before,.pt-spot-fx.is-lily::after{border:2px solid rgba(255,255,255,.9);border-radius:50%;animation:pt-ring 1.2s ease-out forwards}
+.pt-spot-fx.is-water::after,.pt-spot-fx.is-lily::after{animation-delay:.28s}
+/* Bubbles under water */
+.pt-spot-fx.is-deep::before{inset:-40% 10% 10%;background:radial-gradient(circle closest-side,rgba(255,255,255,.12) 62%,rgba(255,255,255,.95) 72%,transparent 82%) 30% 90%/26% 17% no-repeat,radial-gradient(circle closest-side,rgba(255,255,255,.12) 62%,rgba(255,255,255,.95) 72%,transparent 82%) 68% 72%/20% 13% no-repeat,radial-gradient(circle closest-side,rgba(255,255,255,.12) 62%,rgba(255,255,255,.95) 72%,transparent 82%) 44% 48%/15% 10% no-repeat,radial-gradient(circle closest-side,rgba(255,255,255,.12) 62%,rgba(255,255,255,.95) 72%,transparent 82%) 60% 26%/12% 8% no-repeat,radial-gradient(circle closest-side,rgba(255,255,255,.12) 62%,rgba(255,255,255,.95) 72%,transparent 82%) 36% 8%/9% 6% no-repeat;animation:pt-bubbles 1.5s ease-out forwards}
+/* Puffs of bran, straw or grain; dust off a rock; crumbs off a carrot; bits of leaf */
+.pt-spot-fx.is-bran,.pt-spot-fx.is-straw,.pt-spot-fx.is-grain,.pt-spot-fx.is-rock,.pt-spot-fx.is-carrot,.pt-spot-fx.is-plant,.pt-spot-fx.is-twig{--puff:#c99a55}
+.pt-spot-fx.is-straw{--puff:#ecc867}
+.pt-spot-fx.is-rock{--puff:rgba(236,230,218,.95)}
+.pt-spot-fx.is-carrot{--puff:#f08a2c}
+.pt-spot-fx.is-plant,.pt-spot-fx.is-twig{--puff:#7cc35a}
+.pt-spot-fx.is-bran::before,.pt-spot-fx.is-straw::before,.pt-spot-fx.is-grain::before,.pt-spot-fx.is-rock::before,.pt-spot-fx.is-carrot::before,.pt-spot-fx.is-plant::before,.pt-spot-fx.is-twig::before{background:radial-gradient(circle,var(--puff) 0 38%,transparent 42%) 18% 62%/15% 15% no-repeat,radial-gradient(circle,var(--puff) 0 38%,transparent 42%) 40% 38%/9% 9% no-repeat,radial-gradient(circle,var(--puff) 0 38%,transparent 42%) 64% 56%/14% 14% no-repeat,radial-gradient(circle,var(--puff) 0 38%,transparent 42%) 82% 34%/8% 8% no-repeat,radial-gradient(circle,var(--puff) 0 38%,transparent 42%) 52% 74%/7% 7% no-repeat;animation:pt-puff 1s ease-out forwards}
+/* Petals */
+.pt-spot-fx.is-flower::before{background:radial-gradient(ellipse closest-side,#ff9ccf 70%,transparent) 20% 70%/14% 9% no-repeat,radial-gradient(ellipse closest-side,#c8a6ff 70%,transparent) 58% 52%/12% 8% no-repeat,radial-gradient(ellipse closest-side,#ffd36b 70%,transparent) 80% 74%/10% 7% no-repeat,radial-gradient(ellipse closest-side,#ff9ccf 70%,transparent) 42% 30%/11% 7% no-repeat;animation:pt-petals 1.5s ease-out forwards}
+/* Warm light */
+.pt-spot-fx.is-lamp::before,.pt-spot-fx.is-sun::before{inset:-35%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,228,140,.85),rgba(255,200,90,.28) 55%,transparent);animation:pt-warm 1.4s ease-out forwards}
+@keyframes pt-spark{0%{transform:translate(-50%,-50%) scale(0) rotate(-30deg);opacity:0}30%{transform:translate(-50%,-50%) scale(1) rotate(0);opacity:1}62%{transform:translate(-50%,-50%) scale(.85) rotate(15deg);opacity:1}100%{transform:translate(-50%,-50%) scale(0) rotate(40deg);opacity:0}}
+@keyframes pt-sway{0%,100%{transform:rotate(0)}18%{transform:rotate(-8deg)}42%{transform:rotate(6deg)}66%{transform:rotate(-3deg)}84%{transform:rotate(1deg)}}
+@keyframes pt-bob{0%,100%{transform:translateY(0)}25%{transform:translateY(12%) rotate(.8deg)}55%{transform:translateY(-6%) rotate(-.5deg)}80%{transform:translateY(2%)}}
+@keyframes pt-rock{0%,100%{transform:rotate(0) translateY(0)}25%{transform:rotate(-6deg) translateY(-9%)}55%{transform:rotate(4deg) translateY(0)}80%{transform:rotate(-1.5deg)}}
+@keyframes pt-wave{0%,100%{transform:scale(1,1)}25%{transform:scale(1.05,.92)}50%{transform:scale(.97,1.06)}75%{transform:scale(1.02,.97)}}
+@keyframes pt-shuffle{0%,100%{transform:translate(0,0)}20%{transform:translate(-3%,-2%)}40%{transform:translate(3%,0)}60%{transform:translate(-2%,-1%)}80%{transform:translate(1%,0)}}
+@keyframes pt-lit{0%,100%{filter:brightness(1)}25%{filter:brightness(1.2) saturate(1.15)}}
+@keyframes pt-glow{0%,100%{filter:brightness(1)}30%{filter:brightness(1.45) saturate(1.2)}}
+@keyframes pt-ring{0%{transform:scale(.1,.04);opacity:.95}100%{transform:scale(1,.42);opacity:0}}
+@keyframes pt-bubbles{0%{transform:translateY(25%);opacity:0}20%{opacity:1}100%{transform:translateY(-45%);opacity:0}}
+@keyframes pt-puff{0%{transform:translateY(10%) scale(.6);opacity:0}20%{opacity:1}100%{transform:translateY(-35%) scale(1.25);opacity:0}}
+@keyframes pt-petals{0%{transform:translate(0,0) rotate(0);opacity:0}15%{opacity:1}100%{transform:translate(18%,-55%) rotate(25deg);opacity:0}}
+@keyframes pt-warm{0%{transform:scale(.4);opacity:0}30%{opacity:1}100%{transform:scale(1.4);opacity:0}}
+
+/* The hint, until the pet and one part of its home have been touched */
+.pt-hint--touch{display:flex;align-items:center;gap:6px;left:12px;right:12px;width:fit-content;margin-inline:auto;transform:none;animation:pt-up .5s ease-out both}
+.pt-hint--touch svg{width:20px;height:20px;flex:none;animation:pt-tap 1.6s ease-in-out infinite}
+@keyframes pt-tap{0%,100%{transform:translateY(0) rotate(0)}40%{transform:translateY(-2px) rotate(-8deg)}55%{transform:translateY(1px) scale(.92)}}
+@media (max-width:599px){.pt-hint-more{display:none}.pt-hint{font-size:13px}}
+@media (prefers-reduced-motion:reduce){
+  .pa-hit::before,.pa-hit::after,.pa.is-held .pa-body,.pt-spark,.pt-hint--touch,.pt-hint--touch svg{animation:none!important}
+  .pa-hit[data-beckon]::before{opacity:.9}
+  .pt-spot-art,.pt-spot-fx{display:none}
+}
