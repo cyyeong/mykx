@@ -264,6 +264,15 @@ describe("Your family", () => {
     expect(reset.body.kid).toMatchObject({ needsSetup: true, secretEvent: "reset", dailyLimitMin: 20 });
     expect((await browser.kidSignIn(JORDAN_ID, { kind: "pictures", code: JORDAN_CODE })).body.reason).toBe("needs-setup");
 
+    // Or the grown-up taps the new 4 pictures in Your family: they work at once, and the old code doesn't.
+    const picked = ["pilot", "cheer", "pilot", "anime-sky"] as const;
+    const set = await browser.call(familyKid.PATCH, `/api/family/kids/${JORDAN_ID}`, { method: "PATCH", id: JORDAN_ID, body: { secret: { kind: "pictures", code: picked } } });
+    expect(set.body.kid).toMatchObject({ needsSetup: false, secretEvent: "reset" });
+    expect(JSON.stringify(set.body)).not.toMatch(/pilot|anime-sky/);
+    expect((await browser.kidSignIn(JORDAN_ID, { kind: "pictures", code: JORDAN_CODE })).status).toBe(401);
+    expect((await browser.kidSignIn(JORDAN_ID, { kind: "pictures", code: [...picked] })).status).toBe(200);
+    await browser.kidSignOut();
+
     const temp = await browser.call(familyKid.PATCH, `/api/family/kids/${LEONARD_ID}`, { method: "PATCH", id: LEONARD_ID, body: { secret: { kind: "password", password: "temporary1" } } });
     expect(temp.body.kid).toMatchObject({ needsSetup: false, secretEvent: "reset" });
     expect((await browser.kidSignIn(LEONARD_ID, { kind: "password", password: "local-demo-only" })).status).toBe(401);

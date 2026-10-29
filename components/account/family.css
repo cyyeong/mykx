@@ -23,7 +23,20 @@
 [aria-expanded="true"] > .fa-chev{transform:rotate(180deg)}
 .fa-in{animation:fa-in var(--duration-base) var(--ease-soft) both}
 @keyframes fa-in{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion: reduce){.fa-in{animation:none}.fa-chev{transition:none}}
+/* A new picture code, tapped in Your family: four slots fill as the grown-up taps the pad. */
+.fa-slots{display:flex;gap:8px}
+.fa-slot{display:grid;place-items:center;width:44px;height:44px;box-sizing:border-box;overflow:hidden;border-radius:12px;border:2px dashed var(--border-control);background:var(--surface-raised);font-size:13px;font-weight:700;color:var(--ink-muted)}
+.fa-slot--on{border:2px solid var(--accent);animation:fa-pop 240ms var(--ease-bounce,ease-out)}
+.fa-slot img,.fa-tile img{display:block;width:100%;height:100%;object-fit:cover}
+.fa-pad{display:grid;grid-template-columns:repeat(3,64px);gap:8px}
+.fa-tile{display:grid;place-items:center;width:64px;height:64px;box-sizing:border-box;overflow:hidden;padding:0;border:2px solid var(--border-control);border-radius:16px;background:var(--surface-raised);transition:transform 120ms ease,border-color 120ms ease}
+.fa-tile:hover:not(:disabled){border-color:var(--accent)}
+.fa-tile:active:not(:disabled){transform:scale(.92)}
+.fa-tile:disabled{opacity:.45;cursor:default}
+.fa-linkbtn{align-self:flex-start;min-height:44px;padding:0;border:0;background:none;color:var(--ink-muted);font:inherit;font-size:15px;text-align:left;text-decoration:underline;text-underline-offset:3px}
+.fa-linkbtn:hover:not(:disabled){color:var(--ink)}
+@keyframes fa-pop{from{transform:scale(.6)}to{transform:scale(1)}}
+@media (prefers-reduced-motion: reduce){.fa-in{animation:none}.fa-chev{transition:none}.fa-slot--on{animation:none}.fa-tile{transition:none}}
 [data-band] .fa-act.mk-btn{white-space:normal;line-height:1.2;text-align:center;padding-top:8px;padding-bottom:8px}
 .fa-warnbtn{cursor:pointer}
 .fa-warnbtn:disabled{opacity:.45;cursor:not-allowed}

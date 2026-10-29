@@ -24,7 +24,7 @@ Kids never give an email. The magic-name door needs no grown-up on the device: t
 
 ## 3. Managing accounts
 
-- **Parent ("Your family"):** add a kid (nickname, level P3, P6 or Sec 2, which sets the band, a world, and a starting picture code or password); reset a kid's code or password; set limits and voice; remove a kid (with a confirm step); change their own email and password; sign out on all devices.
+- **Parent ("Your family"):** add a kid (nickname, level P3, P6 or Sec 2, which sets the band, a world, and a starting picture code or password); reset a kid's code or password (a picture code: the grown-up taps the 4 new pictures right there, ideally with the kid beside them, or clears it so the kid picks new ones at their door; founder, 29 Oct); set limits and voice; remove a kid (with a confirm step); change their own email and password; sign out on all devices.
 - **Kid ("Me"):** change their nickname (up to 20 characters, with a tip: use a nickname, not your full name); change their picture code (enter the old one first) or password (old and new).
 - **Admin ("People"):** search households and accounts; see role, status and last sign-in; reset a parent's password (sends the email) or start a kid's code or password reset (the old one stops working and the parent sets the new one); lock, unlock or disable an account; add or remove the admin flag; every action goes to an audit log. **Admins see account details, never a child's messages, Notebook or answers.**
 

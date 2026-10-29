@@ -1,5 +1,6 @@
-// One kid in "Your family". PATCH: reset the code (`secret: { kind: "pictures" }` clears it so the kid
-// chooses a new one at their door; a password sets a temporary one), daily limit, voice, focus camera, world.
+// One kid in "Your family". PATCH: reset the code (`secret: { kind: "pictures", code }` sets the 4 pictures the
+// grown-up tapped; without a code it clears it so the kid chooses a new one at their door; a password sets a
+// temporary one), daily limit, voice, focus camera, world.
 // DELETE: remove the kid and everything they made, with `{ confirm: <their nickname> }`.
 import { MagicNamesNotReadyError, UsernameTakenError } from "@/lib/auth/store";
 import { currentParent, toFamilyKid, withAuth } from "@/lib/auth/context";

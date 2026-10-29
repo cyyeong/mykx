@@ -9,7 +9,8 @@ import { PinSetupCard } from "./PinSetupCard";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type ReactNode } from "react";
-import { kixSprite } from "@/components/signin/looks";
+import { PAD_PICTURES, kixSprite, type PictureId } from "@/components/signin/looks";
+import { Art } from "@/components/ui/Art";
 import { PACKS, type PackId } from "@/components/theme/packs";
 import type { FailReason, FamilyKid, FamilyResult, Level, SecretKind } from "@/lib/auth/schemas";
 import type { FocusNote, FocusNotesResult } from "@/lib/signals/schemas";
@@ -308,6 +309,7 @@ export function FamilyScreen() {
   const [panel, setPanel] = useState<string | null>(null);
   const [tempPw, setTempPw] = useState("");
   const [tempShown, setTempShown] = useState(false);
+  const [newCode, setNewCode] = useState<PictureId[]>([]);
   const [confirmText, setConfirmText] = useState("");
   const [panelError, setPanelError] = useState("");
   const [cardNotes, setCardNotes] = useState<Record<string, CardNote>>({});
@@ -372,6 +374,7 @@ export function FamilyScreen() {
     setPanel(key);
     setTempPw("");
     setTempShown(false);
+    setNewCode([]);
     setConfirmText("");
     setPanelError("");
   };
@@ -383,14 +386,21 @@ export function FamilyScreen() {
     else setPanelError(text);
   };
 
-  const resetPictures = async (k: FamilyKid) => {
+  /** With a code: the grown-up picked the 4 pictures here. Without: cleared, and the kid picks them at their door. */
+  const resetPictures = async (k: FamilyKid, code?: PictureId[]) => {
+    if (busy) return;
     setBusy(`${k.id}:reset`);
     setPanelError("");
-    const r = await api("PATCH", `/api/family/kids/${k.id}`, { secret: { kind: "pictures" } });
+    const r = await api("PATCH", `/api/family/kids/${k.id}`, { secret: code ? { kind: "pictures", code } : { kind: "pictures" } });
     if (r.ok) {
       await refresh();
       openPanel(null);
-      setCardNotes((n) => ({ ...n, [k.id]: { text: `Old code cleared. ${k.nickname} picks 4 new pictures the next time ${k.nickname} opens their door.`, door: true } }));
+      setCardNotes((n) => ({
+        ...n,
+        [k.id]: code
+          ? { text: `New picture code saved. If ${k.nickname} wasn't with you, show them the 4 pictures in person. It isn't shown again.` }
+          : { text: `Old code cleared. ${k.nickname} picks 4 new pictures the next time ${k.nickname} opens their door.`, door: true },
+      }));
     } else failed(r);
     setBusy(null);
   };
@@ -722,26 +732,55 @@ export function FamilyScreen() {
                         <div className="fa-panel fa-in" style={innerPanel}>
                           {pics ? (
                             <>
-                              <h4 style={{ margin: 0, fontSize: 17, lineHeight: "24px", fontWeight: 700 }}>Pick a new 4-picture code with {k.nickname}</h4>
+                              <h4 style={{ margin: 0, fontSize: 17, lineHeight: "24px", fontWeight: 700 }}>New picture code for {k.nickname}</h4>
                               <p style={{ margin: 0, fontSize: 16, lineHeight: "23px", color: "var(--ink-muted)" }}>
-                                The old code stops working straight away. Then sit together on this device: {k.nickname} opens their door, taps 4 pictures, then taps them again to check.
+                                Tap 4 pictures in order, ideally with {k.nickname} beside you. The old code stops working when you save.
                               </p>
-                              <div aria-hidden="true" style={{ display: "flex", gap: 8 }}>
-                                {[1, 2, 3, 4].map((i) => (
-                                  <span key={i} style={{ display: "grid", placeItems: "center", width: 44, height: 44, boxSizing: "border-box", borderRadius: 12, border: "2px dashed var(--border-control)", background: "var(--surface-raised)", fontSize: 13, fontWeight: 700, color: "var(--ink-muted)" }}>
-                                    {i}
-                                  </span>
+                              <div className="fa-slots" aria-hidden="true">
+                                {[0, 1, 2, 3].map((i) => {
+                                  const pic = PAD_PICTURES.find((p) => p.id === newCode[i]);
+                                  return (
+                                    <span key={i} className={pic ? "fa-slot fa-slot--on" : "fa-slot"}>
+                                      {pic ? <Art base={pic.art} alt="" sizes="44px" /> : i + 1}
+                                    </span>
+                                  );
+                                })}
+                              </div>
+                              <span className="fa-sr" aria-live="polite">{`${newCode.length} of 4 pictures chosen`}</span>
+                              <div className="fa-pad" role="group" aria-label={`New picture code for ${k.nickname}. Tap 4 pictures.`}>
+                                {PAD_PICTURES.map((p) => (
+                                  <button
+                                    key={p.id}
+                                    className="fa-tile fa-click"
+                                    type="button"
+                                    aria-label={p.label}
+                                    disabled={newCode.length >= 4 || busy !== null}
+                                    onClick={() => {
+                                      setNewCode((c) => (c.length < 4 ? [...c, p.id] : c));
+                                      setPanelError("");
+                                    }}
+                                  >
+                                    <Art base={p.art} alt="" sizes="64px" />
+                                  </button>
                                 ))}
                               </div>
                               {panelError && <Note tone="warn">{panelError}</Note>}
                               <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                                <button className="mk-btn mk-btn--primary fa-click" type="button" onClick={() => resetPictures(k)} disabled={busy !== null}>
-                                  {busy === resetKey ? "Resetting…" : "Start"}
+                                <button className="mk-btn mk-btn--primary fa-click" type="button" onClick={() => resetPictures(k, newCode)} disabled={newCode.length < 4 || busy !== null}>
+                                  {busy === resetKey ? "Saving…" : newCode.length < 4 ? `Pick ${4 - newCode.length} more` : "Save new code"}
                                 </button>
+                                {newCode.length > 0 && (
+                                  <button className="mk-btn mk-btn--secondary fa-click" type="button" onClick={() => setNewCode((c) => c.slice(0, -1))} disabled={busy !== null}>
+                                    Undo
+                                  </button>
+                                )}
                                 <button className="mk-btn mk-btn--secondary fa-click" type="button" onClick={() => openPanel(null)}>
                                   Cancel
                                 </button>
                               </div>
+                              <button className="fa-linkbtn fa-click" type="button" onClick={() => resetPictures(k)} disabled={busy !== null}>
+                                Or clear it, and {k.nickname} picks new pictures at their door
+                              </button>
                             </>
                           ) : (
                             <>
