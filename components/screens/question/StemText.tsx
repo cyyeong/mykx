@@ -12,6 +12,8 @@ export interface StemFigure {
   w: number;
   h: number;
   alt: string;
+  /** A visual text (poster, flyer): shown at full width, never squeezed to the diagram height. */
+  poster?: boolean;
 }
 
 const flat = (nodes: Inline[]): string => nodes.map((n) => (n.t === "text" ? n.v : n.t === "b" || n.t === "u" ? flat(n.c) : n.t === "br" ? " " : "blank")).join("");
@@ -71,7 +73,7 @@ export function StemText({ text, figure }: { text: string; figure?: StemFigure |
   const out: ReactNode[] = blocks.map((b, i) => <Block key={i} block={b} ask={i === askAt} />);
   if (figure) {
     const fig = (
-      <figure key="fig" className="qp-fig">
+      <figure key="fig" className={figure.poster ? "qp-fig qp-fig--poster" : "qp-fig"}>
         {/* eslint-disable-next-line @next/next/no-img-element -- an inlined SVG figure from the skill pack */}
         <img src={figure.src} alt={figure.alt} style={{ width: `min(100%, ${Math.round(figure.w)}px)`, aspectRatio: `${figure.w} / ${figure.h}` }} />
       </figure>

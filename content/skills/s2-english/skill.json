@@ -1,0 +1,170 @@
+{
+  "id": "s2-english",
+  "version": "1.0.0",
+  "status": "published",
+  "title": "Sec 2 G3 English",
+  "description": "Secondary 2 G3 English (MOE English Language Syllabus 2020, Secondary G2/G3): editing for grammatical errors, visual text, narrative and non-narrative comprehension (vocabulary in context, language for effect) and summary writing, practised in the SEC G3 format.",
+  "subject": "english",
+  "level": "Sec 2",
+  "tier": "g3",
+  "syllabus": "MOE English Language Syllabus 2020, Secondary G2 and G3 (lower secondary); SEC G3 English Language K300 format",
+  "language": "en-SG",
+  "agents": {
+    "tutor": "auto",
+    "vibe": "on_demand",
+    "parent": "on_demand",
+    "curator": "auto"
+  },
+  "topics": [
+    {
+      "id": "writing.editing",
+      "title": "Editing (grammar)",
+      "weight": 0.167,
+      "source_tag": "paper1.section_a",
+      "subskills": [
+        "edit_tense",
+        "edit_sva",
+        "edit_preposition",
+        "edit_relative",
+        "edit_noun_number",
+        "edit_verb_form",
+        "edit_pronoun",
+        "edit_connector"
+      ]
+    },
+    {
+      "id": "reading.visual",
+      "title": "Visual text",
+      "weight": 0.083,
+      "source_tag": "paper2.section_a",
+      "subskills": [
+        "vt_purpose",
+        "vt_audience",
+        "vt_visuals",
+        "vt_language"
+      ]
+    },
+    {
+      "id": "reading.narrative",
+      "title": "Narrative comprehension",
+      "weight": 0.333,
+      "source_tag": "paper2.section_b",
+      "subskills": [
+        "literal_retrieval",
+        "inference",
+        "vocabulary_in_context",
+        "language_for_effect",
+        "character_feelings",
+        "theme"
+      ]
+    },
+    {
+      "id": "reading.non_narrative",
+      "title": "Non-narrative comprehension",
+      "weight": 0.167,
+      "source_tag": "paper2.section_c",
+      "subskills": [
+        "literal_retrieval",
+        "inference",
+        "vocabulary_in_context",
+        "language_for_effect",
+        "writer_view"
+      ]
+    },
+    {
+      "id": "reading.summary",
+      "title": "Summary writing",
+      "weight": 0.25,
+      "source_tag": "paper2.section_c_summary",
+      "subskills": [
+        "main_ideas",
+        "own_words",
+        "summary_writing"
+      ]
+    }
+  ],
+  "archetypes": [
+    { "id": "ED-TEXT", "topic": "writing.editing", "pattern": "Editing text of up to 250 words: find the grammatical error in a line and write the correction (tense, agreement, prepositions, relatives, noun number, verb forms)", "exam_weight": 0.133, "marks": 1 },
+    { "id": "ED-FIND", "topic": "writing.editing", "pattern": "Sentence drill: which underlined part contains the grammatical error", "exam_weight": 0.034, "marks": 1 },
+    { "id": "VT-PURPOSE", "topic": "reading.visual", "subskill": "vt_purpose", "pattern": "Main purpose of an advertisement, poster or web page", "exam_weight": 0.017, "marks": 1 },
+    { "id": "VT-AUDIENCE", "topic": "reading.visual", "subskill": "vt_audience", "pattern": "Intended audience and the detail that shows it", "exam_weight": 0.016, "marks": 1 },
+    { "id": "VT-VISUALS", "topic": "reading.visual", "subskill": "vt_visuals", "pattern": "How a picture, layout or font supports the message", "exam_weight": 0.017, "marks": 1 },
+    { "id": "VT-LANGUAGE", "topic": "reading.visual", "subskill": "vt_language", "pattern": "Persuasive language for effect: questions, imperatives, testimonials, statistics, inclusive 'you' and 'we'", "exam_weight": 0.033, "marks": 1 },
+    { "id": "NA-LITERAL", "topic": "reading.narrative", "subskill": "literal_retrieval", "pattern": "Retrieve a stated detail", "exam_weight": 0.05, "marks": 1 },
+    { "id": "NA-INFER", "topic": "reading.narrative", "subskill": "inference", "pattern": "Why a character acts; what a detail suggests", "exam_weight": 0.075 },
+    { "id": "NA-VOCAB", "topic": "reading.narrative", "subskill": "vocabulary_in_context", "pattern": "Vocabulary in context: give or find a word or phrase with a given meaning", "exam_weight": 0.05, "marks": 1 },
+    { "id": "NA-EFFECT", "topic": "reading.narrative", "subskill": "language_for_effect", "pattern": "Language for effect: simile, metaphor, personification, word choice, sentence length; quote, meaning, effect", "exam_weight": 0.075 },
+    { "id": "NA-FEEL", "topic": "reading.narrative", "subskill": "character_feelings", "pattern": "A character's feelings shown through actions, with explanation", "exam_weight": 0.05 },
+    { "id": "NA-THEME", "topic": "reading.narrative", "subskill": "theme", "pattern": "What the ending or a key line suggests about the story's message, with evidence", "exam_weight": 0.033, "marks": 2 },
+    { "id": "NN-EFFECT", "topic": "reading.non_narrative", "subskill": "language_for_effect", "pattern": "What a writer's word choice or closing line suggests or does to the reader", "exam_weight": 0.05 },
+    { "id": "NN-VOCAB", "topic": "reading.non_narrative", "subskill": "vocabulary_in_context", "pattern": "Find a word in a given paragraph with a given meaning", "exam_weight": 0.033, "marks": 1 },
+    { "id": "NN-VIEW", "topic": "reading.non_narrative", "subskill": "writer_view", "pattern": "The writer's view, attitude or purpose across the whole text", "exam_weight": 0.033, "marks": 1 },
+    { "id": "NN-INFER", "topic": "reading.non_narrative", "subskill": "inference", "pattern": "Explain an idea or claim in the writer's argument", "exam_weight": 0.05, "marks": 2 },
+    { "id": "SU-POINTS", "topic": "reading.summary", "subskill": "main_ideas", "pattern": "Separate main points from examples and details", "exam_weight": 0.05, "marks": 1 },
+    { "id": "SU-PARAPHRASE", "topic": "reading.summary", "subskill": "own_words", "pattern": "Rewrite a point in own words and structures within a word limit", "exam_weight": 0.05, "marks": 2 },
+    { "id": "SU-WRITE", "topic": "reading.summary", "subskill": "summary_writing", "pattern": "Continuous-prose summary of about 80 words after given opening words", "exam_weight": 0.15 }
+  ],
+  "references": [
+    {
+      "file": "references/syllabus-map.md",
+      "title": "Syllabus map: MOE EL Syllabus 2020 (G2/G3) and the G3 papers",
+      "sections": [
+        "Documents this pack follows",
+        "Areas of language learning and lower-secondary outcomes",
+        "Topic and subskill tags by exam component",
+        "Item alignment (component, topic, items)",
+        "Error types (one per wrong answer)",
+        "Scope for Sec 2 G3"
+      ]
+    },
+    {
+      "file": "references/exam-blueprint.md",
+      "title": "G3 English blueprint (SEAB K300) and lower-secondary school papers",
+      "sections": [
+        "The G3 English papers (SEAB K300)",
+        "What this pack covers",
+        "Lower-secondary school papers",
+        "Pacing",
+        "Archetypes that repeat"
+      ]
+    },
+    {
+      "file": "references/answer-strategies.md",
+      "title": "How to answer: editing, comprehension and summary",
+      "sections": [
+        "1. Editing: READ, SPOT, FIX",
+        "2. Visual text: PURPOSE, AUDIENCE, TECHNIQUE",
+        "3. Literal and inference questions: POINT AND PROOF",
+        "4. Vocabulary in context: SWAP TEST",
+        "5. Language for effect: QUOTE, MEANING, EFFECT",
+        "6. Summary: FIND, STRIP, REWRITE, JOIN",
+        "7. The final check"
+      ]
+    }
+  ],
+  "tools": [
+    "read_reference",
+    "find_items",
+    "check_answer"
+  ],
+  "sources": [
+    {
+      "kind": "own",
+      "note": "Method and references written by Claude Code for myKx (29 Oct) from public documents only, with no question or passage text copied: MOE English Language Syllabus 2020, Secondary G2 and G3 (Curriculum Planning and Development Division, 2024 edition; implementation starting with the 2020 Secondary One cohort), https://www.moe.gov.sg/api/media/5039d1de-488f-4819-b5b9-3bbef1639358/2020%20G2%20and%20G3%20English%20Language%20Syllabus.pdf."
+    },
+    {
+      "kind": "own",
+      "note": "Exam components and marks: SEAB, Secondary Education Certificate G3 English Language (Syllabus K300) for 2027, listed on 'G3 Syllabuses for School Candidates (2027 SEC)' (https://www.seab.gov.sg/secondary-education-certificate-sec/g3-syllabuses-for-school-candidates-2027/; PDF https://isomer-user-content.by.gov.sg/334/a01b15d0-a7cf-4d8d-9283-ea0de084fa65/K300_y27_sy.pdf); it carries over the format of O-Level 1184. Archetype weights and the summary's share of Section C are Claude Code's estimates."
+    },
+    {
+      "kind": "generated",
+      "note": "Items (items/practice-01.json): original texts, poster and sentences written by Claude Code from the syllabus and format above; every item was re-solved from scratch without its key before review. Founder review pending."
+    }
+  ],
+  "licence": "Content CC BY-NC 4.0 (myKx); items, texts and posters original.",
+  "excluded": [],
+  "legacy_scripts": {
+    "note": "kept privately; never executed",
+    "files": []
+  }
+}

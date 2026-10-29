@@ -236,7 +236,7 @@ describe("real packs", () => {
   });
 
   it("short papers have about ten questions for every pack with enough items", () => {
-    for (const id of ["p3-science", "p3-chinese", "p3-english", "p3-maths", "p6-science", "s2-science"]) {
+    for (const id of ["p3-science", "p3-chinese", "p3-english", "p3-maths", "p6-science", "s2-science", "p6-english", "s2-english"]) {
       const b = loadPrintBank(id)!;
       for (const seed of ["a", "b"]) {
         const p = assemblePaper(b, { seed, length: "short" });
@@ -256,6 +256,27 @@ describe("real packs", () => {
       const all = english.items.filter((i) => i.passage === g.passage);
       expect(g.questions).toHaveLength(all.length);
     }
+  });
+
+  it("P6 English full follows SEAB's nine Paper 2 components in order and keeps cloze and editing passages whole", () => {
+    const english = loadPrintBank("p6-english")!;
+    const p = assemblePaper(english, { seed: "demo", length: "full" });
+    checkInvariants(p, english);
+    expect(p.sections.map((s) => s.id)).toEqual(["grammar", "vocab", "vocab_cloze", "visual", "grammar_cloze", "editing", "comp_cloze", "synthesis", "comprehension"]);
+    expect(p.sections.find((s) => s.id === "grammar_cloze")?.newPage).toBe(true);
+    for (const id of ["vocab_cloze", "grammar_cloze", "editing", "comp_cloze"]) {
+      for (const g of p.sections.find((s) => s.id === id)!.groups) expect(g.questions).toHaveLength(english.items.filter((i) => i.passage === g.passage).length);
+    }
+    expect(paperFigures(p)).toHaveLength(1);
+  });
+
+  it("Sec 2 English full is Editing then Paper 2's three sections, with the summary in Section C", () => {
+    const english = loadPrintBank("s2-english")!;
+    const p = assemblePaper(english, { seed: "demo", length: "full" });
+    checkInvariants(p, english);
+    expect(p.sections.map((s) => s.id)).toEqual(["editing", "visual", "narrative", "non_narrative"]);
+    const summary = english.items.find((i) => i.subskill === "summary_writing")!;
+    expect(p.sections.find((s) => s.id === "non_narrative")!.groups.flatMap((g) => g.questions.flatMap((q) => q.parts.map((x) => x.itemId)))).toContain(summary.id);
   });
 
   it("topic chips list only topics with printable items", () => {

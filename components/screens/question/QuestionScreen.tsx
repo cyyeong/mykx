@@ -555,7 +555,8 @@ export function QuestionPlayer({ item, backHref, nextHref, questTitle, fresh = t
                   </span>
                 ))}
             </div>
-            {item.passage && <PassageText text={item.passage} />}
+            {/* A poster's words are in the poster itself (and its alt text); the passage is still read aloud. */}
+            {item.passage && !item.figure?.poster && <PassageText text={item.passage} />}
             {item.card && (
               <div className="qp-word" lang={item.card.mode === "meaning" ? "zh-Hans" : undefined}>
                 <span className={item.card.mode === "meaning" ? "qp-word-glyph" : "qp-word-pinyin"}>{item.card.show}</span>

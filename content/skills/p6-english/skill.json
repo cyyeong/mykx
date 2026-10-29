@@ -1,0 +1,243 @@
+{
+  "id": "p6-english",
+  "version": "1.0.0",
+  "status": "published",
+  "title": "P6 English (PSLE)",
+  "description": "Primary 6 / PSLE English Paper 2, Language Use and Comprehension (MOE English Language Syllabus 2020; SEAB format from 2025): grammar, vocabulary, both cloze types, visual text, editing, synthesis and transformation, comprehension. A named routine for every component.",
+  "subject": "english",
+  "level": "P6",
+  "tier": "standard",
+  "syllabus": "MOE English Language Syllabus 2020 (Primary); PSLE English Language 0001, format from 2025",
+  "language": "en-SG",
+  "agents": {
+    "tutor": "auto",
+    "vibe": "on_demand",
+    "parent": "on_demand",
+    "curator": "auto"
+  },
+  "topics": [
+    {
+      "id": "language.grammar",
+      "title": "Grammar",
+      "weight": 0.111,
+      "source_tag": "booklet_a.grammar",
+      "subskills": [
+        "tense_past_perfect",
+        "tense_perfect",
+        "tense_consistency",
+        "sva",
+        "question_tags",
+        "conditionals",
+        "relative_pronouns",
+        "modals",
+        "prepositions",
+        "connectors",
+        "pronouns",
+        "gerund_infinitive",
+        "passive_voice"
+      ]
+    },
+    {
+      "id": "language.vocab",
+      "title": "Vocabulary",
+      "weight": 0.055,
+      "source_tag": "booklet_a.vocabulary",
+      "subskills": [
+        "context_clues",
+        "phrasal_verbs",
+        "idioms",
+        "word_meaning"
+      ]
+    },
+    {
+      "id": "language.vocab_cloze",
+      "title": "Vocabulary cloze",
+      "weight": 0.056,
+      "source_tag": "booklet_a.vocabulary_cloze",
+      "subskills": [
+        "vocab_cloze_context",
+        "vocab_cloze_collocation"
+      ]
+    },
+    {
+      "id": "reading.visual",
+      "title": "Visual text comprehension",
+      "weight": 0.055,
+      "source_tag": "booklet_a.visual_text",
+      "subskills": [
+        "vt_purpose",
+        "vt_details",
+        "vt_conditions",
+        "vt_inference"
+      ]
+    },
+    {
+      "id": "language.grammar_cloze",
+      "title": "Grammar cloze",
+      "weight": 0.111,
+      "source_tag": "booklet_b.grammar_cloze",
+      "subskills": [
+        "cloze_relatives",
+        "cloze_connectors",
+        "cloze_prepositions",
+        "cloze_pronouns",
+        "cloze_determiners",
+        "cloze_verbs"
+      ]
+    },
+    {
+      "id": "language.editing",
+      "title": "Editing for spelling and grammar",
+      "weight": 0.111,
+      "source_tag": "booklet_b.editing",
+      "subskills": [
+        "edit_spelling",
+        "edit_tense",
+        "edit_sva",
+        "edit_word_form",
+        "edit_prepositions"
+      ]
+    },
+    {
+      "id": "reading.comp_cloze",
+      "title": "Comprehension cloze",
+      "weight": 0.167,
+      "source_tag": "booklet_b.comprehension_cloze",
+      "subskills": [
+        "comp_cloze_grammar",
+        "comp_cloze_connector",
+        "comp_cloze_content"
+      ]
+    },
+    {
+      "id": "language.synthesis",
+      "title": "Synthesis and transformation",
+      "weight": 0.111,
+      "source_tag": "booklet_b.synthesis_transformation",
+      "subskills": [
+        "synthesis_concession",
+        "synthesis_reported_speech",
+        "synthesis_time",
+        "synthesis_relative",
+        "synthesis_passive",
+        "synthesis_conditional",
+        "synthesis_correlative",
+        "synthesis_comparison"
+      ]
+    },
+    {
+      "id": "reading.comprehension",
+      "title": "Comprehension (open-ended)",
+      "weight": 0.222,
+      "source_tag": "booklet_b.comprehension_oe",
+      "subskills": [
+        "comp_literal",
+        "comp_inference",
+        "comp_vocab",
+        "comp_referent",
+        "comp_true_false",
+        "comp_sequence",
+        "comp_feelings",
+        "comp_character"
+      ]
+    }
+  ],
+  "archetypes": [
+    { "id": "GR-TENSE", "topic": "language.grammar", "pattern": "Tense from a time clue: past perfect with 'by the time', 'before', 'after'; present perfect with 'since', 'for', 'already'", "exam_weight": 0.022, "marks": 1 },
+    { "id": "GR-SVA", "topic": "language.grammar", "subskill": "sva", "pattern": "Agreement with tricky subjects: neither/nor and either/or (nearer subject), each of, the number of, a pair of, uncountable nouns", "exam_weight": 0.022, "marks": 1 },
+    { "id": "GR-TAG", "topic": "language.grammar", "subskill": "question_tags", "pattern": "Question tags after negative words (nobody, hardly, never), 'let's', 'I am' and indefinite pronouns", "exam_weight": 0.011, "marks": 1 },
+    { "id": "GR-COND", "topic": "language.grammar", "subskill": "conditionals", "pattern": "Conditionals: if + past perfect with would have; if + past with would; unless", "exam_weight": 0.011, "marks": 1 },
+    { "id": "GR-REL", "topic": "language.grammar", "subskill": "relative_pronouns", "pattern": "Relative pronouns: who, whom, whose, which, where", "exam_weight": 0.011, "marks": 1 },
+    { "id": "GR-OTHER", "topic": "language.grammar", "pattern": "Prepositions, connectors, modals, pronouns, gerund or infinitive, passive voice", "exam_weight": 0.034, "marks": 1 },
+    { "id": "VO-CONTEXT", "topic": "language.vocab", "subskill": "context_clues", "pattern": "Word from clues: contrast (although, but), cause (so, because) or a phrase that restates the blank", "exam_weight": 0.022, "marks": 1 },
+    { "id": "VO-PHRASAL", "topic": "language.vocab", "subskill": "phrasal_verbs", "pattern": "Phrasal verbs whose particle carries the meaning (call off, put up with, turn down)", "exam_weight": 0.011, "marks": 1 },
+    { "id": "VO-IDIOM", "topic": "language.vocab", "subskill": "idioms", "pattern": "Idioms and fixed expressions chosen from the situation", "exam_weight": 0.011, "marks": 1 },
+    { "id": "VO-MEANING", "topic": "language.vocab", "subskill": "word_meaning", "pattern": "Nearest meaning of a word in a sentence", "exam_weight": 0.011, "marks": 1 },
+    { "id": "VC-CONTEXT", "topic": "language.vocab_cloze", "pattern": "Vocabulary cloze: four options per blank, chosen from the paragraph's meaning and collocation", "exam_weight": 0.056, "marks": 1 },
+    { "id": "VT-PURPOSE", "topic": "reading.visual", "subskill": "vt_purpose", "pattern": "Main purpose or intended audience of a poster, flyer or web page", "exam_weight": 0.011, "marks": 1 },
+    { "id": "VT-CONDITIONS", "topic": "reading.visual", "subskill": "vt_conditions", "pattern": "Conditions: age limits, item limits, deadlines, prices, what is free and what costs extra", "exam_weight": 0.022, "marks": 1 },
+    { "id": "VT-NOT-TRUE", "topic": "reading.visual", "subskill": "vt_details", "pattern": "Which statement is NOT true according to the visual text", "exam_weight": 0.011, "marks": 1 },
+    { "id": "VT-INFER", "topic": "reading.visual", "subskill": "vt_inference", "pattern": "Inference from layout, pictures or wording (who would be interested, why a detail is in bold)", "exam_weight": 0.011, "marks": 1 },
+    { "id": "GC-BOX", "topic": "language.grammar_cloze", "pattern": "Word-box grammar cloze: relatives, connectors, prepositions, pronouns, determiners; each word used once", "exam_weight": 0.111, "marks": 1 },
+    { "id": "ED-SPELL", "topic": "language.editing", "subskill": "edit_spelling", "pattern": "Spelling: double letters, ie/ei, silent letters, suffix rules, frequently misspelled multisyllabic words", "exam_weight": 0.044, "marks": 1 },
+    { "id": "ED-GRAM", "topic": "language.editing", "pattern": "Grammar: tense, agreement, word form or preposition in a narrative passage", "exam_weight": 0.067, "marks": 1 },
+    { "id": "CC-FUNCTION", "topic": "reading.comp_cloze", "pattern": "Function word from the sentence frame: preposition, connector, pronoun, helping verb, article", "exam_weight": 0.1, "marks": 1 },
+    { "id": "CC-CONTENT", "topic": "reading.comp_cloze", "subskill": "comp_cloze_content", "pattern": "Content word from the passage's meaning (noun, verb, adjective) with one word only", "exam_weight": 0.067, "marks": 1 },
+    { "id": "ST-CONNECT", "topic": "language.synthesis", "pattern": "Combine with a given word: despite, in spite of, although, unless, no sooner … than, not only … but also", "exam_weight": 0.044, "marks": 2 },
+    { "id": "ST-REPORTED", "topic": "language.synthesis", "subskill": "synthesis_reported_speech", "pattern": "Direct to reported speech (pronouns, tense, time and place words) and back", "exam_weight": 0.022, "marks": 2 },
+    { "id": "ST-PASSIVE", "topic": "language.synthesis", "subskill": "synthesis_passive", "pattern": "Active to passive voice, keeping the tense", "exam_weight": 0.022, "marks": 2 },
+    { "id": "ST-RELATIVE", "topic": "language.synthesis", "subskill": "synthesis_relative", "pattern": "Join with who, whom, whose, which or where", "exam_weight": 0.022, "marks": 2 },
+    { "id": "CO-LITERAL", "topic": "reading.comprehension", "subskill": "comp_literal", "pattern": "Find and state a fact from the passage", "exam_weight": 0.044 },
+    { "id": "CO-INFER", "topic": "reading.comprehension", "pattern": "Inference: why, how do we know, what this shows about a character, what a remark means", "exam_weight": 0.056, "marks": 2 },
+    { "id": "CO-VOCAB", "topic": "reading.comprehension", "subskill": "comp_vocab", "pattern": "Find a word or phrase in the passage that means …", "exam_weight": 0.022, "marks": 1 },
+    { "id": "CO-REFERENT", "topic": "reading.comprehension", "subskill": "comp_referent", "pattern": "What does a pronoun or 'one' refer to", "exam_weight": 0.022, "marks": 1 },
+    { "id": "CO-FEEL", "topic": "reading.comprehension", "subskill": "comp_feelings", "pattern": "Feeling with evidence lifted from the passage", "exam_weight": 0.033, "marks": 2 },
+    { "id": "CO-TF", "topic": "reading.comprehension", "subskill": "comp_true_false", "pattern": "True or false, with a reason from the passage", "exam_weight": 0.033 },
+    { "id": "CO-SEQ", "topic": "reading.comprehension", "subskill": "comp_sequence", "pattern": "Order events or complete a flow of a character's feelings", "exam_weight": 0.011 }
+  ],
+  "references": [
+    {
+      "file": "references/syllabus-map.md",
+      "title": "Syllabus map: MOE EL Syllabus 2020 and PSLE Paper 2",
+      "sections": [
+        "Documents this pack follows",
+        "Areas of language learning and learning outcomes used",
+        "Topic and subskill tags by Paper 2 component",
+        "Item alignment (component, topic, items)",
+        "Error types (one per wrong answer)",
+        "Depth limits for P6"
+      ]
+    },
+    {
+      "file": "references/exam-blueprint.md",
+      "title": "PSLE English Paper 2 blueprint (SEAB, from 2025)",
+      "sections": [
+        "Paper 2 at a glance (SEAB, from 2025)",
+        "What changed in 2025",
+        "Pacing for 1 hour 50 minutes",
+        "Archetypes that repeat",
+        "How this pack's practice set maps to the paper"
+      ]
+    },
+    {
+      "file": "references/answer-strategies.md",
+      "title": "How to answer: a routine for every Paper 2 component",
+      "sections": [
+        "1. Grammar and vocabulary MCQ: CLUE FIRST",
+        "2. Vocabulary cloze: WHOLE PARAGRAPH",
+        "3. Visual text: PURPOSE, DETAILS, TRAPS",
+        "4. Grammar cloze: NAME THE GAP",
+        "5. Editing: SOUND, TIME, BOSS",
+        "6. Comprehension cloze: BEFORE AND AFTER",
+        "7. Synthesis and transformation: KEEP, CHANGE, CHECK",
+        "8. Comprehension OE: QUESTION, LOCATE, ANSWER IN FULL",
+        "9. The ten-minute check"
+      ]
+    }
+  ],
+  "tools": [
+    "read_reference",
+    "find_items",
+    "check_answer"
+  ],
+  "sources": [
+    {
+      "kind": "own",
+      "note": "Method and references written by Claude Code for myKx (29 Oct) from public documents only, with no question or passage text copied: MOE English Language Syllabus 2020, Primary (Curriculum Planning and Development Division; implementation from the 2020 Primary One cohort), https://www.moe.gov.sg/media/files/primary/b8eb0437-67fb-4042-a26c-64fef2af12df.pdf, listed on https://www.moe.gov.sg/primary/curriculum/syllabus."
+    },
+    {
+      "kind": "own",
+      "note": "Paper 2 components, item types, item counts and marks: SEAB, PSLE English Language (Syllabus 0001), implemented from the Year of Examination 2025, the document listed on 'PSLE Formats Examined in 2026' (https://www.seab.gov.sg/psle/psle-formats-examined-in-2026/; PDF https://isomer-user-content.by.gov.sg/334/6c4dc7cf-bf0b-4d79-9005-1b1f7fa68cc9/0001_y26_sy.pdf). Archetype weights inside each component are Claude Code's estimates; the component totals are SEAB's."
+    },
+    {
+      "kind": "generated",
+      "note": "Items (items/practice-01.json): original passages, poster and sentences written by Claude Code from the syllabus and format above; every item was re-solved from scratch without its key before review. Founder review pending."
+    }
+  ],
+  "licence": "Content CC BY-NC 4.0 (myKx); items, passages and posters original.",
+  "excluded": [],
+  "legacy_scripts": {
+    "note": "kept privately; never executed",
+    "files": []
+  }
+}

@@ -43,6 +43,7 @@ const isEditing = (b: Block) => b.kind === "passage" && b.items.some((i) => i.to
 
 const SCIENCE_MCQ_NOTE = "For each question, four options are given. Write the number of the correct option (1, 2, 3 or 4) in the brackets.";
 const SCIENCE_OEQ_NOTE = "Write your answers in the spaces provided. The marks for each question or part are shown in brackets [ ].";
+const ENGLISH_MCQ_NOTE = "For each question, choose the correct answer and write its number (1, 2, 3 or 4) in the brackets.";
 
 export const BLUEPRINTS: Record<string, Blueprint> = {
   "p3-science": {
@@ -206,6 +207,77 @@ export const BLUEPRINTS: Record<string, Blueprint> = {
         order: "source",
         samePoolAs: "comp1",
         accepts: () => false,
+      },
+    ],
+  },
+  // SEAB PSLE English (0001), format from 2025: Paper 2 is 90 marks in 1 h 50 min, 25 MCQs then 50 open-ended items.
+  "p6-english": {
+    name: "PSLE Paper 2 · Language Use and Comprehension",
+    minutes: 110,
+    reference: "references/exam-blueprint.md#Paper 2 at a glance (SEAB, from 2025)",
+    sections: [
+      { id: "grammar", title: "Grammar (Booklet A)", note: ENGLISH_MCQ_NOTE, marks: 10, count: 10, order: "source", accepts: (b) => single(b) && mcqOnly(b) && inTopic(b, "language.grammar") },
+      { id: "vocab", title: "Vocabulary (Booklet A)", note: ENGLISH_MCQ_NOTE, marks: 5, count: 5, order: "source", accepts: (b) => single(b) && mcqOnly(b) && inTopic(b, "language.vocab") },
+      {
+        id: "vocab_cloze",
+        title: "Vocabulary Cloze (Booklet A)",
+        note: "Read the passage. For each blank, choose the most suitable word and write its number in the brackets.",
+        marks: 5,
+        count: 5,
+        order: "source",
+        accepts: (b) => b.kind === "passage" && inTopic(b, "language.vocab_cloze"),
+      },
+      {
+        id: "visual",
+        title: "Visual Text Comprehension (Booklet A)",
+        note: "Study the visual text, then answer the questions. Write the number of the correct option in the brackets.",
+        marks: 5,
+        count: 5,
+        order: "source",
+        accepts: (b) => b.kind === "passage" && inTopic(b, "reading.visual"),
+      },
+      {
+        id: "grammar_cloze",
+        title: "Grammar Cloze (Booklet B)",
+        note: "Fill in each blank with the most suitable word from the box. Each word can be used only once.",
+        marks: 10,
+        count: 10,
+        order: "source",
+        newPage: true,
+        accepts: (b) => b.kind === "passage" && inTopic(b, "language.grammar_cloze"),
+      },
+      { id: "editing", title: "Editing for Spelling and Grammar (Booklet B)", note: "Each underlined word is wrong. Write the correct word.", marks: 10, count: 10, order: "source", accepts: (b) => inTopic(b, "language.editing") },
+      { id: "comp_cloze", title: "Comprehension Cloze (Booklet B)", note: "Fill in each blank with one suitable word.", marks: 15, count: 15, order: "source", accepts: (b) => inTopic(b, "reading.comp_cloze") },
+      {
+        id: "synthesis",
+        title: "Synthesis / Transformation (Booklet B)",
+        note: "Rewrite the given sentence(s) using the word(s) provided. Your answer must be one sentence, and its meaning must stay the same.",
+        marks: 10,
+        count: 5,
+        order: "source",
+        accepts: (b) => inTopic(b, "language.synthesis"),
+      },
+      { id: "comprehension", title: "Comprehension OE (Booklet B)", note: "Read the passage, then answer the questions.", marks: 20, count: 10, order: "source", accepts: (b) => inTopic(b, "reading.comprehension") },
+    ],
+  },
+  // SEAB SEC G3 English (K300): Paper 1 Section A (Editing, 10 marks) and Paper 2 (Comprehension, 50 marks, 1 h 50 min).
+  // K300 gives marks per section but not question counts; the counts here are typical, not SEAB's.
+  "s2-english": {
+    name: "G3 practice · Editing and Comprehension",
+    minutes: 125,
+    reference: "references/exam-blueprint.md#The G3 English papers (SEAB K300)",
+    sections: [
+      { id: "editing", title: "Editing (Paper 1, Section A)", note: "Find each grammatical error and write the correction.", marks: 10, count: 10, order: "source", accepts: (b) => inTopic(b, "writing.editing") },
+      { id: "visual", title: "Visual text (Paper 2, Section A)", note: "Study the visual text, then answer the questions.", marks: 5, count: 5, order: "source", newPage: true, accepts: (b) => inTopic(b, "reading.visual") },
+      { id: "narrative", title: "Narrative text (Paper 2, Section B)", note: "Read the text, then answer the questions.", marks: 20, count: 10, order: "source", accepts: (b) => inTopic(b, "reading.narrative") },
+      {
+        id: "non_narrative",
+        title: "Non-narrative text and summary (Paper 2, Section C)",
+        note: "Read the text, then answer the questions. Write the summary in continuous prose.",
+        marks: 25,
+        count: 8,
+        order: "source",
+        accepts: (b) => inTopic(b, "reading.non_narrative") || inTopic(b, "reading.summary"),
       },
     ],
   },

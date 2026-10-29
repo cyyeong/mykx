@@ -1,0 +1,1533 @@
+[
+  {
+    "id": "p6eng-practice-01-q1",
+    "skill": "p6-english",
+    "topic": "language.grammar",
+    "subskill": "tense_past_perfect",
+    "archetype": "GR-TENSE",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "By the time the firefighters arrived, the neighbours ____ the small kitchen fire, so there was nothing left for the firefighters to do.",
+    "options": [
+      "put out",
+      "have put out",
+      "had put out",
+      "were putting out"
+    ],
+    "answer": 3,
+    "working": [
+      "Two past actions: the neighbours dealt with the fire, and the firefighters arrived.",
+      "The fire was already out before the firefighters came ('nothing left to do'), so the earlier action takes the past perfect: had + past participle.",
+      "had put out ✓"
+    ],
+    "distractors": {
+      "1": "The simple past does not show that the fire was out BEFORE the firefighters arrived. 'By the time' + a past event needs had + past participle.",
+      "2": "'Have put out' links to now, but the whole story is in the past.",
+      "4": "'Were putting out' means the job was still going on, but 'nothing left to do' tells us it was finished."
+    },
+    "hints": [
+      "Two things happened in the past. Which one was finished first?",
+      "The action that finished first takes 'had' + the past participle."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Grammar · Grammar at Word, Phrase and Sentence Levels (LO2, LO3: apply knowledge of grammatical rules). Exam: PSLE Paper 2 Booklet A · Grammar (MCQ, 1 mark)."
+  },
+  {
+    "id": "p6eng-practice-01-q2",
+    "skill": "p6-english",
+    "topic": "language.grammar",
+    "subskill": "sva",
+    "archetype": "GR-SVA",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Neither the coach nor the players ____ happy with the referee's decision.",
+    "options": [
+      "is",
+      "are",
+      "was being",
+      "has been"
+    ],
+    "answer": 2,
+    "working": [
+      "With 'neither … nor', the verb agrees with the subject closest to it.",
+      "The closest subject is 'the players' (more than one), so the verb is plural: are."
+    ],
+    "distractors": {
+      "1": "'Is' agrees with 'the coach', but the verb must agree with the nearer subject, 'the players'.",
+      "3": "'Was being' is singular and an odd tense for a feeling about a decision.",
+      "4": "'Has been' is singular; 'the players' needs a plural verb."
+    },
+    "hints": [
+      "With 'neither … nor', look only at the subject next to the blank.",
+      "Is that subject one person or more than one?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Grammar · Grammar at Word, Phrase and Sentence Levels (LO2, LO3: apply knowledge of grammatical rules). Exam: PSLE Paper 2 Booklet A · Grammar (MCQ, 1 mark)."
+  },
+  {
+    "id": "p6eng-practice-01-q3",
+    "skill": "p6-english",
+    "topic": "language.grammar",
+    "subskill": "question_tags",
+    "archetype": "GR-TAG",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Nobody remembered to switch off the classroom fans, ____?",
+    "options": [
+      "did they",
+      "didn't they",
+      "did he",
+      "didn't he"
+    ],
+    "answer": 1,
+    "working": [
+      "'Nobody' makes the statement negative, so the tag must be positive: did …",
+      "Tags after nobody, somebody and everybody use 'they'.",
+      "did they ✓"
+    ],
+    "distractors": {
+      "2": "The statement is already negative ('Nobody'), so the tag must be positive.",
+      "3": "Tags after 'nobody' use 'they', not 'he'.",
+      "4": "Two mistakes: the tag should be positive, and it should use 'they'."
+    },
+    "hints": [
+      "Is the statement positive or negative? Look at the very first word.",
+      "A negative statement takes a positive tag. Which pronoun stands for 'nobody'?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Grammar · Grammar at Word, Phrase and Sentence Levels (LO2, LO3: apply knowledge of grammatical rules). Exam: PSLE Paper 2 Booklet A · Grammar (MCQ, 1 mark)."
+  },
+  {
+    "id": "p6eng-practice-01-q4",
+    "skill": "p6-english",
+    "topic": "language.grammar",
+    "subskill": "conditionals",
+    "archetype": "GR-COND",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "If Meena ____ her alarm, she would not have missed the school bus this morning.",
+    "options": [
+      "set",
+      "sets",
+      "has set",
+      "had set"
+    ],
+    "answer": 4,
+    "working": [
+      "'Would not have missed' talks about something in the past that cannot be changed now.",
+      "That pattern needs if + had + past participle: If Meena had set her alarm …"
+    ],
+    "distractors": {
+      "1": "'If Meena set' goes with 'would not miss' (an imagined present), not 'would not have missed'.",
+      "2": "'Sets' is the present tense, but this morning is already over.",
+      "3": "'Has set' does not fit an 'if' clause about an unreal past."
+    },
+    "hints": [
+      "Look at the second half: 'would not have missed'. Is this about the past or the future?",
+      "An unreal past needs 'if' + had + the past participle."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Grammar · Grammar at Word, Phrase and Sentence Levels (LO2, LO3: apply knowledge of grammatical rules). Exam: PSLE Paper 2 Booklet A · Grammar (MCQ, 1 mark)."
+  },
+  {
+    "id": "p6eng-practice-01-q5",
+    "skill": "p6-english",
+    "topic": "language.vocab",
+    "subskill": "context_clues",
+    "archetype": "VO-CONTEXT",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Although the old cabinet looked ____, it collapsed the moment Jun Hao leaned against it.",
+    "options": [
+      "fragile",
+      "ancient",
+      "sturdy",
+      "polished"
+    ],
+    "answer": 3,
+    "working": [
+      "'Although' signals a contrast: what the cabinet looked like is the opposite of what happened.",
+      "It collapsed, so it must have looked strong: sturdy."
+    ],
+    "distractors": {
+      "1": "A fragile cabinet collapsing is no surprise, so there is no contrast for 'although'.",
+      "2": "Looking ancient does not contrast with collapsing.",
+      "4": "Polished describes the shine, not how strong it is."
+    },
+    "hints": [
+      "'Although' tells you the two halves of the sentence clash.",
+      "The cabinet collapsed. What must it have looked like for that to be a surprise?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Vocabulary · Developing Rich Vocabulary Knowledge (LO2) and Using Vocabulary (LO3; fixed expressions). Exam: PSLE Paper 2 Booklet A · Vocabulary (MCQ, 1 mark)."
+  },
+  {
+    "id": "p6eng-practice-01-q6",
+    "skill": "p6-english",
+    "topic": "language.vocab",
+    "subskill": "phrasal_verbs",
+    "archetype": "VO-PHRASAL",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Because of the lightning warning, the school had to ____ the sports carnival.",
+    "options": [
+      "put up",
+      "call off",
+      "turn up",
+      "look into"
+    ],
+    "answer": 2,
+    "working": [
+      "A lightning warning makes an outdoor event unsafe, so the school cancelled it.",
+      "'Call off' means cancel."
+    ],
+    "distractors": {
+      "1": "'Put up' means build, display or let someone stay.",
+      "3": "'Turn up' means arrive or increase.",
+      "4": "'Look into' means investigate."
+    },
+    "hints": [
+      "What would a school do with an outdoor event when lightning is expected?",
+      "Which phrasal verb means 'cancel'?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Vocabulary · Developing Rich Vocabulary Knowledge (LO2) and Using Vocabulary (LO3; fixed expressions). Exam: PSLE Paper 2 Booklet A · Vocabulary (MCQ, 1 mark)."
+  },
+  {
+    "id": "p6eng-practice-01-q7",
+    "skill": "p6-english",
+    "topic": "language.vocab",
+    "subskill": "idioms",
+    "archetype": "VO-IDIOM",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Wei Ming had kept the surprise party a secret for weeks, but his little sister ____ when she asked Dad about the cake.",
+    "options": [
+      "broke the ice",
+      "hit the road",
+      "kept her word",
+      "let the cat out of the bag"
+    ],
+    "answer": 4,
+    "working": [
+      "'But' shows the secret did not stay a secret.",
+      "'Let the cat out of the bag' means to reveal a secret by accident."
+    ],
+    "distractors": {
+      "1": "'Broke the ice' means made people feel relaxed when they first meet.",
+      "2": "'Hit the road' means set off on a journey.",
+      "3": "'Kept her word' means she did what she promised, the opposite of what happened."
+    },
+    "hints": [
+      "The word 'but' tells you something went wrong with the secret.",
+      "Which expression means giving away a secret by mistake?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Vocabulary · Developing Rich Vocabulary Knowledge (LO2) and Using Vocabulary (LO3; fixed expressions). Exam: PSLE Paper 2 Booklet A · Vocabulary (MCQ, 1 mark)."
+  },
+  {
+    "id": "p6eng-practice-01-q8",
+    "skill": "p6-english",
+    "topic": "language.vocab_cloze",
+    "subskill": "vocab_cloze_context",
+    "archetype": "VC-CONTEXT",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Choose the most suitable word for blank (1).",
+    "passage": "Every Saturday morning, Grandpa Lim looks after the small community garden behind our block. Last month, a long dry spell left the soil ___(1)___ and cracked, and many of the young plants began to droop.\n\nGrandpa refused to give up. He ___(2)___ a roster so that the residents could take turns to water the beds every evening. Within two weeks, the garden was ___(3)___ again, and Grandpa proudly handed out bunches of kangkong to his neighbours.",
+    "options": [
+      "parched",
+      "soggy",
+      "fertile",
+      "fragrant"
+    ],
+    "answer": 1,
+    "working": [
+      "A long dry spell left the soil dry and 'cracked'.",
+      "Parched = very dry because of no rain."
+    ],
+    "distractors": {
+      "2": "Soggy means very wet, the opposite of a dry spell.",
+      "3": "Fertile soil is rich and good for growing; the plants were drooping.",
+      "4": "Fragrant means sweet-smelling, which has nothing to do with dry, cracked soil."
+    },
+    "hints": [
+      "Find the clue words just before and after the blank.",
+      "A long dry spell and cracks: which word means extremely dry?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Vocabulary (LO2: how words are used in context) with Reading and Viewing Closely (LO2). Exam: PSLE Paper 2 Booklet A · Vocabulary Cloze (MCQ, 1 mark)."
+  },
+  {
+    "id": "p6eng-practice-01-q9",
+    "skill": "p6-english",
+    "topic": "language.vocab_cloze",
+    "subskill": "vocab_cloze_collocation",
+    "archetype": "VC-CONTEXT",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Choose the most suitable word for blank (2).",
+    "passage": "Every Saturday morning, Grandpa Lim looks after the small community garden behind our block. Last month, a long dry spell left the soil ___(1)___ and cracked, and many of the young plants began to droop.\n\nGrandpa refused to give up. He ___(2)___ a roster so that the residents could take turns to water the beds every evening. Within two weeks, the garden was ___(3)___ again, and Grandpa proudly handed out bunches of kangkong to his neighbours.",
+    "options": [
+      "abandoned",
+      "drew up",
+      "cancelled",
+      "borrowed"
+    ],
+    "answer": 2,
+    "working": [
+      "Grandpa 'refused to give up', and the roster let residents take turns.",
+      "You 'draw up' (plan and write) a roster."
+    ],
+    "distractors": {
+      "1": "Abandoning the roster would not let residents take turns; he refused to give up.",
+      "3": "Cancelling a roster would stop the watering, but the garden recovered.",
+      "4": "A roster is planned, not borrowed."
+    },
+    "hints": [
+      "He refused to give up, so he made a plan.",
+      "Which verb goes with making a written plan, such as a list or a roster?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Vocabulary (LO2: how words are used in context) with Reading and Viewing Closely (LO2). Exam: PSLE Paper 2 Booklet A · Vocabulary Cloze (MCQ, 1 mark)."
+  },
+  {
+    "id": "p6eng-practice-01-q10",
+    "skill": "p6-english",
+    "topic": "language.vocab_cloze",
+    "subskill": "vocab_cloze_context",
+    "archetype": "VC-CONTEXT",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Choose the most suitable word for blank (3).",
+    "passage": "Every Saturday morning, Grandpa Lim looks after the small community garden behind our block. Last month, a long dry spell left the soil ___(1)___ and cracked, and many of the young plants began to droop.\n\nGrandpa refused to give up. He ___(2)___ a roster so that the residents could take turns to water the beds every evening. Within two weeks, the garden was ___(3)___ again, and Grandpa proudly handed out bunches of kangkong to his neighbours.",
+    "options": [
+      "wilting",
+      "deserted",
+      "flooded",
+      "flourishing"
+    ],
+    "answer": 4,
+    "working": [
+      "Grandpa could hand out vegetables, so the plants had recovered and were growing well.",
+      "Flourishing = growing strongly and healthily."
+    ],
+    "distractors": {
+      "1": "Wilting means drooping, how the garden was BEFORE the roster.",
+      "2": "Deserted means empty of people; the residents were busy watering.",
+      "3": "Flooded is too much water, and it would not let him hand out vegetables."
+    },
+    "hints": [
+      "What happened after two weeks of watering? Look at what Grandpa handed out.",
+      "Which word means growing strongly and healthily?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Vocabulary (LO2: how words are used in context) with Reading and Viewing Closely (LO2). Exam: PSLE Paper 2 Booklet A · Vocabulary Cloze (MCQ, 1 mark)."
+  },
+  {
+    "id": "p6eng-practice-01-q11",
+    "skill": "p6-english",
+    "topic": "reading.visual",
+    "subskill": "vt_purpose",
+    "archetype": "VT-PURPOSE",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "What is the main purpose of the poster?",
+    "passage": "Bayleaf Residents' Network presents\n**Fix-It Fair**\nDon't throw it out. Fix it together!\nFREE ENTRY\nDate: Saturday, 14 March\nTime: 9 a.m. to 1 p.m.\nVenue: Bayleaf Community Club, Level 2\n**What's on**\n- **Repair Corner** (9 a.m. to 12 noon): Bring up to 2 broken items: toys, fans, lamps or clothes. No large appliances, please.\n- **Bike Clinic** (10 a.m. to 1 p.m.): Free tyre and brake checks. Spare parts cost extra.\n- **Upcycling Workshop** (11 a.m.): Turn old T-shirts into tote bags. $5 per person. Ages 10 and above.\n- **Swap Table** (9 a.m. to 1 p.m.): Leave a book or toy in good condition and take one home.\n**Register for a Repair Corner slot by 7 March.** Slots are limited. Walk-ins are welcome if slots remain.\nChildren under 12 must come with an adult.\nQuestions? Email hello@bayleaffixit.sg",
+    "options": [
+      "to sell new toys, fans and lamps at low prices",
+      "to recruit volunteers to clean the community club",
+      "to teach residents how to ride bicycles safely",
+      "to invite residents to repair, reuse and swap old items"
+    ],
+    "answer": 4,
+    "working": [
+      "The title and tagline ('Fix-It Fair', 'Don't throw it out. Fix it together!') give the purpose.",
+      "Every activity is about repairing, upcycling or swapping old things."
+    ],
+    "distractors": {
+      "1": "Nothing new is sold; residents bring their own broken items.",
+      "2": "The poster never asks for cleaning volunteers.",
+      "3": "The Bike Clinic checks tyres and brakes; it does not teach cycling."
+    },
+    "hints": [
+      "Read the title and the line under it first.",
+      "What do all four activities have in common?"
+    ],
+    "figure": "figures/p6eng-practice-01-q11-q14.svg",
+    "figure_spec": {
+      "poster": {
+        "theme": "#1F6F5C",
+        "accent": "#D6EFE6",
+        "presenter": "Bayleaf Residents' Network presents",
+        "badge": "FREE|ENTRY",
+        "corner_icon": "star",
+        "title": "Fix-It Fair",
+        "tagline": "Don't throw it out. Fix it together!",
+        "facts": [
+          {
+            "icon": "calendar",
+            "label": "Date",
+            "value": "Saturday, 14 March"
+          },
+          {
+            "icon": "clock",
+            "label": "Time",
+            "value": "9 a.m. to 1 p.m."
+          },
+          {
+            "icon": "pin",
+            "label": "Venue",
+            "value": "Bayleaf Community Club, Level 2"
+          }
+        ],
+        "art": [
+          {
+            "kind": "person",
+            "pose": "point",
+            "mood": "excited",
+            "gender": "girl",
+            "scale": 1.5
+          },
+          {
+            "kind": "handbag",
+            "scale": 1.2
+          }
+        ],
+        "banner": "What's on",
+        "art_right": [
+          {
+            "kind": "person",
+            "pose": "wave",
+            "mood": "excited",
+            "gender": "boy",
+            "scale": 1.5
+          }
+        ],
+        "boxes": [
+          {
+            "title": "Repair Corner",
+            "sub": "9 a.m. to 12 noon",
+            "icon": "star",
+            "body": "Bring up to 2 broken items: toys, fans, lamps or clothes.\nNo large appliances, please."
+          },
+          {
+            "title": "Bike Clinic",
+            "sub": "10 a.m. to 1 p.m.",
+            "icon": "pin",
+            "body": "Free tyre and brake checks.\nSpare parts cost extra."
+          },
+          {
+            "title": "Upcycling Workshop",
+            "sub": "11 a.m.",
+            "icon": "palette",
+            "body": "Turn old T-shirts into tote bags.\n$5 per person. Ages 10 and above."
+          },
+          {
+            "title": "Swap Table",
+            "sub": "9 a.m. to 1 p.m.",
+            "icon": "gift",
+            "body": "Leave a book or toy in good condition and take one home."
+          }
+        ],
+        "wide_box": {
+          "title": "Register for a Repair Corner slot by 7 March",
+          "body": "Slots are limited. Walk-ins are welcome if slots remain."
+        },
+        "footer": [
+          "Children under 12 must come with an adult.",
+          "Questions? Email hello@bayleaffixit.sg"
+        ]
+      }
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing · Reading and Viewing Closely (LO2: literal and inferential meaning; information and media literacy with multimodal texts). Exam: PSLE Paper 2 Booklet A · Visual Text Comprehension (MCQ, 1 mark). Figure rendered from figure_spec on 29 Oct by scripts/render-figures.ts (myKx's own renderer)."
+  },
+  {
+    "id": "p6eng-practice-01-q12",
+    "skill": "p6-english",
+    "topic": "reading.visual",
+    "subskill": "vt_conditions",
+    "archetype": "VT-CONDITIONS",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Mrs Rao wants to use the Repair Corner. Which of these can she bring?",
+    "passage": "Bayleaf Residents' Network presents\n**Fix-It Fair**\nDon't throw it out. Fix it together!\nFREE ENTRY\nDate: Saturday, 14 March\nTime: 9 a.m. to 1 p.m.\nVenue: Bayleaf Community Club, Level 2\n**What's on**\n- **Repair Corner** (9 a.m. to 12 noon): Bring up to 2 broken items: toys, fans, lamps or clothes. No large appliances, please.\n- **Bike Clinic** (10 a.m. to 1 p.m.): Free tyre and brake checks. Spare parts cost extra.\n- **Upcycling Workshop** (11 a.m.): Turn old T-shirts into tote bags. $5 per person. Ages 10 and above.\n- **Swap Table** (9 a.m. to 1 p.m.): Leave a book or toy in good condition and take one home.\n**Register for a Repair Corner slot by 7 March.** Slots are limited. Walk-ins are welcome if slots remain.\nChildren under 12 must come with an adult.\nQuestions? Email hello@bayleaffixit.sg",
+    "options": [
+      "three broken toys",
+      "a broken refrigerator",
+      "a lamp and a fan that do not work",
+      "a bicycle with a flat tyre"
+    ],
+    "answer": 3,
+    "working": [
+      "Repair Corner: up to 2 broken items (toys, fans, lamps or clothes), no large appliances.",
+      "A lamp and a fan are 2 items from the list ✓"
+    ],
+    "distractors": {
+      "1": "Three toys is more than the limit of 2 items.",
+      "2": "A refrigerator is a large appliance, which is not allowed.",
+      "4": "Bicycles go to the Bike Clinic, not the Repair Corner."
+    },
+    "hints": [
+      "Find the Repair Corner box and read every condition in it.",
+      "Check two things for each option: how many items, and what kind."
+    ],
+    "figure": "figures/p6eng-practice-01-q11-q14.svg",
+    "figure_spec": {
+      "poster": {
+        "theme": "#1F6F5C",
+        "accent": "#D6EFE6",
+        "presenter": "Bayleaf Residents' Network presents",
+        "badge": "FREE|ENTRY",
+        "corner_icon": "star",
+        "title": "Fix-It Fair",
+        "tagline": "Don't throw it out. Fix it together!",
+        "facts": [
+          {
+            "icon": "calendar",
+            "label": "Date",
+            "value": "Saturday, 14 March"
+          },
+          {
+            "icon": "clock",
+            "label": "Time",
+            "value": "9 a.m. to 1 p.m."
+          },
+          {
+            "icon": "pin",
+            "label": "Venue",
+            "value": "Bayleaf Community Club, Level 2"
+          }
+        ],
+        "art": [
+          {
+            "kind": "person",
+            "pose": "point",
+            "mood": "excited",
+            "gender": "girl",
+            "scale": 1.5
+          },
+          {
+            "kind": "handbag",
+            "scale": 1.2
+          }
+        ],
+        "banner": "What's on",
+        "art_right": [
+          {
+            "kind": "person",
+            "pose": "wave",
+            "mood": "excited",
+            "gender": "boy",
+            "scale": 1.5
+          }
+        ],
+        "boxes": [
+          {
+            "title": "Repair Corner",
+            "sub": "9 a.m. to 12 noon",
+            "icon": "star",
+            "body": "Bring up to 2 broken items: toys, fans, lamps or clothes.\nNo large appliances, please."
+          },
+          {
+            "title": "Bike Clinic",
+            "sub": "10 a.m. to 1 p.m.",
+            "icon": "pin",
+            "body": "Free tyre and brake checks.\nSpare parts cost extra."
+          },
+          {
+            "title": "Upcycling Workshop",
+            "sub": "11 a.m.",
+            "icon": "palette",
+            "body": "Turn old T-shirts into tote bags.\n$5 per person. Ages 10 and above."
+          },
+          {
+            "title": "Swap Table",
+            "sub": "9 a.m. to 1 p.m.",
+            "icon": "gift",
+            "body": "Leave a book or toy in good condition and take one home."
+          }
+        ],
+        "wide_box": {
+          "title": "Register for a Repair Corner slot by 7 March",
+          "body": "Slots are limited. Walk-ins are welcome if slots remain."
+        },
+        "footer": [
+          "Children under 12 must come with an adult.",
+          "Questions? Email hello@bayleaffixit.sg"
+        ]
+      }
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing · Reading and Viewing Closely (LO2: literal and inferential meaning; information and media literacy with multimodal texts). Exam: PSLE Paper 2 Booklet A · Visual Text Comprehension (MCQ, 1 mark). Figure rendered from figure_spec on 29 Oct by scripts/render-figures.ts (myKx's own renderer)."
+  },
+  {
+    "id": "p6eng-practice-01-q13",
+    "skill": "p6-english",
+    "topic": "reading.visual",
+    "subskill": "vt_conditions",
+    "archetype": "VT-CONDITIONS",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Kai is 9 years old. Which statement about Kai is true?",
+    "passage": "Bayleaf Residents' Network presents\n**Fix-It Fair**\nDon't throw it out. Fix it together!\nFREE ENTRY\nDate: Saturday, 14 March\nTime: 9 a.m. to 1 p.m.\nVenue: Bayleaf Community Club, Level 2\n**What's on**\n- **Repair Corner** (9 a.m. to 12 noon): Bring up to 2 broken items: toys, fans, lamps or clothes. No large appliances, please.\n- **Bike Clinic** (10 a.m. to 1 p.m.): Free tyre and brake checks. Spare parts cost extra.\n- **Upcycling Workshop** (11 a.m.): Turn old T-shirts into tote bags. $5 per person. Ages 10 and above.\n- **Swap Table** (9 a.m. to 1 p.m.): Leave a book or toy in good condition and take one home.\n**Register for a Repair Corner slot by 7 March.** Slots are limited. Walk-ins are welcome if slots remain.\nChildren under 12 must come with an adult.\nQuestions? Email hello@bayleaffixit.sg",
+    "options": [
+      "He can join the Upcycling Workshop on his own.",
+      "He must come to the fair with an adult.",
+      "He has to pay $5 to enter the fair.",
+      "He can only visit the Swap Table."
+    ],
+    "answer": 2,
+    "working": [
+      "The registration box says children under 12 must come with an adult.",
+      "Kai is 9, so he must come with an adult ✓"
+    ],
+    "distractors": {
+      "1": "The workshop is for ages 10 and above, and he would need an adult anyway.",
+      "3": "Entry is free; the $5 is only for the Upcycling Workshop.",
+      "4": "Nothing limits him to the Swap Table; with an adult he can visit the other activities, apart from the workshop."
+    },
+    "hints": [
+      "Look for every rule on the poster that mentions an age.",
+      "Which rule applies to every child under 12?"
+    ],
+    "figure": "figures/p6eng-practice-01-q11-q14.svg",
+    "figure_spec": {
+      "poster": {
+        "theme": "#1F6F5C",
+        "accent": "#D6EFE6",
+        "presenter": "Bayleaf Residents' Network presents",
+        "badge": "FREE|ENTRY",
+        "corner_icon": "star",
+        "title": "Fix-It Fair",
+        "tagline": "Don't throw it out. Fix it together!",
+        "facts": [
+          {
+            "icon": "calendar",
+            "label": "Date",
+            "value": "Saturday, 14 March"
+          },
+          {
+            "icon": "clock",
+            "label": "Time",
+            "value": "9 a.m. to 1 p.m."
+          },
+          {
+            "icon": "pin",
+            "label": "Venue",
+            "value": "Bayleaf Community Club, Level 2"
+          }
+        ],
+        "art": [
+          {
+            "kind": "person",
+            "pose": "point",
+            "mood": "excited",
+            "gender": "girl",
+            "scale": 1.5
+          },
+          {
+            "kind": "handbag",
+            "scale": 1.2
+          }
+        ],
+        "banner": "What's on",
+        "art_right": [
+          {
+            "kind": "person",
+            "pose": "wave",
+            "mood": "excited",
+            "gender": "boy",
+            "scale": 1.5
+          }
+        ],
+        "boxes": [
+          {
+            "title": "Repair Corner",
+            "sub": "9 a.m. to 12 noon",
+            "icon": "star",
+            "body": "Bring up to 2 broken items: toys, fans, lamps or clothes.\nNo large appliances, please."
+          },
+          {
+            "title": "Bike Clinic",
+            "sub": "10 a.m. to 1 p.m.",
+            "icon": "pin",
+            "body": "Free tyre and brake checks.\nSpare parts cost extra."
+          },
+          {
+            "title": "Upcycling Workshop",
+            "sub": "11 a.m.",
+            "icon": "palette",
+            "body": "Turn old T-shirts into tote bags.\n$5 per person. Ages 10 and above."
+          },
+          {
+            "title": "Swap Table",
+            "sub": "9 a.m. to 1 p.m.",
+            "icon": "gift",
+            "body": "Leave a book or toy in good condition and take one home."
+          }
+        ],
+        "wide_box": {
+          "title": "Register for a Repair Corner slot by 7 March",
+          "body": "Slots are limited. Walk-ins are welcome if slots remain."
+        },
+        "footer": [
+          "Children under 12 must come with an adult.",
+          "Questions? Email hello@bayleaffixit.sg"
+        ]
+      }
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing · Reading and Viewing Closely (LO2: literal and inferential meaning; information and media literacy with multimodal texts). Exam: PSLE Paper 2 Booklet A · Visual Text Comprehension (MCQ, 1 mark). Figure rendered from figure_spec on 29 Oct by scripts/render-figures.ts (myKx's own renderer)."
+  },
+  {
+    "id": "p6eng-practice-01-q14",
+    "skill": "p6-english",
+    "topic": "reading.visual",
+    "subskill": "vt_details",
+    "archetype": "VT-NOT-TRUE",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which of these is NOT true, according to the poster?",
+    "passage": "Bayleaf Residents' Network presents\n**Fix-It Fair**\nDon't throw it out. Fix it together!\nFREE ENTRY\nDate: Saturday, 14 March\nTime: 9 a.m. to 1 p.m.\nVenue: Bayleaf Community Club, Level 2\n**What's on**\n- **Repair Corner** (9 a.m. to 12 noon): Bring up to 2 broken items: toys, fans, lamps or clothes. No large appliances, please.\n- **Bike Clinic** (10 a.m. to 1 p.m.): Free tyre and brake checks. Spare parts cost extra.\n- **Upcycling Workshop** (11 a.m.): Turn old T-shirts into tote bags. $5 per person. Ages 10 and above.\n- **Swap Table** (9 a.m. to 1 p.m.): Leave a book or toy in good condition and take one home.\n**Register for a Repair Corner slot by 7 March.** Slots are limited. Walk-ins are welcome if slots remain.\nChildren under 12 must come with an adult.\nQuestions? Email hello@bayleaffixit.sg",
+    "options": [
+      "Spare parts for bicycles are free.",
+      "Walk-ins may get a Repair Corner slot if slots remain.",
+      "The Bike Clinic checks tyres and brakes for free.",
+      "The fair ends at 1 p.m."
+    ],
+    "answer": 1,
+    "working": [
+      "Bike Clinic: 'Free tyre and brake checks. Spare parts cost extra.'",
+      "So 'spare parts are free' is NOT true."
+    ],
+    "distractors": {
+      "2": "True: 'Walk-ins are welcome if slots remain.'",
+      "3": "True: 'Free tyre and brake checks.'",
+      "4": "True: the fair runs from 9 a.m. to 1 p.m."
+    },
+    "hints": [
+      "For a NOT-true question, check each option against the poster and tick the true ones.",
+      "Read the Bike Clinic box word by word."
+    ],
+    "figure": "figures/p6eng-practice-01-q11-q14.svg",
+    "figure_spec": {
+      "poster": {
+        "theme": "#1F6F5C",
+        "accent": "#D6EFE6",
+        "presenter": "Bayleaf Residents' Network presents",
+        "badge": "FREE|ENTRY",
+        "corner_icon": "star",
+        "title": "Fix-It Fair",
+        "tagline": "Don't throw it out. Fix it together!",
+        "facts": [
+          {
+            "icon": "calendar",
+            "label": "Date",
+            "value": "Saturday, 14 March"
+          },
+          {
+            "icon": "clock",
+            "label": "Time",
+            "value": "9 a.m. to 1 p.m."
+          },
+          {
+            "icon": "pin",
+            "label": "Venue",
+            "value": "Bayleaf Community Club, Level 2"
+          }
+        ],
+        "art": [
+          {
+            "kind": "person",
+            "pose": "point",
+            "mood": "excited",
+            "gender": "girl",
+            "scale": 1.5
+          },
+          {
+            "kind": "handbag",
+            "scale": 1.2
+          }
+        ],
+        "banner": "What's on",
+        "art_right": [
+          {
+            "kind": "person",
+            "pose": "wave",
+            "mood": "excited",
+            "gender": "boy",
+            "scale": 1.5
+          }
+        ],
+        "boxes": [
+          {
+            "title": "Repair Corner",
+            "sub": "9 a.m. to 12 noon",
+            "icon": "star",
+            "body": "Bring up to 2 broken items: toys, fans, lamps or clothes.\nNo large appliances, please."
+          },
+          {
+            "title": "Bike Clinic",
+            "sub": "10 a.m. to 1 p.m.",
+            "icon": "pin",
+            "body": "Free tyre and brake checks.\nSpare parts cost extra."
+          },
+          {
+            "title": "Upcycling Workshop",
+            "sub": "11 a.m.",
+            "icon": "palette",
+            "body": "Turn old T-shirts into tote bags.\n$5 per person. Ages 10 and above."
+          },
+          {
+            "title": "Swap Table",
+            "sub": "9 a.m. to 1 p.m.",
+            "icon": "gift",
+            "body": "Leave a book or toy in good condition and take one home."
+          }
+        ],
+        "wide_box": {
+          "title": "Register for a Repair Corner slot by 7 March",
+          "body": "Slots are limited. Walk-ins are welcome if slots remain."
+        },
+        "footer": [
+          "Children under 12 must come with an adult.",
+          "Questions? Email hello@bayleaffixit.sg"
+        ]
+      }
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing · Reading and Viewing Closely (LO2: literal and inferential meaning; information and media literacy with multimodal texts). Exam: PSLE Paper 2 Booklet A · Visual Text Comprehension (MCQ, 1 mark). Figure rendered from figure_spec on 29 Oct by scripts/render-figures.ts (myKx's own renderer)."
+  },
+  {
+    "id": "p6eng-practice-01-q15",
+    "skill": "p6-english",
+    "topic": "language.grammar_cloze",
+    "subskill": "cloze_relatives",
+    "archetype": "GC-BOX",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "short",
+    "stem": "Fill in blank (1) with the most suitable word from the word box. Each word can be used only once.",
+    "passage": "**Word box:** who, whose, which, although, because, of, for, ourselves, themselves\n\nLast June, my cousin Hui Min and I joined a kayaking course at the reservoir. Our instructor was a cheerful man ___(1)___ grandfather had been a fisherman. ___(2)___ the water looked calm, he warned us that strong winds could appear suddenly.\n\nHui Min was afraid ___(3)___ capsizing, so she paddled slowly at first. By the end of the week, both of us could steer a kayak without help, and we were very proud of ___(4)___.",
+    "answer": "whose",
+    "working": [
+      "The grandfather belongs to the instructor, so the blank needs an owner word that also joins the clauses.",
+      "a man whose grandfather … ✓ ('who' cannot sit in front of a noun like this)"
+    ],
+    "hints": [
+      "The blank sits between 'a cheerful man' and 'grandfather'. How are the two connected?",
+      "You need a relative word that shows belonging."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Grammar · Grammar at Word, Phrase and Sentence Levels (LO2, LO3) and Grammar at Text Level (LO4: cohesion). Exam: PSLE Paper 2 Booklet B · Grammar Cloze (OE, 1 mark)."
+  },
+  {
+    "id": "p6eng-practice-01-q16",
+    "skill": "p6-english",
+    "topic": "language.grammar_cloze",
+    "subskill": "cloze_connectors",
+    "archetype": "GC-BOX",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "short",
+    "stem": "Fill in blank (2) with the most suitable word from the word box. Each word can be used only once.",
+    "passage": "**Word box:** who, whose, which, although, because, of, for, ourselves, themselves\n\nLast June, my cousin Hui Min and I joined a kayaking course at the reservoir. Our instructor was a cheerful man ___(1)___ grandfather had been a fisherman. ___(2)___ the water looked calm, he warned us that strong winds could appear suddenly.\n\nHui Min was afraid ___(3)___ capsizing, so she paddled slowly at first. By the end of the week, both of us could steer a kayak without help, and we were very proud of ___(4)___.",
+    "answer": "although",
+    "working": [
+      "The water looked calm, yet he warned about sudden strong winds: the two ideas contrast.",
+      "'Although' joins contrasting ideas. 'Because' would make no sense: calm water is not a reason to warn about wind.",
+      "It starts the sentence, so write it with a capital A."
+    ],
+    "hints": [
+      "Do the two halves of the sentence agree with each other or clash?",
+      "Pick the connector that shows a contrast."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Grammar · Grammar at Word, Phrase and Sentence Levels (LO2, LO3) and Grammar at Text Level (LO4: cohesion). Exam: PSLE Paper 2 Booklet B · Grammar Cloze (OE, 1 mark)."
+  },
+  {
+    "id": "p6eng-practice-01-q17",
+    "skill": "p6-english",
+    "topic": "language.grammar_cloze",
+    "subskill": "cloze_prepositions",
+    "archetype": "GC-BOX",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Fill in blank (3) with the most suitable word from the word box. Each word can be used only once.",
+    "passage": "**Word box:** who, whose, which, although, because, of, for, ourselves, themselves\n\nLast June, my cousin Hui Min and I joined a kayaking course at the reservoir. Our instructor was a cheerful man ___(1)___ grandfather had been a fisherman. ___(2)___ the water looked calm, he warned us that strong winds could appear suddenly.\n\nHui Min was afraid ___(3)___ capsizing, so she paddled slowly at first. By the end of the week, both of us could steer a kayak without help, and we were very proud of ___(4)___.",
+    "answer": "of",
+    "working": [
+      "The fixed phrase is 'afraid of' + noun or -ing word.",
+      "afraid of capsizing ✓"
+    ],
+    "hints": [
+      "Which little word always follows 'afraid' before the thing you fear?",
+      "Say it aloud: 'I am afraid ___ the dark.'"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Grammar · Grammar at Word, Phrase and Sentence Levels (LO2, LO3) and Grammar at Text Level (LO4: cohesion). Exam: PSLE Paper 2 Booklet B · Grammar Cloze (OE, 1 mark)."
+  },
+  {
+    "id": "p6eng-practice-01-q18",
+    "skill": "p6-english",
+    "topic": "language.grammar_cloze",
+    "subskill": "cloze_pronouns",
+    "archetype": "GC-BOX",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Fill in blank (4) with the most suitable word from the word box. Each word can be used only once.",
+    "passage": "**Word box:** who, whose, which, although, because, of, for, ourselves, themselves\n\nLast June, my cousin Hui Min and I joined a kayaking course at the reservoir. Our instructor was a cheerful man ___(1)___ grandfather had been a fisherman. ___(2)___ the water looked calm, he warned us that strong winds could appear suddenly.\n\nHui Min was afraid ___(3)___ capsizing, so she paddled slowly at first. By the end of the week, both of us could steer a kayak without help, and we were very proud of ___(4)___.",
+    "answer": "ourselves",
+    "working": [
+      "The doers are 'we' (the writer and Hui Min).",
+      "When the doer and the receiver are the same people, use a reflexive pronoun: we … ourselves."
+    ],
+    "hints": [
+      "Who were proud? Find the subject of 'were'.",
+      "The reflexive pronoun must match that subject."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Grammar · Grammar at Word, Phrase and Sentence Levels (LO2, LO3) and Grammar at Text Level (LO4: cohesion). Exam: PSLE Paper 2 Booklet B · Grammar Cloze (OE, 1 mark)."
+  },
+  {
+    "id": "p6eng-practice-01-q19",
+    "skill": "p6-english",
+    "topic": "language.editing",
+    "subskill": "edit_sva",
+    "archetype": "ED-GRAM",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "The underlined word at (1) is wrong. Write the correct word.",
+    "passage": "Every year, our school organises a charity run along the park connector. This year, more than three hundred pupils __was__ (1) taking part. Before the run, our teacher gave us some useful __sugestions__ (2): drink plenty of water and never push yourself too hard.\n\nHalfway through the route, my friend Arif twisted his ankle. I stayed with him until the first-aid volunteers __arrive__ (3). Although we did not finish the run, we felt __releived__ (4) that Arif's injury was not serious.",
+    "answer": "were",
+    "working": [
+      "The subject is 'more than three hundred pupils', which is plural.",
+      "Plural subject in the past continuous: were taking part."
+    ],
+    "hints": [
+      "Who is taking part: one pupil or many?",
+      "Change the helping verb so it agrees with a plural subject in the past."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Writing and Representing · Acquiring the Mechanics of Writing (LO2: accurate and consistent spelling) and Review, Revision and Editing (LO5); Grammar (LO2, LO3). Exam: PSLE Paper 2 Booklet B · Editing for Spelling and Grammar (OE, 1 mark)."
+  },
+  {
+    "id": "p6eng-practice-01-q20",
+    "skill": "p6-english",
+    "topic": "language.editing",
+    "subskill": "edit_spelling",
+    "archetype": "ED-SPELL",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "The underlined word at (2) is wrong. Write the correct word.",
+    "passage": "Every year, our school organises a charity run along the park connector. This year, more than three hundred pupils __was__ (1) taking part. Before the run, our teacher gave us some useful __sugestions__ (2): drink plenty of water and never push yourself too hard.\n\nHalfway through the route, my friend Arif twisted his ankle. I stayed with him until the first-aid volunteers __arrive__ (3). Although we did not finish the run, we felt __releived__ (4) that Arif's injury was not serious.",
+    "answer": "suggestions",
+    "working": [
+      "The word is built from 'suggest', which has a double g: sug-gest.",
+      "sug + gest + ions ✓"
+    ],
+    "hints": [
+      "Say it slowly in syllables: sug-ges-tions.",
+      "The first syllable ends with the same letter that starts the second."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Writing and Representing · Acquiring the Mechanics of Writing (LO2: accurate and consistent spelling) and Review, Revision and Editing (LO5); Grammar (LO2, LO3). Exam: PSLE Paper 2 Booklet B · Editing for Spelling and Grammar (OE, 1 mark)."
+  },
+  {
+    "id": "p6eng-practice-01-q21",
+    "skill": "p6-english",
+    "topic": "language.editing",
+    "subskill": "edit_tense",
+    "archetype": "ED-GRAM",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "The underlined word at (3) is wrong. Write the correct word.",
+    "passage": "Every year, our school organises a charity run along the park connector. This year, more than three hundred pupils __was__ (1) taking part. Before the run, our teacher gave us some useful __sugestions__ (2): drink plenty of water and never push yourself too hard.\n\nHalfway through the route, my friend Arif twisted his ankle. I stayed with him until the first-aid volunteers __arrive__ (3). Although we did not finish the run, we felt __releived__ (4) that Arif's injury was not serious.",
+    "answer": "arrived",
+    "working": [
+      "The story happened in the past: 'twisted', 'stayed'.",
+      "until the first-aid volunteers arrived ✓"
+    ],
+    "hints": [
+      "Find the other verbs in the same sentence. Which tense are they in?",
+      "Keep the tense the same as 'stayed'."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Writing and Representing · Acquiring the Mechanics of Writing (LO2: accurate and consistent spelling) and Review, Revision and Editing (LO5); Grammar (LO2, LO3). Exam: PSLE Paper 2 Booklet B · Editing for Spelling and Grammar (OE, 1 mark)."
+  },
+  {
+    "id": "p6eng-practice-01-q22",
+    "skill": "p6-english",
+    "topic": "language.editing",
+    "subskill": "edit_spelling",
+    "archetype": "ED-SPELL",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "The underlined word at (4) is wrong. Write the correct word.",
+    "passage": "Every year, our school organises a charity run along the park connector. This year, more than three hundred pupils __was__ (1) taking part. Before the run, our teacher gave us some useful __sugestions__ (2): drink plenty of water and never push yourself too hard.\n\nHalfway through the route, my friend Arif twisted his ankle. I stayed with him until the first-aid volunteers __arrive__ (3). Although we did not finish the run, we felt __releived__ (4) that Arif's injury was not serious.",
+    "answer": "relieved",
+    "working": [
+      "Rule: i before e except after c, when the sound is 'ee'.",
+      "re-lieved: the 'ee' sound comes after l, so it is ie ✓"
+    ],
+    "hints": [
+      "Which two letters make the 'ee' sound in this word?",
+      "Remember: i before e except after c."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Writing and Representing · Acquiring the Mechanics of Writing (LO2: accurate and consistent spelling) and Review, Revision and Editing (LO5); Grammar (LO2, LO3). Exam: PSLE Paper 2 Booklet B · Editing for Spelling and Grammar (OE, 1 mark)."
+  },
+  {
+    "id": "p6eng-practice-01-q23",
+    "skill": "p6-english",
+    "topic": "reading.comp_cloze",
+    "subskill": "comp_cloze_grammar",
+    "archetype": "CC-FUNCTION",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Fill in blank (1) with one suitable word.",
+    "passage": "Smooth-coated otters have become a familiar sight along Singapore's rivers and beaches. A family of otters can travel several kilometres in a day to look for food. They feed mainly ___(1)___ fish, but they will also eat crabs and prawns.\n\nAlthough otters look cute, they are wild animals, ___(2)___ people should never try to touch or feed them. Experts advise watching them from a distance and keeping dogs on a short ___(3)___. If an otter feels threatened, it ___(4)___ bite to protect its pups.",
+    "answer": "on",
+    "accept": [
+      "upon"
+    ],
+    "working": [
+      "The fixed phrase is 'feed on' something: animals feed on their food.",
+      "They feed mainly on fish ✓"
+    ],
+    "hints": [
+      "Which little word follows 'feed' when you name what an animal eats?",
+      "Try it with another animal: 'Cows feed ___ grass.'"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing Closely (LO2) with Grammar at Text Level (LO4) and Vocabulary (LO2). Exam: PSLE Paper 2 Booklet B · Comprehension Cloze (OE, 1 mark)."
+  },
+  {
+    "id": "p6eng-practice-01-q24",
+    "skill": "p6-english",
+    "topic": "reading.comp_cloze",
+    "subskill": "comp_cloze_connector",
+    "archetype": "CC-FUNCTION",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "short",
+    "stem": "Fill in blank (2) with one suitable word.",
+    "passage": "Smooth-coated otters have become a familiar sight along Singapore's rivers and beaches. A family of otters can travel several kilometres in a day to look for food. They feed mainly ___(1)___ fish, but they will also eat crabs and prawns.\n\nAlthough otters look cute, they are wild animals, ___(2)___ people should never try to touch or feed them. Experts advise watching them from a distance and keeping dogs on a short ___(3)___. If an otter feels threatened, it ___(4)___ bite to protect its pups.",
+    "answer": "so",
+    "working": [
+      "Being wild animals is the reason; never touching them is the result.",
+      "Cause, result: 'so' joins them after the comma ✓",
+      "'and' is grammatical but loses the link between the reason and the advice, so it is not accepted here."
+    ],
+    "hints": [
+      "Is the second half a reason, a contrast or a result of the first half?",
+      "Which one-word connector introduces a result?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing Closely (LO2) with Grammar at Text Level (LO4) and Vocabulary (LO2). Exam: PSLE Paper 2 Booklet B · Comprehension Cloze (OE, 1 mark)."
+  },
+  {
+    "id": "p6eng-practice-01-q25",
+    "skill": "p6-english",
+    "topic": "reading.comp_cloze",
+    "subskill": "comp_cloze_content",
+    "archetype": "CC-CONTENT",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "short",
+    "stem": "Fill in blank (3) with one suitable word.",
+    "passage": "Smooth-coated otters have become a familiar sight along Singapore's rivers and beaches. A family of otters can travel several kilometres in a day to look for food. They feed mainly ___(1)___ fish, but they will also eat crabs and prawns.\n\nAlthough otters look cute, they are wild animals, ___(2)___ people should never try to touch or feed them. Experts advise watching them from a distance and keeping dogs on a short ___(3)___. If an otter feels threatened, it ___(4)___ bite to protect its pups.",
+    "answer": "leash",
+    "accept": [
+      "lead"
+    ],
+    "working": [
+      "Dogs are kept on a short strap or cord held by the owner.",
+      "keeping dogs on a short leash ✓ (in British English, a 'lead' also works)"
+    ],
+    "hints": [
+      "What do you hold to keep a dog close to you on a walk?",
+      "It is a noun, and it follows 'a short'."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing Closely (LO2) with Grammar at Text Level (LO4) and Vocabulary (LO2). Exam: PSLE Paper 2 Booklet B · Comprehension Cloze (OE, 1 mark)."
+  },
+  {
+    "id": "p6eng-practice-01-q26",
+    "skill": "p6-english",
+    "topic": "reading.comp_cloze",
+    "subskill": "comp_cloze_grammar",
+    "archetype": "CC-FUNCTION",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Fill in blank (4) with one suitable word.",
+    "passage": "Smooth-coated otters have become a familiar sight along Singapore's rivers and beaches. A family of otters can travel several kilometres in a day to look for food. They feed mainly ___(1)___ fish, but they will also eat crabs and prawns.\n\nAlthough otters look cute, they are wild animals, ___(2)___ people should never try to touch or feed them. Experts advise watching them from a distance and keeping dogs on a short ___(3)___. If an otter feels threatened, it ___(4)___ bite to protect its pups.",
+    "answer": "may",
+    "accept": [
+      "might",
+      "will",
+      "can",
+      "could"
+    ],
+    "working": [
+      "The blank comes before the base verb 'bite', so it needs a helping verb.",
+      "It describes what is possible when an otter feels threatened: may (or might, can, could, will) ✓"
+    ],
+    "hints": [
+      "Look at the word straight after the blank. What form is it in?",
+      "You need a helping verb that shows something is possible."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing Closely (LO2) with Grammar at Text Level (LO4) and Vocabulary (LO2). Exam: PSLE Paper 2 Booklet B · Comprehension Cloze (OE, 1 mark)."
+  },
+  {
+    "id": "p6eng-practice-01-q27",
+    "skill": "p6-english",
+    "topic": "language.synthesis",
+    "subskill": "synthesis_concession",
+    "archetype": "ST-CONNECT",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "Rewrite the given sentence(s) using the word(s) provided. Your answer must be one sentence, and its meaning must stay the same.\n\nThe ground was wet. The boys continued their football match.\n\n**Despite** …",
+    "answer": "Despite the wet ground, the boys continued their football match.",
+    "accept": [
+      "Despite the wet ground the boys continued their football match.",
+      "Despite the ground being wet, the boys continued their football match.",
+      "Despite the ground being wet the boys continued their football match.",
+      "Despite the fact that the ground was wet, the boys continued their football match.",
+      "Despite the fact that the ground was wet the boys continued their football match.",
+      "Despite the wetness of the ground, the boys continued their football match."
+    ],
+    "working": [
+      "'Despite' is followed by a noun phrase (the wet ground), an -ing phrase (the ground being wet) or 'the fact that' + a clause.",
+      "Despite the wet ground, the boys continued their football match.",
+      "Watch out: never 'Despite the ground was wet' and never add 'but' or 'still'."
+    ],
+    "hints": [
+      "What kind of words can follow 'Despite': a whole clause, or a noun phrase?",
+      "Turn 'The ground was wet' into a phrase, such as an adjective before a noun."
+    ],
+    "marking": [
+      "2 marks: one correct sentence beginning with 'Despite', meaning unchanged.",
+      "A grown-up may give 1 mark for one slip in an otherwise correct structure; 'Despite the ground was wet' scores 0."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Grammar · Grammar at Sentence Level (LO3: varying the forms of construction) and Grammar at Text Level (LO4: cohesive devices linking clauses). Exam: PSLE Paper 2 Booklet B · Synthesis / Transformation (OE, 2 marks)."
+  },
+  {
+    "id": "p6eng-practice-01-q28",
+    "skill": "p6-english",
+    "topic": "language.synthesis",
+    "subskill": "synthesis_reported_speech",
+    "archetype": "ST-REPORTED",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "Rewrite the given sentence(s) using the word(s) provided. Your answer must be one sentence, and its meaning must stay the same.\n\n\"I will return your book tomorrow,\" Ravi said to Jia Hui.\n\nRavi told Jia Hui that …",
+    "answer": "Ravi told Jia Hui that he would return her book the next day.",
+    "accept": [
+      "Ravi told Jia Hui that he would return her book the following day.",
+      "Ravi told Jia Hui that he would return her book the day after.",
+      "he would return her book the next day",
+      "he would return her book the following day",
+      "he would return her book the day after"
+    ],
+    "working": [
+      "Pronouns change to fit the speakers: I → he (Ravi), your → her (Jia Hui's).",
+      "Tense moves back: will → would.",
+      "Time words change: tomorrow → the next day (or the following day)."
+    ],
+    "hints": [
+      "Three things change in reported speech: pronouns, tense and time words.",
+      "Who is 'I', whose book is 'your book', and what does 'tomorrow' become when you report it later?"
+    ],
+    "marking": [
+      "2 marks: all three changes correct (he/her, would, the next day).",
+      "A grown-up may give 1 mark when only one change is missing."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Grammar · Grammar at Sentence Level (LO3: varying the forms of construction) and Grammar at Text Level (LO4: cohesive devices linking clauses). Exam: PSLE Paper 2 Booklet B · Synthesis / Transformation (OE, 2 marks)."
+  },
+  {
+    "id": "p6eng-practice-01-q29",
+    "skill": "p6-english",
+    "topic": "language.synthesis",
+    "subskill": "synthesis_time",
+    "archetype": "ST-CONNECT",
+    "difficulty": 4,
+    "marks": 2,
+    "type": "short",
+    "stem": "Rewrite the given sentence(s) using the word(s) provided. Your answer must be one sentence, and its meaning must stay the same.\n\nThe bell rang. The pupils rushed out of the classroom.\n\n**No sooner** …",
+    "answer": "No sooner had the bell rung than the pupils rushed out of the classroom.",
+    "accept": [
+      "No sooner did the bell ring than the pupils rushed out of the classroom."
+    ],
+    "working": [
+      "'No sooner' at the start flips the helping verb in front of the subject: No sooner had the bell rung …",
+      "It pairs with 'than', never 'when' or 'then': … than the pupils rushed out of the classroom."
+    ],
+    "hints": [
+      "After 'No sooner', the helping verb comes before 'the bell'.",
+      "Which word always partners 'No sooner' in the middle of the sentence?"
+    ],
+    "marking": [
+      "2 marks: 'No sooner had the bell rung than …' with the meaning unchanged.",
+      "A grown-up may give 1 mark for the right order with one verb-form slip; using 'then' or 'when' instead of 'than' scores 0."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Grammar · Grammar at Sentence Level (LO3: varying the forms of construction) and Grammar at Text Level (LO4: cohesive devices linking clauses). Exam: PSLE Paper 2 Booklet B · Synthesis / Transformation (OE, 2 marks)."
+  },
+  {
+    "id": "p6eng-practice-01-q30",
+    "skill": "p6-english",
+    "topic": "reading.comprehension",
+    "subskill": "comp_vocab",
+    "archetype": "CO-VOCAB",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Find one word in the passage that means 'causing nervous strain because the result is uncertain'.",
+    "passage": "Siew Ling had been practising for the inter-class chess tournament for three months. Every evening after dinner, she set up the board on the dining table and replayed the games recorded in her grandfather's old notebook, move by move, until her eyes grew heavy.\n\nOn the morning of the final, she found her opponent, a quiet boy named Irfan, sitting alone outside the hall. He was staring at his shoelaces.\n\n\"Are you all right?\" she asked.\n\nIrfan shrugged. \"My mother always comes to watch me play, but she's in hospital this week. I don't think I can concentrate today.\"\n\nSiew Ling did not know what to say. A small voice in her head whispered that a worried opponent would be an easy one to beat. She pushed the thought away, sat down beside him and told him about the time her grandfather had lost a game because he was thinking about a leaking roof instead of the board. Irfan laughed, and for a moment his shoulders relaxed.\n\nThe match was long and tense. Irfan played carefully, and by the fortieth move Siew Ling realised that she had walked straight into a trap. She lost her queen and, soon after, the game.\n\nShe shook Irfan's hand and congratulated him. Her throat felt tight, and she blinked hard as she packed the pieces into their box.\n\nThat evening, Grandpa listened to the whole story without interrupting. When she had finished, he opened his notebook to a blank page and wrote the date at the top.\n\n\"What are you writing?\" she asked.\n\n\"The day my granddaughter won something more important than a chess game,\" he said, and he handed her the pen.",
+    "answer": "tense",
+    "working": [
+      "Look for a description of a moment when the result was not yet known: the match.",
+      "'The match was long and tense.' ✓"
+    ],
+    "hints": [
+      "Which part of the story has an uncertain result?",
+      "Look at the words used to describe the match."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing · Reading and Viewing Closely (LO2: literal and inferential meaning) and Critically (LO3: implied meaning, higher-order thinking and judgement). Exam: PSLE Paper 2 Booklet B · Comprehension OE."
+  },
+  {
+    "id": "p6eng-practice-01-q31",
+    "skill": "p6-english",
+    "topic": "reading.comprehension",
+    "subskill": "comp_character",
+    "archetype": "CO-INFER",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "'A small voice in her head whispered that a worried opponent would be an easy one to beat.'\n\n(a) What did Siew Ling do about this thought?\n(b) What does this show about her?",
+    "passage": "Siew Ling had been practising for the inter-class chess tournament for three months. Every evening after dinner, she set up the board on the dining table and replayed the games recorded in her grandfather's old notebook, move by move, until her eyes grew heavy.\n\nOn the morning of the final, she found her opponent, a quiet boy named Irfan, sitting alone outside the hall. He was staring at his shoelaces.\n\n\"Are you all right?\" she asked.\n\nIrfan shrugged. \"My mother always comes to watch me play, but she's in hospital this week. I don't think I can concentrate today.\"\n\nSiew Ling did not know what to say. A small voice in her head whispered that a worried opponent would be an easy one to beat. She pushed the thought away, sat down beside him and told him about the time her grandfather had lost a game because he was thinking about a leaking roof instead of the board. Irfan laughed, and for a moment his shoulders relaxed.\n\nThe match was long and tense. Irfan played carefully, and by the fortieth move Siew Ling realised that she had walked straight into a trap. She lost her queen and, soon after, the game.\n\nShe shook Irfan's hand and congratulated him. Her throat felt tight, and she blinked hard as she packed the pieces into their box.\n\nThat evening, Grandpa listened to the whole story without interrupting. When she had finished, he opened his notebook to a blank page and wrote the date at the top.\n\n\"What are you writing?\" she asked.\n\n\"The day my granddaughter won something more important than a chess game,\" he said, and he handed her the pen.",
+    "answer": "(a) She pushed the thought away and comforted Irfan by sitting beside him and telling him a funny story about her grandfather. (b) It shows that she was kind and a good sport: she cared about Irfan's feelings more than winning easily.",
+    "working": [
+      "Find what she did straight after the thought: 'She pushed the thought away, sat down beside him and told him about …'.",
+      "Ask what kind of person would do that instead of using his worry to win."
+    ],
+    "hints": [
+      "Read the two sentences that come right after the quoted one.",
+      "For (b), name a quality, then say how her actions show it."
+    ],
+    "keywords": [
+      "pushed the thought away",
+      "sat down beside him",
+      "told him",
+      "story",
+      "grandfather",
+      "kind",
+      "caring",
+      "good sport",
+      "sportsmanship"
+    ],
+    "marking": [
+      "(a) 1 mark: she pushed the thought away AND comforted Irfan / told him a story to cheer him up.",
+      "(b) 1 mark: a quality supported by (a), e.g. kind, caring, considerate, a good sport."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing · Reading and Viewing Closely (LO2: literal and inferential meaning) and Critically (LO3: implied meaning, higher-order thinking and judgement). Exam: PSLE Paper 2 Booklet B · Comprehension OE."
+  },
+  {
+    "id": "p6eng-practice-01-q32",
+    "skill": "p6-english",
+    "topic": "reading.comprehension",
+    "subskill": "comp_feelings",
+    "archetype": "CO-FEEL",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "How did Siew Ling feel after she lost the game? Give one piece of evidence from the passage to support your answer.",
+    "passage": "Siew Ling had been practising for the inter-class chess tournament for three months. Every evening after dinner, she set up the board on the dining table and replayed the games recorded in her grandfather's old notebook, move by move, until her eyes grew heavy.\n\nOn the morning of the final, she found her opponent, a quiet boy named Irfan, sitting alone outside the hall. He was staring at his shoelaces.\n\n\"Are you all right?\" she asked.\n\nIrfan shrugged. \"My mother always comes to watch me play, but she's in hospital this week. I don't think I can concentrate today.\"\n\nSiew Ling did not know what to say. A small voice in her head whispered that a worried opponent would be an easy one to beat. She pushed the thought away, sat down beside him and told him about the time her grandfather had lost a game because he was thinking about a leaking roof instead of the board. Irfan laughed, and for a moment his shoulders relaxed.\n\nThe match was long and tense. Irfan played carefully, and by the fortieth move Siew Ling realised that she had walked straight into a trap. She lost her queen and, soon after, the game.\n\nShe shook Irfan's hand and congratulated him. Her throat felt tight, and she blinked hard as she packed the pieces into their box.\n\nThat evening, Grandpa listened to the whole story without interrupting. When she had finished, he opened his notebook to a blank page and wrote the date at the top.\n\n\"What are you writing?\" she asked.\n\n\"The day my granddaughter won something more important than a chess game,\" he said, and he handed her the pen.",
+    "answer": "She felt disappointed and upset. Evidence: her throat felt tight and she blinked hard as she packed the pieces away, as if she was holding back tears.",
+    "working": [
+      "Find the paragraph after the game ends.",
+      "Her body shows her feelings: a tight throat and blinking hard are signs of holding back tears."
+    ],
+    "hints": [
+      "Look at what her body did after she shook Irfan's hand.",
+      "Name the feeling first, then copy the words that show it."
+    ],
+    "keywords": [
+      "disappointed",
+      "upset",
+      "sad",
+      "throat felt tight",
+      "blinked hard"
+    ],
+    "marking": [
+      "1 mark: a suitable feeling (disappointed / upset / sad).",
+      "1 mark: evidence lifted from the passage: 'her throat felt tight' or 'she blinked hard'."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing · Reading and Viewing Closely (LO2: literal and inferential meaning) and Critically (LO3: implied meaning, higher-order thinking and judgement). Exam: PSLE Paper 2 Booklet B · Comprehension OE."
+  },
+  {
+    "id": "p6eng-practice-01-q33",
+    "skill": "p6-english",
+    "topic": "reading.comprehension",
+    "subskill": "comp_inference",
+    "archetype": "CO-INFER",
+    "difficulty": 4,
+    "marks": 2,
+    "type": "open",
+    "stem": "What did Grandpa mean when he said that Siew Ling had 'won something more important than a chess game'?",
+    "passage": "Siew Ling had been practising for the inter-class chess tournament for three months. Every evening after dinner, she set up the board on the dining table and replayed the games recorded in her grandfather's old notebook, move by move, until her eyes grew heavy.\n\nOn the morning of the final, she found her opponent, a quiet boy named Irfan, sitting alone outside the hall. He was staring at his shoelaces.\n\n\"Are you all right?\" she asked.\n\nIrfan shrugged. \"My mother always comes to watch me play, but she's in hospital this week. I don't think I can concentrate today.\"\n\nSiew Ling did not know what to say. A small voice in her head whispered that a worried opponent would be an easy one to beat. She pushed the thought away, sat down beside him and told him about the time her grandfather had lost a game because he was thinking about a leaking roof instead of the board. Irfan laughed, and for a moment his shoulders relaxed.\n\nThe match was long and tense. Irfan played carefully, and by the fortieth move Siew Ling realised that she had walked straight into a trap. She lost her queen and, soon after, the game.\n\nShe shook Irfan's hand and congratulated him. Her throat felt tight, and she blinked hard as she packed the pieces into their box.\n\nThat evening, Grandpa listened to the whole story without interrupting. When she had finished, he opened his notebook to a blank page and wrote the date at the top.\n\n\"What are you writing?\" she asked.\n\n\"The day my granddaughter won something more important than a chess game,\" he said, and he handed her the pen.",
+    "answer": "Although she lost the match, she had been kind to Irfan and comforted him when he was worried, instead of taking advantage of him. Grandpa meant that being kind and a good sport matters more than winning.",
+    "working": [
+      "Grandpa heard 'the whole story', including what happened before the match.",
+      "Link his words to what Siew Ling did for Irfan, then say what Grandpa values."
+    ],
+    "hints": [
+      "Grandpa heard the whole story, not just the result. What else happened that day?",
+      "Answer in two parts: what she did, and why Grandpa thought it mattered more."
+    ],
+    "keywords": [
+      "kind",
+      "kindness",
+      "comforted Irfan",
+      "good sport",
+      "sportsmanship",
+      "more important than winning"
+    ],
+    "marking": [
+      "1 mark: what she did: she was kind to / comforted Irfan (or did not take advantage of his worry).",
+      "1 mark: the lesson: kindness / good character matters more than winning a game."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Primary) and SEAB's PSLE English Language (0001) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing · Reading and Viewing Closely (LO2: literal and inferential meaning) and Critically (LO3: implied meaning, higher-order thinking and judgement). Exam: PSLE Paper 2 Booklet B · Comprehension OE."
+  }
+]
