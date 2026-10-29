@@ -13,6 +13,8 @@ import { fail, ok, readBody } from "@/lib/auth/http";
 import { getStore } from "@/lib/auth/context";
 import { caringReply, checkWords, HELPLINES } from "@/lib/guardian/words";
 import { FROG_QUEST, loadFrogItems } from "@/lib/learn/frog-quest";
+import { loadTender } from "@/lib/guardian/load";
+import { toneNote } from "@/lib/kix/today";
 import { notebookNotes } from "@/lib/notebook/notebook";
 import { hasMetaApiKey } from "@/lib/meta/client";
 import { sparkTools } from "@/lib/meta/spark";
@@ -60,7 +62,9 @@ export async function POST(request: Request) {
 
   const store = getStore();
   const pages = (await store?.notebook.pages(family.householdId, kid.id).catch(() => [])) ?? [];
-  const remembered = notebookNotes(kid.nickname, pages);
+  // A hard day yesterday makes today's hints gentler (lib/kix/today.ts); Kix never says why.
+  const tender = store ? await loadTender(store, family.householdId, kid).catch(() => null) : null;
+  const remembered = [notebookNotes(kid.nickname, pages), toneNote(tender)].filter(Boolean).join("\n\n");
   const system = hintSystem({ kid, item, remembered }, await instructionsFor("tutor", tutorVars(kid), { part: "hint", store }));
   const user = input.ask ? `${kid.nickname} asks: ${input.ask}` : `Give hint ${input.hint}: a nudge that builds on the earlier hints.`;
 

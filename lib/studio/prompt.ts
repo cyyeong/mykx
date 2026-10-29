@@ -39,6 +39,8 @@ const PACK_LOOK: Record<PackId, { style: string; accessory: Accessory }> = {
 const INTEREST_PROPS: Record<string, Accessory> = {
   "Bugs and critters": { describe: "holding a small magnifying glass", noun: "magnifying glass" },
   Jets: { describe: "with aviator goggles pushed up on its head", noun: "goggles" },
+  Anime: { describe: "holding a small sketchbook", noun: "sketchbook" },
+  "K-pop": { describe: "holding a glowing lightstick", noun: "lightstick" },
   Space: { describe: "wearing a tiny star-shaped badge", noun: "badge" },
   Animals: { describe: "hugging a small plush puppy", noun: "puppy" },
   Music: { describe: "wearing round headphones", noun: "headphones" },

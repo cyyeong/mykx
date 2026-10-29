@@ -45,6 +45,11 @@ export async function PATCH(request: Request) {
       patch.pack = body.pack;
       changed.push("pack");
     }
+    // What the kid loves, from the Studio's chips (Kix's sparks use them).
+    if (body.interests !== undefined && body.interests.join("|") !== kid.interests.join("|")) {
+      patch.interests = body.interests;
+      changed.push("interests");
+    }
     if (body.nickname !== undefined && body.nickname !== kid.nickname) {
       patch.nickname = body.nickname;
       changed.push("nickname");

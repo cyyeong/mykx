@@ -4,7 +4,9 @@
 // Every 30 s while the page is visible it sends a heartbeat (what the child is doing, whether they've been idle)
 // and gets Kix's next step back. When that step is a break or a wind-down, Kix says so kindly: a short break with a
 // breathing guide, or "that's today's screen time". Never mid-question, never a punishment, and the child can
-// always finish what they're doing. Counts only; it never touches mastery or rewards.
+// always finish what they're doing. When focus dips before a break is due, Kix sparks something the child loves
+// instead (lib/kix/interests.ts). Counts only; it never touches mastery or rewards.
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Art } from "@/components/ui/Art";
@@ -14,11 +16,11 @@ import s from "./guardian.module.css";
 
 const BEAT_MS = 30_000;
 const IDLE_MS = 60_000;
-const SNOOZE = { break: 5 * 60_000, rest: 10 * 60_000 } as const;
+const SNOOZE = { break: 5 * 60_000, rest: 10 * 60_000, spark: 10 * 60_000 } as const;
 const BREAK_SEC = 120;
 const SNOOZE_KEY = "mykx-guardian-snooze";
 
-type Nudge = { kind: "break" | "rest"; line: string; why: string };
+type Nudge = { kind: "break" | "rest" | "spark"; line: string; why: string; href?: string | null; cta?: string | null };
 
 function snoozedUntil(kind: Nudge["kind"]): number {
   try {
@@ -74,8 +76,8 @@ export function GuardianWatch() {
         if (!res.ok || !live) return;
         const data = (await res.json()) as KidStatus & { ok: boolean };
         const step = data.next;
-        if ((step.kind === "break" || step.kind === "rest") && !waits(current) && Date.now() > snoozedUntil(step.kind)) {
-          setNudge({ kind: step.kind, line: step.line, why: step.why });
+        if ((step.kind === "break" || step.kind === "rest" || step.kind === "spark") && !waits(current) && Date.now() > snoozedUntil(step.kind)) {
+          setNudge({ kind: step.kind, line: step.line, why: step.why, href: step.href, cta: step.cta });
         }
       } catch {
         // Offline: screen time just isn't counted for this beat.
@@ -149,6 +151,17 @@ export function GuardianWatch() {
             >
               Start a 2-minute break
             </button>
+          ) : nudge.kind === "spark" && nudge.href && nudge.cta ? (
+            <Link
+              href={nudge.href}
+              className="mk-btn mk-btn--primary"
+              onClick={() => {
+                snooze("spark");
+                setNudge(null);
+              }}
+            >
+              {nudge.cta}
+            </Link>
           ) : null}
           <button
             type="button"
@@ -158,7 +171,7 @@ export function GuardianWatch() {
               setNudge(null);
             }}
           >
-            {nudge.kind === "break" ? "In a minute" : "Finish this bit"}
+            {nudge.kind === "break" ? "In a minute" : nudge.kind === "spark" ? "Back to it" : "Finish this bit"}
           </button>
         </div>
       </div>

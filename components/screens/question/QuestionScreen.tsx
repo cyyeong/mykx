@@ -114,6 +114,13 @@ const RULE_LINES: Record<string, string> = {
   fresh_transfer: "fresh success after a tricky one",
 };
 
+// Kix's interest spark (founder, 29 Oct; app/api/kix/spark): when a kid drifts (no taps or keys for 45 s, or a
+// wrong guess in under 5 s), Kix ties something they love to the question. Once per question, three per session.
+const DRIFT_MS = 45_000;
+const QUICK_GUESS_MS = 5_000;
+const MAX_SPARKS = 3;
+const SPARK_KEY = "mykx-sparks";
+
 function awardLine(outcome: AttemptOutcome): string {
   return outcome.awards.map((a) => `+${a.amount} stars: ${RULE_LINES[a.rule] ?? a.rule}.`).join(" ");
 }
@@ -152,6 +159,8 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
   const [askCare, setAskCare] = useState<Care | null>(null);
   const [coach, setCoach] = useState<Coach | null>(null);
   const [coachBusy, setCoachBusy] = useState(false);
+  const [drift, setDrift] = useState(false);
+  const [spark, setSpark] = useState<{ line: string; interest: string } | null>(null);
 
   const isMcq = item.options.length > 0;
   const resolved = phase === "correct" || phase === "revealed";
@@ -174,6 +183,7 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
       ));
     }
     if (phase === "answering" && tutor !== null) return tutor || "Kix is thinking…";
+    if (phase === "answering" && spark) return spark.line;
     if (phase === "correct" && coach?.verdict === "not-yet") return "Yes, that's the right answer! But your reason doesn't explain it yet. Read what I wrote under your reason.";
     if (phase === "correct") return outcome?.awards.length ? "Yes! That's it. Collect your card." : "Yes! That's it.";
     if (phase === "revealed") return answerText ? `The answer is **${answerText}**. Read how it works, then keep going.` : "Here's how it works. Read it over, then keep going.";
@@ -200,6 +210,49 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
     return () => clearTimeout(t);
   }, [coach]);
 
+  // Drift: no taps, keys or scrolls for a while on an open question.
+  useEffect(() => {
+    if (phase !== "answering") return;
+    let last = Date.now();
+    const mark = () => {
+      last = Date.now();
+    };
+    const events = ["pointerdown", "keydown", "wheel", "touchstart"] as const;
+    events.forEach((e) => window.addEventListener(e, mark, { passive: true }));
+    const t = window.setInterval(() => {
+      if (document.visibilityState === "visible" && Date.now() - last > DRIFT_MS) setDrift(true);
+    }, 5_000);
+    return () => {
+      window.clearInterval(t);
+      events.forEach((e) => window.removeEventListener(e, mark));
+    };
+  }, [phase]);
+
+  // One spark per question: Muse Spark ties one of the kid's interests to the question (a cached fact without it).
+  useEffect(() => {
+    if (!drift) return;
+    let turn = 0;
+    try {
+      turn = Number(sessionStorage.getItem(SPARK_KEY) ?? 0);
+      if (turn >= MAX_SPARKS) return;
+      sessionStorage.setItem(SPARK_KEY, String(turn + 1));
+    } catch {
+      // Private mode: no count, so at most this one.
+    }
+    let live = true;
+    fetch("/api/kix/spark", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ itemId: item.id, turn }) })
+      .then((res) => res.json() as Promise<{ ok: boolean; spark: { line: string; interest: string } | null }>)
+      .then((data) => {
+        if (!live || !data.ok || !data.spark) return;
+        setSpark(data.spark);
+        play("hint");
+      })
+      .catch(() => undefined);
+    return () => {
+      live = false;
+    };
+  }, [drift, item.id, play]);
+
   /** A new try after a wrong answer: a fresh submission key and timer, back to "Check my answer". */
   function startRetry() {
     if (tries >= 2) return;
@@ -222,7 +275,8 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
           itemId: item.id,
           response: revealed ? null : isMcq ? (selected === null ? null : selected + 1) : typed.trim() || null,
           explanation: explanation.trim() || null,
-          hintsUsed: hintIdx,
+          // A spark is help too: a sparked answer counts as hinted, so it's never mastery evidence (rule 5).
+          hintsUsed: hintIdx + (spark ? 1 : 0),
           revealed,
           key: key.current,
           ...(shownAt.current ? { durationMs: Math.round(performance.now() - shownAt.current) } : {}),
@@ -246,6 +300,8 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
     } else {
       setPhase("wrong");
       setTries((t) => t + 1);
+      // A very quick wrong guess can mean the kid has drifted: the next try gets a spark.
+      if (shownAt.current && performance.now() - shownAt.current < QUICK_GUESS_MS) setDrift(true);
     }
   }
 
@@ -573,7 +629,7 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
               <KixBubble
                 className="qp-bubble"
                 outlined
-                chip={hintIdx > 0 && !resolved ? `Hint ${Math.min(hintIdx, item.hints.length)} of ${item.hints.length}` : null}
+                chip={phase === "answering" && tutor === null && spark ? `A spark: ${spark.interest}` : hintIdx > 0 && !resolved ? `Hint ${Math.min(hintIdx, item.hints.length)} of ${item.hints.length}` : null}
                 aria-live="polite"
                 style={{ fontSize: 20, lineHeight: "28px", fontWeight: 700 }}
               >

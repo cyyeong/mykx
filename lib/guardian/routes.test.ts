@@ -64,7 +64,9 @@ describe("guardian routes", () => {
     await asAri();
     const r = await b.call(beat.POST, "/api/guardian/beat", { kind: "learn", idle: false });
     expect(r.status).toBe(200);
-    expect(r.body.next.kind).toBe("learn");
+    // The demo family's Jordan has a labelled sample hard day yesterday, so Kix starts with a warm-up (lib/kix/today.ts).
+    expect(r.body.next.kind).toBe("review");
+    expect(r.body.next.why).toMatch(/warm-up\. \(Sample day\.\)/);
     expect(r.body.left).toBe(30);
     await b.call(beat.POST, "/api/guardian/beat", { kind: "learn", idle: false });
     expect(await store.guardian.beats(DEMO_HOUSEHOLD_ID, JORDAN_ID, "2000-01-01T00:00:00Z")).toHaveLength(1);

@@ -10,7 +10,7 @@ Every statement about behaviour cites the file that does it. Anything not in the
 | **Partly built** | The data shape or a first slice exists; the rest is roadmap |
 | **Roadmap** | Designed or proposed only; not in the code |
 
-The demo family is synthetic and labelled as such in the UI (`profiles.synthetic`, `components/ui/DemoLabel.tsx`): **Jordan** (P3, Terrarium world, junior band), **Abby** (P6, Idol Stage, teen band) and **Leonard** (Sec 2, Anime Sky, teen band). These are the founder's stand-in names (`lib/auth/demo-family.ts`, `supabase/seed.sql`).
+The demo family is synthetic and labelled as such in the UI (`profiles.synthetic`, `components/ui/DemoLabel.tsx`): **Jordan** (P3, Terrarium world, junior band; into critters and jets), **Abby** (P6, Anime Sky, teen band; into anime) and **Leonard** (Sec 2, Idol Stage, teen band; into K-pop, dance and anime). These are the founder's stand-in names (`lib/auth/demo-family.ts`, `supabase/seed.sql`).
 
 ## Contents
 
@@ -174,7 +174,7 @@ The browser never talks to Meta or to Supabase's service role. Keys live in the 
 | Area | Routes | Caller |
 |---|---|---|
 | Sign-in and accounts | `api/auth/{parent,kid,kids,pin,reset,signout}`, `api/me`, `api/family/kids`, `api/family/kids/[id]`, `api/family/shared` | browser |
-| Learning | `api/attempts`, `api/kix/tutor`, `api/kix/reason`, `api/kix/homework`, `api/session/close`, `api/games/round` | kid session |
+| Learning | `api/attempts`, `api/kix/tutor`, `api/kix/reason`, `api/kix/spark`, `api/kix/homework`, `api/session/close`, `api/games/round` | kid session |
 | Creating | `api/vibe`, `api/studio/transform`, `api/voice/transcribe` | kid session (a grown-up signed in on the device) |
 | Care | `api/guardian/{beat,words,summary,seen,brief,tonight}`, `api/signals/focus`, `api/notebook`, `api/messages`, `api/messages/mine` | kid or grown-up |
 | Guardian, location | `api/location` (POST from a device, GET for the parent), `api/location/{mine,pause,places,settings}` | device token or session |
@@ -280,7 +280,7 @@ The structured-output path (`lib/meta/schema.ts`) converts a zod schema to JSON 
 
 | Agent | Purpose | Model | Route (log id) | Status |
 |---|---|---|---|---|
-| Kix Tutor | Hints and answers to "why?" in the question player as a Skill Engine agent with tools (§4.10); feedback on the child's reason after marking | Muse Spark (function tools) | `api/kix/tutor`, `api/kix/reason` (`tutor`) | Built |
+| Kix Tutor | Hints and answers to "why?" in the question player as a Skill Engine agent with tools (§4.10); feedback on the child's reason after marking; an interest spark when the child drifts (§6.3a) | Muse Spark (function tools, structured output) | `api/kix/tutor`, `api/kix/reason`, `api/kix/spark` (`tutor`) | Built |
 | Ask Kix | Homework help from a typed question or a photo: a research step loads the right pack and reads its method (§4.10), then a visual lesson that guides first | Muse Spark (vision, function tools) | `api/kix/homework` (`ask-kix`) | Built |
 | Memory Keeper | After a quest: a mood reading from the child's words and Notebook patches | Muse Spark | `api/session/close` (`memory-keeper`) | Built |
 | Vibe Zone maker | Flashcard sets from the child's own words, revisable | Muse Spark | `api/vibe` (`vibe`) | Built (flashcards; songs are roadmap) |
@@ -695,11 +695,26 @@ flowchart LR
   NOTES --> TUTOR["Kix Tutor and Ask Kix<br/>next request"]
   PAGES --> PARENT["Parent reads history,<br/>edits a page, or wipes it"]
   MOOD --> FLAGS["Guardian low-mood rule"]
+  MOOD --> TENDER["tenderToday: a hard last session<br/>on an earlier day"]
+  TENDER --> GENTLE["Next day: warm-up first on Home,<br/>a gentle-tone note in the tutor,<br/>Ask Kix and spark prompts"]
 ```
 
 The Notebook has four pages in code: "How they like to learn" (`personality`), "How they ask" (`asking`), "Slips to watch" (`slips`) and "Memorable moments" (`moments`). The prompt section Kix sees (`notebookNotes`) tells it to use the notes "to be kinder and clearer; never quote it or mention a notebook". A grown-up's edits through `PATCH /api/notebook` pass the same label check, because Kix reads these pages too. `DELETE /api/notebook` wipes every page and its history for that kid. Both sit behind the parent PIN when a kid uses the device.
 
 What the loop learns is pitch, not progress: "asks 'why' before trying" makes the next hint start with a nudge; "mixes up larva and pupa" makes the next explanation contrast them. What it may never learn: labels, diagnoses, scores, anything from family messages or Guardian.
+
+### 6.3a Kix adapts day to day: a tender start and interest sparks (founder, 29 Oct)
+
+Two deterministic rules turn the memory into behaviour; Muse only voices them.
+
+**A tender start after a hard day** (`lib/kix/today.ts`). `tenderToday` takes the kid's `session_reads` from the last three days and finds the last reading from an earlier Singapore day (at most two days back). If its mood was `frustrated`, `worried`, `tired` or `unsure`, or it raised a `concern`, today is tender, unless today's own words already read `happy` or `curious`. Then `next-step.ts` puts a warm-up first ("Welcome back, Jordan! Let's start gently today, with one you already know."; the reason line says "Yesterday was hard work" and nothing about mood), the teen study deck's Kix line eases in, and `toneNote` adds a "# Today" block to the Kix Tutor hint prompt, the Ask Kix prompt and the spark prompt: be extra gentle, small steps, notice effort, and never mention yesterday, moods or feelings unless the child does. The demo family's Jordan has a labelled sample hard day (`sampleTender`, "(Sample day.)") when there is no real reading, so the behaviour shows in the demo; it never applies to a real family.
+
+**Interest sparks when focus drifts** (`lib/kix/interests.ts`, `app/api/kix/spark/route.ts`). A kid's interests are chips on `profiles.interests` (at most four, from a fixed list: Bugs and critters, Jets, Anime, K-pop, Dance, Space, Animals, Music, Football, Robots, Drawing), picked in Sidekick Studio (`PATCH /api/me`) or set by a grown-up (`PATCH /api/family/kids/[id]`). Free text never reaches a prompt. Each interest has three short true facts, a place in myKx (Sky Squadron, Critter Lab, Vibe Zone flashcards, Neon Strike, the Arcade) and a flavour line for the prompt. Two triggers:
+
+- *In the question player:* no taps, keys or scrolls for 45 s on an open question, or a wrong answer in under 5 s. The player calls `POST /api/kix/spark` once per question (three per session). `pickSpark` turns through the kid's interests and facts by a counter; the Kix Tutor's `spark` part (Muse Spark, Standard, structured `{ line }`, 10 s) writes one line, at most 30 words, that ties the interest to the thinking the question needs, with the item's worked steps as context and the guardrails "never the answer" and "never mention focus or name real shows, idols or brands". If the line contains the answer's words, the model fails or there is no key, the cached fact plus "Now, back to the question" stands in. Kix's bubble shows it with an "A spark: Jets" chip. A sparked answer is sent as one more hint used, so it is never mastery evidence (rule 5).
+- *Anywhere in the kid app:* when the on-device focus camera has written a real focus note in the last 15 minutes and a break isn't due yet, `nextStep` returns a `spark` step: "Psst, Leonard! Pop dance routines are learned in counts of eight beats. Want a quick look, then back to it?" with the interest's place as the button. `GuardianWatch` shows it between tasks (never mid-question), snoozed for 10 minutes. When a break is due and the kid loves Dance or K-pop, the break becomes a dance break.
+
+Nothing about a drift is stored. Sparks and tender days never change mastery, rewards or the parent's flags.
 
 ### 6.4 Loop 4: parent feedback (Right / Not right)
 

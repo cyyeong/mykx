@@ -236,7 +236,7 @@ describe("Your family", () => {
     const { body } = await browser.call(family.GET, "/api/family/kids");
     expect(body.household).toEqual({ id: DEMO_HOUSEHOLD_ID, name: "Demo family" });
     expect(Object.keys(body.kids[0]).sort()).toEqual(
-      ["band", "cameraEnabled", "dailyLimitMin", "disabled", "id", "lastSignInAt", "level", "locked", "needsSetup", "nickname", "pack", "secretEvent", "secretKind", "secretSetAt", "synthetic", "username", "voiceEnabled"].sort(),
+      ["band", "cameraEnabled", "dailyLimitMin", "disabled", "id", "interests", "lastSignInAt", "level", "locked", "needsSetup", "nickname", "pack", "secretEvent", "secretKind", "secretSetAt", "synthetic", "username", "voiceEnabled"].sort(),
     );
   });
 

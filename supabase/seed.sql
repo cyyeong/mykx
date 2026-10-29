@@ -11,9 +11,9 @@ insert into profiles (id, household_id, role, is_admin, nickname, band, level, p
   ('00000000-0000-4000-8000-000000000010', '00000000-0000-4000-8000-000000000001', 'parent', true, 'Demo Parent', null, null, null, '{}', false, false, null, true, null, null, null, null),
   ('00000000-0000-4000-8000-000000000011', '00000000-0000-4000-8000-000000000001', 'child', false, 'Jordan', 'junior', 'P3', 'terrarium', '{"Bugs and critters","Jets"}', true, false, 30, true,
     'pictures', 'scrypt$16384$8$1$R56ygih2QnUpKfvx2V-TAQ$PusjO4VBvo99NjoE2q9N0888tPwfuKQWnV8LWXPMe3E', now(), 'set'),
-  ('00000000-0000-4000-8000-000000000012', '00000000-0000-4000-8000-000000000001', 'child', false, 'Abby', 'teen', 'P6', 'idol-stage', '{"Music","Dance"}', true, false, 45, true,
+  ('00000000-0000-4000-8000-000000000012', '00000000-0000-4000-8000-000000000001', 'child', false, 'Abby', 'teen', 'P6', 'anime-sky', '{"Anime"}', true, false, 45, true,
     'password', 'scrypt$16384$8$1$PK5y3oBbecbqlyuJ2OeIrA$L2jsBBXoaBmmnRibFYBdL7Qut9EEpUrgaqSnExY7RdA', now(), 'set'),
-  ('00000000-0000-4000-8000-000000000013', '00000000-0000-4000-8000-000000000001', 'child', false, 'Leonard', 'teen', 'Sec 2', 'anime-sky', '{"Space","Drawing"}', true, false, 60, true,
+  ('00000000-0000-4000-8000-000000000013', '00000000-0000-4000-8000-000000000001', 'child', false, 'Leonard', 'teen', 'Sec 2', 'idol-stage', '{"K-pop","Dance","Anime"}', true, false, 60, true,
     'password', 'scrypt$16384$8$1$ad2uDKiCeE4ILgvIFn5hfg$mkI3K-AHDmgmu8RUxnCbPjzkpdUU1zoxvGAf38QOLDE', now(), 'set');
 
 -- Magic names for the sign-in page (founder, 29 Oct).

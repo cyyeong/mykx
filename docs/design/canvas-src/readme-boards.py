@@ -77,9 +77,9 @@ hero_css = """
 .h-bg{position:absolute;inset:0;background:radial-gradient(120% 90% at 70% 10%,#3A3478 0%,#24215A 45%,#1A1846 100%)}
 .h-art{position:absolute;left:298px;top:90px;width:1418px;height:810px;object-fit:cover;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 30%),linear-gradient(180deg,transparent 0%,#000 16%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent 0%,#000 30%),linear-gradient(180deg,transparent 0%,#000 16%);mask-composite:intersect}
 .h-scrim{position:absolute;inset:0;background:linear-gradient(0deg,rgba(26,24,70,.75) 0%,rgba(26,24,70,0) 22%)}
-.h-copy{position:absolute;left:88px;top:72px;width:640px}
+.h-copy{position:absolute;left:88px;top:72px;width:760px}
 .h-mark{height:54px;display:block;margin-bottom:34px}
-.h-copy .rd-h1{font-size:74px;line-height:78px}
+.h-copy .rd-h1{font-size:68px;line-height:74px}
 .h-copy .rd-h1 span{display:block}
 .h-copy .rd-lede{margin-top:26px;width:560px;font-size:24px;line-height:35px;color:#E4DFFF}
 .h-badges{position:absolute;left:88px;bottom:56px;display:flex;flex-direction:column;gap:14px;width:720px}
@@ -97,12 +97,12 @@ build_hero = f"""
 <div class="h-scrim"></div>
 <div class="h-copy">
   <img class="h-mark" src="{img('wordmark-dark')}" alt="myKx">
-  <h1 class="rd-h1"><span>My sidekick</span><span>to my kids.</span><span style="margin-top:14px">My sidekick</span><span>for my kids.</span></h1>
-  <p class="rd-lede">Kix meets each child inside the world they already love and turns it into learning. Then it tells a busy parent how the day really went.</p>
+  <h1 class="rd-h1"><span>Built for my world.</span><span>myKx for my kids.</span><span>A sidekick for</span><span>every parent.</span></h1>
+  <p class="rd-lede">My world is my kids and my family. Kix meets each child inside the world they love, gets to know them a little more every day, and tells a busy parent how the day really went.</p>
 </div>
-<div class="h-tag" style="--c:#9BE3B0;left:909px;top:772px"><b style="font-family:'Grandstander',sans-serif">Jordan</b><small>P3, into critters</small></div>
-<div class="h-tag" style="--c:#FF8FE0;left:1171px;top:772px"><b style="font-family:'Unbounded',sans-serif;font-size:22px">Abby</b><small>P6, into the stage</small></div>
-<div class="h-tag" style="--c:#8CCBFF;left:1418px;top:772px"><b style="font-family:'M PLUS Rounded 1c',sans-serif;font-weight:800">Leonard</b><small>Sec 2, into jets</small></div>
+<div class="h-tag" style="--c:#9BE3B0;left:909px;top:772px"><b style="font-family:'Grandstander',sans-serif">Jordan</b><small>P3, critters and jets</small></div>
+<div class="h-tag" style="--c:#FF8FE0;left:1171px;top:772px"><b style="font-family:'Unbounded',sans-serif;font-size:22px">Leonard</b><small>Sec 2, K-pop and dance</small></div>
+<div class="h-tag" style="--c:#F7B6CF;left:1418px;top:772px"><b style="font-family:'M PLUS Rounded 1c',sans-serif;font-weight:800">Abby</b><small>P6, into anime</small></div>
 <div class="h-badges">
   <span class="h-hack">{SPARK}Built for the Meta Global AI Developer Hackathon</span>
   <div class="h-muse">{muse('Powered by Meta Muse')}<span class="h-models">Muse Spark, Muse Image, SAM 3.1 and Muse Voice Transcribe</span></div>
@@ -183,12 +183,12 @@ def kid(name, font, size, level, world, into, items, art, shot, bg, ink, soft, a
 build_kids = f"""
 <div class="k-head">
   <h1 class="rd-h2" style="width:820px">Three kids. Three worlds.<br>One sidekick each.</h1>
-  <p class="rd-lede">Each child picks a world in Sidekick Studio and Kix becomes part of it. Underneath, every world runs the same honest learning engine.</p>
+  <p class="rd-lede">Each child picks a world and the things they love in Sidekick Studio, and Kix becomes part of it. Underneath, every world runs the same honest learning engine.</p>
 </div>
 <div class="k-cols">
-{kid("Jordan", "'Grandstander',sans-serif", 44, "Primary 3", "Terrarium", "frogs, ants and anything that crawls", ["The frog life-cycle quest", "Critter Lab: a tadpole that grows with mastery", "Picture-code sign-in and a Kix that reads aloud"], "kix-terrarium", "jordan-home", "#E7F2DD", "#1D3324", "#3F6B4C", "#2C7A47")}
-{kid("Abby", "'Unbounded',sans-serif", 38, "Primary 6", "Idol Stage", "music, dance and the stage", ["Vibe Zone flashcards from Abby's own brief", "Neon Strike: science words at typing speed", "PSLE Maths and Science packs"], "kix-idol", "abby-neon", "#241640", "#FFFFFF", "#FF9BE6", "#FF3DCB")}
-{kid("Leonard", "'M PLUS Rounded 1c',sans-serif", 42, "Secondary 2", "Anime Sky", "jets and how things fly", ["Sky Squadron: forces through display jets", "A study deck with mastery rings", "Ask Kix for homework, guide first"], "kix-pilot", "leonard-home", "#1B2350", "#FFFFFF", "#9CCBFF", "#5AA9F0", 800)}
+{kid("Jordan", "'Grandstander',sans-serif", 44, "Primary 3", "Terrarium", "critters and jets", ["The frog life-cycle quest", "Critter Lab: a tadpole that grows with mastery", "Sky Squadron: a display jet for every four fresh questions"], "kix-terrarium", "jordan-home", "#E7F2DD", "#1D3324", "#3F6B4C", "#2C7A47")}
+{kid("Abby", "'M PLUS Rounded 1c',sans-serif", 44, "Primary 6", "Anime Sky", "anime", ["Kix sparks her focus with how animators draw", "Vibe Zone flashcards from Abby's own brief", "PSLE Maths and Science packs"], "kix-anime", "abby-home", "#1B2350", "#FFFFFF", "#F7B6CF", "#5AA9F0", 800)}
+{kid("Leonard", "'Unbounded',sans-serif", 30, "Secondary 2", "Idol Stage", "K-pop, dance and anime", ["Neon Strike: science words at typing speed", "A dance break when his focus dips", "A study deck with mastery rings"], "kix-idol", "leonard-neon", "#241640", "#FFFFFF", "#FF9BE6", "#FF3DCB")}
 </div>
 """
 board("ReadmeKids", "myKx README: three kids", build_kids, True, kids_css)
@@ -314,7 +314,7 @@ board("ReadmeOutdoors", "myKx README: beyond the screen", build_out, False, out_
 # 7. Simulator and Home Link --------------------------------------------------------------------------------------
 sim_css = """
 .s-head{position:absolute;left:88px;top:66px;width:1420px;display:flex;justify-content:space-between;align-items:flex-end;gap:40px}
-.s-head .rd-lede{width:620px;font-size:22px;line-height:32px}
+.s-head .rd-lede{width:640px;font-size:21px;line-height:30px}
 .s-badge{display:inline-flex;align-items:center;height:34px;padding:0 14px;border-radius:999px;background:#FF3DCB;color:#fff;font:800 16px/1 "Nunito",sans-serif;margin-bottom:14px}
 .s-sim{position:absolute;left:88px;top:300px;width:760px}
 .s-label{margin-top:14px;font:700 18px/25px "Nunito",sans-serif;color:#D9D3FF}
@@ -329,10 +329,10 @@ sim_css = """
 """
 build_sim = f"""
 <div class="s-head">
-  <div style="width:720px"><span class="s-badge">Synthetic data</span><h1 class="rd-h2">A family's afternoon, with no real family in it.</h1></div>
-  <p class="rd-lede"><b style="color:#fff">mykx-sim</b> is a second app that plays an afternoon: a scripted walk home and camera frames drawn by Muse Image. It sends them through the same API a real home computer uses, so anyone can watch Muse Spark read a home live, with no real child, home or camera involved.</p>
+  <div style="width:720px"><span class="s-badge">Built for this hackathon, synthetic data</span><h1 class="rd-h2">Tomorrow's devices, simulated today.</h1></div>
+  <p class="rd-lede"><b style="color:#fff">mykx-sim</b> stands in for everything that will feed myKx: the myKx mobile app, home cameras, and peripherals for location, motion and health. It pairs and sends like a real device, through the same API, to prove the protocol end to end and give myKx exactly what a real device would. No real child, home or camera is involved.</p>
 </div>
-<div class="s-sim"><div class="rd-shot"><img src="{img('sim')}" alt="The Home simulator: a scripted afternoon, Send now buttons and synthetic camera frames"></div><p class="s-label"><b>mykx-sim.vercel.app</b>, passcode only: Send now for a place or a room, or play the whole afternoon.</p></div>
+<div class="s-sim"><div class="rd-shot"><img src="{img('sim')}" alt="The Home simulator: a scripted afternoon, Send now buttons and synthetic camera frames"></div><p class="s-label"><b>mykx-sim.vercel.app</b>, passcode only. Today it plays the phone's places and motion and the home cameras; health and motion peripherals come next, on the same protocol.</p></div>
 <svg class="rd-thread" viewBox="0 0 1600 900"><path d="M848 500 C 890 500, 900 470, 944 470"/></svg>
 <div class="s-phone"><div class="rd-phone"><img src="{img('phone-home')}" alt="Home now on the parent's phone, read live by Muse Spark"></div><p class="s-label" style="text-align:center"><b>myKx</b>, Home now, live</p></div>
 <aside class="s-link"><h3>For a real home: Home Link</h3><p>A small app on the family's computer takes a picture from each camera only when a room changes and sends it to myKx. Camera passwords never leave the computer.</p><div class="rd-shot"><img src="{img('homelink')}" alt="Home Link's settings page on the family's computer"></div></aside>
@@ -345,14 +345,14 @@ road_css = """
 .r-head{position:absolute;left:88px;top:70px;width:1100px}
 .r-head .rd-lede{margin-top:14px;font-size:23px;line-height:33px}
 .r-path{position:absolute;left:0;top:0;width:1600px;height:900px}
-.r-stops{position:absolute;left:88px;right:88px;top:330px;display:grid;grid-template-columns:repeat(4,1fr);gap:30px}
+.r-stops{position:absolute;left:88px;right:88px;top:330px;display:grid;grid-template-columns:repeat(5,1fr);gap:24px}
 .r-stop{position:relative;padding-top:64px}
 .r-dot{position:absolute;top:0;left:0;width:40px;height:40px;border-radius:50%;background:#1C1B4A;box-shadow:inset 0 0 0 3px #FFE38A}
 .r-stop.now .r-dot{background:#FFE38A;box-shadow:0 0 0 8px rgba(255,227,138,.25),0 0 24px rgba(255,227,138,.8)}
 .r-when{font:800 17px/22px "Nunito",sans-serif;color:#FFE38A}
-.r-stop h3{margin-top:4px;font:600 32px/38px "Fredoka",sans-serif;color:#fff}
+.r-stop h3{margin-top:4px;font:600 29px/34px "Fredoka",sans-serif;color:#fff}
 .r-stop ul{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:9px}
-.r-stop li{position:relative;padding-left:24px;font:700 18px/26px "Nunito",sans-serif;color:#D9D3FF}
+.r-stop li{position:relative;padding-left:24px;font:700 17px/24px "Nunito",sans-serif;color:#D9D3FF}
 .r-stop li svg{position:absolute;left:0;top:6px;width:14px;height:14px;fill:#B9A7F5}
 .r-stop .rd-m{margin-top:16px}
 .r-ask{position:absolute;left:88px;bottom:56px;font:600 28px/36px "Fredoka",sans-serif;color:#FFE38A}
@@ -361,12 +361,13 @@ stop = lambda cls, when, title, items, extra="": f'<div class="r-stop {cls}"><sp
 build_road = f"""
 <img class="r-art" src="{img('hero')}" alt="">
 <div class="r-head"><h1 class="rd-h2">Where Kix goes next.</h1><p class="rd-lede">The MVP works end to end today. These are the next steps, each one built on what's already running.</p></div>
-<svg class="r-path" viewBox="0 0 1600 900"><path d="M108 350 C 300 300, 420 400, 470 350 S 760 300, 838 350 S 1120 300, 1206 350" fill="none" stroke="#FFE38A" stroke-width="3" stroke-dasharray="2 12" stroke-linecap="round"/></svg>
+<svg class="r-path" viewBox="0 0 1600 900"><path d="M108 350 C 200 310, 300 390, 398 350 S 590 310, 687 350 S 880 310, 977 350 S 1170 310, 1266 350" fill="none" stroke="#FFE38A" stroke-width="3" stroke-dasharray="2 12" stroke-linecap="round"/></svg>
 <div class="r-stops">
-{stop("now", "Now", "The MVP, live", ["Learning loops, Treasure, Vibe Zone, Arcade and Ask Kix", "The parent's Today, Tonight and Kix's Notebook", "Guardian with the simulator, and Home Link"], muse("mykx.vercel.app"))}
-{stop("", "Next", "myKx mobile app", ["Android first, then iPhone", "Precise location from the phone's own GPS", "Motion from its sensors: walking, cycling, playing"])}
-{stop("", "Then", "Home Link streaming", ["Live CCTV streams, read on the family's computer", "Motion found locally, so only changes reach Muse", "Signed installers for Mac and Windows"])}
-{stop("", "Later", "Kix on Meta devices", ["A hands-free sidekick at home and outdoors", "Sees and hears only with permission", "Richer, more personal support for every child"])}
+{stop("now", "Now", "The MVP, live", ["Learning loops, Treasure, Vibe Zone and Arcade", "A Kix that remembers and sparks", "Guardian, the simulator and Home Link"], muse("mykx.vercel.app"))}
+{stop("", "Next", "myKx mobile app", ["Android first, then iPhone", "Precise location from the phone's GPS", "Motion: walking, cycling, playing"])}
+{stop("", "Then", "Home Link and devices", ["Live CCTV streams, read at home", "Only changes reach Muse", "Health and motion peripherals on the same protocol"])}
+{stop("", "Also", "More to learn and earn", ["More STEM learning games", "A rewards store for stars earned, never real money", "Brand partners for picks the parent approves"])}
+{stop("", "Later", "Kix on Meta devices", ["Hands-free, at home and outdoors", "Sees and hears only with permission", "More personal support for every child"])}
 </div>
 <p class="r-ask">Help us take Kix from a hackathon MVP to every family in Singapore.</p>
 """
@@ -383,8 +384,8 @@ fw_css = """
 .f-tile p span{display:block;font:600 14px/19px "Nunito",sans-serif;color:#B8B2E8}
 """
 tiles = [
-    ("jordan-studio", "Sidekick Studio", "Kix transforms into your world"), ("jordan-home", "Junior home", "Today's quest and Kix"), ("jordan-learn", "Quest map", "Mastery you can see"), ("jordan-question", "Question player", "Hints, voice and reasons"), ("jordan-treasure", "Treasure Realm", "Cards you earn, never buy"),
-    ("jordan-critters", "Critter Lab", "Real life cycles, raised"), ("leonard-squadron", "Sky Squadron", "Forces through display jets"), ("jordan-arcade", "Arcade", "Typing games on one engine"), ("abby-neon", "Neon Strike", "Science words at speed"), ("leonard-home", "Teen study deck", "Exam-week focus"),
+    ("jordan-studio", "Sidekick Studio", "Kix transforms into your world"), ("jordan-home", "Junior home", "Today's quest and Kix"), ("jordan-learn", "Quest map", "Mastery you can see"), ("jordan-spark", "Question player", "Hints, voice and sparks"), ("jordan-treasure", "Treasure Realm", "Cards you earn, never buy"),
+    ("jordan-critters", "Critter Lab", "Real life cycles, raised"), ("jordan-squadron", "Sky Squadron", "Jets earned with fresh questions"), ("jordan-arcade", "Arcade", "Typing games on one engine"), ("leonard-neon", "Neon Strike", "Science words at speed"), ("abby-home", "Teen study deck", "Exam-week focus"),
     ("parent-today", "Parent Today", "Flags with the evidence"), ("admin-skills", "Skills admin", "Seven packs, versioned"), ("parent-home", "Home now", "Cameras read by Muse"), ("parent-together", "Do together", "Weekend ideas, sourced"), ("admin-hood", "Under the hood", "Every model call, logged"),
 ]
 tiles_html = "".join(f'<figure class="f-tile" style="margin:0"><div class="rd-shot"><img src="{img(k)}" alt="{t}"></div><p>{t}<span>{d}</span></p></figure>' for k, t, d in tiles)
@@ -393,5 +394,55 @@ build_fw = f"""
 <div class="f-grid">{tiles_html}</div>
 """
 board("ReadmeFeatures", "myKx README: feature wall", build_fw, True, fw_css)
+
+# 10. The door (design inspiration) --------------------------------------------------------------------------------
+door_css = """
+.d-copy{position:absolute;left:88px;top:76px;width:470px}
+.d-copy .rd-lede{margin-top:22px;font-size:22px;line-height:33px}
+.d-grid{position:absolute;left:606px;right:88px;top:76px;display:grid;grid-template-columns:repeat(2,1fr);gap:26px 24px}
+.d-step .rd-shot{border-radius:14px}
+.d-step .rd-shot img{aspect-ratio:16/10;object-fit:cover}
+.d-step p{display:flex;gap:12px;align-items:baseline;margin-top:12px;font:700 18px/25px "Nunito",sans-serif;color:#D9D3FF}
+.d-step p b{flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#FFE38A;color:#1C1B4A;font:800 16px/1 "Nunito",sans-serif}
+"""
+steps = [("door-0", "A grand door in a twilight city welcomes every visitor."), ("door-1", "Kix asks the child for their magic name."), ("door-3", "Their own door flies in as their world spreads over the city."), ("door-5", "Their door asks for their picture code or password.")]
+steps_html = "".join(f'<figure class="d-step" style="margin:0"><div class="rd-shot"><img src="{img(k)}" alt="{html.escape(t)}"></div><p><b>{n}</b>{t}</p></figure>' for n, (k, t) in enumerate(steps, 1))
+build_door = f"""
+<div class="d-copy">
+  <h1 class="rd-h2">A world before the first question.</h1>
+  <p class="rd-lede">Most learning apps open on a login form. myKx opens on a grand door. A child says their magic name and their own door flies in, while their world spreads over the city: petals for Anime Sky, confetti for Idol Stage, leaves for the Terrarium. It's theirs before they've typed a thing.</p>
+  <p class="rd-lede">Inside, every screen wears that world, and the sounds are synthesised in its instruments.</p>
+</div>
+<div class="d-grid">{steps_html}</div>
+"""
+board("ReadmeDoor", "myKx README: the door", build_door, True, door_css)
+
+# 11. Kix gets better every day -------------------------------------------------------------------------------------
+grow_css = """
+.g-head{position:absolute;left:88px;top:68px;width:1420px;display:flex;justify-content:space-between;align-items:flex-end;gap:40px}
+.g-head .rd-lede{width:600px;font-size:22px;line-height:32px}
+.g-cols{position:absolute;left:88px;right:88px;top:262px;bottom:56px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.g-col{border-radius:26px;background:#2B2A5C;padding:16px 16px 18px;display:flex;flex-direction:column}
+.g-crop{position:relative;height:260px;border-radius:14px;overflow:hidden;background:#0F0E2A;box-shadow:0 0 0 1px rgba(185,167,245,.35)}
+.g-crop img{position:absolute;display:block}
+.g-col h3{margin-top:16px;font:600 26px/31px "Fredoka",sans-serif;color:#FFE38A}
+.g-col p{margin-top:8px;font:700 17px/24px "Nunito",sans-serif;color:#D9D3FF;flex:1}
+.g-col .rd-chips{margin-top:12px}
+"""
+def gcol(key, title, text, chips, crop):
+    return f'<section class="g-col"><div class="g-crop"><img src="{img(key)}" alt="" style="{crop}"></div><h3>{title}</h3><p>{text}</p><div class="rd-chips">{chips}</div></section>'
+build_grow = f"""
+<div class="g-head">
+  <h1 class="rd-h2" style="width:720px">Kix gets better<br>every day.</h1>
+  <p class="rd-lede">After every session, Muse Spark writes down what Kix learned about the child, and tomorrow uses it. Every week, new exam papers sharpen the skill packs. Plain code decides when; Muse finds the words.</p>
+</div>
+<div class="g-cols">
+{gcol("jordan-home", "Remembers yesterday", "A hard session yesterday? Today starts gently, with a warm-up they already know and softer hints. Kix never says why.", muse("Memory Keeper") + rules(), "width:847px;left:-65px;top:-259px")}
+{gcol("jordan-spark", "Sparks a drifting mind", "Quiet for a while, or guessing fast? Kix ties what they love (critters, jets, anime, K-pop) to the question. A focus dip brings a fact and a place to go, or a dance break.", muse("Kix Tutor"), "width:787px;left:-437px;top:-16px")}
+{gcol("parent-notebook", "Knows the child", "Kix's Notebook keeps how they ask, the slips they make and their best moments, from their own words. A parent can read, edit or wipe every line.", muse("Memory Keeper"), "width:612px;left:-60px;top:0")}
+{gcol("admin-skills", "Learns new exams", "Every week the scout finds new papers, the Content Curator reads their patterns and the Skill Editor drafts improvements. An admin publishes a version.", muse("Content Curator") + muse("Skill Editor"), "width:612px;left:-30px;top:0")}
+</div>
+"""
+board("ReadmeGrows", "myKx README: Kix gets better every day", build_grow, True, grow_css)
 
 print("boards written")

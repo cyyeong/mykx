@@ -1,7 +1,7 @@
 // One kid in "Your family". PATCH: reset the code (`secret: { kind: "pictures" }` clears it so the kid
 // chooses a new one at their door; a password sets a temporary one), daily limit, voice, focus camera, world.
 // DELETE: remove the kid and everything they made, with `{ confirm: <their nickname> }`.
-import { UsernameTakenError } from "@/lib/auth/store";
+import { MagicNamesNotReadyError, UsernameTakenError } from "@/lib/auth/store";
 import { currentParent, toFamilyKid, withAuth } from "@/lib/auth/context";
 import { pinLockedResponse } from "@/lib/auth/pin";
 import { nowIso } from "@/lib/auth/flows";
@@ -29,6 +29,10 @@ export async function PATCH(request: Request, { params }: Ctx) {
     if (body.pack !== undefined) {
       patch.pack = body.pack;
       fields.push("pack");
+    }
+    if (body.interests !== undefined) {
+      patch.interests = body.interests;
+      fields.push("interests");
     }
     if (body.voiceEnabled !== undefined) {
       patch.voiceEnabled = body.voiceEnabled;
@@ -58,6 +62,7 @@ export async function PATCH(request: Request, { params }: Ctx) {
       updated = await store.update(parent.householdId, kid.id, patch);
     } catch (err) {
       if (err instanceof UsernameTakenError) return fail(409, "taken", { note: "That magic name is already taken. Try adding a word or a number." });
+      if (err instanceof MagicNamesNotReadyError) return fail(503, "not-configured", { note: "Magic names need a one-time database update first (supabase/migrations/20261030_kid_username.sql)." });
       throw err;
     }
     if (!updated) return fail(404, "not-found");

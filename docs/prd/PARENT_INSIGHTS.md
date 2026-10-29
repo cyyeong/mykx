@@ -39,7 +39,7 @@ Each flag shows **what we saw** (the evidence), **what it may mean** (uncertain 
 
 1. Signals are possibilities with evidence, shown to the parent only, never diagnoses or labels. The child's settings say in plain words what their grown-up can see.
 2. No face image or video ever leaves the device (hard rule 2); there is no facial emotion recognition. Emotion recognition from faces is unreliable, and the EU AI Act bans it in education settings.
-3. Mood comes only from the child's words to Kix, through Standard models.
+3. Mood comes only from the child's words to Kix, through Standard models. The last reading may make Kix gentler the next day (a warm-up first, a softer tone), and a focus dip may bring a spark from the child's own interests (founder, 29 Oct; `docs/ARCHITECTURE.md` §6.3a). Kix never tells the child why, and neither changes a flag, mastery or rewards.
 4. Safety flags bypass quiet hours and always show trusted-adult and helpline information.
 5. A parent can set the daily limit, quiet hours and the camera toggle, and can delete any signal or flag.
 

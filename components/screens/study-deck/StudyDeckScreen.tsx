@@ -13,7 +13,8 @@ import "./studyDeckScreen.css";
 const TABS = ["Physics", "Chemistry", "Maths", "English"];
 const TAB: CSSProperties = { minHeight: 44, padding: "0 18px", border: 0, borderRadius: "var(--radius-pill)", font: "600 15px/1 var(--font-text)" };
 
-export function StudyDeckScreen({ kid }: { kid: { nickname: string; level: string; pack: PackId } }) {
+/** `kixLine`: Kix's word for today when it differs (a gentle start after a hard day, lib/kix/today.ts). */
+export function StudyDeckScreen({ kid, kixLine }: { kid: { nickname: string; level: string; pack: PackId }; kixLine?: string | null }) {
   const [tab, setTab] = useState("Physics");
   const pack = getPack(kid.pack);
 
@@ -88,7 +89,7 @@ export function StudyDeckScreen({ kid }: { kid: { nickname: string; level: strin
           </div>
           <div className="sd-kix">
             <Art base={pack.kix} sizes="72px" alt="Kix" style={{ width: "72px", height: "72px", borderRadius: "50%", objectFit: "cover", flex: "none", boxShadow: "0 0 0 3px var(--surface-raised), 0 0 0 5px var(--accent)" }} />
-            <p className="sd-bubble" style={{ margin: 0, padding: "12px 16px", borderRadius: "var(--radius-md)", background: "var(--surface-raised)", boxShadow: "inset 0 0 0 1px var(--line)" }}>You fixed a sign error on retry yesterday. One fresh question will show if it stuck.</p>
+            <p className="sd-bubble" style={{ margin: 0, padding: "12px 16px", borderRadius: "var(--radius-md)", background: "var(--surface-raised)", boxShadow: "inset 0 0 0 1px var(--line)" }}>{kixLine ?? "You fixed a sign error on retry yesterday. One fresh question will show if it stuck."}</p>
             <button className="mk-btn mk-btn--secondary" type="button">Ask Kix</button>
           </div>
         </section>

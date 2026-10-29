@@ -23,7 +23,7 @@ import type { ScoutRow } from "../papers/scan.ts";
 import type { OutingRun } from "../outings/outings.ts";
 import { KEEP_POINTS_DAYS, type KidLocationSettings, type Motion, type Place, type PlaceEvent, type StoredPoint } from "../location/location.ts";
 import { DEFAULT_PREFS, KEEP_STATUS_DAYS, type DeviceKind, type GuardianPrefs, type HomeAlert, type HomeCamera, type HomeDevice, type HomeStatus, type RoomKind } from "../home-watch/home-watch.ts";
-import { NicknameTakenError, SkillTablesMissingError, UsernameTakenError } from "./store.ts";
+import { NicknameTakenError, SkillTablesMissingError, MagicNamesNotReadyError, UsernameTakenError } from "./store.ts";
 
 export interface SupabaseEnv {
   url: string;
@@ -32,7 +32,7 @@ export interface SupabaseEnv {
 }
 
 const COLUMNS =
-  "id, household_id, user_id, role, is_admin, nickname, band, level, pack, voice_enabled, camera_enabled, daily_limit_min, synthetic, secret_kind, secret_hash, pin_hash, secret_set_at, secret_event, failed_attempts, locked_until, disabled_at, last_sign_in_at, created_at";
+  "id, household_id, user_id, role, is_admin, nickname, band, level, pack, interests, voice_enabled, camera_enabled, daily_limit_min, synthetic, secret_kind, secret_hash, pin_hash, secret_set_at, secret_event, failed_attempts, locked_until, disabled_at, last_sign_in_at, created_at";
 
 type Row = Record<string, unknown>;
 
@@ -48,6 +48,7 @@ function toProfile(r: Row): Profile {
     band: (r.band as Profile["band"]) ?? null,
     level: (r.level as Profile["level"]) ?? null,
     pack: (r.pack as Profile["pack"]) ?? null,
+    interests: (r.interests as string[] | null) ?? [],
     voiceEnabled: Boolean(r.voice_enabled),
     cameraEnabled: Boolean(r.camera_enabled),
     dailyLimitMin: (r.daily_limit_min as number | null) ?? null,
@@ -69,6 +70,7 @@ const PATCH_COLUMNS: Record<keyof ProfilePatch, string> = {
   nickname: "nickname",
   username: "username",
   pack: "pack",
+  interests: "interests",
   voiceEnabled: "voice_enabled",
   cameraEnabled: "camera_enabled",
   dailyLimitMin: "daily_limit_min",
@@ -425,6 +427,7 @@ export class SupabaseStore implements AuthStore {
   }
 
   async update(householdId: string, profileId: string, patch: ProfilePatch) {
+    if (patch.username !== undefined && !(await this.hasUsername())) throw new MagicNamesNotReadyError();
     const { data, error } = await this.db.from("profiles").update(toRow(patch)).eq("household_id", householdId).eq("id", profileId).select<string, Row>(await this.cols()).maybeSingle();
     check(error);
     return data ? toProfile(data) : null;

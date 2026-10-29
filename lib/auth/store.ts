@@ -33,6 +33,8 @@ export interface Profile {
   band: Band | null;
   level: Level | null;
   pack: Pack | null;
+  /** What the kid loves (chips from lib/kix/interests.ts): Kix's sparks when focus dips. */
+  interests: string[];
   voiceEnabled: boolean;
   /** The focus camera (on-device counts only), switched on by a grown-up. Off by default (rule 12). */
   cameraEnabled: boolean;
@@ -58,6 +60,7 @@ export type ProfilePatch = Partial<
     | "nickname"
     | "username"
     | "pack"
+    | "interests"
     | "voiceEnabled"
     | "cameraEnabled"
     | "dailyLimitMin"
@@ -140,6 +143,14 @@ export class NicknameTakenError extends Error {
   constructor() {
     super("That nickname is already used in this family.");
     this.name = "NicknameTakenError";
+  }
+}
+
+/** The database hasn't had migration 20261030_kid_username.sql yet, so a magic name can't be saved. */
+export class MagicNamesNotReadyError extends Error {
+  constructor() {
+    super("Magic names need a one-time database update.");
+    this.name = "MagicNamesNotReadyError";
   }
 }
 

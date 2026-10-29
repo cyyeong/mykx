@@ -39,3 +39,19 @@ export function reasonSystem(o: { kid: Kid; item: Item; correct: boolean; right:
     `# Pack notes (${o.pack})\n${o.notes}`,
   ].join("\n");
 }
+
+/**
+ * The interest-spark prompt (app/api/kix/spark): one line tying something the child loves to the question's
+ * thinking, when they've drifted. `tone` is today's note (lib/kix/today.ts), if any.
+ */
+export function sparkSystem(o: { kid: Kid; item: Item; interest: string; flavour: string; tone?: string }, head = compose("tutor", tutorVars(o.kid), null, "spark")): string {
+  return [
+    head,
+    `# What they love\n${o.interest}: ${o.flavour}`,
+    `# The question\n${o.item.stem}${optionsLine(o.item)}`,
+    `# The worked steps (for you only; never repeat the conclusion)\n${(o.item.working ?? []).join("\n")}`,
+    o.tone ?? "",
+  ]
+    .filter(Boolean)
+    .join("\n");
+}

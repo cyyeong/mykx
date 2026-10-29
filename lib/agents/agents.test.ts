@@ -113,9 +113,12 @@ describe("guardrails and template variables", () => {
     expect(checkInstructions("tonight", "  \n ")).toMatch(/Write some/);
     expect(checkInstructions("tonight", "x".repeat(8001))).toMatch(/at most 8,000/);
     expect(checkInstructions("tutor", "## Hints\nShort.")).toMatch(/## Reason feedback/);
-    expect(checkInstructions("tutor", "Hello\n## Hints\nA\n## Reason feedback\nB")).toMatch(/Start with/);
-    expect(checkInstructions("tutor", "## Hints\nA\n## Hints\nB\n## Reason feedback\nC")).toMatch(/once/);
-    expect(partText("tutor", defaultText("tutor"), "reason")).toBe(AGENT_PROMPTS.tutor.parts[1].text);
+    expect(checkInstructions("tutor", "## Hints\nA\n## Reason feedback\nB")).toMatch(/## Interest spark/);
+    expect(checkInstructions("tutor", "Hello\n## Hints\nA\n## Reason feedback\nB\n## Interest spark\nS")).toMatch(/Start with/);
+    expect(checkInstructions("tutor", "## Hints\nA\n## Hints\nB\n## Reason feedback\nC\n## Interest spark\nS")).toMatch(/once/);
+    // A part before another ends with the blank line between them; composing trims it.
+    expect(partText("tutor", defaultText("tutor"), "reason")?.trimEnd()).toBe(AGENT_PROMPTS.tutor.parts[1].text);
+    expect(partText("tutor", defaultText("tutor"), "spark")).toBe(AGENT_PROMPTS.tutor.parts[2].text);
   });
 });
 

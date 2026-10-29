@@ -46,7 +46,7 @@ import { sessionSecret, signToken, verifyToken } from "./tokens.ts";
 
 export const DEMO_PARENT_COOKIE = "mykx_demo_parent";
 /** Bump when the store's shape changes: a running dev server then rebuilds it on the next request (see demoStore). */
-const DEMO_STORE_SHAPE = 14; // 9: game progress; 10: paper scout; 11: Guardian; 12: magic names; 13: agent versions; 14: skill versions and review sessions
+const DEMO_STORE_SHAPE = 15; // 9: game progress; 10: paper scout; 11: Guardian; 12: magic names; 13: agent versions; 14: skill versions and review sessions; 15: kid interests
 const DEMO_TTL_SEC = 7 * 24 * 60 * 60;
 const LABEL = "demo-parent";
 
@@ -72,6 +72,7 @@ function profile(p: Partial<Profile> & Pick<Profile, "id" | "householdId" | "rol
     band: null,
     level: null,
     pack: null,
+    interests: [],
     voiceEnabled: false,
     cameraEnabled: false,
     dailyLimitMin: null,
@@ -183,6 +184,7 @@ export class DemoStore implements AuthStore {
           band: k.band,
           level: k.level,
           pack: k.pack,
+          interests: [...k.interests],
           voiceEnabled: k.voiceEnabled,
           dailyLimitMin: k.dailyLimitMin,
           secretKind: k.secretKind,

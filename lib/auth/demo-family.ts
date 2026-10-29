@@ -29,6 +29,8 @@ export interface DemoKid {
   band: Band;
   level: Level;
   pack: Pack;
+  /** Chips from lib/kix/interests.ts (founder, 29 Oct: Jordan critters and jets, Abby anime, Leonard anime, K-pop, dance). */
+  interests: readonly string[];
   secretKind: SecretKind;
   secretHash: string;
   voiceEnabled: boolean;
@@ -43,6 +45,7 @@ export const DEMO_KIDS: readonly DemoKid[] = [
     band: "junior",
     level: "P3",
     pack: "terrarium",
+    interests: ["Bugs and critters", "Jets"],
     secretKind: "pictures",
     secretHash: "scrypt$16384$8$1$R56ygih2QnUpKfvx2V-TAQ$PusjO4VBvo99NjoE2q9N0888tPwfuKQWnV8LWXPMe3E",
     voiceEnabled: true,
@@ -54,7 +57,8 @@ export const DEMO_KIDS: readonly DemoKid[] = [
     username: "abby",
     band: "teen",
     level: "P6",
-    pack: "idol-stage",
+    pack: "anime-sky",
+    interests: ["Anime"],
     secretKind: "password",
     secretHash: "scrypt$16384$8$1$PK5y3oBbecbqlyuJ2OeIrA$L2jsBBXoaBmmnRibFYBdL7Qut9EEpUrgaqSnExY7RdA",
     voiceEnabled: true,
@@ -66,7 +70,8 @@ export const DEMO_KIDS: readonly DemoKid[] = [
     username: "leonard",
     band: "teen",
     level: "Sec 2",
-    pack: "anime-sky",
+    pack: "idol-stage",
+    interests: ["K-pop", "Dance", "Anime"],
     secretKind: "password",
     secretHash: "scrypt$16384$8$1$ad2uDKiCeE4ILgvIFn5hfg$mkI3K-AHDmgmu8RUxnCbPjzkpdUU1zoxvGAf38QOLDE",
     voiceEnabled: true,

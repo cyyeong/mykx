@@ -2,6 +2,7 @@
 // JSON the auth routes return. Safe to import from client components: no Node or server imports.
 // Hashing lives in ./secrets.ts (server only). Spec: docs/prd/ACCOUNTS.md.
 import { z } from "zod";
+import { INTERESTS, MAX_INTERESTS } from "../kix/interests.ts";
 
 /** The nine pictures a junior code is made from. A code is exactly 4, in order (repeats allowed). */
 export const PICTURE_IDS = ["idle", "thinking", "hint", "cheer", "dreamlight", "anime-sky", "toon-pop", "idol-stage", "pilot"] as const;
@@ -88,9 +89,11 @@ export const doorLookupBody = z.object({ name: z.string().trim().min(1).max(40) 
 export const pinSchema = z.string().regex(/^\d{4}$/);
 export const pinSetupBody = z.object({ pin: pinSchema });
 export const pinVerifyBody = z.object({ pin: z.string().min(1).max(32) });
+/** What a kid loves: known chips only (lib/kix/interests.ts), at most four. */
+export const interestsSchema = z.array(z.enum(INTERESTS)).max(MAX_INTERESTS).transform((l) => [...new Set(l)]);
 export const mePatchBody = z
-  .object({ nickname: nicknameSchema.optional(), secret: z.object({ old: secretAttemptSchema, new: secretSchema }).optional(), pack: z.enum(PACKS).optional() })
-  .refine((b) => b.nickname !== undefined || b.secret !== undefined || b.pack !== undefined, "Nothing to change");
+  .object({ nickname: nicknameSchema.optional(), secret: z.object({ old: secretAttemptSchema, new: secretSchema }).optional(), pack: z.enum(PACKS).optional(), interests: interestsSchema.optional() })
+  .refine((b) => b.nickname !== undefined || b.secret !== undefined || b.pack !== undefined || b.interests !== undefined, "Nothing to change");
 /** `secret` may be left out for a picture-code kid (chosen with the kid later); a password kid needs one. */
 export const addKidBody = z.object({ nickname: nicknameSchema, level: z.enum(LEVELS), pack: z.enum(PACKS), secret: parentSecretSchema.optional() });
 export const updateKidBody = z
@@ -100,6 +103,7 @@ export const updateKidBody = z
     voiceEnabled: z.boolean().optional(),
     cameraEnabled: z.boolean().optional(), // the focus camera: on-device counts only (AGENTS.md rule 12)
     pack: z.enum(PACKS).optional(),
+    interests: interestsSchema.optional(),
     /** The kid's magic name; null clears it. */
     username: usernameSchema.nullable().optional(),
   })
@@ -139,6 +143,7 @@ export interface KidMe {
   band: Band;
   level: Level;
   pack: Pack;
+  interests: string[];
   secretKind: SecretKind | null;
   voiceEnabled: boolean;
   /** The focus camera runs on this kid's pages (counts only, on the device). */
@@ -156,6 +161,7 @@ export interface FamilyKid {
   level: Level;
   band: Band;
   pack: Pack;
+  interests: string[];
   secretKind: SecretKind | null;
   secretSetAt: string | null;
   /** What last happened to the code: first set, changed by the kid, or reset by a grown-up. */

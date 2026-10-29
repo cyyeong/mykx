@@ -8,6 +8,8 @@ import { instructionsFor } from "@/lib/agents/runtime";
 import { requireFamily } from "@/lib/auth/guard";
 import { fail, ok, readBody } from "@/lib/auth/http";
 import { caringReply, checkWords, HELPLINES } from "@/lib/guardian/words";
+import { loadTender } from "@/lib/guardian/load";
+import { toneNote } from "@/lib/kix/today";
 import { notebookNotes } from "@/lib/notebook/notebook";
 import { askKixVars, enforceStage, explanationSchema, packsForLevel, sampleExplanation, STAGES, systemPrompt, teachingNotes } from "@/lib/kix/homework";
 import { updateNotes } from "@/lib/knowledge/knowledge";
@@ -67,7 +69,8 @@ export async function POST(request: Request) {
   // reads the sections that teach its method. Later stages re-read the same sections by code. If research fails,
   // every pack's method notes for the level stand in, as before.
   const pages = (await store?.notebook.pages(family.householdId, kid.id).catch(() => [])) ?? [];
-  const remembered = notebookNotes(kid.nickname, pages);
+  const tender = store ? await loadTender(store, family.householdId, kid).catch(() => null) : null;
+  const remembered = [notebookNotes(kid.nickname, pages), toneNote(tender)].filter(Boolean).join("\n\n");
   const research = await researchSkills({ level: kid.level, sections: input.sections, userParts, pages, signal: request.signal });
   if (research.events.length) {
     const at = new Date().toISOString();

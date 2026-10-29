@@ -1,11 +1,14 @@
 // Server only: loads one kid's rows from the store and builds the guardian's picture (lib/guardian/view.ts).
 import type { AuthStore, Profile } from "../auth/store.ts";
 import { toMs } from "../domain/time.ts";
+import { JORDAN_ID } from "../auth/demo-family.ts";
+import { pickSpark } from "../kix/interests.ts";
+import { sampleTender, tenderToday, type Tender } from "../kix/today.ts";
 import { FROG_QUEST, questSummary } from "../learn/frog-quest.ts";
 import { nextStep, type NextStep } from "./next-step.ts";
 import { lastDays, minutesSinceBreak, screenTimeByDay, type DayTime } from "./screen-time.ts";
 import { guardianView, settingsFor, type GuardianView, type ViewInput } from "./view.ts";
-import { moodFromWords } from "./words.ts";
+import { moodFromWords, type Mood } from "./words.ts";
 
 const DAY_MS = 86_400_000;
 
@@ -53,6 +56,16 @@ export async function loadGuardianView(store: AuthStore, householdId: string, ki
   });
 }
 
+/**
+ * Whether Kix should go gently today (lib/kix/today.ts): from the kid's last reading on an earlier day. The demo
+ * family's Jordan has a labelled sample hard day when there's no real reading, so the warm-up shows in the demo.
+ */
+export async function loadTender(store: AuthStore, householdId: string, kid: Pick<Profile, "id" | "synthetic">, now = new Date().toISOString(), todayMood: Mood | null = null): Promise<Tender | null> {
+  const reads = await store.notebook.reads(householdId, kid.id, new Date(toMs(now) - 3 * DAY_MS).toISOString()).catch(() => []);
+  const sample = kid.synthetic && kid.id === JORDAN_ID ? sampleTender(now) : null;
+  return tenderToday({ reads, now, todayMood, sample });
+}
+
 export interface KidStatus {
   next: NextStep;
   today: DayTime;
@@ -77,6 +90,9 @@ export async function loadKidStatus(store: AuthStore, householdId: string, kid: 
   const note = notes.find((n) => n.kidId === kid.id && !n.synthetic && n.verdict !== "not-right");
   const mood = moodFromWords(messages.map((m) => m.text))?.mood ?? null;
   const sinceBreakMin = minutesSinceBreak(beats, now);
+  const tender = await loadTender(store, householdId, kid, now, mood);
+  // A different interest and fact every ten minutes, so a second dip doesn't repeat the first.
+  const spark = pickSpark(kid.interests, Math.floor(toMs(now) / 600_000));
   const next = nextStep({
     nickname: kid.nickname,
     now,
@@ -86,6 +102,8 @@ export async function loadKidStatus(store: AuthStore, householdId: string, kid: 
     focusDip: Boolean(note),
     sleepy: Boolean(note && /yawn|eyes closed/.test(note.evidence)) || mood === "tired",
     mood: mood === "calm" ? null : mood,
+    tender,
+    spark,
     ...offer,
   });
   return { next, today: day, left: Math.max(0, Math.round(settings.dailyLimitMin - day.total)), sinceBreakMin };

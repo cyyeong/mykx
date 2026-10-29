@@ -1,25 +1,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Art } from "@/components/ui/Art";
 import { useSound } from "@/components/sound/SoundProvider";
 import { useTheme } from "@/components/theme/ThemeRoot";
 import { PACKS, getPack, wordmarkFor } from "@/components/theme/packs";
+import { INTERESTS, MAX_INTERESTS } from "@/lib/kix/interests";
 import s from "./studio.module.css";
 import { TransformReveal } from "./TransformReveal";
-
-const INTERESTS = [
-  "Bugs and critters",
-  "Jets",
-  "Space",
-  "Animals",
-  "Music",
-  "Dance",
-  "Football",
-  "Robots",
-  "Drawing",
-] as const;
 
 const SPARKLES = [
   { className: s.sparkle1, size: 40, delay: "0s" },
@@ -41,6 +30,23 @@ export function StudioPicker() {
   const { play } = useSound();
   const pack = getPack(packId);
   const [likes, setLikes] = useState<string[]>(["Bugs and critters", "Jets"]);
+  // What the kid already loves (their profile): the first two start picked; the rest are kept on save unless picked.
+  const [saved, setSaved] = useState<string[]>([]);
+  useEffect(() => {
+    let live = true;
+    fetch("/api/me")
+      .then((r) => r.json() as Promise<{ kid?: { interests?: string[] } }>)
+      .then((d) => {
+        const mine = d.kid?.interests ?? [];
+        if (!live || !mine.length) return;
+        setSaved(mine);
+        setLikes(mine.slice(0, 2));
+      })
+      .catch(() => undefined);
+    return () => {
+      live = false;
+    };
+  }, []);
   const [transforming, setTransforming] = useState(false);
   // The kept Kix per world stays on this device (it's a picture, not a record); the world itself is saved to
   // the kid's profile when they adopt Pip and head home.
@@ -52,7 +58,7 @@ export function StudioPicker() {
 
   async function adoptAndGo() {
     setSaving(true);
-    await fetch("/api/me", { method: "PATCH", headers: { "content-type": "application/json" }, body: JSON.stringify({ pack: pack.id }) }).catch(() => null);
+    await fetch("/api/me", { method: "PATCH", headers: { "content-type": "application/json" }, body: JSON.stringify({ pack: pack.id, interests: [...new Set([...likes, ...saved.slice(2)])].slice(0, MAX_INTERESTS) }) }).catch(() => null);
     try {
       if (keptKix) localStorage.setItem(`mykx-kix-${pack.id}`, keptKix);
     } catch {

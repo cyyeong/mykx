@@ -1297,7 +1297,14 @@ function MagicNameRow({ kid, onSaved }: { kid: FamilyKid; onSaved: () => Promise
       setEditing(false);
       setNote("");
       await onSaved();
-    } else setNote(r.status === 409 ? "That magic name is taken. Try adding a word or a number." : "That didn't save. Try again in a moment.");
+    } else
+      setNote(
+        r.status === 409
+          ? "That magic name is taken. Try adding a word or a number."
+          : r.status === 503
+            ? "Magic names aren't switched on yet: the database needs a one-time update. Ask the admin."
+            : "That didn't save. Try again in a moment.",
+      );
   };
   if (!editing)
     return (
