@@ -13,8 +13,8 @@ notes are ours. The items in this pack copy the format, never a paper.
 | 试卷三 口试 | 朗读篇章 20 · 会话 30 (the examiner talks with the pupil about a short video); 10 min beforehand to read the passage and watch the video, as often as they like | about 10 min | 50 | 25% |
 | 试卷三 听力理解 | 10 multiple-choice questions on 对话、通告、广告、说明、介绍、故事 | about 30 min | 20 | 10% |
 
-The oral is an e-examination. Oral plus listening is 35% of the subject: as much as all of Paper 2's
-multiple choice. Practise both at home, out loud.
+The oral is an e-examination. Oral plus listening is 35% of the subject: more than all of Paper 2's
+multiple choice (58 marks, 29%). Practise both at home, out loud.
 
 ## Paper 2 at a glance: 90 marks, 1 h 40 min
 

@@ -665,7 +665,7 @@
     ],
     "answer": 2,
     "working": [
-      "The registration box says children under 12 must come with an adult.",
+      "The note at the bottom of the poster says children under 12 must come with an adult.",
       "Kai is 9, so he must come with an adult ✓"
     ],
     "distractors": {
@@ -1061,7 +1061,7 @@
       "sug + gest + ions ✓"
     ],
     "hints": [
-      "Say it slowly in syllables: sug-ges-tions.",
+      "Which shorter verb is this noun built from? Say that verb slowly, one syllable at a time.",
       "The first syllable ends with the same letter that starts the second."
     ],
     "source": {

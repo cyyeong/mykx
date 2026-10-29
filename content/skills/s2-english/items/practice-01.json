@@ -184,7 +184,7 @@
     "status": "reviewed",
     "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
     "version_added": "1.0.0",
-    "notes": "Syllabus: Grammar · Grammar at Word, Phrase and Sentence Levels (LO2, LO3; lower secondary: identify and address recurring language errors) and Writing and Representing · Review, Revision and Editing (LO5). Exam: G3 Paper 1 Section A · Editing (grammatical errors only)."
+    "notes": "Syllabus: Grammar · Grammar at Word, Phrase and Sentence Levels (LO2, LO3; lower secondary: identify and address recurring language errors) and Writing and Representing · Review, Revision and Editing (LO5). Exam: a sentence drill for the skill tested in G3 Paper 1 Section A (the paper itself uses one continuous text) · Editing (grammatical errors only)."
   },
   {
     "id": "s2eng-practice-01-q7",
@@ -223,7 +223,7 @@
     "status": "reviewed",
     "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
     "version_added": "1.0.0",
-    "notes": "Syllabus: Grammar · Grammar at Word, Phrase and Sentence Levels (LO2, LO3; lower secondary: identify and address recurring language errors) and Writing and Representing · Review, Revision and Editing (LO5). Exam: G3 Paper 1 Section A · Editing (grammatical errors only)."
+    "notes": "Syllabus: Grammar · Grammar at Word, Phrase and Sentence Levels (LO2, LO3; lower secondary: identify and address recurring language errors) and Writing and Representing · Review, Revision and Editing (LO5). Exam: a sentence drill for the skill tested in G3 Paper 1 Section A (the paper itself uses one continuous text) · Editing (grammatical errors only)."
   },
   {
     "id": "s2eng-practice-01-q8",
@@ -262,7 +262,7 @@
     "status": "reviewed",
     "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
     "version_added": "1.0.0",
-    "notes": "Syllabus: Grammar · Grammar at Word, Phrase and Sentence Levels (LO2, LO3; lower secondary: identify and address recurring language errors) and Writing and Representing · Review, Revision and Editing (LO5). Exam: G3 Paper 1 Section A · Editing (grammatical errors only)."
+    "notes": "Syllabus: Grammar · Grammar at Word, Phrase and Sentence Levels (LO2, LO3; lower secondary: identify and address recurring language errors) and Writing and Representing · Review, Revision and Editing (LO5). Exam: a sentence drill for the skill tested in G3 Paper 1 Section A (the paper itself uses one continuous text) · Editing (grammatical errors only)."
   },
   {
     "id": "s2eng-practice-01-q9",
@@ -301,7 +301,7 @@
     "status": "reviewed",
     "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
     "version_added": "1.0.0",
-    "notes": "Syllabus: Grammar · Grammar at Word, Phrase and Sentence Levels (LO2, LO3; lower secondary: identify and address recurring language errors) and Writing and Representing · Review, Revision and Editing (LO5). Exam: G3 Paper 1 Section A · Editing (grammatical errors only)."
+    "notes": "Syllabus: Grammar · Grammar at Word, Phrase and Sentence Levels (LO2, LO3; lower secondary: identify and address recurring language errors) and Writing and Representing · Review, Revision and Editing (LO5). Exam: a sentence drill for the skill tested in G3 Paper 1 Section A (the paper itself uses one continuous text) · Editing (grammatical errors only)."
   },
   {
     "id": "s2eng-practice-01-q10",
@@ -591,7 +591,7 @@
       "can do it"
     ],
     "marking": [
-      "1 mark: the picture shows people of the reader's age enjoying the activity, so the reader can imagine joining / sees it is fun and achievable."
+      "1 mark: the picture shows people of the reader's age enjoying the activity, so the reader can imagine joining / sees it is fun and achievable (accept: young people beside young trees echo 'Grow a Future': both will grow, so teenagers can shape the future by planting)."
     ],
     "figure": "figures/s2eng-practice-01-q10-q14.svg",
     "figure_spec": {
