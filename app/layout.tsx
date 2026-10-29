@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { preload } from "react-dom";
 import "./globals.css";
+import { GuestBanner } from "@/components/ui/GuestBanner";
+import { isGuest } from "@/lib/guest";
 
 export const metadata: Metadata = {
   title: "myKx",
@@ -18,7 +20,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 
   return (
     <html lang="en-SG">
-      <body>{children}</body>
+      <body>
+        {children}
+        {/* The guest site only (lib/guest.ts): every page says AI is off and replies are samples. */}
+        {isGuest() && <GuestBanner />}
+      </body>
     </html>
   );
 }

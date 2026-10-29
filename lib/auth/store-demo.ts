@@ -1,6 +1,7 @@
 // In-memory demo store for `npm run dev` before Supabase keys exist. Seeded with the synthetic demo
 // family (lib/auth/demo-family.ts). Any email and password opens the demo parent (the design preview);
 // other@demo.mykx opens a second, non-admin family. Refuses to exist in a production build.
+import { isGuest } from "../guest.ts";
 import { randomUUID } from "node:crypto";
 import type { FocusMinute } from "../signals/focus.ts";
 import type { FocusNote } from "../signals/schemas.ts";
@@ -461,6 +462,8 @@ export class DemoStore implements AuthStore {
     },
     saveMessage: async (householdId: string, kidId: string, message: StoredKixMessage) => {
       if (!this.ownsKid(householdId, kidId)) return;
+      // Guests share this family, so a child's typed words are never kept on the guest site (lib/guest.ts).
+      if (isGuest()) return;
       this.kixMessageRows.push({ ...message, householdId, kidId });
     },
     messages: async (householdId: string, kidId: string, sinceIso: string) => {

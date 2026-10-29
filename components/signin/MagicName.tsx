@@ -10,6 +10,7 @@ import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type 
 import { Art } from "@/components/ui/Art";
 import type { PackId } from "@/components/theme/packs";
 import { useSound } from "@/components/sound/SoundProvider";
+import { isGuest } from "@/lib/guest";
 import { LOOKS } from "./looks";
 import { SignInScreen } from "./SignInScreen";
 import "./magicName.css";
@@ -86,13 +87,13 @@ function MagicNameDialog({ onClose, onDoor }: { onClose: () => void; onDoor: (do
     return () => window.removeEventListener("keydown", esc);
   }, [onClose]);
 
-  const submit = async (e: FormEvent) => {
-    e.preventDefault();
-    if (!name.trim() || busy) return;
+  const submit = async (e?: FormEvent, typed = name) => {
+    e?.preventDefault();
+    if (!typed.trim() || busy) return;
     setBusy(true);
     setNote("");
     try {
-      const res = await fetch("/api/auth/kid/door", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ name: name.trim() }) });
+      const res = await fetch("/api/auth/kid/door", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ name: typed.trim() }) });
       const data = (await res.json()) as { ok?: boolean; door?: Door; note?: string };
       if (data.ok && data.door) {
         play("tap");
@@ -144,6 +145,25 @@ function MagicNameDialog({ onClose, onDoor }: { onClose: () => void; onDoor: (do
           </svg>
           {busy ? "Calling your door…" : "Bring my door"}
         </button>
+        {isGuest() && (
+          <div className="mn-guests" role="group" aria-label="Sample magic names">
+            <span>Guest walkthrough: try</span>
+            {["jordan", "abby", "leonard"].map((n) => (
+              <button
+                key={n}
+                type="button"
+                className="mn-guest"
+                disabled={busy}
+                onClick={() => {
+                  setName(n);
+                  void submit(undefined, n);
+                }}
+              >
+                {n}
+              </button>
+            ))}
+          </div>
+        )}
         <p id="mn-note" className="mn-note" aria-live="polite">
           {note || (
             <>

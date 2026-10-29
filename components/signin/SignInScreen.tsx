@@ -16,6 +16,7 @@ import { Art } from "@/components/ui/Art";
 import type { LivingArtData } from "@/lib/scene/livingArt";
 import neonCity from "@/public/art/living/city-neon.json";
 import twilightCity from "@/public/art/living/city-twilight.json";
+import { GUEST_NOTE, GUEST_URL, isGuest } from "@/lib/guest";
 import { LOOKS, PAD_PICTURES, kixSprite, type DoorVariant, type PictureId } from "./looks";
 import "@/components/scene/scene.css";
 import "./signin.css";
@@ -416,6 +417,26 @@ export function SignInScreen({
     else explain(UNAVAILABLE);
   };
 
+  // The guest site (lib/guest.ts): one tap, no password, then the same door, tunnel and arrival as a real sign-in.
+  const guest = isGuest();
+  const submitGuest = async () => {
+    if (busy) return;
+    setPending(true);
+    const body = variant === "default" ? { as: "parent" } : kid?.id === "door" ? { as: "kid", name: kid.nickname.toLowerCase() } : { as: "kid", kidId: kid?.id ?? "" };
+    const { data } = await post("/api/auth/guest", body);
+    setPending(false);
+    if (data.ok) open(data.next ?? (variant === "default" ? "/parent" : "/home"));
+    else explain(UNAVAILABLE);
+  };
+  const guestButton = (label: string) => (
+    <button className="mk-btn mk-btn--reward" type="button" onClick={() => void submitGuest()} disabled={pending} style={{ width: "100%", minHeight: 56, justifyContent: "center" }}>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="currentColor" d="M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z" />
+      </svg>
+      {pending ? "Opening…" : label}
+    </button>
+  );
+
   const submitTeen = () => {
     if (busy) return;
     if (!teenPw) return explain("Type your password first.");
@@ -509,8 +530,17 @@ export function SignInScreen({
                 <h1 id="lg-title" className="lg-h1" style={{ margin: 0, fontFamily: "var(--font-display)", fontWeight: 600, color: "var(--ink)" }}>
                   Welcome to myKx
                 </h1>
-                <p style={{ margin: 0, fontSize: 16, lineHeight: "23px", fontWeight: 500, color: "var(--ink-muted)" }}>Sign in for tonight&apos;s family summary.</p>
+                <p style={{ margin: 0, fontSize: 16, lineHeight: "23px", fontWeight: 500, color: "var(--ink-muted)" }}>{guest ? "Explore myKx as a guest, no password needed." : <>Sign in for tonight&apos;s family summary.</>}</p>
               </div>
+              {guest ? (
+                <div className="lg-dform">
+                  <p style={{ margin: 0, fontSize: 15, lineHeight: "22px", fontWeight: 600, color: "var(--ink-muted)" }}>{GUEST_NOTE} Judges get a real sign-in for live AI.</p>
+                  {guestButton("Explore as a guest grown-up")}
+                  <div id="lg-msg" aria-live="polite">
+                    {msg && <Message text={msg} tone="grown-up" />}
+                  </div>
+                </div>
+              ) : (
               <form className="lg-dform" onSubmit={submitGrownUp} noValidate>
                 <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                   <label htmlFor="lg-email" style={labelStyle}>
@@ -571,6 +601,7 @@ export function SignInScreen({
                   Forgot password?
                 </button>
               </form>
+              )}
               <div className="lg-meta">
                 {onMagicName ? (
                   <button type="button" className="lg-magic" onClick={onMagicName} aria-haspopup="dialog">
@@ -593,6 +624,11 @@ export function SignInScreen({
                     <path fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
                   </svg>
                 </Link>
+                )}
+                {!guest && (
+                  <a href={`${GUEST_URL}/signin`} className="lg-link" style={{ alignSelf: "flex-start", fontSize: 15, lineHeight: "20px", fontWeight: 800 }}>
+                    Just looking? Explore myKx as a guest
+                  </a>
                 )}
                 <p style={{ margin: 0, display: "flex", gap: 10, fontSize: 14, lineHeight: "20px", fontWeight: 600, color: "var(--ink-muted)" }}>
                   <svg viewBox="0 0 24 24" aria-hidden="true" style={{ width: 18, height: 18, flex: "none", marginTop: 1 }}>
@@ -619,6 +655,13 @@ export function SignInScreen({
                     <span style={{ position: "relative" }}>{bubble}</span>
                   </p>
                 </div>
+                {guest ? (
+                  <div className="lg-jpad" style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: 12 }}>
+                    {guestButton("Open my door as a guest")}
+                    <p style={{ margin: 0, fontSize: 15, lineHeight: "22px", fontWeight: 600, color: "var(--ink-muted)" }}>Guest walkthrough: no picture code needed.</p>
+                  </div>
+                ) : (
+                  <>
                 <div className="lg-jpad">
                   <div className="lg-pad" role="group" aria-label="Picture code. Tap 4 pictures.">
                     {PAD_PICTURES.map((p) => (
@@ -661,6 +704,8 @@ export function SignInScreen({
                     Clear
                   </button>
                 </div>
+                  </>
+                )}
                 <div className="lg-jmsg" id="lg-msg" aria-live="polite">
                   {msg && <Message text={msg} tone="junior" />}
                 </div>
@@ -695,6 +740,12 @@ export function SignInScreen({
                   </Link>
                 )}
               </div>
+              {guest ? (
+                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                  {guestButton("Open my door as a guest")}
+                  <p style={{ margin: 0, fontSize: 14, lineHeight: "20px", fontWeight: 600, color: "var(--ink-muted)" }}>Guest walkthrough: no password needed.</p>
+                </div>
+              ) : (
               <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                 <label htmlFor="lg-teen-pw" style={{ ...labelStyle, fontWeight: 700 }}>
                   Password
@@ -731,6 +782,7 @@ export function SignInScreen({
                   </button>
                 </div>
               </div>
+              )}
               <div id="lg-msg" aria-live="polite">
                 {msg && <Message text={msg} tone="teen" />}
               </div>

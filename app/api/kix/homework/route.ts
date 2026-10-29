@@ -3,6 +3,8 @@
 // answers with a validated explanation spec drawn by trusted components. The photo is read once and never stored
 // or logged; only the question text is kept, like any words to Kix. Distress words take the caring path instead.
 // The lesson prompt starts with Ask Kix's published instructions (editable in Under the hood) and its guardrails.
+import { isGuest } from "@/lib/guest";
+import { guestLesson } from "@/lib/kix/guest-samples";
 import { z } from "zod";
 import { instructionsFor } from "@/lib/agents/runtime";
 import { requireFamily } from "@/lib/auth/guard";
@@ -57,6 +59,9 @@ export async function POST(request: Request) {
     if (check.distress) return ok({ care: { reply: caringReply(kid.nickname), helplines: HELPLINES }, explanation: null, sample: false });
   }
 
+  // The guest site: the ready-made lesson for one of the level's sample questions (lib/kix/guest-samples.ts). The safety
+  // check above still runs; the words are never kept (lib/guest.ts).
+  if (isGuest()) return ok({ care: null, explanation: guestLesson(kid.level, input.question ?? input.text, input.stage), sample: true });
   if (!hasMetaApiKey()) return ok({ care: null, explanation: sampleExplanation(input.stage), sample: true });
   const userParts: ({ type: "text"; text: string } | { type: "image_url"; image_url: { url: string } })[] = [];
   if (input.question) userParts.push({ type: "text", text: `The question (as you read it before): ${input.question}${input.figure ? `\nThe figure: ${input.figure}` : ""}` });

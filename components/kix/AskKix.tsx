@@ -40,7 +40,8 @@ function packName(id: string): string {
   return `${lvl.startsWith("s") ? `Sec ${lvl.slice(1)}` : lvl.toUpperCase()} ${rest.map((w) => (w ? w[0].toUpperCase() + w.slice(1) : w)).join(" ")}`;
 }
 
-export function AskKix({ nickname }: { nickname: string }) {
+/** `samples`: on the guest site, the level's ready-made questions replace typing and photos (lib/kix/guest-samples.ts). */
+export function AskKix({ nickname, samples }: { nickname: string; samples?: string[] }) {
   const [text, setText] = useState("");
   const [photo, setPhoto] = useState<string | null>(null);
   const [phase, setPhase] = useState<Phase>("idle");
@@ -68,7 +69,7 @@ export function AskKix({ nickname }: { nickname: string }) {
     setPhase("idle");
   };
 
-  const ask = async (stage: Stage) => {
+  const ask = async (stage: Stage, typed = text) => {
     setPhase("thinking");
     setNote(null);
     try {
@@ -77,7 +78,7 @@ export function AskKix({ nickname }: { nickname: string }) {
         headers: { "content-type": "application/json" },
         body: JSON.stringify(
           stage === "hint"
-            ? { stage, ...(text.trim() ? { text: text.trim() } : {}), ...(photo ? { image: photo } : {}) }
+            ? { stage, ...(typed.trim() ? { text: typed.trim() } : {}), ...(photo ? { image: photo } : {}) }
             : { stage, question: answer?.question, ...(answer?.figure ? { figure: answer.figure } : {}), ...(skills?.sections.length ? { sections: skills.sections } : {}) },
         ),
       });
@@ -118,7 +119,30 @@ export function AskKix({ nickname }: { nickname: string }) {
           </div>
         </div>
 
-        {!answer ? (
+        {!answer && samples ? (
+          <div className={s.form}>
+            <p className={s.label}>Pick a sample question</p>
+            <div className={s.samples}>
+              {samples.map((q) => (
+                <button
+                  key={q}
+                  type="button"
+                  className={s.sampleQ}
+                  disabled={phase !== "idle"}
+                  onClick={() => {
+                    setText(q);
+                    void ask("hint", q);
+                  }}
+                >
+                  {q}
+                </button>
+              ))}
+            </div>
+            {phase === "thinking" && <p className={s.status}>Kix is reading…</p>}
+            {note && <p className={s.warn}>{note}</p>}
+            <p className={s.small}>Guest walkthrough: these are ready-made questions with sample lessons. With a real sign-in, Kix reads any question you type or photograph.</p>
+          </div>
+        ) : !answer ? (
           <form
             className={s.form}
             onSubmit={(e) => {
@@ -176,7 +200,7 @@ export function AskKix({ nickname }: { nickname: string }) {
       <section className={s.answerPane} aria-label="Kix explains" aria-live="polite">
         {answer ? (
           <>
-            {sample && <p className={s.sample}>Sample explanation: Kix is offline right now.</p>}
+            {sample && <p className={s.sample}>{samples ? "Sample lesson for the guest walkthrough: with a real sign-in, Kix explains any question live." : "Sample explanation: Kix is offline right now."}</p>}
             {!sample && skills?.read.length ? (
               <p className={s.trace} aria-label="What Kix looked up">
                 <svg viewBox="0 0 24 24" aria-hidden="true">

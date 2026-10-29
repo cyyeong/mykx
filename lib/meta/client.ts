@@ -1,6 +1,7 @@
 // Server-side Meta Model API client (OpenAI SDK pointed at api.meta.ai).
 // Plain module (no `server-only`) so Node scripts can import it too. Never import it from a
 // client component: it reads the API key from the environment.
+import { isGuest } from "../guest.ts";
 import OpenAI from "openai";
 import { MetaConfigError } from "./errors.ts";
 import type { CallOptions } from "./types.ts";
@@ -14,6 +15,8 @@ export const SAM_MODEL = "sam-3.1";
 export const REQUEST_ID_HEADERS = ["x-request-id", "request-id", "x-fb-request-id", "x-fb-trace-id"] as const;
 
 function readKey(): string | undefined {
+  // The guest site never calls a model: every agent answers with its cached sample (lib/guest.ts).
+  if (isGuest()) return undefined;
   return process.env.MODEL_API_KEY?.trim() || process.env.META_API_KEY?.trim() || undefined;
 }
 

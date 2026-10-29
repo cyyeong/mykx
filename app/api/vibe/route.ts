@@ -6,6 +6,7 @@
 //   POST { action: "share" }: shares the current version with this device's grown-up, or stops sharing.
 // Specs are data drawn by trusted components; no model-written code runs (rule 4). The maker's instructions are the
 // published version (editable in Under the hood), with fixed guardrails (lib/agents).
+import { GUEST_REFUSAL, isGuest } from "@/lib/guest";
 import { z } from "zod";
 import { instructionsFor } from "@/lib/agents/runtime";
 import { requireFamily } from "@/lib/auth/guard";
@@ -42,6 +43,8 @@ export async function POST(request: Request) {
   logRunsFor("vibe", family.householdId, kid.id);
   const input = await readBody(request, body);
   if (!input) return fail(400, "invalid");
+  // Guests share one sample family: making shows the cached sample, but nothing is saved or shared (lib/guest.ts).
+  if (isGuest() && input.action !== "make") return Response.json(GUEST_REFUSAL, { status: 403 });
   const store = getStore()!;
 
   if (input.action === "make") {

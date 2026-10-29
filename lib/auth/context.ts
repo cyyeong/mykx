@@ -2,6 +2,7 @@
 //   supabase: NEXT_PUBLIC_SUPABASE_URL + NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY + SUPABASE_SECRET_KEY set.
 //   demo:     none of them set, and not a production build (in-memory synthetic family).
 //   off:      anything else; routes answer 503 { ok: false, reason: "not-configured" }.
+import { isGuest } from "../guest.ts";
 import { KID_COOKIE, secretVersion, verifyKidSession } from "./kid-session.ts";
 import { lockRemainingSec } from "./lockout.ts";
 import { fail, RequestCookieJar, type CookieJar } from "./http.ts";
@@ -22,6 +23,8 @@ function supabaseEnv(env: Env): { complete: SupabaseEnv | null; any: boolean } {
 }
 
 export function authMode(env: Env = process.env): AuthMode {
+  // The guest site: the in-memory sample family only, never a database, even if keys were set by mistake (lib/guest.ts).
+  if (isGuest()) return "demo";
   const supabase = supabaseEnv(env);
   if (supabase.complete) return "supabase";
   // Literal process.env.NODE_ENV is inlined by Next at build time: a production build never gets "demo".

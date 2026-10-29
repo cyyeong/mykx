@@ -1,0 +1,6 @@
+/* The guest site's banner (GuestBanner.tsx): a calm pill over the top centre of every page, above the art. */
+.gb{position:fixed;z-index:90;top:max(10px, env(safe-area-inset-top));left:50%;translate:-50% 0;display:flex;align-items:center;gap:8px;max-width:min(760px, calc(100vw - 32px));min-height:36px;padding:7px 16px 7px 12px;border:0;border-radius:999px;background:#FFE38A;color:#2B2A5C;box-shadow:0 6px 20px rgba(20,16,60,.35),inset 0 0 0 1.5px rgba(43,42,92,.25);font:700 13px/18px var(--font-text, "Nunito", sans-serif);text-align:left;cursor:pointer}
+.gb svg{width:16px;height:16px;flex:none}
+.gb[data-small="yes"]{top:auto;left:auto;right:max(16px, env(safe-area-inset-right));bottom:max(16px, env(safe-area-inset-bottom));translate:none;padding:6px 14px 6px 10px}
+.gb:focus-visible{outline:3px solid #2B2A5C;outline-offset:2px}
+@media (max-width:599px){.gb{font-size:12px;line-height:16px}.gb[data-small="yes"]{bottom:max(84px, calc(env(safe-area-inset-bottom) + 76px))}}

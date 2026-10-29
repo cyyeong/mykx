@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { AskKix } from "@/components/kix/AskKix";
 import { getSignedInKid } from "@/lib/auth/server";
+import { isGuest } from "@/lib/guest";
+import { guestQuestions } from "@/lib/kix/guest-samples";
 
 export const metadata: Metadata = { title: "Ask Kix · myKx" };
 
@@ -10,7 +12,7 @@ export const metadata: Metadata = { title: "Ask Kix · myKx" };
 async function Ask() {
   const kid = await getSignedInKid();
   if (!kid) redirect("/doors");
-  return <AskKix nickname={kid.nickname} />;
+  return <AskKix nickname={kid.nickname} samples={isGuest() ? guestQuestions(kid.level) : undefined} />;
 }
 
 export default function AskPage() {

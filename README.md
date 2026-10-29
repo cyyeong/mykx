@@ -25,7 +25,7 @@ Built for the **Meta Global AI Developer Hackathon** (track: Build for Your Worl
 | **Impact** (Build for Your World) | [Why I built it](#why-i-built-it): a problem the founder lives every day, in a country where most couples both work. myKx frees up a parent's time and mental space, and makes something possible that wasn't before: a child's own interests become their learning world. |
 | **Use of Meta AI tooling** | [16 specialists, 14 on Meta Muse](#16-specialists-14-of-them-on-meta-muse): four Meta models chained into pipelines (Muse Image + SAM 3.1 transforms; Muse Spark vision + rules + SAM 3.1 for home cameras; Muse Spark web search + planning), with every call logged in Under the hood. Muse Code built four of the branches. |
 | **Technical depth and execution** | [Architecture](docs/ARCHITECTURE.md), more than 900 automated tests run by CI on every push, deterministic engines for scores and alerts, row-level security per household, cached fallbacks for every generated surface. |
-| **Demo** | The video, the [live app](#try-it-live) (sign-ins are in the submission form), the [Home simulator](https://mykx-sim.vercel.app), and [everything in the MVP](#everything-in-the-mvp). |
+| **Demo** | The video, the [guest walkthrough](https://mykx-guest.vercel.app) (one tap, no password), the [live app](#try-it-live) (sign-ins are in the submission form), the [Home simulator](https://mykx-sim.vercel.app), and [everything in the MVP](#everything-in-the-mvp). |
 
 **Not a chatbot, not RAG, not medical advice.** Kix is one face on 16 specialist agents that run multi-step workflows: reading papers, choosing questions, keeping a memory, reading a home, planning a weekend. Kix loads the right skill pack and reads the exact section it needs through tools that run as trusted code (and refuse to check the question a child is answering), with no vector search; every load and tool call is logged. Scores and rewards are plain code. Wellbeing notes say "possibly" and show the evidence against the child's own usual; they never diagnose, and distress words always bring in the parent and the helplines.
 
@@ -33,7 +33,9 @@ Built for the **Meta Global AI Developer Hackathon** (track: Build for Your Worl
 
 ## Try it live
 
-Open **[mykx.vercel.app](https://mykx.vercel.app)**. The sign-in for the sample family (a grown-up who is also the admin, and the three kids' magic names and codes) is in our hackathon submission form. Anyone else who'd like to try it: message me on Discord, **`antz81_91105`**, and I'll send it over.
+**Explore as a guest: [mykx-guest.vercel.app](https://mykx-guest.vercel.app).** One tap, no password: sign in as the sample family's grown-up, or tell Kix a kid's magic name (`jordan`, `abby` or `leonard`) and watch their door fly in. You get exactly the same screens and walkthrough as a real sign-in, with games to play and the admin side to look around (read-only). AI is switched off there, so every Kix reply is a ready-made sample, and nothing you change is saved. It runs on its own deployment with no access to real accounts.
+
+**For live AI,** open **[mykx.vercel.app](https://mykx.vercel.app)**. The sign-in for the sample family (a grown-up who is also the admin, and the three kids' magic names and codes) is in our hackathon submission form. Anyone else who'd like to try it: message me on Discord, **`antz81_91105`**, and I'll send it over.
 
 Kids don't need the grown-up at all: on the sign-in page, tap **"Kids: tell me your magic name"**, type it, and watch their door fly in.
 
