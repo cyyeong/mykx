@@ -2,7 +2,6 @@
 // Pure helpers live here so Vitest can cover them without a browser; KidNav.tsx renders them.
 // Founder decision 28 Oct (§8.5): tabs are Home, Learn, Play (Arcade), Treasure, Vibe;
 // Me and Switch profile stay in the avatar menu (components/nav/KidAvatarMenu.tsx).
-import { DEMO_QUEST } from "@/components/screens/routes";
 
 export type KidTabId = "home" | "learn" | "ask" | "play" | "treasure" | "vibe";
 
@@ -10,8 +9,8 @@ export type KidTab = { id: KidTabId; label: string; href: string; soon?: true };
 
 export const KID_TABS: readonly KidTab[] = [
   { id: "home", label: "Home", href: "/home" },
-  // Day 4–5 repoints Learn at the /learn quest list; until then it opens the demo quest map.
-  { id: "learn", label: "Learn", href: `/learn/${DEMO_QUEST}` },
+  // The Learn hub: the kid's own subjects (their level's packs); P3 Science keeps the frog quest map inside it.
+  { id: "learn", label: "Learn", href: "/learn" },
   // Homework help (founder, 28 Oct): a typed question or a photo, explained the way the syllabus teaches it.
   { id: "ask", label: "Ask Kix", href: "/ask" },
   { id: "play", label: "Play", href: "/arcade" },

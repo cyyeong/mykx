@@ -1,10 +1,15 @@
-// Question player (Junior): one frog life cycle question per screen, marked by
-// POST /api/attempts (deterministic, server-side). Day 3 replaces the Day 2
-// fixture: the item, session position and next step come from the server;
-// the answer key never reaches the client.
+// Question player: one question per screen from the kid's own subjects, marked by POST /api/attempts
+// (deterministic, server-side). The item, session position and next step come from the server; the answer key
+// never reaches the client. Four kinds of question (founder, 29 Oct):
+//   marked   multiple choice and short answers, marked by code; the kid says why for stars;
+//   card     a Chinese word card turned into a question code marks (pick the meaning, or type the word);
+//            writing it on paper is "Show me", a self-check that is practice, never mastery evidence;
+//   written  an open answer: saved as practice, then compared with Kix's model answer and key ideas (code can't
+//            mark it, so it never moves mastery).
+// Juniors keep the Toon Pop board's look; teens get their own world, in the teen band.
 "use client";
 
-import { InlineMarkup, speakable, StemText, type StemFigure } from "./StemText";
+import { InlineMarkup, PassageText, speakable, StemText, type StemFigure } from "./StemText";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
@@ -32,12 +37,26 @@ export interface PlayerItem {
   hints: string[];
   /** The item's diagram from its skill pack (an inlined SVG), when it has one. */
   figure?: StemFigure | null;
+  /** The reading passage a comprehension or cloze question is about. */
+  passage?: string | null;
+  /** How it is answered and marked (see the header). Default: marked. */
+  kind?: "marked" | "card" | "written";
+  /** A word card's question: what it shows big, and how to answer (lib/learn/cards.ts). */
+  card?: { mode: "meaning" | "write"; show: string; meaning: string | null; prompt: string } | null;
 }
 
 export interface QuestionPlayerProps {
   item: PlayerItem;
-  questSlug: string;
+  /** Where Leave goes (the quest map or the subject page). */
+  backHref: string;
+  /** The next question in the session, or its done page. */
+  nextHref: string;
   questTitle: string;
+  /** A fresh question (new evidence) or review (no new mastery evidence). Default: fresh. */
+  fresh?: boolean;
+  /** The kid's world and band: teens get their own; juniors keep the board's Toon Pop. */
+  theme?: string;
+  band?: "junior" | "teen";
   /** 1-based position in today's session. */
   position: number;
   total: number;
@@ -50,7 +69,7 @@ export interface QuestionPlayerProps {
   card: { label: string; art: string };
 }
 
-type Phase = "answering" | "checking" | "wrong" | "correct" | "revealed";
+type Phase = "answering" | "checking" | "wrong" | "correct" | "revealed" | "compared";
 
 interface AttemptOutcome {
   correct: boolean | null;
@@ -64,8 +83,11 @@ interface AttemptOutcome {
   care: Care | null;
   /** The reason, checked in code (lib/domain/reason.ts); `better` once the answer is right or shown. */
   reason?: { quality: "none" | "short" | "off-topic" | "on-topic"; used: string[]; better: string | null };
-  /** The right answer, once reached or shown ("Show me how" highlights it). */
+  /** The right answer, once reached or shown ("Show me how" highlights it); a written answer's model answer. */
   answer?: number | string | null;
+  kind?: "marked" | "card" | "written";
+  /** A written answer's key ideas, to compare with the kid's own. */
+  keyIdeas?: string[] | null;
 }
 
 /** Kix's feedback on the child's reason (/api/kix/reason): narration only, never the stars. */
@@ -73,7 +95,7 @@ type Coach = { verdict: "good" | "partly" | "not-yet"; feedback: string; better:
 /** The opening line, from code: the answer's result and the reason's verdict, said plainly and apart. */
 function coachLead(correct: boolean, verdict: Coach["verdict"]): string {
   if (correct) return verdict === "good" ? "Right answer, and a strong reason!" : verdict === "partly" ? "Right answer! Your reason is on the right track:" : "Right answer! But your reason needs work:";
-  return verdict === "not-yet" ? "Not this answer yet, and your reason needs work too:" : "Not this answer yet. Your reason uses some science:";
+  return verdict === "not-yet" ? "Not this answer yet, and your reason needs work too:" : "Not this answer yet. Your reason uses some of the right ideas:";
 }
 const COACH_RING: Record<Coach["verdict"], string> = { good: "var(--success)", partly: "var(--reward)", "not-yet": "var(--warn)" };
 
@@ -125,7 +147,7 @@ function awardLine(outcome: AttemptOutcome): string {
   return outcome.awards.map((a) => `+${a.amount} stars: ${RULE_LINES[a.rule] ?? a.rule}.`).join(" ");
 }
 
-export function QuestionPlayer({ item, questSlug, questTitle, position, total, doneCount, nextId, starsToday, card }: QuestionPlayerProps) {
+export function QuestionPlayer({ item, backHref, nextHref, questTitle, fresh = true, theme = "toon-pop", band: playerBand = "junior", position, total, doneCount, nextId, starsToday, card }: QuestionPlayerProps) {
   const router = useRouter();
   const { play } = useSound();
   const [selected, setSelected] = useState<number | null>(null);
@@ -162,11 +184,13 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
   const [drift, setDrift] = useState(false);
   const [spark, setSpark] = useState<{ line: string; interest: string } | null>(null);
 
+  const kind = item.kind ?? "marked";
+  const isCard = kind === "card";
+  const isWritten = kind === "written";
   const isMcq = item.options.length > 0;
-  const resolved = phase === "correct" || phase === "revealed";
+  const resolved = phase === "correct" || phase === "revealed" || phase === "compared";
   const mood: Mood = phase === "correct" ? "cheer" : phase === "wrong" ? "thinking" : hintIdx > 0 && !resolved ? "hint" : "idle";
   const kix = KIX[mood];
-  const nextHref = nextId ? `/question/${nextId}` : `/learn/${questSlug}/done`;
 
   const say = (text: string) => {
     setSpoken(text);
@@ -184,11 +208,15 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
     }
     if (phase === "answering" && tutor !== null) return tutor || "Kix is thinking…";
     if (phase === "answering" && spark) return spark.line;
+    if (phase === "compared") return "Here's how Kix would answer. Read it next to yours: did you say the same key ideas?";
     if (phase === "correct" && coach?.verdict === "not-yet") return "Yes, that's the right answer! But your reason doesn't explain it yet. Read what I wrote under your reason.";
     if (phase === "correct") return outcome?.awards.length ? "Yes! That's it. Collect your card." : "Yes! That's it.";
     if (phase === "revealed") return answerText ? `The answer is **${answerText}**. Read how it works, then keep going.` : "Here's how it works. Read it over, then keep going.";
     if (phase === "wrong" && outcome?.note) return outcome.note;
     if (hintIdx > 0) return item.hints[Math.min(hintIdx, item.hints.length) - 1];
+    if (item.card?.mode === "meaning") return "Look at the word. Which meaning fits?";
+    if (item.card?.mode === "write") return "Type it with a pinyin keyboard. Or write it on paper, then tap Show me to check.";
+    if (isWritten) return "Write it in full sentences, in your own words.";
     return "Take your time. Say what you think, and why.";
   })();
 
@@ -209,6 +237,15 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
     }, 350);
     return () => clearTimeout(t);
   }, [coach]);
+
+  // A written answer's comparison with Kix's answer comes into view once it's there (the bubble points to it).
+  useEffect(() => {
+    if (phase !== "compared") return;
+    const t = setTimeout(() => {
+      document.querySelector(".qp-compare")?.scrollIntoView({ block: "start", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    }, 200);
+    return () => clearTimeout(t);
+  }, [phase]);
 
   // Drift: no taps, keys or scrolls for a while on an open question.
   useEffect(() => {
@@ -273,8 +310,9 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           itemId: item.id,
-          response: revealed ? null : isMcq ? (selected === null ? null : selected + 1) : typed.trim() || null,
-          explanation: explanation.trim() || null,
+          response: revealed && !isWritten ? null : isMcq ? (selected === null ? null : selected + 1) : typed.trim() || null,
+          // A word card never asks why; a written answer is its own reason.
+          explanation: isCard || isWritten ? null : explanation.trim() || null,
           // A spark is help too: a sparked answer counts as hinted, so it's never mastery evidence (rule 5).
           hintsUsed: hintIdx + (spark ? 1 : 0),
           revealed,
@@ -291,7 +329,11 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
     }
     setOutcome(data);
     setStars(data.starsToday);
-    if (!revealed && !data.care) void coachReason(data);
+    if (isWritten) {
+      setPhase("compared");
+      return;
+    }
+    if (!revealed && !data.care && !isCard) void coachReason(data);
     if (data.correct) {
       setPhase("correct");
       play("correct");
@@ -315,7 +357,7 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
     }
     // The check in code answers at once; Kix's own words replace it when they arrive.
     const quality = data.reason?.quality;
-    setCoach(quality === "on-topic" ? null : { verdict: "not-yet", feedback: `Your reason, "${reason.slice(0, 60)}", doesn't explain the science yet.`, better });
+    setCoach(quality === "on-topic" ? null : { verdict: "not-yet", feedback: `Your reason, "${reason.slice(0, 60)}", doesn't explain it yet.`, better });
     setCoachBusy(true);
     try {
       const res = await fetch("/api/kix/reason", {
@@ -434,8 +476,8 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
 
   return (
     <div
-      data-theme="toon-pop"
-      data-band="junior"
+      data-theme={theme}
+      data-band={playerBand}
       className="qp-root"
       style={{ width: "100%", minHeight: "var(--screen-h, 100vh)", boxSizing: "border-box", position: "relative", overflow: "clip", background: "var(--surface)", color: "var(--ink)", fontFamily: "var(--font-text)" }}
     >
@@ -446,7 +488,7 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
         <header className="qp-header">
           <button
             type="button"
-            aria-label="Leave quest"
+            aria-label="Leave"
             onClick={() => setLeaving(true)}
             style={{ width: 56, height: 56, flex: "none", display: "grid", placeItems: "center", borderRadius: "var(--radius-pill)", background: "var(--surface-raised)", color: "var(--ink)", boxShadow: "inset 0 0 0 3px var(--border-control)", cursor: "pointer" }}
           >
@@ -481,10 +523,10 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
         </header>
 
         {leaving && (
-          <div role="alertdialog" aria-label="Leave the quest?" style={{ display: "flex", flexDirection: "column", gap: 12, padding: 20, borderRadius: "var(--radius-lg)", background: "var(--surface-raised)", boxShadow: "inset 0 0 0 3px var(--border-control)" }}>
-            <p style={{ margin: 0, fontSize: 18, lineHeight: "26px", fontWeight: 700 }}>Leave the quest? Your answers so far are saved.</p>
+          <div role="alertdialog" aria-label="Leave?" style={{ display: "flex", flexDirection: "column", gap: 12, padding: 20, borderRadius: "var(--radius-lg)", background: "var(--surface-raised)", boxShadow: "inset 0 0 0 3px var(--border-control)" }}>
+            <p style={{ margin: 0, fontSize: 18, lineHeight: "26px", fontWeight: 700 }}>Leave {questTitle}? Your answers so far are saved.</p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <Button variant="secondary" onClick={() => router.push(`/learn/${questSlug}`)}>
+              <Button variant="secondary" onClick={() => router.push(backHref)}>
                 Leave
               </Button>
               <Button onClick={() => setLeaving(false)}>Keep going</Button>
@@ -501,7 +543,7 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
                 {questTitle}
               </span>
               <span style={{ padding: "3px 12px", borderRadius: "var(--radius-pill)", background: "var(--surface)", color: "var(--ink)", fontSize: 14, lineHeight: "22px", fontWeight: 800, boxShadow: "inset 0 0 0 2px var(--line)" }}>
-                Fresh question
+                {isWritten ? "Written answer: practice" : isCard ? "Word card" : fresh ? "Fresh question" : "Review: no new mastery evidence"}
               </span>
               {skill &&
                 skill.split(", ").map((s) => (
@@ -513,14 +555,25 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
                   </span>
                 ))}
             </div>
+            {item.passage && <PassageText text={item.passage} />}
+            {item.card && (
+              <div className="qp-word" lang={item.card.mode === "meaning" ? "zh-Hans" : undefined}>
+                <span className={item.card.mode === "meaning" ? "qp-word-glyph" : "qp-word-pinyin"}>{item.card.show}</span>
+                {item.card.meaning && <span className="qp-word-meaning">{item.card.meaning}</span>}
+                {item.card.mode === "write" && item.figure && (
+                  // eslint-disable-next-line @next/next/no-img-element -- the card's own picture from the skill pack
+                  <img className="qp-word-pic" src={item.figure.src} alt={item.figure.alt} />
+                )}
+              </div>
+            )}
             <div className="qp-qrow">
-              <StemText text={item.stem} figure={item.figure} />
+              <StemText text={item.card ? item.card.prompt : item.stem} figure={item.card ? null : item.figure} />
               <button
                 type="button"
                 className="qp-read"
                 aria-label="Read the question aloud"
                 title="Kix reads it with your device's voice"
-                onClick={() => say([speakable(item.stem), ...item.options.map((o, i) => `${String.fromCharCode(65 + i)}. ${speakable(o)}`)].join(". "))}
+                onClick={() => say([...(item.passage ? [speakable(item.passage)] : []), speakable(item.card ? item.card.prompt : item.stem), ...item.options.map((o, i) => `${String.fromCharCode(65 + i)}. ${speakable(o)}`)].join(". "))}
               >
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M4 9v6h4l5 4V5L8 9H4zM16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" />
@@ -566,20 +619,70 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
                   );
                 })}
               </div>
+            ) : isWritten ? (
+              <label style={{ display: "flex", flexDirection: "column", gap: 8, fontSize: 16, fontWeight: 700 }}>
+                Your answer, in full sentences
+                <textarea
+                  value={typed}
+                  onChange={(e) => setTyped(e.target.value)}
+                  disabled={resolved || phase === "checking"}
+                  maxLength={500}
+                  rows={4}
+                  className="qp-written"
+                  placeholder="Write your answer here…"
+                />
+              </label>
             ) : (
               <label style={{ display: "flex", flexDirection: "column", gap: 8, fontSize: 16, fontWeight: 700 }}>
-                Your answer
+                {item.card?.mode === "write" ? "Type it in Chinese characters" : "Your answer"}
                 <input
                   value={typed}
+                  lang={item.card ? "zh-Hans" : undefined}
                   onChange={(e) => {
                     if (phase === "wrong") startRetry();
                     setTyped(e.target.value);
                   }}
                   disabled={resolved || phase === "checking"}
-                  style={{ minHeight: 56, padding: "0 16px", borderRadius: "var(--radius-lg)", border: 0, background: "var(--surface)", color: "var(--ink)", fontSize: 20, boxShadow: "inset 0 0 0 3px var(--line)" }}
+                  style={{ minHeight: 56, padding: "0 16px", borderRadius: "var(--radius-lg)", border: 0, background: "var(--surface)", color: "var(--ink)", fontSize: item.card ? 28 : 20, boxShadow: "inset 0 0 0 3px var(--line)" }}
                 />
               </label>
             )}
+            {isWritten && phase === "compared" && outcome && (
+              <section className="q-rise qp-compare" aria-label="Kix's answer next to yours">
+                <div className="qp-compare-col">
+                  <span className="qp-compare-label">Kix&apos;s answer</span>
+                  <p>
+                    <InlineMarkup text={typeof outcome.answer === "string" ? outcome.answer : null} />
+                  </p>
+                </div>
+                {outcome.keyIdeas?.length ? (
+                  <div className="qp-compare-col">
+                    <span className="qp-compare-label">Key ideas to check for</span>
+                    <ul className="qp-ideas">
+                      {outcome.keyIdeas.map((k) => (
+                        <li key={k}>{k}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+                {outcome.working?.length ? (
+                  <div className="qp-compare-col">
+                    <span className="qp-compare-label">How it works</span>
+                    <ol>
+                      {outcome.working.map((w, i) => (
+                        <li key={i}>
+                          <InlineMarkup text={w} />
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                ) : null}
+                <p className="qp-compare-note">
+                  {outcome.awards.some((a) => a.amount > 0) ? `${awardLine(outcome)} ` : ""}Written answers are practice: code can&apos;t mark them, so they don&apos;t change your mastery.
+                </p>
+              </section>
+            )}
+            {!isCard && !isWritten && (
             <label style={{ display: "flex", flexDirection: "column", gap: 8, fontSize: 16, fontWeight: 700 }}>
               Why do you think so? Say it in your own words — it earns stars.
               <input
@@ -595,6 +698,7 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
                 style={{ minHeight: 56, padding: "0 16px", borderRadius: "var(--radius-lg)", border: 0, background: "var(--surface)", color: "var(--ink)", fontSize: 18, boxShadow: `inset 0 0 0 3px ${coach ? COACH_RING[coach.verdict] : "var(--line)"}` }}
               />
             </label>
+            )}
             {(coach || coachBusy) && (
               <section id="qp-coach" className="q-rise qp-coach" data-verdict={coach?.verdict ?? "busy"} aria-live="polite" aria-label="Kix on your reason">
                 <p className="qp-coach-head">
@@ -621,7 +725,11 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
           </main>
 
           <p className="qp-note" style={{ margin: 0, fontSize: 15, lineHeight: "20px", fontWeight: 600, color: "var(--ink-muted)" }}>
-            Your first try counts toward mastery. Hints are fine; Kix notes them for your parent.
+            {isWritten
+              ? "Written answers are practice. A real answer in your own words earns stars."
+              : isCard
+                ? "Code marks word cards: your first try counts toward mastery. Show me is practice."
+                : "Your first try counts toward mastery. Hints are fine; Kix notes them for your parent."}
           </p>
 
           <div className="qp-dock">
@@ -648,7 +756,7 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
                   ))}
                 </p>
               ) : null}
-              {!resolved && phase !== "checking" && (
+              {!resolved && phase !== "checking" && !isCard && (
                 <form
                   className="qp-ask"
                   onSubmit={(e) => {
@@ -721,16 +829,18 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
                   <span style={{ fontSize: 15, lineHeight: "20px", fontWeight: 600, color: "var(--ink-muted)" }}>
                     {outcome.capReached
                       ? "You've earned today's 15 stars. Your learning still counts."
-                      : "Stars come with a real reason: say why using the science, in your own words, to earn stars and this stop's card."}
+                      : isCard
+                        ? "Word cards build your mastery. Stars come from questions where you say why."
+                        : "Stars come with a real reason: say why in your own words, using the question's ideas, to earn stars and a card."}
                   </span>
                 </div>
               )}
-              {phase === "revealed" && outcome?.working && (
+              {phase === "revealed" && outcome?.working && (outcome.working.length > 0 || answerText) && (
                 <div style={{ display: "flex", flexDirection: "column", gap: 8, padding: 16, borderRadius: "var(--radius-lg)", background: "var(--surface-raised)", boxShadow: "inset 0 0 0 3px var(--border-control)" }}>
-                  <span style={{ fontWeight: 800, fontSize: 16 }}>How it works</span>
+                  <span style={{ fontWeight: 800, fontSize: 16 }}>{isCard ? "The word" : "How it works"}</span>
                   {answerText && (
-                    <p className="qp-how-answer">
-                      The answer: <strong>{answerText}</strong>
+                    <p className="qp-how-answer" lang={isCard ? "zh-Hans" : undefined}>
+                      The answer: <strong className={item.card?.mode === "write" ? "qp-how-glyph" : undefined}>{answerText}</strong>
                     </p>
                   )}
                   <ol style={{ margin: 0, paddingLeft: 20, display: "flex", flexDirection: "column", gap: 6, fontSize: 16, lineHeight: "24px" }}>
@@ -745,7 +855,7 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
             </aside>
 
             <div className="qp-actions">
-              {!resolved && phase !== "checking" && (
+              {!resolved && phase !== "checking" && item.hints.length > 0 && (
                 <Button variant="secondary" onClick={askHint} disabled={hintIdx >= item.hints.length}>
                   <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path fill="currentColor" d="M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2zm-2 18h4v2h-4z" />
@@ -755,7 +865,19 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
               )}
               {phase === "answering" && (
                 <Button onClick={() => void send(false)} disabled={isMcq ? selected === null : !typed.trim()}>
-                  Check my answer
+                  {isWritten ? "Compare with Kix's answer" : "Check my answer"}
+                </Button>
+              )}
+              {/* Writing a word card on paper, or stuck on a written answer: Kix shows it. Practice, never evidence. */}
+              {phase === "answering" && (item.card?.mode === "write" || (isWritten && !typed.trim())) && (
+                <Button
+                  variant="secondary"
+                  onClick={() => {
+                    key.current = crypto.randomUUID();
+                    void send(true);
+                  }}
+                >
+                  {isWritten ? "I'm stuck: show me" : "I wrote it on paper: show me"}
                 </Button>
               )}
               {/* The key is per submission, not per question: a retry of a failed
@@ -789,7 +911,7 @@ export function QuestionPlayer({ item, questSlug, questTitle, position, total, d
                 </p>
               )}
               {phase === "correct" && <ButtonLink href={nextHref}>{nextId ? "Next question" : "See how I did"}</ButtonLink>}
-              {phase === "revealed" && <ButtonLink href={nextHref}>{nextId ? "Next question" : "See how I did"}</ButtonLink>}
+              {(phase === "revealed" || phase === "compared") && <ButtonLink href={nextHref}>{nextId ? "Next question" : "See how I did"}</ButtonLink>}
             </div>
           </div>
         </div>

@@ -136,7 +136,7 @@ The browser never talks to Meta or to Supabase's service role. Keys live in the 
 
 | Folder | Responsibility |
 |---|---|
-| `app/(kid)` | Kid pages: `home`, `learn/[quest]` and `done`, `question/[id]`, `treasure`, `studio`, `vibe`, `ask`, `talk`, `arcade/*`, `critters`, `squadron`, `messages`, `me`, `me/papers`, `me/sharing`. The layout mounts the kid nav, sound, theme, the heartbeat (`GuardianWatch`) and the focus camera (`FocusWatch`). |
+| `app/(kid)` | Kid pages: `home`, `learn` (the Learn hub), `learn/[quest]` (a subject such as `p6-maths`, or the frog quest map) and its `done`, `question/[id]`, `treasure`, `studio`, `vibe`, `ask`, `talk`, `arcade/*`, `critters`, `squadron`, `messages`, `me`, `me/papers`, `me/sharing`. The layout mounts the kid nav, sound, theme, the heartbeat (`GuardianWatch`) and the focus camera (`FocusWatch`). |
 | `app/(parent)` | Grown-up pages: `parent` (Today, Messages, Notebook), `family` and `family/guardian` (controls, Location and home cameras), `papers`, `together` |
 | `app/(admin)` | Admin pages: `admin/people`, `admin/skills`, `admin/knowledge`, `admin/under-the-hood`, `admin/under-the-hood/agents/[agent]` (the agent editor, §4.11) |
 | `app/(signin)` | The living-city door, kid doors (`doors/[kid]`), grown-up sign-in |
@@ -147,7 +147,7 @@ The browser never talks to Meta or to Supabase's service role. Keys live in the 
 | `lib/agents` | Agents you can edit (§4.11): each Muse Spark agent's built-in instructions and fixed guardrails (`instructions.ts`), the version rules (`versions.ts`), `instructionsFor` with its one-minute cache (`runtime.ts`), and what the editor shows (`catalog.ts`) |
 | `lib/auth` | Store contract and both stores, sessions, kid secrets (scrypt), lockout and per-key limiter, parent PIN, admin check, request helpers |
 | `lib/domain` | Deterministic learning engine: marking, mastery (PRD §6), selection, rewards ledger (FR10), reason check, companion, squadron |
-| `lib/learn` | The frog life-cycle quest wired to the engine; attempt submission |
+| `lib/learn` | A kid's subjects (`subjects.ts`: their level's packs, item lookup and the other-level refusal), sessions and topic views (`session.ts`, `views.ts`), word cards as code-marked questions (`cards.ts`), reward cards for every subject (`reward-cards.ts`), the frog life-cycle quest (P3 Science's featured quest), attempt submission (`submit.ts`) |
 | `lib/kix` | Ask Kix (homework) prompt builder, schema and sample; the Kix Tutor's hint and reason prompts (`tutor-prompt.ts`); reason coach schema and code fallback |
 | `lib/notebook` | Kix's Notebook pages, patch application with refusals, the Memory Keeper's prompt and schema |
 | `lib/guardian` | Screen time from heartbeats, sessions and focus, the safety word check, flags, Kix's next step, Tonight |
@@ -174,7 +174,7 @@ The browser never talks to Meta or to Supabase's service role. Keys live in the 
 | Area | Routes | Caller |
 |---|---|---|
 | Sign-in and accounts | `api/auth/{parent,kid,kids,pin,reset,signout}`, `api/me`, `api/family/kids`, `api/family/kids/[id]`, `api/family/shared` | browser |
-| Learning | `api/attempts`, `api/kix/tutor`, `api/kix/reason`, `api/kix/spark`, `api/kix/homework`, `api/session/close`, `api/games/round` | kid session |
+| Learning | `api/attempts`, `api/kix/tutor`, `api/kix/reason`, `api/kix/spark` (each takes only an item from the kid's own level's packs: 403 for another level's, 404 for an unknown one), `api/kix/homework`, `api/session/close`, `api/games/round` | kid session |
 | Creating | `api/vibe`, `api/studio/transform`, `api/voice/transcribe` | kid session (a grown-up signed in on the device) |
 | Care | `api/guardian/{beat,words,summary,seen,brief,tonight}`, `api/signals/focus`, `api/notebook`, `api/messages`, `api/messages/mine` | kid or grown-up |
 | Guardian, location | `api/location` (POST from a device, GET for the parent), `api/location/{mine,pause,places,settings}` | device token or session |
@@ -204,7 +204,7 @@ All 36 tables are in `supabase/schema.sql`; migrations in `supabase/migrations/`
 | Domain | Tables | Notes |
 |---|---|---|
 | Accounts | `households`, `profiles`, `audit_log` | Kids are `profiles` rows with `role = 'child'`, a nickname (at most 20 characters), a magic name (`username`, unique, for the sign-in page's door), band, level and pack; `secret_hash` and `pin_hash` are scrypt strings (`check (secret_hash like 'scrypt$%')`). `audit_log` is append-only, written by the service role, and holds field names and reasons, never child content. |
-| Learning record | `attempts`, `ledger`, `game_progress` | `attempts` carries marks, `first_try`, `hints_used`, `revealed` and a unique `idempotency_key`; mastery is recomputed from it. `ledger` holds stars, cards, companion stages and squadron unlocks, each with the rule that granted it and a unique key. Game stars are separate and never mastery evidence. |
+| Learning record | `attempts`, `ledger`, `game_progress` | `attempts` carries marks, `first_try`, `hints_used`, `revealed` and a unique `idempotency_key`; mastery is recomputed from it. A written (open) answer is saved as practice with `confirmed: false` in its `answer` envelope (there is no column), and the store reads it back unconfirmed, so it never counts as mastery evidence. `ledger` holds stars, cards, companion stages and squadron unlocks, each with the rule that granted it and a unique key. Game stars are separate and never mastery evidence. |
 | Memory | `notebook_pages`, `notebook_revisions`, `session_reads` | Four pages per kid (`personality`, `asking`, `slips`, `moments`), each at most 4,000 characters in the database and 1,500 in code. Every write records a revision (`before`, `after`, `by`, `reason`). `session_reads` holds the Memory Keeper's mood reading with its evidence. |
 | Wellbeing and guardian | `screen_beats`, `kix_messages`, `guardian_settings`, `flags_seen`, `signals` | One beat per 30 s slot while a kid page is visible. `kix_messages` is the child's own words to Kix (never family messages), with `distress` and `self_talk` set by the server. Flags are computed on read; only "seen" marks are stored. `signals.counts` may contain only four keys (`awaySeconds`, `eyesClosedEvents`, `yawns`, `facePresentRatio`). |
 | Family | `family_messages`, `creations`, `shares` | Messages are household-only and never read by a model. Creations keep every version of a validated spec; shares can only target the household's own grown-ups (checked in RLS). |
@@ -341,7 +341,7 @@ sequenceDiagram
   R->>G: parent cookie, kid cookie, household budget 20 a minute
   G-->>R: household id and kid profile
   R->>R: logRunsFor tutor, household, kid
-  R->>R: zod strictObject body, find the item in demo.json
+  R->>R: zod strictObject body, find the item in the kid's level's packs (403 for another level's)
   opt the child typed or said a question
     R->>W: deterministic safety check
     W-->>R: distress and self-talk flags
@@ -378,7 +378,7 @@ What makes this safe is in the order of steps: the safety check runs before the 
 
 ### 4.4 Learning agents
 
-**Kix Tutor** (`app/api/kix/tutor/route.ts`, `app/api/kix/reason/route.ts`, `lib/kix/reason-coach.ts`). Two jobs in the question player. The hint path runs the Skill Engine's agent loop (§4.10): one or two sentences with `reasoningEffort: "minimal"`, up to three tool rounds of 12 s each, 1,500 tokens a round; the prompt carries the item's worked steps "for you only; never repeat the conclusion". The reason path runs after marking: the child's own "because…" is first checked in code (`checkReason` in `lib/domain/reason.ts`: three words or more using the question's own ideas), and that check alone decides whether the explanation stars are paid. Then Muse Spark returns `{verdict, feedback, better}` about the reason only. The route forces `better` to null after a wrong answer so a retry is never spoiled. Both paths read the same pack notes (`packNotes("p3-science")`: `SKILL.md` up to 4,000 characters, `answering-cer.md` and `coaching-playbook.md` up to 3,000 each).
+**Kix Tutor** (`app/api/kix/tutor/route.ts`, `app/api/kix/reason/route.ts`, `lib/kix/reason-coach.ts`). Two jobs in the question player. The hint path runs the Skill Engine's agent loop (§4.10): one or two sentences with `reasoningEffort: "minimal"`, up to three tool rounds of 12 s each, 1,500 tokens a round; the prompt carries the item's worked steps "for you only; never repeat the conclusion". The reason path runs after marking: the child's own "because…" is first checked in code (`checkReason` in `lib/domain/reason.ts`: three words or more using the question's own ideas), and that check alone decides whether the explanation stars are paid. Then Muse Spark returns `{verdict, feedback, better}` about the reason only. The route forces `better` to null after a wrong answer so a retry is never spoiled. Both paths read the item's own pack (`packNotes(<pack>)`: `SKILL.md` up to 4,000 characters and its method references up to 3,000 each), and refuse an item outside the kid's level. The reason path doesn't run for a word card (it asks no reason) or a written answer (Kix's model answer is shown instead).
 
 **Ask Kix** (`app/api/kix/homework/route.ts`, `lib/kix/homework.ts`). The child types a question or takes a photo. In the browser (`components/kix/AskKix.tsx`) the photo is redrawn on a canvas at most 1,600 px wide, which drops EXIF location and camera data, and MediaPipe's face detector checks it; if it finds a face, or cannot run, the photo is not sent. On the server, Muse Spark reads it once with the level's teaching notes (`teachingNotes(level)`: every pack at that level, each `SKILL.md` and its method references from `METHOD_REFS`), the published updates for that level (`updateNotes`), and Notebook notes. It returns an `explanationSchema` object: up to six blocks of kinds `say`, `steps`, `bar-model`, `cer`, `memory-hook` and `try-this`, which trusted components draw (`components/kix/ExplainBlocks.tsx`). Stages are hint, steps and full; `enforceStage` removes the final answer and the try-this question before the full stage, so guide-first is enforced in code, not trusted to the prompt. Later stages send back the text Kix read the first time, so a photo is never sent twice.
 
@@ -535,7 +535,7 @@ content/skills/p3-science/
   figures/*           original diagrams the items use
 ```
 
-The schemas are in `lib/skills/schema.ts` (zod) and `lib/types.ts`. An item has an id, skill, topic, subskill, archetype, difficulty, marks, type (`mcq`, `short`, `open`, `card`), stem, options, answer, working, distractor notes, hints, an optional figure, provenance (`own`, `licensed`, `generated`) and a review status (`draft`, `reviewed`, `retired`). Only `mcq` and `short` items can move mastery today (`lib/learn/submit.ts` refuses others as `needs-review`).
+The schemas are in `lib/skills/schema.ts` (zod) and `lib/types.ts`. An item has an id, skill, topic, subskill, archetype, difficulty, marks, type (`mcq`, `short`, `open`, `card`), stem, options, answer, working, distractor notes, hints, an optional figure, provenance (`own`, `licensed`, `generated`) and a review status (`draft`, `reviewed`, `retired`). `mcq` and `short` items are marked by code. A `card` becomes a question code marks (`lib/learn/cards.ts`, §5.3a). An `open` item is saved as practice, unconfirmed: it never moves mastery until a grown-up confirms a score (PRD FR04-05; there is no review screen yet, §12).
 
 ### 5.2 The seven packs
 
@@ -559,17 +559,39 @@ The figures are drawn by trusted code, not stored as model output: `lib/skills/f
 | Consumer | What it reads | Where |
 |---|---|---|
 | Kix Tutor | The quest pack's index (`SKILL.md` core, 1,600 characters, and every section's id and title) and the sections it reads with `read_reference`; the item's working and hints | `runSkillAgent` in `lib/skills/runtime.ts` |
-| Reason coach | `p3-science` `SKILL.md` and its method references, trimmed | `packNotes` in `lib/kix/homework.ts` |
+| Reason coach | The item's pack: `SKILL.md` and its method references, trimmed | `packNotes` in `lib/kix/homework.ts` |
 | Ask Kix | The sections its research step read from the pack it loaded; if research fails, every pack at the child's level (`SKILL.md` 3,500 and method references 2,500 each); plus the latest three published updates for the level | `researchSkills` in `app/api/kix/homework/route.ts`, `teachingNotes`, `updateNotes` |
 | Vibe Zone maker | The level's teaching notes | `teachingNotes` |
-| The learning loop | `p3-science/items/demo.json` (the frog quest's five stops) through `selectNext` | `lib/learn/frog-quest.ts` |
+| The learning loop (Learn) | Every reviewed item of the kid's level's packs (`loadPack`, so the published version), chosen per subject or topic by `selectNext`; the frog quest map keeps its five stops from `p3-science/items/demo.json` | `lib/learn/subjects.ts`, `lib/learn/session.ts`, `lib/learn/frog-quest.ts` (§5.3a) |
 | Printable papers | Reviewed items of any pack, by blueprint, deterministic for a given seed | `lib/print/bank.ts`, `lib/print/paper.ts` |
 | Arcade | Not the packs yet: its own original word lists and short questions written to each level's syllabus topics (the Skill Engine's `find_items` is the planned source, GAMES.md §2) | `lib/games/typing/answers.ts`, `curriculum.ts`, `garden.ts` |
 | Admin Skills page | Manifests and item counts: coverage, reviewed and draft counts, which agents may load each | `packCards` in `lib/admin/hood.ts` |
 
 At P3 the teaching notes are about 31,600 characters (about 8,000 tokens); at P6 about 17,000; at Sec 2 about 6,000. These sizes drive cost (§8.5).
 
-**Every consumer above reads the published version** (29 Oct). They read pack files through `lib/skills/overrides.ts` (`packFile`, `packFilesIn`, `allPackIds`): a pack's published version from `skill_versions` when it has one, else the pack on disk; imported packs exist only as versions. Routes call `refreshSkillOverrides(store)` first (the tutor, homework, reason and Vibe routes, the print pages, the admin Skills and knowledge routes): it loads every pack's published files into a cache kept 60 s and refreshed at once after a publish, restore or delete, so the readers stay synchronous. A store without the table, or a failed read, leaves the disk packs in charge. The figures stay on disk (versions carry text only).
+**Every consumer above reads the published version** (29 Oct). They read pack files through `lib/skills/overrides.ts` (`packFile`, `packFilesIn`, `allPackIds`): a pack's published version from `skill_versions` when it has one, else the pack on disk; imported packs exist only as versions. Routes call `refreshSkillOverrides(store)` first (the tutor, homework, reason, spark and Vibe routes, the Learn pages through `learnContext`, the print pages, the admin Skills and knowledge routes): it loads every pack's published files into a cache kept 60 s and refreshed at once after a publish, restore or delete, so the readers stay synchronous. A store without the table, or a failed read, leaves the disk packs in charge. The figures stay on disk (versions carry text only).
+
+### 5.3a Learn: a kid's subjects, sessions and the question player (29 Oct)
+
+The founder's report: every kid landed on P3 Science and Start session did nothing. Now every learning surface asks one module for the kid's subjects.
+
+```mermaid
+flowchart LR
+  KID["Kid profile: level"] --> SUBJ["subjectsFor(level):<br/>published packs whose skill.json level matches"]
+  SUBJ --> VIEW["subjectView: topics from skill.json,<br/>mastery per topic and skill (recompute),<br/>evidence labels, gaps"]
+  SUBJ --> PLAN["planSession: selectNext over one pack<br/>(or one topic): 3 code-marked + 1 written"]
+  PLAN --> URL["/question/id?session=a,b,c"]
+  URL --> QP["Question player:<br/>marked, card, written"]
+  QP --> ATT["POST /api/attempts:<br/>itemForKid(level, id), mark, store, ledger"]
+  ATT --> VIEW
+  QP --> DONE["/learn/pack/done?session=…"]
+```
+
+- **The loader** (`lib/learn/subjects.ts`). `subjectsFor(level)` is every published pack whose manifest `level` equals the kid's: P3 gets English, Maths, Science and Chinese; P6 Maths and Science; Sec 2 Science. Packs come through the Skill Engine's `loadPack` (reviewed items only, the published version when there is one). `itemForKid(level, id)` finds an item in any pack and refuses one from another level (`other-level`); attempts, the tutor, the reason coach, the spark, the question page and the subject pages all go through it. An attempt is stamped with its own pack's version.
+- **Pages.** `/learn` is the Learn tab for everyone: juniors choose a subject island (Dreamlight, over the quest-map sky); teens get the study deck listing every topic. `/learn/<pack>` is a subject: juniors see a trail of topic stops (gold once a topic holds at 70+ with developing evidence, a ring filled to its mastery once assessed, never a number without evidence) and one Start session; teens see the deck with that subject's tab. P3 Science keeps the frog quest map (`/learn/frog-life-cycle`) as its featured quest. Another level's pack, quest or question renders the not-found page. The teen Home is the same deck with three rings, the real next session and a focus timer (25 minutes, only a timer: it never touches a score; while it runs it marks a learning session for the focus camera).
+- **Sessions** (`lib/learn/session.ts`). `planSession` runs `selectNext` over one pack's playable items (optionally one topic): up to three code-marked questions (multiple choice, short answers, word cards), weakest and least-evidenced subskills first, fresh families before review, never a family practised in the last seven days; then one written question when the pack has one whose family isn't already in (a short one first). Questions answered by drawing on paper (`needsPaper`) are never served. The ids ride in the URL, so the order holds across reloads, and every page checks each id against the subject. When everything was tried this week the subject says so instead of offering a session.
+- **The player** (`components/screens/question/QuestionScreen.tsx`). Reading passages show above the question. A word card (`lib/learn/cards.ts`) is "pick the meaning" (four meanings from the same deck, same lesson first, with any Chinese stripped so the word isn't given away) or "type the word" (pinyin and meaning shown; exact match, spaces ignored); both are marked by code, so they are mastery evidence, but they ask no reason and earn no first-try stars. Writing a card on paper is "show me": recorded as revealed, practice only. A written answer is compared with Kix's model answer and key ideas after it is saved; it earns the first-try stars only when the code's reason check finds the question's ideas in it. Juniors keep the Toon Pop board; teens get their own world and the teen band.
+- **Rewards and the done page.** Cards for any item are titled by its topic with a subject chip and existing art (`lib/learn/reward-cards.ts`: life cycles, living things, forces and magnets and light have card art; everything else shows Kix in the kid's world). The done page shows that session's questions, the skills with evidence before and after, the card it earned and, for juniors, Pip. Pip grows from evidence in any subject.
 
 ### 5.4 Versions
 
@@ -648,7 +670,7 @@ What the Curator extracts (`extractionSchema` in `lib/knowledge/knowledge.ts`):
 
 A scout find is always read with the `school-private` rights (`app/api/admin/papers/read/route.ts`), so it can only ever yield patterns; it joins the review session the admin has open. What is automatic: the weekly scan, the download for `auto` finds once an admin presses Read it, the extraction, the routing, the pairing and the cross-check. What a person decides: whether to read a find, level, subject and tier, every single entry, every mismatch, and when to publish. Nothing reaches a child without that approval.
 
-Where this loop stops today: published items are served by `find_items`, printable papers and the catalogue, but quests still serve the frog quest only (§12).
+Where this loop reaches today: published items are served by `find_items`, printable papers, the catalogue and Learn's sessions (the subject loader reads the published version, §5.3a); the frog quest map stays on its five stops.
 
 ### 6.2 Loop 2: per-child learning (deterministic adaptation)
 
@@ -1176,10 +1198,11 @@ The specs in `docs/prd/` describe more than the hackathon build does. These are 
 | The tutor uses the Responses API with a 10 s hint timeout (plan §2) | Chat completions with function tools, not streamed, 12 s a round, up to three tool rounds | `app/api/kix/tutor/route.ts` |
 | Seven Notebook pages with `append`, `replace_section` and `remove_line` (SKILL_ENGINE §5a) | Four pages; `append` and `remove_line` only | `lib/notebook/notebook.ts` |
 | Published updates are read by Kix when it tutors and helps with homework | Both read the pack's published version (its `exam-patterns.md` by `read_reference`); Ask Kix also reads the `skill_updates` rows as "latest exam patterns" | `lib/skills/overrides.ts`, `app/api/kix/homework/route.ts` |
-| Published items join the pack and are served next session (SKILL_ENGINE §6) | They join the pack's next version and are served by `find_items`, printable papers and the catalogue; quests serve the frog quest only | `lib/knowledge/refine.ts` |
+| Published items join the pack and are served next session (SKILL_ENGINE §6) | They join the pack's next version and are served by Learn's sessions, `find_items`, printable papers and the catalogue; the frog quest map keeps its five stops | `lib/knowledge/refine.ts`, `lib/learn/subjects.ts` |
 | Skill versions as `skills` and `skill_items` tables (SKILL_ENGINE §3) | One `skill_versions` table of whole-pack snapshots (text files as jsonb); figures stay on disk | `lib/skills/versions.ts` |
 | Muse cross-checks every answer by working it out (founder, 29 Oct) | For a school paper Muse works each answer out when it reads the paper (it never sees the question again); the cross-check call judges the key against that answer | `lib/knowledge/crosscheck.ts` |
-| Quests from every pack | One quest, the P3 frog life cycle, five reviewed items | `lib/learn/frog-quest.ts` |
+| Quests from every pack | Code-chosen sessions from every pack at the kid's level, per subject or topic; one quest map, the P3 frog life cycle | `lib/learn/session.ts`, `lib/learn/frog-quest.ts` |
+| Open answers scored by a parent or admin rubric before mastery moves (PRD FR04-05) | Saved as unconfirmed practice and compared with Kix's model answer; there is no review screen yet, so they never move mastery | `lib/learn/submit.ts` |
 | Tonight stored per child per date (`summaries`) | Cached in memory per function instance | `app/api/guardian/tonight/route.ts` |
 | Studio cut-out saved to Storage and the profile's `kix_url` | The cut-out is returned to the browser; the chosen world is saved to the profile through `PATCH /api/me` | `app/api/studio/transform/route.ts` (TODO in the file), `components/studio/StudioPicker.tsx` |
 | Location from the kid's phone | Accepted from the simulator's device kind only until M6 | `app/api/location/route.ts` |

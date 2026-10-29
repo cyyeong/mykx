@@ -9,7 +9,7 @@ import type { NotebookPage, StoredSkillEvent } from "../auth/store.ts";
 import { markItem } from "../domain/marking.ts";
 import type { SparkMessage, SparkToolsRequest, SparkToolsResult } from "../meta/spark.ts";
 import { PAGES } from "../notebook/notebook.ts";
-import type { SkillItem, SkillManifest } from "../types.ts";
+import type { SkillItem, SkillManifest, SkillTopic } from "../types.ts";
 import { allPackIds, overridesGeneration, packFile, packFilesIn } from "./overrides.ts";
 import { SkillItemSchema, SkillManifestSchema } from "./schema.ts";
 
@@ -38,6 +38,8 @@ export interface Pack {
   level: string;
   subject: string;
   version: string;
+  /** The manifest's topics (titles, weights and subskills): the Learn pages show them as they are. */
+  topics: SkillTopic[];
   sections: Section[];
   items: SkillItem[];
   core: string;
@@ -75,7 +77,7 @@ export function loadPack(id: string, root = process.cwd()): Pack | null {
         }
       }
       const core = (packFile(id, "SKILL.md", root) ?? "").slice(0, 1600);
-      pack = { id: m.id, title: m.title, level: m.level, subject: m.subject, version: m.version, sections, items, core };
+      pack = { id: m.id, title: m.title, level: m.level, subject: m.subject, version: m.version, topics: m.topics, sections, items, core };
     }
   } catch {
     pack = null;

@@ -13,7 +13,7 @@ import { fail, ok, readBody } from "@/lib/auth/http";
 import { checkWords } from "@/lib/guardian/words";
 import { packNotes } from "@/lib/kix/homework";
 import { fallbackCoach, reasonCoachSchema, said } from "@/lib/kix/reason-coach";
-import { FROG_QUEST, loadFrogItems } from "@/lib/learn/frog-quest";
+import { itemForKid } from "@/lib/learn/subjects";
 import { hasMetaApiKey } from "@/lib/meta/client";
 import { sparkStructured } from "@/lib/meta/spark";
 import { logRunsFor } from "@/lib/runs/log";
@@ -36,8 +36,12 @@ export async function POST(request: Request) {
   logRunsFor("tutor", family.householdId, kid.id);
   const input = await readBody(request, body);
   if (!input) return fail(400, "invalid");
-  const item = loadFrogItems().find((i) => i.id === input.itemId);
-  if (!item) return fail(404, "not-found");
+  // Only an item from the kid's own level's packs (lib/learn/subjects.ts).
+  const access = itemForKid(kid.level, input.itemId);
+  if (!access.ok) return access.reason === "other-level" ? fail(403, "not-allowed") : fail(404, "not-found");
+  const { item, subject } = access;
+  // A word card has no reason to coach, and a written answer is compared with Kix's model answer instead.
+  if (item.type === "card" || item.type === "open") return ok({ coach: null });
   // A reason with distress words was already answered with care when the attempt landed (rule 12).
   if (checkWords(input.reason).distress) return ok({ coach: null });
   const fallback = fallbackCoach(item, input.reason, input.correct);
@@ -46,7 +50,7 @@ export async function POST(request: Request) {
 
   const right = item.type === "mcq" && typeof item.answer === "number" ? (item.options?.[item.answer - 1] ?? "") : String(item.answer);
   const head = await instructionsFor("tutor", tutorVars(kid, { correct: input.correct }), { part: "reason" });
-  const system = reasonSystem({ kid, item, correct: input.correct, right, pack: FROG_QUEST.skill, notes: packNotes(FROG_QUEST.skill) }, head);
+  const system = reasonSystem({ kid, item, correct: input.correct, right, pack: subject.id, notes: packNotes(subject.id) }, head);
   try {
     const { data } = await sparkStructured(
       {

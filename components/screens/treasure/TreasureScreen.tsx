@@ -55,20 +55,23 @@ const RULE_TITLES: Record<string, string> = {
 
 const DAY = new Intl.DateTimeFormat("en-SG", { day: "numeric", month: "short", timeZone: "Asia/Singapore" });
 
+type StopCard = { label: string; art: string; chip?: string };
+
 /**
- * One card per paid-out ledger entry (cap notes pay 0, so they never show), titled by the stop it was
- * earned on. Refs render through `stops`, so a child never sees an item id.
+ * One card per paid-out ledger entry (cap notes pay 0, so they never show), titled by the stop or topic it was
+ * earned on. Refs render through `stops` (a map by ref, or a lookup for any of the kid's subjects:
+ * lib/learn/reward-cards.ts), so a child never sees an item id; a card's own chip names its subject.
  */
 export function cardsFromLedger(
   entries: readonly LedgerEntry[],
-  stops: Record<string, { label: string; art: string }> = {},
+  stops: Record<string, StopCard> | ((ref: string) => StopCard | null) = {},
   defaults: { art: string; chip: string } = { art: "/art/cards/gecko-and-frog", chip: "P3 Science" },
 ): TreasureCard[] {
   return entries
     // A saved creation shows on the creations shelf, not as a card.
     .filter((e) => e.amount > 0 && e.rule !== "creation_saved")
     .map((e) => {
-      const stop = e.ref ? stops[e.ref] : undefined;
+      const stop = e.ref ? ((typeof stops === "function" ? stops(e.ref) : stops[e.ref]) ?? undefined) : undefined;
       const rule = RULE_TITLES[e.rule] ?? e.rule;
       return {
         id: e.key,
@@ -76,7 +79,7 @@ export function cardsFromLedger(
         note: `${stop ? `${rule} · ` : ""}+${e.amount} stars · ${DAY.format(new Date(e.at))}`,
         art: stop?.art ?? defaults.art,
         alt: stop ? `Reward card: ${stop.label}` : `Reward card: ${rule}`,
-        chip: defaults.chip,
+        chip: stop?.chip ?? defaults.chip,
       };
     });
 }

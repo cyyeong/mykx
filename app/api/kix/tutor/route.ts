@@ -1,6 +1,7 @@
 // Kix Tutor in the question player. The kid asks for a hint or asks "why?" (typed or by voice); Muse Spark
 // (Standard) answers in a sentence or two and never gives the answer away. It runs as a Skill Engine agent
-// (lib/skills/runtime.ts): the quest's pack is loaded, and Kix calls tools to read the section it needs, find a
+// (lib/skills/runtime.ts): the item's own pack is loaded (one of the kid's level's packs; another level's item is
+// refused, lib/learn/subjects.ts), and Kix calls tools to read the section it needs, find a
 // similar practice question, check one by code or load another of the child's packs; every load and tool call is
 // logged as a skill event. Every ask counts as a hint, so a helped answer is never mastery evidence (rule 5).
 // Without a model, or if the agent fails, the item's own next hint answers instead (rule 7). The prompt starts with
@@ -12,7 +13,7 @@ import { requireFamily } from "@/lib/auth/guard";
 import { fail, ok, readBody } from "@/lib/auth/http";
 import { getStore } from "@/lib/auth/context";
 import { caringReply, checkWords, HELPLINES } from "@/lib/guardian/words";
-import { FROG_QUEST, loadFrogItems } from "@/lib/learn/frog-quest";
+import { itemForKid } from "@/lib/learn/subjects";
 import { loadTender } from "@/lib/guardian/load";
 import { toneNote } from "@/lib/kix/today";
 import { notebookNotes } from "@/lib/notebook/notebook";
@@ -30,9 +31,7 @@ const body = z.strictObject({
   ask: z.string().trim().max(300).optional(),
 });
 
-const SKILL = `${FROG_QUEST.skill}@${FROG_QUEST.version}`;
-
-function textReply(text: string, source: string, skill = SKILL, trace: unknown = null): Response {
+function textReply(text: string, source: string, skill: string, trace: unknown = null): Response {
   const headers: Record<string, string> = { "content-type": "text/plain; charset=utf-8", "x-kix-skill": skill, "x-kix-source": source, "cache-control": "no-store" };
   if (trace) headers["x-kix-trace"] = encodeURIComponent(JSON.stringify(trace));
   return new Response(text, { headers });
@@ -47,8 +46,11 @@ export async function POST(request: Request) {
   await refreshSkillOverrides(getStore()); // the packs' published versions (lib/skills/overrides.ts)
   const input = await readBody(request, body);
   if (!input) return fail(400, "invalid");
-  const item = loadFrogItems().find((i) => i.id === input.itemId);
-  if (!item) return fail(404, "not-found");
+  // Only an item from the kid's own level's packs (lib/learn/subjects.ts).
+  const access = itemForKid(kid.level, input.itemId);
+  if (!access.ok) return access.reason === "other-level" ? fail(403, "not-allowed") : fail(404, "not-found");
+  const { item, subject } = access;
+  const SKILL = `${subject.id}@${subject.version}`;
 
   if (input.ask) {
     const check = checkWords(input.ask);
@@ -58,7 +60,7 @@ export async function POST(request: Request) {
 
   const hints = item.hints ?? [];
   const cached = hints[Math.min(input.hint, hints.length) - 1] ?? "Read the question again slowly. What is it really asking?";
-  if (!hasMetaApiKey()) return textReply(cached, "cached");
+  if (!hasMetaApiKey()) return textReply(cached, "cached", SKILL);
 
   const store = getStore();
   const pages = (await store?.notebook.pages(family.householdId, kid.id).catch(() => [])) ?? [];
@@ -72,7 +74,7 @@ export async function POST(request: Request) {
     const run = await runSkillAgent({
       agent: "tutor",
       level: kid.level,
-      autoPack: FROG_QUEST.skill,
+      autoPack: subject.id,
       currentItemId: item.id,
       notebook: pages,
       system,
@@ -82,10 +84,10 @@ export async function POST(request: Request) {
     const at = new Date().toISOString();
     await store?.skills.log(run.state.events.map((e) => ({ ...e, at, householdId: family.householdId, profileId: kid.id }))).catch(() => undefined);
     const text = run.text.trim();
-    if (!text) return textReply(cached, "cached");
+    if (!text) return textReply(cached, "cached", SKILL);
     const skills = run.state.loaded.map((id) => `${id}@${loadPack(id)?.version ?? "1.0.0"}`).join(", ") || SKILL;
     return textReply(text, "muse-spark-1.3", skills, publicTrace(run.state));
   } catch {
-    return textReply(cached, "cached");
+    return textReply(cached, "cached", SKILL);
   }
 }

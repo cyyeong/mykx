@@ -13,7 +13,7 @@ import { loadTender } from "@/lib/guardian/load";
 import { pickSpark, SPARKS } from "@/lib/kix/interests";
 import { toneNote } from "@/lib/kix/today";
 import { sparkSystem, tutorVars } from "@/lib/kix/tutor-prompt";
-import { FROG_QUEST, loadFrogItems } from "@/lib/learn/frog-quest";
+import { itemForKid } from "@/lib/learn/subjects";
 import { hasMetaApiKey } from "@/lib/meta/client";
 import { sparkStructured } from "@/lib/meta/spark";
 import { logRunsFor } from "@/lib/runs/log";
@@ -39,8 +39,10 @@ export async function POST(request: Request) {
   if (!kid) return fail(401, "no-kid");
   const input = await readBody(request, body);
   if (!input) return fail(400, "invalid");
-  const item = loadFrogItems().find((i) => i.id === input.itemId);
-  if (!item) return fail(404, "not-found");
+  // Only an item from the kid's own level's packs (lib/learn/subjects.ts).
+  const access = itemForKid(kid.level, input.itemId);
+  if (!access.ok) return access.reason === "other-level" ? fail(403, "not-allowed") : fail(404, "not-found");
+  const { item, subject } = access;
   const spark = pickSpark(kid.interests, input.turn);
   if (!spark) return ok({ spark: null });
   const cached = { interest: spark.interest, line: `${spark.line} Now, back to the question: what do you notice first?`, place: spark.place, source: "cached" };
@@ -68,7 +70,7 @@ export async function POST(request: Request) {
     const line = data.line.trim();
     const answer = answerWords(item);
     if (!line || (answer && line.toLowerCase().includes(answer))) return ok({ spark: cached });
-    return ok({ spark: { ...cached, line, source: "muse-spark-1.3" }, skill: `${FROG_QUEST.skill}@${FROG_QUEST.version}` });
+    return ok({ spark: { ...cached, line, source: "muse-spark-1.3" }, skill: `${subject.id}@${subject.version}` });
   } catch {
     return ok({ spark: cached });
   }

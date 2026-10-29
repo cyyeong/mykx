@@ -249,7 +249,7 @@ function toFocusMinute(r: Row): FocusMinute {
 
 /** The `answer` envelope (store.ts): the raw response plus the child's explanation. */
 function toAttemptEvent(r: Row): AttemptEvent {
-  const a = (r.answer ?? {}) as { explanation?: unknown; revised?: unknown };
+  const a = (r.answer ?? {}) as { explanation?: unknown; revised?: unknown; confirmed?: unknown };
   const explanationText = typeof a.explanation === "string" && a.explanation.trim() ? a.explanation : null;
   return {
     id: r.id as string,
@@ -264,8 +264,9 @@ function toAttemptEvent(r: Row): AttemptEvent {
     firstTry: Boolean(r.first_try),
     hintsBeforeSubmit: Number(r.hints_used ?? 0),
     revealed: Boolean(r.revealed),
-    // This store only holds deterministically marked attempts (open items need review first).
-    confirmed: true,
+    // Code-marked attempts are confirmed. A written (open) answer is saved as practice with `confirmed: false`
+    // in its answer envelope: it never moves mastery until a grown-up confirms a score (PRD FR04-05).
+    confirmed: a.confirmed !== false,
     ...(explanationText ? { explanation: true } : {}),
     ...(a.revised === true ? { explanationRevised: true } : {}),
     ...(r.duration_ms != null ? { durationMs: Number(r.duration_ms) } : {}),
@@ -528,7 +529,7 @@ export class SupabaseStore implements AuthStore {
             item_id: attempt.itemId,
             topic: attempt.topic,
             subskill: attempt.subskill,
-            answer: { response: attempt.answer, explanation: attempt.explanationText, revised: Boolean(attempt.explanationRevised) },
+            answer: { response: attempt.answer, explanation: attempt.explanationText, revised: Boolean(attempt.explanationRevised), ...(attempt.confirmed ? {} : { confirmed: false }) },
             marks: attempt.marks,
             max_marks: attempt.maxMarks,
             correct: attempt.marks >= attempt.maxMarks,
