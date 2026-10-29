@@ -1,14 +1,16 @@
 <p align="center">
-  <img src="docs/readme/hero.webp" alt="myKx. Built for my world. myKx for my kids. A sidekick for every parent. Three Kix sidekicks on a path of starlight, for Jordan, Leonard and Abby. Built for the Meta Global AI Developer Hackathon, powered by Meta Muse." width="100%">
+  <img src="docs/readme/hero.webp" alt="myKx. My kids. My world. Their tutor. My sidekick. Built for my kids, made for yours. Three Kix sidekicks on a path of starlight, for Jordan, Leonard and Abby. Built for the Meta Global AI Developer Hackathon, powered by Meta Muse." width="100%">
 </p>
 
 # myKx
 
 [![CI](https://github.com/cyyeong/mykx/actions/workflows/ci.yml/badge.svg)](https://github.com/cyyeong/mykx/actions/workflows/ci.yml)
 
-**Built for my world. myKx for my kids. A sidekick for every parent.**
+**My kids. My world. Their tutor. My sidekick.**
 
-My world is my kids and my family. myKx gives every child an AI sidekick, **Kix**, that meets them inside the world they already love (critters, jets, anime, K-pop) and turns it into learning, and gets to know them a little better every day. It also gives a busy parent the afternoon they missed: what each child learned, how they're feeling, where they are, how home is, and something to do together at the weekend.
+Meet **Kix**: a specialist AI tutor, a creative companion and your helping hand. Built to understand how each child learns, guide their next discovery, and keep you connected to their progress. Kix meets every child inside the world they already love (critters, jets, anime, K-pop), turns it into learning, and gets to know them a little better every day. A busy parent gets back the afternoon they missed: what each child learned, how they're feeling, where they are, how home is, and something to do together at the weekend.
+
+**Built for my kids. Made for yours.**
 
 Built for the **Meta Global AI Developer Hackathon** (track: Build for Your World). Powered by **Meta Muse**: 14 of myKx's 16 specialist agents run on Muse Spark, Muse Image, SAM 3.1 or Muse Voice Transcribe.
 
@@ -157,6 +159,8 @@ For a real home, **Home Link** (`clients/home-link/`) is a small app on the fami
 - **Later: Kix on Meta devices.** A hands-free sidekick at home and outdoors that sees and hears only with permission, for richer and more personal support.
 
 Each step reuses what's already running: devices pair with a code and a hashed token, a Muse reader turns raw input into words, rules decide, and the parent reviews. How far that scales is in [the architecture doc](docs/ARCHITECTURE.md#10-scaling-and-the-long-term-vision). We'd love support to take Kix from a hackathon MVP to every family in Singapore.
+
+**Built for my kids. Made for yours.**
 
 ## Run it
 
