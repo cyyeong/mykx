@@ -14,7 +14,7 @@ import * as family from "@/app/api/family/kids/route";
 import * as me from "@/app/api/me/route";
 import * as focus from "@/app/api/signals/focus/route";
 import { authMode } from "./context.ts";
-import { JORDAN_ID, DEMO_HOUSEHOLD_ID, DEMO_PARENT_ID, KAI_ID, LEONARD_ID, OTHER_PARENT_EMAIL, OTHER_PARENT_ID } from "./demo-family.ts";
+import { JORDAN_ID, DEMO_HOUSEHOLD_ID, DEMO_PARENT_ID, KAI_ID, LEONARD_ID, OTHER_HOUSEHOLD_ID, OTHER_PARENT_EMAIL, OTHER_PARENT_ID } from "./demo-family.ts";
 import { resetRateLimits } from "./lockout.ts";
 import { DemoStore, demoStore, resetDemoStore } from "./store-demo.ts";
 
@@ -91,9 +91,9 @@ afterEach(() => {
 });
 
 describe("grown-up sign-in (demo mode)", () => {
-  it("any email and password opens the demo parent, who is an admin", async () => {
+  it("any email and password opens the demo parent, an admin with kids, on Today", async () => {
     const res = await browser.signIn();
-    expect(res).toMatchObject({ status: 200, body: { ok: true, role: "admin", next: "/admin/people" } });
+    expect(res).toMatchObject({ status: 200, body: { ok: true, role: "admin", next: "/parent" } });
     expect(browser.cookies.has("mykx_demo_parent")).toBe(true);
     expect(res.headers.get("set-cookie")).toMatch(/HttpOnly/i);
   });
@@ -101,6 +101,13 @@ describe("grown-up sign-in (demo mode)", () => {
   it("an empty password is invalid; a non-admin parent lands on /parent", async () => {
     expect((await browser.signIn("a@b.c", "")).status).toBe(400);
     expect((await browser.signIn(OTHER_PARENT_EMAIL)).body).toMatchObject({ role: "parent", next: "/parent" });
+  });
+
+  it("an admin with no kids of their own lands on People", async () => {
+    await demoStore().update(OTHER_HOUSEHOLD_ID, OTHER_PARENT_ID, { isAdmin: true });
+    expect((await browser.signIn(OTHER_PARENT_EMAIL)).body).toMatchObject({ role: "admin", next: "/parent" });
+    await demoStore().removeKid(OTHER_HOUSEHOLD_ID, KAI_ID);
+    expect((await browser.signIn(OTHER_PARENT_EMAIL)).body).toMatchObject({ role: "admin", next: "/admin/people" });
   });
 
   it("lists the household's doors with the grown-up's name", async () => {
@@ -463,9 +470,9 @@ describe("grown-up sign-in destinations (fix 6)", () => {
     const safe = await browser.call(parentRoute.POST, "/api/auth/parent", { body: { email: "a@b.c", password: "x", next: "/family" } });
     expect(safe.body).toMatchObject({ ok: true, next: "/family" });
     const evil = await browser.call(parentRoute.POST, "/api/auth/parent", { body: { email: "a@b.c", password: "x", next: "https://evil.example" } });
-    expect(evil.body).toMatchObject({ ok: true, next: "/admin/people" });
+    expect(evil.body).toMatchObject({ ok: true, next: "/parent" });
     const kid = await browser.call(parentRoute.POST, "/api/auth/parent", { body: { email: "a@b.c", password: "x", next: "/home" } });
-    expect(kid.body).toMatchObject({ ok: true, next: "/admin/people" });
+    expect(kid.body).toMatchObject({ ok: true, next: "/parent" });
   });
 });
 

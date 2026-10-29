@@ -6,8 +6,8 @@
 
 | Role | Signs in with | Lands on |
 |---|---|---|
-| **Parent** (owns a household) | email + password (Supabase Auth); "Forgot password" sends a reset email | the parent dashboard |
-| **Admin** (platform content team) | the same form; admin is a flag on the account | the skills catalogue |
+| **Parent** (owns a household) | email + password (Supabase Auth); "Forgot password" sends a reset email | Today, the parent dashboard (`/parent`) |
+| **Admin** (platform content team) | the same form; admin is a flag on the account | Today if they have kids of their own (a parent who is also an admin); otherwise Admin → People (`/admin/people`) (founder, 29 Oct) |
 | **Kid** | on a family device a parent has signed in on: **"Who's learning?"** shows a door per child. **Junior:** a 4-picture code. **Teen:** a password. | their Home, in their world |
 
 | **Kid, anywhere** (29 Oct) | the sign-in page: "Kids: tell me your magic name, and I shall bring your magical door". The kid types their **magic name** (unique across myKx, set by a parent in Your family); their own door flies in while their world replaces the city, then asks for the picture code or password. | their Home, in their world |

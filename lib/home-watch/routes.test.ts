@@ -183,6 +183,10 @@ describe("where they are", () => {
   });
 
   it("writes the Right now brief from facts with the rules' own words when Muse isn't there, and says nothing when there's nothing", async () => {
+    // A weekday morning: the demo family's school-hours sharing (1–7 pm) and camera hours (2–7 pm) are both off, so
+    // there's nothing to say until Jordan's location arrives.
+    vi.useFakeTimers({ toFake: ["Date"] });
+    vi.setSystemTime(new Date("2026-10-29T02:00:00Z"));
     expect((await parent.call(brief.GET, "/api/guardian/brief")).body.brief).toBeNull();
     await pairSimulator();
     await parent.call(settings.PATCH, "/api/location/settings", { method: "PATCH", body: { kidId: JORDAN_ID, enabled: true } });

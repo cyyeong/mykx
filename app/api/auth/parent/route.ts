@@ -29,9 +29,10 @@ export async function POST(request: Request) {
     clearGrownUpProof(jar); // the password is fresh proof: the device is grown-up-only until a kid signs in again
     await store.update(profile.householdId, profile.id, { lastSignInAt: nowIso() });
     const role = profile.isAdmin ? "admin" : "parent";
-    // Admins land on People until the skills catalogue exists (task 7); a safe
-    // ?next= overrides either landing (USER_STORIES §8.4 fix 6).
-    const landing = role === "admin" ? "/admin/people" : "/parent";
+    // A grown-up with kids lands on Today, admin or not; an admin with no kids of their own lands on People
+    // (founder, 29 Oct). A safe ?next= overrides either landing (USER_STORIES §8.4 fix 6).
+    const hasKids = role === "parent" || (await store.kids(profile.householdId)).length > 0;
+    const landing = hasKids ? "/parent" : "/admin/people";
     return ok({ role, next: safeNext(body.next, landing) });
   });
 }
