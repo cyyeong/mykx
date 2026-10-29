@@ -41,4 +41,4 @@ export function guestMayWrite(method: string, path: string): boolean {
   return ALLOWED.some(([am, re]) => am === m && re.test(path));
 }
 
-export const GUEST_REFUSAL = { ok: false, reason: "guest", note: "This is a guest walkthrough, so changes aren't saved. Ask the founder for a real sign-in." } as const;
+export const GUEST_REFUSAL = { ok: false, reason: "guest", note: "This is a guest walkthrough, so changes aren't saved. For a real sign-in, see the hackathon submission form or ask me on Discord (antz81_91105)." } as const;

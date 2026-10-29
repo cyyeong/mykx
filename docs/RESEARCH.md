@@ -1,6 +1,6 @@
 # The evidence behind myKx
 
-Why myKx exists, and why it's built the way it is: the market and the need, what research says about monitoring children, and the learning science behind each design choice. Compiled on 29 Oct 2026 from public sources. Each figure gives its source. **How sure:** *read* means we read it in the primary source; *abstract* means in the paper's abstract only; *reported* means only in a reliable secondary report. We also list the claims we deliberately don't make.
+Why myKx exists, and why it's built the way it is: the market and the need, what research says about monitoring children, and the learning science behind each design choice. Compiled on 29 Oct 2026 from public sources. Each figure gives its source. **How sure:** *read* means I read it in the primary source; *abstract* means in the paper's abstract only; *reported* means only in a reliable secondary report. I also list the claims I deliberately don't make.
 
 ## 1. The need: busy parents, big spending, uneven help
 
@@ -10,7 +10,7 @@ Why myKx exists, and why it's built the way it is: the market and the need, what
 | Singapore households spent **S$1.8 billion** on private tuition in 2023 (S$1.1 bn in 2013, S$1.4 bn in 2018). The top income fifth spent **S$162.60** a month, the bottom fifth **S$36.30** | Household Expenditure Survey 2023, as reported by [The Straits Times](https://asianews.network/?p=185968) and [SingStat](https://www.singstat.gov.sg/news/parents-seem-persuaded-that-tuition-is-necessary-and-not-optional) | reported |
 | Singapore parents spend **7.9 hours** a week helping with schoolwork, against a 6.7-hour average across 29 countries | Varkey Foundation, [Global Parents' Survey 2018](https://www.varkeyfoundation.org/_files/ugd/5c330e_08203a0b372c4a4fa9185c3ee517fcaa.pdf) (27,380 parents) | read |
 | Tuition is common worldwide: **75.7%** of South Korean students in private education (2025); **30%** of 11–16-year-olds in England and Wales have had tuition (46% in London, 16% in the North East); **27%** of students in India took coaching (2025) | Korea's 2025 Survey on Private Education Expenses ([report](https://en.fnnews.com/news/202603121148498852)); Sutton Trust, [Tutoring: The new landscape](https://www.suttontrust.com/?p=31516) (2023); MoSPI, [Comprehensive Modular Survey: Education 2025](https://educationforallinindia.com/wp-content/uploads/2025/08/PIB-Press-Release-26-08-2025-NSSO-Comrephensive-Modular-Survey-on-Education.pdf) | reported; read; reported |
-| The global private tutoring market is estimated at **US$154.8 bn by 2030** (Grand View Research); Technavio expects **US$25.7 bn** of growth over 2024–28. Firms define the market differently, so we quote ranges, not one number | [Grand View Research](https://www.grandviewresearch.com/press-release/global-private-tutoring-market) (2023); [Technavio](https://prnewswire.com/news-releases/private-tutoring-market-size-is-set-to-grow-by-usd-25-71-billion-from-2024-2028--growing-emphasis-on-stem-education-to-boost-the-market-growth-technavio-302191671.html) (2024) | read |
+| The global private tutoring market is estimated at **US$154.8 bn by 2030** (Grand View Research); Technavio expects **US$25.7 bn** of growth over 2024–28. Firms define the market differently, so I quote ranges, not one number | [Grand View Research](https://www.grandviewresearch.com/press-release/global-private-tutoring-market) (2023); [Technavio](https://prnewswire.com/news-releases/private-tutoring-market-size-is-set-to-grow-by-usd-25-71-billion-from-2024-2028--growing-emphasis-on-stem-education-to-boost-the-market-growth-technavio-302191671.html) (2024) | read |
 | Households pay **30%** of all education spending worldwide, and private tutoring is unregulated in 48% of countries | UNESCO, [GEM Report 2021/2](https://gem-report-2021.unesco.org/) | read |
 | Parents will pay for AI homework help, and willingness rises as more of their child's peers use it | Bursztyn et al., PNAS 2026 ([summary](https://econtribute.de/ai-for-homework-the-more-childrens-peers-use-ai-the-more-parents-would-be-willing-to-pay-for-a-subscription/)) | reported |
 
@@ -26,7 +26,7 @@ Why myKx exists, and why it's built the way it is: the market and the need, what
 | Talking with children about media (active mediation) did more to reduce risk than restriction | Chen & Shi, meta-analysis of 52 studies, [2019](https://doi.org/10.1177/1077699018754908) | abstract |
 | The parental-control software market is about **US$1.3–1.6 bn**, growing 11–13% a year | Fortune Business Insights ([2026](https://www.fortunebusinessinsights.com/parental-control-software-market-104282)); Allied; Market Glass | read; reported |
 
-**What it means for myKx (Guardian).** Monitoring is opt-in and the child always sees a chip when it's on. A teen can pause location for 30 minutes, and the parent is told. Alerts say "possibly" and ask the parent to review them (Right / Not right), so they start a conversation rather than impose a restriction. The evening summary suggests one thing to talk about, not a checklist. Limit: this evidence is correlational, and there's no outcome research yet on AI-read home cameras. We say Guardian is *designed in line with research on trust and disclosure*, not that it's proven to make children safer.
+**What it means for myKx (Guardian).** Monitoring is opt-in and the child always sees a chip when it's on. A teen can pause location for 30 minutes, and the parent is told. Alerts say "possibly" and ask the parent to review them (Right / Not right), so they start a conversation rather than impose a restriction. The evening summary suggests one thing to talk about, not a checklist. Limit: this evidence is correlational, and there's no outcome research yet on AI-read home cameras. I say Guardian is *designed in line with research on trust and disclosure*, not that it's proven to make children safer.
 
 ## 3. Learning science behind Kix
 
@@ -47,7 +47,7 @@ Why myKx exists, and why it's built the way it is: the market and the need, what
 | **Breaks, a gentle start after a hard day, a spark when focus drifts** | Short activity breaks raised on-task behaviour (pooled 0.60); boredom is persistent and goes with poorer learning, so it's worth catching early | Watson et al., [2017](https://doi.org/10.1186/s12966-017-0569-9); Baker et al., [2010](https://archium.ateneo.edu/discs-faculty-pubs/92) | abstract |
 | **Screen time shown against national guidance** | Singapore's MOH recommends under 2 hours a day for ages 7–12 outside schoolwork, so myKx counts learning and play separately for the parent | MOH, [Grow Well SG](https://www.moh.gov.sg/newsroom/grow-well-sg-to-support-families--in-building-healthy-habits-in-children-/) (Jan 2025) | read |
 
-## 4. Claims we don't make
+## 4. Claims I don't make
 
 The evidence is weak, contested or easy to misread here, so myKx doesn't claim:
 
@@ -59,4 +59,4 @@ The evidence is weak, contested or easy to misread here, so myKx doesn't claim:
 - **A single "AI in education market size".** Estimates differ about tenfold between firms.
 - **"Most Singapore children have tuition."** There's no official share; S$104.80 a month is an average over all households.
 
-The full brief, with every source's reading notes and the figures we couldn't verify, is [docs/research/evidence-brief-2026-10-29.md](research/evidence-brief-2026-10-29.md).
+The full brief, with every source's reading notes and the figures I couldn't verify, is [docs/research/evidence-brief-2026-10-29.md](research/evidence-brief-2026-10-29.md).

@@ -219,19 +219,19 @@ All server-only (RLS on, no browser policies), like `agent_versions`.
 
 ## 11. Feasibility on Vercel and Supabase (checked 29 Oct 2026)
 
-**Yes, with what we have.** Nothing here needs a new paid service. Findings:
+**Yes, with what myKx already has.** Nothing here needs a new paid service. Findings:
 
 | Question | Finding | Design response |
 |---|---|---|
 | Can a review run after the kid gets a reply? | Next.js `after()` runs on Vercel's `waitUntil` and shares the function's limit: 300 s on Hobby (default and maximum), up to 800 s on Pro. ([Vercel limits][v1], [`after`][v2]) | A review is 2–4 model calls, about 15–40 s. Report route returns at once; the review runs in `after()` with `maxDuration = 120`. |
 | What if it dies mid-review? | Hobby crons run at most once a day, within the hour ([Vercel cron pricing][v3]); Pro runs every minute. | Reports have a status; a stuck one is picked up by the sweep. Daily Vercel cron for nightly evals; **Supabase `pg_cron` + `pg_net`** calls the sweep every 5 minutes on the free plan ([Supabase Cron][s1]). |
-| Durable queues and workflows? | Vercel Workflow (durable steps, on Vercel Queues) is still labelled beta ([Vercel Workflow][v4]). | Not needed: a status column with `for update skip locked` claims is enough at our volume. Revisit if volume grows. |
+| Durable queues and workflows? | Vercel Workflow (durable steps, on Vercel Queues) is still labelled beta ([Vercel Workflow][v4]). | Not needed: a status column with `for update skip locked` claims is enough at myKx's volume. Revisit if volume grows. |
 | Can a fix update a skill on Vercel? | The runtime filesystem is read-only. | Fixes are skill versions in Postgres through the existing override layer (60 s cache), never files. |
 | Can a fix change an agent's prompt? | Agent versions are already rows (`agent_versions`, 60 s cache). | Cautions are rows, merged into the prompt by `instructionsFor`. |
 | Does Supabase hold it? | Free plan: 500 MB database. A case is about 6 KB; 1,000 reports and 60 nightly eval results a day is under 10 MB a day; with 90/30-day retention it stays under 300 MB. Free projects pause after a week idle (keep the demo warm). | Retention jobs in the sweep. |
 | Is the open model available? | **Muse Spark Open** (Meta, released 15 Oct 2026; 816B MoE, 42B active, 1M context) is on Baseten Model APIs, OpenAI-compatible at `https://inference.baseten.co/v1`, model `meta-models/muse-spark-open`, zero data retention on by default ([Baseten][b1], [library][b2], [Meta][m1]). Also on OpenRouter, Fireworks, Groq, Together and others. | Baseten is the default host (zero retention). Structured output on Baseten is **unverified**: the adapter asks for a JSON schema and validates with zod, with one repair retry. |
 | Is there a key? | No, by choice: **the founder keeps `BASETEN_API_KEY` empty for now (29 Oct)**; Baseten partner credits weren't granted. | The Baseten path is built and tested (`lib/meta/open.ts`, `lib/meta/open.test.ts`): with the key empty, the reviewer and the judge run on Muse Spark 1.3 and every case says so; setting the key moves them to Muse Spark Open with no code change. Live check 29 Oct: `scripts/smoke-open-model.ts` reviewed a typo report on the fallback in 5.3 s. |
-| Retraining? | Baseten Training is generally available; LoRA and RL through Baseten Loops are early access ([Baseten Training][b3]). An 816B model isn't a sensible fine-tune target for us. | Adapter and export only; a smaller Meta open-weight model is the likely target later. |
+| Retraining? | Baseten Training is generally available; LoRA and RL through Baseten Loops are early access ([Baseten Training][b3]). An 816B model isn't a sensible fine-tune target for myKx. | Adapter and export only; a smaller Meta open-weight model is the likely target later. |
 | Cost | Muse Spark Open is listed at $1.25 / $4.25 per million input / output tokens across its launch hosts (third-party listing; confirm on Baseten's pricing page), the same as Muse Spark 1.3. | About $0.02–0.04 a report (reproduce, review, test, sometimes a second opinion); nightly evals about $0.25. Daily budget caps in Settings. |
 
 [v1]: https://vercel.com/docs/functions/limitations

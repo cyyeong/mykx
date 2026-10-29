@@ -4,7 +4,7 @@ One index for humans and agents. If a reference isn't linked here, it isn't cano
 
 ## Product
 
-> **Names:** the founder's children appear in this repo only as **Leonard** (Sec 2), **Abby** (P6) and **Jordan** (P3). These are stand-in names, not their real names. The real names stay outside the repository, in a private folder only the founder's Claude Code session reads (`MYKX_PRIVATE_DIR` in `.env.local`); the skill importer swaps them for the stand-ins on read (`lib/skills/private-names.ts`).
+> **Names:** my children appear in this repo only as **Leonard** (Sec 2), **Abby** (P6) and **Jordan** (P3). These are stand-in names, not their real names. The real names stay outside the repository, in a private folder only the founder's Claude Code session reads (`MYKX_PRIVATE_DIR` in `.env.local`); the skill importer swaps them for the stand-ins on read (`lib/skills/private-names.ts`).
 
 | Doc | What it is |
 |---|---|
@@ -18,7 +18,7 @@ One index for humans and agents. If a reference isn't linked here, it isn't cano
 | [prd/PETS.md](prd/PETS.md) | **Critter Lab pets.** Raising a frog, mealworm beetle, butterfly or chicken through its real life cycle: care for each stage, moods, growth, and the Critter Keeper agent. |
 | [prd/SYNAPSE.md](prd/SYNAPSE.md) | **Kix Synapse** (built 29 Oct): the self-learning engine. Kids flag what's wrong on any AI screen; Muse Spark Open reviews; proven fixes ship as skill versions or learned cautions; the admin approves the rest; evals and a retrain adapter; feasibility on Vercel and Supabase |
 | [prd/GAMES.md](prd/GAMES.md) | Game Arcade (proposed): learning games that follow each child's syllabus, starting with a touch-typing game with ghost hands; designs in canvas row 10 |
-| [RESEARCH.md](RESEARCH.md) | **The evidence behind myKx.** The market and the need (Singapore and worldwide), what research says about monitoring children, the learning science behind each design choice, and the claims we deliberately don't make; the full sourced brief is in [research/](research/evidence-brief-2026-10-29.md). |
+| [RESEARCH.md](RESEARCH.md) | **The evidence behind myKx.** The market and the need (Singapore and worldwide), what research says about monitoring children, the learning science behind each design choice, and the claims I deliberately don't make; the full sourced brief is in [research/](research/evidence-brief-2026-10-29.md). |
 | [prd/myKx_PRD.md](prd/myKx_PRD.md) | Original PRD (26 Oct). Still canonical for the mastery maths (§6), reward ethics (FR10), parent summary rules (FR07) and data model (§9). |
 
 ## Design
