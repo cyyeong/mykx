@@ -150,15 +150,16 @@ For a real home, **Home Link** (`clients/home-link/`) is a small app on the fami
 
 ## Where Kix goes next
 
-<img src="docs/readme/roadmap.webp" alt="Where Kix goes next: the MVP now, the myKx mobile app, Home Link and devices, more to learn and earn, and Kix on Meta devices." width="100%">
+<img src="docs/readme/roadmap.webp" alt="Where Kix goes next: the MVP now, the myKx mobile app, Home Link and devices, more to learn and earn, Kix on Meta devices, and then Kix goes global, with flags for Singapore, Malaysia, Indonesia, Australia, Japan, China, India, Korea, the UK and the USA." width="100%">
 
 - **Now:** the MVP above, live at [mykx.vercel.app](https://mykx.vercel.app).
 - **Next: the myKx mobile app.** Android first, then iPhone: precise location from the phone's GPS and motion from its sensors (walking, cycling, playing). Planned in [GUARDIAN.md §5a](docs/prd/GUARDIAN.md).
 - **Then: Home Link and devices.** Live CCTV streams read on the family's computer, motion found locally so only changes reach Muse, signed installers for Mac and Windows, and health and motion peripherals on the same pairing protocol the simulator proves today.
 - **Also: more to learn and earn.** **Vibe an app** in the Vibe Zone (coming soon on the page): a child describes a tiny app, like a revision timer or a quiz game, and Kix builds it from safe, trusted parts, the same way it makes flashcards today. More STEM learning games on the Arcade's engine; a rewards store where children spend the stars they've earned on items for Kix and their world (never real money, never random); and brand partners whose recommendations fit each child's interests, shown only to the parent, approved by them, with no child data shared.
 - **Later: Kix on Meta devices.** A hands-free sidekick at home and outdoors that sees and hears only with permission, for richer and more personal support.
+- **Beyond: Kix goes global.** Singapore is the first country, not the last. Every country's education is different, so Kix adapts with more agents rather than one-size-fits-all lessons: a **Curriculum Scout** per country maps its syllabus, grade levels and exam formats into new skill packs (Malaysia's KSSR and SPM, Indonesia's Kurikulum Merdeka, Australia's national curriculum, Japan's and China's school standards, India's CBSE, Korea's national curriculum, the UK's key stages and GCSEs, the USA's state standards); a **Local Coach** teaches in the child's own language with local examples, money and places; and each country's child-privacy law (PDPA, COPPA, GDPR and others) is built into the rules from day one. The pack format, routing and agents are already level- and language-aware, so a new country is new packs and a new policy, not a new app.
 
-Each step reuses what's already running: devices pair with a code and a hashed token, a Muse reader turns raw input into words, rules decide, and the parent reviews. How far that scales is in [the architecture doc](docs/ARCHITECTURE.md#10-scaling-and-the-long-term-vision). We'd love support to take Kix from a hackathon MVP to every family in Singapore.
+Each step reuses what's already running: devices pair with a code and a hashed token, a Muse reader turns raw input into words, rules decide, and the parent reviews. How far that scales is in [the architecture doc](docs/ARCHITECTURE.md#10-scaling-and-the-long-term-vision). Built in Singapore, we'd love support to take Kix from a hackathon MVP to every family, everywhere.
 
 **Built for my kids. Made for yours.**
 

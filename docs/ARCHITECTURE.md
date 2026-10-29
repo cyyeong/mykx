@@ -1123,6 +1123,7 @@ The point of the contract is that a new device adds a Reader and some rules, not
 
 - **More levels and subjects through packs.** The pack format, item schema, importer, scanner, Curator and routing are level-agnostic. The publish route already accepts any pack id from P1 to P6 and Sec 1 to Sec 4 (`^(p[1-6]|s[1-4])-…`), and the Curator already knows Higher Chinese, Tamil and Malay as subjects. Opening a new level needs its packs, a migration widening `profiles.level` (today P3, P6 or Sec 2), and Arcade content.
 - **Languages.** Packs carry `language`; Muse Voice Transcribe handles 25 languages including Mandarin; the P3 Chinese pack already ships 450 word cards.
+- **Going global (founder, 29 Oct).** Singapore first, then Malaysia, Indonesia, Australia, Japan, China, India, Korea, the UK and the USA, with two new agents per country: a **Curriculum Scout** (Muse Spark, files and web search on an allowlist, like the past-paper scout and the Content Curator) that maps the country's syllabus, grade levels and exam formats into draft skill packs for review, and a **Local Coach** (a policy on the Kix Tutor and Ask Kix: the child's language, local examples, currency, places and names) so lessons feel local without forking the agents. Each country also gets its child-privacy rules as data (PDPA, COPPA, GDPR and others: consent age, retention, what Guardian may switch on), checked in code like the rules in §7.
 - **Other countries' syllabi.** Packs carry `syllabus`; routing (`packFor`) would gain a country dimension, and the scout's allowlist becomes per-country, with the same robots.txt and rights rules.
 - **Schools and tutors as roles.** `profiles.role` is `parent` or `child` today. A `tutor` or `teacher` role would get consent-scoped, read-only grants per child (attempts and mastery labels, not the Notebook or words), audited like admin actions; schools would see de-identified aggregates only. Household isolation stays the default.
 - **Content marketplace.** Teachers and tutors upload their own material through the same rights, review and publish gate; each published version credits its source.
@@ -1157,7 +1158,7 @@ Dates are SGT. From `docs/plan/IMPLEMENTATION_PLAN.md` and `docs/prd/GUARDIAN.md
 | Memory | The remaining Notebook pages from the spec (events, weak spots linked to subskills, revision log); line-level parent edits in the UI |
 | Guardian | ONVIF discovery and streaming in Home Link; on-box person detection; push notifications; Supabase Realtime instead of polling; Activity Recognition through a native plugin |
 | Platform | Shared budgets and caches; an ingest queue for frames; retention jobs and rollups; prompt ordering for prefix caching; persisted evening summaries |
-| Reach | New levels and languages; school and tutor roles; other countries' syllabi; the device adapters in §10.2 |
+| Reach | New levels and languages; school and tutor roles; Kix goes global (§10.3: a Curriculum Scout and a Local Coach per country, privacy rules as data; Malaysia, Indonesia, Australia, Japan, China, India, Korea, the UK and the USA after Singapore); the device adapters in §10.2 |
 
 ---
 
