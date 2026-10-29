@@ -59,8 +59,9 @@ export class DemoModeInProductionError extends Error {
 }
 
 function assertNotProduction() {
-  // Literal process.env.NODE_ENV: Next inlines it at build time, so a production bundle always throws.
-  if (process.env.NODE_ENV === "production") throw new DemoModeInProductionError();
+  // Literal process.env.NODE_ENV: Next inlines it at build time, so a production bundle always throws, except the
+  // guest site, whose only store is this sample family (lib/guest.ts).
+  if (process.env.NODE_ENV === "production" && !isGuest()) throw new DemoModeInProductionError();
 }
 
 const nowIso = () => new Date().toISOString();

@@ -52,6 +52,14 @@ describe("the guest site's walls", () => {
     expect(hasMetaApiKey()).toBe(false);
   });
 
+  it("runs the sample family in a production build only on the guest site", async () => {
+    const { demoStore } = await import("./auth/store-demo.ts");
+    vi.stubEnv("NODE_ENV", "production");
+    expect(demoStore().shape).toBeGreaterThan(0);
+    vi.stubEnv("NEXT_PUBLIC_MYKX_GUEST", "");
+    expect(() => demoStore()).toThrow();
+  });
+
   it("allows reads and the walkthrough's writes only", () => {
     expect(guestMayWrite("GET", "/api/admin/people")).toBe(true);
     for (const [m, p] of [["POST", "/api/auth/guest"], ["POST", "/api/attempts"], ["POST", "/api/games/round"], ["POST", "/api/kix/homework"], ["DELETE", "/api/auth/kid"]]) expect(guestMayWrite(m, p)).toBe(true);
