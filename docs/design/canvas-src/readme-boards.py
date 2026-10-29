@@ -408,27 +408,63 @@ build_road = f"""
 """
 board("ReadmeRoadmap", "myKx README: roadmap", build_road, True, road_css)
 
-# 9. Feature wall -------------------------------------------------------------------------------------------------
-fw_css = """
-.f-head{position:absolute;left:88px;top:52px;right:88px;display:flex;justify-content:space-between;align-items:flex-end}
-.f-head .rd-lede{width:560px;font-size:21px;line-height:30px;text-align:right}
-.f-grid{position:absolute;left:88px;right:88px;top:178px;display:grid;grid-template-columns:repeat(5,1fr);gap:22px 20px}
-.f-tile .rd-shot{border-radius:12px}
-.f-tile .rd-shot img{aspect-ratio:16/10;object-fit:cover;object-position:50% 0}
-.f-tile p{margin-top:9px;font:800 17px/22px "Nunito",sans-serif;color:#F4F1FF}
-.f-tile p span{display:block;font:600 14px/19px "Nunito",sans-serif;color:#B8B2E8}
+# 9. Everything in the MVP: three boards, three screens a row --------------------------------------------------------
+mvp_css = """
+.m-head{position:absolute;left:64px;right:64px;top:34px;height:118px;display:flex;justify-content:space-between;align-items:flex-end;gap:32px}
+.m-kick{margin-bottom:8px;font:800 17px/22px "Nunito",sans-serif;color:#B8B2E8}
+.m-head .rd-h2{font-size:50px;line-height:56px}
+.m-power{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex:none}
+.m-power p{display:flex;align-items:center;gap:8px;font:800 20px/26px "Nunito",sans-serif;color:#FFE38A}
+.m-power p .rd-spark{width:18px;height:18px}
+.m-power small{font:600 15px/20px "Nunito",sans-serif;color:#D9D3FF;text-align:right}
+.m-power .rd-chips{justify-content:flex-end;flex-wrap:nowrap}
+.m-power .rd-m{height:30px;font-size:15px;padding:0 12px}
+.m-grid{position:absolute;left:64px;right:64px;top:176px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px 26px}
+.m-tile .rd-shot{border-radius:12px;overflow:hidden;box-shadow:0 0 0 1px rgba(185,167,245,.35),0 14px 30px rgba(0,0,0,.35)}
+.m-tile .rd-shot img{display:block;width:100%;aspect-ratio:16/9.6;object-fit:cover;object-position:50% 0}
+.m-cap{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-top:9px}
+.m-cap b{display:block;font:800 19px/24px "Nunito",sans-serif;color:#FFFFFF}
+.m-cap span.d{display:block;font:600 15px/20px "Nunito",sans-serif;color:#B8B2E8}
+.m-cap .rd-chips{flex:none;justify-content:flex-end;max-width:52%}
+.m-cap .rd-m,.m-cap .rd-r{height:26px;font-size:13px;padding:0 9px;gap:5px}
+.m-cap .rd-spark{width:11px;height:11px}
 """
-tiles = [
-    ("jordan-studio", "Sidekick Studio", "Kix transforms into your world"), ("jordan-home", "Junior home", "Today's quest and Kix"), ("jordan-learn", "Quest map", "Mastery you can see"), ("jordan-spark", "Question player", "Hints, voice and sparks"), ("jordan-treasure", "Treasure Realm", "Cards you earn, never buy"),
-    ("jordan-critters", "Critter Lab", "Pets raised through real life cycles"), ("jordan-squadron", "Sky Squadron", "Jets earned with fresh questions"), ("jordan-arcade", "Arcade", "Typing games on one engine"), ("leonard-neon", "Neon Strike", "Science words at speed"), ("abby-home", "Teen study deck", "Exam-week focus"),
-    ("parent-today", "Parent Today", "Flags with the evidence"), ("admin-skills", "Skills admin", "Twelve packs, versioned"), ("parent-home", "Home now", "Cameras read by Muse"), ("parent-together", "Do together", "Weekend ideas, sourced"), ("admin-hood", "Under the hood", "Every model call, logged"),
-]
-tiles_html = "".join(f'<figure class="f-tile" style="margin:0"><div class="rd-shot"><img src="{img(k)}" alt="{t}"></div><p>{t}<span>{d}</span></p></figure>' for k, t, d in tiles)
-build_fw = f"""
-<div class="f-head"><h1 class="rd-h2">A working MVP, end to end.</h1><p class="rd-lede">Every screen here is the real app, signed in as the sample family. Twelve skill packs, three age bands, five worlds.</p></div>
-<div class="f-grid">{tiles_html}</div>
+MUSE_MODELS = {"Muse Spark": "Muse Spark 1.3", "Muse Image": "Muse Image 1.0", "SAM 3.1": "SAM 3.1", "Muse Voice Transcribe": "Muse Voice Transcribe 1.0"}
+def mvp_board(name, n, title, tiles, models):
+    tiles_html = "".join(f'<figure class="m-tile" style="margin:0"><div class="rd-shot"><img src="{img(k)}" alt="{html.escape(t)}"></div><div class="m-cap"><div><b>{html.escape(t)}</b><span class="d">{html.escape(d)}</span></div><div class="rd-chips">{c}</div></div></figure>' for k, t, d, c in tiles)
+    build = f"""
+<div class="m-head">
+  <div><p class="m-kick">Everything in the MVP, {n} of 3 · the real app, signed in as the sample family</p><h1 class="rd-h2">{title}</h1></div>
+  <div class="m-power"><p>{SPARK}Powered by Meta Muse</p><div class="rd-chips">{''.join(muse(MUSE_MODELS[m]) for m in models)}</div><small>17 specialist agents, 15 on Muse · twelve skill packs · three age bands</small></div>
+</div>
+<div class="m-grid">{tiles_html}</div>
 """
-board("ReadmeFeatures", "myKx README: feature wall", build_fw, True, fw_css)
+    board(name, f"myKx README: everything in the MVP, {n} of 3", build, True, mvp_css)
+
+mvp_board("ReadmeMvpLearn", 1, "For kids: a world to learn in.", [
+    ("mvp-abby-door", "Your own door", "A magic name brings each kid's door", muse("Muse Image") + muse("SAM 3.1")),
+    ("mvp-jordan-studio", "Sidekick Studio", "Kix transforms into your world", muse("Muse Image") + muse("SAM 3.1")),
+    ("mvp-jordan-home", "Junior home", "Today's quest, chosen by mastery", rules()),
+    ("mvp-jordan-learn", "Quest map", "Mastery you can see", rules()),
+    ("mvp-jordan-question", "Question player", "Hints, reasons, voice and sparks", muse("Muse Spark") + muse("Voice Transcribe")),
+    ("mvp-leonard-ask", "Ask Kix", "Homework help that guides first", muse("Muse Spark")),
+], ["Muse Spark", "Muse Image", "SAM 3.1", "Muse Voice Transcribe"])
+mvp_board("ReadmeMvpPlay", 2, "For kids: play, raise and make.", [
+    ("mvp-abby-home", "Teen study deck", "Exam-week focus in her own room", rules()),
+    ("mvp-jordan-critters", "Critter Lab", "Pets raised through real life cycles", muse("Muse Spark") + rules()),
+    ("mvp-jordan-treasure", "Treasure Realm", "Cards you earn, never buy", rules() + muse("Muse Image")),
+    ("mvp-leonard-squadron", "Sky Squadron", "Jets earned with fresh questions", rules() + muse("Muse Image")),
+    ("mvp-jordan-arcade", "Arcade", "Learning games on one engine", rules()),
+    ("mvp-abby-vibe", "Vibe Zone", "Flashcards from a kid's own words", muse("Muse Spark")),
+], ["Muse Spark", "Muse Image"])
+mvp_board("ReadmeMvpFamily", 3, "For grown-ups and the team.", [
+    ("mvp-parent-today", "Parent Today", "Flags with the evidence, and tonight", muse("Muse Spark") + rules()),
+    ("parent-home", "Home now", "The family's cameras, read by Muse", muse("Muse Spark") + muse("SAM 3.1")),
+    ("mvp-parent-together", "Do something together", "Weekend ideas, sourced from the web", muse("Muse Spark")),
+    ("mvp-parent-messages", "Messages", "Kix suggests a cheer, never reads them", rules()),
+    ("mvp-admin-skills", "Skills admin", "Twelve packs, versioned and reviewed", muse("Muse Spark")),
+    ("mvp-admin-hood", "Under the hood", "17 agents, every model call logged", muse("Muse Spark") + rules()),
+], ["Muse Spark", "SAM 3.1"])
 
 # 10. The door (design inspiration) --------------------------------------------------------------------------------
 door_css = """

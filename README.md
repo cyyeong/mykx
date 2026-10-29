@@ -194,13 +194,19 @@ For a real home, **Home Link** (`clients/home-link/`) is a small app on the fami
 
 ## Everything in the MVP
 
-<img src="docs/readme/features.webp" alt="A working MVP end to end: fifteen real screens of the app signed in as the sample family." width="100%">
+Every screen below is the real app, signed in as the sample family, **powered by Meta Muse**: 17 specialist agents, 15 of them on Muse Spark 1.3, Muse Image 1.0, SAM 3.1 or Muse Voice Transcribe 1.0, with twelve skill packs, three age bands and five worlds. Each screen is tagged with what powers it; "Rules" means plain, tested code decides it.
+
+<img src="docs/readme/mvp-learn.webp" alt="Everything in the MVP, 1 of 3, for kids: a world to learn in, powered by Meta Muse. Abby's own sky door (Muse Image, SAM 3.1), Sidekick Studio (Muse Image, SAM 3.1), Jordan's junior home with today's quest (rules), the frog life-cycle quest map (rules), the question player with hints, reasons, voice and sparks (Muse Spark, Muse Voice Transcribe), and Ask Kix homework help that guides first (Muse Spark)." width="100%">
+
+<img src="docs/readme/mvp-play.webp" alt="Everything in the MVP, 2 of 3, for kids: play, raise and make, powered by Meta Muse. Abby's teen study deck in her own room (rules), the Critter Lab with a tadpole turning down a cricket (Muse Spark, rules), Treasure Realm (rules, Muse Image), Sky Squadron (rules, Muse Image), the Arcade of learning games (rules), and Vibe Zone flashcards (Muse Spark)." width="100%">
+
+<img src="docs/readme/mvp-family.webp" alt="Everything in the MVP, 3 of 3, for grown-ups and the team, powered by Meta Muse. Parent Today with flags and their evidence (Muse Spark, rules), Home now with the family's cameras read by Muse (Muse Spark, SAM 3.1), Do something together with sourced weekend ideas (Muse Spark), Messages where Kix suggests a cheer (rules), the Skills admin with twelve versioned packs (Muse Spark), and Under the hood with 17 agents and every model call logged." width="100%">
 
 **For kids:** magic-name sign-in with their own door · Sidekick Studio · Home with today's quest · Quest map · Question player with hints, reasons, voice and sparks · Treasure Realm · Critter Lab pets raised through real life cycles · Sky Squadron · Vibe Zone flashcards · Arcade typing games · Ask Kix homework help · Talk to Kix · printable practice papers · family messages with Kix stickers.
 
 **For parents:** Today, with flags shown alongside their evidence · Tonight · wellbeing notes ("possibly tired", against the child's own baseline, never a diagnosis) · Kix's Notebook · Messages · Where they are · Home now · Do something together · Your family (sign-in codes, voice, focus camera, screen time).
 
-**For admins:** Skills catalogue · Add knowledge (the Content Curator) · weekly new papers · People · Under the hood.
+**For admins:** Skills catalogue (twelve versioned packs) · Add knowledge (the Content Curator) · weekly new papers · People · Under the hood (17 agents, editable instructions for 11 of them, every model call logged).
 
 **Safety built in:** kids never need an email (picture codes or passwords, hashed on the server); push-to-talk only, and audio is never stored; no child's photo is ever used to generate art; distress words always bring Kix's caring reply, the helplines (Tinkle Friend 1800 274 4788, SOS 1767) and an urgent parent flag. All the rules are in [AGENTS.md](AGENTS.md).
 
