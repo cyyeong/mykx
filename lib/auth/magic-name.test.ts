@@ -71,18 +71,18 @@ describe("the magic-name door", () => {
 
   it("asks for the magic name again without a door ticket, and locks after five wrong tries", async () => {
     const b = new Browser();
-    expect((await b.open({ kind: "password", password: "hackmuse" })).status).toBe(403);
+    expect((await b.open({ kind: "password", password: "local-demo-only" })).status).toBe(403);
     await b.door("abby");
     for (let i = 0; i < 4; i++) expect((await b.open({ kind: "password", password: "wrong-one" })).status).toBe(401);
     expect((await b.open({ kind: "password", password: "wrong-one" })).status).toBe(423);
-    expect((await b.open({ kind: "password", password: "hackmuse" })).status).toBe(423);
+    expect((await b.open({ kind: "password", password: "local-demo-only" })).status).toBe(423);
   });
 
   it("keeps a solo kid signed in after changing their own password", async () => {
     const kid = new Browser();
     await kid.door("abby");
-    expect((await kid.open({ kind: "password", password: "hackmuse" })).status).toBe(200);
-    const changed = await kid.call(me.PATCH, "/api/me", { method: "PATCH", body: { secret: { old: { kind: "password", password: "hackmuse" }, new: { kind: "password", password: "new-stars-7" } } } });
+    expect((await kid.open({ kind: "password", password: "local-demo-only" })).status).toBe(200);
+    const changed = await kid.call(me.PATCH, "/api/me", { method: "PATCH", body: { secret: { old: { kind: "password", password: "local-demo-only" }, new: { kind: "password", password: "new-stars-7" } } } });
     expect(changed.status).toBe(200);
     expect((await kid.call(me.GET, "/api/me")).status).toBe(200);
   });
@@ -90,7 +90,7 @@ describe("the magic-name door", () => {
   it("ends a solo session when a grown-up resets the kid's password", async () => {
     const kid = new Browser();
     await kid.door("leonard");
-    expect((await kid.open({ kind: "password", password: "hackmuse" })).status).toBe(200);
+    expect((await kid.open({ kind: "password", password: "local-demo-only" })).status).toBe(200);
     expect((await kid.call(me.GET, "/api/me")).status).toBe(200);
     const parent = new Browser();
     await parent.call(parentRoute.POST, "/api/auth/parent", { body: { email: "demo@mykx.ai", password: "x" } });

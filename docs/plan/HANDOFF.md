@@ -5,7 +5,7 @@ Claude Code builds everything from 28 Oct afternoon (Muse Code retired). Read `A
 ## Run it
 
 - `npm install`, then `npm run dev` (port 3000; the founder's machine uses 3100), `npm run typecheck`, `npm run lint`, `npm test`, `npm run build`.
-- **Without `.env.local`** (a fresh clone) the dev server uses an in-memory **demo family**: any email and password signs a grown-up in; kids are Jordan (P3, picture code: Kix smiling, Kix cheering, Kix the pilot, Starry Kix), Abby (P6) and Leonard (Sec 2), both with the password `hackmuse`. Production's sample family is the same: grown-up `demo@mykx.ai` / `hackmuse` (also the admin), published for judges (founder, 28 Oct). See `lib/auth/demo-family.ts`. That's all you need for UI work.
+- **Without `.env.local`** (a fresh clone) the dev server uses an in-memory **demo family**: any email and password signs a grown-up in; kids are Jordan (P3, picture code: Kix smiling, Kix cheering, Kix the pilot, Starry Kix), Abby (P6) and Leonard (Sec 2), both with the local-only password `local-demo-only`. Production's sample family has its own sign-ins, kept only in `.env.local` (`DEMO_PASSWORD`, `DEMO_PICTURE_CODE`) and set with `node --env-file=.env.local scripts/set-demo-secrets.ts`; judges get them in the submission form (founder, 29 Oct). See `lib/auth/demo-family.ts`. That's all you need for UI work.
 - Live Meta model calls, Supabase and art generation need keys that only the founder's machine has. Don't ask for them; leave those steps to the founder or Claude Code.
 - Production: https://mykx.vercel.app (Vercel builds every push to `main`).
 

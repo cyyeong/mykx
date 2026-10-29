@@ -46,7 +46,7 @@ import { sessionSecret, signToken, verifyToken } from "./tokens.ts";
 
 export const DEMO_PARENT_COOKIE = "mykx_demo_parent";
 /** Bump when the store's shape changes: a running dev server then rebuilds it on the next request (see demoStore). */
-const DEMO_STORE_SHAPE = 15; // 9: game progress; 10: paper scout; 11: Guardian; 12: magic names; 13: agent versions; 14: skill versions and review sessions; 15: kid interests
+const DEMO_STORE_SHAPE = 16; // 9: game progress; 10: paper scout; 11: Guardian; 12: magic names; 13: agent versions; 14: skill versions and review sessions; 15: kid interests; 16: local-only demo secrets
 const DEMO_TTL_SEC = 7 * 24 * 60 * 60;
 const LABEL = "demo-parent";
 

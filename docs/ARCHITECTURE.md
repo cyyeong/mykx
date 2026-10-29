@@ -937,6 +937,7 @@ Both refuse any request without `Authorization: Bearer $CRON_SECRET` (timing-saf
 | `SIM_HOME_LINK_TOKEN`, `SIM_PASSCODE`, `MYKX_URL` | `sim/api/send.js` | Set on `mykx-sim`, the first two marked sensitive |
 | `MYKX_SERVER`, `MYKX_HOME_LINK_DIR`, `MYKX_HOME_LINK_FFMPEG` | `clients/home-link/` | Optional client settings |
 | `GOOGLE_API_KEY` | `scripts/papers/connect.ts` | Local paper connector only |
+| `DEMO_PASSWORD`, `DEMO_PICTURE_CODE` | `scripts/set-demo-secrets.ts` | Local only: the sample family's production sign-ins (the grown-up `demo@mykx.ai` and the password kids; the picture-code kids). Never in git; the in-memory demo store keeps its own local-only secrets |
 
 Values are never printed, logged or committed.
 
@@ -974,6 +975,7 @@ Apply them with `node --env-file=.env.local scripts/db-migrate.ts <files>` (each
 | `scripts/guardian-sample-sql.ts` | Prints Jordan's synthetic sample week as SQL |
 | `scripts/db-migrate.ts` | Runs migrations |
 | `scripts/set-family-password.ts`, `scripts/link-demo-parent.ts` | Demo account housekeeping |
+| `scripts/set-demo-secrets.ts` | Sets the sample family's production sign-ins from `DEMO_PASSWORD` and `DEMO_PICTURE_CODE` (refuses unless the household is all synthetic; hashes like a reset in Your family; audited; prints nothing secret) |
 | `scripts/living-art.ts`, `scripts/make-figures.ts`, `scripts/render-figures.ts`, `scripts/critter-eyes.ts`, `scripts/port-board.ts` | Art and design tooling |
 
 Art generation (`.agents/skills/muse-image-assets/scripts/gen-image.mjs`) needs the Meta key and runs on the founder's machine.

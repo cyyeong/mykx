@@ -2783,5 +2783,23 @@
     "sha256": "609183217326a6fad78ea2780ff6697d6e6b9044593d6ecc222ca8e2ce09b1f3",
     "cut_by": null,
     "note": "README and video hero: the three sample kids' Kix (Jordan's explorer, Abby's performer, Leonard's pilot). Candidate 2 of 3, chosen 28 Oct."
+  },
+  {
+    "id": "scenes-anime-room",
+    "path": "public/art/scenes/anime-room.webp",
+    "pack": "anime-sky",
+    "kind": "background",
+    "model": "muse-image-1.0",
+    "route": "api",
+    "prompt": "A cozy, gentle bedroom of a girl who loves anime, seen as one wide room, painted in a modern Japanese anime key-visual style with soft cel shading, crisp clean line art and a soft pastel palette of sakura pink, lavender, sky blue, mint and warm cream. On the left, a wooden desk under a large window with a soft dusk sky, drifting cherry petals and early stars; on the desk a sketchbook of character drawings, coloured pencils, round headphones, a mug, a small potted plant and a soft round lamp glowing warmly. Anime characters everywhere: the walls are covered with framed and pinned anime-style posters of ORIGINAL cute characters (a magical girl with a star wand, a cat-eared girl hero with a ribbon, a girl sky pilot with goggles, a chibi round star mascot with a sparkle on its forehead, a fox spirit girl, a little dragon), a big poster above the bed, character stickers on the window, shelves of plush toys and small figurines of original cute characters, a bunny plush and character cushions on the bed on the right, a cardboard standee of a smiling original character, fairy lights strung across the walls and a pastel rug. Wholesome and child-friendly, every character fully clothed and age-appropriate, calm and gentle, not cluttered. No people in the room. Original characters only, not resembling any existing anime, show, game, franchise or character. No text, no letters, no logos, no watermark.",
+    "refs": [],
+    "size": "1536x1024",
+    "created": "2026-10-29",
+    "sha256": "1580cabf212032a7dc8cc334385cfc1461cdb5e396eeb24aad60beb7e985ba35",
+    "cut_by": null,
+    "variants": [
+      "public/art/scenes/anime-room-800.webp"
+    ],
+    "note": "Abby's room for the Anime Sky world (founder, 29 Oct): original characters only; picked from 6 candidates (2 prompts x 3)."
   }
 ]

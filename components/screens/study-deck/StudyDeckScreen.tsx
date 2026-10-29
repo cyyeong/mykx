@@ -5,6 +5,7 @@
 
 import { useState, type CSSProperties } from "react";
 import { GuardianChips } from "@/components/guardian/GuardianChips";
+import { AnimeRoom } from "@/components/scene/rooms/AnimeRoom";
 import { StudyRoom } from "@/components/scene/rooms/StudyRoom";
 import { getPack, wordmarkFor, type PackId } from "@/components/theme/packs";
 import { Art } from "@/components/ui/Art";
@@ -94,7 +95,8 @@ export function StudyDeckScreen({ kid, kixLine }: { kid: { nickname: string; lev
           </div>
         </section>
       </div>
-      <StudyRoom pack={kid.pack} className="sd-scene" />
+      {/* An Anime Sky teen gets their own anime room (founder, 29 Oct); everyone else, the study room. */}
+      {kid.pack === "anime-sky" ? <AnimeRoom pack={kid.pack} className="sd-scene" /> : <StudyRoom pack={kid.pack} className="sd-scene" />}
     </div>
   );
 }

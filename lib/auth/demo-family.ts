@@ -1,7 +1,9 @@
 // The synthetic demo family (hard rule 8: labelled in the UI). Same ids, nicknames and secret hashes
 // as supabase/seed.sql; lib/auth/demo-family.test.ts keeps the two in step. The nicknames are the founder's stand-ins
 // (AGENTS.md rule 10), never real names, and everything recorded about them is made up.
-// The demo secrets are public on purpose (they open the demo, nothing else).
+// The secrets here are local-only: they open the in-memory demo store on a fresh clone and in the tests, nothing
+// else. Production's sample family has its own sign-ins, kept out of git in .env.local and set by
+// scripts/set-demo-secrets.ts (founder, 29 Oct).
 import type { Band, Level, Pack, SecretKind } from "./schemas.ts";
 
 export const DEMO_HOUSEHOLD_ID = "00000000-0000-4000-8000-000000000001";
@@ -14,11 +16,11 @@ export const JORDAN_ID = "00000000-0000-4000-8000-000000000011";
 export const ABBY_ID = "00000000-0000-4000-8000-000000000012";
 export const LEONARD_ID = "00000000-0000-4000-8000-000000000013";
 
-/** What each demo kid types or taps. Jordan: idle, cheer, pilot, dreamlight. */
+/** What each demo kid types or taps in the in-memory demo store (local-only). Jordan: idle, cheer, pilot, dreamlight. */
 export const DEMO_SECRETS = {
   [JORDAN_ID]: { kind: "pictures", code: ["idle", "cheer", "pilot", "dreamlight"] },
-  [ABBY_ID]: { kind: "password", password: "hackmuse" },
-  [LEONARD_ID]: { kind: "password", password: "hackmuse" },
+  [ABBY_ID]: { kind: "password", password: "local-demo-only" },
+  [LEONARD_ID]: { kind: "password", password: "local-demo-only" },
 } as const;
 
 export interface DemoKid {
@@ -60,7 +62,7 @@ export const DEMO_KIDS: readonly DemoKid[] = [
     pack: "anime-sky",
     interests: ["Anime"],
     secretKind: "password",
-    secretHash: "scrypt$16384$8$1$PK5y3oBbecbqlyuJ2OeIrA$L2jsBBXoaBmmnRibFYBdL7Qut9EEpUrgaqSnExY7RdA",
+    secretHash: "scrypt$16384$8$1$cU0lhNolyhkDFrfwO8gSMg$sCRbhMCSXR0NlIeJxb0P3yGhGNjx4Ye34DQYeXOEamg",
     voiceEnabled: true,
     dailyLimitMin: 45,
   },
@@ -73,7 +75,7 @@ export const DEMO_KIDS: readonly DemoKid[] = [
     pack: "idol-stage",
     interests: ["K-pop", "Dance", "Anime"],
     secretKind: "password",
-    secretHash: "scrypt$16384$8$1$ad2uDKiCeE4ILgvIFn5hfg$mkI3K-AHDmgmu8RUxnCbPjzkpdUU1zoxvGAf38QOLDE",
+    secretHash: "scrypt$16384$8$1$5gSx3vvN-PdiucixFsMenw$bRBlTAzq9XKepGiIVW_Hs-00PsLmG5Mwh1mPq7qIrH4",
     voiceEnabled: true,
     dailyLimitMin: 60,
   },

@@ -4,17 +4,17 @@
 insert into households (id, name) values
   ('00000000-0000-4000-8000-000000000001', 'Demo family');
 
--- Demo secrets (synthetic, public on purpose): Jordan's picture code is idle, cheer, pilot, dreamlight;
--- Abby's and Leonard's password is hackmuse (published for judges, founder 28 Oct). Hashes are scrypt (lib/auth/secrets.ts) and match
--- lib/auth/demo-family.ts.
+-- Demo secrets (synthetic, local-only): Jordan's picture code is idle, cheer, pilot, dreamlight.
+-- The kids' secrets here are the local-only ones in lib/auth/demo-family.ts (scrypt, lib/auth/secrets.ts). Production's
+-- sample family gets its own sign-ins from .env.local through scripts/set-demo-secrets.ts, never from git.
 insert into profiles (id, household_id, role, is_admin, nickname, band, level, pack, interests, voice_enabled, camera_enabled, daily_limit_min, synthetic, secret_kind, secret_hash, secret_set_at, secret_event) values
   ('00000000-0000-4000-8000-000000000010', '00000000-0000-4000-8000-000000000001', 'parent', true, 'Demo Parent', null, null, null, '{}', false, false, null, true, null, null, null, null),
   ('00000000-0000-4000-8000-000000000011', '00000000-0000-4000-8000-000000000001', 'child', false, 'Jordan', 'junior', 'P3', 'terrarium', '{"Bugs and critters","Jets"}', true, false, 30, true,
     'pictures', 'scrypt$16384$8$1$R56ygih2QnUpKfvx2V-TAQ$PusjO4VBvo99NjoE2q9N0888tPwfuKQWnV8LWXPMe3E', now(), 'set'),
   ('00000000-0000-4000-8000-000000000012', '00000000-0000-4000-8000-000000000001', 'child', false, 'Abby', 'teen', 'P6', 'anime-sky', '{"Anime"}', true, false, 45, true,
-    'password', 'scrypt$16384$8$1$PK5y3oBbecbqlyuJ2OeIrA$L2jsBBXoaBmmnRibFYBdL7Qut9EEpUrgaqSnExY7RdA', now(), 'set'),
+    'password', 'scrypt$16384$8$1$cU0lhNolyhkDFrfwO8gSMg$sCRbhMCSXR0NlIeJxb0P3yGhGNjx4Ye34DQYeXOEamg', now(), 'set'),
   ('00000000-0000-4000-8000-000000000013', '00000000-0000-4000-8000-000000000001', 'child', false, 'Leonard', 'teen', 'Sec 2', 'idol-stage', '{"K-pop","Dance","Anime"}', true, false, 60, true,
-    'password', 'scrypt$16384$8$1$ad2uDKiCeE4ILgvIFn5hfg$mkI3K-AHDmgmu8RUxnCbPjzkpdUU1zoxvGAf38QOLDE', now(), 'set');
+    'password', 'scrypt$16384$8$1$5gSx3vvN-PdiucixFsMenw$bRBlTAzq9XKepGiIVW_Hs-00PsLmG5Mwh1mPq7qIrH4', now(), 'set');
 
 -- Magic names for the sign-in page (founder, 29 Oct).
 update profiles set username = lower(nickname) where household_id = '00000000-0000-4000-8000-000000000001' and role = 'child';

@@ -1,0 +1,178 @@
+<p align="center">
+  <img src="docs/readme/hero.webp" alt="myKx. Built for my world. myKx for my kids. A sidekick for every parent. Three Kix sidekicks on a path of starlight, for Jordan, Leonard and Abby. Built for the Meta Global AI Developer Hackathon, powered by Meta Muse." width="100%">
+</p>
+
+# myKx
+
+[![CI](https://github.com/cyyeong/mykx/actions/workflows/ci.yml/badge.svg)](https://github.com/cyyeong/mykx/actions/workflows/ci.yml)
+
+**Built for my world. myKx for my kids. A sidekick for every parent.**
+
+My world is my kids and my family. myKx gives every child an AI sidekick, **Kix**, that meets them inside the world they already love (critters, jets, anime, K-pop) and turns it into learning, and gets to know them a little better every day. It also gives a busy parent the afternoon they missed: what each child learned, how they're feeling, where they are, how home is, and something to do together at the weekend.
+
+Built for the **Meta Global AI Developer Hackathon** (track: Build for Your World). Powered by **Meta Muse**: 14 of myKx's 16 specialist agents run on Muse Spark, Muse Image, SAM 3.1 or Muse Voice Transcribe.
+
+[Live app](https://mykx.vercel.app) · [Home simulator](https://mykx-sim.vercel.app) (passcode on request) · [Architecture](docs/ARCHITECTURE.md) · [Docs index](docs/README.md)
+
+---
+
+## For judges: where to find each criterion
+
+| Criterion | Where to see it |
+|---|---|
+| **Impact** (Build for Your World) | [Why I built it](#why-i-built-it): a problem the founder lives every day, in a country where most couples both work. myKx frees up a parent's time and mental space, and makes something possible that wasn't before: a child's own interests become their learning world. |
+| **Use of Meta AI tooling** | [16 specialists, 14 on Meta Muse](#16-specialists-14-of-them-on-meta-muse): four Meta models chained into pipelines (Muse Image + SAM 3.1 transforms; Muse Spark vision + rules + SAM 3.1 for home cameras; Muse Spark web search + planning), with every call logged in Under the hood. Muse Code built four of the branches. |
+| **Technical depth and execution** | [Architecture](docs/ARCHITECTURE.md), more than 900 automated tests run by CI on every push, deterministic engines for scores and alerts, row-level security per household, cached fallbacks for every generated surface. |
+| **Demo** | The video, the [live app](#try-it-live) (sign-ins are in the submission form), the [Home simulator](https://mykx-sim.vercel.app), and [everything in the MVP](#everything-in-the-mvp). |
+
+**Not a chatbot, not RAG, not medical advice.** Kix is one face on 16 specialist agents that run multi-step workflows: reading papers, choosing questions, keeping a memory, reading a home, planning a weekend. Kix loads the right skill pack and reads the exact section it needs through tools that run as trusted code (and refuse to check the question a child is answering), with no vector search; every load and tool call is logged. Scores and rewards are plain code. Wellbeing notes say "possibly" and show the evidence against the child's own usual; they never diagnose, and distress words always bring in the parent and the helplines.
+
+**Built during the hackathon.** Everything in this repository was built between 27 October and 4 November 2026: the first commit is the bootstrap on 27 October, every commit since is in the history, every generated image is dated in [`public/art/manifest.json`](public/art/manifest.json), and [`docs/plan/PROGRESS.md`](docs/plan/PROGRESS.md) logs each task with the models it used. Coding agents: Claude Code throughout, and Meta's Muse Code for four branches on 28 October.
+
+## Try it live
+
+Open **[mykx.vercel.app](https://mykx.vercel.app)**. The sign-in for the sample family (a grown-up who is also the admin, and the three kids' magic names and codes) is in our hackathon submission form. Anyone else who'd like to try it: message me on Discord, **`antz81_91105`**, and I'll send it over.
+
+Kids don't need the grown-up at all: on the sign-in page, tap **"Kids: tell me your magic name"**, type it, and watch their door fly in.
+
+Everything in this family is synthetic, and everyone trying it shares it, so you may see other visitors' answers and messages. The Home simulator at [mykx-sim.vercel.app](https://mykx-sim.vercel.app) is behind a passcode for the same reason.
+
+## Why I built it
+
+> I'm a parent of three hyperactive kids, each with a different nature and different interests. Getting them to talk about schoolwork at all is a challenge. So I built a place where what they love becomes how they learn.
+>
+> — the founder of myKx
+
+In Singapore, school ends around 1:30 and work ends after 6. In between, children learn, play, squabble and wander home, and a parent at work sees none of it. It's most families' problem: 56.6% of married couples here both work ([General Household Survey 2025](https://mothership.sg/2026/06/general-household-survey-2025-income/)), and families spent S$1.8 billion on private tuition in 2023 ([Household Expenditure Survey](https://www.malaymail.com/news/singapore/2025/01/20/singapore-families-spent-s18-billion-on-private-tuition-in-2023-with-the-richest-spending-over-s162-per-month/163937)). By the time everyone is home, there's dinner, homework and bedtime, and "How was school?" gets a shrug.
+
+myKx keeps the afternoon for the parent, and keeps each child's learning balanced: not more screen time, but the right questions at the right moment, breaks and quiet hours, and plans that get the family outdoors together.
+
+<img src="docs/readme/why.webp" alt="Working parents miss the afternoon. One Tuesday as the parent sees it: Leonard takes the bus home, Jordan finishes the frog life-cycle quest, Abby asks Kix about fractions, a possible tug-of-war at home is checked and marked not right, a Saturday cycling plan, and the evening summary." width="100%">
+
+## Three kids, three worlds, one sidekick each
+
+Each child picks a world and two things they love in **Sidekick Studio**, and Kix transforms to match: Muse Image redraws Kix in that world and SAM 3.1 cuts it out, and the whole app re-skins around them. The sample family in this repo uses the founder's three kids' stand-in names: **Jordan** (Primary 3, Terrarium; into critters and jets), **Abby** (Primary 6, Anime Sky; into anime) and **Leonard** (Secondary 2, Idol Stage; into K-pop, dance and anime). Their data is synthetic.
+
+<img src="docs/readme/kids.webp" alt="Three kids, three worlds: Jordan in the Terrarium, into critters and jets; Abby in the Anime Sky, into anime; Leonard on the Idol Stage, into K-pop, dance and anime. Each has their own Kix and their own way of learning." width="100%">
+
+The worlds change how learning looks, never how it's scored. A junior child gets one task per screen, a big Kix that reads aloud and a picture-code sign-in; a teen gets a denser study deck and a Kix that speaks only when asked.
+
+## A world before the first question
+
+<img src="docs/readme/door.webp" alt="The sign-in as a story: a grand door in a twilight city, Kix asking for the child's magic name, the child's own door flying in as their world spreads over the city, and their door asking for their code." width="100%">
+
+myKx was designed not to look like another learning platform. Most of those open on a login form; myKx opens on a grand door in a twilight city, inviting the child in. They tell Kix their magic name, and their own door flies in while their world spreads over the city: petals drifting in the Anime Sky, confetti on the Idol Stage, leaves in the Terrarium. It's personal before they've typed a thing. Through the door, a time tunnel carries them home, and every screen after that wears their world, down to the sounds, which are synthesised in that world's own instruments. The magic is in the welcome; behind it, the learning stays honest.
+
+## Kix gets better every day
+
+<img src="docs/readme/grows.webp" alt="Kix gets better every day: it remembers a hard day and starts gently, sparks a drifting mind with what the child loves, keeps a Notebook about each child, and learns from new exam papers every week." width="100%">
+
+myKx learns from every session and from every new exam. Muse provides the intelligence; plain, tested code decides when it's used. All of this is running in the app today:
+
+- **It remembers yesterday.** After each session the Memory Keeper (Muse Spark) reads the child's own words to Kix and notes how the session went. If yesterday was hard going, today starts more tenderly: Home opens with a warm-up they already know, and Kix's hints and homework help are told to go gently. Kix never says why, and never names a mood to the child ([`lib/kix/today.ts`](lib/kix/today.ts)).
+- **It notices a drifting mind and sparks it.** If a child goes quiet on a question or guesses in a few seconds, Kix ties something they love to the question: Muse Spark writes one line that links critters, jets, anime or K-pop to the thinking the question needs, without giving the answer away. When the focus camera (on-device, parent-approved) sees attention dip, Kix suggests a place in myKx that fits: their Sky Squadron, anime flashcards, a round of Neon Strike, or a dance break for a dancer ([`lib/kix/interests.ts`](lib/kix/interests.ts), [`app/api/kix/spark`](app/api/kix/spark/route.ts)).
+- **It knows the child.** Kix's Notebook keeps how they ask, the slips they make and their best moments, and Kix reads it before every hint. The parent can read, edit or wipe every line.
+- **It learns new exams.** Every week the past-paper scout finds new papers, the Content Curator reads their patterns and traps, and the Skill Editor proposes improvements as a diff. An admin publishes a new version of the skill pack, and the next lesson uses it.
+- **Its instructions improve too.** In Under the hood, an admin can edit the instructions of the ten agents that write words, publish versions and roll back; the safety guardrails stay fixed in code.
+
+None of this changes a score or a reward: mastery stays deterministic, and an answer Kix helped with never counts as mastery.
+
+## How the learning works
+
+<img src="docs/readme/learning-loop.webp" alt="From past papers to the next right question: past-paper scout, Content Curator, seven skill packs, Kix Tutor, mastery and Treasure, Memory Keeper." width="100%">
+
+1. **Past-paper scout** checks approved Singapore paper sites every Monday, within each site's robots rules.
+2. **Content Curator** (Muse Spark) reads new papers for patterns, common traps and how often each topic comes up. It never keeps a school's questions; an admin approves every change before it reaches a child.
+3. **Seven skill packs** hold original questions in each exam's format: P3 English, Maths, Science and Chinese; P6 Maths and Science; Sec 2 Science.
+4. **Kix Tutor** (Muse Spark) works on the child's weakest sub-skill and gives hints that never hand over the answer. Which question comes next is decided by code.
+5. **Mastery and Treasure** are deterministic: a holographic card, a critter that grows through its real life cycle, a display jet that unlocks. No loot boxes, no rankings, no money.
+6. **Memory Keeper** (Muse Spark) writes Kix's Notebook: how this child asks, slips and wins, so tomorrow starts where today ended, and more gently after a hard day. The parent can read, edit or wipe every page.
+
+Steps 4 to 6 repeat every session, so the questions follow the child, and the packs get better as the Curator learns what the exams ask. The full loops are in [the architecture doc](docs/ARCHITECTURE.md).
+
+## 16 specialists, 14 of them on Meta Muse
+
+<img src="docs/readme/agents.webp" alt="16 specialists, 14 run on Meta Muse: Muse Spark 1.3 for eleven agents, SAM 3.1 for two, Muse Image 1.0 for one, Muse Voice Transcribe 1.0 for one, and two run on rules only." width="100%">
+
+| Agent | What it does | Meta model |
+|---|---|---|
+| Kix Tutor | Hints and explanations for each question; loads skill packs and reads the section it needs through tools; sparks a drifting child with what they love | Muse Spark 1.3 (function tools) |
+| Ask Kix | Homework help from a typed question or a photo: picks the subject's pack and reads its method, then guides first | Muse Spark 1.3 (vision, function tools) |
+| Content Curator | Reads past papers for patterns, traps and topic weight | Muse Spark 1.3 (files) |
+| Past-paper scout | Finds new papers on approved sites every week | rules only |
+| Skill Editor | Improves a skill pack when an admin asks: a proposed diff with checked new questions | Muse Spark 1.3 (structured output) |
+| Sidekick Studio | Turns Kix into the child's own world | Muse Image 1.0 and SAM 3.1 |
+| Vibe Zone maker | Flashcards from a child's own brief, drawn by trusted components | Muse Spark 1.3 (structured output) |
+| Talk to Kix | Push-to-talk questions; the audio is never kept | Muse Voice Transcribe 1.0 |
+| Memory Keeper | Keeps Kix's Notebook about each child, and notes how each session went so tomorrow can start gently | Muse Spark 1.3 |
+| Screen-time guardian | Breaks, quiet hours and the day's learning-to-play balance | rules only |
+| Home Reader | Reads the family's own camera frames into words | Muse Spark 1.3 (vision) |
+| Who's who | Outlines the children on a flagged frame | SAM 3.1 |
+| Guardian Brief | The "Right now" line for the parent | Muse Spark 1.3 |
+| Outing Scout | Searches the web for things to do near home | Muse Spark 1.3 (web search) |
+| Outing Planner | Plans the weekend around the weather and the week | Muse Spark 1.3 |
+| Tonight | The evening summary for the parent | Muse Spark 1.3 |
+
+**Where Muse stops and code starts.** Muse reads, explains, imagines and narrates. Scores, mastery, rewards, screen-time rules, motion and every alert are decided by plain, tested code, and a model can never change them. Every model call is logged in **Under the hood** with its model, time, tokens and cost. Children's data only ever goes to Standard models, never contributor mode.
+
+## Beyond the screen: Guardian
+
+<img src="docs/readme/beyond-the-screen.webp" alt="Learning doesn't stop at the screen: Where they are, Home now and Do something together on the parent's phone, and four care rules." width="100%">
+
+- **Where they are.** The phone's places and motion (walking, on a bus, possibly playing), worked out by rules. Muse Spark writes the "Right now" line from place names, never coordinates.
+- **Home now.** The family's own cameras, read by Muse Spark into words: who's in which room and what's happening. On a flagged moment, SAM 3.1 outlines the children, and the parent decides: Right or Not right. A "not right" makes that camera need one more matching check next time.
+- **Do something together.** Muse Spark searches the web near home for things to do with the kids' interests, checks NEA's four-day weather and plans the weekend; ideas without a source are dropped.
+- **Tonight.** One calm paragraph about all three children, from facts the database already holds.
+
+Care, not surveillance: everything is opt-in, the child always sees when it's on, no camera may look at a bedroom or bathroom, flagged pictures are deleted after 24 hours, and none of it ever reaches Kix, the tutor or the Notebook.
+
+## The myKx simulator: tomorrow's devices, simulated today
+
+<img src="docs/readme/simulator.webp" alt="The myKx simulator stands in for the mobile app, home cameras and future peripherals, and sends a scripted afternoon and synthetic camera frames to myKx through the same API a real device uses; Home Link is the real desktop client." width="100%">
+
+**[mykx-sim](https://mykx-sim.vercel.app)** is an in-place simulator built just for this hackathon. It stands in for everything that will feed myKx later: the dedicated myKx mobile app, the family's CCTV cameras, and supported peripherals for location, motion and health monitoring. It pairs and sends exactly like a real device, through the same API, to prove the protocol works end to end and to feed myKx the exact information a real device would. Today it plays a scripted walk home around Sengkang (the phone's places and motion) and home camera frames drawn by Muse Image; health and motion peripherals plug into the same protocol next. No real child, home or camera is involved, and it's labelled "Synthetic" everywhere.
+
+For a real home, **Home Link** (`clients/home-link/`) is a small app on the family's computer. It takes a picture from each camera only when a room changes and sends it to myKx; camera passwords never leave the computer.
+
+## Everything in the MVP
+
+<img src="docs/readme/features.webp" alt="A working MVP end to end: fifteen real screens of the app signed in as the sample family." width="100%">
+
+**For kids:** magic-name sign-in with their own door · Sidekick Studio · Home with today's quest · Quest map · Question player with hints, reasons, voice and sparks · Treasure Realm · Critter Lab · Sky Squadron · Vibe Zone flashcards · Arcade typing games · Ask Kix homework help · Talk to Kix · printable practice papers · family messages with Kix stickers.
+
+**For parents:** Today, with flags shown alongside their evidence · Tonight · wellbeing notes ("possibly tired", against the child's own baseline, never a diagnosis) · Kix's Notebook · Messages · Where they are · Home now · Do something together · Your family (sign-in codes, voice, focus camera, screen time).
+
+**For admins:** Skills catalogue · Add knowledge (the Content Curator) · weekly new papers · People · Under the hood.
+
+**Safety built in:** kids never need an email (picture codes or passwords, hashed on the server); push-to-talk only, and audio is never stored; no child's photo is ever used to generate art; distress words always bring Kix's caring reply, the helplines (Tinkle Friend 1800 274 4788, SOS 1767) and an urgent parent flag. All the rules are in [AGENTS.md](AGENTS.md).
+
+## Where Kix goes next
+
+<img src="docs/readme/roadmap.webp" alt="Where Kix goes next: the MVP now, the myKx mobile app, Home Link and devices, more to learn and earn, and Kix on Meta devices." width="100%">
+
+- **Now:** the MVP above, live at [mykx.vercel.app](https://mykx.vercel.app).
+- **Next: the myKx mobile app.** Android first, then iPhone: precise location from the phone's GPS and motion from its sensors (walking, cycling, playing). Planned in [GUARDIAN.md §5a](docs/prd/GUARDIAN.md).
+- **Then: Home Link and devices.** Live CCTV streams read on the family's computer, motion found locally so only changes reach Muse, signed installers for Mac and Windows, and health and motion peripherals on the same pairing protocol the simulator proves today.
+- **Also: more to learn and earn.** More STEM learning games on the Arcade's engine; a rewards store where children spend the stars they've earned on items for Kix and their world (never real money, never random); and brand partners whose recommendations fit each child's interests, shown only to the parent, approved by them, with no child data shared.
+- **Later: Kix on Meta devices.** A hands-free sidekick at home and outdoors that sees and hears only with permission, for richer and more personal support.
+
+Each step reuses what's already running: devices pair with a code and a hashed token, a Muse reader turns raw input into words, rules decide, and the parent reviews. How far that scales is in [the architecture doc](docs/ARCHITECTURE.md#10-scaling-and-the-long-term-vision). We'd love support to take Kix from a hackathon MVP to every family in Singapore.
+
+## Run it
+
+```bash
+npm install
+npm run dev          # http://localhost:3000
+npm test             # Vitest
+npm run typecheck && npm run lint && npm run build
+```
+
+Without `.env.local`, the dev server uses an in-memory sample family, so no keys are needed for UI work. Any email and password signs a grown-up in; the sample kids' codes are in the tests.
+
+Live model calls, Supabase and art generation need keys (names in `.env.example`: `MODEL_API_KEY`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SECRET_KEY`, `KID_SESSION_SECRET`). Keys stay on the server.
+
+**Stack:** Next.js 16 (App Router, Cache Components) · React 19 · TypeScript · Tailwind CSS v4 with per-world themes · `motion` · Tone.js (every sound synthesised) · Supabase (Auth, Postgres with row-level security, Storage) · the OpenAI SDK pointed at `api.meta.ai/v1` · Vercel.
+
+## Licence
+
+Code: [MIT](LICENSE). Art, Kix and content: CC BY-NC 4.0, all original and generated during the hackathon, with every image's prompt and model in [`public/art/manifest.json`](public/art/manifest.json). See [LICENSE-ASSETS.md](LICENSE-ASSETS.md).
