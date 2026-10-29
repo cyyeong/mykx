@@ -1,0 +1,216 @@
+{
+  "id": "s2-chinese",
+  "version": "1.0.0",
+  "status": "published",
+  "title": "Sec 2 G3 Chinese",
+  "description": "Secondary 2 G3 (Express) Chinese Language (MOE 2021 secondary MTL syllabus; SEAB SEC G3 Chinese K320 format): 综合填空, 词语替换, 阅读理解一 on practical texts and news, 阅读理解二 open answers on narrative and informative passages. English-first coaching around Chinese content, vocabulary cards.",
+  "subject": "chinese",
+  "level": "Sec 2",
+  "tier": "g3",
+  "syllabus": "MOE 2021 G1, G2, G3 and Higher Mother Tongue Languages Syllabus (Secondary), G3 Chinese; SEAB SEC G3 Chinese Language K320 (examined from 2027)",
+  "language": "zh-Hans",
+  "agents": {
+    "tutor": "auto",
+    "vibe": "on_demand",
+    "parent": "on_demand",
+    "curator": "auto"
+  },
+  "topics": [
+    {
+      "id": "words.vocab",
+      "title": "词语卡 vocabulary cards",
+      "weight": 0,
+      "source_tag": "词语",
+      "subskills": ["recognise"]
+    },
+    {
+      "id": "paper2.zonghe",
+      "title": "综合填空 integrated cloze (multiple choice)",
+      "weight": 0.025,
+      "source_tag": "综合填空",
+      "subskills": ["word_choice", "idiom", "connector"]
+    },
+    {
+      "id": "paper2.tihuan",
+      "title": "词语替换 word replacement",
+      "weight": 0.05,
+      "source_tag": "词语替换",
+      "subskills": ["replace_word"]
+    },
+    {
+      "id": "paper2.yuedu1",
+      "title": "阅读理解一 practical texts and news (multiple choice)",
+      "weight": 0.1,
+      "source_tag": "阅读理解一",
+      "subskills": ["flyer_ad", "news_report"]
+    },
+    {
+      "id": "paper2.yuedu2",
+      "title": "阅读理解二 two passages (open)",
+      "weight": 0.175,
+      "source_tag": "阅读理解二",
+      "subskills": ["word_meaning", "explain_reason", "character_feeling", "summary", "opinion"]
+    },
+    {
+      "id": "writing.email",
+      "title": "试卷一 实用文 email",
+      "weight": 0.1,
+      "source_tag": "实用文",
+      "subskills": ["email_reply", "email_write"]
+    },
+    {
+      "id": "writing.essay",
+      "title": "试卷一 作文 essay (记叙文, 说明文, 议论文)",
+      "weight": 0.2,
+      "source_tag": "作文",
+      "subskills": ["narrative", "expository", "argumentative"]
+    },
+    {
+      "id": "oral",
+      "title": "口试 oral (朗读短文, 会话)",
+      "weight": 0.25,
+      "source_tag": "口试",
+      "subskills": ["reading_aloud", "video_conversation"]
+    },
+    {
+      "id": "listening",
+      "title": "听力理解 listening",
+      "weight": 0.1,
+      "source_tag": "听力理解",
+      "subskills": ["listening"]
+    }
+  ],
+  "archetypes": [
+    {
+      "id": "ZH2-ZH-W",
+      "topic": "paper2.zonghe",
+      "subskill": "word_choice",
+      "marks": 1,
+      "pattern": "综合填空 words: options share a character or a word class (特地/特殊/独特); the collocation or word class decides (关系融洽, an adverb before a verb)",
+      "exam_weight": 0.012
+    },
+    {
+      "id": "ZH2-ZH-C",
+      "topic": "paper2.zonghe",
+      "subskill": "connector",
+      "marks": 1,
+      "pattern": "关联词 in a passage: the partner word later in the sentence (不但……而且, 只要……就) or the turn between two clauses (但是)",
+      "exam_weight": 0.007
+    },
+    {
+      "id": "ZH2-ZH-I",
+      "topic": "paper2.zonghe",
+      "subskill": "idiom",
+      "marks": 1,
+      "pattern": "成语 in a passage: the clause after the blank shows the attitude or reaction (竟然……！ → 大吃一惊)",
+      "exam_weight": 0.006
+    },
+    {
+      "id": "ZH2-TH",
+      "topic": "paper2.tihuan",
+      "subskill": "replace_word",
+      "marks": 2,
+      "pattern": "词语替换: five numbered, underlined words misused in one passage — wrong collocation (反应冷淡), near-synonym (增加/提高), opposite meaning (表扬/批评), wrong sense (采用/发明)",
+      "exam_weight": 0.05
+    },
+    {
+      "id": "ZH2-YD1-F",
+      "topic": "paper2.yuedu1",
+      "subskill": "flyer_ad",
+      "marks": 2,
+      "pattern": "传单／广告: what is accepted or not, costs and who pays, conditions, the purpose of a rule",
+      "exam_weight": 0.05
+    },
+    {
+      "id": "ZH2-YD1-N",
+      "topic": "paper2.yuedu1",
+      "subskill": "news_report",
+      "marks": 2,
+      "pattern": "新闻报道: the main point (导语), what happens if, why (from a quoted speaker)",
+      "exam_weight": 0.05
+    },
+    {
+      "id": "ZH2-YD2-N",
+      "topic": "paper2.yuedu2",
+      "marks": 3,
+      "pattern": "记叙文: find-a-word from a named paragraph, reasons across paragraphs, the point of a character's action, the meaning of a key line, feelings change with evidence",
+      "exam_weight": 0.1
+    },
+    {
+      "id": "ZH2-YD2-E",
+      "topic": "paper2.yuedu2",
+      "marks": 3,
+      "pattern": "说明文: what a figurative phrase refers to, list the points signposted by 首先／其次／此外, the author's view plus the learner's own action",
+      "exam_weight": 0.075
+    },
+    {
+      "id": "ZH2-EM",
+      "topic": "writing.email",
+      "marks": 20,
+      "pattern": "实用文: reply to an email or write one from given material, covering every point, 150+ characters, choose one of two",
+      "exam_weight": 0.1
+    },
+    {
+      "id": "ZH2-ZW",
+      "topic": "writing.essay",
+      "pattern": "作文 (40 marks): 300+ characters, choose one of three; 记叙文, 说明文 or 议论文",
+      "exam_weight": 0.2
+    }
+  ],
+  "references": [
+    {
+      "file": "references/syllabus-map.md",
+      "title": "Sec 2 G3 Chinese syllabus map",
+      "sections": [
+        "Which syllabus and format apply",
+        "Topic and subskill tags",
+        "Syllabus areas (MOE 2021) and what they mean for Chinese",
+        "Item alignment",
+        "Out of scope"
+      ]
+    },
+    {
+      "file": "references/exam-blueprint.md",
+      "title": "G3 Chinese (K320): format and marks",
+      "sections": [
+        "The 200 marks",
+        "Paper 2 at a glance: 70 marks, 1 h 30 min",
+        "Lower secondary school papers",
+        "Marking open answers"
+      ]
+    },
+    {
+      "file": "references/answer-strategies.md",
+      "title": "How to answer: a routine for every Paper 2 section",
+      "sections": [
+        "1. 综合填空: word class first, then meaning",
+        "2. 词语替换: name the mismatch, then fix it",
+        "3. 阅读理解一: scan the practical text",
+        "4. 阅读理解二: marks = points",
+        "5. Meaning, feeling and opinion answers",
+        "6. Time plan for 90 minutes"
+      ]
+    }
+  ],
+  "tools": ["read_reference", "find_items", "check_answer"],
+  "sources": [
+    {
+      "kind": "generated",
+      "note": "Items, passages, cards and references written fresh by Claude Code for myKx from the public syllabus and exam format below; every item was re-solved blind by a second agent and fixed where they disagreed; pending founder review. No exam or school paper was read or copied."
+    },
+    {
+      "kind": "licensed",
+      "note": "Format, sections, instructions and marks: SEAB, Singapore–Cambridge SEC General 3 (2027) Chinese Language 华文 (Syllabus K320), © MOE 2024 (https://www.seab.gov.sg/secondary-education-certificate-sec/g3-syllabuses-for-school-candidates-2027/). Consulted; only section names and short instructions are quoted."
+    },
+    {
+      "kind": "licensed",
+      "note": "Learning outcomes and language knowledge: MOE, G1, G2, G3 and Higher Mother Tongue Languages Syllabus (Secondary), implementation from the 2021 Secondary One cohort (https://www.moe.gov.sg/media/files/secondary/fsbb/syllabus/mtl/72529fb3-d7dc-4762-b5da-aee8260e6b97.pdf)."
+    }
+  ],
+  "licence": "Content CC BY-NC 4.0 (myKx); items, passages and cards original.",
+  "excluded": [],
+  "legacy_scripts": {
+    "note": "kept privately; never executed",
+    "files": []
+  }
+}

@@ -251,6 +251,29 @@ export const BLUEPRINTS: Record<string, Blueprint> = {
       { id: "yuedu2", title: "阅读理解二", marks: 6, count: 3, order: "source", accepts: (b) => inTopic(b, "paper2.yuedu") && someOfType(b, "open", "short") },
     ],
   },
+  "p6-chinese": {
+    name: "试卷二 · 语文应用与阅读理解 (PSLE Paper 2)",
+    minutes: 100,
+    reference: "references/exam-blueprint.md#Paper 2 at a glance: 90 marks, 1 h 40 min",
+    sections: [
+      { id: "yuwen", title: "语文应用", marks: 30, count: 15, order: "source", accepts: (b) => inTopic(b, "paper2.yuwen") },
+      { id: "tiankong", title: "短文填空", marks: 10, count: 5, order: "source", accepts: (b) => inTopic(b, "paper2.tiankong") },
+      { id: "yuedu1", title: "阅读理解一", marks: 10, count: 5, order: "source", newPage: true, accepts: (b) => inTopic(b, "paper2.yuedu1") },
+      { id: "duihua", title: "完成对话", marks: 8, count: 4, order: "source", accepts: (b) => inTopic(b, "paper2.duihua") },
+      { id: "yuedu2", title: "阅读理解二", marks: 32, count: 11, order: "source", newPage: true, accepts: (b) => inTopic(b, "paper2.yuedu2") },
+    ],
+  },
+  "s2-chinese": {
+    name: "试卷二 · 语文应用与阅读理解 (G3 Paper 2)",
+    minutes: 90,
+    reference: "references/exam-blueprint.md#Paper 2 at a glance: 70 marks, 1 h 30 min",
+    sections: [
+      { id: "zonghe", title: "语文应用 · 综合填空", marks: 5, count: 5, order: "source", accepts: (b) => inTopic(b, "paper2.zonghe") },
+      { id: "tihuan", title: "语文应用 · 词语替换", marks: 10, count: 5, order: "source", accepts: (b) => inTopic(b, "paper2.tihuan") },
+      { id: "yuedu1", title: "阅读理解一", marks: 20, count: 10, order: "source", newPage: true, accepts: (b) => inTopic(b, "paper2.yuedu1") },
+      { id: "yuedu2", title: "阅读理解二", marks: 35, count: 10, order: "source", newPage: true, accepts: (b) => inTopic(b, "paper2.yuedu2") },
+    ],
+  },
 };
 
 export const blueprintMarks = (b: Blueprint) => b.sections.reduce((s, x) => s + x.marks, 0);

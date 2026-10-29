@@ -39,6 +39,9 @@ export interface PlayerItem {
   figure?: StemFigure | null;
   /** The reading passage a comprehension or cloze question is about. */
   passage?: string | null;
+  /** The content's language ("zh-Hans" for a Chinese pack's stem, passage and options), so devices pick Simplified
+   *  Chinese glyphs and screen readers a Chinese voice. The player's own words stay English. */
+  lang?: string | null;
   /** How it is answered and marked (see the header). Default: marked. */
   kind?: "marked" | "card" | "written";
   /** A word card's question: what it shows big, and how to answer (lib/learn/cards.ts). */
@@ -555,7 +558,7 @@ export function QuestionPlayer({ item, backHref, nextHref, questTitle, fresh = t
                   </span>
                 ))}
             </div>
-            {item.passage && <PassageText text={item.passage} />}
+            {item.passage && <PassageText text={item.passage} lang={item.lang} />}
             {item.card && (
               <div className="qp-word" lang={item.card.mode === "meaning" ? "zh-Hans" : undefined}>
                 <span className={item.card.mode === "meaning" ? "qp-word-glyph" : "qp-word-pinyin"}>{item.card.show}</span>
@@ -567,7 +570,7 @@ export function QuestionPlayer({ item, backHref, nextHref, questTitle, fresh = t
               </div>
             )}
             <div className="qp-qrow">
-              <StemText text={item.card ? item.card.prompt : item.stem} figure={item.card ? null : item.figure} />
+              <StemText text={item.card ? item.card.prompt : item.stem} figure={item.card ? null : item.figure} lang={item.card ? null : item.lang} />
               <button
                 type="button"
                 className="qp-read"
@@ -604,7 +607,7 @@ export function QuestionPlayer({ item, backHref, nextHref, questTitle, fresh = t
                       data-answer={isAnswer || undefined}
                       style={{ ...optionStyle(i === selected, state), minHeight: 56, padding: "12px 16px", textAlign: "left", cursor: "pointer" }}
                     >
-                      <span style={{ fontSize: 20, lineHeight: "26px", fontWeight: isAnswer ? 900 : 800 }}>
+                      <span lang={item.card ? undefined : (item.lang ?? undefined)} style={{ fontSize: 20, lineHeight: "26px", fontWeight: isAnswer ? 900 : 800 }}>
                         <InlineMarkup text={label} />
                       </span>
                       {isAnswer && (

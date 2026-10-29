@@ -31,7 +31,7 @@ function figureFor(item: SkillItem): StemFigure | null {
 
 /** What the player shows: never the answer key. A word card becomes the question code will mark. */
 function playerItem(item: SkillItem, subject: Subject): PlayerItem {
-  const base = { id: item.id, stem: item.stem, hints: item.hints ?? [], figure: figureFor(item), passage: item.passage ?? null };
+  const base = { id: item.id, stem: item.stem, hints: item.hints ?? [], figure: figureFor(item), passage: item.passage ?? null, lang: subject.subject === "chinese" ? "zh-Hans" : null };
   if (item.type === "card") {
     const q = cardFor(item, subject);
     return { ...base, options: q.options, kind: "card", card: { mode: q.mode, show: q.show, meaning: q.meaning, prompt: q.prompt } };
