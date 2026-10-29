@@ -480,4 +480,55 @@ build_grow = f"""
 """
 board("ReadmeGrows", "myKx README: Kix gets better every day", build_grow, True, grow_css)
 
+# 12. Critter Lab pets: the life cycle as a game -------------------------------------------------------------------
+pets_css = """
+.p-head{position:absolute;left:88px;top:48px;width:1424px;display:flex;justify-content:space-between;align-items:flex-end;gap:40px}
+.p-head .rd-lede{width:610px;font-size:21px;line-height:30px}
+.p-grid{position:absolute;left:88px;top:218px;width:900px;display:grid;grid-template-columns:repeat(2,1fr);gap:20px 22px}
+.p-step .rd-shot{position:relative;height:232px;border-radius:14px;overflow:hidden;background:#0F0E2A;box-shadow:0 0 0 1px rgba(185,167,245,.35)}
+.p-step .rd-shot img{position:absolute;left:0;width:100%}
+.p-step p{display:flex;gap:12px;align-items:baseline;margin-top:10px;font:700 17px/23px "Nunito",sans-serif;color:#D9D3FF}
+.p-step p b{flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#FFE38A;color:#1C1B4A;font:800 15px/1 "Nunito",sans-serif}
+.p-talk{position:absolute;left:1020px;top:218px;width:492px;padding:16px 18px 14px;border-radius:26px;background:#2B2A5C}
+.p-talk h3{display:flex;justify-content:space-between;align-items:center;gap:10px;font:600 24px/30px "Fredoka",sans-serif;color:#FFE38A}
+.p-talk .rd-m{height:30px;font-size:15px;padding:0 12px}
+.p-qa{display:grid;grid-template-columns:54px 1fr;gap:5px 12px;padding:9px 0;border-top:1px solid rgba(185,167,245,.2)}
+.p-qa:first-of-type{margin-top:8px}
+.p-av{grid-row:span 2;display:grid;place-items:center;width:54px;height:54px;border-radius:50%;background:#F4F1FF}
+.p-av img{max-width:44px;max-height:42px}
+.p-q{justify-self:end;padding:5px 12px;border-radius:14px 14px 4px 14px;background:#B9A7F5;color:#1C1B4A;font:800 14px/19px "Nunito",sans-serif}
+.p-a{padding:7px 12px;border-radius:14px 14px 14px 4px;background:#F4F1FF;color:#1C1B4A;font:600 14px/19px "Nunito",sans-serif}
+.p-a small{display:block;margin-bottom:2px;color:#6A47F0;font:800 12px/16px "Nunito",sans-serif}
+.p-note{margin-top:6px;font:600 14px/20px "Nunito",sans-serif;color:#B8B2E8}
+.p-note .rd-r{height:26px;font-size:13px;padding:0 10px;margin-right:6px;vertical-align:middle}
+"""
+pet_steps = [
+    ("pets-wrong", "top:0", "Feed it, and the wrong food teaches: a tadpole has no legs to catch a cricket, so it asks for algae."),
+    ("pets-grow", "top:0", "Care for it and it grows: Bloop is a froglet now, with legs and a shorter tail."),
+    ("pets-track", "bottom:0", "The life cycle stays in view, with Bloop's stage marked and what changes next."),
+    ("pets-eggs", "top:0", "An adult lays eggs, and the life cycle starts again with a new generation."),
+]
+pets_steps_html = "".join(f'<figure class="p-step" style="margin:0"><div class="rd-shot"><img src="{img(k)}" alt="" style="{pos}"></div><p><b>{n}</b>{html.escape(t)}</p></figure>' for n, (k, pos, t) in enumerate(pet_steps, 1))
+# Live replies from the Critter Keeper (Muse Spark), 29 Oct, to these questions on the local sample family.
+pet_talk = [
+    ("pet-froglet", "Froglet", "Can you breathe underwater?", "Not now! I am growing lungs so I pop up to breathe air. Please add a rock so I can climb out!"),
+    ("pet-pupa", "Mealworm pupa", "Are you hungry? Want some bran?", "No thank you! Right now I am a pupa so I do not munch. I just need warm rest while I change into a beetle."),
+    ("pet-caterpillar", "Caterpillar", "Do you want a cricket?", "No thank you, I only munch fresh leaves! I feel a bit hungry, please give me soft leaves to grow big."),
+    ("pet-hen", "Hen", "What do you eat?", "I love to peck corn and leafy greens in my coop! I am all grown up and can lay eggs to start again."),
+]
+pet_talk_html = "".join(f'<div class="p-qa"><span class="p-av"><img src="{img(k)}" alt=""></span><span class="p-q">{html.escape(q)}</span><span class="p-a"><small>{who}</small>{html.escape(a)}</span></div>' for k, who, q, a in pet_talk)
+build_pets = f"""
+<div class="p-head">
+  <h1 class="rd-h2" style="width:760px">Raise a critter.<br>Learn its life cycle.</h1>
+  <p class="rd-lede">Kids raise a frog, a mealworm beetle, a butterfly or a chicken through its real stages. Every stage needs different care, so the science is the game, and the pet answers in its own words.</p>
+</div>
+<div class="p-grid">{pets_steps_html}</div>
+<aside class="p-talk">
+  <h3>Ask your pet {muse("Critter Keeper")}</h3>
+  {pet_talk_html}
+  <p class="p-note">{rules("Code")}decides every bar, mood and stage; Muse only speaks. Real replies; chats aren't kept.</p>
+</aside>
+"""
+board("ReadmePets", "myKx README: Critter Lab pets", build_pets, True, pets_css)
+
 print("boards written")

@@ -126,8 +126,15 @@ export function PetsScreen({ initial, serverNow, band, voice }: { initial: PetRe
   const [text, setText] = useState("");
   const [talking, setTalking] = useState(false);
   const [grewAt, setGrewAt] = useState<string | null>(null);
+  /** The growth moment: what it grew into and what that stage can do (or the eggs that start the cycle again). */
+  const [party, setParty] = useState<{ title: string; note: string; art: string } | null>(null);
   const calm = useSyncExternalStore(onMotionChange, () => window.matchMedia(REDUCED).matches, () => false);
   const actor = useRef<PetHandle>(null);
+  /** The pet on screen now, so a reply that arrives after switching pets doesn't speak over the wrong one. */
+  const shown = useRef<PetId>(sel);
+  useEffect(() => {
+    shown.current = sel;
+  }, [sel]);
   const stage = useRef<HTMLDivElement>(null);
 
   // The bars run down on screen: the clock moves on every 15 seconds.
@@ -173,14 +180,24 @@ export function PetsScreen({ initial, serverNow, band, voice }: { initial: PetRe
     const { reaction, say: line } = r.outcome;
     setSay(line);
     if (reaction === "grew" || reaction === "eggs") {
+      const grown = r.pet;
+      const next = PETS[grown.species].stages[grown.stage];
+      const note = CRITTERS.find((c) => c.id === grown.species)?.stages[grown.stage]?.note ?? "";
       play(reaction === "eggs" ? "transform" : "reward");
       setFx(reaction === "eggs" ? "eggs" : "grow");
       await wait(900);
-      put(r.pet);
-      setGrewAt(r.pet.species);
+      put(grown);
+      setGrewAt(grown.species);
+      setParty({
+        title: reaction === "eggs" ? `A new generation of ${name}!` : `${name} grew into a ${next.label.toLowerCase()}!`,
+        note: reaction === "eggs" ? line : `${next.label}: ${note}`,
+        art: spriteOf(grown.species, grown.stage),
+      });
       window.setTimeout(() => setGrewAt(null), 4000);
       await wait(1200);
       setFx(null);
+      await wait(2600);
+      setParty(null);
       return;
     }
     put(r.pet);
@@ -292,17 +309,20 @@ export function PetsScreen({ initial, serverNow, band, voice }: { initial: PetRe
     e?.preventDefault();
     const t = (spoken ?? text).trim();
     if (!t || !pet || talking) return;
+    const asked = sel;
     setText("");
     setTalking(true);
-    const add = (l: Line) => setLines((all) => ({ ...all, [sel]: [...(all[sel] ?? []), l].slice(-8) }));
+    const add = (l: Line) => setLines((all) => ({ ...all, [asked]: [...(all[asked] ?? []), l].slice(-8) }));
     add({ from: "kid", text: t });
     try {
-      const res = await fetch("/api/pets/talk", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ species: sel, text: t }) });
+      const res = await fetch("/api/pets/talk", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ species: asked, text: t }) });
       const r = (await res.json()) as Reply;
       if (r.care) add({ from: "kix", text: r.care.reply, helplines: r.care.helplines });
       else if (r.reply) {
         add({ from: "pet", text: r.reply });
         if (r.pet) put(r.pet);
+        if (shown.current !== asked) return setTalking(false);
+        setSay(r.reply);
         actor.current?.emote(r.feeling === "love" ? "love" : r.feeling === "hungry" ? "hungry" : r.feeling === "sad" ? "sad" : r.feeling === "angry" ? "angry" : "happy");
       } else add({ from: "pet", text: "…" });
     } catch {
@@ -363,6 +383,14 @@ export function PetsScreen({ initial, serverNow, band, voice }: { initial: PetRe
               </div>
             )}
             <span className="pt-fx" aria-hidden="true" />
+            {party && (
+              <div className="pt-party" role="status">
+                <span className="pt-confetti" aria-hidden="true" />
+                <img src={party.art} alt="" className="pt-party-art" />
+                <b>{party.title}</b>
+                <span>{party.note}</span>
+              </div>
+            )}
             {mode === "clean" && <span className="pt-hint">Rub the spots to scrub them away</span>}
             {say && (
               <p className="pt-say" role="status">

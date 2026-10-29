@@ -1,6 +1,6 @@
 # Critter Lab pets
 
-Founder brief, 29 Oct 2026: the Critter Lab moves into the kid rail for every age. Kids raise pets through their real life cycles, groom them with the right care for each stage, see them move like real creatures, see them get happy, hungry, sad or cross, and talk to them. A specialist agent, the Critter Keeper, speaks as the pet and coaches its care. The life cycle stays in view, with the pet's stage marked. Built in `lib/pets`, `components/pets`, `app/api/pets`; architecture in [ARCHITECTURE.md §6.3b](../ARCHITECTURE.md).
+Founder brief, 29 Oct 2026: the Critter Lab moves into the kid rail for every age. Kids raise pets through their real life cycles, groom them with the right care for each stage, see them move like real creatures, see them get happy, hungry, sad or cross, and talk to them. A specialist agent, the Critter Keeper, speaks as the pet and coaches its care. The life cycle stays in view, with the pet's stage marked. Built in `lib/pets`, `components/pets`, `app/api/pets`; architecture in [ARCHITECTURE.md §6.3b](../ARCHITECTURE.md); shown in the README's Critter Lab section (`docs/readme/pets.webp`, board ReadmePets, and the recording `docs/readme/pets-grow.webp`).
 
 ## What a kid does
 
@@ -9,7 +9,7 @@ Founder brief, 29 Oct 2026: the Critter Lab moves into the kid rail for every ag
    - **Feed** from the habitat's tray of four foods. Only the right food for the stage is eaten; a wrong one is turned down with the reason (a tadpole has no legs to catch flies; a pupa doesn't eat).
    - **Clean** by rubbing the dirty spots away; **Play** by moving a finger for the pet to follow; **Warm** under the lamp or the sun.
    - **The stage's own job**, taught by doing: add a rock so the froglet can leave the water, watch the mealworm moult, let the pupa or chrysalis rest, turn the egg, let the chick hatch by itself.
-3. **Watch it grow.** When the jobs are done and every bar is at least halfway, it grows into the next stage on screen, and the life-cycle track moves on. An adult lays eggs and a new generation starts: the cycle closes.
+3. **Watch it grow.** When the jobs are done and every bar is at least halfway, it grows into the next stage on screen with a celebration that says what the new stage can do ("Bloop grew into a froglet! Froglet: grows legs; the tail gets shorter"), and the life-cycle track moves on. An adult lays eggs and a new generation starts: the cycle closes.
 4. **Talk to it.** The Critter Keeper answers as the pet at its stage, true to its science, and says what it needs when asked.
 
 ## Rules

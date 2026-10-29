@@ -12,7 +12,7 @@ Meet **Kix**: a specialist AI tutor, a creative companion and your helping hand.
 
 **Built for my kids. Made for yours.**
 
-Built for the **Meta Global AI Developer Hackathon** (track: Build for Your World). Powered by **Meta Muse**: 14 of myKx's 16 specialist agents run on Muse Spark, Muse Image, SAM 3.1 or Muse Voice Transcribe.
+Built for the **Meta Global AI Developer Hackathon** (track: Build for Your World). Powered by **Meta Muse**: 15 of myKx's 17 specialist agents run on Muse Spark, Muse Image, SAM 3.1 or Muse Voice Transcribe.
 
 [Live app](https://mykx.vercel.app) · [Home simulator](https://mykx-sim.vercel.app) (passcode on request) · [Architecture](docs/ARCHITECTURE.md) · [Docs index](docs/README.md)
 
@@ -25,9 +25,9 @@ Built for the **Meta Global AI Developer Hackathon** (track: Build for Your Worl
 | **Impact** (Build for Your World) | [Why I built it](#why-i-built-it): a problem the founder lives every day, in a country where most couples both work. myKx frees up a parent's time and mental space, and makes something possible that wasn't before: a child's own interests become their learning world. |
 | **Use of Meta AI tooling** | [17 specialists, 15 on Meta Muse](#17-specialists-15-of-them-on-meta-muse): four Meta models chained into pipelines (Muse Image + SAM 3.1 transforms; Muse Spark vision + rules + SAM 3.1 for home cameras; Muse Spark web search + planning), with every call logged in Under the hood. Muse Code built four of the branches. |
 | **Technical depth and execution** | [Architecture](docs/ARCHITECTURE.md), more than 900 automated tests run by CI on every push, deterministic engines for scores and alerts, row-level security per household, cached fallbacks for every generated surface.<br><br>A few ideas make it more than a chatbot on a syllabus:<br>• **Skills, not search.** Kix's agents load versioned skill packs for the child's level and read the exact section they need through tools that run as trusted code, and every step is logged.<br>• **It quietly gets better.** In the moment, a drifting child gets a spark from their own interests. Each day, the Memory Keeper updates Kix's Notebook, and a hard day yesterday means a gentler start today. Each week, new exam papers become admin-reviewed skill-pack versions, and agents' instructions are versioned with guardrails that stay fixed.<br>• **Models explain; code decides.** Mastery, rewards, alerts and when Kix adapts are plain, tested rules, so a score never moves without evidence.<br>• **Open, and safe by construction.** Each child's world arrives with their magic name, one device protocol (proven today by the simulator) carries phones, cameras and future peripherals, and the guest site has no keys that could reach real data. |
-| **Demo** | The video, the [guest walkthrough](https://mykx-guest.vercel.app) (one tap, no password), the [live app](#try-it-live) (sign-ins are in the submission form), the [Home simulator](https://mykx-sim.vercel.app), and [everything in the MVP](#everything-in-the-mvp). |
+| **Demo** | The video, the [guest walkthrough](https://mykx-guest.vercel.app) (one tap, no password), the [live app](#try-it-live) (sign-ins are in the submission form), the [Home simulator](https://mykx-sim.vercel.app), [raising a critter through its life cycle](#critter-lab-raise-a-critter-learn-its-life-cycle), and [everything in the MVP](#everything-in-the-mvp). |
 
-**Not a chatbot, not RAG, not medical advice.** Kix is one face on 16 specialist agents that run multi-step workflows: reading papers, choosing questions, keeping a memory, reading a home, planning a weekend. Kix loads the right skill pack and reads the exact section it needs through tools that run as trusted code (and refuse to check the question a child is answering), with no vector search; every load and tool call is logged. Scores and rewards are plain code. Wellbeing notes say "possibly" and show the evidence against the child's own usual; they never diagnose, and distress words always bring in the parent and the helplines.
+**Not a chatbot, not RAG, not medical advice.** Kix is one face on 17 specialist agents that run multi-step workflows: reading papers, choosing questions, keeping a memory, voicing a child's pet, reading a home, planning a weekend. Kix loads the right skill pack and reads the exact section it needs through tools that run as trusted code (and refuse to check the question a child is answering), with no vector search; every load and tool call is logged. Scores and rewards are plain code. Wellbeing notes say "possibly" and show the evidence against the child's own usual; they never diagnose, and distress words always bring in the parent and the helplines.
 
 **Built during the hackathon.** Everything in this repository was built between 27 October and 4 November 2026: the first commit is the bootstrap on 27 October, every commit since is in the history, every generated image is dated in [`public/art/manifest.json`](public/art/manifest.json), and [`docs/plan/PROGRESS.md`](docs/plan/PROGRESS.md) logs each task with the models it used. Coding agents: Claude Code throughout, and Meta's Muse Code for four branches on 28 October.
 
@@ -110,6 +110,42 @@ None of this changes a score or a reward: mastery stays deterministic, and an an
 6. **Memory Keeper** (Muse Spark) writes Kix's Notebook: how this child asks, slips and wins, so tomorrow starts where today ended, and more gently after a hard day. The parent can read, edit or wipe every page.
 
 Steps 4 to 6 repeat every session, so the questions follow the child, and the packs get better as the Curator learns what the exams ask. The full loops are in [the architecture doc](docs/ARCHITECTURE.md).
+
+## Critter Lab: raise a critter, learn its life cycle
+
+<img src="docs/readme/pets.webp" alt="Raise a critter, learn its life cycle. Four steps from the app: a tadpole turns down a cricket because it has no legs to catch one; Bloop grows into a froglet; the life-cycle track marks the froglet stage; a hen lays an egg and a new generation starts. Beside them, real replies from the Critter Keeper: a froglet growing lungs, a pupa that doesn't eat, a caterpillar that only munches leaves, and a hen that pecks corn and greens." width="100%">
+
+In myKx the P3 Science life cycles aren't a page to read: they're a pet to raise. From the **Critters** tab (every age), a child adopts a frog, a mealworm beetle, a butterfly or a chicken, and raises it from eggs to adult and on to a new generation. Every stage needs different care, so getting the science right is how you play.
+
+| The child… | What happens in the app | What they learn |
+|---|---|---|
+| Adopts a clump of frogspawn | The eggs wobble in their jelly. Offer food and they say: *"We're eggs! The yolk inside each egg feeds the tadpole growing in it."* | Eggs don't eat; the young grows inside. |
+| Feeds the tadpole | Four foods on the tray. The cricket is turned down: *"That cricket is bigger than me! Tadpoles eat algae and soft plants."* The algae is eaten. | Each stage eats different food, and the young of some animals look and live nothing like the adult. |
+| Does the stage's own job | Add a rock so the froglet can climb out and breathe air; let the pupa rest; turn the egg; let the chick hatch by itself. | What changes at each stage: a froglet grows lungs, a pupa doesn't eat or move much while it changes. |
+| Keeps it looked after | Bars for food, a clean home, love and warmth run down by the hour. The pet gets hungry, sad or cross (never sick), and shows it in how it moves. | Living things need food, water, air and a suitable home. |
+| Watches it grow | A celebration: *"Bloop grew into a froglet! Froglet: grows legs; the tail gets shorter."* The life-cycle track moves its marker on. | The order of the stages, and what changes between them. |
+| Sees the adult lay eggs | *"A new generation of Pebble!"* Back to stage one. | A life cycle really is a cycle. |
+| Talks to it | The Critter Keeper answers as the pet at its stage (below). | Asking in their own words, and hearing the science back. |
+
+<p align="center"><img src="docs/readme/pets-grow.webp" alt="A recording from the app: a tadpole swims in its pond tank, turns down a cricket with the reason, eats algae, plays, and grows into a froglet with a celebration; the life-cycle track moves to the froglet, which then says what it needs next." width="72%"></p>
+<p align="center"><sub>Recorded in the app: the tadpole turns down a cricket, eats algae and grows into a froglet. The marker moves on, and the froglet's last line is a live Critter Keeper reply.</sub></p>
+
+**The pet answers like the creature it is.** Real replies from the Critter Keeper (Muse Spark), asked on the sample family:
+
+| Asked | The pet answers |
+|---|---|
+| A froglet: *"Can you breathe underwater?"* | "Not now! I am growing lungs so I pop up to breathe air. Please add a rock so I can climb out!" |
+| A mealworm pupa: *"Are you hungry? Want some bran?"* | "No thank you! Right now I am a pupa so I do not munch. I just need warm rest while I change into a beetle." |
+| A caterpillar: *"Do you want a cricket?"* | "No thank you, I only munch fresh leaves! I feel a bit hungry, please give me soft leaves to grow big." |
+| A hen: *"What do you eat?"* | "I love to peck corn and leafy greens in my coop! I am all grown up and can lay eggs to start again." |
+
+**How it's built.**
+- **Code decides every bar, mood and stage**, the same way every time ([`lib/pets/care.ts`](lib/pets/care.ts)). A full bar takes no more of the same care, so a pet grows over hours of looking after it, not by tapping. It never gets sick, dies or goes back a stage, and it never touches mastery or rewards.
+- **The Critter Keeper only speaks.** It's given the pet's facts (species, stage, foods, bars, the care it still needs) and the child's words, nothing else. Distress words skip it: Kix's caring reply, the helplines and an urgent flag for the parent. Other pet chats aren't kept. Without a model, a scripted reply answers.
+- **Real movement:** a tadpole's tail and a butterfly's wings move as separate halves of the sprite, frogs hop with squash and stretch, larvae inch along and chicks peck. Mood changes the pace and posture.
+- **The art** is Muse Image redrawing each stage from the Critter Lab's life-cycle sheets, cut out with SAM 3.1, plus foods and four habitats.
+
+The full design is in [docs/prd/PETS.md](docs/prd/PETS.md).
 
 ## 17 specialists, 15 of them on Meta Muse
 

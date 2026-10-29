@@ -239,3 +239,14 @@
   .pt-step:not(:nth-child(4))::after{right:-8px;top:26px;width:9px;height:9px}
 }
 @media (prefers-reduced-motion:reduce){.pt-step.is-new{animation:none}}
+
+/* The growth moment: a burst of confetti, the new stage, and what it can do now */
+.pt-party{position:absolute;left:50%;top:46%;z-index:6;display:flex;flex-direction:column;align-items:center;gap:6px;width:min(78%,460px);padding:18px 22px 16px;border-radius:24px;background:rgba(255,255,255,.95);color:#1f2a1c;text-align:center;box-shadow:0 18px 40px rgba(20,30,20,.3);transform:translate(-50%,-50%);animation:pt-party-in .6s cubic-bezier(.3,1.5,.5,1) both}
+.pt-party b{font:700 clamp(18px,2.4cqw,26px)/1.2 var(--font-display,inherit)}
+.pt-party span:last-child{font-size:15px;line-height:21px;color:#3d4a39}
+.pt-party-art{width:clamp(70px,16cqw,130px);filter:drop-shadow(0 8px 10px rgba(0,0,0,.25));animation:pt-party-pop 1.2s ease-in-out infinite alternate}
+.pt-confetti{position:absolute;inset:-30% -10% auto;height:160%;pointer-events:none;background:radial-gradient(circle,#ff7eb6 0 4px,transparent 5px) 0 0/58px 64px,radial-gradient(circle,#ffd23f 0 5px,transparent 6px) 20px 14px/72px 58px,radial-gradient(circle,#6fe3e8 0 4px,transparent 5px) 36px 30px/64px 76px,radial-gradient(circle,#b6f36a 0 3px,transparent 4px) 10px 40px/50px 52px;-webkit-mask:radial-gradient(closest-side,#000 40%,transparent);mask:radial-gradient(closest-side,#000 40%,transparent);animation:pt-confetti 2.4s ease-out forwards}
+@keyframes pt-party-in{from{opacity:0;transform:translate(-50%,-40%) scale(.7)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+@keyframes pt-party-pop{from{transform:translateY(0) scale(1)}to{transform:translateY(-6px) scale(1.06)}}
+@keyframes pt-confetti{0%{opacity:0;transform:scale(.4)}20%{opacity:1}100%{opacity:0;transform:scale(1.25) translateY(30px)}}
+@media (prefers-reduced-motion:reduce){.pt-party,.pt-party-art,.pt-confetti{animation:none}}
