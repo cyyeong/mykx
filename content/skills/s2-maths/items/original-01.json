@@ -1,0 +1,1782 @@
+[
+  {
+    "id": "s2math-original-01-q1",
+    "skill": "s2-maths",
+    "topic": "algebra.expansion_factorisation",
+    "subskill": "expand_products",
+    "archetype": "expand-and-simplify",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Expand and simplify (2x + 3)(x − 4).",
+    "options": [
+      "2x² − 12",
+      "2x² + 11x − 12",
+      "2x² − 5x − 12",
+      "2x² − 5x + 12"
+    ],
+    "answer": 3,
+    "working": [
+      "Multiply each term in the first bracket by each term in the second: 2x × x = 2x², 2x × (−4) = −8x, 3 × x = 3x and 3 × (−4) = −12.",
+      "Collect the like terms: −8x + 3x = −5x.",
+      "(2x + 3)(x − 4) = 2x² − 5x − 12.",
+      "Check with x = 1: (5)(−3) = −15 and 2 − 5 − 12 = −15 ✓"
+    ],
+    "distractors": {
+      "1": "Only the first terms and the last terms were multiplied. There are four products, so the x terms are missing.",
+      "2": "2x × (−4) is −8x, not +8x. Keep the sign with each term.",
+      "4": "3 × (−4) is −12: a positive number times a negative number is negative."
+    },
+    "hints": [
+      "There are four products to find: each term in the first bracket times each term in the second.",
+      "Keep each sign with its term, then collect the two x terms."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, N5.9 expansion of the product of algebraic expressions. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q2",
+    "skill": "s2-maths",
+    "topic": "algebra.expansion_factorisation",
+    "subskill": "algebraic_identities",
+    "archetype": "identity-substitution",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "It is given that x² + y² = 52 and xy = 12.\n\nWithout finding x or y, find the value of (x − y)².",
+    "answer": "28",
+    "working": [
+      "Use the identity (a − b)² = a² − 2ab + b².",
+      "(x − y)² = x² − 2xy + y² = (x² + y²) − 2xy.",
+      "= 52 − 2 × 12 = 52 − 24 = 28.",
+      "Common error: writing (x − y)² = x² − y², or subtracting xy instead of 2xy (which gives 40)."
+    ],
+    "hints": [
+      "Expand (x − y)² using the identity for (a − b)².",
+      "Group x² and y² together: you already know their sum. What is 2xy?"
+    ],
+    "marking": [
+      "M1 for (x − y)² = x² + y² − 2xy",
+      "A1 for 28"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, N5.12 use of (a − b)² = a² − 2ab + b². Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q3",
+    "skill": "s2-maths",
+    "topic": "algebra.expansion_factorisation",
+    "subskill": "factorise_quadratic",
+    "archetype": "factorise-trinomial",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Factorise 2x² + 3x − 20.",
+    "options": [
+      "(2x + 5)(x − 4)",
+      "(2x − 4)(x + 5)",
+      "(2x − 10)(x + 2)",
+      "(2x − 5)(x + 4)"
+    ],
+    "answer": 4,
+    "working": [
+      "Look for (2x + p)(x + q) where pq = −20.",
+      "Expanding gives a middle term of 2q + p, which must be 3. Try p = −5 and q = 4: 2(4) + (−5) = 3 ✓",
+      "2x² + 3x − 20 = (2x − 5)(x + 4).",
+      "Check by expanding: 2x² + 8x − 5x − 20 = 2x² + 3x − 20 ✓"
+    ],
+    "distractors": {
+      "1": "This expands to 2x² − 3x − 20: the signs are the wrong way round. Expand to check the middle term.",
+      "2": "This expands to 2x² + 6x − 20. The last terms multiply to −20, but the middle term must be +3x.",
+      "3": "This expands to 2x² − 6x − 20, and 2x − 10 still has a common factor of 2."
+    },
+    "hints": [
+      "Start with (2x    )(x    ). The two numbers in the brackets must multiply to −20.",
+      "Try a pair of numbers, then expand to see whether the middle term is +3x. The number paired with x is multiplied by 2x."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, N5.14 factorisation of quadratic expressions ax² + bx + c. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q4",
+    "skill": "s2-maths",
+    "topic": "algebra.expansion_factorisation",
+    "subskill": "factorise_by_grouping",
+    "archetype": "factorise-by-grouping",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Factorise completely 6ax − 3ay + 4bx − 2by.",
+    "options": [
+      "(3a + 2b)(2x − y)",
+      "(3a − 2b)(2x + y)",
+      "3a(2x − y) + 2b(2x − y)",
+      "(3a + 2b)(2x + y)"
+    ],
+    "answer": 1,
+    "working": [
+      "Group the terms in pairs: (6ax − 3ay) + (4bx − 2by).",
+      "Take out the common factor of each pair: 3a(2x − y) + 2b(2x − y).",
+      "Both parts share the bracket (2x − y), so take it out: (3a + 2b)(2x − y).",
+      "Check: (3a + 2b)(2x − y) = 6ax − 3ay + 4bx − 2by ✓"
+    ],
+    "distractors": {
+      "2": "Expanding gives 6ax + 3ay − 4bx − 2by: the signs have moved to the wrong brackets.",
+      "3": "Correct so far, but this is still a sum of two terms. Take out the common bracket (2x − y) to finish.",
+      "4": "Expanding gives 6ax + 3ay + 4bx + 2by. The −3ay and −2by need a minus sign inside the bracket."
+    },
+    "hints": [
+      "Split the four terms into two pairs and take a common factor out of each pair.",
+      "If both pairs leave the same bracket, that bracket is a factor of the whole expression."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, N5.13 factorisation of linear expressions of the form ax + bx + kay + kby. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q5",
+    "skill": "s2-maths",
+    "topic": "algebra.expansion_factorisation",
+    "subskill": "algebraic_identities",
+    "archetype": "factorise-completely",
+    "difficulty": 4,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Factorise completely 18p² − 50q².",
+    "options": [
+      "2(9p² − 25q²)",
+      "2(3p − 5q)(3p + 5q)",
+      "(3p − 5q)(3p + 5q)",
+      "2(3p − 5q)²"
+    ],
+    "answer": 2,
+    "working": [
+      "Take out the common factor 2 first: 18p² − 50q² = 2(9p² − 25q²).",
+      "9p² − 25q² = (3p)² − (5q)², a difference of two squares.",
+      "Use a² − b² = (a + b)(a − b): 18p² − 50q² = 2(3p − 5q)(3p + 5q).",
+      "Check: (3p − 5q)(3p + 5q) = 9p² − 25q², and 2 × (9p² − 25q²) = 18p² − 50q² ✓"
+    ],
+    "distractors": {
+      "1": "True, but not complete: 9p² − 25q² is a difference of two squares and can be factorised further.",
+      "3": "This expands to 9p² − 25q², only half of the expression: the common factor 2 is missing.",
+      "4": "2(3p − 5q)² expands to 18p² − 60pq + 50q². The square of a difference is not a difference of two squares."
+    },
+    "hints": [
+      "'Completely' means keep going until nothing more can be factorised. Is there a common factor to take out first?",
+      "After taking out the common factor, look for the pattern a² − b²."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, N5.12 use of a² − b² = (a + b)(a − b), after extracting a common factor. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q6",
+    "skill": "s2-maths",
+    "topic": "algebra.fractions_formulae",
+    "subskill": "multiply_divide_fractions",
+    "archetype": "algebraic-fraction-operations",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Simplify 4x/(9y) ÷ 8x²/(3y²).",
+    "options": [
+      "32x³/(27y³)",
+      "6x/y",
+      "27y³/(32x³)",
+      "y/(6x)"
+    ],
+    "answer": 4,
+    "working": [
+      "Dividing by a fraction is the same as multiplying by its reciprocal: 4x/(9y) × 3y²/(8x²).",
+      "Multiply: (4x × 3y²)/(9y × 8x²) = 12xy²/(72x²y).",
+      "Cancel: 12/72 = 1/6, x/x² = 1/x and y²/y = y.",
+      "The answer is y/(6x)."
+    ],
+    "distractors": {
+      "1": "That is the product, not the quotient: turn the second fraction upside down before multiplying.",
+      "2": "The first fraction was turned upside down instead of the second. Only the fraction you divide by is inverted.",
+      "3": "Both fractions were turned upside down. Keep the first fraction as it is."
+    },
+    "hints": [
+      "Change ÷ into × by turning the second fraction upside down.",
+      "Multiply the tops and the bottoms, then cancel the numbers, the x's and the y's separately."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, N5.15 multiplication and division of simple algebraic fractions. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q7",
+    "skill": "s2-maths",
+    "topic": "algebra.fractions_formulae",
+    "subskill": "add_subtract_fractions",
+    "archetype": "algebraic-fraction-operations",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Express 3/(x − 2) − 2/(x + 1) as a single fraction in its simplest form.",
+    "options": [
+      "(x − 1)/[(x − 2)(x + 1)]",
+      "(x + 7)/[(x − 2)(x + 1)]",
+      "1/(2x − 1)",
+      "(x + 7)/(2x − 1)"
+    ],
+    "answer": 2,
+    "working": [
+      "The common denominator is (x − 2)(x + 1).",
+      "3/(x − 2) = 3(x + 1)/[(x − 2)(x + 1)] and 2/(x + 1) = 2(x − 2)/[(x − 2)(x + 1)].",
+      "Numerator: 3(x + 1) − 2(x − 2) = 3x + 3 − 2x + 4 = x + 7.",
+      "So the single fraction is (x + 7)/[(x − 2)(x + 1)].",
+      "Check with x = 3: 3/1 − 2/4 = 2.5, and (3 + 7)/(1 × 4) = 2.5 ✓"
+    ],
+    "distractors": {
+      "1": "−2(x − 2) = −2x + 4, not −2x − 4. The minus sign multiplies both terms in the bracket.",
+      "3": "Fractions cannot be subtracted by taking away the tops and combining the bottoms. Use a common denominator.",
+      "4": "The numerator is right, but the denominators were added. The common denominator is their product, (x − 2)(x + 1)."
+    },
+    "hints": [
+      "Use (x − 2)(x + 1) as the common denominator.",
+      "Put brackets round each new numerator before you subtract, and watch the sign in front of the second one."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, N5.16 addition and subtraction of algebraic fractions with linear denominators. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q8a",
+    "skill": "s2-maths",
+    "topic": "algebra.fractions_formulae",
+    "subskill": "change_subject",
+    "archetype": "subject-then-substitute",
+    "difficulty": 4,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "The formula y = (2x + 5)/(x − 3) connects x and y.\n\n(a) Make x the subject of the formula.",
+    "options": [
+      "x = (5 − 3y)/(y − 2)",
+      "x = (3y + 5)/(y + 2)",
+      "x = (3y + 5)/(y − 2)",
+      "x = (3y + 5)/(y − 3)"
+    ],
+    "answer": 3,
+    "working": [
+      "Multiply both sides by (x − 3): y(x − 3) = 2x + 5, so xy − 3y = 2x + 5.",
+      "Collect the x terms on one side: xy − 2x = 3y + 5.",
+      "Factorise: x(y − 2) = 3y + 5.",
+      "Divide by (y − 2): x = (3y + 5)/(y − 2).",
+      "Check with x = 4: y = 13/1 = 13, and (3 × 13 + 5)/(13 − 2) = 44/11 = 4 ✓"
+    ],
+    "distractors": {
+      "1": "When −3y moves to the other side it becomes +3y. Here its sign was not changed.",
+      "2": "xy − 2x = x(y − 2), not x(y + 2). Check the sign when you factorise.",
+      "4": "The (x − 3) is cleared by multiplying both sides by it, not copied into the answer."
+    },
+    "hints": [
+      "Clear the fraction first: multiply both sides by (x − 3).",
+      "Get every term with x on one side, then take x out as a common factor."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, N5.10 changing the subject of a formula. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q8b",
+    "skill": "s2-maths",
+    "topic": "algebra.fractions_formulae",
+    "subskill": "evaluate_formula",
+    "archetype": "subject-then-substitute",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "short",
+    "stem": "The formula y = (2x + 5)/(x − 3) connects x and y.\n\n(b) Find the value of x when y = 4.",
+    "answer": "8.5",
+    "accept": [
+      "17/2",
+      "8 1/2",
+      "x = 8.5",
+      "x=8.5",
+      "x = 17/2",
+      "x=17/2"
+    ],
+    "working": [
+      "Substitute y = 4: 4 = (2x + 5)/(x − 3).",
+      "Multiply both sides by (x − 3): 4x − 12 = 2x + 5.",
+      "2x = 17, so x = 8.5.",
+      "Check: (2 × 8.5 + 5)/(8.5 − 3) = 22/5.5 = 4 ✓"
+    ],
+    "hints": [
+      "Put y = 4 into the formula, then clear the fraction.",
+      "Or, if you have made x the subject, substitute y = 4 into your new formula."
+    ],
+    "marking": [
+      "M1 for 4(x − 3) = 2x + 5",
+      "A1 for 8.5"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, N5.11 finding the value of an unknown quantity in a given formula. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q9",
+    "skill": "s2-maths",
+    "topic": "algebra.inequalities",
+    "subskill": "inequality_concept",
+    "archetype": "inequality-rules",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "It is given that p < q.\n\nWhich statement must be true?",
+    "options": [
+      "−3p > −3q",
+      "p − 5 > q − 5",
+      "p/2 > q/2",
+      "3 − p < 3 − q"
+    ],
+    "answer": 1,
+    "working": [
+      "Adding or subtracting the same number keeps the inequality sign: p − 5 < q − 5.",
+      "Multiplying or dividing by a positive number keeps the sign: p/2 < q/2.",
+      "Multiplying by a negative number reverses the sign: −3p > −3q ✓",
+      "Check with numbers: p = 1 and q = 2 give −3 > −6 ✓"
+    ],
+    "distractors": {
+      "2": "Subtracting 5 from both sides does not change the direction: p − 5 < q − 5.",
+      "3": "Dividing both sides by a positive number keeps the direction: p/2 < q/2.",
+      "4": "−p > −q, so 3 − p > 3 − q. Try p = 1 and q = 2: 2 is not less than 1."
+    },
+    "hints": [
+      "Test each statement with numbers, for example p = 1 and q = 2.",
+      "Which operation turns the inequality sign round?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, N7.5 concept of equation and inequality. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q10",
+    "skill": "s2-maths",
+    "topic": "algebra.inequalities",
+    "subskill": "solve_simple_inequalities",
+    "archetype": "integer-solutions-of-inequality",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "Find the smallest integer x that satisfies 7 − 3x < 22.",
+    "answer": "-4",
+    "accept": [
+      "−4",
+      "x = -4",
+      "x=-4",
+      "x = −4",
+      "x=−4"
+    ],
+    "working": [
+      "Subtract 7 from both sides: −3x < 15.",
+      "Divide both sides by −3 and reverse the sign: x > −5.",
+      "The integers greater than −5 are −4, −3, −2, … The smallest is −4.",
+      "Check: x = −4 gives 7 + 12 = 19 < 22 ✓; x = −5 gives 22, which is not less than 22."
+    ],
+    "hints": [
+      "Get the x term on its own first, then divide.",
+      "Dividing by a negative number turns the inequality sign round. Then list the integers that fit."
+    ],
+    "marking": [
+      "M1 for x > −5",
+      "A1 for −4"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, N7.6 solving simple inequalities in the form ax + b < c. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q11",
+    "skill": "s2-maths",
+    "topic": "algebra.inequalities",
+    "subskill": "number_line",
+    "archetype": "solve-and-show-on-number-line",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Solve the inequality 11 − 2x ≤ 3.\n\nWhich answer gives the solution and describes how it is shown on a number line?",
+    "options": [
+      "x ≤ 4: a filled circle at 4 with an arrow pointing left",
+      "x ≥ 4: a filled circle at 4 with an arrow pointing right",
+      "x ≥ 4: an open circle at 4 with an arrow pointing right",
+      "x ≥ 7: a filled circle at 7 with an arrow pointing right"
+    ],
+    "answer": 2,
+    "working": [
+      "Subtract 11 from both sides: −2x ≤ −8.",
+      "Divide by −2 and reverse the sign: x ≥ 4.",
+      "On the number line: a filled (shaded) circle at 4, because 4 is included, and an arrow pointing right for the numbers greater than 4.",
+      "Check: x = 5 gives 11 − 10 = 1 ≤ 3 ✓; x = 3 gives 5, which is not ≤ 3."
+    ],
+    "distractors": {
+      "1": "Dividing by −2 reverses the sign, so ≤ becomes ≥.",
+      "3": "≥ includes 4 itself, so the circle at 4 is filled in. An open circle is for < or >.",
+      "4": "Adding 11 and 3 is not the first step. Subtract 11 from both sides: −2x ≤ −8."
+    },
+    "hints": [
+      "Subtract 11 from both sides, then divide by −2. What happens to the sign?",
+      "A filled circle means the number itself is included; an open circle means it is not."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, N7.6 solving simple inequalities in the form ax + b ≤ c and representing the solutions on the number line. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q12",
+    "skill": "s2-maths",
+    "topic": "algebra.simultaneous_equations",
+    "subskill": "linear_graphs_two_variables",
+    "archetype": "intercepts-of-ax-by-c",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "The graph of the linear equation 2x + 3y = 12 is a straight line.\n\nAt which points does it cut the x-axis and the y-axis?",
+    "options": [
+      "(4, 0) and (0, 6)",
+      "(12, 0) and (0, 12)",
+      "(6, 0) and (0, −4)",
+      "(6, 0) and (0, 4)"
+    ],
+    "answer": 4,
+    "working": [
+      "On the x-axis, y = 0: 2x = 12, so x = 6. The point is (6, 0).",
+      "On the y-axis, x = 0: 3y = 12, so y = 4. The point is (0, 4).",
+      "Check: 2(6) + 3(0) = 12 ✓ and 2(0) + 3(4) = 12 ✓"
+    ],
+    "distractors": {
+      "1": "The values are swapped. On the x-axis y = 0, so solve 2x = 12.",
+      "2": "12 is the value of 2x + 3y, not of x or y. Divide by the coefficient.",
+      "3": "3y = 12 gives y = +4. Check: 2(0) + 3(−4) = −12, not 12."
+    },
+    "hints": [
+      "Every point on the x-axis has a y-coordinate of 0.",
+      "Put y = 0 to find where the line meets the x-axis, then put x = 0 for the y-axis."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, N7.7 graphs of linear equations in two variables (ax + by = c). Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q13",
+    "skill": "s2-maths",
+    "topic": "algebra.simultaneous_equations",
+    "subskill": "graphical_method",
+    "archetype": "read-the-intersection",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "short",
+    "stem": "Two shops rent out bicycles. Shop A charges $4 plus $3 per hour, so C = 3t + 4. Shop B charges $5 per hour, so C = 5t. C is the charge in dollars and t is the time in hours. The graph shows both lines.\n\nUse the graph to find the number of hours for which the two shops charge the same amount.",
+    "answer": "2",
+    "accept": [
+      "2 h",
+      "2h",
+      "2 hrs",
+      "2 hour",
+      "t = 2",
+      "t=2"
+    ],
+    "unit": "hours",
+    "working": [
+      "The two shops charge the same amount where the two lines cross.",
+      "The lines cross at t = 2, where C = 10.",
+      "Check with the equations: Shop A 3(2) + 4 = 10 and Shop B 5(2) = 10 ✓"
+    ],
+    "hints": [
+      "On the graph, where do the two shops charge the same amount?",
+      "Find where the lines cross, then read down to the time axis."
+    ],
+    "marking": [
+      "B1 for using the point of intersection",
+      "B1 for 2 hours"
+    ],
+    "figure": "figures/s2math-original-01-q13.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "line_graph",
+          "w": 5.4,
+          "h": 3.4,
+          "xlabel": "Time, t (hours)",
+          "ylabel": "Charge, C ($)",
+          "series": [
+            {
+              "label": "Shop A",
+              "x": [
+                0,
+                5
+              ],
+              "y": [
+                4,
+                19
+              ],
+              "style": "-"
+            },
+            {
+              "label": "Shop B",
+              "x": [
+                0,
+                4
+              ],
+              "y": [
+                0,
+                20
+              ],
+              "style": "--"
+            }
+          ],
+          "xticks": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "yticks": [
+            0,
+            5,
+            10,
+            15,
+            20
+          ],
+          "ylim": [
+            0,
+            20
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, N7.8 solving simultaneous linear equations in two variables by the graphical method. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending. Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "s2math-original-01-q14",
+    "skill": "s2-maths",
+    "topic": "algebra.simultaneous_equations",
+    "subskill": "substitution_elimination",
+    "archetype": "check-both-equations",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Solve the simultaneous equations\n\ny = 2x − 1\n3x + 2y = 19",
+    "options": [
+      "x = 3, y = 5",
+      "x = 1, y = 8",
+      "x = 4, y = 7",
+      "x = 5, y = 3"
+    ],
+    "answer": 1,
+    "working": [
+      "Substitute y = 2x − 1 into 3x + 2y = 19: 3x + 2(2x − 1) = 19.",
+      "3x + 4x − 2 = 19, so 7x = 21 and x = 3.",
+      "y = 2(3) − 1 = 5.",
+      "Check in both equations: 2(3) − 1 = 5 ✓ and 3(3) + 2(5) = 19 ✓"
+    ],
+    "distractors": {
+      "2": "This fits 3x + 2y = 19 (3 + 16 = 19) but not y = 2x − 1 (2 − 1 = 1, not 8). A solution must fit both equations.",
+      "3": "This fits y = 2x − 1 but not 3x + 2y = 19 (12 + 14 = 26). Check both equations.",
+      "4": "x and y are swapped: 2(5) − 1 = 9, not 3."
+    },
+    "hints": [
+      "The first equation tells you what y equals. Replace y in the second equation with it.",
+      "Put brackets round 2x − 1 when you substitute, then check your pair in both equations."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, N7.8 solving simultaneous linear equations in two variables by substitution. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q15",
+    "skill": "s2-maths",
+    "topic": "algebra.simultaneous_equations",
+    "subskill": "formulate_pair",
+    "archetype": "two-items-two-totals",
+    "difficulty": 4,
+    "marks": 3,
+    "type": "short",
+    "stem": "At a hawker stall, 3 cups of teh and 2 curry puffs cost $7.10 altogether. 2 cups of teh and 5 curry puffs cost $9.50 altogether.\n\nBy forming a pair of simultaneous equations, find the cost of one curry puff.",
+    "answer": "$1.30",
+    "accept": [
+      "1.30",
+      "1.3",
+      "$1.3",
+      "130 cents",
+      "130c",
+      "130 c"
+    ],
+    "working": [
+      "Let one cup of teh cost $t and one curry puff cost $p.",
+      "3t + 2p = 7.10 … (1) and 2t + 5p = 9.50 … (2).",
+      "(1) × 2: 6t + 4p = 14.20. (2) × 3: 6t + 15p = 28.50.",
+      "Subtract: 11p = 14.30, so p = 1.30.",
+      "Check: from (1), 3t = 7.10 − 2.60 = 4.50, so t = 1.50; in (2), 3.00 + 6.50 = 9.50 ✓",
+      "One curry puff costs $1.30."
+    ],
+    "hints": [
+      "Use one letter for the price of a teh and another for a curry puff, and write one equation for each order.",
+      "Make the teh terms the same in both equations, then subtract to remove them."
+    ],
+    "marking": [
+      "M1 for both equations correct",
+      "M1 for eliminating one unknown correctly",
+      "A1 for $1.30"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, N7.10 formulating a pair of linear equations in two variables to solve problems (solved by elimination, N7.8). Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q16",
+    "skill": "s2-maths",
+    "topic": "algebra.quadratics",
+    "subskill": "solve_by_factorisation",
+    "archetype": "solve-quadratic-by-factorising",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Solve the equation x² − 5x − 14 = 0.",
+    "options": [
+      "x = −7 or x = 2",
+      "x = 7 or x = 2",
+      "x = 7 or x = −2",
+      "x = 14 or x = −1"
+    ],
+    "answer": 3,
+    "working": [
+      "Find two numbers that multiply to −14 and add to −5: they are −7 and 2.",
+      "x² − 5x − 14 = (x − 7)(x + 2) = 0.",
+      "So x − 7 = 0 or x + 2 = 0, giving x = 7 or x = −2.",
+      "Check: 49 − 35 − 14 = 0 ✓ and 4 + 10 − 14 = 0 ✓"
+    ],
+    "distractors": {
+      "1": "These are the numbers inside the brackets, not the solutions. If (x − 7)(x + 2) = 0, then x − 7 = 0 or x + 2 = 0.",
+      "2": "Check x = 2: 4 − 10 − 14 = −20, not 0. Watch the sign of the second solution.",
+      "4": "14 × (−1) = −14, but 14 + (−1) = 13, not −5."
+    },
+    "hints": [
+      "Factorise first: you need two numbers that multiply to −14 and add to −5.",
+      "If the product of two brackets is 0, one of the brackets must be 0."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, N7.9 solving quadratic equations in one variable by factorisation. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q17",
+    "skill": "s2-maths",
+    "topic": "algebra.quadratics",
+    "subskill": "quadratic_functions",
+    "archetype": "turning-point-and-symmetry",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "The table shows some values of y = x² − 6x + 5.\n\n| x | 0 | 1 | 2 | 3 | 4 | 5 | 6 |\n| y | 5 | 0 | −3 | −4 | −3 | 0 | 5 |\n\nThe graph of y = x² − 6x + 5 is a curve. What are the coordinates of its minimum point, and what is the equation of its line of symmetry?",
+    "options": [
+      "Minimum point (3, −4); line of symmetry y = −4",
+      "Minimum point (−4, 3); line of symmetry x = −4",
+      "Minimum point (0, 5); line of symmetry x = 0",
+      "Minimum point (3, −4); line of symmetry x = 3"
+    ],
+    "answer": 4,
+    "working": [
+      "The coefficient of x² is positive (+1), so the curve is U-shaped and has a minimum point.",
+      "The smallest y-value in the table is −4, at x = 3. The values on either side match: −3 and −3, 0 and 0, 5 and 5.",
+      "So the minimum point is (3, −4) and the line of symmetry is the vertical line x = 3."
+    ],
+    "distractors": {
+      "1": "The line of symmetry of this curve is vertical, so its equation is x = …, not y = ….",
+      "2": "Coordinates are written (x, y): the x-value 3 comes first.",
+      "3": "(0, 5) is where the curve meets the y-axis. The minimum point has the smallest y-value."
+    },
+    "hints": [
+      "Find the smallest y-value in the table. Which x-value gives it?",
+      "The y-values repeat on either side of the line of symmetry. Is that line vertical or horizontal?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, N6.6 quadratic functions y = ax² + bx + c; N6.7 maximum and minimum points, symmetry. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q18",
+    "skill": "s2-maths",
+    "topic": "algebra.quadratics",
+    "subskill": "quadratic_graph_properties",
+    "archetype": "turning-point-and-symmetry",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which statement about the graph of y = 6 + x − x² is true?",
+    "options": [
+      "It is ∩-shaped and has a maximum point.",
+      "It is U-shaped and has a minimum point.",
+      "It is ∩-shaped and has a minimum point.",
+      "It is a straight line with gradient −1."
+    ],
+    "answer": 1,
+    "working": [
+      "Write it as y = −x² + x + 6: the coefficient of x² is −1, which is negative.",
+      "When the coefficient of x² is negative, the curve opens downwards (∩-shaped).",
+      "The highest point of a ∩-shaped curve is its maximum point.",
+      "Check with values: x = −2, −1, 0, 1, 2 give y = 0, 4, 6, 6, 4. The values rise and then fall."
+    ],
+    "distractors": {
+      "2": "The x² term is −x², so the coefficient of x² is negative and the curve opens downwards.",
+      "3": "A ∩-shaped curve has a highest point, which is a maximum point.",
+      "4": "The x² term makes it a curve (a quadratic function), not a straight line."
+    },
+    "hints": [
+      "Rewrite the equation in the form y = ax² + bx + c. What is a?",
+      "Work out y for x = −1, 0, 1 and 2. Do the values go down then up, or up then down?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, N6.7 graphs of quadratic functions: positive or negative coefficient of x², maximum and minimum points. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q19",
+    "skill": "s2-maths",
+    "topic": "algebra.quadratics",
+    "subskill": "solve_by_factorisation",
+    "archetype": "solve-quadratic-by-factorising",
+    "difficulty": 4,
+    "marks": 3,
+    "type": "short",
+    "stem": "A rectangular garden bed is (x + 3) m long and x m wide. Its area is 40 m², so x(x + 3) = 40, which gives x² + 3x − 40 = 0.\n\nSolve the equation by factorisation and find the length of the garden bed.",
+    "answer": "8",
+    "accept": [
+      "8 metres",
+      "8metres"
+    ],
+    "unit": "m",
+    "working": [
+      "x² + 3x − 40 = (x + 8)(x − 5) = 0.",
+      "So x = −8 or x = 5.",
+      "A width cannot be negative, so reject x = −8. The width is 5 m.",
+      "Length = x + 3 = 8 m.",
+      "Check: 8 × 5 = 40 m² ✓",
+      "Common error: giving 5 m, which is the width, not the length."
+    ],
+    "hints": [
+      "Find two numbers that multiply to −40 and add to 3.",
+      "One solution cannot be a width. Which one, and what does the question ask for?"
+    ],
+    "marking": [
+      "M1 for (x + 8)(x − 5) = 0",
+      "A1 for x = 5 with x = −8 rejected",
+      "A1 for a length of 8 m"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, N7.9 solving quadratic equations in one variable by factorisation (equation given; interpreting the solutions). Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q20",
+    "skill": "s2-maths",
+    "topic": "number.proportion",
+    "subskill": "direct_proportion",
+    "archetype": "find-k-then-use",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "short",
+    "stem": "y is directly proportional to x. When x = 6, y = 15.\n\nFind the value of y when x = 10.",
+    "answer": "25",
+    "accept": [
+      "y = 25",
+      "y=25"
+    ],
+    "working": [
+      "Write y = kx. Substitute x = 6 and y = 15: 15 = 6k, so k = 2.5.",
+      "So y = 2.5x.",
+      "When x = 10, y = 2.5 × 10 = 25.",
+      "Check: 15/6 = 25/10 = 2.5 ✓ (y ÷ x stays the same)"
+    ],
+    "hints": [
+      "Write the relationship as y = kx and find k.",
+      "Use the same k for the new value of x."
+    ],
+    "marking": [
+      "M1 for k = 2.5 (or y = 2.5x)",
+      "A1 for 25"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, N2.5 direct proportion. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q21",
+    "skill": "s2-maths",
+    "topic": "number.proportion",
+    "subskill": "inverse_proportion",
+    "archetype": "workers-and-days",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "6 painters take 15 days to repaint the corridors of a block of flats.\n\nAssuming that all the painters work at the same rate, how many days would 9 painters take?",
+    "answer": "10",
+    "accept": [
+      "10 day"
+    ],
+    "unit": "days",
+    "working": [
+      "The number of days is inversely proportional to the number of painters: painters × days stays the same.",
+      "6 × 15 = 90 painter-days of work.",
+      "9 painters take 90 ÷ 9 = 10 days.",
+      "Check: more painters, fewer days ✓",
+      "Common error: 15 × 9/6 = 22.5 days, which treats the problem as direct proportion."
+    ],
+    "hints": [
+      "Do more painters take more days or fewer days?",
+      "Find the total amount of work in painter-days, then share it among 9 painters."
+    ],
+    "marking": [
+      "M1 for 6 × 15 = 90 painter-days (or d = 90/n)",
+      "A1 for 10 days"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, N2.5 inverse proportion. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q22",
+    "skill": "s2-maths",
+    "topic": "number.proportion",
+    "subskill": "map_scales",
+    "archetype": "map-scale-area",
+    "difficulty": 5,
+    "marks": 3,
+    "type": "short",
+    "stem": "A map is drawn to a scale of 1 : 25 000. A nature park has an area of 6 cm² on the map.\n\nFind the actual area of the park in km².",
+    "answer": "0.375",
+    "accept": [
+      "0.375 km^2",
+      "0.375km^2",
+      "0.375 sq km"
+    ],
+    "unit": "km²",
+    "working": [
+      "1 cm on the map stands for 25 000 cm = 250 m = 0.25 km.",
+      "So 1 cm² on the map stands for 0.25 km × 0.25 km = 0.0625 km².",
+      "6 cm² stands for 6 × 0.0625 = 0.375 km².",
+      "Common error: multiplying 6 by 0.25, the length scale, instead of 0.0625, the area scale."
+    ],
+    "hints": [
+      "First change 25 000 cm into km: what distance does 1 cm on the map stand for?",
+      "An area scale is the length scale squared: 1 cm² stands for that distance squared."
+    ],
+    "marking": [
+      "M1 for 1 cm : 0.25 km",
+      "M1 for 1 cm² : 0.0625 km²",
+      "A1 for 0.375 km²"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, N2.4 map scales (distance and area). Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q23",
+    "skill": "s2-maths",
+    "topic": "geometry.congruence_similarity",
+    "subskill": "congruent_figures",
+    "archetype": "congruence-correspondence",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Triangle ABC is congruent to triangle PQR, written △ABC ≡ △PQR. AB = 8 cm, BC = 6 cm and angle ABC = 70°.\n\nWhich statement must be true?",
+    "options": [
+      "PR = 6 cm and angle PRQ = 70°",
+      "QR = 6 cm and angle PQR = 70°",
+      "PQ = 6 cm and angle QPR = 70°",
+      "QR = 8 cm and angle PQR = 70°"
+    ],
+    "answer": 2,
+    "working": [
+      "In a congruence statement the vertices match in order: A ↔ P, B ↔ Q and C ↔ R.",
+      "So side BC matches side QR: QR = BC = 6 cm.",
+      "Angle ABC (at B) matches angle PQR (at Q): angle PQR = 70°."
+    ],
+    "distractors": {
+      "1": "BC matches QR (B ↔ Q, C ↔ R), and angle ABC is at B, so it matches the angle at Q.",
+      "3": "AB matches PQ, so PQ = 8 cm, not 6 cm.",
+      "4": "QR matches BC, which is 6 cm. 8 cm is AB, which matches PQ."
+    },
+    "hints": [
+      "Line up the letters: the first letters match, then the second letters, then the third.",
+      "Which side of △PQR uses the same positions as BC? Which angle is at the vertex that matches B?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, G2.1 congruent figures. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q24",
+    "skill": "s2-maths",
+    "topic": "geometry.congruence_similarity",
+    "subskill": "congruence_similarity_problems",
+    "archetype": "parallel-line-similar-triangles",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "In triangle ABC, D is a point on AB and E is a point on AC such that DE is parallel to BC. Triangle ADE is similar to triangle ABC.\n\nAD = 4 cm, DB = 6 cm and DE = 5 cm. Find the length of BC.",
+    "answer": "12.5",
+    "accept": [
+      "25/2",
+      "12 1/2"
+    ],
+    "unit": "cm",
+    "working": [
+      "AB = AD + DB = 4 + 6 = 10 cm.",
+      "Corresponding sides of similar triangles are proportional: BC/DE = AB/AD = 10/4.",
+      "BC = 5 × 10/4 = 12.5 cm.",
+      "Common error: using DB instead of AB, which gives 5 × 6/4 = 7.5 cm."
+    ],
+    "hints": [
+      "Match the sides: DE in the small triangle matches BC in the large one. Which side of the large triangle matches AD?",
+      "That side is the whole of AB, which is AD + DB."
+    ],
+    "marking": [
+      "M1 for BC/5 = 10/4 (or equivalent)",
+      "A1 for 12.5 cm"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, G2.3 properties of similar triangles: corresponding sides are proportional; G2.5 solving simple problems involving similarity. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q25",
+    "skill": "s2-maths",
+    "topic": "geometry.congruence_similarity",
+    "subskill": "similar_figures",
+    "archetype": "similar-or-not-explain",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Two rectangular photo frames measure 12 cm by 18 cm and 20 cm by 28 cm.\n\nAre the two rectangles similar? Explain your answer.",
+    "answer": "No, they are not similar. All the angles are 90°, but the corresponding sides are not proportional: 20 ÷ 12 = 1.67 (to 3 s.f.) while 28 ÷ 18 = 1.56 (to 3 s.f.). Similar figures need every pair of corresponding sides in the same ratio.",
+    "working": [
+      "Both shapes are rectangles, so all their angles are 90°: the angles match.",
+      "Compare corresponding sides: 20 ÷ 12 = 1.67 (3 s.f.) and 28 ÷ 18 = 1.56 (3 s.f.).",
+      "The ratios are different, so the sides are not proportional and the rectangles are not similar.",
+      "Common error: saying they are similar because both are rectangles. For shapes other than triangles, equal angles are not enough."
+    ],
+    "hints": [
+      "Similar figures have corresponding sides in the same ratio. Divide each long side by the other long side, and each short side by the other short side.",
+      "Are the two ratios equal?"
+    ],
+    "keywords": [
+      "not similar",
+      "ratio",
+      "proportional"
+    ],
+    "marking": [
+      "M1 for comparing ratios of corresponding sides (for example 20/12 and 28/18, or 12 : 18 and 20 : 28)",
+      "A1 for 'not similar' with the reason that the corresponding sides are not proportional"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, G2.2 similar figures; G2.3 corresponding sides are proportional. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q26",
+    "skill": "s2-maths",
+    "topic": "geometry.congruence_similarity",
+    "subskill": "enlargement_reduction",
+    "archetype": "enlargement-image",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "A rectangle measuring 4 cm by 6 cm is enlarged with a scale factor of 2.5.\n\nFind the area of the enlarged rectangle.",
+    "answer": "150",
+    "accept": [
+      "150 cm^2",
+      "150cm^2"
+    ],
+    "unit": "cm²",
+    "working": [
+      "Every length is multiplied by the scale factor: 4 × 2.5 = 10 cm and 6 × 2.5 = 15 cm.",
+      "Area of the enlarged rectangle = 10 × 15 = 150 cm².",
+      "Common error: multiplying the original area, 24 cm², by 2.5 (giving 60 cm²). The scale factor multiplies lengths, not areas."
+    ],
+    "hints": [
+      "An enlargement multiplies every length by the scale factor.",
+      "Find the new length and width first, then the area."
+    ],
+    "marking": [
+      "M1 for 10 cm and 15 cm",
+      "A1 for 150 cm²"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, G2.4 enlargement and reduction of a plane figure. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q27",
+    "skill": "s2-maths",
+    "topic": "geometry.pythagoras_trigonometry",
+    "subskill": "pythagoras",
+    "archetype": "pythagoras-in-context",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "short",
+    "stem": "A ladder 6.5 m long leans against a vertical wall. The foot of the ladder is on level ground, 2.5 m from the wall.\n\nHow far up the wall does the ladder reach?",
+    "answer": "6",
+    "accept": [
+      "6 metres",
+      "6.0",
+      "6.0 m"
+    ],
+    "unit": "m",
+    "working": [
+      "The wall, the ground and the ladder form a right-angled triangle, and the ladder is the hypotenuse.",
+      "h² + 2.5² = 6.5², so h² = 42.25 − 6.25 = 36.",
+      "h = √36 = 6 m.",
+      "Common error: adding the squares, which gives √48.5 ≈ 6.96 m. The hypotenuse is the longest side, so subtract."
+    ],
+    "hints": [
+      "Which side is the hypotenuse? It is opposite the right angle and it is the longest side.",
+      "(hypotenuse)² = (one side)² + (other side)². Here you know the hypotenuse, so rearrange."
+    ],
+    "marking": [
+      "M1 for h² = 6.5² − 2.5²",
+      "A1 for 6 m"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, G4.1 use of Pythagoras' theorem. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q28",
+    "skill": "s2-maths",
+    "topic": "geometry.pythagoras_trigonometry",
+    "subskill": "right_angle_test",
+    "archetype": "converse-check",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which set of lengths are the sides of a right-angled triangle?",
+    "options": [
+      "6 cm, 8 cm, 11 cm",
+      "7 cm, 24 cm, 26 cm",
+      "9 cm, 40 cm, 41 cm",
+      "10 cm, 15 cm, 20 cm"
+    ],
+    "answer": 3,
+    "working": [
+      "A triangle is right-angled if (longest side)² equals the sum of the squares of the other two sides.",
+      "9² + 40² = 81 + 1600 = 1681 = 41² ✓",
+      "The others fail: 6² + 8² = 100 but 11² = 121; 7² + 24² = 625 but 26² = 676; 10² + 15² = 325 but 20² = 400."
+    ],
+    "distractors": {
+      "1": "6² + 8² = 100, but 11² = 121. They are not equal.",
+      "2": "7² + 24² = 625 = 25², not 26². The longest side would have to be 25 cm.",
+      "4": "10² + 15² = 325, but 20² = 400."
+    },
+    "hints": [
+      "Use the longest side as the possible hypotenuse.",
+      "Check whether (longest side)² equals the sum of the squares of the other two."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, G4.2 determining whether a triangle is right-angled given the lengths of three sides. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q29",
+    "skill": "s2-maths",
+    "topic": "geometry.pythagoras_trigonometry",
+    "subskill": "trig_ratios_sides",
+    "archetype": "soh-cah-toa-side",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "In triangle PQR, angle PQR = 90°, angle QPR = 35° and PQ = 12 cm.\n\nFind the length of QR, correct to 3 significant figures.",
+    "answer": "8.40",
+    "tolerance": 0.005,
+    "unit": "cm",
+    "working": [
+      "From angle P, QR is the opposite side and PQ is the adjacent side.",
+      "tan 35° = QR/12, so QR = 12 tan 35°.",
+      "QR = 12 × 0.7002… = 8.4025… = 8.40 cm (3 s.f.).",
+      "Check: QR is shorter than PQ, which fits an angle at P of less than 45° ✓"
+    ],
+    "hints": [
+      "Label the sides from angle P: which is opposite, which is adjacent and which is the hypotenuse?",
+      "You know the adjacent side and want the opposite side. Which ratio links them?"
+    ],
+    "marking": [
+      "M1 for tan 35° = QR/12",
+      "A1 for 8.40 cm"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, G4.3 use of trigonometric ratios (tangent) of acute angles to calculate unknown sides in right-angled triangles. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q30a",
+    "skill": "s2-maths",
+    "topic": "geometry.pythagoras_trigonometry",
+    "subskill": "trig_ratios_angles",
+    "archetype": "soh-cah-toa-angle",
+    "difficulty": 4,
+    "marks": 2,
+    "type": "short",
+    "stem": "A vertical pole TF is 12 m tall, with its foot F on level ground. A straight cable runs from the top T to a point A on the ground, 20 m from F.\n\n(a) Find angle TAF, correct to 1 decimal place.",
+    "answer": "31.0",
+    "accept": [
+      "31.0 degrees",
+      "31 degrees"
+    ],
+    "tolerance": 0.05,
+    "unit": "°",
+    "working": [
+      "In triangle TAF the right angle is at F. From angle A, TF = 12 m is opposite and AF = 20 m is adjacent.",
+      "tan(angle TAF) = 12/20 = 0.6.",
+      "Angle TAF = tan⁻¹ 0.6 = 30.96…° = 31.0° (1 d.p.)."
+    ],
+    "hints": [
+      "Draw the triangle: the right angle is at F, where the pole meets the ground.",
+      "From angle A you know the opposite and adjacent sides. Use the inverse of that ratio on your calculator."
+    ],
+    "marking": [
+      "M1 for tan(angle TAF) = 12/20",
+      "A1 for 31.0°"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, G4.3 use of trigonometric ratios (tangent) of acute angles to calculate unknown angles in right-angled triangles. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q30b",
+    "skill": "s2-maths",
+    "topic": "geometry.pythagoras_trigonometry",
+    "subskill": "pythagoras",
+    "archetype": "pythagoras-in-context",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "A vertical pole TF is 12 m tall, with its foot F on level ground. A straight cable runs from the top T to a point A on the ground, 20 m from F.\n\n(b) Find the length of the cable AT, correct to 3 significant figures.",
+    "answer": "23.3",
+    "tolerance": 0.05,
+    "unit": "m",
+    "working": [
+      "Angle TFA = 90°, so the cable AT is the hypotenuse.",
+      "AT² = 20² + 12² = 400 + 144 = 544.",
+      "AT = √544 = 23.32… = 23.3 m (3 s.f.).",
+      "Check with part (a): 20 ÷ cos 30.96° = 23.3 m ✓"
+    ],
+    "hints": [
+      "Which side of the right-angled triangle is the cable?",
+      "Use Pythagoras' theorem with the two shorter sides."
+    ],
+    "marking": [
+      "M1 for AT² = 20² + 12²",
+      "A1 for 23.3 m"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, G4.1 use of Pythagoras' theorem. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q31",
+    "skill": "s2-maths",
+    "topic": "measurement.mensuration",
+    "subskill": "pyramid",
+    "archetype": "solid-volume-formula",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "A pyramid has a square base of side 9 cm and a height of 10 cm.\n\nFind its volume.",
+    "options": [
+      "30 cm³",
+      "405 cm³",
+      "270 cm³",
+      "810 cm³"
+    ],
+    "answer": 3,
+    "working": [
+      "Volume of a pyramid = 1/3 × base area × height.",
+      "Base area = 9 × 9 = 81 cm².",
+      "Volume = 1/3 × 81 × 10 = 270 cm³."
+    ],
+    "distractors": {
+      "1": "The base area is 9 × 9 = 81 cm², not 9 cm².",
+      "2": "That uses 1/2 instead of 1/3. A pyramid has one third of the volume of the prism with the same base and height.",
+      "4": "That is base area × height, the volume of a cuboid. A pyramid is one third of it."
+    },
+    "hints": [
+      "What is the area of the square base?",
+      "A pyramid's volume is a fraction of base area × height. Which fraction?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, G5.6 volume of pyramid. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q32",
+    "skill": "s2-maths",
+    "topic": "measurement.mensuration",
+    "subskill": "cone",
+    "archetype": "cone-slant-height",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "A cone has a base radius of 5 cm and a height of 12 cm.\n\nFind its curved surface area, correct to 3 significant figures.",
+    "answer": "204",
+    "accept": [
+      "65π",
+      "65π cm²",
+      "65pi",
+      "65 pi",
+      "204 cm^2"
+    ],
+    "tolerance": 0.5,
+    "unit": "cm²",
+    "working": [
+      "Curved surface area of a cone = πrl, where l is the slant height.",
+      "The radius, the height and the slant height form a right-angled triangle: l² = 5² + 12² = 169, so l = 13 cm.",
+      "Curved surface area = π × 5 × 13 = 65π = 204.2… = 204 cm² (3 s.f.).",
+      "Common error: using the height, 12 cm, instead of the slant height (this gives 188 cm²)."
+    ],
+    "hints": [
+      "The formula uses the slant height l, not the height.",
+      "The radius, the height and the slant height form a right-angled triangle."
+    ],
+    "marking": [
+      "M1 for l = 13 cm",
+      "A1 for 204 cm²"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, G5.6 surface area of cone. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q33",
+    "skill": "s2-maths",
+    "topic": "measurement.mensuration",
+    "subskill": "sphere",
+    "archetype": "sphere-reverse",
+    "difficulty": 4,
+    "marks": 2,
+    "type": "short",
+    "stem": "A solid sphere has a surface area of 144π cm².\n\nFind its volume, correct to 3 significant figures.",
+    "answer": "905",
+    "accept": [
+      "288π",
+      "288π cm³",
+      "288pi",
+      "288 pi",
+      "905 cm^3"
+    ],
+    "tolerance": 0.5,
+    "unit": "cm³",
+    "working": [
+      "Surface area of a sphere = 4πr². 4πr² = 144π, so r² = 36 and r = 6 cm.",
+      "Volume = 4/3 πr³ = 4/3 × π × 216 = 288π.",
+      "288π = 904.7… = 905 cm³ (3 s.f.)."
+    ],
+    "hints": [
+      "Use the surface area formula to find the radius first.",
+      "Then use V = 4/3 πr³ with that radius."
+    ],
+    "marking": [
+      "M1 for r = 6 cm",
+      "A1 for 905 cm³"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, G5.6 volume and surface area of sphere. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q34",
+    "skill": "s2-maths",
+    "topic": "measurement.mensuration",
+    "subskill": "composite_solids",
+    "archetype": "composite-solid",
+    "difficulty": 4,
+    "marks": 3,
+    "type": "short",
+    "stem": "A solid toy is made from a cone and a hemisphere. The flat face of the hemisphere is joined exactly to the base of the cone. Both have a radius of 3 cm, and the height of the cone is 6 cm.\n\nFind the total volume of the toy, correct to 3 significant figures.",
+    "answer": "113",
+    "accept": [
+      "36π",
+      "36π cm³",
+      "36pi",
+      "36 pi",
+      "113 cm^3"
+    ],
+    "tolerance": 0.5,
+    "unit": "cm³",
+    "working": [
+      "Volume of the hemisphere = 1/2 × 4/3 πr³ = 2/3 × π × 27 = 18π cm³.",
+      "Volume of the cone = 1/3 πr²h = 1/3 × π × 9 × 6 = 18π cm³.",
+      "Total volume = 36π = 113.09… = 113 cm³ (3 s.f.).",
+      "Common error: using the volume of a whole sphere (36π) for the hemisphere."
+    ],
+    "hints": [
+      "Split the toy into the cone and the hemisphere, and find each volume.",
+      "A hemisphere is half a sphere: halve 4/3 πr³."
+    ],
+    "marking": [
+      "M1 for the hemisphere, 18π cm³",
+      "M1 for the cone, 18π cm³",
+      "A1 for 113 cm³"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, G5.6 volume of cone and sphere (hemisphere), in a composite solid. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q35",
+    "skill": "s2-maths",
+    "topic": "statistics.data_analysis",
+    "subskill": "statistical_diagrams",
+    "archetype": "read-stem-and-leaf",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "The stem-and-leaf diagram shows the times, in seconds, that 15 students took to solve a puzzle.\n\n| Stem | Leaf |\n|---|---|\n| 2 | 4 7 9 |\n| 3 | 0 2 2 5 8 |\n| 4 | 1 3 3 3 6 |\n| 5 | 0 2 |\n\nKey: 2 | 4 means 24 seconds.\n\nFind the median time.",
+    "answer": "38",
+    "accept": [
+      "38 seconds",
+      "38 secs",
+      "38 sec"
+    ],
+    "unit": "s",
+    "working": [
+      "There are 15 times, already in order. The median is the middle value, the 8th.",
+      "Counting: 24, 27, 29 (3 values), then 30, 32, 32, 35, 38 (the 4th to the 8th).",
+      "The median time is 38 s."
+    ],
+    "hints": [
+      "With 15 values in order, which position is the middle one?",
+      "Count along the leaves from the smallest, row by row."
+    ],
+    "marking": [
+      "B1 for 38 s"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, S1.5 analysis and interpretation of stem-and-leaf diagrams; S1.8 median. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q36",
+    "skill": "s2-maths",
+    "topic": "statistics.data_analysis",
+    "subskill": "grouped_mean",
+    "archetype": "grouped-mean-midpoints",
+    "difficulty": 4,
+    "marks": 3,
+    "type": "short",
+    "stem": "The table shows the masses of 40 durians at a fruit stall.\n\n| Mass, m (kg) | Frequency |\n|---|---|\n| 1 < m ≤ 2 | 6 |\n| 2 < m ≤ 3 | 14 |\n| 3 < m ≤ 4 | 12 |\n| 4 < m ≤ 5 | 8 |\n\nCalculate an estimate of the mean mass of the durians.",
+    "answer": "3.05",
+    "unit": "kg",
+    "working": [
+      "Use the mid-value of each class: 1.5, 2.5, 3.5 and 4.5 kg.",
+      "Σfx = 6(1.5) + 14(2.5) + 12(3.5) + 8(4.5) = 9 + 35 + 42 + 36 = 122.",
+      "Σf = 6 + 14 + 12 + 8 = 40.",
+      "Estimated mean = 122 ÷ 40 = 3.05 kg.",
+      "It is only an estimate because the exact masses within each class are not known."
+    ],
+    "hints": [
+      "You don't know each exact mass, so use the middle value of each class.",
+      "Multiply each mid-value by its frequency, add the results, then divide by the total frequency."
+    ],
+    "marking": [
+      "M1 for using the mid-values",
+      "M1 for Σfx = 122 divided by 40",
+      "A1 for 3.05 kg"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, S1.10 calculation of the mean for grouped data. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q37",
+    "skill": "s2-maths",
+    "topic": "statistics.data_analysis",
+    "subskill": "averages",
+    "archetype": "choose-the-average",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "The dot diagram shows the number of hours that 12 members of a club spent volunteering last month. Each dot stands for one member.\n\n| Hours | 1 | 2 | 3 | 4 | 5 to 19 | 20 |\n|---|---|---|---|---|---|---|\n| Members | ● ● | ● ● ● ● | ● ● ● | ● ● | (none) | ● |\n\nWhich average best describes the typical number of hours, and why?",
+    "options": [
+      "The mean, because it uses every value.",
+      "The median, because the one value of 20 hours pulls the mean up.",
+      "The mode, because it is the largest value.",
+      "The mean, because 20 hours is the most common value."
+    ],
+    "answer": 2,
+    "working": [
+      "The 12 values are 1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 4 and 20.",
+      "Mean = 47 ÷ 12 ≈ 3.9 h; median = (2 + 3) ÷ 2 = 2.5 h; mode = 2 h.",
+      "The single value of 20 h is an extreme value. It pulls the mean above the hours of 9 of the 12 members.",
+      "The median is not affected by the extreme value, so it describes a typical member better."
+    ],
+    "distractors": {
+      "1": "The mean does use every value, which is why the one extreme value of 20 h drags it up to about 3.9 h, more than 9 of the 12 members did.",
+      "3": "The mode is the most common value (2 h), not the largest value.",
+      "4": "20 h appears only once, so it is not the most common value."
+    },
+    "hints": [
+      "Is there a value that is very different from the rest?",
+      "Which average changes a lot because of that value, and which hardly changes?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, S1.5 analysis and interpretation of dot diagrams; S1.9 purposes and use of mean, mode and median. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q38",
+    "skill": "s2-maths",
+    "topic": "statistics.data_analysis",
+    "subskill": "misinterpretation",
+    "archetype": "spot-the-misleading-diagram",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "A bar chart compares the number of visitors to two parks in one week. Park A had 940 visitors and Park B had 1020 visitors. The vertical axis starts at 900 instead of 0, so the bar for Park B looks three times as tall as the bar for Park A.\n\nWhy is the bar chart misleading?",
+    "options": [
+      "Starting the axis at 900 exaggerates the difference: Park B had only about 8.5% more visitors, not three times as many.",
+      "The two bars should be drawn in different colours.",
+      "It should be a pie chart, because there are only two parks.",
+      "Park B's bar should be shorter than Park A's bar."
+    ],
+    "answer": 1,
+    "working": [
+      "Measured from 900, Park A's bar is 940 − 900 = 40 units tall and Park B's bar is 1020 − 900 = 120 units tall: three times as tall.",
+      "The real numbers are 940 and 1020. 1020 ÷ 940 ≈ 1.085, so Park B had only about 8.5% more visitors.",
+      "A vertical axis that does not start at 0 makes a small difference look large."
+    ],
+    "distractors": {
+      "2": "Colour does not change the heights. The problem is where the vertical axis starts.",
+      "3": "A bar chart is a sensible way to compare two counts. The scale is the problem.",
+      "4": "Park B had more visitors (1020 > 940), so its bar should be taller, just not three times as tall."
+    },
+    "hints": [
+      "Compare the heights of the bars with the actual numbers of visitors.",
+      "Where does the vertical axis start, and what does that do to the heights of the bars?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, S1.7 explaining why a given statistical diagram leads to misinterpretation of data. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q39",
+    "skill": "s2-maths",
+    "topic": "statistics.probability",
+    "subskill": "single_events",
+    "archetype": "single-event-probability",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "A bag contains 4 red, 5 blue and 3 green marbles. One marble is taken from the bag at random.\n\nFind the probability that it is not blue.",
+    "answer": "7/12",
+    "accept": [
+      "7 / 12",
+      "0.583",
+      "0.5833"
+    ],
+    "working": [
+      "There are 4 + 5 + 3 = 12 marbles, all equally likely to be taken.",
+      "The marbles that are not blue are the red and green ones: 4 + 3 = 7.",
+      "P(not blue) = 7/12.",
+      "Check: P(blue) = 5/12, and 5/12 + 7/12 = 1 ✓"
+    ],
+    "hints": [
+      "How many marbles are there altogether?",
+      "How many of them are not blue?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, S2.2 probability of single events. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q40",
+    "skill": "s2-maths",
+    "topic": "statistics.probability",
+    "subskill": "single_events",
+    "archetype": "single-event-probability",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "Twenty-one cards are numbered 10, 11, 12, …, 30. One card is drawn at random.\n\nFind the probability that the number on the card is a prime number. Give your answer as a fraction in its simplest form.",
+    "answer": "2/7",
+    "accept": [
+      "2 / 7"
+    ],
+    "working": [
+      "There are 30 − 10 + 1 = 21 possible outcomes, all equally likely.",
+      "The prime numbers from 10 to 30 are 11, 13, 17, 19, 23 and 29: 6 outcomes.",
+      "P(prime) = 6/21 = 2/7.",
+      "Common error: counting 21, 25 or 27 as prime. 21 = 3 × 7, 25 = 5 × 5 and 27 = 3 × 9."
+    ],
+    "hints": [
+      "How many cards are there? Count from 10 to 30 carefully.",
+      "List the prime numbers between 10 and 30, checking each odd number for factors."
+    ],
+    "marking": [
+      "B1 for listing the 6 prime numbers",
+      "A1 for 2/7"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, S2.2 probability of single events, listing all the possible outcomes. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  },
+  {
+    "id": "s2math-original-01-q41",
+    "skill": "s2-maths",
+    "topic": "statistics.probability",
+    "subskill": "measure_of_chance",
+    "archetype": "probability-scale",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which of these cannot be the probability of an event?",
+    "options": [
+      "0",
+      "0.95",
+      "1",
+      "7/6"
+    ],
+    "answer": 4,
+    "working": [
+      "A probability is a measure of chance from 0 (impossible) to 1 (certain).",
+      "7/6 is greater than 1, so it cannot be a probability.",
+      "0 means impossible, 1 means certain and 0.95 means very likely: all three are possible probabilities."
+    ],
+    "distractors": {
+      "1": "0 is the probability of an impossible event, such as rolling a 7 on an ordinary die.",
+      "2": "0.95 lies between 0 and 1: it is the probability of a very likely event.",
+      "3": "1 is the probability of a certain event."
+    },
+    "hints": [
+      "What is the smallest value a probability can take, and what is the largest?",
+      "Check which option lies outside that range."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 Maths practice written by Claude Code for myKx from the MOE G3 Mathematics syllabus (Secondary Two); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: MOE G2 and G3 Mathematics Syllabuses (Secondary One to Four, 2020 cohort, updated 2024), G3 Secondary Two, S2.1 probability as a measure of chance. Written by Claude Code; the answer was confirmed by an independent re-solve from the stem. Founder review pending."
+  }
+]

@@ -30,7 +30,7 @@ describe("the Skill Engine's packs", () => {
     expect(p?.sections[0].id).toMatch(/^p3-science\/[a-z0-9-]+#1$/);
     expect(p?.items.every((i) => i.status === "reviewed")).toBe(true);
     expect(packsForChild("P3")).toEqual(["p3-chinese", "p3-english", "p3-maths", "p3-science"]);
-    expect(packsForChild("Sec 2")).toEqual(["s2-science"]);
+    expect(packsForChild("Sec 2")).toEqual(["s2-maths", "s2-science"]);
   });
 
   it("reads one section, from its heading to the next one of the same level", () => {
