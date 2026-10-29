@@ -8,7 +8,6 @@ import { useCallback, useEffect, useState } from "react";
 import { api } from "@/components/account/api";
 import type { AdminReport, Overview } from "@/lib/synapse/admin";
 import type { LearnedCaution, ReportStatus, SynapseSettings } from "@/lib/synapse/types";
-import { AdminFrame } from "../AdminFrame";
 import "./synapse.css";
 
 type Tab = "inbox" | "learned" | "evals" | "settings" | "retrain";
@@ -135,7 +134,7 @@ export function SynapseScreen() {
   const live = (c: LearnedCaution) => c.status === "active";
 
   return (
-    <AdminFrame current="/admin/synapse">
+    <>
       <div className="sx">
         <header className="sx-head">
           <div>
@@ -509,6 +508,6 @@ export function SynapseScreen() {
           </section>
         )}
       </div>
-    </AdminFrame>
+    </>
   );
 }

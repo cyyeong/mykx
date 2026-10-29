@@ -8,7 +8,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import type { PackCard, PublicRun } from "@/lib/admin/hood";
-import { AdminFrame } from "../AdminFrame";
 import { call, failWords } from "./call";
 import { ImportDialog } from "./ImportDialog";
 import "./skills.css";
@@ -56,7 +55,7 @@ export function SkillsScreen() {
   const pack = data?.packs.find((p) => p.id === picked) ?? shown[0] ?? null;
 
   return (
-    <AdminFrame current="/admin/skills">
+    <>
       <header className="ad-head">
         <div>
           <h1 className="ad-h1">Skills</h1>
@@ -222,6 +221,6 @@ export function SkillsScreen() {
           }}
         />
       )}
-    </AdminFrame>
+    </>
   );
 }

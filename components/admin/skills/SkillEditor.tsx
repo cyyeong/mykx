@@ -11,7 +11,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { EnhanceProposal } from "@/lib/skills/enhance";
 import { SkillItemSchema, SkillManifestSchema } from "@/lib/skills/schema";
 import type { SkillVersionMeta } from "@/lib/skills/versions";
-import { AdminFrame } from "../AdminFrame";
 import { call, failWords, LOCK, SPARKLE, type CallResult, type Problem } from "./call";
 import { DiffView, type DiffPair } from "./DiffView";
 import { ImportDialog } from "./ImportDialog";
@@ -278,12 +277,12 @@ export function SkillEditor({ packId }: { packId: string }) {
 
   if (loadError)
     return (
-      <AdminFrame current="/admin/skills">
+      <>
         <Link href="/admin/skills" className="sk-back">
           ← Skills
         </Link>
         <p className="sk-note">{loadError}</p>
-      </AdminFrame>
+      </>
     );
 
   const paths = Object.keys(buf).sort();
@@ -322,7 +321,7 @@ export function SkillEditor({ packId }: { packId: string }) {
   };
 
   return (
-    <AdminFrame current="/admin/skills">
+    <>
       <div>
         <Link href="/admin/skills" className="sk-back">
           ← Skills
@@ -681,6 +680,6 @@ export function SkillEditor({ packId }: { packId: string }) {
           }}
         />
       )}
-    </AdminFrame>
+    </>
   );
 }

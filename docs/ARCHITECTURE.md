@@ -143,7 +143,7 @@ The browser never talks to Meta or to Supabase's service role. Keys live in the 
 |---|---|
 | `app/(kid)` | Kid pages: `home`, `learn` (the Learn hub), `learn/[quest]` (a subject such as `p6-maths`, or the frog quest map) and its `done`, `question/[id]`, `treasure`, `studio`, `vibe`, `ask`, `talk`, `arcade/*`, `critters`, `squadron`, `messages`, `me`, `me/papers`, `me/sharing`. The layout mounts the kid nav, sound, theme, the heartbeat (`GuardianWatch`) and the focus camera (`FocusWatch`). |
 | `app/(parent)` | Grown-up pages: `parent` (Today, Messages, Notebook), `family` and `family/guardian` (controls, Location and home cameras), `papers`, `together` |
-| `app/(admin)` | Admin pages: `admin/synapse` and `admin/synapse/[id]` (Kix Synapse), `admin/people`, `admin/skills`, `admin/knowledge`, `admin/under-the-hood`, `admin/under-the-hood/agents/[agent]` (the agent editor, §4.11) |
+| `app/(admin)` | Admin pages, inside one shell rendered by `app/(admin)/layout.tsx` (the sidebar, `AdminShell` in `components/admin/AdminFrame.tsx`, and the PIN gate), so moving between areas swaps only the content panel (`admin/loading.tsx` fills it while the next area loads): `admin/synapse` and `admin/synapse/[id]` (Kix Synapse), `admin/people`, `admin/skills`, `admin/knowledge`, `admin/under-the-hood`, `admin/under-the-hood/agents/[agent]` (the agent editor, §4.11) |
 | `app/(signin)` | The living-city door, kid doors (`doors/[kid]`), grown-up sign-in |
 | `app/api` | Every server route (§2.2) |
 | `components/` | UI by area: `screens/`, `kix/`, `voice/`, `camera/`, `guardian/`, `home-watch/`, `location/`, `outings/`, `studio/`, `vibe/`, `games/`, `papers/`, `scene/` (living art), `sound/`, `theme/`, `admin/` |

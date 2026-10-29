@@ -9,7 +9,6 @@ import Link from "next/link";
 import { Fragment, useEffect, useMemo, useRef, useState, type MouseEvent, type ReactNode } from "react";
 import type { AgentDetail, AgentListRow, VersionView } from "@/lib/agents/catalog";
 import { diffHunks, diffLines, diffStats } from "@/lib/diff";
-import { AdminFrame } from "../AdminFrame";
 import "./agents.css";
 
 type Tab = "instructions" | "guardrails" | "tools";
@@ -106,7 +105,7 @@ export function AgentEditor({ agentKey }: { agentKey: string }) {
   const rules = list ? list.length - muse : 2;
 
   return (
-    <AdminFrame current="/admin/under-the-hood">
+    <>
       <header className="ad-head">
         <div>
           <p className="ag-crumb">
@@ -198,7 +197,7 @@ export function AgentEditor({ agentKey }: { agentKey: string }) {
           </>
         )}
       </div>
-    </AdminFrame>
+    </>
   );
 }
 

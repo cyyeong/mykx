@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import { api } from "@/components/account/api";
 import type { Agent, ManifestSummary, ModelTotal, PublicRun, PublicSkillEvent } from "@/lib/admin/hood";
 import type { AgentListRow } from "@/lib/agents/catalog";
-import { AdminFrame } from "../AdminFrame";
 import "./agents.css";
 
 type Hood = { live: boolean; agents: Agent[]; editors?: AgentListRow[]; totals: ModelTotal[]; runs: PublicRun[]; manifest: ManifestSummary; skills?: { loads: number; tools: number; refusals: number; events: PublicSkillEvent[] } };
@@ -39,7 +38,7 @@ export function HoodScreen() {
   const tokens = data?.totals.reduce((s, t) => s + t.inputTokens + t.outputTokens, 0) ?? 0;
 
   return (
-    <AdminFrame current="/admin/under-the-hood">
+    <>
       <header className="ad-head">
         <div>
           <h1 className="ad-h1">Under the hood</h1>
@@ -262,6 +261,6 @@ export function HoodScreen() {
           </section>
         </>
       )}
-    </AdminFrame>
+    </>
   );
 }

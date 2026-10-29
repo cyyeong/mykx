@@ -5,7 +5,6 @@
 // POST /api/admin/people/[id] (docs/prd/ACCOUNTS.md §3-4). Admins see account details only: never a child's
 // messages, Notebook, answers or secrets. Every action is a server route that writes the audit log.
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { api, type ApiResult } from "@/components/account/api";
 import { whenLabel, upperFirst } from "@/components/account/format";
@@ -48,13 +47,6 @@ const FILTERS: readonly [Filter, string][] = [
   ["admins", "Admins"],
   ["locked", "Locked"],
 ];
-const NAV = [
-  { href: "/admin/skills", label: "Skills" },
-  { href: "/admin/knowledge", label: "Add knowledge" },
-  { href: "/admin/people", label: "People", current: true },
-  { href: "/admin/under-the-hood", label: "Under the hood" },
-];
-
 const BADGE: CSSProperties = { display: "inline-flex", alignItems: "center", gap: 5, padding: "2px 10px 2px 8px", borderRadius: "var(--radius-pill)", fontSize: 13, lineHeight: "20px", fontWeight: 700, whiteSpace: "nowrap" };
 const STATUS: Record<AccountStatus, { label: string; icon: string; style: CSSProperties }> = {
   active: { label: "Active", icon: I.check, style: { display: "inline-flex", alignItems: "center", gap: 6, fontSize: 14, lineHeight: "20px", fontWeight: 700, color: "var(--success)", whiteSpace: "nowrap" } },
@@ -187,7 +179,6 @@ function flatten(data: PeopleResult): Row[] {
 }
 
 export function PeopleScreen() {
-  const router = useRouter();
   const [load, setLoad] = useState<Load>({ phase: "loading" });
   const [q, setQ] = useState("");
   const [filter, setFilter] = useState<Filter>("all");
@@ -519,61 +510,7 @@ export function PeopleScreen() {
     ) : null;
 
   return (
-    <div className="ap-root" data-theme="anime-sky" data-band="teen" style={{ width: "100%", minHeight: "100dvh", boxSizing: "border-box", position: "relative", overflowX: "clip", background: "var(--surface)", color: "var(--ink)", fontFamily: "var(--font-text)" }}>
-      <div className="ap-shell">
-        <nav className="ap-nav" aria-label="Admin" style={{ flex: "none", boxSizing: "border-box", display: "flex", background: "var(--surface-raised)" }}>
-          <div className="ap-brand" style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/brand/wordmark-on-light.svg" alt="myKx" style={{ height: 24, width: "auto" }} />
-            <span style={{ padding: "2px 8px", borderRadius: "var(--radius-pill)", background: "var(--ink)", color: "var(--surface)", fontSize: 11, lineHeight: "18px", fontWeight: 700, letterSpacing: ".04em" }}>ADMIN</span>
-          </div>
-          <div className="ap-navlist">
-            {NAV.map((n) => (
-              <Link
-                key={n.href}
-                href={n.href}
-                className="ap-navi"
-                aria-current={n.current ? "page" : undefined}
-                style={{ display: "block", padding: 12, borderRadius: "var(--radius-sm)", fontSize: 16, lineHeight: "20px", fontWeight: 600, ...(n.current ? { background: "var(--surface)", color: "var(--accent)" } : { color: "var(--ink-muted)" }) }}
-              >
-                {n.label}
-              </Link>
-            ))}
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-            <Link href="/family" className="ap-navi" style={{ display: "block", padding: 12, borderRadius: "var(--radius-sm)", fontSize: 15, lineHeight: "20px", fontWeight: 600, color: "var(--ink-muted)" }}>
-              ← Back to my family
-            </Link>
-            <button
-              type="button"
-              className="ap-navi"
-              onClick={async () => {
-                await fetch("/api/auth/signout", { method: "POST" }).catch(() => null);
-                router.replace("/signin");
-              }}
-              style={{ display: "block", width: "100%", padding: 12, border: 0, borderRadius: "var(--radius-sm)", background: "transparent", textAlign: "left", font: "600 15px/20px var(--font-text)", color: "var(--ink-muted)", cursor: "pointer" }}
-            >
-              Sign out
-            </button>
-          </div>
-          <div className="ap-who" hidden={load.phase !== "ready"} style={{ padding: 12, borderRadius: "var(--radius-sm)", background: "var(--surface)", boxShadow: "inset 0 0 0 1px var(--line)", fontSize: 13, lineHeight: "18px", color: "var(--ink-muted)" }}>
-            {(() => {
-              const me = rows.find((p) => p.id === viewerId);
-              return (
-                <>
-                  Signed in as <strong style={{ color: "var(--ink)" }}>{me ? me.nickname : "an admin"}</strong>
-                  {synthetic && (
-                    <>
-                      <br />
-                      Synthetic demo data
-                    </>
-                  )}
-                </>
-              );
-            })()}
-          </div>
-        </nav>
-        <main className="ap-main" style={{ flex: 1, minWidth: 0, boxSizing: "border-box", display: "flex", flexDirection: "column", gap: 20 }}>
+    <div className="ap-people" style={{ display: "flex", flexDirection: "column", gap: 20, minWidth: 0 }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
             <h1 style={{ margin: 0, font: "800 32px/38px var(--font-display)" }}>People</h1>
             <span className="ap-sub" style={{ display: "flex", alignItems: "flex-start", gap: 8, color: "var(--ink-muted)" }}>
@@ -828,8 +765,6 @@ export function PeopleScreen() {
               Demo households are synthetic data, not real families.
             </p>
           )}
-        </main>
-      </div>
     </div>
   );
 }

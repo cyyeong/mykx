@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { GrownUpGate } from "@/components/account/GrownUpGate";
 import { AgentEditor } from "@/components/admin/hood/AgentEditor";
 import { AGENTS } from "@/lib/admin/hood";
 
@@ -19,10 +18,8 @@ async function Editor({ params }: PageProps<"/admin/under-the-hood/agents/[agent
 
 export default function AgentEditorPage(props: PageProps<"/admin/under-the-hood/agents/[agent]">) {
   return (
-    <GrownUpGate>
-      <Suspense fallback={null}>
-        <Editor {...props} />
-      </Suspense>
-    </GrownUpGate>
+    <Suspense fallback={null}>
+      <Editor {...props} />
+    </Suspense>
   );
 }

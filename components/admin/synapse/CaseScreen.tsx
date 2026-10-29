@@ -7,7 +7,6 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { api } from "@/components/account/api";
 import type { AdminReport } from "@/lib/synapse/admin";
-import { AdminFrame } from "../AdminFrame";
 import { AGENT_NAME, Meter, statusChip, when } from "./SynapseScreen";
 import "./synapse.css";
 
@@ -70,7 +69,7 @@ export function CaseScreen({ id }: { id: string }) {
   const scoring = f?.type === "item-accept" || f?.type === "item-answer";
 
   return (
-    <AdminFrame current="/admin/synapse">
+    <>
       <div className="sx">
         <p className="sx-crumb">
           <Link href="/admin/synapse">Kix Synapse</Link> › Report {id.slice(0, 8)}
@@ -333,6 +332,6 @@ export function CaseScreen({ id }: { id: string }) {
           </>
         )}
       </div>
-    </AdminFrame>
+    </>
   );
 }

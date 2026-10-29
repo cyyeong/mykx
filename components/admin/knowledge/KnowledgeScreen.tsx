@@ -11,7 +11,6 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { CHECK_LABEL, DOC_LABEL, LEVELS, RIGHTS, RIGHTS_LABEL, SUBJECTS, TIER_LABEL, TIERS, type CrossCheck, type KixItem, type KnowledgeSession, type KnowledgeUpload, type PaperOverrides, type Resolution, type Review, type Rights, type SkillUpdate } from "@/lib/knowledge/knowledge";
 import { checkOf, docKind, effectivePaper, entriesOf, keyedQuestions, normNo, pairUploads, publishBlockers, refineCounts, routeOf } from "@/lib/knowledge/session";
-import { AdminFrame } from "../AdminFrame";
 import { call, failWords, SPARKLE } from "../skills/call";
 import "../skills/skills.css";
 import { cleanLines, EntryEditor, type FieldSpec } from "./EntryEditor";
@@ -772,7 +771,7 @@ export function KnowledgeScreen() {
   const selectedPack = selected ? routeOf(selected, packIds)?.pack : null;
 
   return (
-    <AdminFrame current="/admin/knowledge">
+    <>
       <header className="ks-head">
         <div>
           <h1 className="ad-h1">{session ? `Review session: ${session.title.replace(/^Review session,\s*/, "")}` : activeId === null && legacyCount ? "Earlier uploads" : "Add knowledge"}</h1>
@@ -911,7 +910,7 @@ export function KnowledgeScreen() {
           )}
         </>
       )}
-    </AdminFrame>
+    </>
   );
 }
 

@@ -1,7 +1,6 @@
 /* Admin Skills catalogue and Under the hood (boards AdminSkills; PRD_REVIEW demo 2:35). ad- prefixed. */
 .ad-brand { display: flex; align-items: center; gap: 10px; }
 .ad-tag { padding: 2px 10px; border-radius: var(--radius-pill); background: var(--ink); color: var(--surface-raised); font-size: 11px; line-height: 18px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
-.ad-back { margin-top: auto; padding: 12px; border-radius: var(--radius-sm); color: var(--ink-muted); font-size: 15px; font-weight: 700; }
 .ad-main { flex: 1; min-width: 0; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px; }
 .ad-head { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 12px 24px; }
 .ad-h1 { margin: 0; font: 700 34px / 1.15 var(--font-display); }
@@ -62,4 +61,37 @@
 .ad-gallery img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius-sm); box-shadow: inset 0 0 0 1px var(--line); background: var(--surface); }
 .ad-label { display: inline-flex; align-self: flex-start; padding: 3px 12px; border-radius: var(--radius-pill); box-shadow: inset 0 0 0 1.5px var(--border-control); font-size: 13px; font-weight: 700; }
 @media (max-width: 1279px) { .ad-split { grid-template-columns: minmax(0, 1fr); } }
-@media (max-width: 599px) { .ad-h1 { font-size: 28px; } .ad-back { margin-top: 0; } }
+@media (max-width: 599px) { .ad-h1 { font-size: 28px; } }
+
+/* The admin shell (AdminShell in AdminFrame.tsx): rendered once by the admin layout; the sidebar stays put while only
+   the content panel changes. Sticky beside the content from 1024 px; a top bar with a scrolling row of areas below. */
+.ad-root { width: 100%; min-height: 100dvh; box-sizing: border-box; position: relative; overflow-x: clip; background: var(--surface); color: var(--ink); font-family: var(--font-text); }
+.ad-nav { flex: none; box-sizing: border-box; display: flex; background: var(--surface-raised); }
+.ad-navi { display: flex; align-items: center; gap: 10px; width: 100%; box-sizing: border-box; padding: 11px 12px; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--ink-muted); font: 600 16px/20px var(--font-text); text-align: left; text-decoration: none; cursor: pointer; }
+.ad-navi:hover { color: var(--ink); }
+.ad-navi[aria-current="page"] { background: var(--surface); color: var(--ink); }
+.ad-navi:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.ad-navi:disabled { opacity: .6; cursor: default; }
+.ad-navicon { flex: none; }
+.ad-navi[aria-current="page"] .ad-navicon { color: var(--accent); }
+.ad-foot { margin-top: auto; display: flex; flex-direction: column; gap: 2px; padding-top: 12px; }
+.ad-quiet { font-size: 15px; }
+.ad-who { margin: 0 0 6px; padding: 10px 12px; border-radius: var(--radius-sm); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); font: 600 13px/18px var(--font-text); color: var(--ink-muted); }
+.ad-who strong { color: var(--ink); }
+@media (min-width: 1024px) { .ad-nav { position: sticky; top: 0; height: 100dvh; overflow-y: auto; } }
+@media (max-width: 1023px) {
+  .ad-navi { width: auto; }
+  .ad-foot { margin-top: 0; padding-top: 0; flex-direction: row; flex-wrap: wrap; align-items: center; }
+  .ad-who { margin: 0; padding: 6px 10px; }
+}
+@media (min-width: 600px) and (max-width: 1023px) { .ad-foot { order: 1; margin-left: auto; } }
+@media (max-width: 599px) { .ad-who { display: none; } .ad-navi { padding: 9px 10px; font-size: 14px; } }
+
+/* While the next area loads, only the content panel shows this. */
+.ad-loading { display: flex; flex-direction: column; gap: 14px; }
+.ad-loading i { display: block; border-radius: var(--radius-md); background: linear-gradient(90deg, var(--surface-raised) 0%, var(--line) 50%, var(--surface-raised) 100%) 0 0 / 200% 100%; animation: ad-shimmer 1.2s linear infinite; }
+@keyframes ad-shimmer { to { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce) { .ad-loading i { animation: none; } }
+
+/* The sample family's label sits bottom-right on admin pages, clear of the sidebar's Sign out and the content. */
+.ad-root ~ .demo-label { left: auto; right: 12px; }
