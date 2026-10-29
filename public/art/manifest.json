@@ -3699,5 +3699,39 @@
     "created": "2026-10-29",
     "cut_by": "none (plain background flood-filled; sam-3.1 found only 3.1%)",
     "source": "art-src/pets/food-greens.webp"
+  },
+  {
+    "id": "synapse-hero",
+    "path": "public/art/synapse/synapse-hero.webp",
+    "kind": "background",
+    "model": "muse-image-1.0",
+    "pack": "dreamlight",
+    "prompt": "The same character as in the image, identical shape, proportions and face, exactly one character, no other creatures or copies. Kix floats on the right third of a deep twilight sky, eyes closed in calm focus, the glowing four-point sparkle on its forehead shining brightly. From the forehead sparkle, delicate threads of glowing light branch out like neurons and synapses across the sky, linking softly glowing nodes; a few nodes hold tiny floating paper cards and speech bubbles with blank faces, one small card is being mended by threads of light, sparks travelling along the threads. Dreamy magical twilight fantasy illustration, pastel lavender, mint and peach light, soft bokeh, glowing stars, gentle aurora, painterly, calm. Calm uncluttered negative space on the left half for interface overlay. No text, no letters, no logos, no watermark.",
+    "refs": [
+      "public/art/kix/kix-base.webp"
+    ],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "1b2afadb37e0d4792b8d18de1cd526809bcb6ec5cedd078328c320786797f144",
+    "size": 58080,
+    "created": "2026-10-29",
+    "cut_by": null,
+    "source": "art-src/synapse/synapse-hero-2.webp"
+  },
+  {
+    "id": "synapse-hero-800",
+    "path": "public/art/synapse/synapse-hero-800.webp",
+    "kind": "background",
+    "model": "muse-image-1.0",
+    "pack": "dreamlight",
+    "prompt": "The same character as in the image, identical shape, proportions and face, exactly one character, no other creatures or copies. Kix floats on the right third of a deep twilight sky, eyes closed in calm focus, the glowing four-point sparkle on its forehead shining brightly. From the forehead sparkle, delicate threads of glowing light branch out like neurons and synapses across the sky, linking softly glowing nodes; a few nodes hold tiny floating paper cards and speech bubbles with blank faces, one small card is being mended by threads of light, sparks travelling along the threads. Dreamy magical twilight fantasy illustration, pastel lavender, mint and peach light, soft bokeh, glowing stars, gentle aurora, painterly, calm. Calm uncluttered negative space on the left half for interface overlay. No text, no letters, no logos, no watermark.",
+    "refs": [
+      "public/art/kix/kix-base.webp"
+    ],
+    "route": "api-script (gen-image.mjs)",
+    "sha256": "817de7b85b061006060fccbdb9efe4ccdc20e476ef1a9fbe05e56c66f4587b86",
+    "size": 21400,
+    "created": "2026-10-29",
+    "cut_by": null,
+    "source": "art-src/synapse/synapse-hero-2.webp"
   }
 ]

@@ -202,6 +202,26 @@ Every day ends with something you can show on the production URL.
 ### Day 10 · Thu 5 Nov
 Hands off. Emergency fixes only, before 10:00 SGT.
 
+## 4a. Kix Synapse (added 29 Oct evening)
+
+Founder brief, 29 Oct: kids flag what's wrong on any AI screen; an open model reviews; sure fixes ship by themselves (skill versions, learned cautions on the agent), the rest wait for the admin against a threshold; every fix is re-tested; a retrain adapter for later. Spec: `docs/prd/SYNAPSE.md`. Designed first in the canvas (page "Kix Synapse, 29 Oct"). It takes priority over the remaining stretch items; the cut order below applies inside it.
+
+| When | Stream S | Exit |
+|---|---|---|
+| **Thu 29 Oct** (done) | PRD, feasibility check (Vercel, Supabase, Baseten), canvas boards | Founder reviews the boards and the rule changes (§12 of the spec) |
+| **Fri 30 Oct** (4h) | **S1 Flag.** Turn tokens (HMAC over trace, versions, text hash) on Ask Kix, the question player's mark and hint, Critter talk; `FlagButton` and `FlagSheet` (Junior and Teen, bottom sheet on compact, hold-to-talk note); `POST /api/synapse/report` with the safety path, de-identification, limits and duplicates; `synapse_reports` migration; the kid's "Checking" chip and outcome note; tests | A kid's report lands as a de-identified case with a verified turn |
+| **Sat 31 Oct** (5h) | **S2 Review and fix.** `lib/meta/providers.ts` (Meta, Baseten; `provider` in `model_runs`); Synapse Reviewer and Synapse Judge agents; reproduce; computed confidence with the code checks; second opinion for score changes; fixes as skill versions and as learned cautions merged by `instructionsFor`; re-test; `eval_cases`; re-mark on a key change; tests | A typo report auto-fixes to the next pack version; an Ask Kix report adds a caution that turns its test green |
+| **Sun 1 Nov** (4.5h) | **S3 Admin.** Kix Synapse section: Inbox, Case (trace timeline, diff, test, approve, edit, reject, undo), Learned, Evals, Settings (threshold, scoring needs me, caps, model per role, budget), Retrain (JSONL export, adapter "Not connected yet"); `audit_log`; two agents in `lib/admin/hood.ts`; `/api/cron/synapse` (sweep, nightly evals, expiry), Vercel daily cron and the `pg_cron` 5-minute sweep | The whole loop runs in production on the guest site |
+| **Mon 2 Nov** (2h, morning) | **S4 Finish.** Two live demo cases recorded (the typo, the Ask Kix caution); docs (ARCHITECTURE §6 loop 6, agents, routes, tables; AGENTS.md rule changes; README section and board); device pass on the sheet and the admin pages | Freeze at 22:00 includes Synapse |
+
+**Founder, before Sat 31 Oct:** a Baseten API key on your own pay-as-you-go account (partner credits weren't granted; Synapse costs cents a day at our volume), added to `.env.local` and to Vercel as `BASETEN_API_KEY`. Without it the reviewer runs on Muse Spark 1.3 and is labelled so.
+
+**Cut order inside Synapse** (never cut: the flag on Learn and Ask Kix, the reviewer, the reproduce-and-test gate, the admin approve and undo):
+1. Flags on the Vibe Zone and the parent surfaces.
+2. The second opinion (score changes then always wait for the admin).
+3. The `pg_cron` sweep (keep `after()`, the daily cron and Run now).
+4. Eval charts become a table; the Retrain panel becomes static.
+
 ## 5. The video (12 protected hours)
 
 Script target: about 360 words of voice-over (130 a minute), finished by Day 5. Re-cut on 28 Oct to open with the parent's problem before the transformation.
@@ -266,9 +286,13 @@ Script target: about 360 words of voice-over (130 a minute), finished by Day 5. 
 | Phone browsers stop sharing location in the background | Day 5 walk test | Expected: labelled "Shared while myKx is open"; the Android app is roadmap; the video uses the simulator's route. |
 | OneMap tiles slow or blocked | Day 4 map build | OpenStreetMap tiles as the fallback layer, with attribution. |
 | New feature requests | anything new after Day 6 | Goes on the roadmap slide, not into the build. |
+| Synapse auto-ships a wrong fix | a demo case or a nightly eval goes red after an auto-fix | Threshold 100 by default; reproduce-and-test before any fix; score changes wait for the admin; every fix is a version with one-click Undo. |
+| A kid's note steers the reviewer (prompt injection) | S2 tests with hostile notes | Notes are data in the reviewer prompt; cautions only in the fixed form, screened by code, narrowing only, after a passing re-test. |
+| Report spam | more than 10 reports a day from one child | Per-child daily limit, one open report per item, duplicates merged, no rewards for reporting. |
+| No Baseten key by Sat 31 Oct | S2 start | Reviewer on Muse Spark 1.3 (labelled); the open-model claim waits for the key. |
 
 **Cut order when a checkpoint slips** (the stretch items, Study Song and Baseten, only start when ahead, so they go first):
-1. Baseten (dropped 29 Oct: no partner credits), then camera signals. Then Guardian's canvas boards (F9).
+1. Baseten (dropped 29 Oct: no partner credits; back for Kix Synapse on the founder's own pay-as-you-go key, §4a), then camera signals. Then Guardian's canvas boards (F9).
 1a. **Guardian (stream F), in this order** (ONVIF discovery and web location are already cut): the Home Link client (keep the simulator as the only camera source); places and arrive/leave events (keep the live dot and trail); the timeline on Home now; the evening-summary paragraph. **Never cut the Muse proof:** the Home Reader, SAM outlines, the Guardian Brief, Do something together and their Under the hood rows. The last thing standing is the simulator → real ingest → Muse Spark → Home now and the map, because that's the video beat.
 2. Skills admin extras: the versions list and reference counts go (the agents matrix is already read-only). The Notebook's parent view becomes read-only plus wipe (no line editing).
 3. Family extras are already cut (Kix-suggested messages, voice-pace signals); next the dashboard drops the wellbeing expanders and keeps flags, screen time and the plan. Sign-in extras: the walking characters and the junior door variant (one door for everyone) go before the core sign-in.

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Kix Synapse: learned cautions and evals</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>body{margin:0} .bd{width:1440px;height:900px;position:relative;overflow:hidden;box-sizing:border-box;font-family:var(--font-text);background:var(--surface);color:var(--ink)} .bd *{box-sizing:border-box} .bd h1,.bd h2,.bd h3,.bd p{margin:0}
+
+.bd{background:var(--surface)}
+.ad-nav{position:absolute;left:0;top:0;bottom:0;width:220px;padding:22px 14px;box-shadow:inset -1px 0 0 var(--line);display:flex;flex-direction:column;gap:4px}
+.ad-nav img{height:30px;align-self:flex-start;margin:0 8px 16px}
+.ad-nav a{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:12px;color:var(--ink-muted);font:700 14px var(--font-text)}
+.ad-nav a.on{background:var(--surface-raised);color:var(--ink);box-shadow:inset 3px 0 0 var(--accent)}
+.ad-nav a .new{margin-left:auto;font:800 10px/1 var(--font-text);padding:3px 6px;border-radius:999px;background:#FFE38A;color:#1C1B4A}
+.ad-main{position:absolute;left:220px;right:0;top:0;bottom:0;padding:22px 28px}
+.ad-h1{font:800 26px/32px var(--font-display)}
+.ad-sub{margin-top:4px;font:600 14px/20px var(--font-text);color:var(--ink-muted)}
+.chip{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:999px;font:800 12px/1 var(--font-text);white-space:nowrap}
+.c-ok{background:#DDF3E4;color:#1F5E37}.c-wait{background:#FFF1D6;color:#8A5A00}.c-def{background:#E8E6F7;color:#3B3780}.c-flag{background:#FFE3E3;color:#A21C1C}.c-open{background:#2B2A5C;color:#FFE38A}.c-team{background:#E3EEFF;color:#1F4E8C}
+.btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:999px;font:800 13px var(--font-text);white-space:nowrap}
+.b-pri{background:var(--accent);color:var(--on-accent)}.b-sec{box-shadow:inset 0 0 0 2px var(--line);color:var(--ink)}.b-del{color:#A21C1C;box-shadow:inset 0 0 0 2px #F3C4C4}
+.card{border-radius:20px;background:var(--surface-raised);box-shadow:inset 0 0 0 1px var(--line);padding:16px}
+.h2{font:800 16px/22px var(--font-display)}
+.mono{font:500 12.5px/20px ui-monospace,SFMono-Regular,Menlo,monospace}
+.sub{display:flex;gap:4px;margin-top:14px}
+.sub span{padding:7px 14px;border-radius:999px;font:800 13px var(--font-text);color:var(--ink-muted)}
+.sub span.on{background:var(--ink);color:var(--surface)}
+.mt{position:relative;height:8px;border-radius:999px;background:var(--line)}
+.mt i{position:absolute;left:0;top:0;bottom:0;border-radius:999px}
+.mt b{position:absolute;top:-4px;width:2px;height:16px;background:var(--ink)}
+
+.lg{position:absolute;left:28px;right:28px;top:150px;bottom:22px;display:grid;grid-template-columns:240px minmax(0,1fr) 360px;gap:14px}
+.al a{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:12px;font:700 14px var(--font-text);color:var(--ink)}
+.al a.on{background:var(--surface);box-shadow:inset 0 0 0 2px var(--accent)}
+.al small{font:800 11px var(--font-text);color:var(--ink-muted)}
+.cl{display:flex;flex-direction:column;gap:10px}
+.cv{border-radius:16px;background:var(--surface);box-shadow:inset 0 0 0 1px var(--line);padding:12px 14px}
+.cv p{font:600 14px/20px var(--font-text)}
+.cv p b{color:var(--accent);font-weight:800}
+.cv .meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;align-items:center}
+.cv .row{display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:8px}
+.stack{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.stack div{border-radius:12px;padding:9px 12px;font:800 13px/18px var(--font-text);display:flex;justify-content:space-between;gap:10px}
+.stack small{font:700 12px/16px var(--font-text);opacity:.85}
+.ev{display:grid;grid-template-columns:110px 1fr 54px;gap:10px;align-items:center;padding:7px 0;border-top:1px solid var(--line);font:700 13px/18px var(--font-text)}
+.ev:first-of-type{border-top:0}
+.ev b{text-align:right;font-weight:800}
+.ev svg{width:100%;height:28px}
+.fail{margin-top:10px;border-radius:14px;background:#FFF1F1;padding:10px 12px;font:700 12.5px/18px var(--font-text);color:#7A1D1D}
+</style>
+</helmet>
+<div class="bd" data-theme="anime-sky">
+<nav class="ad-nav"><img src="/_blob/f52e18857979369421011da66fdb9de3" alt="myKx"><a class="">Skills</a><a class="">Add knowledge</a><a class="">People</a><a class="">Under the hood</a><a class="on"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:13px;height:13px;flex:none"><path fill="currentColor" d="M12 0c.8 6.4 5.6 11.2 12 12-6.4.8-11.2 5.6-12 12-.8-6.4-5.6-11.2-12-12C6.4 11.2 11.2 6.4 12 0z"/></svg>Kix Synapse<span class=new>New</span></a></nav>
+<main class="ad-main">
+ <div style="display:flex;justify-content:space-between;align-items:flex-start"><div><h1 class="ad-h1">Kix Synapse</h1><p class="ad-sub">What the agents have learned. Each caution came from a report, was proven by a test, and only narrows what the agent does.</p></div><span class="btn b-sec">Run all evals now</span></div>
+ <div class="sub"><span class="">Inbox</span><span class="on">Learned</span><span class="">Evals</span><span class="">Settings</span><span class="">Retrain</span></div>
+ <div class="lg">
+  <div class="card al"><a class="on">Ask Kix<small>3</small></a><a class="">Kix Tutor<small>2</small></a><a class="">Critter Keeper<small>2</small></a><a class="">Reason coach<small>1</small></a><a class="">Tonight<small>1</small></a><a class="">Vibe Zone maker<small>0</small></a><a class="">Memory Keeper<small>0</small></a><a class="">Content Curator<small>0</small></a></div>
+  <div class="cl">
+   <div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><span class="h2">Ask Kix: 3 learned cautions</span><span class="ad-sub" style="margin:0">12 at most · merged when they overlap</span></div>
+    <div class="cl" style="margin-top:10px"><div class="cv"><p><b>When</b> a hint is asked, <b>check</b>: never write the final number in a hint, even inside a step.</p><div class="meta"><span class="chip c-def">All levels</span><span class="chip c-def">Maths</span><span class="ad-sub" style="margin:0 0 0 4px">From 2 reports · added by Synapse at 100</span></div><div class="row"><span style="display:flex;gap:6px"><span class="chip c-ok">Evals 12/12</span><span class="chip c-wait">expires in 29 days</span></span><span style="display:flex;gap:6px"><span class="btn b-sec">Confirm</span><span class="btn b-sec">Edit</span><span class="btn b-del">Retire</span></span></div></div><div class="cv"><p><b>When</b> a science answer needs a reason, <b>check</b>: name the evidence from the question before the claim.</p><div class="meta"><span class="chip c-def">P5–P6</span><span class="chip c-def">Science</span><span class="chip c-def">CER</span><span class="ad-sub" style="margin:0 0 0 4px">From 3 reports · added by Synapse at 100</span></div><div class="row"><span style="display:flex;gap:6px"><span class="chip c-ok">Evals 6/6</span><span class="chip c-wait">expires in 24 days</span></span><span style="display:flex;gap:6px"><span class="btn b-sec">Confirm</span><span class="btn b-sec">Edit</span><span class="btn b-del">Retire</span></span></div></div><div class="cv"><p><b>When</b> the question gives cm³ and asks for litres, <b>check</b>: convert at the end and say so in the last step.</p><div class="meta"><span class="chip c-def">P6</span><span class="chip c-def">Maths</span><span class="chip c-def">volume</span><span class="ad-sub" style="margin:0 0 0 4px">From 1 report · approved by you</span></div><div class="row"><span style="display:flex;gap:6px"><span class="chip c-ok">Evals 4/4</span><span class="chip c-ok">confirmed</span></span><span style="display:flex;gap:6px"><span class="btn b-sec">Edit</span><span class="btn b-del">Retire</span></span></div></div></div></div>
+   <div class="card"><span class="h2">How Ask Kix's prompt is put together</span>
+    <div class="stack"><div style="background:#E8E6F7;color:#3B3780"><span>1 · Instructions v3</span><small>editable in Under the hood</small></div><div style="background:#2B2A5C;color:#FFE38A"><span style="display:flex;gap:6px;align-items:center">2 · <svg viewBox="0 0 24 24" aria-hidden="true" style="width:13px;height:13px;flex:none"><path fill="currentColor" d="M12 0c.8 6.4 5.6 11.2 12 12-6.4.8-11.2 5.6-12 12-.8-6.4-5.6-11.2-12-12C6.4 11.2 11.2 6.4 12 0z"/></svg>Learned cautions</span><small style="color:#EDE9FF">only the ones whose tags match the question</small></div><div style="background:#1B2350;color:#fff"><span style="display:flex;gap:6px;align-items:center">3 · <svg viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px;flex:none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M6 11h12v9H6zM8.5 11V8a3.5 3.5 0 0 1 7 0v3"/></svg>Guardrails, fixed in code</span><small>always last, always win</small></div></div></div>
+  </div>
+  <div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><span class="h2">Evals, last 14 nights</span><span class="ad-sub" style="margin:0">pass rate</span></div>
+   <div style="margin-top:8px"><div class="ev"><span>Ask Kix</span><svg viewBox="0 0 180 30" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="2" x2="180" y2="2" stroke="var(--line)" stroke-width="1"/><polyline points="0.0,5.9 13.8,4.6 27.7,4.6 41.5,2.0 55.4,2.0 69.2,2.0 83.1,4.6 96.9,2.0 110.8,2.0 124.6,2.0 138.5,2.0 152.3,2.0 166.2,2.0 180.0,2.0" fill="none" stroke="#2E9E5B" stroke-width="2" stroke-linejoin="round"/></svg><b style="color:inherit">41/41</b></div><div class="ev"><span>Kix Tutor</span><svg viewBox="0 0 180 30" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="2" x2="180" y2="2" stroke="var(--line)" stroke-width="1"/><polyline points="0.0,2.0 13.8,2.0 27.7,2.0 41.5,2.0 55.4,2.0 69.2,2.0 83.1,2.0 96.9,2.0 110.8,2.0 124.6,7.2 138.5,2.0 152.3,2.0 166.2,2.0 180.0,2.0" fill="none" stroke="#2E9E5B" stroke-width="2" stroke-linejoin="round"/></svg><b style="color:inherit">22/22</b></div><div class="ev"><span>Critter Keeper</span><svg viewBox="0 0 180 30" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="2" x2="180" y2="2" stroke="var(--line)" stroke-width="1"/><polyline points="0.0,16.3 13.8,16.3 27.7,2.0 41.5,2.0 55.4,2.0 69.2,2.0 83.1,2.0 96.9,2.0 110.8,2.0 124.6,2.0 138.5,2.0 152.3,2.0 166.2,2.0 180.0,2.0" fill="none" stroke="#2E9E5B" stroke-width="2" stroke-linejoin="round"/></svg><b style="color:inherit">9/9</b></div><div class="ev"><span>Reason coach</span><svg viewBox="0 0 180 30" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="2" x2="180" y2="2" stroke="var(--line)" stroke-width="1"/><polyline points="0.0,2.0 13.8,2.0 27.7,2.0 41.5,2.0 55.4,2.0 69.2,2.0 83.1,2.0 96.9,2.0 110.8,2.0 124.6,2.0 138.5,2.0 152.3,2.0 166.2,2.0 180.0,2.0" fill="none" stroke="#2E9E5B" stroke-width="2" stroke-linejoin="round"/></svg><b style="color:inherit">18/18</b></div><div class="ev"><span>Vibe Zone maker</span><svg viewBox="0 0 180 30" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="2" x2="180" y2="2" stroke="var(--line)" stroke-width="1"/><polyline points="0.0,2.0 13.8,2.0 27.7,2.0 41.5,2.0 55.4,2.0 69.2,2.0 83.1,2.0 96.9,2.0 110.8,2.0 124.6,2.0 138.5,2.0 152.3,2.0 166.2,2.0 180.0,12.4" fill="none" stroke="#E5484D" stroke-width="2" stroke-linejoin="round"/></svg><b style="color:#A21C1C">12/13</b></div><div class="ev"><span>Tonight</span><svg viewBox="0 0 180 30" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="2" x2="180" y2="2" stroke="var(--line)" stroke-width="1"/><polyline points="0.0,9.8 13.8,9.8 27.7,9.8 41.5,2.0 55.4,2.0 69.2,2.0 83.1,2.0 96.9,2.0 110.8,2.0 124.6,2.0 138.5,2.0 152.3,2.0 166.2,2.0 180.0,9.8" fill="none" stroke="#E5484D" stroke-width="2" stroke-linejoin="round"/></svg><b style="color:#A21C1C">16/17</b></div></div>
+   <div class="fail"><b>2 failing since last night.</b> Vibe Zone maker: "flashcards keep the pack's spelling". Tonight: "counts sessions, not visits". Both reports reopened.</div>
+   <p class="ad-sub" style="font-size:12px;margin-top:10px">Every fixed report becomes a case. Cases run on every published version, before every fix, and nightly at 03:00.</p></div>
+ </div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

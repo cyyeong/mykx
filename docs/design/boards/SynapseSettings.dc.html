@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Kix Synapse: settings and retrain</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>body{margin:0} .bd{width:1440px;height:900px;position:relative;overflow:hidden;box-sizing:border-box;font-family:var(--font-text);background:var(--surface);color:var(--ink)} .bd *{box-sizing:border-box} .bd h1,.bd h2,.bd h3,.bd p{margin:0}
+
+.bd{background:var(--surface)}
+.ad-nav{position:absolute;left:0;top:0;bottom:0;width:220px;padding:22px 14px;box-shadow:inset -1px 0 0 var(--line);display:flex;flex-direction:column;gap:4px}
+.ad-nav img{height:30px;align-self:flex-start;margin:0 8px 16px}
+.ad-nav a{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:12px;color:var(--ink-muted);font:700 14px var(--font-text)}
+.ad-nav a.on{background:var(--surface-raised);color:var(--ink);box-shadow:inset 3px 0 0 var(--accent)}
+.ad-nav a .new{margin-left:auto;font:800 10px/1 var(--font-text);padding:3px 6px;border-radius:999px;background:#FFE38A;color:#1C1B4A}
+.ad-main{position:absolute;left:220px;right:0;top:0;bottom:0;padding:22px 28px}
+.ad-h1{font:800 26px/32px var(--font-display)}
+.ad-sub{margin-top:4px;font:600 14px/20px var(--font-text);color:var(--ink-muted)}
+.chip{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:999px;font:800 12px/1 var(--font-text);white-space:nowrap}
+.c-ok{background:#DDF3E4;color:#1F5E37}.c-wait{background:#FFF1D6;color:#8A5A00}.c-def{background:#E8E6F7;color:#3B3780}.c-flag{background:#FFE3E3;color:#A21C1C}.c-open{background:#2B2A5C;color:#FFE38A}.c-team{background:#E3EEFF;color:#1F4E8C}
+.btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:999px;font:800 13px var(--font-text);white-space:nowrap}
+.b-pri{background:var(--accent);color:var(--on-accent)}.b-sec{box-shadow:inset 0 0 0 2px var(--line);color:var(--ink)}.b-del{color:#A21C1C;box-shadow:inset 0 0 0 2px #F3C4C4}
+.card{border-radius:20px;background:var(--surface-raised);box-shadow:inset 0 0 0 1px var(--line);padding:16px}
+.h2{font:800 16px/22px var(--font-display)}
+.mono{font:500 12.5px/20px ui-monospace,SFMono-Regular,Menlo,monospace}
+.sub{display:flex;gap:4px;margin-top:14px}
+.sub span{padding:7px 14px;border-radius:999px;font:800 13px var(--font-text);color:var(--ink-muted)}
+.sub span.on{background:var(--ink);color:var(--surface)}
+.mt{position:relative;height:8px;border-radius:999px;background:var(--line)}
+.mt i{position:absolute;left:0;top:0;bottom:0;border-radius:999px}
+.mt b{position:absolute;top:-4px;width:2px;height:16px;background:var(--ink)}
+
+.sg3{position:absolute;left:28px;right:28px;top:150px;bottom:22px;display:grid;grid-template-columns:330px minmax(0,1fr) 350px;gap:14px}
+.sl{margin-top:12px;position:relative;height:52px}
+.sl .tk{position:absolute;left:0;right:0;top:18px;height:8px;border-radius:999px;background:linear-gradient(90deg,var(--line) 0%,var(--line) 100%)}
+.sl .fi{position:absolute;left:0;right:0;top:18px;height:8px;border-radius:999px;background:var(--accent)}
+.sl .kn{position:absolute;right:-6px;top:10px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px var(--accent),0 4px 10px rgba(0,0,0,.15)}
+.sl .lb{position:absolute;top:40px;font:700 11px var(--font-text);color:var(--ink-muted)}
+.tg{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line)}
+.tg b{display:block;font:800 14px/19px var(--font-text)}
+.tg small{display:block;font:600 12.5px/17px var(--font-text);color:var(--ink-muted)}
+.sw{flex:none;width:44px;height:26px;border-radius:999px;background:var(--line);position:relative}
+.sw:after{content:"";position:absolute;left:3px;top:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.sw.on{background:var(--accent)}.sw.on:after{left:21px}
+.mr{display:grid;grid-template-columns:118px minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.mr b{font:800 14px/19px var(--font-text)}
+.mr small{display:block;font:600 12px/16px var(--font-text);color:var(--ink-muted)}
+.pv{display:inline-flex;align-items:center;gap:8px;font:800 14px/18px var(--font-text);white-space:nowrap}
+.pv i{width:10px;height:10px;border-radius:50%}
+.bud{margin-top:12px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.bud div{border-radius:14px;background:var(--surface);box-shadow:inset 0 0 0 1px var(--line);padding:10px 12px;font:700 12px/16px var(--font-text);color:var(--ink-muted)}
+.bud b{display:block;font:600 22px/26px var(--font-display);color:var(--ink)}
+.rt{background:radial-gradient(100% 80% at 90% 0%,#3B3A7A,#1B2350 70%);color:#fff;box-shadow:none}
+.rt .ad-sub{color:#C9C3F0}
+.ds{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.ds div{border-radius:14px;background:rgba(255,255,255,.08);padding:10px 12px;font:700 12px/16px var(--font-text);color:#D9D3FF}
+.ds b{display:block;font:600 26px/30px var(--font-display);color:#FFE38A}
+.flow{display:flex;align-items:center;gap:6px;margin-top:14px;flex-wrap:wrap}
+.flow span{height:30px;padding:0 10px;border-radius:999px;display:inline-flex;align-items:center;font:800 12px/1 var(--font-text);background:rgba(255,255,255,.1);color:#fff}
+.flow span.dim{background:transparent;box-shadow:inset 0 0 0 1.5px rgba(185,167,245,.6);color:#C9C3F0}
+.flow em{font-style:normal;color:#FFE38A}
+.pr{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-top:1px solid rgba(185,167,245,.25)}
+.pr b{display:block;font:800 14px/19px var(--font-text)}
+.pr small{display:block;font:600 12px/16px var(--font-text);color:#C9C3F0}
+.ghost{height:32px;padding:0 12px;border-radius:999px;display:inline-flex;align-items:center;font:800 12px var(--font-text);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.5);color:#fff;white-space:nowrap}
+</style>
+</helmet>
+<div class="bd" data-theme="anime-sky">
+<nav class="ad-nav"><img src="/_blob/f52e18857979369421011da66fdb9de3" alt="myKx"><a class="">Skills</a><a class="">Add knowledge</a><a class="">People</a><a class="">Under the hood</a><a class="on"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:13px;height:13px;flex:none"><path fill="currentColor" d="M12 0c.8 6.4 5.6 11.2 12 12-6.4.8-11.2 5.6-12 12-.8-6.4-5.6-11.2-12-12C6.4 11.2 11.2 6.4 12 0z"/></svg>Kix Synapse<span class=new>New</span></a></nav>
+<main class="ad-main">
+ <div><h1 class="ad-h1">Kix Synapse</h1><p class="ad-sub">How much Synapse may do by itself, which model does each job, and what it costs.</p></div>
+ <div class="sub"><span class="">Inbox</span><span class="">Learned</span><span class="">Evals</span><span class="on">Settings</span><span class="">Retrain</span></div>
+ <div class="sg3">
+  <div class="card"><span class="h2">Fix by itself</span>
+   <p class="ad-sub">Synapse fixes a report by itself only when its confidence reaches this line: the problem reproduced, every code check passed and the re-test green.</p>
+   <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:14px"><span class="h2">Threshold</span><span style="font:600 34px/34px var(--font-display)">100</span></div>
+   <div class="sl"><div class="tk"></div><div class="fi"></div><div class="kn"></div><span class="lb" style="left:0">50</span><span class="lb" style="left:48%">75</span><span class="lb" style="right:0">100</span></div>
+   <div class="tg"><span><b>Scoring changes always need me</b><small>Answer keys and marking rules wait for you, with a second opinion, at any confidence.</small></span><span class="sw on"></span></div>
+   <div class="tg"><span><b>Repeated reports may skip the queue at 95</b><small>When two or more learners report the same problem.</small></span><span class="sw"></span></div>
+   <div class="tg"><span><b>Fixes by itself a day</b><small>After this many, the rest wait for you.</small></span><span class="btn b-sec">20</span></div>
+   <div class="tg"><span><b>Synapse is on</b><small>Off: reports are still kept, nothing is reviewed.</small></span><span class="sw on"></span></div></div>
+  <div class="card"><span class="h2">Models for each job</span><p class="ad-sub">Each job can use its own model. If Baseten is down, Muse Spark 1.3 reviews and the case says so.</p>
+   <div class="mr"><span><b>Reviewer</b><small>Reads each report and drafts the fix</small></span><span><span class="pv"><i style="background:#7C5CFF"></i>Muse Spark Open</span><small>Baseten · Meta open weights · zero data retention</small></span><span class="btn b-sec">Change</span></div><div class="mr"><span><b>Second opinion</b><small>Any fix that changes a score</small></span><span><span class="pv"><i style="background:#1F66C1"></i>Muse Spark 1.3</span><small>Meta Model API · Standard</small></span><span class="btn b-sec">Change</span></div><div class="mr"><span><b>Eval judge</b><small>Checks meaning when code can't</small></span><span><span class="pv"><i style="background:#7C5CFF"></i>Muse Spark Open</span><small>Baseten · zero data retention</small></span><span class="btn b-sec">Change</span></div><div class="mr"><span><b>Kid-facing agents</b><small>Kix, Ask Kix, Critter Keeper…</small></span><span><span class="pv"><i style="background:#1F66C1"></i>Muse Spark 1.3</span><small>Standard only (rule 1)</small></span><span class="chip c-def"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:12px;height:12px;flex:none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M6 11h12v9H6zM8.5 11V8a3.5 3.5 0 0 1 7 0v3"/></svg>Fixed</span></div>
+   <div class="h2" style="margin-top:12px">Budget</div>
+   <div class="bud"><div><b>$2.00</b>reviews a day</div><div><b>$0.50</b>evals a night</div><div><b>$0.31</b>spent today</div></div></div>
+  <div class="card rt"><div style="display:flex;justify-content:space-between;align-items:center"><span class="h2">Retrain Kix</span><span class="chip c-open">Next</span></div>
+   <p class="ad-sub">Every fix becomes a training example. When a trainer is connected, a myKx model learns from them and must pass the evals before it does any job.</p>
+   <div class="ds"><div><b>214</b>fixed replies: question → better answer</div><div><b>61</b>pairs: worse answer vs better</div><div><b>12</b>families turned on Help Kix learn</div><div><b>0</b>names, ids or Guardian data</div></div>
+   <div class="flow"><span>Dataset</span><em>→</em><span class="dim">Train</span><em>→</em><span class="dim">Evals gate</span><em>→</em><span class="dim">Use for a job</span></div>
+   <div style="margin-top:14px"><div class="pr"><span><b>Baseten Training</b><small>Fine-tune a Meta open-weight model</small></span><span class="ghost">Not connected yet</span></div>
+   <div class="pr"><span><b>Your own trainer</b><small>Download the de-identified JSONL</small></span><span class="ghost">Export JSONL</span></div></div>
+   <p class="ad-sub" style="font-size:12px;margin-top:8px">Only from families who said yes. Deleted from the next export if they turn it off.</p></div>
+ </div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

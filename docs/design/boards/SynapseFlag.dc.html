@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Kix Synapse: kids flag what&#x27;s wrong</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>body{margin:0} .bd{width:1600px;height:1000px;position:relative;overflow:hidden;box-sizing:border-box;font-family:var(--font-text);background:var(--surface);color:var(--ink)} .bd *{box-sizing:border-box} .bd h1,.bd h2,.bd h3,.bd p{margin:0}
+
+.bd{background:#16143E}
+.hd{position:absolute;left:40px;top:26px;right:40px;display:flex;justify-content:space-between;align-items:flex-end;gap:40px}
+.hd h1{font:600 30px/36px var(--font-display);color:#fff}
+.hd p{font:700 15px/22px var(--font-text);color:#D9D3FF;max-width:640px;text-align:right}
+.fr{position:absolute;border-radius:22px;overflow:hidden;box-shadow:0 0 0 1px rgba(185,167,245,.3)}
+.cap{position:absolute;left:14px;top:12px;z-index:9;display:flex;align-items:center;gap:8px;padding:5px 12px 5px 6px;border-radius:999px;background:rgba(22,20,62,.82);color:#fff;font:800 14px/18px var(--font-text)}
+.cap b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#FFE38A;color:#1C1B4A;font:800 13px/1 var(--font-text)}
+.stage{position:absolute;left:0;top:0;width:1440px;height:900px;transform:translate(28px,44px) scale(.6722);transform-origin:0 0}
+.stage>img{position:absolute;inset:0;width:1440px;height:900px}
+.stage{border-radius:26px;overflow:hidden;box-shadow:0 0 0 3px rgba(42,30,92,.18),0 20px 50px rgba(42,30,92,.18)}
+.fbtn{position:absolute;left:744px;top:191px;width:50px;height:50px;border-radius:50%;display:grid;place-items:center;background:#7C5CFF;color:#fff;box-shadow:0 0 0 3px #2A1E5C,0 0 0 9px rgba(124,92,255,.28),0 0 28px 10px rgba(255,126,182,.55)}
+.fp{position:absolute;left:918px;top:104px;width:492px;height:748px;border-radius:30px;background:#fff;box-shadow:0 0 0 3px #2A1E5C,0 9px 0 #2A1E5C;padding:22px 22px 18px;display:flex;flex-direction:column;gap:14px;font-family:Nunito,var(--font-text);color:#2A1E5C}
+.fp-top{display:flex;gap:12px;align-items:center}
+.fp-top img{width:74px;height:74px;border-radius:50%;object-fit:cover;background:#F1ECFF;box-shadow:0 0 0 3px #2A1E5C}
+.fp h2{font:400 34px/38px 'Lilita One',var(--font-display);letter-spacing:.2px}
+.fp-sub{font:700 17px/23px Nunito,var(--font-text);color:#5B5180}
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kc{display:flex;align-items:center;gap:10px;min-height:78px;padding:10px 12px;border-radius:18px;background:#FFF6E0;box-shadow:inset 0 0 0 2.5px #EADDB5;font:800 18px/22px Nunito,var(--font-text)}
+.kc .i{display:grid;place-items:center;width:36px;height:36px;border-radius:12px;background:#fff;box-shadow:inset 0 0 0 2px #EADDB5;flex:none}
+.kc.on{background:#7C5CFF;color:#fff;box-shadow:inset 0 0 0 3px #2A1E5C,0 4px 0 #2A1E5C}
+.kc.on .i{background:rgba(255,255,255,.18);box-shadow:none}
+.lbl{font:800 17px/22px Nunito,var(--font-text)}
+.lbl small{font-weight:700;color:#7A719C}
+.note{display:flex;gap:10px;align-items:stretch}
+.mic{width:76px;flex:none;border-radius:20px;background:#7C5CFF;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font:800 11px/13px Nunito,var(--font-text);box-shadow:0 0 0 3px #2A1E5C}
+.said{flex:1;border-radius:18px;background:#FFF6E0;box-shadow:inset 0 0 0 2.5px #EADDB5;padding:10px 12px;font:700 18px/24px Nunito,var(--font-text)}
+.said .ok{display:flex;gap:14px;margin-top:6px;font:800 15px/18px Nunito,var(--font-text);color:#4F3FB8}
+.send{height:68px;border-radius:999px;background:#FFD23F;box-shadow:inset 0 0 0 3px #2A1E5C,0 5px 0 #2A1E5C;display:flex;align-items:center;justify-content:center;gap:10px;font:900 19px/1 Nunito,var(--font-text)}
+.fine{display:flex;gap:8px;align-items:flex-start;font:700 15px/20px Nunito,var(--font-text);color:#6A6190}
+.strip{position:absolute;left:40px;top:772px;width:1040px;bottom:28px;display:flex;flex-direction:column;gap:12px}
+.strip h3{font:800 15px/20px var(--font-text);color:#FFE38A}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 11px;border-radius:999px;background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1px rgba(185,167,245,.35);color:#EDE9FF;font:700 13.5px/1 var(--font-text)}
+.pill b{color:#fff}
+.pill.r{background:rgba(255,227,138,.12);box-shadow:inset 0 0 0 1px rgba(255,227,138,.45)}
+.tb{left:1100px;top:104px;width:460px;height:392px;background:linear-gradient(180deg,#DCEBFF,#F8FAFF 70%);font-family:Nunito,var(--font-text);color:#1B2350}
+.rep{position:absolute;left:22px;top:50px;right:22px;border-radius:18px;background:#fff;box-shadow:inset 0 0 0 2px #1B2350;padding:14px 16px}
+.rep h4{margin:0;font:800 15px/20px Nunito,var(--font-text);display:flex;gap:8px;align-items:center}
+.rep ol{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.rep li{display:flex;gap:8px;font:700 14px/19px Nunito,var(--font-text)}
+.rep li span.n{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#E3EEFF;font:800 12px/1 Nunito;flex:none}
+.rep li.bad b{text-decoration:underline wavy #E5484D;text-underline-offset:4px}
+.tflag{position:absolute;right:12px;top:10px;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#1B2350;color:#fff;box-shadow:0 0 0 6px rgba(90,169,240,.35)}
+.pop{position:absolute;left:44px;right:22px;top:196px;border-radius:18px;background:#fff;box-shadow:0 0 0 2px #1B2350,0 18px 34px rgba(27,35,80,.25);padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.pop:before{content:"";position:absolute;right:30px;top:-9px;width:16px;height:16px;background:#fff;transform:rotate(45deg);box-shadow:-2px -2px 0 0 #1B2350}
+.pop h4{margin:0;font:800 16px/20px Nunito,var(--font-text)}
+.tc{display:flex;flex-wrap:wrap;gap:6px}
+.tc span{height:34px;padding:0 12px;border-radius:999px;display:inline-flex;align-items:center;font:800 13px/1 Nunito;box-shadow:inset 0 0 0 2px #C9D7F2}
+.tc span.on{background:#1B2350;color:#fff;box-shadow:none}
+.tin{display:flex;gap:8px;align-items:center}
+.tin div{flex:1;height:40px;border-radius:12px;box-shadow:inset 0 0 0 2px #C9D7F2;padding:0 12px;display:flex;align-items:center;font:700 13.5px/1 Nunito}
+.tin b{height:40px;padding:0 16px;border-radius:999px;background:#5AA9F0;color:#fff;display:inline-flex;align-items:center;gap:6px;font:800 14px/1 Nunito}
+.tfine{font:700 12px/16px Nunito;color:#55608C}
+.oc{left:1100px;top:512px;width:460px;bottom:28px;background:radial-gradient(120% 90% at 80% 0%,#3B3A7A 0%,#22214F 60%);padding:48px 16px 14px;display:flex;flex-direction:column;gap:8px}
+.oc>*{flex:none}
+.chk{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 12px;border-radius:999px;background:#FFF1D6;color:#8A5A00;font:800 13px/1 var(--font-text)}
+.chk i{width:8px;height:8px;border-radius:50%;background:#F2A93B;box-shadow:0 0 0 4px rgba(242,169,59,.25)}
+.on1{border-radius:20px;background:#fff;padding:10px 14px;display:grid;grid-template-columns:50px 1fr;gap:12px;align-items:start;color:#1C1B4A}
+.on1 img{width:50px;height:50px;border-radius:50%;object-fit:cover;background:#EDE9FF}
+.on1 h4{margin:0;font:600 18px/22px var(--font-display)}
+.on1 p{margin:3px 0 0;font:700 13px/18px var(--font-text);color:#3D3A6B}
+.on1 .ft{display:flex;gap:8px;align-items:center;margin-top:6px;flex-wrap:wrap}
+.dif{display:inline-flex;gap:6px;align-items:center;font:800 13px/1 var(--font-text)}
+.dif s{color:#A21C1C;background:#FDE8E8;padding:3px 6px;border-radius:6px}
+.dif ins{text-decoration:none;color:#1F5E37;background:#E6F6EA;padding:3px 6px;border-radius:6px}
+.okc{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:999px;background:#DDF3E4;color:#1F5E37;font:800 12px/1 var(--font-text)}
+.on1.lav{background:#EDE9FF}
+.got{height:30px;padding:0 14px;border-radius:999px;background:#2B2A5C;color:#fff;display:inline-flex;align-items:center;font:800 13px/1 var(--font-text)}
+</style>
+</helmet>
+<div class="bd" data-theme="dreamlight">
+
+<div class="hd"><h1>Flag it: kids tell Kix what's wrong</h1><p>One tap on any screen where AI speaks or marks. The kid picks what's wrong, can say a few words, and hears back: fixed, or why Kix was right.</p></div>
+<div class="fr" style="left:40px;top:104px;width:1040px;height:650px;background:#FFF6E0">
+ <div class="cap"><b>1</b>Junior · a Learn question</div>
+ <div class="stage" data-theme="toon-pop">
+  <img src="/_blob/a731cc9b4c7ef7ec8b04bdb9fb5302ed" alt="">
+  <div class="fbtn"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:26px;height:26px;flex:none"><path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="M6 21V4M6 4.5h11.5l-2.6 4 2.6 4H6"/></svg></div>
+  <div class="fp">
+   <div class="fp-top"><img src="/_blob/322dfed5486a583d4343e28bcb22c301" alt=""><div><h2>What's not right?</h2><p class="fp-sub">Tell Kix's crew. They check every report.</p></div></div>
+   <div class="chips"><div class="kc"><span class="i"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:22px;height:22px;flex:none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M3 18l5-12 5 12M5 14h6M14.5 18c1.2-1.6 2.4-1.6 3.5 0s2.3 1.6 3.5 0"/></svg></span>A word is spelt wrong</div><div class="kc"><span class="i"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:22px;height:22px;flex:none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M4 12.5l4 4 8-9M15 15.5l5 5M20 15.5l-5 5"/></svg></span>My answer was marked wrong</div><div class="kc"><span class="i"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:22px;height:22px;flex:none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M3.5 5h17v14h-17zM3.5 15.5l5-4.5 4 3.5 3-2.5 5 4M15.5 9.5h.01"/></svg></span>The picture doesn't match</div><div class="kc"><span class="i"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:22px;height:22px;flex:none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg></span>The hint didn't help</div><div class="kc on"><span class="i"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:22px;height:22px;flex:none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M9.2 9a3 3 0 1 1 4.3 2.7c-.9.4-1.5 1.2-1.5 2.2v.6M12 18h.01"/></svg></span>The question looks wrong</div><div class="kc"><span class="i"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:22px;height:22px;flex:none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M6 12h.01M12 12h.01M18 12h.01"/></svg></span>Something else</div></div>
+   <div class="lbl">Tell Kix more <small>(you can skip this)</small></div>
+   <div class="note"><div class="mic"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:26px;height:26px;flex:none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M12 3a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3zM5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>Hold<br>to talk</div><div class="said">"Two answers say larva and pupa. Frogs don't have those!"<div class="ok"><span><svg viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px;flex:none"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></svg> That's right</span><span><svg viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px;flex:none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M9 14L4 9l5-5M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg> Say it again</span></div></div></div>
+   <div class="send"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:22px;height:22px;flex:none"><path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="M6 21V4M6 4.5h11.5l-2.6 4 2.6 4H6"/></svg>Send to Kix's crew</div>
+   <div class="fine"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:15px;height:15px;flex:none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M6 11h12v9H6zM8.5 11V8a3.5 3.5 0 0 1 7 0v3"/></svg><span>Kix's crew sees this question and what you said. Not your other chats.</span></div>
+  </div>
+ </div>
+</div>
+<div class="strip">
+ <h3>The flag is on every screen where AI speaks or marks</h3>
+ <div class="pills"><span class="pill"><b>Learn</b> question, marking, hint</span><span class="pill"><b>Ask Kix</b> every reply</span><span class="pill"><b>Talk to Kix</b></span><span class="pill"><b>Critter Lab</b> what the pet says</span><span class="pill"><b>Vibe Zone</b> cards</span><span class="pill"><b>Parent</b> Tonight, Kix's ideas</span></div>
+ <div class="pills"><span class="pill r">No points or stars for reports</span><span class="pill r">10 a day, one open report per question</span><span class="pill r">Upset words go to Kix's caring reply first</span><span class="pill r">Bottom sheet on phones</span></div>
+</div>
+<div class="fr tb">
+ <div class="cap"><b>2</b>Teen · an Ask Kix reply</div>
+ <div class="rep"><h4>Steps <span style="font:700 12px Nunito;color:#55608C">2 of 3</span></h4>
+  <ol><li><span class="n">1</span><span>Before: A = 3u, B = 1u, total = 4u</span></li><li><span class="n">2</span><span>85 move: A = 3u − 85, B = 1u + 85</span></li><li class="bad"><span class="n">3</span><span><b>Total after: 4u − 20 = 180</b></span></li></ol>
+  <div class="tflag"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:20px;height:20px;flex:none"><path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="M6 21V4M6 4.5h11.5l-2.6 4 2.6 4H6"/></svg></div></div>
+ <div class="pop"><h4>What's off?</h4>
+  <div class="tc"><span class="on">Answer looks wrong</span><span>Typo</span><span>Doesn't make sense</span><span>Something else</span></div>
+  <div class="tin"><div>Step 3 changes the total. It should stay the same.</div><b><svg viewBox="0 0 24 24" aria-hidden="true" style="width:15px;height:15px;flex:none"><path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="M6 21V4M6 4.5h11.5l-2.6 4 2.6 4H6"/></svg>Send</b></div>
+  <p class="tfine">Kix's crew sees only this reply and your question.</p></div>
+</div>
+<div class="fr oc">
+ <div class="cap"><b>3</b>What comes back</div>
+ <span class="chk"><i></i>Checking… Kix's crew has it</span>
+ <div class="on1"><img src="/_blob/f506e58a602297834bce49cc9565bca7" alt=""><div><h4>Fixed, thanks to you!</h4><p>The question said Tank C, but the picture shows Tank B. It's fixed for every P6 kid now.</p><div class="ft"><span class="dif"><s>Tank C</s>→<ins>Tank B</ins></span><span class="okc"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:13px;height:13px;flex:none"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></svg>Fixed by your report</span></div></div></div>
+ <div class="on1"><img src="/_blob/f506e58a602297834bce49cc9565bca7" alt=""><div><h4>Your answer counts now</h4><p>1/4 and 0.25 are the same number. Kix's crew fixed the marking, so your answer is right.</p></div></div>
+ <div class="on1 lav"><img src="/_blob/02f791d67e720a2bf4fdb268ff6b6b8a" alt=""><div><h4>Kix double-checked</h4><p>Good eye! Larva and pupa are insect stages, not frog stages. That answer is there to check you know the difference.</p><div class="ft"><span class="got">Got it</span></div></div></div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1600,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

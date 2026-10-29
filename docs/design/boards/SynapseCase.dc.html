@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Kix Synapse: a case, from flag to fix</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/mykx/tokens.css">
+<link rel="stylesheet" href="ds/mykx/components/bundle.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>body{margin:0} .bd{width:1440px;height:900px;position:relative;overflow:hidden;box-sizing:border-box;font-family:var(--font-text);background:var(--surface);color:var(--ink)} .bd *{box-sizing:border-box} .bd h1,.bd h2,.bd h3,.bd p{margin:0}
+
+.bd{background:var(--surface)}
+.ad-nav{position:absolute;left:0;top:0;bottom:0;width:220px;padding:22px 14px;box-shadow:inset -1px 0 0 var(--line);display:flex;flex-direction:column;gap:4px}
+.ad-nav img{height:30px;align-self:flex-start;margin:0 8px 16px}
+.ad-nav a{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:12px;color:var(--ink-muted);font:700 14px var(--font-text)}
+.ad-nav a.on{background:var(--surface-raised);color:var(--ink);box-shadow:inset 3px 0 0 var(--accent)}
+.ad-nav a .new{margin-left:auto;font:800 10px/1 var(--font-text);padding:3px 6px;border-radius:999px;background:#FFE38A;color:#1C1B4A}
+.ad-main{position:absolute;left:220px;right:0;top:0;bottom:0;padding:22px 28px}
+.ad-h1{font:800 26px/32px var(--font-display)}
+.ad-sub{margin-top:4px;font:600 14px/20px var(--font-text);color:var(--ink-muted)}
+.chip{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:999px;font:800 12px/1 var(--font-text);white-space:nowrap}
+.c-ok{background:#DDF3E4;color:#1F5E37}.c-wait{background:#FFF1D6;color:#8A5A00}.c-def{background:#E8E6F7;color:#3B3780}.c-flag{background:#FFE3E3;color:#A21C1C}.c-open{background:#2B2A5C;color:#FFE38A}.c-team{background:#E3EEFF;color:#1F4E8C}
+.btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:999px;font:800 13px var(--font-text);white-space:nowrap}
+.b-pri{background:var(--accent);color:var(--on-accent)}.b-sec{box-shadow:inset 0 0 0 2px var(--line);color:var(--ink)}.b-del{color:#A21C1C;box-shadow:inset 0 0 0 2px #F3C4C4}
+.card{border-radius:20px;background:var(--surface-raised);box-shadow:inset 0 0 0 1px var(--line);padding:16px}
+.h2{font:800 16px/22px var(--font-display)}
+.mono{font:500 12.5px/20px ui-monospace,SFMono-Regular,Menlo,monospace}
+.sub{display:flex;gap:4px;margin-top:14px}
+.sub span{padding:7px 14px;border-radius:999px;font:800 13px var(--font-text);color:var(--ink-muted)}
+.sub span.on{background:var(--ink);color:var(--surface)}
+.mt{position:relative;height:8px;border-radius:999px;background:var(--line)}
+.mt i{position:absolute;left:0;top:0;bottom:0;border-radius:999px}
+.mt b{position:absolute;top:-4px;width:2px;height:16px;background:var(--ink)}
+
+.cg{position:absolute;left:28px;right:28px;top:150px;bottom:22px;display:grid;grid-template-columns:330px minmax(0,1fr) 300px;gap:14px}
+.tl{list-style:none;margin:10px 0 0;padding:0;position:relative}
+.tl:before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:var(--line)}
+.tl li{position:relative;padding:0 0 11px 26px;font:700 12.5px/17px var(--font-text)}
+.tl li i{position:absolute;left:1px;top:3px;width:14px;height:14px;border-radius:50%;box-shadow:0 0 0 3px var(--surface-raised)}
+.tl li em{font-style:normal;font:800 11px/16px var(--font-text);color:var(--ink-muted);margin-right:6px}
+.tl li small{display:block;font:600 11.5px/16px var(--font-text);color:var(--ink-muted)}
+.k-kid{background:#5AA9F0}.k-ai{background:#7C5CFF}.k-guard{background:#F2A93B}.k-dec{background:#2E9E5B}.k-rep{background:#E5484D}
+.mid{display:flex;flex-direction:column;gap:12px;min-height:0}
+.saw{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:12px}
+.mini{border-radius:14px;box-shadow:inset 0 0 0 2px #1B2350;padding:10px 12px;font:700 12.5px/18px var(--font-text);background:#fff;color:#1B2350}
+.mini ol{margin:6px 0 0;padding-left:18px}
+.mini li.bad{text-decoration:underline wavy #E5484D;text-underline-offset:3px}
+.rpt{border-radius:14px;background:#FFF1F1;padding:10px 12px;font:700 13px/18px var(--font-text);color:#7A1D1D}
+.verdict p{margin-top:6px;font:600 13.5px/20px var(--font-text)}
+.cau{margin-top:8px;border-radius:12px;background:#0F1430;color:#DCE3FF;padding:10px 12px}
+.cau b{color:#FFE38A;font-weight:600}
+.tst{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:8px}
+.tst div{border-radius:12px;padding:10px 12px;font:800 13px/18px var(--font-text)}
+.tst small{display:block;font:700 11.5px/16px var(--font-text);opacity:.8}
+.big{font:600 52px/52px var(--font-display)}
+.bk{list-style:none;margin:10px 0 0;padding:0}
+.bk li{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-top:1px solid var(--line);font:700 12.5px/17px var(--font-text)}
+.bk li b{font-weight:800}
+.acts{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.acts .btn{justify-content:center;height:40px}
+</style>
+</helmet>
+<div class="bd" data-theme="anime-sky">
+<nav class="ad-nav"><img src="/_blob/f52e18857979369421011da66fdb9de3" alt="myKx"><a class="">Skills</a><a class="">Add knowledge</a><a class="">People</a><a class="">Under the hood</a><a class="on"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:13px;height:13px;flex:none"><path fill="currentColor" d="M12 0c.8 6.4 5.6 11.2 12 12-6.4.8-11.2 5.6-12 12-.8-6.4-5.6-11.2-12-12C6.4 11.2 11.2 6.4 12 0z"/></svg>Kix Synapse<span class=new>New</span></a></nav>
+<main class="ad-main">
+ <p class="ad-sub" style="margin:0">Kix Synapse › Inbox › Report #214</p>
+ <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-top:4px"><div><h1 class="ad-h1">Step 3 changes the total</h1><p class="ad-sub">Kix's reply · Ask Kix · P6 Maths · before-and-after · flagged by a P6 learner</p></div>
+ <div style="display:flex;gap:6px"><span class="chip c-wait">Waiting for you</span><span class="chip c-def">Becomes an eval case</span></div></div>
+ <div class="cg">
+  <div class="card" style="overflow:hidden"><span class="h2">Trace</span><p class="ad-sub" style="margin-top:2px">Ids and numbers for every call; words only for the turn the learner reported.</p>
+   <ul class="tl"><li><i class="k-kid"></i><em>19:42:08</em>Learner asked Ask Kix<small>typed question · P6 Maths · steps</small></li><li><i class="k-ai"></i><em>19:42:08</em>Ask Kix · muse-spark-1.3<small>agent v3 · skill P6 Maths v1.3 · 2.4 s · 1,812 → 604 tokens · $0.0048</small></li><li><i class="k-guard"></i><em>19:42:10</em>Guard: enforceStage(steps)<small>final answer held back for the full stage</small></li><li><i class="k-rep"></i><em>19:43:51</em>Learner flagged it<small>Answer looks wrong · note screened · signature checked</small></li><li><i class="k-guard"></i><em>19:43:51</em>Case built<small>nickname → Learner · ids removed</small></li><li><i class="k-ai"></i><em>19:43:53</em>Reproduce × 3 on the same versions<small>2 of 3 runs change the total</small></li><li><i class="k-ai"></i><em>19:44:02</em>Review · Muse Spark Open · Baseten<small>6.1 s · problem · model behaviour · 94</small></li><li><i class="k-ai"></i><em>19:44:09</em>Re-test with the caution<small>3 of 3 keep the total · Ask Kix evals 41/41</small></li><li><i class="k-dec"></i><em>19:44:10</em>Decision: 90 is under 100<small>waiting for you</small></li></ul></div>
+  <div class="mid">
+   <div class="card"><span class="h2">What the learner saw, and their report</span>
+    <div class="saw" style="margin-top:8px"><div class="mini"><b>Steps</b><ol><li>Before: A = 3u, B = 1u, total = 4u</li><li>85 move: A = 3u − 85, B = 1u + 85</li><li class="bad">Total after: 4u − 20 = 180</li></ol></div>
+    <div class="rpt"><span class="chip c-flag"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:12px;height:12px;flex:none"><path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="M6 21V4M6 4.5h11.5l-2.6 4 2.6 4H6"/></svg>Answer looks wrong</span><p style="margin-top:6px">"Step 3 changes the total. It should stay the same."</p></div></div></div>
+   <div class="card verdict"><div style="display:flex;justify-content:space-between;align-items:center"><span class="h2">Synapse Reviewer</span><span class="chip c-open">Muse Spark Open · Baseten</span></div>
+    <p><b>A real problem: how the model worked.</b> When marbles move from Box A to Box B, the total stays 4u. Step 3 takes 20 from the total, which no move explains, so the full answer would come out as 135 instead of 153.</p>
+    <div style="margin-top:10px" class="h2">Proposed fix: a learned caution for Ask Kix</div>
+    <div class="cau mono"><b>When</b> items move between two groups in a before-and-after problem, <b>check</b> the total stays the same before working out one unit.</div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap"><span class="chip c-def">P6</span><span class="chip c-def">Maths</span><span class="chip c-def">before-and-after</span><span class="chip c-def">expires 28 Nov unless confirmed</span></div></div>
+   <div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><span class="h2">Test: final answer = 153</span><span class="mono" style="color:var(--ink-muted)">number · from this case</span></div>
+    <div class="tst"><div style="background:#FDE8E8;color:#A21C1C">1 of 3 right<small>now, without the fix</small></div><div style="background:#E6F6EA;color:#1F5E37">3 of 3 right<small>with the caution</small></div><div style="background:#E6F6EA;color:#1F5E37">41 / 41<small>Ask Kix's other evals still pass</small></div></div></div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:12px">
+   <div class="card"><span class="h2">Synapse confidence</span><div style="display:flex;align-items:flex-end;gap:10px;margin-top:6px"><span class="big">90</span><span class="ad-sub" style="margin:0 0 6px">needs 100 to fix by itself</span></div><div class="mt" style="width:252px"><i style="width:90%;background:#F2A93B"></i><b style="left:calc(100% - 1px)"></b></div>
+    <ul class="bk"><li>Reviewer<b>94</b></li><li>Reproduced<b>2 of 3 runs · cap 90</b></li><li>Code checks<b>4 of 4</b></li><li>Re-test<b>3 of 3</b></li><li>Second opinion<b>not needed: no score change</b></li></ul>
+    <div class="acts"><span class="btn b-pri"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px;flex:none"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></svg>Approve and add the caution</span><span class="btn b-sec">Edit the caution</span><span class="btn b-del">Not a problem</span></div>
+    <div class="h2" style="margin-top:14px">When you approve</div><ul class="bk" style="margin-top:4px"><li>Ask Kix uses it<b>within 60 s</b></li><li>The learner hears<b>Fixed, thanks to you</b></li><li>Ask Kix's evals<b>42 cases, nightly</b></li></ul></div>
+   <div class="card"><span class="h2"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px;flex:none"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M6 11h12v9H6zM8.5 11V8a3.5 3.5 0 0 1 7 0v3"/></svg> Privacy</span><p class="ad-sub">Only the turn the learner reported, nickname replaced. Reviewed on Baseten with zero data retention. Every action is logged.</p></div>
+  </div>
+ </div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

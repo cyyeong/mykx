@@ -625,7 +625,7 @@ Knowledge published before 29 Oct is in `skill_updates`; publishing still writes
 
 ## 6. Self-learning and self-improvement
 
-myKx gets better in five loops. None of them trains a model on child data, rewrites a prompt by itself or lets a model change a score. Each loop has a named signal, a named guardrail, and a clear line between what is automatic and what a person approves.
+myKx gets better in five loops. A sixth, **Kix Synapse** (kids flag what's wrong; an open model reviews; proven fixes ship as skill versions or learned cautions), is specified in `docs/prd/SYNAPSE.md` and not built yet; when it is, this section names all six loops under that brand. None of them trains a model on child data, rewrites a prompt by itself or lets a model change a score. Each loop has a named signal, a named guardrail, and a clear line between what is automatic and what a person approves.
 
 | Loop | What improves | Signal | Who changes it | Guardrail | Automatic or approved |
 |---|---|---|---|---|---|
