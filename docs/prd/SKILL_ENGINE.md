@@ -80,6 +80,8 @@ content/skills/p3-science/
 ```
 Types for the MVP: `mcq`, `short` (exact or numeric answer with tolerance), `open` (CER-style; marked by self-check against the model answer, so it never changes mastery), `card` (flashcards and word cards).
 
+**How the Learn pages serve packs (built 29 Oct; `docs/ARCHITECTURE.md` §5.3a).** A kid's subjects are the published packs whose `level` is the kid's level (`lib/learn/subjects.ts`); an item from another level's pack is never served, marked or explained. Sessions are chosen by code (`selectNext`) per pack or topic from reviewed items. `mcq` and `short` are marked by code. A `card` becomes a question code can mark: pick its meaning from four (the others from the same deck) for `recognise`, or type the word in characters for `write`; writing it on paper is a "show me" self-check, logged as practice and never mastery evidence. An `open` answer is saved unconfirmed and compared with the model answer and the item's `keywords`; it never changes mastery until a grown-up confirms a score. Items answered by drawing on a figure (a ruler, "see the dashed lines") stay in printable papers. A card's `card.meaning` should not depend on the word's own characters: the player strips any Chinese from it so the answer isn't shown.
+
 ## 5. Runtime: how an agent loads and unloads skills
 
 ```

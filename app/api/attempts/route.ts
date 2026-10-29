@@ -1,7 +1,8 @@
 // Submitting an answer: deterministic marking, mastery and the reward ledger,
 // stored in Supabase (or the demo store in dev). Needs the kid session on
-// this device; open items are refused here (a parent or admin confirms their
-// rubric before mastery may move).
+// this device, and an item from the kid's own level's packs (403 otherwise).
+// Written (open) answers are saved as practice: never mastery evidence until a
+// parent or admin confirms their rubric (lib/learn/submit.ts).
 import { z } from "zod";
 import { currentKid, currentParent, withAuth } from "@/lib/auth/context";
 import { fail, ok, readBody } from "@/lib/auth/http";
@@ -43,7 +44,8 @@ export async function POST(request: Request) {
       return ok(result);
     } catch (err) {
       if ((err as Error).message === "unknown-item") return fail(404, "not-found");
-      if ((err as Error).message === "needs-review") return fail(400, "not-allowed");
+      if ((err as Error).message === "other-level") return fail(403, "not-allowed"); // another level's pack
+      if ((err as Error).message === "invalid") return fail(400, "invalid");
       throw err;
     }
   });

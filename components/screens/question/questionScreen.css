@@ -165,3 +165,26 @@
 .qp-better-say{position:absolute;top:10px;right:10px;display:grid;place-items:center;width:36px;height:36px;border:0;border-radius:50%;background:var(--surface);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--border-control);cursor:pointer}
 .qp-better-say svg{width:18px;height:18px}
 .qp-better-say:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+/* Every subject (29 Oct): a reading passage, a Chinese word card, a written answer and Kix's answer beside it. */
+.qp-passage{flex:none;max-height:min(260px,34cqh);overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;gap:10px;padding:16px 18px;border-radius:var(--radius-md);background:var(--surface);box-shadow:inset 4px 0 0 var(--accent-2),inset 0 0 0 1.5px var(--line);scrollbar-width:thin}
+.qp-passage .qp-q-p{font:600 18px/1.55 var(--font-text)}
+.qp-passage:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+.qp-word{flex:none;align-self:flex-start;display:grid;justify-items:center;gap:6px;min-width:180px;padding:18px 28px;border-radius:var(--radius-lg);background:var(--surface);box-shadow:inset 0 0 0 3px var(--border-control),0 6px 0 var(--accent-2)}
+.qp-word-glyph{font:500 clamp(56px,7vw,84px)/1.1 "Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;color:var(--ink);letter-spacing:.06em}
+.qp-word-pinyin{font:400 clamp(32px,4vw,44px)/1.15 var(--font-display);color:var(--ink)}
+.qp-word-meaning{font:700 18px/1.35 var(--font-text);color:var(--ink-muted);text-align:center;max-width:32ch}
+.qp-word-pic{width:120px;height:120px;object-fit:contain;border-radius:var(--radius-md);background:#fff;padding:6px;box-sizing:border-box}
+.qp-how-glyph{font:500 32px/1.2 "Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;letter-spacing:.06em}
+.qp-written{min-height:132px;padding:14px 16px;border:0;border-radius:var(--radius-lg);background:var(--surface);color:var(--ink);font:600 19px/1.45 var(--font-text);box-shadow:inset 0 0 0 3px var(--line);resize:vertical}
+.qp-written:focus-visible{outline:none;box-shadow:inset 0 0 0 3px var(--accent)}
+.qp-compare{display:grid;gap:14px;padding:16px 18px;border-radius:var(--radius-lg);background:var(--surface);box-shadow:inset 4px 0 0 var(--success),inset 0 0 0 1.5px var(--line)}
+.qp-compare-col{display:flex;flex-direction:column;gap:6px}
+.qp-compare-col p,.qp-compare-col ol{margin:0;font:600 17px/1.5 var(--font-text)}
+.qp-compare-col ol{padding-left:22px}
+.qp-compare-label{font:800 15px/1.2 var(--font-text);color:var(--ink-muted)}
+.qp-ideas{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.qp-ideas li{padding:4px 12px;border-radius:var(--radius-pill);background:var(--surface-raised);box-shadow:inset 0 0 0 2px var(--success);font:800 15px/1.3 var(--font-text)}
+.qp-compare-note{margin:0;font:700 15px/1.4 var(--font-text);color:var(--ink-muted)}
+/* Teens: long question text in the body face (a wide display face is hard to read at length), a size for a denser deck. */
+.qp-root[data-band="teen"] .qp-q-ask{font:600 clamp(21px,0.9vw + 13px,26px)/1.32 var(--font-text)}
+.qp-root[data-band="teen"] .qp-q-p{font:500 clamp(18px,0.6vw + 12px,21px)/1.45 var(--font-text)}

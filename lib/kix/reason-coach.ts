@@ -24,8 +24,8 @@ export function fallbackCoach(item: SkillItem, reason: string, correct: boolean)
   const r = checkReason(item, reason);
   const better = correct ? modelReason(item) : null;
   if (r.quality === "on-topic")
-    return { verdict: "partly", feedback: `Your reason uses the science (${r.used.slice(0, 3).join(", ")}). ${correct ? "Compare it with the stronger reason below." : "Check it against what you know, then try again."}`, better };
-  const quoted = reason.trim() ? `Your reason, "${reason.trim().slice(0, 60)}", doesn't explain the science yet.` : "You didn't give a reason yet.";
+    return { verdict: "partly", feedback: `Your reason uses the right ideas (${r.used.slice(0, 3).join(", ")}). ${correct ? "Compare it with the stronger reason below." : "Check it against what you know, then try again."}`, better };
+  const quoted = reason.trim() ? `Your reason, "${reason.trim().slice(0, 60)}", doesn't explain it yet.` : "You didn't give a reason yet.";
   return { verdict: "not-yet", feedback: `${quoted} A good reason says why, using what you know about this topic.`, better };
 }
 

@@ -52,6 +52,18 @@ function Block({ block, ask }: { block: TextBlock; ask: boolean }) {
   );
 }
 
+/** A comprehension or cloze passage: every block as text (no heading), in its own scrolling box. */
+export function PassageText({ text }: { text: string }) {
+  const blocks = splitParagraphs(text).flatMap((p) => parseBlocks(p));
+  return (
+    <section className="qp-passage" aria-label="Read this first" tabIndex={0}>
+      {blocks.map((b, i) => (
+        <Block key={i} block={b} ask={false} />
+      ))}
+    </section>
+  );
+}
+
 export function StemText({ text, figure }: { text: string; figure?: StemFigure | null }) {
   const blocks = splitParagraphs(text).flatMap((p) => parseBlocks(p));
   // The last paragraph is the question itself (the heading); a figure goes just before it when there is context.

@@ -1,0 +1,115 @@
+/* Learn (Junior, Dreamlight): the hub (ln-, lh-) and a subject's page (ls-), over the quest-map sky.
+   Landscape from 1024 px fits the window (kid-tabs.css): the topic trail scrolls inside its own shelf. */
+.ln-root{position:relative;width:100%;min-height:var(--screen-h,100dvh);box-sizing:border-box;overflow:clip;display:grid;background:var(--surface);color:var(--ink);font-family:var(--font-text)}
+.ln-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.ln-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.ln-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,28,69,.18),rgba(30,28,69,.05) 40%,rgba(30,28,69,.45))}
+.ln-wrap{position:relative;width:100%;max-width:1280px;margin:0 auto;box-sizing:border-box;padding:28px 32px;display:flex;flex-direction:column;gap:18px}
+.ln-head{align-self:flex-start;display:flex;flex-direction:column;gap:8px;padding:20px 26px}
+.ln-h1{margin:0;font:600 clamp(30px,3.4vw,42px)/1.12 var(--font-display)}
+.ln-sub{margin:0;font:600 16px/22px var(--font-text);color:var(--ink-muted)}
+.ln-kix{display:flex;align-items:center;gap:14px;max-width:720px}
+.ln-kix-img{width:72px;height:72px;flex:none;border-radius:50%;object-fit:cover;box-shadow:0 0 0 3px var(--accent)}
+.ln-kix-bubble{padding:12px 18px;font:700 18px/26px var(--font-text)}
+.ln-gap{align-self:flex-start;margin:0;padding:8px 16px;border-radius:var(--radius-pill);background:var(--surface-glass);backdrop-filter:blur(12px);font:700 15px/21px var(--font-text);color:var(--ink-muted)}
+.ln-emblem{display:grid;place-items:center;flex:none;border-radius:50%;background:var(--accent);color:var(--on-accent);box-shadow:0 0 0 4px var(--surface-raised),var(--shadow-glow);font-family:var(--font-display);font-weight:600;line-height:1}
+
+/* Hub: one island per subject */
+.lh-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px;flex:1;align-content:start}
+.lh-grid > li{display:flex}
+.lh-tile{flex:1;box-sizing:border-box;display:flex;flex-direction:column;gap:16px;padding:22px}
+.lh-tile-top{display:flex;align-items:center;gap:14px}
+.lh-tile-name{display:flex;flex-direction:column;gap:2px;min-width:0}
+.lh-tile-name h2{margin:0;font:600 30px/1.1 var(--font-display)}
+.lh-tile-name span{font:600 14px/20px var(--font-text);color:var(--ink-muted)}
+.lh-progress{display:flex;flex-direction:column;gap:8px}
+.lh-progress-row{font:800 16px/22px var(--font-text)}
+.lh-bar{height:12px;border-radius:var(--radius-pill);background:var(--line);overflow:hidden}
+.lh-bar > span{display:block;height:100%;min-width:0;border-radius:var(--radius-pill);background:var(--accent)}
+.lh-evidence{margin:0;font:600 14px/20px var(--font-text);color:var(--ink-muted)}
+.lh-next{margin:0;padding:10px 12px;border-radius:var(--radius-md);background:var(--surface);font:600 15px/21px var(--font-text);color:var(--ink-muted)}
+.lh-next strong{color:var(--ink);font-weight:800}
+.lh-featured{display:flex;align-items:center;gap:12px;min-height:56px;padding:8px 12px 8px 8px;border-radius:var(--radius-md);background:var(--surface-raised);box-shadow:inset 0 0 0 2px var(--reward);color:var(--ink);text-decoration:none}
+.lh-featured:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+.lh-featured > span{display:flex;flex-direction:column;gap:2px;min-width:0}
+.lh-featured strong{font:800 16px/20px var(--font-text)}
+.lh-featured > span > span{font:600 14px/18px var(--font-text);color:var(--ink-muted)}
+.lh-featured-art{width:56px;height:56px;flex:none;border-radius:var(--radius-sm);object-fit:cover}
+.lh-open{margin-top:auto;width:100%}
+
+/* A subject: header and trail on the left, today's session on the right */
+.ls-wrap{display:grid;grid-template-columns:minmax(0,1fr) clamp(320px,30vw,400px);grid-template-rows:auto minmax(0,1fr);grid-template-areas:"head panel" "trail panel";column-gap:24px;row-gap:18px}
+.ls-head{grid-area:head;align-self:start}
+.ls-back{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px 0 8px;margin-left:-8px;border-radius:var(--radius-pill);color:var(--accent);font:800 16px/1 var(--font-text);text-decoration:none}
+.ls-back svg{width:20px;height:20px}
+.ls-back:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+.ls-title{display:flex;align-items:center;gap:16px}
+.ls-title > div{display:flex;flex-direction:column;gap:4px}
+.ls-chip{align-self:flex-start;padding:2px 10px;border-radius:var(--radius-pill);background:var(--accent-2);color:var(--on-accent-2);font:800 14px/22px var(--font-text)}
+.ls-h2{margin:0;font:600 26px/1.2 var(--font-display)}
+.ls-trail{grid-area:trail;min-height:0;display:flex;flex-direction:column;gap:12px;padding:20px 22px}
+/* Padding inside the scroll box (with matching negative margins) so a glowing node is never clipped square. */
+.ls-topics{list-style:none;margin:-12px -8px -12px -12px;padding:12px 8px 12px 12px;display:flex;flex-direction:column;gap:10px}
+.ls-topic{position:relative;display:grid;grid-template-columns:64px minmax(0,1fr);align-items:start;gap:14px}
+/* The trail: a line joining the stops */
+.ls-topic:not(:last-child)::before{content:"";position:absolute;left:30px;top:64px;bottom:-14px;width:4px;border-radius:2px;background:var(--line)}
+.ls-today{align-self:flex-start;padding:1px 10px;border-radius:var(--radius-pill);background:var(--reward);color:var(--on-reward);font:800 13px/20px var(--font-text)}
+.ls-node{width:64px}
+/* Calm trail: only today's topic glows and pulses; the others hold still. */
+.ls-topic:not(.ls-topic--today) .ls-node.mk-node--next .mk-node__dot{animation:none}
+.ls-topic:not(.ls-topic--today) .ls-node.mk-node--current .mk-node__dot{box-shadow:none}
+.ls-topic--today .ls-node .mk-node__dot{box-shadow:inset 0 0 0 3px var(--reward),var(--shadow-glow)}
+.ls-topic--today .ls-detail{box-shadow:inset 0 0 0 2px var(--reward)}
+.ls-detail{border-radius:var(--radius-md);background:var(--surface-raised);box-shadow:inset 0 0 0 1.5px var(--line)}
+.ls-detail[open]{box-shadow:inset 0 0 0 2px var(--accent)}
+.ls-detail summary{list-style:none;cursor:pointer;display:flex;flex-direction:column;justify-content:center;gap:2px;min-height:64px;box-sizing:border-box;padding:8px 44px 8px 16px;position:relative}
+.ls-detail summary::-webkit-details-marker{display:none}
+.ls-detail summary::after{content:"";position:absolute;right:18px;top:50%;width:10px;height:10px;border-right:3px solid var(--ink-muted);border-bottom:3px solid var(--ink-muted);transform:translateY(-70%) rotate(45deg);transition:transform var(--motion-snappy,120ms)}
+.ls-detail[open] summary::after{transform:translateY(-30%) rotate(-135deg)}
+.ls-detail summary:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px;border-radius:var(--radius-md)}
+.ls-topic-title{font:800 19px/24px var(--font-text)}
+.ls-topic-note{font:600 14px/19px var(--font-text);color:var(--ink-muted)}
+.ls-topic--locked .ls-topic-title{color:var(--ink-muted)}
+.ls-skills{list-style:none;margin:0;padding:4px 16px 8px;display:flex;flex-direction:column;gap:6px}
+.ls-skills li{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 12px;padding:6px 0;border-top:1px solid var(--line);font:700 15px/20px var(--font-text)}
+.ls-skill-label{font-weight:600;color:var(--ink-muted)}
+.ls-topic-go{margin:4px 16px 14px;width:calc(100% - 32px)}
+.ls-topic-empty{margin:0;padding:0 16px 12px;font:600 15px/21px var(--font-text);color:var(--ink-muted)}
+.ls-panel .ls-topic-empty{padding:0}
+.ls-panel{grid-area:panel;align-self:start;box-sizing:border-box;display:flex;flex-direction:column;gap:16px;padding:24px}
+.ls-kix{display:flex;align-items:flex-start;gap:14px}
+.ls-start{width:100%}
+.ls-gap{align-self:stretch;border-radius:var(--radius-md);padding:10px 14px;background:var(--surface);backdrop-filter:none}
+
+/* Landscape from 1024 px: the subject page fits the window; the trail scrolls in its shelf */
+@media (min-width: 1024px) and (min-aspect-ratio: 5/4){
+  .ln-root{height:var(--screen-h,100dvh);min-height:0}
+  .ls-wrap{height:var(--screen-h,100dvh)}
+  .ls-trail{overflow:hidden}
+  .ls-topics{overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;min-height:0;flex:1}
+  .ls-panel{max-height:100%;overflow-y:auto;scrollbar-width:none}
+  .lh-grid{overflow-y:auto;min-height:0}
+}
+/* Medium (600-1023): one column; the session panel comes before the topics */
+@media (min-width: 600px) and (max-width: 1023px){
+  .ln-wrap{padding:24px}
+  .ls-wrap{grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "panel" "trail";grid-template-rows:auto}
+  .lh-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+/* Compact (< 600): stacked, the session first */
+@media (max-width: 599px){
+  .ln-wrap{padding:16px 12px 24px;gap:14px}
+  .ln-head{align-self:stretch;padding:18px 20px}
+  .ln-kix-img{width:56px;height:56px}
+  .ln-kix-bubble{font-size:17px;line-height:24px}
+  .lh-grid{grid-template-columns:minmax(0,1fr)}
+  .ls-wrap{grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "panel" "trail";grid-template-rows:auto}
+  .ls-panel{padding:20px}
+  .ls-trail{padding:16px}
+  .ls-topic{grid-template-columns:48px minmax(0,1fr);gap:10px}
+  .ls-topic:not(:last-child)::before{left:22px;top:52px}
+  .ls-node{width:48px}
+  .ls-node .mk-node__dot{width:48px;height:48px}
+  .ls-node .mk-node__dot svg{width:22px;height:22px}
+}
+@media (prefers-reduced-motion: reduce){.ls-detail summary::after{transition:none}}

@@ -1,10 +1,12 @@
 // Server only: loads one kid's rows from the store and builds the guardian's picture (lib/guardian/view.ts).
 import type { AuthStore, Profile } from "../auth/store.ts";
-import { toMs } from "../domain/time.ts";
+import { sgDate, toMs } from "../domain/time.ts";
 import { JORDAN_ID } from "../auth/demo-family.ts";
 import { pickSpark } from "../kix/interests.ts";
 import { sampleTender, tenderToday, type Tender } from "../kix/today.ts";
 import { FROG_QUEST, questSummary } from "../learn/frog-quest.ts";
+import { planSession } from "../learn/session.ts";
+import { subjectsFor } from "../learn/subjects.ts";
 import { nextStep, type NextStep } from "./next-step.ts";
 import { lastDays, minutesSinceBreak, screenTimeByDay, type DayTime } from "./screen-time.ts";
 import { guardianView, settingsFor, type GuardianView, type ViewInput } from "./view.ts";
@@ -12,18 +14,32 @@ import { moodFromWords, type Mood } from "./words.ts";
 
 const DAY_MS = 86_400_000;
 
-/** What the app can offer next: the frog quest while it has open stops, the Arcade and Vibe Zone. */
-async function offerFor(store: AuthStore, householdId: string, kidId: string): Promise<ViewInput["offer"]> {
-  const attempts = await store.learn.attempts(householdId, kidId);
-  const ids = FROG_QUEST.stops.map((s) => s.itemId);
-  const summary = questSummary(ids, attempts);
-  const open = summary.correct < summary.total;
-  return {
-    quest: open ? { title: FROG_QUEST.title, href: `/learn/${FROG_QUEST.slug}`, minutes: 9 } : null,
-    reviewsDue: 0,
-    arcade: true,
-    vibe: true,
-  };
+/**
+ * What the app can offer next, from the kid's own subjects only (lib/learn/subjects.ts): the frog quest while it
+ * has open stops (P3 Science's featured quest), else the first subject with a session ready; the Arcade and Vibe.
+ */
+async function offerFor(store: AuthStore, householdId: string, kid: Pick<Profile, "id" | "level">, now = new Date().toISOString()): Promise<ViewInput["offer"]> {
+  const attempts = await store.learn.attempts(householdId, kid.id);
+  const subjects = subjectsFor(kid.level);
+  let quest: NonNullable<ViewInput["offer"]>["quest"] = null;
+  if (subjects.some((s) => s.id === FROG_QUEST.skill)) {
+    const summary = questSummary(
+      FROG_QUEST.stops.map((s) => s.itemId),
+      attempts,
+    );
+    if (summary.correct < summary.total) quest = { title: FROG_QUEST.title, href: `/learn/${FROG_QUEST.slug}`, minutes: 9 };
+  }
+  if (!quest) {
+    const seed = `${kid.id}:${sgDate(now)}`;
+    for (const s of subjects) {
+      const plan = planSession(s, attempts, now, seed);
+      if (plan.itemIds.length) {
+        quest = { title: `${s.label} session`, href: `/learn/${s.id}`, minutes: plan.minutes };
+        break;
+      }
+    }
+  }
+  return { quest, reviewsDue: 0, arcade: true, vibe: true };
 }
 
 /** The full picture for the parent dashboard: two weeks of rows, so the usual focus has a baseline. */
@@ -36,7 +52,7 @@ export async function loadGuardianView(store: AuthStore, householdId: string, ki
     store.signals.focusNotes(householdId, since),
     store.guardian.settings(householdId, kid.id),
     store.guardian.seenFlags(householdId),
-    offerFor(store, householdId, kid.id),
+    offerFor(store, householdId, kid, now),
     store.notebook.reads(householdId, kid.id, since).catch(() => []),
   ]);
   return guardianView({
@@ -83,7 +99,7 @@ export async function loadKidStatus(store: AuthStore, householdId: string, kid: 
     store.guardian.messages(householdId, kid.id, since),
     store.signals.focusNotes(householdId, new Date(toMs(now) - 15 * 60_000).toISOString()),
     store.guardian.settings(householdId, kid.id),
-    offerFor(store, householdId, kid.id),
+    offerFor(store, householdId, kid, now),
   ]);
   const settings = settingsFor(kid.band, kid.dailyLimitMin, saved);
   const day = screenTimeByDay(beats, [today], settings)[0];

@@ -71,3 +71,6 @@
 @media (prefers-reduced-motion:reduce){
   .qd-holo,.qd-ribbon,.qd-bar-after.is-up{animation:none}
 }
+/* A teen's light world (Anime Sky): the stars chip in ink, its star in the accent, so it reads on light glass. */
+.qd-root[data-band="teen"] .qd-chip-stars{color:var(--ink)}
+.qd-root[data-band="teen"] .qd-chip-stars svg{color:var(--accent)}

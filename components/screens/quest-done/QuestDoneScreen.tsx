@@ -4,6 +4,8 @@
 // (or a waiting slot when none was earned), Pip on the growth track, each
 // stop's before → after, then the buttons. It says "Quest complete" only when
 // every stop is mastered; otherwise the session is done and the quest goes on.
+// A subject session (29 Oct) uses it too: its skills instead of stops, "Back to
+// Maths" instead of the map, Pip for juniors only, and a teen's own world.
 import { Critters } from "@/components/scene/Critters";
 import { LivingArt } from "@/components/scene/LivingArt";
 import { Art } from "@/components/ui/Art";
@@ -49,6 +51,23 @@ export interface QuestDoneProps {
   stage: number;
   stageNames: readonly string[];
   evidenceLabel: string;
+  /** Where the main button goes and what it says (default: back to the quest map). */
+  backHref?: string;
+  backLabel?: string;
+  /** What was tried: "stops" on the quest, "questions" in a subject session. */
+  unit?: string;
+  /** The before → after panel's title. */
+  stopsTitle?: string;
+  /** Pip's growth track (juniors). */
+  showPip?: boolean;
+  /** Written answers saved as practice this session. */
+  written?: number;
+  theme?: string;
+  band?: "junior" | "teen";
+  /** The background art (default: the quest map, with its living pieces). */
+  bgArt?: string;
+  /** Kix in the kid's world. */
+  kixArt?: string;
 }
 
 const STAR = "M12 2Q13 11 22 12Q13 13 12 22Q11 13 2 12Q11 11 12 2Z";
@@ -62,24 +81,25 @@ function kixLine({ complete, correct, card }: Pick<QuestDoneProps, "complete" | 
 
 export function QuestDoneScreen(props: QuestDoneProps) {
   const { questTitle, questSlug, complete, attempted, total, hints, starsToday, capReached, card, stops, stage, stageNames, evidenceLabel } = props;
+  const { backHref = `/learn/${questSlug}`, backLabel = "Back to the map", unit = "stops", stopsTitle = "Your stops", showPip = true, written = 0, theme = "dreamlight", band = "junior", bgArt = "/art/scenes/quest-map", kixArt = "/art/kix/dreamlight" } = props;
   const stageName = stageNames[stage] ?? stageNames[0];
   const nextName = stageNames[stage + 1];
   return (
     <div
-      data-theme="dreamlight"
-      data-band="junior"
+      data-theme={theme}
+      data-band={band}
       className="qd-root"
       style={{ width: "100%", minHeight: "var(--screen-h, 100vh)", boxSizing: "border-box", position: "relative", overflow: "clip", background: "var(--surface)", color: "var(--ink)", fontFamily: "var(--font-text)" }}
     >
       {/* The quest map's own sky, dimmed under a twilight veil so the reward panels lead. */}
       <div aria-hidden="true" className="qd-bg">
-        <Art base="/art/scenes/quest-map" alt="" className="qd-bg-img" />
-        <LivingArt data={questMapLiving as LivingArtData} />
+        <Art base={bgArt} alt="" className="qd-bg-img" />
+        {bgArt === "/art/scenes/quest-map" && <LivingArt data={questMapLiving as LivingArtData} />}
       </div>
       <div className="qd-wrap">
         <div className="qd-kix">
           <Art
-            base="/art/kix/dreamlight"
+            base={kixArt}
             alt="Kix cheering"
             sizes="72px"
             style={{ width: 72, height: 72, borderRadius: "50%", objectFit: "cover", flex: "none", boxShadow: "0 0 0 3px var(--accent)" }}
@@ -103,7 +123,7 @@ export function QuestDoneScreen(props: QuestDoneProps) {
                 </svg>
                 <span style={{ fontFamily: "var(--font-display)", fontSize: 22, lineHeight: "26px" }}>Card waiting</span>
                 <span style={{ fontSize: 15, lineHeight: "21px", fontWeight: 600, color: "var(--ink-muted)" }}>
-                  {capReached ? "You've earned today's 15 stars. Come back tomorrow for this card." : "Get a stop right first time and say why in your own words to earn it."}
+                  {capReached ? "You've earned today's 15 stars. Come back tomorrow for this card." : "Get one right first time and say why in your own words to earn it."}
                 </span>
               </GlassPanel>
             )}
@@ -115,11 +135,16 @@ export function QuestDoneScreen(props: QuestDoneProps) {
             </h1>
             <ul className="qd-chips" aria-label="This session">
               <li>
-                {attempted} of {total} stops tried
+                {attempted} of {total} {unit} tried
               </li>
               <li>
                 {hints} {hints === 1 ? "hint" : "hints"}
               </li>
+              {written > 0 && (
+                <li>
+                  {written} written {written === 1 ? "answer" : "answers"} saved as practice
+                </li>
+              )}
               <li className="qd-chip-stars">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path fill="currentColor" d={STAR} />
@@ -128,6 +153,7 @@ export function QuestDoneScreen(props: QuestDoneProps) {
               </li>
             </ul>
 
+            {showPip && (
             <div className="qd-pip" aria-label={`Pip is a ${stageName}`}>
               <div className="qd-track">
                 <Art base="/art/critters/frog-life-cycle" alt="" sizes="(max-width: 599px) 90vw, 420px" style={{ width: "100%", height: "auto", display: "block" }} />
@@ -141,11 +167,12 @@ export function QuestDoneScreen(props: QuestDoneProps) {
                 Pip is a {stageName}.{nextName ? ` Next: ${nextName}.` : " All grown up!"}
               </p>
             </div>
+            )}
           </GlassPanel>
         </section>
 
-        <GlassPanel as="section" aria-label="Your stops" radius="xl" className="qd-stops">
-          <h2 style={{ margin: 0, fontFamily: "var(--font-display)", fontWeight: 600, fontSize: 24, lineHeight: "30px" }}>Your stops</h2>
+        <GlassPanel as="section" aria-label={stopsTitle} radius="xl" className="qd-stops">
+          <h2 style={{ margin: 0, fontFamily: "var(--font-display)", fontWeight: 600, fontSize: 24, lineHeight: "30px" }}>{stopsTitle}</h2>
           {stops.length ? (
             <ul>
               {stops.map((s) => {
@@ -169,8 +196,8 @@ export function QuestDoneScreen(props: QuestDoneProps) {
         </GlassPanel>
 
         <nav aria-label="After the quest" className="qd-nav">
-          <ButtonLink href={`/learn/${questSlug}`} className="qd-nav-main">
-            Back to the map
+          <ButtonLink href={backHref} className="qd-nav-main">
+            {backLabel}
           </ButtonLink>
           <div className="qd-nav-more">
             <ButtonLink href="/treasure" variant="secondary" style={{ flex: "1 1 auto" }}>
@@ -182,7 +209,7 @@ export function QuestDoneScreen(props: QuestDoneProps) {
           </div>
         </nav>
       </div>
-      <Critters pack="dreamlight" kind="spark" count={8} />
+      {theme === "dreamlight" && <Critters pack="dreamlight" kind="spark" count={8} />}
     </div>
   );
 }

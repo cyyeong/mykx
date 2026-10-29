@@ -115,9 +115,9 @@ export type NewFocusNote = Pick<FocusNote, "from" | "to" | "evidence" | "confide
 /**
  * One submitted answer with its storage envelope. The `attempts` table has no
  * family, explanation or confirmed columns, so those ride along inside
- * `answer` ({ response, explanation, explanationRevised }) or are derived on
- * read (family from the item id; confirmed is always true — this store only
- * holds deterministically marked attempts).
+ * `answer` ({ response, explanation, revised, confirmed? }) or are derived on
+ * read (family from the item id; confirmed unless the envelope says
+ * `confirmed: false`, which marks a written answer saved as practice).
  */
 export interface StoredAttempt extends AttemptEvent {
   /** Client-generated per submission; a resend never writes twice. */

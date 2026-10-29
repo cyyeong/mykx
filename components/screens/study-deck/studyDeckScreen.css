@@ -43,3 +43,53 @@
   .sd-wrap{padding:48px 40px}
   .sd-panel{width:760px;padding:40px}
 }
+/* Real data (29 Oct): honest gap notes, the focus timer's note, and Learn's full topic list with skills. */
+.sd-gap{margin:0;font-size:14px;line-height:20px;font-weight:600;color:var(--ink-muted)}
+.sd-more{color:var(--accent);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.sd-more:focus-visible,.sd-row-detail summary:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px;border-radius:var(--radius-sm)}
+.sd-focus-note{align-self:center;font-size:14px;line-height:20px;font-weight:600;color:var(--ink-muted)}
+.sd-focus-note:empty{display:none}
+.sd-ring-label,.sd-row-title{font-size:16px;line-height:22px;font-weight:600}
+.sd-ring-cap,.sd-row-cap{font-size:13px;line-height:18px;font-weight:500;color:var(--ink-muted)}
+.sd-list{list-style:none;margin:0;padding:0 4px 0 0;display:flex;flex-direction:column;gap:10px}
+.sd-row{display:grid;grid-template-columns:56px minmax(0,1fr) auto;align-items:start;column-gap:14px;padding:12px 14px}
+.sd-row-detail summary{list-style:none;cursor:pointer;display:flex;flex-direction:column;justify-content:center;gap:2px;min-height:56px}
+.sd-row-detail summary::-webkit-details-marker{display:none}
+.sd-skills{list-style:none;margin:6px 0 2px;padding:0;display:flex;flex-direction:column}
+.sd-skills li{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 12px;padding:6px 0;border-top:1px solid var(--line);font-size:14px;line-height:20px;font-weight:600}
+.sd-skills li > :last-child{color:var(--ink-muted);font-weight:500}
+.sd-row-go{align-self:center;min-height:44px}
+.sd-row-empty{align-self:center;font-size:13px;line-height:18px;font-weight:600;color:var(--ink-muted);white-space:nowrap}
+.sd-next{display:flex;flex-direction:column;gap:14px;padding:22px}
+/* Fit the window (landscape from 1024 px): tighter spacing so the deck, the next session and Kix all show. */
+@media (min-width: 1024px) and (min-aspect-ratio: 5/4) and (max-width: 1599px){
+  .sd-wrap{padding-top:24px;padding-bottom:24px}
+  .sd-panel{padding:24px 28px;gap:16px}
+  .sd-ring{padding:14px 16px;gap:6px}
+  .sd-next{gap:10px;padding:18px 20px}
+}
+.sd-today{display:inline-block;margin-left:8px;padding:0 8px;border-radius:var(--radius-pill);background:var(--accent);color:var(--on-accent);font-size:12px;line-height:20px;font-weight:700;vertical-align:2px}
+/* Learn: the topic list beside the next session and Kix (stacked below 1024 px, the session first) */
+.sd-body{display:flex;flex-direction:column;gap:18px}
+.sd-side{display:flex;flex-direction:column;gap:16px;order:-1}
+.sd-side .sd-kix{margin-top:0}
+@media (min-width: 1024px){
+  .sd-root[data-variant="learn"] .sd-panel{width:min(1060px,100%)}
+  .sd-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,360px);column-gap:24px;align-items:start}
+  .sd-side{order:0}
+  .sd-side .sd-kix{flex-wrap:wrap}
+}
+/* Landscape: the deck fits the window and the topic list scrolls in its own shelf. */
+@media (min-width: 1024px) and (min-aspect-ratio: 5/4){
+  .sd-root[data-variant="learn"]{height:var(--screen-h,100dvh)}
+  .sd-root[data-variant="learn"] .sd-wrap{min-height:0;padding-top:32px}
+  .sd-root[data-variant="learn"] .sd-panel{max-height:100%;min-height:0;overflow:hidden;gap:16px}
+  .sd-root[data-variant="learn"] .sd-body{flex:1 1 auto;min-height:0;align-items:stretch}
+  .sd-root[data-variant="learn"] .sd-list{min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+  .sd-root[data-variant="learn"] .sd-side{min-height:0;overflow-y:auto;scrollbar-width:none}
+}
+@media (max-width: 599px){
+  .sd-row{grid-template-columns:48px minmax(0,1fr);row-gap:8px}
+  .sd-row .sd-ring-dial{width:48px;height:48px}
+  .sd-row-go,.sd-row-empty{grid-column:2;justify-self:start}
+}
