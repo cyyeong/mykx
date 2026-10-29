@@ -1,5 +1,6 @@
 import type { StemFigure } from "@/components/screens/question/StemText";
 import { loadFigures } from "@/lib/print/bank";
+import { plainText } from "@/lib/print/markup";
 import type { SkillItem } from "@/lib/types";
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
@@ -22,11 +23,15 @@ export function generateStaticParams() {
   return loadFrogItems().map((item) => ({ id: item.id }));
 }
 
-/** The item's diagram from its skill pack, inlined, at its natural size in CSS pixels (96 per inch). */
+/** The item's diagram from its skill pack, inlined, at its natural size in CSS pixels (96 per inch). A visual text's
+ *  poster (as in printed papers, lib/print/paper.ts) is shown whole and carries its words as alt text. */
 function figureFor(item: SkillItem): StemFigure | null {
   if (!item.figure) return null;
   const fig = loadFigures(item.skill, [item.figure])[item.figure];
-  return fig ? { src: fig.src, w: (fig.widthMm * 96) / 25.4, h: (fig.heightMm * 96) / 25.4, alt: item.type === "card" ? "The word's picture" : "The diagram for this question" } : null;
+  if (!fig) return null;
+  const size = { src: fig.src, w: (fig.widthMm * 96) / 25.4, h: (fig.heightMm * 96) / 25.4 };
+  if (/visual/.test(item.topic) && item.passage) return { ...size, poster: true, alt: `The poster: ${plainText(item.passage).replace(/\n+/g, ". ")}` };
+  return { ...size, alt: item.type === "card" ? "The word's picture" : "The diagram for this question" };
 }
 
 /** What the player shows: never the answer key. A word card becomes the question code will mark. */

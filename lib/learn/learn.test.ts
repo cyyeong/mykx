@@ -20,10 +20,10 @@ const NOW = "2026-10-29T09:00:00.000Z";
 const CJK = /[㐀-鿿]/u;
 
 describe("a kid's subjects are their level's packs", () => {
-  it("gives Jordan (P3) four subjects, Abby (P6) three and Leonard (Sec 2) three, in school order", () => {
+  it("gives Jordan (P3), Abby (P6) and Leonard (Sec 2) four subjects each, in school order", () => {
     expect(subjectsFor("P3").map((s) => s.id)).toEqual(["p3-english", "p3-maths", "p3-science", "p3-chinese"]);
-    expect(subjectsFor("P6").map((s) => s.id)).toEqual(["p6-maths", "p6-science", "p6-chinese"]);
-    expect(subjectsFor("Sec 2").map((s) => s.id)).toEqual(["s2-maths", "s2-science", "s2-chinese"]);
+    expect(subjectsFor("P6").map((s) => s.id)).toEqual(["p6-english", "p6-maths", "p6-science", "p6-chinese"]);
+    expect(subjectsFor("Sec 2").map((s) => s.id)).toEqual(["s2-english", "s2-maths", "s2-science", "s2-chinese"]);
     expect(subjectsFor(null)).toEqual([]);
     expect(subjectsFor("P4")).toEqual([]);
   });
@@ -233,9 +233,11 @@ describe("reward cards for every subject", () => {
   it("titles a card by its topic with the subject's chip and existing art, never an item id", () => {
     const subjects = subjectsFor("P6");
     const cards = rewardCards(subjects, "anime-sky");
-    const item = subjects[0].items[0];
+    const item = subjects.find((s) => s.id === "p6-maths")!.items[0];
     expect(cards[item.id]).toMatchObject({ chip: "P6 Maths", art: "/art/kix/anime-sky" });
-    const forces = subjects[1].items.find((i) => i.topic === "interactions.forces")!;
+    const english = subjects.find((s) => s.id === "p6-english")!.items[0];
+    expect(cards[english.id]).toMatchObject({ label: "Grammar", chip: "P6 English", art: "/art/kix/anime-sky" });
+    const forces = subjects.find((s) => s.id === "p6-science")!.items.find((i) => i.topic === "interactions.forces")!;
     expect(cards[forces.id]).toMatchObject({ label: "Forces and magnets", art: "/art/cards/forces", chip: "P6 Science" });
     expect(cardForRef("p6-science/energy.light/shadows#x", cards, subjects, "anime-sky")).toMatchObject({ label: "Light", art: "/art/cards/light-and-shadows" });
     expect(cardForRef("p3-science/cycles.animal/x#y", cards, subjects, "anime-sky")).toBeNull();

@@ -17,7 +17,8 @@ describe("Ask Kix", () => {
 
   it("reads the teaching notes of the kid's level only", () => {
     expect(packsForLevel("P3")).toEqual(["p3-maths", "p3-science", "p3-english", "p3-chinese"]);
-    expect(packsForLevel("Sec 2")).toEqual(["s2-maths", "s2-science", "s2-chinese"]);
+    expect(packsForLevel("P6")).toEqual(["p6-english", "p6-maths", "p6-science", "p6-chinese"]);
+    expect(packsForLevel("Sec 2")).toEqual(["s2-english", "s2-maths", "s2-science", "s2-chinese"]);
     const notes = teachingNotes("P6");
     expect(notes).toContain("## Pack p6-maths");
     expect(notes).not.toContain("## Pack p3-");

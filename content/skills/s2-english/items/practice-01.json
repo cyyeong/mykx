@@ -1,0 +1,1594 @@
+[
+  {
+    "id": "s2eng-practice-01-q1",
+    "skill": "s2-english",
+    "topic": "writing.editing",
+    "subskill": "edit_tense",
+    "archetype": "ED-TEXT",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Line (1) has one grammatical error. Write the word that should replace the wrong word.",
+    "passage": "In the text below, each numbered line has one grammatical error, except line (6), which is correct.\n\n(1) Last month, our class spend a Saturday morning packing food bundles for families in need.\n(2) Each of the bundles were filled with rice, cooking oil, tinned food and biscuits.\n(3) Our teacher reminded us that many families relied in these bundles every week.\n(4) The coordinator, which had run the centre for ten years, thanked us warmly.\n(5) Many of us felt that it was one of the most meaningful experience of the year.\n(6) Next term, we hope to return and bring more of our friends with us.",
+    "answer": "spent",
+    "working": [
+      "'Last month' fixes the time in the past.",
+      "spend → spent ✓"
+    ],
+    "hints": [
+      "Find the time phrase at the start of the line.",
+      "Which verb in the line is in the wrong tense for that time?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Grammar · Grammar at Word, Phrase and Sentence Levels (LO2, LO3; lower secondary: identify and address recurring language errors) and Writing and Representing · Review, Revision and Editing (LO5). Exam: G3 Paper 1 Section A · Editing (grammatical errors only)."
+  },
+  {
+    "id": "s2eng-practice-01-q2",
+    "skill": "s2-english",
+    "topic": "writing.editing",
+    "subskill": "edit_sva",
+    "archetype": "ED-TEXT",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Line (2) has one grammatical error. Write the word that should replace the wrong word.",
+    "passage": "In the text below, each numbered line has one grammatical error, except line (6), which is correct.\n\n(1) Last month, our class spend a Saturday morning packing food bundles for families in need.\n(2) Each of the bundles were filled with rice, cooking oil, tinned food and biscuits.\n(3) Our teacher reminded us that many families relied in these bundles every week.\n(4) The coordinator, which had run the centre for ten years, thanked us warmly.\n(5) Many of us felt that it was one of the most meaningful experience of the year.\n(6) Next term, we hope to return and bring more of our friends with us.",
+    "answer": "was",
+    "working": [
+      "The subject is 'Each', which is singular; 'of the bundles' only describes it.",
+      "Each … was filled ✓"
+    ],
+    "hints": [
+      "Cover 'of the bundles'. What is left as the subject?",
+      "Is 'Each' singular or plural?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Grammar · Grammar at Word, Phrase and Sentence Levels (LO2, LO3; lower secondary: identify and address recurring language errors) and Writing and Representing · Review, Revision and Editing (LO5). Exam: G3 Paper 1 Section A · Editing (grammatical errors only)."
+  },
+  {
+    "id": "s2eng-practice-01-q3",
+    "skill": "s2-english",
+    "topic": "writing.editing",
+    "subskill": "edit_preposition",
+    "archetype": "ED-TEXT",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Line (3) has one grammatical error. Write the word that should replace the wrong word.",
+    "passage": "In the text below, each numbered line has one grammatical error, except line (6), which is correct.\n\n(1) Last month, our class spend a Saturday morning packing food bundles for families in need.\n(2) Each of the bundles were filled with rice, cooking oil, tinned food and biscuits.\n(3) Our teacher reminded us that many families relied in these bundles every week.\n(4) The coordinator, which had run the centre for ten years, thanked us warmly.\n(5) Many of us felt that it was one of the most meaningful experience of the year.\n(6) Next term, we hope to return and bring more of our friends with us.",
+    "answer": "on",
+    "accept": [
+      "upon"
+    ],
+    "working": [
+      "The fixed verb + preposition is 'rely on' something.",
+      "relied on these bundles ✓"
+    ],
+    "hints": [
+      "Which preposition always follows 'rely'?",
+      "Try it in another sentence: 'You can rely ___ me.'"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Grammar · Grammar at Word, Phrase and Sentence Levels (LO2, LO3; lower secondary: identify and address recurring language errors) and Writing and Representing · Review, Revision and Editing (LO5). Exam: G3 Paper 1 Section A · Editing (grammatical errors only)."
+  },
+  {
+    "id": "s2eng-practice-01-q4",
+    "skill": "s2-english",
+    "topic": "writing.editing",
+    "subskill": "edit_relative",
+    "archetype": "ED-TEXT",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "short",
+    "stem": "Line (4) has one grammatical error. Write the word that should replace the wrong word.",
+    "passage": "In the text below, each numbered line has one grammatical error, except line (6), which is correct.\n\n(1) Last month, our class spend a Saturday morning packing food bundles for families in need.\n(2) Each of the bundles were filled with rice, cooking oil, tinned food and biscuits.\n(3) Our teacher reminded us that many families relied in these bundles every week.\n(4) The coordinator, which had run the centre for ten years, thanked us warmly.\n(5) Many of us felt that it was one of the most meaningful experience of the year.\n(6) Next term, we hope to return and bring more of our friends with us.",
+    "answer": "who",
+    "working": [
+      "The relative pronoun refers to 'The coordinator', a person.",
+      "People take 'who'; 'which' is for things ✓ ('that' cannot follow a comma here)."
+    ],
+    "hints": [
+      "What does the relative pronoun refer back to: a person or a thing?",
+      "Choose the relative pronoun used for people after a comma."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Grammar · Grammar at Word, Phrase and Sentence Levels (LO2, LO3; lower secondary: identify and address recurring language errors) and Writing and Representing · Review, Revision and Editing (LO5). Exam: G3 Paper 1 Section A · Editing (grammatical errors only)."
+  },
+  {
+    "id": "s2eng-practice-01-q5",
+    "skill": "s2-english",
+    "topic": "writing.editing",
+    "subskill": "edit_noun_number",
+    "archetype": "ED-TEXT",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "short",
+    "stem": "Line (5) has one grammatical error. Write the word that should replace the wrong word.",
+    "passage": "In the text below, each numbered line has one grammatical error, except line (6), which is correct.\n\n(1) Last month, our class spend a Saturday morning packing food bundles for families in need.\n(2) Each of the bundles were filled with rice, cooking oil, tinned food and biscuits.\n(3) Our teacher reminded us that many families relied in these bundles every week.\n(4) The coordinator, which had run the centre for ten years, thanked us warmly.\n(5) Many of us felt that it was one of the most meaningful experience of the year.\n(6) Next term, we hope to return and bring more of our friends with us.",
+    "answer": "experiences",
+    "working": [
+      "'One of the …' picks one from a group, so the noun after it must be plural.",
+      "one of the most meaningful experiences ✓"
+    ],
+    "hints": [
+      "'One of the' is followed by a group of things.",
+      "Should the noun at the end of that phrase be singular or plural?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Grammar · Grammar at Word, Phrase and Sentence Levels (LO2, LO3; lower secondary: identify and address recurring language errors) and Writing and Representing · Review, Revision and Editing (LO5). Exam: G3 Paper 1 Section A · Editing (grammatical errors only)."
+  },
+  {
+    "id": "s2eng-practice-01-q6",
+    "skill": "s2-english",
+    "topic": "writing.editing",
+    "subskill": "edit_sva",
+    "archetype": "ED-FIND",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which underlined part of the sentence contains a grammatical error?\n\nThe number of students __who__ cycle to school __have__ risen sharply __since__ the new park connector __opened__.",
+    "options": [
+      "who",
+      "have",
+      "since",
+      "opened"
+    ],
+    "answer": 2,
+    "working": [
+      "The subject is 'The number', which is singular ('of students' only describes it).",
+      "have → has: The number … has risen ✓"
+    ],
+    "distractors": {
+      "1": "'who' correctly refers to the students.",
+      "3": "'since' correctly marks the starting point in time.",
+      "4": "'opened' is the right tense for a finished past event."
+    },
+    "hints": [
+      "Find the head noun of the subject. Is it 'number' or 'students'?",
+      "'The number of …' takes a singular verb; 'a number of …' takes a plural one."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Grammar · Grammar at Word, Phrase and Sentence Levels (LO2, LO3; lower secondary: identify and address recurring language errors) and Writing and Representing · Review, Revision and Editing (LO5). Exam: G3 Paper 1 Section A · Editing (grammatical errors only)."
+  },
+  {
+    "id": "s2eng-practice-01-q7",
+    "skill": "s2-english",
+    "topic": "writing.editing",
+    "subskill": "edit_sva",
+    "archetype": "ED-FIND",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which underlined part of the sentence contains a grammatical error?\n\nThe captain told us that __neither__ he __nor__ his teammates __was__ aware __of__ the change.",
+    "options": [
+      "neither",
+      "nor",
+      "was",
+      "of"
+    ],
+    "answer": 3,
+    "working": [
+      "With 'neither … nor', the verb agrees with the nearer subject: 'his teammates' (plural).",
+      "was → were ✓"
+    ],
+    "distractors": {
+      "1": "'neither' is correctly paired with 'nor'.",
+      "2": "'nor' is the correct partner of 'neither'.",
+      "4": "'aware of' is the correct adjective + preposition."
+    },
+    "hints": [
+      "With 'neither … nor', which subject decides the verb?",
+      "Is the subject nearer the verb singular or plural?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Grammar · Grammar at Word, Phrase and Sentence Levels (LO2, LO3; lower secondary: identify and address recurring language errors) and Writing and Representing · Review, Revision and Editing (LO5). Exam: G3 Paper 1 Section A · Editing (grammatical errors only)."
+  },
+  {
+    "id": "s2eng-practice-01-q8",
+    "skill": "s2-english",
+    "topic": "writing.editing",
+    "subskill": "edit_preposition",
+    "archetype": "ED-FIND",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which underlined part of the sentence contains a grammatical error?\n\n__Despite of__ the heavy rain, the match __went__ ahead __as__ planned, and the crowd __stayed__ until the end.",
+    "options": [
+      "Despite of",
+      "went",
+      "as",
+      "stayed"
+    ],
+    "answer": 1,
+    "working": [
+      "'Despite' takes no 'of'. The correct forms are 'Despite the heavy rain' or 'In spite of the heavy rain'.",
+      "The other parts are correct."
+    ],
+    "distractors": {
+      "2": "'went ahead' is the correct past tense of 'go ahead'.",
+      "3": "'as planned' is a correct fixed phrase.",
+      "4": "'stayed' agrees with the past tense of the sentence."
+    },
+    "hints": [
+      "Two phrases mean the same: 'despite' and 'in spite of'. Does 'despite' need 'of'?",
+      "Read the first underlined part on its own."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Grammar · Grammar at Word, Phrase and Sentence Levels (LO2, LO3; lower secondary: identify and address recurring language errors) and Writing and Representing · Review, Revision and Editing (LO5). Exam: G3 Paper 1 Section A · Editing (grammatical errors only)."
+  },
+  {
+    "id": "s2eng-practice-01-q9",
+    "skill": "s2-english",
+    "topic": "writing.editing",
+    "subskill": "edit_tense",
+    "archetype": "ED-FIND",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which underlined part of the sentence contains a grammatical error?\n\nThe museum guide explained that the old coins __on__ display __were__ found __by__ divers who __search__ the wreck in 1998.",
+    "options": [
+      "on",
+      "were",
+      "by",
+      "search"
+    ],
+    "answer": 4,
+    "working": [
+      "'In 1998' is a finished past time, so the divers' action must be in the past.",
+      "search → searched ✓"
+    ],
+    "distractors": {
+      "1": "'on display' is a correct fixed phrase.",
+      "2": "'were found' is a correct passive verb for the plural 'coins'.",
+      "3": "'by' correctly introduces who did the finding."
+    },
+    "hints": [
+      "Look for a time marker near the end of the sentence.",
+      "Which verb does not match that time?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Grammar · Grammar at Word, Phrase and Sentence Levels (LO2, LO3; lower secondary: identify and address recurring language errors) and Writing and Representing · Review, Revision and Editing (LO5). Exam: G3 Paper 1 Section A · Editing (grammatical errors only)."
+  },
+  {
+    "id": "s2eng-practice-01-q10",
+    "skill": "s2-english",
+    "topic": "reading.visual",
+    "subskill": "vt_purpose",
+    "archetype": "VT-PURPOSE",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "What is the main purpose of this poster?",
+    "passage": "Green Hands Youth Corps\n**Plant a Tree, Grow a Future**\nEver wished you could leave your mark on the island?\nAGES 13 TO 17\nWhen: Two Saturday mornings a month\nVenue: Parks across the island\nSign up by: 30 January\n**Join us**\n- **Plant** (7.30 a.m. to 10 a.m.): Work in teams to plant native saplings.\n- **Care** (every visit): Water, mulch and measure the trees you planted.\n- **Learn** (free workshop): Find out how trees cool our streets and shelter wildlife.\n- **Belong** (join 1,200 volunteers): \"I came for the badge. I stayed for the friends.\" Priya, 15\n**Sign up by 30 January.** Visit greenhands.sg/join or ask at your school's general office. Gloves, tools and water are provided.\nEvery tree you plant is a promise to the future.",
+    "options": [
+      "to report how many trees were planted last year",
+      "to persuade teenagers to sign up as tree-planting volunteers",
+      "to teach readers how to grow plants at home",
+      "to sell gardening tools to schools"
+    ],
+    "answer": 2,
+    "working": [
+      "The poster names an age group (13 to 17), lists what volunteers do and ends with how to sign up.",
+      "Its purpose is to persuade teenagers to join ✓"
+    ],
+    "distractors": {
+      "1": "No results from last year are given; the poster looks ahead.",
+      "3": "It is about planting trees in parks, not growing plants at home.",
+      "4": "Tools are provided free to volunteers; nothing is for sale."
+    },
+    "hints": [
+      "What does the poster want the reader to DO after reading it?",
+      "Look at the box with the deadline and the web address."
+    ],
+    "figure": "figures/s2eng-practice-01-q10-q14.svg",
+    "figure_spec": {
+      "poster": {
+        "theme": "#2E6B30",
+        "accent": "#DCEFD5",
+        "presenter": "Green Hands Youth Corps",
+        "badge": "AGES|13 TO 17",
+        "corner_icon": "star",
+        "title": "Plant a Tree, Grow a Future",
+        "tagline": "Ever wished you could leave your mark on the island?",
+        "facts": [
+          {
+            "icon": "calendar",
+            "label": "When",
+            "value": "Two Saturday mornings a month"
+          },
+          {
+            "icon": "pin",
+            "label": "Venue",
+            "value": "Parks across the island"
+          },
+          {
+            "icon": "clock",
+            "label": "Sign up by",
+            "value": "30 January"
+          }
+        ],
+        "art": [
+          {
+            "kind": "person",
+            "pose": "kneel",
+            "mood": "excited",
+            "gender": "girl",
+            "scale": 1.5
+          },
+          {
+            "kind": "young_plant",
+            "scale": 1.4
+          }
+        ],
+        "banner": "Join us",
+        "art_right": [
+          {
+            "kind": "young_plant",
+            "scale": 1.2
+          },
+          {
+            "kind": "person",
+            "pose": "hands_up",
+            "mood": "excited",
+            "gender": "boy",
+            "scale": 1.5
+          }
+        ],
+        "boxes": [
+          {
+            "title": "Plant",
+            "sub": "7.30 a.m. to 10 a.m.",
+            "icon": "star",
+            "body": "Work in teams to plant native saplings."
+          },
+          {
+            "title": "Care",
+            "sub": "Every visit",
+            "icon": "calendar",
+            "body": "Water, mulch and measure the trees you planted."
+          },
+          {
+            "title": "Learn",
+            "sub": "Free workshop",
+            "icon": "web",
+            "body": "Find out how trees cool our streets and shelter wildlife."
+          },
+          {
+            "title": "Belong",
+            "sub": "Join 1,200 volunteers",
+            "icon": "trophy",
+            "body": "\"I came for the badge. I stayed for the friends.\" Priya, 15"
+          }
+        ],
+        "wide_box": {
+          "title": "Sign up by 30 January",
+          "body": "Visit greenhands.sg/join or ask at your school's general office.\nGloves, tools and water are provided."
+        },
+        "footer": [
+          "Every tree you plant is a promise to the future."
+        ]
+      }
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing · Reading and Viewing Closely (LO2) and Critically (LO3), with multimodal texts and semiotic modes. Exam: G3 Paper 2 Section A · visual text (use of visuals and language for effect). Figure rendered from figure_spec on 29 Oct by scripts/render-figures.ts (myKx's own renderer)."
+  },
+  {
+    "id": "s2eng-practice-01-q11",
+    "skill": "s2-english",
+    "topic": "reading.visual",
+    "subskill": "vt_audience",
+    "archetype": "VT-AUDIENCE",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which detail shows most clearly who the poster is aimed at?",
+    "passage": "Green Hands Youth Corps\n**Plant a Tree, Grow a Future**\nEver wished you could leave your mark on the island?\nAGES 13 TO 17\nWhen: Two Saturday mornings a month\nVenue: Parks across the island\nSign up by: 30 January\n**Join us**\n- **Plant** (7.30 a.m. to 10 a.m.): Work in teams to plant native saplings.\n- **Care** (every visit): Water, mulch and measure the trees you planted.\n- **Learn** (free workshop): Find out how trees cool our streets and shelter wildlife.\n- **Belong** (join 1,200 volunteers): \"I came for the badge. I stayed for the friends.\" Priya, 15\n**Sign up by 30 January.** Visit greenhands.sg/join or ask at your school's general office. Gloves, tools and water are provided.\nEvery tree you plant is a promise to the future.",
+    "options": [
+      "'Parks across the island'",
+      "'Gloves, tools and water are provided'",
+      "'Ages 13 to 17'",
+      "'Every tree you plant is a promise to the future'"
+    ],
+    "answer": 3,
+    "working": [
+      "The badge names the age group directly: ages 13 to 17, i.e. teenagers.",
+      "The other details are about places, equipment and the message, not the audience."
+    ],
+    "distractors": {
+      "1": "This tells us where, not who.",
+      "2": "This tells us what is provided, not who it is for.",
+      "4": "This is the poster's closing message; it could be said to anyone."
+    },
+    "hints": [
+      "Look for a detail that names a group of people.",
+      "Check the round badge near the title."
+    ],
+    "figure": "figures/s2eng-practice-01-q10-q14.svg",
+    "figure_spec": {
+      "poster": {
+        "theme": "#2E6B30",
+        "accent": "#DCEFD5",
+        "presenter": "Green Hands Youth Corps",
+        "badge": "AGES|13 TO 17",
+        "corner_icon": "star",
+        "title": "Plant a Tree, Grow a Future",
+        "tagline": "Ever wished you could leave your mark on the island?",
+        "facts": [
+          {
+            "icon": "calendar",
+            "label": "When",
+            "value": "Two Saturday mornings a month"
+          },
+          {
+            "icon": "pin",
+            "label": "Venue",
+            "value": "Parks across the island"
+          },
+          {
+            "icon": "clock",
+            "label": "Sign up by",
+            "value": "30 January"
+          }
+        ],
+        "art": [
+          {
+            "kind": "person",
+            "pose": "kneel",
+            "mood": "excited",
+            "gender": "girl",
+            "scale": 1.5
+          },
+          {
+            "kind": "young_plant",
+            "scale": 1.4
+          }
+        ],
+        "banner": "Join us",
+        "art_right": [
+          {
+            "kind": "young_plant",
+            "scale": 1.2
+          },
+          {
+            "kind": "person",
+            "pose": "hands_up",
+            "mood": "excited",
+            "gender": "boy",
+            "scale": 1.5
+          }
+        ],
+        "boxes": [
+          {
+            "title": "Plant",
+            "sub": "7.30 a.m. to 10 a.m.",
+            "icon": "star",
+            "body": "Work in teams to plant native saplings."
+          },
+          {
+            "title": "Care",
+            "sub": "Every visit",
+            "icon": "calendar",
+            "body": "Water, mulch and measure the trees you planted."
+          },
+          {
+            "title": "Learn",
+            "sub": "Free workshop",
+            "icon": "web",
+            "body": "Find out how trees cool our streets and shelter wildlife."
+          },
+          {
+            "title": "Belong",
+            "sub": "Join 1,200 volunteers",
+            "icon": "trophy",
+            "body": "\"I came for the badge. I stayed for the friends.\" Priya, 15"
+          }
+        ],
+        "wide_box": {
+          "title": "Sign up by 30 January",
+          "body": "Visit greenhands.sg/join or ask at your school's general office.\nGloves, tools and water are provided."
+        },
+        "footer": [
+          "Every tree you plant is a promise to the future."
+        ]
+      }
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing · Reading and Viewing Closely (LO2) and Critically (LO3), with multimodal texts and semiotic modes. Exam: G3 Paper 2 Section A · visual text (use of visuals and language for effect). Figure rendered from figure_spec on 29 Oct by scripts/render-figures.ts (myKx's own renderer)."
+  },
+  {
+    "id": "s2eng-practice-01-q12",
+    "skill": "s2-english",
+    "topic": "reading.visual",
+    "subskill": "vt_visuals",
+    "archetype": "VT-VISUALS",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "open",
+    "stem": "The poster shows young people beside saplings. Explain how this picture supports the poster's message.",
+    "passage": "Green Hands Youth Corps\n**Plant a Tree, Grow a Future**\nEver wished you could leave your mark on the island?\nAGES 13 TO 17\nWhen: Two Saturday mornings a month\nVenue: Parks across the island\nSign up by: 30 January\n**Join us**\n- **Plant** (7.30 a.m. to 10 a.m.): Work in teams to plant native saplings.\n- **Care** (every visit): Water, mulch and measure the trees you planted.\n- **Learn** (free workshop): Find out how trees cool our streets and shelter wildlife.\n- **Belong** (join 1,200 volunteers): \"I came for the badge. I stayed for the friends.\" Priya, 15\n**Sign up by 30 January.** Visit greenhands.sg/join or ask at your school's general office. Gloves, tools and water are provided.\nEvery tree you plant is a promise to the future.",
+    "answer": "It shows teenagers like the reader happily planting trees, so readers can picture themselves doing it and feel that the activity is fun and something they can do.",
+    "working": [
+      "Ask who is in the picture and how they look (cheerful, active).",
+      "Link that to the purpose: persuading teenagers to sign up."
+    ],
+    "hints": [
+      "Who is in the picture, and what are they doing?",
+      "How might a teenage reader feel seeing people their own age enjoying it?"
+    ],
+    "keywords": [
+      "teenagers",
+      "young people like the reader",
+      "happy",
+      "excited",
+      "fun",
+      "picture themselves",
+      "can do it"
+    ],
+    "marking": [
+      "1 mark: the picture shows people of the reader's age enjoying the activity, so the reader can imagine joining / sees it is fun and achievable."
+    ],
+    "figure": "figures/s2eng-practice-01-q10-q14.svg",
+    "figure_spec": {
+      "poster": {
+        "theme": "#2E6B30",
+        "accent": "#DCEFD5",
+        "presenter": "Green Hands Youth Corps",
+        "badge": "AGES|13 TO 17",
+        "corner_icon": "star",
+        "title": "Plant a Tree, Grow a Future",
+        "tagline": "Ever wished you could leave your mark on the island?",
+        "facts": [
+          {
+            "icon": "calendar",
+            "label": "When",
+            "value": "Two Saturday mornings a month"
+          },
+          {
+            "icon": "pin",
+            "label": "Venue",
+            "value": "Parks across the island"
+          },
+          {
+            "icon": "clock",
+            "label": "Sign up by",
+            "value": "30 January"
+          }
+        ],
+        "art": [
+          {
+            "kind": "person",
+            "pose": "kneel",
+            "mood": "excited",
+            "gender": "girl",
+            "scale": 1.5
+          },
+          {
+            "kind": "young_plant",
+            "scale": 1.4
+          }
+        ],
+        "banner": "Join us",
+        "art_right": [
+          {
+            "kind": "young_plant",
+            "scale": 1.2
+          },
+          {
+            "kind": "person",
+            "pose": "hands_up",
+            "mood": "excited",
+            "gender": "boy",
+            "scale": 1.5
+          }
+        ],
+        "boxes": [
+          {
+            "title": "Plant",
+            "sub": "7.30 a.m. to 10 a.m.",
+            "icon": "star",
+            "body": "Work in teams to plant native saplings."
+          },
+          {
+            "title": "Care",
+            "sub": "Every visit",
+            "icon": "calendar",
+            "body": "Water, mulch and measure the trees you planted."
+          },
+          {
+            "title": "Learn",
+            "sub": "Free workshop",
+            "icon": "web",
+            "body": "Find out how trees cool our streets and shelter wildlife."
+          },
+          {
+            "title": "Belong",
+            "sub": "Join 1,200 volunteers",
+            "icon": "trophy",
+            "body": "\"I came for the badge. I stayed for the friends.\" Priya, 15"
+          }
+        ],
+        "wide_box": {
+          "title": "Sign up by 30 January",
+          "body": "Visit greenhands.sg/join or ask at your school's general office.\nGloves, tools and water are provided."
+        },
+        "footer": [
+          "Every tree you plant is a promise to the future."
+        ]
+      }
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing · Reading and Viewing Closely (LO2) and Critically (LO3), with multimodal texts and semiotic modes. Exam: G3 Paper 2 Section A · visual text (use of visuals and language for effect). Figure rendered from figure_spec on 29 Oct by scripts/render-figures.ts (myKx's own renderer)."
+  },
+  {
+    "id": "s2eng-practice-01-q13",
+    "skill": "s2-english",
+    "topic": "reading.visual",
+    "subskill": "vt_language",
+    "archetype": "VT-LANGUAGE",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "open",
+    "stem": "The poster begins with a question: 'Ever wished you could leave your mark on the island?' Why does the writer begin this way?",
+    "passage": "Green Hands Youth Corps\n**Plant a Tree, Grow a Future**\nEver wished you could leave your mark on the island?\nAGES 13 TO 17\nWhen: Two Saturday mornings a month\nVenue: Parks across the island\nSign up by: 30 January\n**Join us**\n- **Plant** (7.30 a.m. to 10 a.m.): Work in teams to plant native saplings.\n- **Care** (every visit): Water, mulch and measure the trees you planted.\n- **Learn** (free workshop): Find out how trees cool our streets and shelter wildlife.\n- **Belong** (join 1,200 volunteers): \"I came for the badge. I stayed for the friends.\" Priya, 15\n**Sign up by 30 January.** Visit greenhands.sg/join or ask at your school's general office. Gloves, tools and water are provided.\nEvery tree you plant is a promise to the future.",
+    "answer": "To speak to the reader directly and make them think about their own wish to make a difference, so that joining the tree-planting programme seems like the way to do it.",
+    "working": [
+      "A question addressed to 'you' pulls the reader in.",
+      "The answer the writer wants is 'yes', and the poster then offers a way to do it."
+    ],
+    "hints": [
+      "Who is the question talking to?",
+      "What answer does the writer hope you will give, and what does the poster offer next?"
+    ],
+    "keywords": [
+      "directly",
+      "engage",
+      "reader",
+      "make a difference",
+      "leave a mark",
+      "think about",
+      "rhetorical question"
+    ],
+    "marking": [
+      "1 mark: it engages the reader directly / makes them reflect on wanting to make a difference, which the programme then offers."
+    ],
+    "figure": "figures/s2eng-practice-01-q10-q14.svg",
+    "figure_spec": {
+      "poster": {
+        "theme": "#2E6B30",
+        "accent": "#DCEFD5",
+        "presenter": "Green Hands Youth Corps",
+        "badge": "AGES|13 TO 17",
+        "corner_icon": "star",
+        "title": "Plant a Tree, Grow a Future",
+        "tagline": "Ever wished you could leave your mark on the island?",
+        "facts": [
+          {
+            "icon": "calendar",
+            "label": "When",
+            "value": "Two Saturday mornings a month"
+          },
+          {
+            "icon": "pin",
+            "label": "Venue",
+            "value": "Parks across the island"
+          },
+          {
+            "icon": "clock",
+            "label": "Sign up by",
+            "value": "30 January"
+          }
+        ],
+        "art": [
+          {
+            "kind": "person",
+            "pose": "kneel",
+            "mood": "excited",
+            "gender": "girl",
+            "scale": 1.5
+          },
+          {
+            "kind": "young_plant",
+            "scale": 1.4
+          }
+        ],
+        "banner": "Join us",
+        "art_right": [
+          {
+            "kind": "young_plant",
+            "scale": 1.2
+          },
+          {
+            "kind": "person",
+            "pose": "hands_up",
+            "mood": "excited",
+            "gender": "boy",
+            "scale": 1.5
+          }
+        ],
+        "boxes": [
+          {
+            "title": "Plant",
+            "sub": "7.30 a.m. to 10 a.m.",
+            "icon": "star",
+            "body": "Work in teams to plant native saplings."
+          },
+          {
+            "title": "Care",
+            "sub": "Every visit",
+            "icon": "calendar",
+            "body": "Water, mulch and measure the trees you planted."
+          },
+          {
+            "title": "Learn",
+            "sub": "Free workshop",
+            "icon": "web",
+            "body": "Find out how trees cool our streets and shelter wildlife."
+          },
+          {
+            "title": "Belong",
+            "sub": "Join 1,200 volunteers",
+            "icon": "trophy",
+            "body": "\"I came for the badge. I stayed for the friends.\" Priya, 15"
+          }
+        ],
+        "wide_box": {
+          "title": "Sign up by 30 January",
+          "body": "Visit greenhands.sg/join or ask at your school's general office.\nGloves, tools and water are provided."
+        },
+        "footer": [
+          "Every tree you plant is a promise to the future."
+        ]
+      }
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing · Reading and Viewing Closely (LO2) and Critically (LO3), with multimodal texts and semiotic modes. Exam: G3 Paper 2 Section A · visual text (use of visuals and language for effect). Figure rendered from figure_spec on 29 Oct by scripts/render-figures.ts (myKx's own renderer)."
+  },
+  {
+    "id": "s2eng-practice-01-q14",
+    "skill": "s2-english",
+    "topic": "reading.visual",
+    "subskill": "vt_language",
+    "archetype": "VT-LANGUAGE",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "open",
+    "stem": "The 'Belong' box quotes a 15-year-old volunteer. How does this quotation help to persuade the reader?",
+    "passage": "Green Hands Youth Corps\n**Plant a Tree, Grow a Future**\nEver wished you could leave your mark on the island?\nAGES 13 TO 17\nWhen: Two Saturday mornings a month\nVenue: Parks across the island\nSign up by: 30 January\n**Join us**\n- **Plant** (7.30 a.m. to 10 a.m.): Work in teams to plant native saplings.\n- **Care** (every visit): Water, mulch and measure the trees you planted.\n- **Learn** (free workshop): Find out how trees cool our streets and shelter wildlife.\n- **Belong** (join 1,200 volunteers): \"I came for the badge. I stayed for the friends.\" Priya, 15\n**Sign up by 30 January.** Visit greenhands.sg/join or ask at your school's general office. Gloves, tools and water are provided.\nEvery tree you plant is a promise to the future.",
+    "answer": "It comes from someone the reader's age, so it feels believable, and it shows that volunteers enjoy themselves and make friends, not just do work.",
+    "working": [
+      "Who is speaking? A 15-year-old, the same age as the target readers.",
+      "What does she say? She stayed 'for the friends', so it is fun and social."
+    ],
+    "hints": [
+      "How old is the speaker, and how old are the readers the poster wants?",
+      "What reason for staying does she give?"
+    ],
+    "keywords": [
+      "same age",
+      "teenager",
+      "believable",
+      "relatable",
+      "friends",
+      "enjoy",
+      "fun"
+    ],
+    "marking": [
+      "1 mark: a peer's own words make the claim believable/relatable AND suggest volunteering is enjoyable or social."
+    ],
+    "figure": "figures/s2eng-practice-01-q10-q14.svg",
+    "figure_spec": {
+      "poster": {
+        "theme": "#2E6B30",
+        "accent": "#DCEFD5",
+        "presenter": "Green Hands Youth Corps",
+        "badge": "AGES|13 TO 17",
+        "corner_icon": "star",
+        "title": "Plant a Tree, Grow a Future",
+        "tagline": "Ever wished you could leave your mark on the island?",
+        "facts": [
+          {
+            "icon": "calendar",
+            "label": "When",
+            "value": "Two Saturday mornings a month"
+          },
+          {
+            "icon": "pin",
+            "label": "Venue",
+            "value": "Parks across the island"
+          },
+          {
+            "icon": "clock",
+            "label": "Sign up by",
+            "value": "30 January"
+          }
+        ],
+        "art": [
+          {
+            "kind": "person",
+            "pose": "kneel",
+            "mood": "excited",
+            "gender": "girl",
+            "scale": 1.5
+          },
+          {
+            "kind": "young_plant",
+            "scale": 1.4
+          }
+        ],
+        "banner": "Join us",
+        "art_right": [
+          {
+            "kind": "young_plant",
+            "scale": 1.2
+          },
+          {
+            "kind": "person",
+            "pose": "hands_up",
+            "mood": "excited",
+            "gender": "boy",
+            "scale": 1.5
+          }
+        ],
+        "boxes": [
+          {
+            "title": "Plant",
+            "sub": "7.30 a.m. to 10 a.m.",
+            "icon": "star",
+            "body": "Work in teams to plant native saplings."
+          },
+          {
+            "title": "Care",
+            "sub": "Every visit",
+            "icon": "calendar",
+            "body": "Water, mulch and measure the trees you planted."
+          },
+          {
+            "title": "Learn",
+            "sub": "Free workshop",
+            "icon": "web",
+            "body": "Find out how trees cool our streets and shelter wildlife."
+          },
+          {
+            "title": "Belong",
+            "sub": "Join 1,200 volunteers",
+            "icon": "trophy",
+            "body": "\"I came for the badge. I stayed for the friends.\" Priya, 15"
+          }
+        ],
+        "wide_box": {
+          "title": "Sign up by 30 January",
+          "body": "Visit greenhands.sg/join or ask at your school's general office.\nGloves, tools and water are provided."
+        },
+        "footer": [
+          "Every tree you plant is a promise to the future."
+        ]
+      }
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing · Reading and Viewing Closely (LO2) and Critically (LO3), with multimodal texts and semiotic modes. Exam: G3 Paper 2 Section A · visual text (use of visuals and language for effect). Figure rendered from figure_spec on 29 Oct by scripts/render-figures.ts (myKx's own renderer)."
+  },
+  {
+    "id": "s2eng-practice-01-q15",
+    "skill": "s2-english",
+    "topic": "reading.narrative",
+    "subskill": "literal_retrieval",
+    "archetype": "NA-LITERAL",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "short",
+    "stem": "For how many years had the shop been open?",
+    "passage": "The shutters of Lucky Wheel Cycle Repair had rattled open at seven o'clock every morning for forty-one years. On the last Saturday in December, Marcus helped his grandfather push them up for the final time.\n\nThe shop smelled the way it always had, of rubber, oil and the sweet black coffee his grandfather drank from a chipped enamel mug. Wheels hung from the ceiling like giant spider webs, and every drawer in the long wooden cabinet was labelled in his grandmother's neat handwriting: bolts, bells, brake pads, odds and ends.\n\nMarcus had expected a quiet morning. Instead, the customers came in a steady stream. An elderly man wheeled in an old bicycle that did not need repairing at all. \"I bought it here in 1985,\" he said, patting the seat as if it were a loyal dog. A woman in a nurse's uniform brought a tin of homemade pineapple tarts. Two boys from the block opposite, whose punctured tyres Grandpa had patched for free more times than Marcus could count, stood awkwardly at the door until Grandpa waved them in.\n\nBy noon, Marcus understood. Nobody had come to fix anything. They had come to say goodbye.\n\nGrandpa, usually a man of few words, laughed more that morning than Marcus had heard him laugh all year. Yet each time a customer left, he turned back to his workbench and wiped a spotless spanner with his cloth, slowly, over and over again.\n\nWhen the last visitor had gone, Grandpa took a small key from his pocket and opened the bottom drawer of the cabinet, the one Marcus had never seen open. Inside, wrapped in old newspaper, lay a tiny red bicycle bell.\n\n\"Your father's,\" Grandpa said. \"From his first bicycle. He rang it so often that the neighbours complained.\" He pressed it into Marcus's palm. The metal was cold, but the bell gave a bright, cheeky ring that seemed to bounce off every wall of the empty shop.\n\nMarcus looked around at the hanging wheels and the cabinet with its faded labels. He had always thought of the shop as a place where broken things were made to work again. Now he wondered whether it had been mending something else all along.\n\nThey pulled the shutters down together. This time, the rattle sounded softer, almost like a sigh.",
+    "answer": "41 years",
+    "accept": [
+      "forty-one years",
+      "forty-one",
+      "forty one years",
+      "forty one",
+      "for forty-one years",
+      "for 41 years"
+    ],
+    "unit": "years",
+    "working": [
+      "Paragraph 1: the shutters 'had rattled open at seven o'clock every morning for forty-one years'."
+    ],
+    "hints": [
+      "The answer is in the very first sentence.",
+      "Look for a number of years."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing · Reading and Viewing Closely (LO2) and Critical Reading, Viewing and Appreciation (LO3: implied meaning, how writers' style influences meaning); Vocabulary (LO2). Exam: G3 Paper 2 Section B · narrative text (comprehension, vocabulary in context, language for effect)."
+  },
+  {
+    "id": "s2eng-practice-01-q16",
+    "skill": "s2-english",
+    "topic": "reading.narrative",
+    "subskill": "language_for_effect",
+    "archetype": "NA-EFFECT",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "open",
+    "stem": "'Wheels hung from the ceiling like giant spider webs.' What impression of the shop does this comparison create?",
+    "passage": "The shutters of Lucky Wheel Cycle Repair had rattled open at seven o'clock every morning for forty-one years. On the last Saturday in December, Marcus helped his grandfather push them up for the final time.\n\nThe shop smelled the way it always had, of rubber, oil and the sweet black coffee his grandfather drank from a chipped enamel mug. Wheels hung from the ceiling like giant spider webs, and every drawer in the long wooden cabinet was labelled in his grandmother's neat handwriting: bolts, bells, brake pads, odds and ends.\n\nMarcus had expected a quiet morning. Instead, the customers came in a steady stream. An elderly man wheeled in an old bicycle that did not need repairing at all. \"I bought it here in 1985,\" he said, patting the seat as if it were a loyal dog. A woman in a nurse's uniform brought a tin of homemade pineapple tarts. Two boys from the block opposite, whose punctured tyres Grandpa had patched for free more times than Marcus could count, stood awkwardly at the door until Grandpa waved them in.\n\nBy noon, Marcus understood. Nobody had come to fix anything. They had come to say goodbye.\n\nGrandpa, usually a man of few words, laughed more that morning than Marcus had heard him laugh all year. Yet each time a customer left, he turned back to his workbench and wiped a spotless spanner with his cloth, slowly, over and over again.\n\nWhen the last visitor had gone, Grandpa took a small key from his pocket and opened the bottom drawer of the cabinet, the one Marcus had never seen open. Inside, wrapped in old newspaper, lay a tiny red bicycle bell.\n\n\"Your father's,\" Grandpa said. \"From his first bicycle. He rang it so often that the neighbours complained.\" He pressed it into Marcus's palm. The metal was cold, but the bell gave a bright, cheeky ring that seemed to bounce off every wall of the empty shop.\n\nMarcus looked around at the hanging wheels and the cabinet with its faded labels. He had always thought of the shop as a place where broken things were made to work again. Now he wondered whether it had been mending something else all along.\n\nThey pulled the shutters down together. This time, the rattle sounded softer, almost like a sigh.",
+    "answer": "It suggests that the shop is old and has been there a very long time, crowded with wheels that have hung undisturbed for years, like webs in an old place.",
+    "working": [
+      "Spider webs build up in places that have stood for a long time.",
+      "So the simile makes the shop feel old and packed with wheels."
+    ],
+    "hints": [
+      "Where do you usually find spider webs?",
+      "What does that suggest about how long the wheels have hung there?"
+    ],
+    "keywords": [
+      "old",
+      "long time",
+      "crowded",
+      "full of wheels",
+      "undisturbed",
+      "cluttered"
+    ],
+    "marking": [
+      "1 mark: any supported impression: the shop is old / long-established (webs build up over years), crowded or packed with wheels, or the wheels' spokes look delicate and intricate like webs.",
+      "'Dusty' or 'neglected' alone earns no mark: the rest of paragraph 2 shows a shop that is cared for."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing · Reading and Viewing Closely (LO2) and Critical Reading, Viewing and Appreciation (LO3: implied meaning, how writers' style influences meaning); Vocabulary (LO2). Exam: G3 Paper 2 Section B · narrative text (comprehension, vocabulary in context, language for effect)."
+  },
+  {
+    "id": "s2eng-practice-01-q17",
+    "skill": "s2-english",
+    "topic": "reading.narrative",
+    "subskill": "inference",
+    "archetype": "NA-INFER",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "open",
+    "stem": "Why did the elderly man bring in a bicycle that 'did not need repairing at all'?",
+    "passage": "The shutters of Lucky Wheel Cycle Repair had rattled open at seven o'clock every morning for forty-one years. On the last Saturday in December, Marcus helped his grandfather push them up for the final time.\n\nThe shop smelled the way it always had, of rubber, oil and the sweet black coffee his grandfather drank from a chipped enamel mug. Wheels hung from the ceiling like giant spider webs, and every drawer in the long wooden cabinet was labelled in his grandmother's neat handwriting: bolts, bells, brake pads, odds and ends.\n\nMarcus had expected a quiet morning. Instead, the customers came in a steady stream. An elderly man wheeled in an old bicycle that did not need repairing at all. \"I bought it here in 1985,\" he said, patting the seat as if it were a loyal dog. A woman in a nurse's uniform brought a tin of homemade pineapple tarts. Two boys from the block opposite, whose punctured tyres Grandpa had patched for free more times than Marcus could count, stood awkwardly at the door until Grandpa waved them in.\n\nBy noon, Marcus understood. Nobody had come to fix anything. They had come to say goodbye.\n\nGrandpa, usually a man of few words, laughed more that morning than Marcus had heard him laugh all year. Yet each time a customer left, he turned back to his workbench and wiped a spotless spanner with his cloth, slowly, over and over again.\n\nWhen the last visitor had gone, Grandpa took a small key from his pocket and opened the bottom drawer of the cabinet, the one Marcus had never seen open. Inside, wrapped in old newspaper, lay a tiny red bicycle bell.\n\n\"Your father's,\" Grandpa said. \"From his first bicycle. He rang it so often that the neighbours complained.\" He pressed it into Marcus's palm. The metal was cold, but the bell gave a bright, cheeky ring that seemed to bounce off every wall of the empty shop.\n\nMarcus looked around at the hanging wheels and the cabinet with its faded labels. He had always thought of the shop as a place where broken things were made to work again. Now he wondered whether it had been mending something else all along.\n\nThey pulled the shutters down together. This time, the rattle sounded softer, almost like a sigh.",
+    "answer": "He did not need a repair; he used the bicycle he had bought there as a reason to visit and say goodbye to Grandpa and the shop on its last day.",
+    "working": [
+      "Paragraph 4: 'Nobody had come to fix anything. They had come to say goodbye.'",
+      "The bicycle bought 'here in 1985' links him to the shop's history."
+    ],
+    "hints": [
+      "Read the short paragraph that comes straight after the customers.",
+      "Why might someone bring something that works perfectly well to a repair shop on its last day?"
+    ],
+    "keywords": [
+      "say goodbye",
+      "excuse",
+      "reason to visit",
+      "last day",
+      "closing",
+      "bought it here"
+    ],
+    "marking": [
+      "1 mark: it was an excuse/reason to visit and say goodbye because the shop was closing (accept: to show the bicycle he bought there years ago, to share the memory)."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing · Reading and Viewing Closely (LO2) and Critical Reading, Viewing and Appreciation (LO3: implied meaning, how writers' style influences meaning); Vocabulary (LO2). Exam: G3 Paper 2 Section B · narrative text (comprehension, vocabulary in context, language for effect)."
+  },
+  {
+    "id": "s2eng-practice-01-q18",
+    "skill": "s2-english",
+    "topic": "reading.narrative",
+    "subskill": "vocabulary_in_context",
+    "archetype": "NA-VOCAB",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Which word in the passage shows that the two boys felt unsure and uncomfortable at the door?",
+    "passage": "The shutters of Lucky Wheel Cycle Repair had rattled open at seven o'clock every morning for forty-one years. On the last Saturday in December, Marcus helped his grandfather push them up for the final time.\n\nThe shop smelled the way it always had, of rubber, oil and the sweet black coffee his grandfather drank from a chipped enamel mug. Wheels hung from the ceiling like giant spider webs, and every drawer in the long wooden cabinet was labelled in his grandmother's neat handwriting: bolts, bells, brake pads, odds and ends.\n\nMarcus had expected a quiet morning. Instead, the customers came in a steady stream. An elderly man wheeled in an old bicycle that did not need repairing at all. \"I bought it here in 1985,\" he said, patting the seat as if it were a loyal dog. A woman in a nurse's uniform brought a tin of homemade pineapple tarts. Two boys from the block opposite, whose punctured tyres Grandpa had patched for free more times than Marcus could count, stood awkwardly at the door until Grandpa waved them in.\n\nBy noon, Marcus understood. Nobody had come to fix anything. They had come to say goodbye.\n\nGrandpa, usually a man of few words, laughed more that morning than Marcus had heard him laugh all year. Yet each time a customer left, he turned back to his workbench and wiped a spotless spanner with his cloth, slowly, over and over again.\n\nWhen the last visitor had gone, Grandpa took a small key from his pocket and opened the bottom drawer of the cabinet, the one Marcus had never seen open. Inside, wrapped in old newspaper, lay a tiny red bicycle bell.\n\n\"Your father's,\" Grandpa said. \"From his first bicycle. He rang it so often that the neighbours complained.\" He pressed it into Marcus's palm. The metal was cold, but the bell gave a bright, cheeky ring that seemed to bounce off every wall of the empty shop.\n\nMarcus looked around at the hanging wheels and the cabinet with its faded labels. He had always thought of the shop as a place where broken things were made to work again. Now he wondered whether it had been mending something else all along.\n\nThey pulled the shutters down together. This time, the rattle sounded softer, almost like a sigh.",
+    "answer": "awkwardly",
+    "working": [
+      "The boys 'stood awkwardly at the door until Grandpa waved them in'.",
+      "'Awkwardly' shows they were unsure whether to come in ✓"
+    ],
+    "hints": [
+      "Find the sentence about the two boys from the block opposite.",
+      "Look at the word that describes HOW they stood."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing · Reading and Viewing Closely (LO2) and Critical Reading, Viewing and Appreciation (LO3: implied meaning, how writers' style influences meaning); Vocabulary (LO2). Exam: G3 Paper 2 Section B · narrative text (comprehension, vocabulary in context, language for effect)."
+  },
+  {
+    "id": "s2eng-practice-01-q19",
+    "skill": "s2-english",
+    "topic": "reading.narrative",
+    "subskill": "character_feelings",
+    "archetype": "NA-FEEL",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which word best describes Grandpa's mood while the customers were in the shop?",
+    "passage": "The shutters of Lucky Wheel Cycle Repair had rattled open at seven o'clock every morning for forty-one years. On the last Saturday in December, Marcus helped his grandfather push them up for the final time.\n\nThe shop smelled the way it always had, of rubber, oil and the sweet black coffee his grandfather drank from a chipped enamel mug. Wheels hung from the ceiling like giant spider webs, and every drawer in the long wooden cabinet was labelled in his grandmother's neat handwriting: bolts, bells, brake pads, odds and ends.\n\nMarcus had expected a quiet morning. Instead, the customers came in a steady stream. An elderly man wheeled in an old bicycle that did not need repairing at all. \"I bought it here in 1985,\" he said, patting the seat as if it were a loyal dog. A woman in a nurse's uniform brought a tin of homemade pineapple tarts. Two boys from the block opposite, whose punctured tyres Grandpa had patched for free more times than Marcus could count, stood awkwardly at the door until Grandpa waved them in.\n\nBy noon, Marcus understood. Nobody had come to fix anything. They had come to say goodbye.\n\nGrandpa, usually a man of few words, laughed more that morning than Marcus had heard him laugh all year. Yet each time a customer left, he turned back to his workbench and wiped a spotless spanner with his cloth, slowly, over and over again.\n\nWhen the last visitor had gone, Grandpa took a small key from his pocket and opened the bottom drawer of the cabinet, the one Marcus had never seen open. Inside, wrapped in old newspaper, lay a tiny red bicycle bell.\n\n\"Your father's,\" Grandpa said. \"From his first bicycle. He rang it so often that the neighbours complained.\" He pressed it into Marcus's palm. The metal was cold, but the bell gave a bright, cheeky ring that seemed to bounce off every wall of the empty shop.\n\nMarcus looked around at the hanging wheels and the cabinet with its faded labels. He had always thought of the shop as a place where broken things were made to work again. Now he wondered whether it had been mending something else all along.\n\nThey pulled the shutters down together. This time, the rattle sounded softer, almost like a sigh.",
+    "options": [
+      "impatient",
+      "cheerful",
+      "bored",
+      "angry"
+    ],
+    "answer": 2,
+    "working": [
+      "Paragraph 5: he 'laughed more that morning than Marcus had heard him laugh all year'.",
+      "With the customers there, he was cheerful ✓ (his sadness shows only when each one leaves)."
+    ],
+    "distractors": {
+      "1": "Nothing shows he wanted them to leave; he waved the boys in.",
+      "3": "He was laughing, not bored.",
+      "4": "There is no sign of anger."
+    },
+    "hints": [
+      "Find how Grandpa behaved while people were visiting.",
+      "Separate how he acted WITH the customers from how he acted AFTER they left."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing · Reading and Viewing Closely (LO2) and Critical Reading, Viewing and Appreciation (LO3: implied meaning, how writers' style influences meaning); Vocabulary (LO2). Exam: G3 Paper 2 Section B · narrative text (comprehension, vocabulary in context, language for effect)."
+  },
+  {
+    "id": "s2eng-practice-01-q20",
+    "skill": "s2-english",
+    "topic": "reading.narrative",
+    "subskill": "character_feelings",
+    "archetype": "NA-FEEL",
+    "difficulty": 4,
+    "marks": 2,
+    "type": "open",
+    "stem": "Each time a customer left, Grandpa 'wiped a spotless spanner with his cloth, slowly, over and over again'. What does this action suggest about how he felt? Explain your answer.",
+    "passage": "The shutters of Lucky Wheel Cycle Repair had rattled open at seven o'clock every morning for forty-one years. On the last Saturday in December, Marcus helped his grandfather push them up for the final time.\n\nThe shop smelled the way it always had, of rubber, oil and the sweet black coffee his grandfather drank from a chipped enamel mug. Wheels hung from the ceiling like giant spider webs, and every drawer in the long wooden cabinet was labelled in his grandmother's neat handwriting: bolts, bells, brake pads, odds and ends.\n\nMarcus had expected a quiet morning. Instead, the customers came in a steady stream. An elderly man wheeled in an old bicycle that did not need repairing at all. \"I bought it here in 1985,\" he said, patting the seat as if it were a loyal dog. A woman in a nurse's uniform brought a tin of homemade pineapple tarts. Two boys from the block opposite, whose punctured tyres Grandpa had patched for free more times than Marcus could count, stood awkwardly at the door until Grandpa waved them in.\n\nBy noon, Marcus understood. Nobody had come to fix anything. They had come to say goodbye.\n\nGrandpa, usually a man of few words, laughed more that morning than Marcus had heard him laugh all year. Yet each time a customer left, he turned back to his workbench and wiped a spotless spanner with his cloth, slowly, over and over again.\n\nWhen the last visitor had gone, Grandpa took a small key from his pocket and opened the bottom drawer of the cabinet, the one Marcus had never seen open. Inside, wrapped in old newspaper, lay a tiny red bicycle bell.\n\n\"Your father's,\" Grandpa said. \"From his first bicycle. He rang it so often that the neighbours complained.\" He pressed it into Marcus's palm. The metal was cold, but the bell gave a bright, cheeky ring that seemed to bounce off every wall of the empty shop.\n\nMarcus looked around at the hanging wheels and the cabinet with its faded labels. He had always thought of the shop as a place where broken things were made to work again. Now he wondered whether it had been mending something else all along.\n\nThey pulled the shutters down together. This time, the rattle sounded softer, almost like a sigh.",
+    "answer": "He was sad about closing the shop and saying goodbye. The spanner was already spotless, so the wiping was not needed: he was keeping his hands busy to hide or control his feelings.",
+    "working": [
+      "The spanner is 'spotless', so cleaning it has no practical purpose.",
+      "He does it 'slowly, over and over' only after each goodbye, so it is about his feelings."
+    ],
+    "hints": [
+      "Was the spanner dirty? Look at the adjective.",
+      "Why might someone repeat a pointless task right after saying goodbye?"
+    ],
+    "keywords": [
+      "sad",
+      "emotional",
+      "sorrow",
+      "spotless",
+      "no need",
+      "hide",
+      "keep busy",
+      "control his feelings"
+    ],
+    "marking": [
+      "1 mark: the feeling: sad / emotional about the shop closing and the goodbyes.",
+      "1 mark: the explanation: the spanner was already spotless, so he was keeping busy to hide or calm his emotions."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing · Reading and Viewing Closely (LO2) and Critical Reading, Viewing and Appreciation (LO3: implied meaning, how writers' style influences meaning); Vocabulary (LO2). Exam: G3 Paper 2 Section B · narrative text (comprehension, vocabulary in context, language for effect)."
+  },
+  {
+    "id": "s2eng-practice-01-q21",
+    "skill": "s2-english",
+    "topic": "reading.narrative",
+    "subskill": "language_for_effect",
+    "archetype": "NA-EFFECT",
+    "difficulty": 4,
+    "marks": 2,
+    "type": "open",
+    "stem": "In the last paragraph, the rattle of the shutters sounds 'almost like a sigh'. Explain why the writer describes the sound in this way.",
+    "passage": "The shutters of Lucky Wheel Cycle Repair had rattled open at seven o'clock every morning for forty-one years. On the last Saturday in December, Marcus helped his grandfather push them up for the final time.\n\nThe shop smelled the way it always had, of rubber, oil and the sweet black coffee his grandfather drank from a chipped enamel mug. Wheels hung from the ceiling like giant spider webs, and every drawer in the long wooden cabinet was labelled in his grandmother's neat handwriting: bolts, bells, brake pads, odds and ends.\n\nMarcus had expected a quiet morning. Instead, the customers came in a steady stream. An elderly man wheeled in an old bicycle that did not need repairing at all. \"I bought it here in 1985,\" he said, patting the seat as if it were a loyal dog. A woman in a nurse's uniform brought a tin of homemade pineapple tarts. Two boys from the block opposite, whose punctured tyres Grandpa had patched for free more times than Marcus could count, stood awkwardly at the door until Grandpa waved them in.\n\nBy noon, Marcus understood. Nobody had come to fix anything. They had come to say goodbye.\n\nGrandpa, usually a man of few words, laughed more that morning than Marcus had heard him laugh all year. Yet each time a customer left, he turned back to his workbench and wiped a spotless spanner with his cloth, slowly, over and over again.\n\nWhen the last visitor had gone, Grandpa took a small key from his pocket and opened the bottom drawer of the cabinet, the one Marcus had never seen open. Inside, wrapped in old newspaper, lay a tiny red bicycle bell.\n\n\"Your father's,\" Grandpa said. \"From his first bicycle. He rang it so often that the neighbours complained.\" He pressed it into Marcus's palm. The metal was cold, but the bell gave a bright, cheeky ring that seemed to bounce off every wall of the empty shop.\n\nMarcus looked around at the hanging wheels and the cabinet with its faded labels. He had always thought of the shop as a place where broken things were made to work again. Now he wondered whether it had been mending something else all along.\n\nThey pulled the shutters down together. This time, the rattle sounded softer, almost like a sigh.",
+    "answer": "A sigh is a sound people make when they are sad or tired, so the writer gives the shutters a human feeling. It shows the sadness of the shop closing for good and reflects how Marcus and Grandpa feel at that moment.",
+    "working": [
+      "Compare with paragraph 1: the shutters 'rattled open' every morning.",
+      "Now the sound is 'softer, almost like a sigh': quieter and sad, like the people closing the shop."
+    ],
+    "hints": [
+      "What do people usually feel when they sigh?",
+      "Compare this rattle with the one at the start of the story."
+    ],
+    "keywords": [
+      "sigh",
+      "sad",
+      "tired",
+      "human",
+      "personification",
+      "end",
+      "closing for good",
+      "how they feel"
+    ],
+    "marking": [
+      "1 mark: a sigh suggests sadness / tiredness / an ending (the shutters are given human feelings).",
+      "1 mark: it reflects the sadness of the shop closing for good / Marcus's and Grandpa's feelings (contrast with the loud rattle every morning)."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing · Reading and Viewing Closely (LO2) and Critical Reading, Viewing and Appreciation (LO3: implied meaning, how writers' style influences meaning); Vocabulary (LO2). Exam: G3 Paper 2 Section B · narrative text (comprehension, vocabulary in context, language for effect)."
+  },
+  {
+    "id": "s2eng-practice-01-q22",
+    "skill": "s2-english",
+    "topic": "reading.narrative",
+    "subskill": "theme",
+    "archetype": "NA-THEME",
+    "difficulty": 4,
+    "marks": 2,
+    "type": "open",
+    "stem": "Marcus wondered whether the shop 'had been mending something else all along'. What do you think this 'something else' was? Support your answer with evidence from the passage.",
+    "passage": "The shutters of Lucky Wheel Cycle Repair had rattled open at seven o'clock every morning for forty-one years. On the last Saturday in December, Marcus helped his grandfather push them up for the final time.\n\nThe shop smelled the way it always had, of rubber, oil and the sweet black coffee his grandfather drank from a chipped enamel mug. Wheels hung from the ceiling like giant spider webs, and every drawer in the long wooden cabinet was labelled in his grandmother's neat handwriting: bolts, bells, brake pads, odds and ends.\n\nMarcus had expected a quiet morning. Instead, the customers came in a steady stream. An elderly man wheeled in an old bicycle that did not need repairing at all. \"I bought it here in 1985,\" he said, patting the seat as if it were a loyal dog. A woman in a nurse's uniform brought a tin of homemade pineapple tarts. Two boys from the block opposite, whose punctured tyres Grandpa had patched for free more times than Marcus could count, stood awkwardly at the door until Grandpa waved them in.\n\nBy noon, Marcus understood. Nobody had come to fix anything. They had come to say goodbye.\n\nGrandpa, usually a man of few words, laughed more that morning than Marcus had heard him laugh all year. Yet each time a customer left, he turned back to his workbench and wiped a spotless spanner with his cloth, slowly, over and over again.\n\nWhen the last visitor had gone, Grandpa took a small key from his pocket and opened the bottom drawer of the cabinet, the one Marcus had never seen open. Inside, wrapped in old newspaper, lay a tiny red bicycle bell.\n\n\"Your father's,\" Grandpa said. \"From his first bicycle. He rang it so often that the neighbours complained.\" He pressed it into Marcus's palm. The metal was cold, but the bell gave a bright, cheeky ring that seemed to bounce off every wall of the empty shop.\n\nMarcus looked around at the hanging wheels and the cabinet with its faded labels. He had always thought of the shop as a place where broken things were made to work again. Now he wondered whether it had been mending something else all along.\n\nThey pulled the shutters down together. This time, the rattle sounded softer, almost like a sigh.",
+    "answer": "It mended people's relationships and kept the neighbourhood together. Evidence: so many customers came only to say goodbye, a nurse brought homemade pineapple tarts, and Grandpa had patched the boys' tyres for free many times.",
+    "working": [
+      "The shop mended bicycles, but the customers' visits show it meant more than repairs.",
+      "Pick the clearest evidence of those bonds from paragraph 3 or 4."
+    ],
+    "hints": [
+      "Why did everyone come on the last day if nothing needed fixing?",
+      "What did the shop give the neighbourhood besides repairs?"
+    ],
+    "keywords": [
+      "relationships",
+      "community",
+      "neighbourhood",
+      "friendships",
+      "people",
+      "say goodbye",
+      "pineapple tarts",
+      "for free"
+    ],
+    "marking": [
+      "1 mark: the idea: relationships / the community / people's connections (accept: people's lives or spirits).",
+      "1 mark: evidence: customers came only to say goodbye, the gift of pineapple tarts, or free repairs for the boys."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing · Reading and Viewing Closely (LO2) and Critical Reading, Viewing and Appreciation (LO3: implied meaning, how writers' style influences meaning); Vocabulary (LO2). Exam: G3 Paper 2 Section B · narrative text (comprehension, vocabulary in context, language for effect)."
+  },
+  {
+    "id": "s2eng-practice-01-q23",
+    "skill": "s2-english",
+    "topic": "reading.non_narrative",
+    "subskill": "language_for_effect",
+    "archetype": "NN-EFFECT",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "In paragraph 1, boredom is 'something to be crushed within seconds'. What does the word 'crushed' suggest about how people treat boredom?",
+    "passage": "**In Praise of Doing Nothing**\n\nAsk most teenagers how they feel about boredom and you will hear the same answer: it is the enemy. With a phone in every pocket, boredom has become something to be crushed within seconds, usually with a swipe. Yet a growing number of psychologists believe that we have got boredom badly wrong. Far from being wasted time, they argue, those empty moments may be among the most useful we have.\n\nThe first gift of boredom is creativity. When the mind has nothing to hold on to, it begins to wander, and a wandering mind makes unexpected connections. Researchers have found that people who first spend time on a dull task often come up with more original ideas afterwards than people who start straight away.\n\nBoredom also pushes us to act. It is an uncomfortable feeling, and that discomfort is a signal: whatever we are doing is not satisfying us. Instead of numbing the feeling with another video, we can treat it as a nudge to pick up a neglected hobby, call a friend or finally start the project we have been putting off.\n\nPerhaps most importantly, quiet moments give us space to think about our own lives. Without a constant stream of other people's updates, we can replay the day, sort out a problem or simply notice how we feel. Some researchers believe that this kind of reflection helps us to plan for the future and to understand ourselves better.\n\nNone of this means that we should seek out boredom all day. Long stretches of it, especially when we feel trapped, can make people restless and unhappy. The point is smaller and simpler: the next time you feel bored, resist the urge to reach for your phone at once. Sit with the feeling for ten minutes. You may be surprised by where your mind takes you.",
+    "options": [
+      "They welcome it as a chance to rest.",
+      "They try to destroy it as quickly and forcefully as possible.",
+      "They do not notice it until someone points it out.",
+      "They enjoy it only when they are alone."
+    ],
+    "answer": 2,
+    "working": [
+      "'Crushed' is a violent word: you crush an enemy or something you want gone.",
+      "With 'within seconds', it shows people get rid of boredom at once and forcefully ✓"
+    ],
+    "distractors": {
+      "1": "The opposite: they treat it as 'the enemy'.",
+      "3": "They notice it and act within seconds.",
+      "4": "Nothing suggests they enjoy it."
+    },
+    "hints": [
+      "What do you usually do to something you 'crush'?",
+      "Read the word together with 'the enemy' and 'within seconds'."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing · Reading and Viewing Closely (LO2) and Critically (LO3); Vocabulary (LO2). Exam: G3 Paper 2 Section C · non-narrative text (comprehension, vocabulary in context, language for effect)."
+  },
+  {
+    "id": "s2eng-practice-01-q24",
+    "skill": "s2-english",
+    "topic": "reading.non_narrative",
+    "subskill": "vocabulary_in_context",
+    "archetype": "NN-VOCAB",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Which word in paragraph 3 means 'a gentle push or reminder'?",
+    "passage": "**In Praise of Doing Nothing**\n\nAsk most teenagers how they feel about boredom and you will hear the same answer: it is the enemy. With a phone in every pocket, boredom has become something to be crushed within seconds, usually with a swipe. Yet a growing number of psychologists believe that we have got boredom badly wrong. Far from being wasted time, they argue, those empty moments may be among the most useful we have.\n\nThe first gift of boredom is creativity. When the mind has nothing to hold on to, it begins to wander, and a wandering mind makes unexpected connections. Researchers have found that people who first spend time on a dull task often come up with more original ideas afterwards than people who start straight away.\n\nBoredom also pushes us to act. It is an uncomfortable feeling, and that discomfort is a signal: whatever we are doing is not satisfying us. Instead of numbing the feeling with another video, we can treat it as a nudge to pick up a neglected hobby, call a friend or finally start the project we have been putting off.\n\nPerhaps most importantly, quiet moments give us space to think about our own lives. Without a constant stream of other people's updates, we can replay the day, sort out a problem or simply notice how we feel. Some researchers believe that this kind of reflection helps us to plan for the future and to understand ourselves better.\n\nNone of this means that we should seek out boredom all day. Long stretches of it, especially when we feel trapped, can make people restless and unhappy. The point is smaller and simpler: the next time you feel bored, resist the urge to reach for your phone at once. Sit with the feeling for ten minutes. You may be surprised by where your mind takes you.",
+    "answer": "nudge",
+    "working": [
+      "Paragraph 3: 'we can treat it as a nudge to pick up a neglected hobby'.",
+      "A nudge is a gentle push ✓"
+    ],
+    "hints": [
+      "Paragraph 3 is the one about boredom pushing us to act.",
+      "Look for a noun that describes what the feeling of boredom gives us."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing · Reading and Viewing Closely (LO2) and Critically (LO3); Vocabulary (LO2). Exam: G3 Paper 2 Section C · non-narrative text (comprehension, vocabulary in context, language for effect)."
+  },
+  {
+    "id": "s2eng-practice-01-q25",
+    "skill": "s2-english",
+    "topic": "reading.non_narrative",
+    "subskill": "writer_view",
+    "archetype": "NN-VIEW",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which statement best describes the writer's view of boredom?",
+    "passage": "**In Praise of Doing Nothing**\n\nAsk most teenagers how they feel about boredom and you will hear the same answer: it is the enemy. With a phone in every pocket, boredom has become something to be crushed within seconds, usually with a swipe. Yet a growing number of psychologists believe that we have got boredom badly wrong. Far from being wasted time, they argue, those empty moments may be among the most useful we have.\n\nThe first gift of boredom is creativity. When the mind has nothing to hold on to, it begins to wander, and a wandering mind makes unexpected connections. Researchers have found that people who first spend time on a dull task often come up with more original ideas afterwards than people who start straight away.\n\nBoredom also pushes us to act. It is an uncomfortable feeling, and that discomfort is a signal: whatever we are doing is not satisfying us. Instead of numbing the feeling with another video, we can treat it as a nudge to pick up a neglected hobby, call a friend or finally start the project we have been putting off.\n\nPerhaps most importantly, quiet moments give us space to think about our own lives. Without a constant stream of other people's updates, we can replay the day, sort out a problem or simply notice how we feel. Some researchers believe that this kind of reflection helps us to plan for the future and to understand ourselves better.\n\nNone of this means that we should seek out boredom all day. Long stretches of it, especially when we feel trapped, can make people restless and unhappy. The point is smaller and simpler: the next time you feel bored, resist the urge to reach for your phone at once. Sit with the feeling for ten minutes. You may be surprised by where your mind takes you.",
+    "options": [
+      "It is harmful and should always be avoided.",
+      "It matters only to scientists who study the mind.",
+      "It is useful in small doses, but too much of it can make people unhappy.",
+      "It is the main reason teenagers use their phones."
+    ],
+    "answer": 3,
+    "working": [
+      "Paragraphs 2–4 give boredom's benefits.",
+      "Paragraph 5 adds a limit: long stretches can make people restless and unhappy.",
+      "So: useful in small doses, harmful in excess ✓"
+    ],
+    "distractors": {
+      "1": "The writer argues the opposite in paragraphs 2–4.",
+      "2": "The writer speaks to all readers ('the next time you feel bored').",
+      "4": "Phones are mentioned as how people escape boredom, not as its main cause."
+    },
+    "hints": [
+      "Read the first sentence of each paragraph to get the writer's argument.",
+      "Does the last paragraph add a condition or a warning?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing · Reading and Viewing Closely (LO2) and Critically (LO3); Vocabulary (LO2). Exam: G3 Paper 2 Section C · non-narrative text (comprehension, vocabulary in context, language for effect)."
+  },
+  {
+    "id": "s2eng-practice-01-q26",
+    "skill": "s2-english",
+    "topic": "reading.non_narrative",
+    "subskill": "inference",
+    "archetype": "NN-INFER",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Why does the writer call the discomfort of boredom 'a signal'? What does the writer suggest we do when we notice it?",
+    "passage": "**In Praise of Doing Nothing**\n\nAsk most teenagers how they feel about boredom and you will hear the same answer: it is the enemy. With a phone in every pocket, boredom has become something to be crushed within seconds, usually with a swipe. Yet a growing number of psychologists believe that we have got boredom badly wrong. Far from being wasted time, they argue, those empty moments may be among the most useful we have.\n\nThe first gift of boredom is creativity. When the mind has nothing to hold on to, it begins to wander, and a wandering mind makes unexpected connections. Researchers have found that people who first spend time on a dull task often come up with more original ideas afterwards than people who start straight away.\n\nBoredom also pushes us to act. It is an uncomfortable feeling, and that discomfort is a signal: whatever we are doing is not satisfying us. Instead of numbing the feeling with another video, we can treat it as a nudge to pick up a neglected hobby, call a friend or finally start the project we have been putting off.\n\nPerhaps most importantly, quiet moments give us space to think about our own lives. Without a constant stream of other people's updates, we can replay the day, sort out a problem or simply notice how we feel. Some researchers believe that this kind of reflection helps us to plan for the future and to understand ourselves better.\n\nNone of this means that we should seek out boredom all day. Long stretches of it, especially when we feel trapped, can make people restless and unhappy. The point is smaller and simpler: the next time you feel bored, resist the urge to reach for your phone at once. Sit with the feeling for ten minutes. You may be surprised by where your mind takes you.",
+    "answer": "It tells us that whatever we are doing is not satisfying us. Instead of numbing the feeling with another video, we should act on it, for example by picking up a neglected hobby, calling a friend or starting a project we have put off.",
+    "working": [
+      "Paragraph 3 explains the signal straight after the colon.",
+      "The next sentence gives the action the writer recommends."
+    ],
+    "hints": [
+      "Read what comes after the colon in paragraph 3.",
+      "Then find what the writer says we can 'treat it as'."
+    ],
+    "keywords": [
+      "not satisfying",
+      "tells us",
+      "act",
+      "hobby",
+      "call a friend",
+      "start the project",
+      "instead of another video"
+    ],
+    "marking": [
+      "1 mark: the signal tells us that what we are doing is not satisfying us.",
+      "1 mark: we should act on it (take up a hobby, call a friend, start a project) instead of numbing it."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing · Reading and Viewing Closely (LO2) and Critically (LO3); Vocabulary (LO2). Exam: G3 Paper 2 Section C · non-narrative text (comprehension, vocabulary in context, language for effect)."
+  },
+  {
+    "id": "s2eng-practice-01-q27",
+    "skill": "s2-english",
+    "topic": "reading.non_narrative",
+    "subskill": "language_for_effect",
+    "archetype": "NN-EFFECT",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "open",
+    "stem": "The passage ends with 'You may be surprised by where your mind takes you.' What effect does the writer want this sentence to have on the reader?",
+    "passage": "**In Praise of Doing Nothing**\n\nAsk most teenagers how they feel about boredom and you will hear the same answer: it is the enemy. With a phone in every pocket, boredom has become something to be crushed within seconds, usually with a swipe. Yet a growing number of psychologists believe that we have got boredom badly wrong. Far from being wasted time, they argue, those empty moments may be among the most useful we have.\n\nThe first gift of boredom is creativity. When the mind has nothing to hold on to, it begins to wander, and a wandering mind makes unexpected connections. Researchers have found that people who first spend time on a dull task often come up with more original ideas afterwards than people who start straight away.\n\nBoredom also pushes us to act. It is an uncomfortable feeling, and that discomfort is a signal: whatever we are doing is not satisfying us. Instead of numbing the feeling with another video, we can treat it as a nudge to pick up a neglected hobby, call a friend or finally start the project we have been putting off.\n\nPerhaps most importantly, quiet moments give us space to think about our own lives. Without a constant stream of other people's updates, we can replay the day, sort out a problem or simply notice how we feel. Some researchers believe that this kind of reflection helps us to plan for the future and to understand ourselves better.\n\nNone of this means that we should seek out boredom all day. Long stretches of it, especially when we feel trapped, can make people restless and unhappy. The point is smaller and simpler: the next time you feel bored, resist the urge to reach for your phone at once. Sit with the feeling for ten minutes. You may be surprised by where your mind takes you.",
+    "answer": "To make the reader curious and willing to try sitting with boredom, ending on a hopeful, inviting note that promises something interesting will happen.",
+    "working": [
+      "The sentence speaks to 'you' and hints at a surprise.",
+      "Its job is to persuade the reader to try the writer's advice."
+    ],
+    "hints": [
+      "Who is 'you' in this sentence?",
+      "How might a reader feel after being told they 'may be surprised'?"
+    ],
+    "keywords": [
+      "curious",
+      "encourage",
+      "try",
+      "inviting",
+      "hopeful",
+      "positive",
+      "persuade"
+    ],
+    "marking": [
+      "1 mark: it makes the reader curious / encourages them to try the ten minutes (a hopeful, inviting ending)."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing · Reading and Viewing Closely (LO2) and Critically (LO3); Vocabulary (LO2). Exam: G3 Paper 2 Section C · non-narrative text (comprehension, vocabulary in context, language for effect)."
+  },
+  {
+    "id": "s2eng-practice-01-q28",
+    "skill": "s2-english",
+    "topic": "reading.summary",
+    "subskill": "main_ideas",
+    "archetype": "SU-POINTS",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "You are summarising the benefits of boredom. Which of these is a main point you should include, rather than an example or a detail?",
+    "passage": "**In Praise of Doing Nothing**\n\nAsk most teenagers how they feel about boredom and you will hear the same answer: it is the enemy. With a phone in every pocket, boredom has become something to be crushed within seconds, usually with a swipe. Yet a growing number of psychologists believe that we have got boredom badly wrong. Far from being wasted time, they argue, those empty moments may be among the most useful we have.\n\nThe first gift of boredom is creativity. When the mind has nothing to hold on to, it begins to wander, and a wandering mind makes unexpected connections. Researchers have found that people who first spend time on a dull task often come up with more original ideas afterwards than people who start straight away.\n\nBoredom also pushes us to act. It is an uncomfortable feeling, and that discomfort is a signal: whatever we are doing is not satisfying us. Instead of numbing the feeling with another video, we can treat it as a nudge to pick up a neglected hobby, call a friend or finally start the project we have been putting off.\n\nPerhaps most importantly, quiet moments give us space to think about our own lives. Without a constant stream of other people's updates, we can replay the day, sort out a problem or simply notice how we feel. Some researchers believe that this kind of reflection helps us to plan for the future and to understand ourselves better.\n\nNone of this means that we should seek out boredom all day. Long stretches of it, especially when we feel trapped, can make people restless and unhappy. The point is smaller and simpler: the next time you feel bored, resist the urge to reach for your phone at once. Sit with the feeling for ten minutes. You may be surprised by where your mind takes you.",
+    "options": [
+      "People sometimes call a friend.",
+      "Boredom can make us more creative.",
+      "There is a phone in every pocket.",
+      "People may replay the day."
+    ],
+    "answer": 2,
+    "working": [
+      "A summary point states a benefit in general terms.",
+      "'Boredom can make us more creative' is the main idea of paragraph 2 ✓; the others are examples or background."
+    ],
+    "distractors": {
+      "1": "Calling a friend is one example of acting on boredom, not the point itself.",
+      "3": "This is background about why people escape boredom, not a benefit.",
+      "4": "Replaying the day is an example of reflection."
+    },
+    "hints": [
+      "A main point answers the question 'What is one benefit?' in general words.",
+      "Examples often come after words such as 'pick up', 'call' or 'replay'."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing Closely (LO2: identify main ideas and details) and Writing and Representing (LO4: develop, organise and express ideas coherently and cohesively). Exam: G3 Paper 2 Section C · summary writing."
+  },
+  {
+    "id": "s2eng-practice-01-q29",
+    "skill": "s2-english",
+    "topic": "reading.summary",
+    "subskill": "own_words",
+    "archetype": "SU-PARAPHRASE",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Rewrite this point in your own words, using no more than 15 words: 'that discomfort is a signal: whatever we are doing is not satisfying us.'",
+    "passage": "**In Praise of Doing Nothing**\n\nAsk most teenagers how they feel about boredom and you will hear the same answer: it is the enemy. With a phone in every pocket, boredom has become something to be crushed within seconds, usually with a swipe. Yet a growing number of psychologists believe that we have got boredom badly wrong. Far from being wasted time, they argue, those empty moments may be among the most useful we have.\n\nThe first gift of boredom is creativity. When the mind has nothing to hold on to, it begins to wander, and a wandering mind makes unexpected connections. Researchers have found that people who first spend time on a dull task often come up with more original ideas afterwards than people who start straight away.\n\nBoredom also pushes us to act. It is an uncomfortable feeling, and that discomfort is a signal: whatever we are doing is not satisfying us. Instead of numbing the feeling with another video, we can treat it as a nudge to pick up a neglected hobby, call a friend or finally start the project we have been putting off.\n\nPerhaps most importantly, quiet moments give us space to think about our own lives. Without a constant stream of other people's updates, we can replay the day, sort out a problem or simply notice how we feel. Some researchers believe that this kind of reflection helps us to plan for the future and to understand ourselves better.\n\nNone of this means that we should seek out boredom all day. Long stretches of it, especially when we feel trapped, can make people restless and unhappy. The point is smaller and simpler: the next time you feel bored, resist the urge to reach for your phone at once. Sit with the feeling for ten minutes. You may be surprised by where your mind takes you.",
+    "answer": "Feeling bored tells us that our current activity is not fulfilling enough.",
+    "working": [
+      "Find the key words: discomfort, signal, not satisfying.",
+      "Replace each with your own: feeling bored / uneasy → tells us / shows → unfulfilling / unrewarding."
+    ],
+    "hints": [
+      "Underline the three key words you must replace.",
+      "Keep the meaning, change the words, then count to 15."
+    ],
+    "keywords": [
+      "feeling bored",
+      "tells us",
+      "shows",
+      "current activity",
+      "not fulfilling",
+      "unrewarding",
+      "dissatisfied"
+    ],
+    "marking": [
+      "1 mark: the meaning is kept: the uncomfortable feeling shows that our present activity is unsatisfying.",
+      "1 mark: own words for the key terms ('discomfort', 'signal', 'not satisfying') within the 15-word limit; copying any of those three words, or going over 15 words, loses this mark."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing Closely (LO2: identify main ideas and details) and Writing and Representing (LO4: develop, organise and express ideas coherently and cohesively). Exam: G3 Paper 2 Section C · summary writing."
+  },
+  {
+    "id": "s2eng-practice-01-q30",
+    "skill": "s2-english",
+    "topic": "reading.summary",
+    "subskill": "summary_writing",
+    "archetype": "SU-WRITE",
+    "difficulty": 4,
+    "marks": 8,
+    "type": "open",
+    "stem": "Using your own words as far as possible, summarise the benefits of boredom described in paragraphs 2 to 4. Write in continuous prose (not in note form), in no more than 80 words, not counting the words given to help you begin.\n\nBoredom can benefit us because …",
+    "passage": "**In Praise of Doing Nothing**\n\nAsk most teenagers how they feel about boredom and you will hear the same answer: it is the enemy. With a phone in every pocket, boredom has become something to be crushed within seconds, usually with a swipe. Yet a growing number of psychologists believe that we have got boredom badly wrong. Far from being wasted time, they argue, those empty moments may be among the most useful we have.\n\nThe first gift of boredom is creativity. When the mind has nothing to hold on to, it begins to wander, and a wandering mind makes unexpected connections. Researchers have found that people who first spend time on a dull task often come up with more original ideas afterwards than people who start straight away.\n\nBoredom also pushes us to act. It is an uncomfortable feeling, and that discomfort is a signal: whatever we are doing is not satisfying us. Instead of numbing the feeling with another video, we can treat it as a nudge to pick up a neglected hobby, call a friend or finally start the project we have been putting off.\n\nPerhaps most importantly, quiet moments give us space to think about our own lives. Without a constant stream of other people's updates, we can replay the day, sort out a problem or simply notice how we feel. Some researchers believe that this kind of reflection helps us to plan for the future and to understand ourselves better.\n\nNone of this means that we should seek out boredom all day. Long stretches of it, especially when we feel trapped, can make people restless and unhappy. The point is smaller and simpler: the next time you feel bored, resist the urge to reach for your phone at once. Sit with the feeling for ten minutes. You may be surprised by where your mind takes you.",
+    "answer": "Boredom can benefit us because, with nothing to focus on, our minds drift and link ideas in new ways, which makes us more inventive. Its unpleasantness also warns us that our current activity is unfulfilling, prompting us to do something worthwhile rather than distract ourselves. Finally, quiet time lets us reflect on our lives, work through problems and recognise our emotions, which helps us prepare for the future and know ourselves better.",
+    "working": [
+      "Read paragraphs 2–4 and underline each benefit, leaving out examples (the dull-task study, a neglected hobby, calling a friend).",
+      "Group the points: creativity; acting on the signal; reflection.",
+      "Rewrite in your own words, join with connectors (also, finally, which), and count the words."
+    ],
+    "hints": [
+      "Each of paragraphs 2, 3 and 4 opens with its main benefit. Start there.",
+      "Leave out examples; keep the general points and put them in your own words."
+    ],
+    "keywords": [
+      "mind wanders",
+      "new connections",
+      "creative",
+      "inventive",
+      "unfulfilling",
+      "prompts us to act",
+      "worthwhile",
+      "reflect",
+      "problems",
+      "emotions",
+      "future",
+      "know ourselves"
+    ],
+    "marking": [
+      "Content: 1 mark per point, up to 8: (1) with nothing to focus on, the mind wanders; (2) it makes unexpected connections; (3) so we become more creative / produce more original ideas; (4) the discomfort signals that what we are doing is unsatisfying; (5) it pushes us to act / do something meaningful instead of numbing it; (6) quiet moments give space to reflect on our lives (replay the day, solve problems, notice feelings); (7) reflection helps us plan for the future; (8) it helps us understand ourselves better.",
+      "Language is judged separately with the G3 Summary Style band descriptors (up to 7 marks: own words and structures, organisation); a grown-up gives that score.",
+      "In this practice, only the first 80 words after the given opening 'Boredom can benefit us because' are marked for content."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original Sec 2 G3 English practice written by Claude Code for myKx from the MOE English Language Syllabus 2020 (Secondary G2 and G3) and SEAB's SEC G3 English Language (K300) format; checked by an independent re-solve."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.0.0",
+    "notes": "Syllabus: Reading and Viewing Closely (LO2: identify main ideas and details) and Writing and Representing (LO4: develop, organise and express ideas coherently and cohesively). Exam: G3 Paper 2 Section C · summary writing."
+  }
+]
