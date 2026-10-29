@@ -1,0 +1,317 @@
+[
+  {
+    "id": "s2sci-original-03-f1",
+    "skill": "s2-science",
+    "topic": "physics.forces_energy",
+    "subskill": "contact_noncontact",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which force can act on an object without touching it?",
+    "options": [
+      "The friction between a box and the floor.",
+      "The gravitational force of the Earth on a falling ball.",
+      "The air resistance on a falling leaf.",
+      "The push of a hand on a door."
+    ],
+    "answer": 2,
+    "working": [
+      "Contact forces act only where two things touch: friction, air resistance and a push or pull by hand are contact forces.",
+      "Non-contact forces act across a distance: gravitational force and magnetic force are examples.",
+      "The Earth pulls the falling ball downwards even though they are not touching."
+    ],
+    "distractors": {
+      "1": "Friction acts only where the box and the floor touch.",
+      "3": "Air resistance comes from the air touching and pushing against the leaf as it falls.",
+      "4": "A push needs the hand to touch the door."
+    },
+    "hints": [
+      "For each force, ask: do the two things have to touch for this force to act?",
+      "A non-contact force works across a gap. Which of these could still act with empty space between the two objects?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-03: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 9 (Application of Forces and Transfer of Energy); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 9 (Application of Forces and Transfer of Energy), LO 9.1 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-03-f2",
+    "skill": "s2-science",
+    "topic": "physics.forces_energy",
+    "subskill": "mass_vs_weight",
+    "archetype": "mass-vs-weight-on-another-planet",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "A toolkit has a mass of 12 kg and a weight of 120 N on Earth. The gravitational pull on the Moon is about one-sixth of that on Earth. What are the toolkit's mass and weight on the Moon?",
+    "options": [
+      "mass 12 kg, weight 20 N",
+      "mass 2 kg, weight 20 N",
+      "mass 12 kg, weight 120 N",
+      "mass 2 kg, weight 120 N"
+    ],
+    "answer": 1,
+    "working": [
+      "Mass is the amount of matter in the toolkit. It does not change from place to place, so it is still 12 kg on the Moon.",
+      "Weight is the gravitational force on the toolkit. The Moon pulls with about one-sixth of the Earth's pull, so the weight is about 120 N ÷ 6 = 20 N.",
+      "Watch out: Mass (kg, measured with a balance) stays the same; weight (N, measured with a spring balance) changes with the gravitational pull."
+    ],
+    "distractors": {
+      "2": "The weight is right, but the mass does not change: the toolkit has the same amount of matter on the Moon.",
+      "3": "The mass is right, but weight depends on the gravitational pull, which is weaker on the Moon.",
+      "4": "Mass and weight are swapped. It is the weight that changes, not the mass."
+    },
+    "hints": [
+      "Which quantity is the amount of matter, and which is a force caused by gravity?",
+      "Only one of the two quantities depends on how strongly the Moon pulls."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-03: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 9 (Application of Forces and Transfer of Energy); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 9 (Application of Forces and Transfer of Energy), LO 9.6, 9.7 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-03-f3",
+    "skill": "s2-science",
+    "topic": "physics.forces_energy",
+    "subskill": "pressure",
+    "archetype": "maximum-or-minimum-pressure-from-a-block",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "A wooden block weighs 60 N. It measures 0.50 m × 0.20 m × 0.10 m and can rest on the floor on any of its faces. Calculate the greatest pressure, in Pa, that the block can exert on the floor.",
+    "answer": "3000",
+    "accept": [
+      "3000 N/m²",
+      "3000 N/m2",
+      "3000 pascals"
+    ],
+    "unit": "Pa",
+    "working": [
+      "Pressure = force ÷ area. The force is the block's weight, 60 N, whichever face it rests on.",
+      "The greatest pressure comes from the SMALLEST area: the 0.20 m × 0.10 m face, with area 0.020 m².",
+      "Pressure = 60 N ÷ 0.020 m² = 3000 Pa (N/m²).",
+      "Common error: Using the largest face (0.50 m × 0.20 m = 0.10 m²) gives 600 Pa, which is the LEAST pressure."
+    ],
+    "hints": [
+      "Pressure = force ÷ area. Which stays the same whichever face the block rests on: the force or the area?",
+      "For the greatest pressure, should the area be as large or as small as possible?"
+    ],
+    "marking": [
+      "M1: the smallest area chosen, 0.20 m × 0.10 m = 0.020 m².",
+      "A1: 3000 Pa (or N/m²), with the unit."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-03: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 9 (Application of Forces and Transfer of Energy); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 9 (Application of Forces and Transfer of Energy), LO 9.8 (G3), 9.2 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-03-f4",
+    "skill": "s2-science",
+    "topic": "physics.forces_energy",
+    "subskill": "work_done",
+    "archetype": "is-work-done-in-this-case",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "In which situation does the force described do work on the object?",
+    "options": [
+      "A guard's arms hold a box still at chest height for ten minutes.",
+      "Siti pushes hard against a wall that does not move.",
+      "A waiter's hand holds a tray up while he walks across a room, keeping the tray at the same height.",
+      "A cleaner's push moves a trolley 8 m along a corridor."
+    ],
+    "answer": 4,
+    "working": [
+      "A force does work only when the object moves in the direction of that force. The work done is the energy transferred, measured in joules.",
+      "The cleaner pushes forwards and the trolley moves forwards, so her push does work on the trolley.",
+      "The box and the wall do not move. The tray moves sideways, but the hand's force is upwards: there is no movement in the direction of that force, so it does no work on the tray.",
+      "Watch out: Feeling tired is not the test. Ask: did the object move, and in the direction of the force?"
+    ],
+    "distractors": {
+      "1": "The box does not move, so the arms do no work on it, even though holding it is tiring.",
+      "2": "The wall does not move, so no work is done on it.",
+      "3": "The tray moves sideways, but the hand pushes upwards. There is no movement in the direction of the upward force, so it does no work on the tray."
+    },
+    "hints": [
+      "For each one, ask two questions: did the object move, and which way did the force act?",
+      "Work is done only if the object moves in the same direction as the force."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-03: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 9 (Application of Forces and Transfer of Energy); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 9 (Application of Forces and Transfer of Energy), LO 9.5 (G3) (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-03-f5a",
+    "skill": "s2-science",
+    "topic": "physics.forces_energy",
+    "subskill": "energy_types",
+    "archetype": "GPE-to-KE-at-three-points",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "open",
+    "stem": "Arjun releases a ball from rest at point P, at the top of a curved ramp. The ball rolls down to Q, the lowest point, and up the other side. It stops for a moment at R, which is a little lower than P, before rolling back.\n\n(a) State the main energy conversion as the ball rolls from P to Q.",
+    "answer": "Gravitational potential energy is converted to kinetic energy.",
+    "working": [
+      "At P the ball is high up and still: it has gravitational potential energy and no kinetic energy.",
+      "As it rolls down to Q it loses height and gains speed, so gravitational potential energy is converted to kinetic energy.",
+      "Common error: Writing 'potential energy to motion'. Name both forms in full: gravitational potential energy and kinetic energy."
+    ],
+    "hints": [
+      "What does the ball lose as it rolls down, and what does it gain?",
+      "Height goes with one form of energy and speed with another. Name both."
+    ],
+    "keywords": [
+      "gravitational potential energy",
+      "kinetic energy"
+    ],
+    "marking": [
+      "1 mark: gravitational potential energy → kinetic energy (both named, in that order)."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-03: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 9 (Application of Forces and Transfer of Energy); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 9 (Application of Forces and Transfer of Energy), LO 9.9 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-03-f5b",
+    "skill": "s2-science",
+    "topic": "physics.forces_energy",
+    "subskill": "conservation_of_energy",
+    "archetype": "GPE-to-KE-at-three-points",
+    "difficulty": 4,
+    "marks": 2,
+    "type": "open",
+    "stem": "Arjun releases a ball from rest at point P, at the top of a curved ramp. The ball rolls down to Q, the lowest point, and up the other side. It stops for a moment at R, which is a little lower than P, before rolling back.\n\n(b) Explain, in terms of energy, why R is lower than P.",
+    "answer": "As the ball rolls, friction (and air resistance) converts some of its energy into thermal energy and sound, which are lost to the surroundings. So less energy is left to be converted back into gravitational potential energy, and the ball cannot rise as high as P. The total energy is still conserved.",
+    "working": [
+      "Energy cannot be created or destroyed: the total amount stays the same.",
+      "On the way, friction between the ball and the ramp, and air resistance, convert some energy into thermal energy and sound.",
+      "That energy is no longer in the ball, so at R the ball has less gravitational potential energy than at P, and R is lower.",
+      "Common error: 'The energy is used up.' Say what it is converted into and where it goes."
+    ],
+    "hints": [
+      "Energy is never destroyed. Which forces act on the ball as it rolls, and what do they turn some of its energy into?",
+      "At R the ball is still for a moment. Compare its gravitational potential energy there with at P."
+    ],
+    "keywords": [
+      "friction",
+      "thermal energy lost to the surroundings",
+      "less gravitational potential energy at R"
+    ],
+    "marking": [
+      "1 mark: friction (or air resistance) converts some energy into thermal energy (and sound), lost to the surroundings.",
+      "1 mark: so less energy is available to become gravitational potential energy at R, and the ball cannot rise to the height of P. Do not accept 'energy is used up'."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-03: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 9 (Application of Forces and Transfer of Energy); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 9 (Application of Forces and Transfer of Energy), LO 9.10, 9.9 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-03-f6",
+    "skill": "s2-science",
+    "topic": "physics.forces_energy",
+    "subskill": "friction",
+    "archetype": "friction-and-thermal-energy",
+    "difficulty": 4,
+    "marks": 3,
+    "type": "open",
+    "stem": "Farah releases a toy trolley from the same point on a ramp each time. At the bottom it rolls onto a different floor surface, and she measures how far it travels on the floor before it stops.\n\n| Floor surface | Distance travelled (m) |\n| --- | --- |\n| carpet | 0.8 |\n| wooden board | 2.4 |\n| smooth tiles | 3.1 |\n\nUsing the results, explain why the trolley travels different distances on the three surfaces, and state one other variable Farah must keep the same for a fair test.",
+    "answer": "Friction acts against the motion of the trolley, slowing it down and converting its kinetic energy into thermal energy. The rougher the surface, the greater the friction. The carpet is the roughest, so the trolley stops after only 0.8 m; the smooth tiles give the least friction, so it travels the furthest, 3.1 m. Another variable to keep the same: the same trolley (same mass), the same ramp at the same slope, or letting the trolley go without pushing it.",
+    "working": [
+      "The surface is the variable she changes; the distance travelled is what she measures.",
+      "Friction, from the unevenness of the surfaces, opposes the motion and slows the trolley down.",
+      "A rougher surface gives more friction, so the trolley stops sooner: carpet 0.8 m, wooden board 2.4 m, smooth tiles 3.1 m.",
+      "Common error: Answering without numbers. A question that says 'using the results' needs values or a trend quoted from the table."
+    ],
+    "hints": [
+      "Which force acts against the trolley as it moves along the floor?",
+      "How does the roughness of each surface change that force? Quote two distances from the table."
+    ],
+    "keywords": [
+      "friction opposes motion",
+      "rougher surface, more friction",
+      "data quoted",
+      "same trolley or same slope"
+    ],
+    "marking": [
+      "1 mark: friction opposes the motion and slows the trolley (converting kinetic energy into thermal energy).",
+      "1 mark: a rougher surface gives more friction, so a shorter distance. At least one distance must be quoted from the table (e.g. carpet 0.8 m, tiles 3.1 m).",
+      "1 mark: one controlled variable other than the release point given in the question: same trolley (same mass), same ramp and slope, trolley released without a push. Do not accept 'same release point', which the question already gives."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-03: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 9 (Application of Forces and Transfer of Energy); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 9 (Application of Forces and Transfer of Energy), LO 9.1, 9.2 (fair-test practice) (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-03-f7",
+    "skill": "s2-science",
+    "topic": "physics.forces_energy",
+    "subskill": "energy_sources",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "More solar panels are being installed in Singapore, on the roofs of buildings and floating on reservoirs. Which is an advantage of generating electricity from solar energy instead of by burning natural gas?",
+    "options": [
+      "Solar panels generate the same amount of electricity by day and by night.",
+      "Solar panels need very little space to generate a lot of electricity.",
+      "Solar panels do not release carbon dioxide while they generate electricity.",
+      "Solar energy is a non-renewable source, so it can be stored for many years."
+    ],
+    "answer": 3,
+    "working": [
+      "Burning natural gas, a fossil fuel, releases carbon dioxide, which adds to global warming.",
+      "Solar panels convert light energy into electrical energy without burning anything, so they release no carbon dioxide while working, and sunlight is a renewable source.",
+      "Their drawbacks: no electricity at night and less on cloudy days, and they need large areas, which is why Singapore also places them on reservoirs."
+    ],
+    "distractors": {
+      "1": "Solar panels need sunlight. They generate nothing at night and less on cloudy days.",
+      "2": "Solar panels need large areas. Land is scarce in Singapore, which is why panels are also floated on reservoirs.",
+      "4": "Sunlight is a renewable source of energy, not a non-renewable one."
+    },
+    "hints": [
+      "What does burning a fossil fuel release into the air that a solar panel does not?",
+      "Think about each source's effect on the environment, not only about how much electricity it gives."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-03: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 9 (Application of Forces and Transfer of Energy); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 9 (Application of Forces and Transfer of Energy), LO 9.12 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  }
+]

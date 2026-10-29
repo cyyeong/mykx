@@ -6,7 +6,8 @@
 // The source is treated as data: Markdown and JSON are read, nothing in it is
 // executed, and instructions inside it are not followed. The importer writes
 // SKILL.md, skill.json, references/*.md, items/*.json and the figures those items
-// use. It keeps hand-authored files (items/demo.json, figures/demo-*) and refuses
+// use. It keeps hand-authored files (items/demo.json, items/original-*.json and
+// their figures, figures/demo-*) and refuses
 // to finish if anything it wrote matches lib/skills/safety.ts.
 import { copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { basename, dirname, extname, join, relative, resolve } from "node:path";
@@ -30,8 +31,12 @@ import {
 } from "./import-skill-lib.ts";
 
 const VERSION = "1.0.0";
-/** Files written by hand for myKx (demo items, original question sets) that a re-import never deletes. */
-const KEEP = (rel: string) => rel === "items/demo.json" || rel.startsWith("figures/demo-") || /^items\/original-\d+\.json$/.test(rel);
+/**
+ * Files written by hand for myKx (demo items, original question sets and the figures scripts/render-figures.ts
+ * drew for them, named after their item ids, e.g. figures/s2sci-original-02-n1-n2.svg) that a re-import never deletes.
+ */
+const KEEP = (rel: string) =>
+  rel === "items/demo.json" || rel.startsWith("figures/demo-") || /^items\/original-\d+\.json$/.test(rel) || /^figures\/[a-z0-9]+-original-\d+-[a-z0-9-]+\.svg$/.test(rel);
 
 function main(): void {
   const args = process.argv.slice(2);

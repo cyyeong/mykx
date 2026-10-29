@@ -1,0 +1,474 @@
+[
+  {
+    "id": "s2sci-original-02-n1",
+    "skill": "s2-science",
+    "topic": "biology.environment",
+    "subskill": "food_chains_webs",
+    "archetype": "complete-the-food-chain-arrows",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "The food web shows some feeding relationships in a pond. Which of these is a food chain from this food web?",
+    "options": [
+      "kingfisher → guppy → mosquito larva → algae",
+      "algae → mosquito larva → guppy → kingfisher",
+      "water plant → mosquito larva → dragonfly nymph → kingfisher",
+      "algae → snail → kingfisher"
+    ],
+    "answer": 2,
+    "working": [
+      "Each arrow points from the food to the organism that eats it: it shows the direction in which energy flows.",
+      "Algae are eaten by mosquito larvae, mosquito larvae by guppies and guppies by the kingfisher, so algae → mosquito larva → guppy → kingfisher follows the arrows.",
+      "Watch out: Read an arrow as 'is eaten by' or 'passes energy to', never as 'eats'."
+    ],
+    "distractors": {
+      "1": "The arrows are reversed. They must point from the food to the eater, the way energy flows.",
+      "3": "In this web the mosquito larvae feed on algae, not on the water plant. Check every link against the web.",
+      "4": "There is no arrow from the snail to the kingfisher. In this web, snails are eaten by the turtle."
+    },
+    "hints": [
+      "Put your finger on a producer and follow the arrows forward, one link at a time.",
+      "Check every link in each option against an arrow in the web, including which way it points."
+    ],
+    "figure": "figures/s2sci-original-02-n1-n2.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "food_web",
+          "nodes": {
+            "algae": [
+              1.5,
+              0
+            ],
+            "water plant": [
+              5,
+              0
+            ],
+            "mosquito larva": [
+              1.5,
+              1
+            ],
+            "snail": [
+              5,
+              1
+            ],
+            "guppy": [
+              0,
+              2
+            ],
+            "dragonfly nymph": [
+              2.8,
+              2
+            ],
+            "turtle": [
+              5.5,
+              2
+            ],
+            "kingfisher": [
+              1.5,
+              3
+            ]
+          },
+          "edges": [
+            [
+              "algae",
+              "mosquito larva"
+            ],
+            [
+              "algae",
+              "snail"
+            ],
+            [
+              "water plant",
+              "snail"
+            ],
+            [
+              "mosquito larva",
+              "guppy"
+            ],
+            [
+              "mosquito larva",
+              "dragonfly nymph"
+            ],
+            [
+              "guppy",
+              "kingfisher"
+            ],
+            [
+              "dragonfly nymph",
+              "kingfisher"
+            ],
+            [
+              "snail",
+              "turtle"
+            ]
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "original-02: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 12 (Interactions within Ecosystems); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 12 (Interactions within Ecosystems), LO 12.6 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending. Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "s2sci-original-02-n2",
+    "skill": "s2-science",
+    "topic": "biology.environment",
+    "subskill": "food_chains_webs",
+    "archetype": "what-happens-if-this-species-is-removed",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "The food web shows some feeding relationships in a pond. To control mosquitoes, the pond is treated with a substance that kills only mosquito larvae. Which is the most likely effect over the next few weeks?",
+    "options": [
+      "The amount of algae decreases, because the algae depend on the mosquito larvae.",
+      "The number of turtles decreases, because the turtles feed on mosquito larvae.",
+      "The number of kingfishers increases, because they have fewer animals to compete with.",
+      "The number of guppies decreases, because they lose their only food in this web."
+    ],
+    "answer": 4,
+    "working": [
+      "In this web, guppies feed only on mosquito larvae. With no larvae, the guppies lose their food, so their numbers fall.",
+      "Dragonfly nymphs also lose a source of food, so the kingfisher, which eats guppies and dragonfly nymphs, is likely to have less food too.",
+      "The algae are no longer eaten by mosquito larvae, so they are more likely to increase.",
+      "Watch out: Follow the arrows both ways from the removed organism: what it ate (now eaten less) and what ate it (now short of food)."
+    ],
+    "distractors": {
+      "1": "Mosquito larvae EAT algae. With fewer larvae, less algae is eaten, so the algae are more likely to increase.",
+      "2": "In this web the turtles feed on snails, not on mosquito larvae.",
+      "3": "The kingfisher's food (guppies and dragonfly nymphs) both fall, so the kingfishers are more likely to decrease."
+    },
+    "hints": [
+      "Find the mosquito larva in the web. Which organisms have an arrow coming FROM it?",
+      "Of those organisms, which one has no other food in this web?"
+    ],
+    "figure": "figures/s2sci-original-02-n1-n2.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "food_web",
+          "nodes": {
+            "algae": [
+              1.5,
+              0
+            ],
+            "water plant": [
+              5,
+              0
+            ],
+            "mosquito larva": [
+              1.5,
+              1
+            ],
+            "snail": [
+              5,
+              1
+            ],
+            "guppy": [
+              0,
+              2
+            ],
+            "dragonfly nymph": [
+              2.8,
+              2
+            ],
+            "turtle": [
+              5.5,
+              2
+            ],
+            "kingfisher": [
+              1.5,
+              3
+            ]
+          },
+          "edges": [
+            [
+              "algae",
+              "mosquito larva"
+            ],
+            [
+              "algae",
+              "snail"
+            ],
+            [
+              "water plant",
+              "snail"
+            ],
+            [
+              "mosquito larva",
+              "guppy"
+            ],
+            [
+              "mosquito larva",
+              "dragonfly nymph"
+            ],
+            [
+              "guppy",
+              "kingfisher"
+            ],
+            [
+              "dragonfly nymph",
+              "kingfisher"
+            ],
+            [
+              "snail",
+              "turtle"
+            ]
+          ]
+        }
+      ]
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "original-02: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 12 (Interactions within Ecosystems); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 12 (Interactions within Ecosystems), LO 12.5, 12.6 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending. Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "s2sci-original-02-n3",
+    "skill": "s2-science",
+    "topic": "biology.environment",
+    "subskill": "organism_interactions",
+    "archetype": "name-the-relationship",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which option correctly names the relationship between the two organisms?",
+    "options": [
+      "A tick feeds on the blood of a dog: parasitism.",
+      "A bee collects nectar from a flower and carries its pollen to the next flower: parasitism.",
+      "An owl catches and eats a rat: mutualism.",
+      "Bacteria in a cow's gut help it digest grass, and get food and shelter in return: predator and prey."
+    ],
+    "answer": 1,
+    "working": [
+      "Parasitism: one organism (the parasite) lives on or in another (the host) and feeds on it, harming the host, usually without killing it. The tick and the dog fit.",
+      "The bee and the flower both benefit (mutualism). The owl kills and eats the rat (predator and prey). The cow and its gut bacteria both benefit (mutualism).",
+      "Watch out: A parasite harms its host but does not usually kill it. A predator kills its prey."
+    ],
+    "distractors": {
+      "2": "Both the bee (food) and the flower (pollination) benefit, so this is mutualism.",
+      "3": "The owl kills and eats the rat: a predator and its prey. Mutualism needs both organisms to benefit.",
+      "4": "Both the cow and the bacteria benefit, so this is mutualism. Nothing is hunted or killed."
+    },
+    "hints": [
+      "For each pair, ask: who benefits, and is anyone harmed or killed?",
+      "In parasitism one organism benefits, and the other is harmed but usually stays alive."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-02: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 12 (Interactions within Ecosystems); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 12 (Interactions within Ecosystems), LO 12.5 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-02-n4",
+    "skill": "s2-science",
+    "topic": "biology.environment",
+    "subskill": "ecosystem_hierarchy",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which of these best describes an ecosystem?",
+    "options": [
+      "All the organisms in a pond, interacting with its water, light and temperature.",
+      "All the guppies living together in one pond.",
+      "All the populations of plants and animals living together in a pond.",
+      "The place in a pond where one kind of organism lives and feeds."
+    ],
+    "answer": 1,
+    "working": [
+      "A population is all the organisms of one kind in an area. A community is all the populations living there together.",
+      "An ecosystem is a community interacting with its physical (non-living) environment, such as water, light, temperature and minerals."
+    ],
+    "distractors": {
+      "2": "All the guppies together form a population: organisms of one kind.",
+      "3": "All the populations together form a community. An ecosystem also includes the physical environment.",
+      "4": "This describes a habitat, the place where an organism lives."
+    },
+    "hints": [
+      "Put these in order from smallest to largest: organism, population, community, ecosystem.",
+      "Only one of these levels includes non-living things."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-02: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 12 (Interactions within Ecosystems); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 12 (Interactions within Ecosystems), LO 12.4 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-02-n5",
+    "skill": "s2-science",
+    "topic": "biology.environment",
+    "subskill": "adaptations",
+    "archetype": "structural-or-behavioural",
+    "difficulty": 3,
+    "marks": 4,
+    "type": "open",
+    "stem": "The Sunda pangolin lives in Singapore's forests. Three of its features are listed.\n\n(i) It has hard, overlapping scales on its back.\n(ii) It rolls into a tight ball when it is threatened.\n(iii) It has a long, sticky tongue.\n\nClassify each feature as a structural or a behavioural adaptation, and explain how rolling into a ball helps the pangolin to survive.",
+    "answer": "(i) structural, (ii) behavioural, (iii) structural. When it rolls into a ball, only its hard scales face outwards and its soft underside is hidden, so a predator cannot easily bite or injure it, and the pangolin is less likely to be killed.",
+    "working": [
+      "A structural adaptation is a body part or feature the organism has. A behavioural adaptation is something the organism does.",
+      "Scales and a sticky tongue are body features (structural). Rolling into a ball is an action (behavioural).",
+      "Rolling up covers the soft underside with hard scales, so a predator cannot get a grip or bite through.",
+      "Common error: Describing the feature without linking it to survival. Finish with what it does for the pangolin: it is not easily injured or eaten."
+    ],
+    "hints": [
+      "For each feature, ask: is it something the pangolin has, or something the pangolin does?",
+      "When it is rolled up, which part of its body faces the predator, and which part is hidden?"
+    ],
+    "keywords": [
+      "(i) and (iii) structural",
+      "(ii) behavioural",
+      "soft underside hidden",
+      "predators cannot easily injure it"
+    ],
+    "marking": [
+      "2 marks: classification: (i) structural, (ii) behavioural, (iii) structural. All three correct = 2 marks; two correct = 1 mark.",
+      "1 mark: rolling up hides its soft underside, so only the hard scales are exposed.",
+      "1 mark: so predators cannot easily bite, injure or eat it, and it survives. The link to survival is needed for this mark; 'protects its belly' alone scores only the mark above."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-02: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 12 (Interactions within Ecosystems); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 12 (Interactions within Ecosystems), LO 12.3 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-02-n6",
+    "skill": "s2-science",
+    "topic": "biology.environment",
+    "subskill": "energy_flow",
+    "archetype": "energy-loss-between-levels",
+    "difficulty": 4,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "The table shows how much energy passes into each level of a pond food chain, for each square metre of the pond in one year.\n\n| Level | Energy (kJ per m² per year) |\n| --- | --- |\n| algae | 50 000 |\n| mosquito larvae | 5 000 |\n| guppies | 500 |\n| kingfisher | 50 |\n\nWhich statement best explains why the energy decreases along the food chain?",
+    "options": [
+      "Energy is destroyed each time one organism eats another, so less is left at each level.",
+      "Animals higher up the food chain need less energy, so they take in less from the level below.",
+      "At each level, much of the energy is used in respiration and lost as heat, so little is passed on.",
+      "Decomposers recycle most of the energy back to the algae, so less is left for the animals."
+    ],
+    "answer": 3,
+    "working": [
+      "Energy enters the food chain when the algae photosynthesise.",
+      "At each level, organisms use much of the energy they take in for respiration, and it is lost to the surroundings as heat. Some is also in parts that are not eaten, or is passed out as waste.",
+      "So only a small part (here about one tenth) is passed on to the next level, and the energy decreases along the chain.",
+      "Watch out: Energy is never destroyed. Say where it goes: 'lost to the surroundings as heat during respiration'."
+    ],
+    "distractors": {
+      "1": "Energy cannot be created or destroyed. It is converted, and lost to the surroundings as heat.",
+      "2": "The kingfisher needs plenty of energy. The point is that little energy is AVAILABLE at that level, because so much is lost at each level below it.",
+      "4": "Decomposers recycle nutrients, not energy. Energy flows one way along a food chain and is lost as heat; it never returns to the producers."
+    },
+    "hints": [
+      "Energy cannot be destroyed. So where does the energy that is not passed on go?",
+      "Think of a life process that every organism carries out all the time, and that releases heat."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-02: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 12 (Interactions within Ecosystems); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 12 (Interactions within Ecosystems), LO 12.6 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-02-n7",
+    "skill": "s2-science",
+    "topic": "biology.environment",
+    "subskill": "deforestation_effects",
+    "archetype": "deforestation-consequence-with-mechanism",
+    "difficulty": 4,
+    "marks": 3,
+    "type": "open",
+    "stem": "A large area of rainforest is cleared by cutting down the trees and burning them. Explain how this can contribute to global warming.",
+    "answer": "Burning the trees releases carbon dioxide into the air. With the trees gone, less carbon dioxide is removed from the air by photosynthesis. More carbon dioxide in the atmosphere traps more heat, so the Earth's average temperature rises (global warming).",
+    "working": [
+      "Two parts of the clearing change the amount of carbon dioxide in the air: burning adds it, and losing the trees means less is taken in for photosynthesis.",
+      "Carbon dioxide is a greenhouse gas: more of it in the atmosphere traps more heat.",
+      "Common error: 'Trees give us oxygen' does not answer a global-warming question. The answer needs carbon dioxide and the trapping of heat."
+    ],
+    "hints": [
+      "Two parts of the clearing change one gas in the air. What does burning do, and what did the trees do before they were cut down?",
+      "Finish the chain: more of that gas in the atmosphere means …"
+    ],
+    "keywords": [
+      "burning releases carbon dioxide",
+      "less photosynthesis",
+      "traps more heat"
+    ],
+    "marking": [
+      "1 mark: burning (combustion of) the trees releases carbon dioxide.",
+      "1 mark: fewer trees, so less carbon dioxide is taken in for photosynthesis.",
+      "1 mark: more carbon dioxide in the atmosphere traps more heat, so the Earth's temperature rises."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-02: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 12 (Interactions within Ecosystems); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 12 (Interactions within Ecosystems), LO 12.9 (with 10.10) (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-02-n8",
+    "skill": "s2-science",
+    "topic": "biology.environment",
+    "subskill": "decomposers",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Fallen leaves on a forest floor slowly disappear over a few months. Which statement explains what happens to them?",
+    "options": [
+      "They dissolve in rainwater and are washed away, so their nutrients are lost from the forest for good.",
+      "Decomposers break them down into energy, which then flows back into the roots of the trees.",
+      "The trees take the dead leaves back in through their roots and use them as food for growth.",
+      "Bacteria and fungi break them down, returning mineral salts to the soil for plants to take in again."
+    ],
+    "answer": 4,
+    "working": [
+      "Decomposers (bacteria and fungi) feed on dead organisms and break them down.",
+      "This releases the nutrients (mineral salts) that were in the leaves back into the soil.",
+      "Plants absorb these mineral salts through their roots, so the nutrients are recycled in the ecosystem.",
+      "Watch out: Nutrients are recycled; energy is not. Energy flows through an ecosystem and is lost as heat."
+    ],
+    "distractors": {
+      "1": "The leaves are broken down by living decomposers, and their nutrients are released into the soil, not lost.",
+      "2": "Energy is not recycled. Decomposers use the energy in the leaves for their own respiration; it is the nutrients that return to the soil.",
+      "3": "Roots absorb water and mineral salts, not whole leaves. Plants make their own food by photosynthesis."
+    },
+    "hints": [
+      "Which organisms feed on dead plant and animal matter?",
+      "In an ecosystem, which is recycled: the nutrients or the energy?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-02: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 12 (Interactions within Ecosystems); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 12 (Interactions within Ecosystems), LO 12.7 (G3) (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  }
+]

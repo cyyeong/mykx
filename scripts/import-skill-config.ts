@@ -920,13 +920,30 @@ When a mock is marked:
 const ED = "experimental_design";
 const S2SCI_TOPICS: SkillTopic[] = [
   { id: "chemistry.chemical_changes", title: "Chemical changes", weight: 0.14, source_tag: "chemical_changes", subskills: ["physical_vs_chemical", "word_equations", "conservation_of_mass", "reaction_types", "acids_alkalis_ph", "indicators", "acid_reactions", "gas_tests", ED] },
-  { id: "biology.environment", title: "Interactions with the environment", weight: 0.1, source_tag: "interactions_with_environment", subskills: ["human_impact", "deforestation_effects", "habitat_factors", "adaptations", "ecosystem_hierarchy", "organism_interactions", "food_chains_webs", "energy_flow", ED] },
-  { id: "physics.forces_energy", title: "Forces and energy transfer", weight: 0.15, source_tag: "forces_and_energy_transfer", subskills: ["force_effects", "contact_noncontact", "friction", "mass_vs_weight", "pressure", "work_done", "energy_types", "conservation_of_energy", ED] },
-  { id: "physics.heat", title: "Transfer of heat and its effects", weight: 0.14, source_tag: "heat_transfer", subskills: ["temperature_units", "expansion_contraction", "expansion_applications", "conduction", "convection", "radiation", "radiation_factors", "insulation_applications", ED] },
+  { id: "biology.environment", title: "Interactions within ecosystems", weight: 0.1, source_tag: "interactions_with_environment", subskills: ["human_impact", "deforestation_effects", "habitat_factors", "adaptations", "ecosystem_hierarchy", "organism_interactions", "food_chains_webs", "energy_flow", "decomposers", ED] },
+  { id: "physics.forces_energy", title: "Application of forces and transfer of energy", weight: 0.15, source_tag: "forces_and_energy_transfer", subskills: ["force_effects", "contact_noncontact", "friction", "mass_vs_weight", "pressure", "work_done", "energy_types", "conservation_of_energy", "energy_sources", ED] },
+  { id: "physics.heat", title: "Transfer of heat energy and its effects", weight: 0.14, source_tag: "heat_transfer", subskills: ["temperature_units", "expansion_contraction", "expansion_applications", "conduction", "convection", "radiation", "radiation_factors", "insulation_applications", ED] },
   { id: "physics.electrical", title: "Electrical systems", weight: 0.15, source_tag: "electrical_systems", subskills: ["circuit_symbols", "current_in_series", "parallel_independence", "meter_connection", "potential_difference", "resistance_current_relationship", "effective_resistance", "current_effects", "power_and_energy", "cost_calculation", "hazards_and_safety", "fuse_and_breaker", "energy_conservation_home", ED] },
   { id: "biology.digestion", title: "Human digestive system", weight: 0.11, source_tag: "human_digestive_system", subskills: ["nutrients", "why_digest", "physical_vs_chemical_digestion", "enzymes", "organ_functions", "enzyme_products", "absorption", "villi", "use_of_products", ED] },
-  { id: "biology.transport", title: "Transport systems in living things", weight: 0.11, source_tag: "transport_in_living_things", subskills: ["diffusion", "osmosis", "osmosis_in_plants", "blood_components", "blood_vessels", "plant_transport", "gas_exchange", ED] },
-  { id: "biology.reproduction", title: "Human sexual reproductive system", weight: 0.1, source_tag: "human_reproductive_system", subskills: ["asexual_vs_sexual", "puberty", "male_organs", "female_organs", "fertilisation", "implantation", "heredity", "menstrual_cycle", "birth_control", "stis", ED] },
+  { id: "biology.transport", title: "Transport systems in living things", weight: 0.11, source_tag: "transport_in_living_things", subskills: ["diffusion", "osmosis", "osmosis_in_plants", "blood_vessels", "plant_transport", "gas_exchange", "transport_need", ED] },
+  { id: "biology.reproduction", title: "Human sexual reproductive system", weight: 0.1, source_tag: "human_reproductive_system", subskills: ["puberty", "male_organs", "female_organs", "fertilisation", "implantation", "heredity", "menstrual_cycle", "birth_control", "stis", "population_growth", ED] },
+];
+
+// Hand-written for myKx on 29 Oct (items/original-*.json, kept by a re-import): the MOE syllabus check, the
+// misconception reading behind the distractors, and the items themselves.
+const S2SCI_ORIGINAL_SOURCES: SkillSource[] = [
+  {
+    kind: "own",
+    note: "Scope checked against MOE \"Science Syllabus, Lower Secondary, General 2 Course / General 3 Course\" (implementation from the 2021 Sec 1 cohort; 2024 edition, listed on moe.gov.sg as the 2023 G2/G3 Lower Secondary Science Syllabuses): https://www.moe.gov.sg/media/files/secondary/syllabuses/science/b6d63789-2ad0-4630-b847-42fd380ec404.pdf. Informed the topic list and titles, the learning-outcome codes and depth limits in references/syllabus-map.md, and the G3-only outcomes covered by items/original-*.json. No text copied beyond short outcome paraphrases."
+  },
+  {
+    kind: "own",
+    note: "Distractors and \"watch out\" lines informed by published research on misconceptions, read for ideas only: IOP Spark reviews of heat and particle-model misconceptions (spark.iop.org); RSC Beyond Appearances on chemical change and mass in open and closed systems (edu.rsc.org); NZCER ARBS \"A garden food web\" on reading food-web arrows (arbs.nzcer.org.nz); and studies of diffusion and osmosis misconceptions (openjournals.library.sydney.edu.au/CAL). No question text, numbers or tables came from any source."
+  },
+  {
+    kind: "generated",
+    note: "Items in items/original-01.json to original-07.json (52 questions for the seven non-electrical topics, version 1.1.0) written by Claude Code in October 2026 from the MOE syllabus above and this pack's references, each mapped to a syllabus outcome in its notes; every answer was re-derived in an independent re-solve before review. Founder review pending."
+  }
 ];
 
 const S2SCI: PackConfig = {
@@ -938,11 +955,11 @@ const S2SCI: PackConfig = {
     "Secondary 2 G3 Science (Singapore MOE 2021 lower secondary syllabus): chemical changes, environment, forces and energy, heat, electrical systems, digestion, transport, reproduction. Misconception-first teaching, State-Cause-Link answers, exam-format practice with real circuit diagrams.",
   subject: "science",
   level: "Sec 2",
-  syllabus: "MOE 2021 Lower Secondary Science, G2/G3 course (updated 2024)",
+  syllabus: "MOE Science Syllabus, Lower Secondary, G2 and G3 Courses (from the 2021 Sec 1 cohort; 2024 edition)",
   language: "en",
   agents: AGENTS_DEFAULT,
   licence: "Content CC BY-NC 4.0 (myKx); items and figures original.",
-  sources: [SOURCE_OWN, SOURCE_DERIVED, SOURCE_DEMO],
+  sources: [SOURCE_OWN, SOURCE_DERIVED, SOURCE_DEMO, ...S2SCI_ORIGINAL_SOURCES],
   pronoun: "he",
   names: NAMES,
   topics: S2SCI_TOPICS,
@@ -1049,9 +1066,9 @@ const S2SCI: PackConfig = {
 
 ## The syllabus
 
-Eight chapters, all examinable in the end-of-year paper:
+Eight chapters, all examinable in the end-of-year paper. They are Topics 9 to 16 of the MOE G2/G3 Lower Secondary Science syllabus (2024 edition), named as the syllabus names them:
 
-1. Chemical Changes · 2. Interactions with the Environment · 3. Forces & Energy Transfer · 4. Transfer of Heat and its Effects · 5. **Electrical Systems** · 6. Human Digestive System · 7. Transport Systems in Living Things · 8. Human Sexual Reproductive System
+1. Chemical Changes · 2. Interactions within Ecosystems · 3. Application of Forces and Transfer of Energy · 4. Transfer of Heat Energy and its Effects · 5. **Electrical Systems** · 6. Human Digestive System · 7. Transport Systems in Living Things · 8. Human Sexual Reproductive System
 
 Subskill tags, learning outcomes and the **depth limits** (what is *not* required, such as V = IR) are in \`references/syllabus-map.md\`. Read it before teaching or writing questions for any topic.`,
       "## Session shape\n\n" +

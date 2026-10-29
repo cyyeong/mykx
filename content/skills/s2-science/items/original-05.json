@@ -1,0 +1,244 @@
+[
+  {
+    "id": "s2sci-original-05-d1",
+    "skill": "s2-science",
+    "topic": "biology.digestion",
+    "subskill": "organ_functions",
+    "archetype": "where-is-each-nutrient-digested",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "In which part of the digestive system is the digestion of food completed, and most digested food absorbed into the blood?",
+    "options": [
+      "stomach",
+      "small intestine",
+      "large intestine",
+      "gullet"
+    ],
+    "answer": 2,
+    "working": [
+      "Digestion starts in the mouth and continues in the stomach, but it is completed in the small intestine.",
+      "The small intestine is also where most digested food is absorbed into the blood.",
+      "The large intestine absorbs mainly water and mineral salts; the gullet only carries food from the mouth to the stomach.",
+      "Watch out: The stomach does not finish digestion. Food leaves it only partly digested."
+    ],
+    "distractors": {
+      "1": "Protein digestion begins in the stomach, but digestion is completed, and food absorbed, in the small intestine.",
+      "3": "The large intestine absorbs mainly water and mineral salts from undigested matter.",
+      "4": "The gullet only carries food from the mouth to the stomach."
+    },
+    "hints": [
+      "Food leaves the stomach only partly digested. Where does it go next?",
+      "Digested food has to get into the blood. Which part has a huge inner surface, lined with villi, for this?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-05: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 14 (Human Digestive System); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 14 (Human Digestive System), LO 14.2, 14.3 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-05-d2",
+    "skill": "s2-science",
+    "topic": "biology.digestion",
+    "subskill": "enzyme_products",
+    "archetype": "enzyme-substrate-product-chain",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which option correctly matches a class of digestive enzyme to the food substance it digests and the product it makes?",
+    "options": [
+      "carbohydrase: protein → amino acids",
+      "lipase: starch → glucose",
+      "protease: fats → fatty acids and glycerol",
+      "protease: protein → amino acids"
+    ],
+    "answer": 4,
+    "working": [
+      "Each class of enzyme acts on only one kind of food substance.",
+      "Carbohydrases: starch → maltose → glucose. Proteases: protein → amino acids. Lipases: fats → fatty acids and glycerol.",
+      "Watch out: The name gives the food away: carbohydrase for carbohydrates, protease for proteins, lipase for lipids (fats)."
+    ],
+    "distractors": {
+      "1": "Carbohydrases digest carbohydrates such as starch, not proteins.",
+      "2": "Lipases digest fats (lipids). Starch is digested by carbohydrases.",
+      "3": "Proteases digest proteins only. Fats are digested by lipases."
+    },
+    "hints": [
+      "Each class of enzyme is named after the food substance it acts on.",
+      "Check both the food substance and the product in each row."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-05: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 14 (Human Digestive System); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 14 (Human Digestive System), LO 14.5 (G3) (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-05-d3",
+    "skill": "s2-science",
+    "topic": "biology.digestion",
+    "subskill": "physical_vs_chemical_digestion",
+    "archetype": "physical-vs-chemical-digestion",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which is an example of physical digestion, with the correct reason why it helps digestion?",
+    "options": [
+      "Saliva breaking starch down into maltose, which increases the surface area of the food.",
+      "Teeth chewing food into small pieces, which changes the starch in it into sugar.",
+      "Teeth chewing rice into small pieces, which gives a larger surface area for enzymes to act on.",
+      "The stomach churning food, which breaks proteins down into amino acids."
+    ],
+    "answer": 3,
+    "working": [
+      "Physical digestion breaks food into smaller pieces without changing it into new substances; no enzymes are involved. Chewing and the churning of the stomach are examples.",
+      "Smaller pieces have a larger surface area to volume ratio, so enzymes have more surface to act on, and chemical digestion is faster.",
+      "Chemical digestion uses enzymes to break large molecules down into small, soluble ones."
+    ],
+    "distractors": {
+      "1": "Breaking starch down into maltose is chemical digestion: an enzyme in saliva makes a new substance.",
+      "2": "Chewing is physical digestion, but it does not change starch into sugar. Only enzymes do that.",
+      "4": "Churning is physical, but breaking proteins down into amino acids needs enzymes (proteases): that is chemical digestion."
+    },
+    "hints": [
+      "Physical digestion makes pieces smaller without making new substances. Rule out every option that makes a new substance.",
+      "Why would smaller pieces help the enzymes that act on the food later?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-05: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 14 (Human Digestive System); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 14 (Human Digestive System), LO 14.3 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-05-d4",
+    "skill": "s2-science",
+    "topic": "biology.digestion",
+    "subskill": "villi",
+    "archetype": "surface-area-to-volume-argument",
+    "difficulty": 4,
+    "marks": 3,
+    "type": "open",
+    "stem": "The inner wall of the small intestine is covered with millions of tiny, finger-like villi. The wall of each villus is only one cell thick, and each villus contains a network of blood capillaries.\n\nExplain how each of these three features helps the absorption of digested food.",
+    "answer": "The finger-like villi greatly increase the surface area to volume ratio of the small intestine, so more digested food can be absorbed at a time. The wall one cell thick gives a short distance for digested food to diffuse into the blood. The network of capillaries carries the absorbed food away quickly, keeping its concentration in the blood low, so diffusion into the blood continues.",
+    "working": [
+      "A larger surface means more digested food can pass into the blood at the same time.",
+      "Diffusion over a short distance is fast.",
+      "Blood flowing through the capillaries carries the food away, so its concentration stays lower in the blood than in the small intestine.",
+      "Common error: 'Villi help absorption' with no reason. Each feature needs its own 'how'."
+    ],
+    "hints": [
+      "For the shape, think about surface area. For the thin wall, think about distance.",
+      "Why does it help that blood keeps flowing away from the villus?"
+    ],
+    "keywords": [
+      "large surface area",
+      "short distance for diffusion",
+      "absorbed food carried away quickly"
+    ],
+    "marking": [
+      "1 mark: the villi increase the surface area (to volume ratio) for absorption.",
+      "1 mark: a wall one cell thick gives a short distance for digested food to diffuse into the blood.",
+      "1 mark: the capillary network carries absorbed food away, keeping a concentration gradient so absorption continues."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-05: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 14 (Human Digestive System); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 14 (Human Digestive System), LO 14.2 (with 15.4) (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-05-d5",
+    "skill": "s2-science",
+    "topic": "biology.digestion",
+    "subskill": "experimental_design",
+    "difficulty": 5,
+    "marks": 4,
+    "type": "open",
+    "stem": "Visking tubing has tiny pores: small molecules can pass through it but large molecules cannot. Ravi fills a bag of Visking tubing with starch solution and a carbohydrase, ties it, and places it in a beaker of water at 37 °C. After 30 minutes he tests the water outside the bag.\n\n| Test on the water outside the bag | Result |\n| --- | --- |\n| iodine solution (test for starch) | stays yellow-brown |\n| test for sugar | sugar present |\n\nExplain these results, and name the part of the digestive system that the bag of Visking tubing represents.",
+    "answer": "The carbohydrase digested the starch into sugar (maltose and glucose) inside the bag. Sugar molecules are small, so they passed through the pores into the water, and the sugar test was positive. Starch molecules are too large to pass through, so no starch reached the water and the iodine stayed yellow-brown. The bag represents the small intestine.",
+    "working": [
+      "Iodine solution stays yellow-brown when there is no starch and turns blue-black when starch is present. So no starch got out of the bag.",
+      "Sugar was found outside the bag, but only starch was put in. The carbohydrase must have digested the starch into sugar.",
+      "Small sugar molecules can pass through the pores; large starch molecules cannot. This is why food must be digested before it can be absorbed.",
+      "The bag is a model of the small intestine, where digested food passes through the wall into the blood (here, the water).",
+      "Common error: Saying the starch 'passed through and was digested outside'. Starch is too large to pass; only the digested products get out."
+    ],
+    "hints": [
+      "Only starch went into the bag, yet sugar is found outside it. What made the sugar?",
+      "Compare the sizes of starch molecules and sugar molecules with the pores in the tubing."
+    ],
+    "keywords": [
+      "carbohydrase digests starch into sugar",
+      "small sugar molecules pass through",
+      "starch molecules too large",
+      "small intestine"
+    ],
+    "marking": [
+      "1 mark: the carbohydrase broke the starch down into sugar (maltose or glucose).",
+      "1 mark: sugar molecules are small enough to pass through the pores into the water.",
+      "1 mark: starch molecules are too large to pass through, so the iodine stays yellow-brown.",
+      "1 mark: the small intestine."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-05: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 14 (Human Digestive System); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 14 (Human Digestive System), LO 14.5 (G3), 14.1 (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  },
+  {
+    "id": "s2sci-original-05-d6",
+    "skill": "s2-science",
+    "topic": "biology.digestion",
+    "subskill": "use_of_products",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "After a meal, amino acids are absorbed into the blood. What does the body mainly use them for?",
+    "options": [
+      "Growth and the repair of body tissues.",
+      "Storing energy under the skin.",
+      "As the body's main source of energy for respiration.",
+      "Making bones hard and strong."
+    ],
+    "answer": 1,
+    "working": [
+      "The end products of digestion are used for cell processes.",
+      "Amino acids are built into new proteins for growth and for the repair of tissues.",
+      "Glucose is the main source of energy for respiration. Fatty acids and glycerol are used for energy and are stored as fat."
+    ],
+    "distractors": {
+      "2": "Energy is stored as fat under the skin. That comes mainly from fats (fatty acids and glycerol), not from amino acids.",
+      "3": "Glucose is the main source of energy for respiration. Amino acids are mainly used to build new proteins.",
+      "4": "Hard bones need minerals such as calcium, not amino acids."
+    },
+    "hints": [
+      "Amino acids come from digesting protein. What does the body build with protein?",
+      "Think about what happens when a cut heals, or when a teenager grows taller."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "original-05: written by Claude Code for myKx from the MOE G2/G3 Lower Secondary Science syllabus, Topic 14 (Human Digestive System); no exam, textbook or website question used"
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve; founder review pending)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Lower Secondary Science G2/G3 (2024 edition), Topic 14 (Human Digestive System), LO 14.4 (G3) (codes in references/syllabus-map.md). Written by Claude Code on 29 Oct; answer re-derived in an independent re-solve. Founder review pending."
+  }
+]

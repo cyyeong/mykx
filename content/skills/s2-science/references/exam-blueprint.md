@@ -4,8 +4,10 @@
 
 There is **no national exam** at lower secondary. Assessment is school-based:
 Weighted Assessments during the year plus an end-of-year paper, and formats
-vary between schools. The structure below is the common Sec 2 G3 pattern,
-based on recent G3 end-of-year papers:
+vary between schools. The MOE syllabus sets no paper format; it asks only
+that an end-of-year paper sample the whole syllabus at a suitable difficulty
+and use real-world contexts. The structure below is the common Sec 2 G3
+pattern, based on recent G3 end-of-year papers:
 
 | Component | Typical | Notes |
 |---|---|---|
@@ -49,6 +51,15 @@ underline the command word before writing anything.
 | **Calculate** | Show working *and* units | Working scores even if the answer is wrong |
 | **Predict** | The outcome, plus the reason if marks allow | Short |
 | **Identify** | Pick from the diagram or data given | A phrase |
+| **Outline** | The main steps or points only, without detail (often birth control, digestion, energy chains) | 1 point per mark |
+| **Classify** | Put each thing into a named group (structural or behavioural, physical or chemical) | One word per item |
+| **Infer** | A conclusion drawn from the observations or data given | Conclusion + the data it rests on |
+| **Evaluate** | Weigh the factors on both sides, then judge | Points for and against, then a verdict |
+
+The meanings follow the glossary of terms in the MOE G2/G3 Lower Secondary
+Science syllabus (2024 edition, section 6), which is also the vocabulary its
+learning outcomes use ("state", "describe", "explain", "outline", "infer",
+"investigate", "evaluate").
 
 **The single most common misread:** "state and explain" answered as "state".
 Half the marks vanish. Second most common: "describe" answered with a *why*,
