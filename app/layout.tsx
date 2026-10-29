@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Suspense } from "react";
 import { preload } from "react-dom";
 import "./globals.css";
 import { GuestBanner } from "@/components/ui/GuestBanner";
@@ -23,7 +24,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         {children}
         {/* The guest site only (lib/guest.ts): every page says AI is off and replies are samples. */}
-        {isGuest() && <GuestBanner />}
+        {isGuest() && (
+          <Suspense fallback={null}>
+            <GuestBanner />
+          </Suspense>
+        )}
       </body>
     </html>
   );
