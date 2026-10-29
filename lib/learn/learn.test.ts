@@ -110,13 +110,21 @@ describe("Start session: code chooses from the chosen subject only", () => {
     expect(sessionStep(maths.id, ids, ids[ids.length - 1]).nextHref).toBe(`/learn/p3-maths/done?session=${ids.join(",")}`);
   });
 
-  it("shows a thin pack honestly: P6 Science lists its empty topics last, as on the way", () => {
-    const view = subjectView(subjectFor("P6", "p6-science")!, [], NOW, "abby", "anime-sky");
+  it("shows a thin pack honestly: P3 Chinese lists its empty topics (composition, oral, listening) last, as on the way", () => {
+    const view = subjectView(subjectFor("P3", "p3-chinese")!, [], NOW, "jordan", "terrarium");
     expect(view.ready).toBeGreaterThan(0);
     expect(view.ready).toBeLessThan(view.topics.length);
     expect(view.gap).toMatch(/Questions for \w+ of \w+ topics so far\. The others are on the way\./);
     const empty = view.topics.slice(view.ready); // topics with questions come first
     expect(empty.every((t) => t.mastery === null && t.startHref === null && /on the way/.test(t.empty ?? ""))).toBe(true);
+  });
+
+  it("gives P6 Maths and Science questions in every syllabus topic (v1.1.0), so they have no gap", () => {
+    for (const id of ["p6-maths", "p6-science"]) {
+      const view = subjectView(subjectFor("P6", id)!, [], NOW, "abby", "anime-sky");
+      expect(view.ready).toBe(view.topics.length);
+      expect(view.gap).toBeNull();
+    }
   });
 
   it("gives Sec 2 Science questions in all eight syllabus topics (v1.1.0), so it has no gap", () => {

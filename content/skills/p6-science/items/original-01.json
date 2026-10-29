@@ -1,0 +1,1247 @@
+[
+  {
+    "id": "p6sci-original-01-q1",
+    "skill": "p6-science",
+    "topic": "systems.human",
+    "subskill": "digestive",
+    "archetype": "SYS-HUMAN-4",
+    "difficulty": 1,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Which of the following correctly matches a part of the human digestive system with what happens there?",
+    "options": [
+      "Gullet: digested food is absorbed into the blood.",
+      "Stomach: water is absorbed from undigested food.",
+      "Small intestine: digestion is completed and digested food is absorbed into the blood.",
+      "Large intestine: food is mixed with digestive juices and digestion begins."
+    ],
+    "answer": 3,
+    "working": [
+      "The small intestine is where digestion is completed and where digested food is absorbed into the blood.",
+      "Watch out: the gullet only pushes food down to the stomach, the stomach mixes food with digestive juices, and the large intestine absorbs water."
+    ],
+    "distractors": {
+      "1": "The gullet only carries food from the mouth to the stomach. No food is absorbed there.",
+      "2": "Water is absorbed in the large intestine. The stomach mixes food with digestive juices.",
+      "4": "Digestion begins in the mouth. The large intestine absorbs water from undigested food."
+    },
+    "hints": [
+      "Follow the food: mouth → gullet → stomach → small intestine → large intestine.",
+      "Where does digested food pass into the blood?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Human System (Digestive System) (P4): identify the parts of the digestive system (mouth, gullet, stomach, small intestine, large intestine) and describe their functions. Format: Booklet A, 2-mark multiple choice. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6sci-original-01-q2",
+    "skill": "p6-science",
+    "topic": "systems.human",
+    "subskill": "respiratory_circulatory",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "The table shows roughly what percentage of the air is made up of each of three gases, P, Q and R, in the air a person breathes in and in the air the person breathes out.\n\n| Gas | In (%) | Out (%) |\n| --- | --- | --- |\n| P | 78 | 78 |\n| Q | 21 | 16 |\n| R | 0.04 | 4 |\n\nWhich of the following correctly identifies gases P, Q and R?",
+    "options": [
+      "P: oxygen; Q: nitrogen; R: carbon dioxide",
+      "P: nitrogen; Q: carbon dioxide; R: oxygen",
+      "P: carbon dioxide; Q: oxygen; R: nitrogen",
+      "P: nitrogen; Q: oxygen; R: carbon dioxide"
+    ],
+    "answer": 4,
+    "working": [
+      "Most of the air is nitrogen. The body does not use it, so its amount stays the same (P).",
+      "The body takes in oxygen at the lungs, so the air breathed out has less oxygen (Q falls from about 21% to about 16%).",
+      "The body gives out carbon dioxide, so the air breathed out has much more carbon dioxide (R rises from about 0.04% to about 4%).",
+      "Watch out: air breathed out still has quite a lot of oxygen. Only some of it is taken in."
+    ],
+    "distractors": {
+      "1": "Nitrogen, not oxygen, makes up most of the air, and its amount does not change when we breathe.",
+      "2": "Carbon dioxide increases in the air breathed out, so it cannot be Q, which decreases.",
+      "3": "Carbon dioxide is only a tiny part of the air we breathe in. It cannot be about 78%."
+    },
+    "hints": [
+      "Which gas does the body take in, and which gas does it give out?",
+      "The gas that makes up most of the air is not used by the body."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Human System (Respiratory and circulatory systems) (P5 Standard): recognise that air is made up of gases such as nitrogen, carbon dioxide, oxygen and water vapour; parts of the respiratory system and their functions. Format: Booklet A, 2-mark multiple choice. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6sci-original-01-q3",
+    "skill": "p6-science",
+    "topic": "systems.human",
+    "subskill": "respiratory_circulatory",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Which of the following correctly shows the part through which a fish, a human and a plant each take in oxygen?",
+    "options": [
+      "Fish: gills · Human: lungs · Plant: tiny openings on the leaves",
+      "Fish: gills · Human: windpipe · Plant: roots only",
+      "Fish: lungs · Human: lungs · Plant: tiny openings on the leaves",
+      "Fish: fins · Human: nose · Plant: flowers"
+    ],
+    "answer": 1,
+    "working": [
+      "Fish take in oxygen dissolved in the water through their gills.",
+      "Humans take in oxygen at the lungs. The nose and windpipe only carry air to the lungs.",
+      "Plants take in oxygen through tiny openings, mostly on the leaves.",
+      "Watch out: plants take in oxygen too. They respire all the time, day and night."
+    ],
+    "distractors": {
+      "2": "The windpipe only carries air to the lungs, where oxygen is taken in. And plants do not take in oxygen through their roots only.",
+      "3": "Fish do not have lungs. They take in oxygen dissolved in water through their gills.",
+      "4": "Fins help a fish to swim, the nose only lets air in, and flowers are for reproduction."
+    },
+    "hints": [
+      "Where does the oxygen actually pass into each living thing?",
+      "Air passes through the nose and windpipe, but oxygen is not taken into the blood there."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Human System (Respiratory and circulatory systems) (P5 Standard): compare how plants, fish and humans take in oxygen and give out carbon dioxide. Format: Booklet A, 2-mark multiple choice. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6sci-original-01-q4",
+    "skill": "p6-science",
+    "topic": "systems.human",
+    "subskill": "systems_together",
+    "archetype": "SYS-HUMAN-2",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Blood travels through the human body in this order:\n\nlungs → heart → leg muscles → heart → lungs\n\nWhich statement about the blood is correct?",
+    "options": [
+      "Blood flowing from the lungs to the heart is oxygen-rich.",
+      "Blood flowing from the leg muscles to the heart has more oxygen than blood flowing to the leg muscles.",
+      "Blood flowing from the heart to the lungs has less carbon dioxide than blood flowing from the lungs.",
+      "The heart takes oxygen out of the blood and passes it to the leg muscles."
+    ],
+    "answer": 1,
+    "working": [
+      "At the lungs, the blood takes in oxygen and gives out carbon dioxide, so blood leaving the lungs is oxygen-rich.",
+      "At the leg muscles, the blood gives oxygen and digested food to the muscles and takes away carbon dioxide, so blood leaving the muscles is carbon-dioxide-rich.",
+      "Watch out: the heart only pumps the blood. It does not take oxygen out of it."
+    ],
+    "distractors": {
+      "2": "The muscles use oxygen, so blood leaving them has LESS oxygen than blood arriving.",
+      "3": "Blood going to the lungs is carbon-dioxide-rich. It gives out carbon dioxide at the lungs, so blood leaving the lungs has less.",
+      "4": "The heart pumps the blood around the body. The blood itself carries oxygen to the muscles."
+    },
+    "hints": [
+      "Where does the blood pick up oxygen, and where does it give oxygen away?",
+      "Use the words oxygen-rich and carbon-dioxide-rich for each part of the journey."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Human System (Respiratory and circulatory systems) (P5 Standard): parts of the circulatory system (heart, blood, blood vessels) and their functions; integration of the digestive, respiratory and circulatory systems. Format: Booklet A, 2-mark multiple choice. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6sci-original-01-q5",
+    "skill": "p6-science",
+    "topic": "systems.human",
+    "subskill": "systems_together",
+    "archetype": "SYS-HUMAN-3",
+    "difficulty": 4,
+    "marks": 2,
+    "type": "open",
+    "stem": "Mei Ling's heart rate was 75 beats per minute while she was resting. After skipping rope for 5 minutes, her heart rate was 130 beats per minute.\n\nExplain why her heart beat faster while she was skipping.",
+    "answer": "Her leg muscles were working harder, so they needed more energy. Her heart pumped faster so that the blood could carry more oxygen and digested food to the muscles, and remove more carbon dioxide from them.",
+    "working": [
+      "Claim: Her heart beat faster to supply her working muscles with more of what they need.",
+      "Evidence: Her heart rate rose from 75 to 130 beats per minute when she skipped.",
+      "Reasoning: Working muscles need more energy, which is released from digested food using oxygen. A faster heartbeat pumps blood faster, carrying more oxygen and digested food to the muscles and removing more carbon dioxide."
+    ],
+    "hints": [
+      "What do working muscles need more of when you exercise?",
+      "What does the blood carry to the muscles, and what does it take away? Use the words 'more' and 'faster'."
+    ],
+    "keywords": [
+      "muscles need more energy",
+      "heart pumps faster",
+      "more oxygen and digested food to the muscles",
+      "remove more carbon dioxide"
+    ],
+    "marking": [
+      "1 mark: the muscles need more energy (they respire faster to release more energy).",
+      "1 mark: the heart pumps faster so the blood carries more oxygen (and digested food) to the muscles / removes more carbon dioxide. The comparative words 'more' and 'faster' are needed.",
+      "Reject: 'she is tired' or 'to get more air' with no link from the blood to the muscles."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Human System (Respiratory and circulatory systems) (P5 Standard): integration of the different systems in carrying out life processes; Energy Forms and Uses (Photosynthesis) (P6 Standard): living things need energy from respiration. Format: Booklet B, 2-mark structured part. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6sci-original-01-q6",
+    "skill": "p6-science",
+    "topic": "cycles.matter",
+    "subskill": "states_of_matter",
+    "archetype": "CYC-MATTER-3",
+    "difficulty": 1,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Which of the following has a definite volume but no definite shape?",
+    "options": [
+      "The air in a balloon",
+      "The orange juice in a glass",
+      "A metal spoon",
+      "The water vapour in a room"
+    ],
+    "answer": 2,
+    "working": [
+      "A liquid has a definite volume but no definite shape: it takes the shape of its container.",
+      "Orange juice is a liquid. The spoon is a solid (definite shape and volume); the air and the water vapour are gases (no definite shape or volume)."
+    ],
+    "distractors": {
+      "1": "Air is a gas. It has no definite shape AND no definite volume: it spreads out to fill its container.",
+      "3": "A metal spoon is a solid. It has a definite shape as well as a definite volume.",
+      "4": "Water vapour is a gas. It has no definite volume: it spreads out to fill the room."
+    },
+    "hints": [
+      "Which state of matter takes the shape of its container but keeps its volume?",
+      "Sort the options into solids, liquids and gases first."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Cycles in Matter and Water (Matter) (P4): differentiate among the three states of matter (solid, liquid, gas) in terms of shape and volume. Format: Booklet A, 2-mark multiple choice. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6sci-original-01-q7",
+    "skill": "p6-science",
+    "topic": "cycles.matter",
+    "subskill": "air_mass_volume",
+    "archetype": "CYC-MATTER-2",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Hui Min placed a flat, empty ball on one side of a beam balance and a wooden block on the other side. The beam was level. She then pumped air into the ball and put it back in the same place. The side with the ball went down.\n\nWhich conclusion can be drawn from this?",
+    "options": [
+      "Air has mass.",
+      "Air has a definite volume.",
+      "The ball became lighter when air was pumped in.",
+      "Only solids and liquids have mass."
+    ],
+    "answer": 1,
+    "working": [
+      "The side with the ball went down, so the ball became heavier.",
+      "The only thing added to the ball was air, so air has mass.",
+      "Watch out: air is matter. Like all matter, it has mass and occupies space."
+    ],
+    "distractors": {
+      "2": "Air is a gas, so it has no definite volume. Besides, a beam balance compares masses, not volumes.",
+      "3": "The ball's side went down, so the ball became heavier, not lighter.",
+      "4": "All matter has mass, including gases such as air. That is why the ball's side went down."
+    },
+    "hints": [
+      "What does a beam balance compare?",
+      "Only one thing was added to the ball. What was it?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Cycles in Matter and Water (Matter) (P4): state that matter is anything that has mass and occupies space; measure mass using appropriate apparatus. Format: Booklet A, 2-mark multiple choice. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6sci-original-01-q8",
+    "skill": "p6-science",
+    "topic": "cycles.matter",
+    "subskill": "air_mass_volume",
+    "archetype": "CYC-MATTER-1",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "A syringe contains 40 cm³ of water and 60 cm³ of air. Its nozzle is sealed so that nothing can escape. Ali pushes the plunger in as far as he can, and the contents now take up 70 cm³.\n\nWhat are the volumes of the water and the air now?",
+    "options": [
+      "water 28 cm³, air 42 cm³",
+      "water 10 cm³, air 60 cm³",
+      "water 35 cm³, air 35 cm³",
+      "water 40 cm³, air 30 cm³"
+    ],
+    "answer": 4,
+    "working": [
+      "Water is a liquid: it has a definite volume and cannot be compressed, so it stays at 40 cm³.",
+      "Air is a gas: it can be compressed into a smaller space.",
+      "The contents take up 70 cm³, so the air now takes up 70 − 40 = 30 cm³."
+    ],
+    "distractors": {
+      "1": "Squashed both the water and the air. Only the air can be compressed; the water stays at 40 cm³.",
+      "2": "Squashed the water instead of the air. A liquid cannot be compressed.",
+      "3": "Split the 70 cm³ equally. The water keeps its 40 cm³, so the air takes up the rest."
+    },
+    "hints": [
+      "Which of the two, the water or the air, can be squashed into a smaller space?",
+      "The part that cannot be squashed keeps its volume. How much space is left for the other part?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Cycles in Matter and Water (Matter) (P4): differentiate among the three states of matter in terms of shape and volume (a gas has no definite volume and can be compressed). Format: Booklet A, 2-mark multiple choice. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6sci-original-01-q9",
+    "skill": "p6-science",
+    "topic": "cycles.matter",
+    "subskill": "states_of_matter",
+    "archetype": "CYC-MATTER-4",
+    "difficulty": 4,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "The melting points and boiling points of four substances, W, X, Y and Z, are given below.\n\n- W: melting point −39 °C, boiling point 357 °C\n- X: melting point 18 °C, boiling point 290 °C\n- Y: melting point −115 °C, boiling point 78 °C\n- Z: melting point 44 °C, boiling point 280 °C\n\nWhich substances are liquids at 25 °C and are still liquids at 85 °C?",
+    "options": [
+      "W and X only",
+      "W, X and Y only",
+      "X and Z only",
+      "W, X, Y and Z"
+    ],
+    "answer": 1,
+    "working": [
+      "A substance is a liquid at temperatures above its melting point and below its boiling point.",
+      "At 25 °C: W, X and Y are liquids; Z is still a solid (it only melts at 44 °C).",
+      "At 85 °C: Y has boiled (85 °C is above its boiling point of 78 °C), so it is a gas. W and X are still liquids.",
+      "So only W and X are liquids at both temperatures. Watch out: Z is a liquid at 85 °C, but at 25 °C it is a solid."
+    ],
+    "distractors": {
+      "2": "Y boils at 78 °C, so at 85 °C it is a gas, not a liquid.",
+      "3": "Z melts at 44 °C, so at 25 °C it is still a solid.",
+      "4": "Check both temperatures for every substance: Y is a gas at 85 °C and Z is a solid at 25 °C."
+    },
+    "hints": [
+      "A substance is a liquid when the temperature is above its melting point and below its boiling point.",
+      "Test each substance at 25 °C first, then test the ones that pass at 85 °C."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Cycles in Matter and Water (Matter) (P4): states of matter; (Water) (P5 Standard): the terms melting point and boiling point, and the effect of heat gain or loss on state, applied to other substances. Format: Booklet A, 2-mark multiple choice. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6sci-original-01-q10",
+    "skill": "p6-science",
+    "topic": "cycles.matter",
+    "subskill": "measure_mass_volume",
+    "archetype": "CYC-MATTER-5",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Siti poured 50 cm³ of water into a measuring cylinder. She tied a stone to a string and lowered it into the water until the stone was completely under the water. The water level rose to 72 cm³.\n\nWhat is the volume of the stone?",
+    "answer": "22",
+    "unit": "cm³",
+    "working": [
+      "The stone pushes aside its own volume of water, so the water level rises by the volume of the stone.",
+      "Volume of the stone = 72 − 50 = 22 cm³."
+    ],
+    "hints": [
+      "What makes the water level rise when the stone goes in?",
+      "Compare the readings before and after the stone was put in."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Cycles in Matter and Water (Matter) (P4): matter occupies space; measure volume using appropriate apparatus (measuring cylinder). Format: Booklet B, 1-mark structured part. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6sci-original-01-q11",
+    "skill": "p6-science",
+    "topic": "cycles.matter",
+    "subskill": "measure_mass_volume",
+    "archetype": "CYC-MATTER-5",
+    "difficulty": 4,
+    "marks": 2,
+    "type": "open",
+    "stem": "Siti found the volume of a stone by lowering it into a measuring cylinder of water until it was completely under the water, and reading how much the water level rose.\n\nShe then tried the same method with a cork, but the cork floated on the water. Explain why this method does not give the correct volume of the cork.",
+    "answer": "The cork floats, so only part of it is under the water. Only the part under the water pushes water aside, so the water level rises by less than the volume of the whole cork.",
+    "working": [
+      "Claim: The method gives a volume that is too small for the cork.",
+      "Evidence: The cork floats, so part of it stays above the water.",
+      "Reasoning: The water level rises only by the volume of the part that is under the water, not by the volume of the whole cork."
+    ],
+    "hints": [
+      "For this method to work, how much of the object must be under the water?",
+      "Which part of the floating cork pushes water aside, and which part does not?"
+    ],
+    "keywords": [
+      "the cork floats",
+      "only part of the cork is under the water",
+      "the water level rises by less than the cork's volume"
+    ],
+    "marking": [
+      "1 mark: the cork floats / is not completely under the water.",
+      "1 mark: so the water level rises by less than the volume of the whole cork (only the part under the water pushes water aside).",
+      "Reject: 'the cork is too light' with no link to how much of it is under the water."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Cycles in Matter and Water (Matter) (P4): matter occupies space; measure volume using appropriate apparatus. Format: Booklet B, 2-mark structured part. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6sci-original-01-q12",
+    "skill": "p6-science",
+    "topic": "systems.plant",
+    "subskill": "plant_parts",
+    "difficulty": 1,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Which of the following correctly matches a part of a plant with its function?",
+    "options": [
+      "Root: makes food for the plant",
+      "Leaf: holds the plant firmly in the soil",
+      "Flower: absorbs water and mineral salts from the soil",
+      "Stem: holds the plant upright and carries water and food to other parts"
+    ],
+    "answer": 4,
+    "working": [
+      "The stem holds the plant upright, and the tubes in it carry water and food to other parts of the plant.",
+      "Roots hold the plant firmly in the soil and absorb water and mineral salts; leaves make food; flowers are for reproduction."
+    ],
+    "distractors": {
+      "1": "Roots absorb water and mineral salts and hold the plant in the soil. Food is made in the leaves.",
+      "2": "Roots, not leaves, hold the plant firmly in the soil. Leaves make food for the plant.",
+      "3": "Roots absorb water and mineral salts. Flowers help the plant to reproduce."
+    },
+    "hints": [
+      "Think about which part holds the plant in place, which part makes food and what carries things around.",
+      "Check every part of each option: one wrong word makes the whole option wrong."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Plant System (Plant parts and functions) (P4): identify the different parts of plants (leaf, stem, root) and state their functions. Format: Booklet A, 2-mark multiple choice. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6sci-original-01-q13",
+    "skill": "p6-science",
+    "topic": "systems.plant",
+    "subskill": "transport_tubes",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Arif placed the cut stem of a white flower in a beaker of water mixed with red dye. After one day, the white petals had red streaks.\n\nWhich of the following explains this?",
+    "options": [
+      "Food-carrying tubes carried the dyed water down from the petals to the stem.",
+      "Water-carrying tubes carried the dyed water up the stem to the petals.",
+      "Water-carrying tubes carried the dyed water down from the petals to the stem.",
+      "Food-carrying tubes carried the dyed water up the stem to the petals."
+    ],
+    "answer": 2,
+    "working": [
+      "Water, with anything dissolved in it such as the dye, is carried by the water-carrying tubes.",
+      "The water moves up from the cut end of the stem to the other parts of the flower, including the petals, so the petals become streaked with red.",
+      "Watch out: food-carrying tubes carry food (sugar) made in the leaves, not the water taken in."
+    ],
+    "distractors": {
+      "1": "Food-carrying tubes carry food made in the leaves. The dye came in with the water at the bottom of the stem.",
+      "3": "The dyed water entered at the cut end of the stem, so it moved UP to the petals.",
+      "4": "The direction is right, but water is carried by the water-carrying tubes, not the food-carrying tubes."
+    },
+    "hints": [
+      "Where did the dyed water enter the plant, and where did it end up?",
+      "Which tubes carry water: the water-carrying tubes or the food-carrying tubes?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Plant System (Respiratory and circulatory systems) (P5 Standard): identify the parts of the plant transport system and describe their functions; investigate how food and water are transported in the plant. Format: Booklet A, 2-mark multiple choice. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6sci-original-01-q14",
+    "skill": "p6-science",
+    "topic": "systems.plant",
+    "subskill": "ringing",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "A gardener removed a ring of the outer layer of the main stem of a plant, just below all the leaves. This removed the food-carrying tubes in that part of the stem, but not the water-carrying tubes.\n\nWhich observation is most likely after a few weeks?",
+    "options": [
+      "The leaves above the ring wilt because water cannot reach them.",
+      "The part of the stem just below the ring swells.",
+      "The part of the stem just above the ring swells.",
+      "The roots grow bigger because they receive more food."
+    ],
+    "answer": 3,
+    "working": [
+      "Food made in the leaves is carried to other parts of the plant, including down to the roots, by the food-carrying tubes.",
+      "At the ring the food-carrying tubes are cut, so the food cannot pass. It collects just above the ring, and that part of the stem swells.",
+      "Watch out: the water-carrying tubes are still there, so water still reaches the leaves and they do not wilt."
+    ],
+    "distractors": {
+      "1": "The water-carrying tubes were not removed, so water still reaches the leaves.",
+      "2": "Food comes down from the leaves above. It is stopped at the ring, so it collects ABOVE the ring, not below it.",
+      "4": "Food cannot pass the ring to reach the roots, so the roots get less food, not more."
+    },
+    "hints": [
+      "Where is food made, and which way does it travel to reach the roots?",
+      "Food cannot get past the cut. Where will it pile up?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Plant System (Respiratory and circulatory systems) (P5 Standard): investigate how food and water are transported in the plant. Format: Booklet A, 2-mark multiple choice. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6sci-original-01-q15",
+    "skill": "p6-science",
+    "topic": "systems.plant",
+    "subskill": "ringing",
+    "difficulty": 4,
+    "marks": 2,
+    "type": "open",
+    "stem": "A gardener removed a ring of the outer layer of the main stem of a plant, just below all the leaves. This removed the food-carrying tubes in that part of the stem, but not the water-carrying tubes.\n\nThe plant died after some months. Explain why.",
+    "answer": "Food made in the leaves could not be carried past the ring to the roots, because the food-carrying tubes there were removed. The roots did not get food, so they died and could no longer absorb water and mineral salts, so the whole plant died.",
+    "working": [
+      "Claim: The roots died first because they received no food.",
+      "Evidence: The ring removed the food-carrying tubes below all the leaves; the water-carrying tubes were left.",
+      "Reasoning: Roots cannot make food; they depend on food carried down from the leaves. Without food the roots die and stop absorbing water and mineral salts, so the whole plant dies."
+    ],
+    "hints": [
+      "Which part of the plant is cut off from its food supply by the ring?",
+      "What job do the roots do for the whole plant? What happens to that job when the roots die?"
+    ],
+    "keywords": [
+      "the food-carrying tubes were removed",
+      "food from the leaves cannot reach the roots",
+      "the roots die",
+      "water and mineral salts can no longer be absorbed"
+    ],
+    "marking": [
+      "1 mark: food made in the leaves cannot be carried down to the roots (the food-carrying tubes were removed).",
+      "1 mark: the roots get no food and die, so water (and mineral salts) can no longer be absorbed and the plant dies.",
+      "Reject: 'water cannot reach the leaves' (the water-carrying tubes are still there)."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Plant System (Respiratory and circulatory systems) (P5 Standard): describe the functions of the food-carrying tubes; Plant System (P4): functions of the root. Format: Booklet B, 2-mark structured part. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6sci-original-01-q16",
+    "skill": "p6-science",
+    "topic": "systems.plant",
+    "subskill": "experimental_skills",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Arif wants to find out whether the number of leaves on a stem affects how quickly dyed water rises up the stem. He uses three stems with 2, 4 and 6 leaves, and places each stem in a beaker of dyed water.\n\nState two variables he must keep the same to make it a fair test.",
+    "answer": "Any two of: the same type of plant; the same length (and thickness) of stem; the same volume of dyed water; the same amount of dye; the same place, so the temperature and light are the same; the same time before checking.",
+    "working": [
+      "Changed variable: the number of leaves on the stem.",
+      "Measured variable: how quickly the dyed water rises (for example, the height it reaches after one hour).",
+      "Kept the same: everything else that could affect the result, such as the type of plant, the length of the stems, the volume of dyed water and where the beakers are kept."
+    ],
+    "hints": [
+      "What is the one thing Arif changes on purpose?",
+      "Name other things that could change how fast the water rises, and say each is kept the same."
+    ],
+    "keywords": [
+      "same type of plant",
+      "same length of stem",
+      "same volume of dyed water",
+      "same place or temperature"
+    ],
+    "marking": [
+      "1 mark each for any two specific variables kept the same (type of plant, length or thickness of the stem, volume of dyed water, amount of dye, place or temperature, time before checking).",
+      "Reject: 'the number of leaves' (that is the changed variable), and vague answers such as 'the same things' or 'the same beaker' that do not say what about it."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Plant System (Respiratory and circulatory systems) (P5 Standard): investigate how food and water are transported in the plant (planning a fair test). Format: Booklet B, 2-mark structured part. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6sci-original-01-q17",
+    "skill": "p6-science",
+    "topic": "diversity.living",
+    "subskill": "living_characteristics",
+    "difficulty": 1,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Which of the following shows that a plant responds to changes around it?",
+    "options": [
+      "It makes its own food.",
+      "Its shoot bends towards the light coming from a window.",
+      "It grows taller over a few weeks.",
+      "It produces seeds that grow into new plants."
+    ],
+    "answer": 2,
+    "working": [
+      "Responding means reacting to a change around it, such as light coming from one side.",
+      "The shoot bending towards the light from the window is a response.",
+      "Watch out: making food, growing and reproducing are also characteristics of living things, but they are not responses."
+    ],
+    "distractors": {
+      "1": "Making food is how a plant gets its food. It is not a reaction to a change around it.",
+      "3": "Growing taller shows that the plant grows, not that it responds.",
+      "4": "Producing seeds shows that the plant reproduces."
+    },
+    "hints": [
+      "To respond is to react to something that changes around you.",
+      "Which option describes the plant reacting to where the light comes from?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Diversity of Living and Non-Living Things (P3): describe the characteristics of living things (need water, food and air to survive; grow, respond and reproduce). Format: Booklet A, 2-mark multiple choice. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6sci-original-01-q18",
+    "skill": "p6-science",
+    "topic": "diversity.living",
+    "subskill": "classification",
+    "archetype": "DIV-1",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Study the flowchart.\n\nAnimal X lives in the sea. It has hair on its body, breathes air through its lungs and feeds its young with milk. Where would animal X be placed in the flowchart?",
+    "options": [
+      "P",
+      "Q",
+      "R",
+      "S"
+    ],
+    "answer": 2,
+    "working": [
+      "Start at the top. Animal X has no feathers, so it is not P.",
+      "It has hair on its body, so it goes to Q.",
+      "Watch out: living in the sea does not make an animal a fish. Group animals by what they are like (body covering, how they breathe), not by where they live."
+    ],
+    "distractors": {
+      "1": "P is for animals with feathers. Animal X has hair, not feathers.",
+      "3": "R is for animals that breathe through gills all their lives. Animal X breathes air through its lungs, and it already leaves the flowchart at the hair question.",
+      "4": "S is for animals that answer 'No' to every question. Animal X has hair."
+    },
+    "hints": [
+      "Follow the arrows from the top, one question at a time.",
+      "Answer each question using what you are told about animal X, not where it lives."
+    ],
+    "figure": "figures/p6sci-original-01-q18.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "flowchart",
+          "start": "Animals",
+          "steps": [
+            {
+              "q": "Does it have feathers?",
+              "side": "Yes",
+              "out": "P"
+            },
+            {
+              "q": "Does it have hair or fur?",
+              "side": "Yes",
+              "out": "Q"
+            },
+            {
+              "q": "Does it breathe through gills all its life?",
+              "side": "Yes",
+              "out": "R"
+            }
+          ],
+          "end": "S"
+        }
+      ]
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Diversity of Living and Non-Living Things (P3): classify living things into broad groups based on similarities and differences of common observable characteristics. Format: Booklet A, 2-mark multiple choice. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending. Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p6sci-original-01-q19",
+    "skill": "p6-science",
+    "topic": "diversity.living",
+    "subskill": "fungi_bacteria",
+    "archetype": "DIV-4",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Nadia kept three identical slices of bread in sealed plastic bags for 6 days. These were the conditions and her results.\n\n- Slice A: kept at 5 °C, moistened. Mould after 6 days: none seen.\n- Slice B: kept at 30 °C, not moistened. Mould after 6 days: a few small spots.\n- Slice C: kept at 30 °C, moistened. Mould after 6 days: large patches.\n\nWhich conclusion can be drawn from her results?",
+    "options": [
+      "Mould grows only at 30 °C.",
+      "Mould needs light to grow.",
+      "At 30 °C, more mould grows on moist bread than on dry bread.",
+      "Moist bread always has more mould than dry bread, at any temperature."
+    ],
+    "answer": 3,
+    "working": [
+      "Compare slices that differ in only one condition.",
+      "B and C were both at 30 °C; only C was moistened, and C had much more mould after the same 6 days. So at 30 °C, more mould grows on moist bread than on dry bread.",
+      "Mould is a fungus, a living thing that needs water and grows faster when it is warm.",
+      "Watch out: words like 'only', 'always' and 'any' claim more than these results show."
+    ],
+    "distractors": {
+      "1": "No mould was seen at 5 °C within 6 days, and only two temperatures were tested, so we cannot say mould grows ONLY at 30 °C.",
+      "2": "Light was not tested: the slices differed only in temperature and moisture.",
+      "4": "Dry bread was only tested at 30 °C, so we cannot say what happens at other temperatures."
+    },
+    "hints": [
+      "Find two slices that differ in only ONE condition.",
+      "Be careful with words like 'only', 'always' and 'any'. Do the results really show that much?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Diversity of Living and Non-Living Things (P3): fungi (mould, mushroom, yeast) as a group of living things; living things need water, food and air (drawing conclusions from data). Format: Booklet A, 2-mark multiple choice. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6sci-original-01-q20",
+    "skill": "p6-science",
+    "topic": "diversity.living",
+    "subskill": "classification",
+    "archetype": "DIV-3",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Plant R has roots, stems and green leaves, but it never bears flowers. Brown spots form on the underside of its leaves. Tiny particles released from these spots can grow into new plants.\n\nWhich statement about plant R is correct?",
+    "options": [
+      "It is a flowering plant that reproduces by seeds.",
+      "It is a fungus because it has no flowers.",
+      "It cannot make its own food because it has no flowers.",
+      "It is a non-flowering plant that reproduces by spores."
+    ],
+    "answer": 4,
+    "working": [
+      "Plant R never bears flowers, so it is a non-flowering plant.",
+      "The tiny particles released from the spots that grow into new plants are spores.",
+      "Watch out: having no flowers does not make it a fungus. It has green leaves, so like all plants it makes its own food."
+    ],
+    "distractors": {
+      "1": "Plant R never bears flowers, so it cannot be a flowering plant. Seeds develop from flowers.",
+      "2": "Plant R has roots, stems and green leaves and makes its own food, so it is a plant. Many plants have no flowers.",
+      "3": "Plants make food in their green leaves. Flowers are for reproduction, not for making food."
+    },
+    "hints": [
+      "Does plant R have flowers? What does that tell you about its group?",
+      "What do we call the tiny particles that some non-flowering plants reproduce by?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Diversity of Living and Non-Living Things (P3): plants (flowering, non-flowering); Cycles in Plants and Animals (Reproduction) (P5 Standard): investigate the ways in which plants reproduce (spores, seeds). Format: Booklet A, 2-mark multiple choice. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6sci-original-01-q21",
+    "skill": "p6-science",
+    "topic": "diversity.living",
+    "subskill": "fungi_bacteria",
+    "difficulty": 4,
+    "marks": 2,
+    "type": "open",
+    "stem": "Lin found an organism growing on a damp, rotting log in a forest. It had no leaves and no green parts.\n\nLin said, \"It is a plant because it does not move from place to place.\" Do you agree? Explain your answer.",
+    "answer": "No. Not moving about does not make a living thing a plant: fungi do not move about either. Plants have green parts and make their own food using light, but this organism has no green parts, so it cannot make its own food. It is most likely a fungus, such as a mushroom, that gets its food from the rotting log.",
+    "working": [
+      "Claim: No. Not moving does not show that it is a plant; it is most likely a fungus.",
+      "Evidence: It has no leaves and no green parts, and it grows on a rotting log.",
+      "Reasoning: Plants make their own food using light in their green parts. A fungus cannot make its own food; it feeds on dead and decaying matter such as the rotting log, and breaks it down."
+    ],
+    "hints": [
+      "What can every plant do that needs green parts?",
+      "If it cannot make its own food, where could this organism get its food from?"
+    ],
+    "keywords": [
+      "disagree",
+      "fungi do not move about either",
+      "plants make their own food in green parts",
+      "it gets its food from the rotting log"
+    ],
+    "marking": [
+      "1 mark: disagree, with a reason that rejects Lin's test: not moving does not show it is a plant (fungi do not move either), or plants make their own food with green parts but this organism has none.",
+      "1 mark: it most likely gets its food from the dead, rotting log, as a fungus (a decomposer) does.",
+      "Reject: 'it is not a plant because it is small' or 'because it lives on a log' with no link to how it gets food."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Diversity of Living and Non-Living Things (P3): broad groups of living things (plants; fungi: mould, mushroom, yeast); Interactions within the Environment (P6 Standard): types of organisms present (producers, consumers, decomposers). Format: Booklet B, 2-mark structured part. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6sci-original-01-q22",
+    "skill": "p6-science",
+    "topic": "energy.light",
+    "subskill": "reflection",
+    "difficulty": 1,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Mei can see a book on a table in a room lit by a lamp. Which of the following explains how she sees the book?",
+    "options": [
+      "Light from her eyes falls on the book.",
+      "Light from the lamp is reflected by the book into her eyes.",
+      "The book gives out its own light.",
+      "Light from the lamp passes through the book into her eyes."
+    ],
+    "answer": 2,
+    "working": [
+      "The book is not a source of light. Light from the lamp falls on the book and is reflected into Mei's eyes, so she sees the book.",
+      "Watch out: our eyes receive light. They do not send light out."
+    ],
+    "distractors": {
+      "1": "Eyes do not give out light. We see when light enters our eyes.",
+      "3": "A book is not a source of light. We see it because it reflects light.",
+      "4": "A book does not let light pass through it. It reflects the light that falls on it."
+    },
+    "hints": [
+      "Is the book a source of light?",
+      "Which way does the light travel: into the eyes or out of them?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Energy Forms and Uses (Light) (P4): recognise that an object can be seen when it reflects light or when it is a source of light. Format: Booklet A, 2-mark multiple choice. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6sci-original-01-q23",
+    "skill": "p6-science",
+    "topic": "energy.light",
+    "subskill": "transparency",
+    "archetype": "ENE-LIGHT-2",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Ben shone a torch at a light sensor. He placed sheets of three materials, K, L and M, one at a time, between the torch and the sensor, as shown. The table shows the light sensor readings, in units.\n\n| Sheet | Reading |\n| --- | --- |\n| No sheet | 500 |\n| K | 480 |\n| L | 0 |\n| M | 260 |\n\nWhich statement is correct?",
+    "options": [
+      "Sheet K allows the least light to pass through.",
+      "Sheet M allows no light to pass through.",
+      "Sheet L would cast the darkest shadow.",
+      "Sheet K would cast a darker shadow than sheet M."
+    ],
+    "answer": 3,
+    "working": [
+      "The lower the reading, the less light passed through the sheet to the sensor.",
+      "L gives a reading of 0, so it allows no light to pass through. It blocks all the light and would cast the darkest shadow.",
+      "K (480) allows most of the light through, so its shadow would be very faint. M (260) allows some light through, so its shadow would be lighter than L's."
+    ],
+    "distractors": {
+      "1": "K gave the HIGHEST reading of the three sheets, so it allows the MOST light through.",
+      "2": "M's reading is 260, not 0, so some light passes through it.",
+      "4": "K lets more light through than M (480 is more than 260), so K's shadow would be lighter, not darker."
+    },
+    "hints": [
+      "What does a lower light sensor reading tell you about the sheet?",
+      "The darkest shadow forms where the most light is blocked."
+    ],
+    "figure": "figures/p6sci-original-01-q23.svg",
+    "figure_spec": {
+      "stem": [
+        {
+          "type": "light_test",
+          "material_label": "sheet K, L or M"
+        }
+      ]
+    },
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Energy Forms and Uses (Light) (P4): a shadow is formed when light is completely or partially blocked by an object (the terms transparent, translucent and opaque are not required); measuring with a light sensor. Format: Booklet A, 2-mark multiple choice. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending. Figure rendered from figure_spec on 27 Oct by scripts/render-figures.ts; founder to check it."
+  },
+  {
+    "id": "p6sci-original-01-q24",
+    "skill": "p6-science",
+    "topic": "energy.light",
+    "subskill": "shadows",
+    "archetype": "ENE-LIGHT-1",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Ali holds a round paper plate between a torch and a screen, with the flat face of the plate towards the torch. Its shadow on the screen is a circle. He then turns the plate so that its edge faces the torch, without moving it nearer to or further from the torch.\n\nWhat does the shadow look like now?",
+    "options": [
+      "A bigger circle",
+      "A thin strip",
+      "A smaller circle",
+      "There is no shadow, because the light passes around the plate"
+    ],
+    "answer": 2,
+    "working": [
+      "A shadow forms where the plate blocks the light, so its shape follows the outline of the plate as seen from the torch.",
+      "Edge-on, the torch meets only the thin edge of the plate, so the shadow is a thin strip about as long as the plate is wide.",
+      "Watch out: the plate still blocks some light, so there is still a shadow."
+    ],
+    "distractors": {
+      "1": "The plate did not move nearer the torch, and edge-on it blocks much less light, so the shadow cannot be a bigger circle.",
+      "3": "From the torch, the turned plate no longer looks like a circle, so its shadow is not a circle.",
+      "4": "The edge of the plate still blocks a thin band of light, so a thin shadow forms."
+    },
+    "hints": [
+      "Imagine you are the torch. What does the plate look like from there after it is turned?",
+      "A shadow takes the shape of the outline of the object facing the light."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Energy Forms and Uses (Light) (P4): a shadow is formed when light is blocked by an object; investigate the variables that affect shadows formed (shape, size and position of the object). Format: Booklet A, 2-mark multiple choice. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6sci-original-01-q25",
+    "skill": "p6-science",
+    "topic": "energy.light",
+    "subskill": "shadows",
+    "archetype": "ENE-LIGHT-1",
+    "difficulty": 4,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Rani placed a torch 60 cm from a screen. She put an 8-cm tall toy between them and measured the height of its shadow on the screen as she moved the toy further from the torch. The table shows the distance between the torch and the toy, and the height of the shadow.\n\n| Distance (cm) | Shadow (cm) |\n| --- | --- |\n| 10 | 48 |\n| 20 | 24 |\n| 30 | 16 |\n| 40 | 12 |\n\nWhat is the most likely height of the shadow when the toy is 50 cm from the torch?",
+    "options": [
+      "6 cm",
+      "10 cm",
+      "14 cm",
+      "20 cm"
+    ],
+    "answer": 2,
+    "working": [
+      "As the toy moves further from the torch (nearer the screen), the shadow gets smaller.",
+      "The shadow shrinks by less each time: 48 → 24 (24 cm less), 24 → 16 (8 cm less), 16 → 12 (4 cm less). From 40 cm to 50 cm it should shrink by less than 4 cm.",
+      "So the shadow should be a little less than 12 cm. It also cannot be smaller than the toy itself (8 cm) while the toy is between the torch and the screen. About 10 cm is the most likely height."
+    ],
+    "distractors": {
+      "1": "6 cm is smaller than the toy itself. The shadow keeps shrinking, but by less each time, so it stays above the toy's height of 8 cm here.",
+      "3": "The shadow gets smaller as the toy moves away from the torch, so it must be less than 12 cm.",
+      "4": "20 cm is bigger than the shadow at 40 cm. Moving the toy further from the torch makes the shadow smaller."
+    },
+    "hints": [
+      "Does the shadow get bigger or smaller as the toy moves away from the torch?",
+      "Look at how much the shadow shrinks each time the toy moves 10 cm. Is that change getting bigger or smaller?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Energy Forms and Uses (Light) (P4): investigate the variables that affect shadows formed (distance between light source and object); interpreting data and making predictions. Format: Booklet A, 2-mark multiple choice. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6sci-original-01-q26",
+    "skill": "p6-science",
+    "topic": "energy.light",
+    "subskill": "shadows",
+    "archetype": "ENE-LIGHT-1",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "open",
+    "stem": "Rani placed a torch 60 cm from a screen and put a toy between them. When she moved the toy nearer to the torch, the toy's shadow on the screen became bigger.\n\nExplain why the shadow became bigger.",
+    "answer": "Light travels in straight lines and spreads out from the torch. When the toy is nearer the torch, it blocks more of the light, so a bigger area of the screen does not receive light and the shadow is bigger.",
+    "working": [
+      "Claim: The shadow became bigger because the toy blocked more of the torch's light.",
+      "Evidence: The shadow grew when the toy was moved nearer the torch, while the torch and the screen stayed in place.",
+      "Reasoning: Light travels in straight lines and spreads out from the torch. Close to the torch, the toy blocks a wider spread of light, so a bigger area of the screen is left without light."
+    ],
+    "hints": [
+      "How does light travel from the torch to the screen?",
+      "Close to the torch, does the toy block more or less of the light?"
+    ],
+    "keywords": [
+      "light travels in straight lines",
+      "the toy nearer the torch blocks more light",
+      "a bigger area of the screen gets no light"
+    ],
+    "marking": [
+      "1 mark: light travels in straight lines and is blocked by the toy.",
+      "1 mark: nearer the torch, the toy blocks more of the light, so a bigger area of the screen receives no light.",
+      "Reject: 'the toy is bigger' or 'the light is stronger near the torch'."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Energy Forms and Uses (Light) (P4): recognise that light travels in straight lines and thus a shadow is formed when light is completely or partially blocked by an object. Format: Booklet B, 2-mark structured part. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6sci-original-01-q27",
+    "skill": "p6-science",
+    "topic": "diversity.materials",
+    "subskill": "material_properties",
+    "difficulty": 1,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Which of the following describes a waterproof material?",
+    "options": [
+      "It does not absorb water.",
+      "It floats on water.",
+      "It does not break when it is wet.",
+      "It allows light to pass through."
+    ],
+    "answer": 1,
+    "working": [
+      "A material is waterproof when it does not absorb water (this is how the syllabus defines it).",
+      "Floating, not breaking and letting light through are different properties."
+    ],
+    "distractors": {
+      "2": "Floating is a different property. Some waterproof materials, such as many metals, sink.",
+      "3": "Not breaking describes strength. A strong material may still absorb water.",
+      "4": "This is about how much light passes through a material, not whether it absorbs water."
+    },
+    "hints": [
+      "Think of a raincoat. What must its material NOT do with the rain?",
+      "Each option describes a different property. Which one is about absorbing water?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Diversity of Materials (P3): compare physical properties of materials (a material is waterproof when it does not absorb water). Format: Booklet A, 2-mark multiple choice. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6sci-original-01-q28",
+    "skill": "p6-science",
+    "topic": "diversity.materials",
+    "subskill": "material_properties",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Here are some properties of four materials, P, Q, R and S.\n\n- P: flexible, waterproof, allows light to pass through\n- Q: flexible, not waterproof, does not allow light to pass through\n- R: not flexible, waterproof, does not allow light to pass through\n- S: flexible, waterproof, does not allow light to pass through\n\nAhmad wants a cover that he can wrap around his bicycle to keep it dry in the rain and to hide it from view. Which material is the most suitable?",
+    "options": [
+      "P",
+      "Q",
+      "R",
+      "S"
+    ],
+    "answer": 4,
+    "working": [
+      "The cover must be flexible (to wrap round the bicycle), waterproof (to keep it dry) and must not allow light to pass through (to hide the bicycle from view).",
+      "Only S has all three properties."
+    ],
+    "distractors": {
+      "1": "P allows light to pass through, so the bicycle could still be seen.",
+      "2": "Q is not waterproof, so the rain would soak through it.",
+      "3": "R is not flexible, so it cannot be wrapped round the bicycle."
+    },
+    "hints": [
+      "List the three things the cover must do.",
+      "Cross out every material that fails even one of them."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Diversity of Materials (P3): relate the use of materials to their physical properties (flexibility, waterproof, transparency). Format: Booklet A, 2-mark multiple choice. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6sci-original-01-q29",
+    "skill": "p6-science",
+    "topic": "diversity.materials",
+    "subskill": "experimental_skills",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Kai wants to find out which of three materials is the strongest. He hangs a load from a strip of each material and adds more mass until the strip breaks.\n\nWhich of the following must he keep the same to make it a fair test?",
+    "options": [
+      "The mass needed to break each strip",
+      "The type of material of each strip",
+      "The width and thickness of each strip",
+      "The number of strips that break"
+    ],
+    "answer": 3,
+    "working": [
+      "Changed variable: the type of material. Measured variable: the mass needed to break each strip.",
+      "Everything else must be kept the same, such as the width, thickness and length of the strips, so that only the material affects the result.",
+      "Strength is the ability of a material to hold loads without breaking."
+    ],
+    "distractors": {
+      "1": "That is what he measures (the result). It will be different for each material.",
+      "2": "That is what he changes on purpose. It must be different for each strip.",
+      "4": "Every strip breaks in the end, so this tells him nothing about which is strongest."
+    },
+    "hints": [
+      "Which variable does Kai change on purpose, and which one does he measure?",
+      "Anything else that could make a strip break more easily must be kept the same."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Diversity of Materials (P3): compare physical properties of materials (strength: the ability to be subjected to loads without breaking); planning a fair test. Format: Booklet A, 2-mark multiple choice. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6sci-original-01-q30",
+    "skill": "p6-science",
+    "topic": "diversity.materials",
+    "subskill": "material_properties",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Lina tested same-sized strips of four materials, W, X, Y and Z. These are her results.\n\n- W: broke with a 900 g load; absorbed 0 ml of water\n- X: broke with a 200 g load; absorbed 0 ml of water\n- Y: broke with a 950 g load; absorbed 6 ml of water\n- Z: broke with a 400 g load; absorbed 1 ml of water\n\nWhich material is the most suitable for making a shopping bag that must carry heavy things in the rain?",
+    "options": [
+      "W",
+      "X",
+      "Y",
+      "Z"
+    ],
+    "answer": 1,
+    "working": [
+      "The bag must be strong (it needs a large mass to break it) and waterproof (it absorbs no water).",
+      "W needs 900 g to break and absorbs no water.",
+      "Y is slightly stronger but absorbs water, so it is not waterproof. X does not absorb water but breaks easily."
+    ],
+    "distractors": {
+      "2": "X is waterproof, but it breaks with only 200 g, so it is not strong enough.",
+      "3": "Y is the strongest, but it absorbs 6 ml of water, so it is not waterproof.",
+      "4": "Z absorbs some water and is not very strong."
+    },
+    "hints": [
+      "Which result tells you about strength, and which tells you whether the material is waterproof?",
+      "The bag must pass BOTH tests. Cross out any material that fails one."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Diversity of Materials (P3): compare physical properties of materials (strength; waterproof) and relate them to uses. Format: Booklet A, 2-mark multiple choice. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6sci-original-01-q31",
+    "skill": "p6-science",
+    "topic": "diversity.materials",
+    "subskill": "experimental_skills",
+    "difficulty": 5,
+    "marks": 2,
+    "type": "open",
+    "stem": "Jun bent same-sized strips of materials A and B in the same way. Strip A bent without breaking. Strip B broke.\n\nJun concluded, \"Material B is weaker than material A.\" Explain why his test does not show this.",
+    "answer": "Bending the strips tests flexibility (the ability to bend without breaking), not strength, so his result only shows that A is more flexible than B. Strength is the ability to hold loads without breaking, and he did not put any loads on the strips, so he cannot tell which material is stronger.",
+    "working": [
+      "Claim: Jun's test does not show which material is stronger.",
+      "Evidence: He only bent the strips: B broke when bent and A did not.",
+      "Reasoning: Flexibility is the ability to bend without breaking; strength is the ability to hold loads without breaking. He tested flexibility, not strength."
+    ],
+    "hints": [
+      "Which property does bending a strip test?",
+      "How is strength defined? Did Jun's test do that?"
+    ],
+    "keywords": [
+      "bending tests flexibility, not strength",
+      "A is more flexible than B",
+      "strength is holding loads without breaking",
+      "no loads were put on the strips"
+    ],
+    "marking": [
+      "1 mark: the bending test shows flexibility (A is more flexible), not strength.",
+      "1 mark: strength is the ability to hold loads without breaking; no loads were put on the strips, so the test cannot show which is stronger.",
+      "Reject: 'B is weaker because it broke' (that repeats Jun's mistake)."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Science practice written by Claude Code for myKx from the MOE 2023 Primary Science syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE Primary Science syllabus 2023 (updated Jan 2026), Diversity of Materials (P3): strength (the ability to be subjected to loads without breaking) and flexibility (the ability to bend without breaking). Format: Booklet B, 2-mark structured part. Written by Claude Code from the syllabus; the key was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  }
+]

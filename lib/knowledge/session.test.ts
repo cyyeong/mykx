@@ -9,7 +9,7 @@ import { resetRateLimits } from "../auth/lockout.ts";
 import { resetDemoStore, type DemoStore } from "../auth/store-demo.ts";
 import { clearSkillOverrides, diskPackFiles } from "../skills/overrides.ts";
 import { loadPack, readSection } from "../skills/runtime.ts";
-import { checkPack, safetyProblems } from "../skills/versions.ts";
+import { checkPack, nextPackVersion, safetyProblems } from "../skills/versions.ts";
 import { fallbackCheck } from "./crosscheck.ts";
 import type { Extraction, KixItem, KnowledgeSession, KnowledgeUpload } from "./knowledge.ts";
 import { refinePack } from "./refine.ts";
@@ -215,14 +215,16 @@ describe("the publish route", () => {
     expect(school.status).toBe(400); // a school paper keeps no questions, even by an edit
 
     const pub = await call(publishRoute.POST, "POST", { pack: "p6-maths", sessionId: session.id });
-    expect(pub.body).toMatchObject({ ok: true, update: { pack: "p6-maths", version: "1.1.0", status: "published" } });
+    // The first published version is one minor up from the pack on disk, whatever its version.
+    const next = nextPackVersion(JSON.parse(diskPackFiles("p6-maths")!["skill.json"]).version, []);
+    expect(pub.body).toMatchObject({ ok: true, update: { pack: "p6-maths", version: next, status: "published" } });
     const v = await store.skillVersions.get(pub.body.update.versionId);
     expect(v).toMatchObject({ status: "published", source: "knowledge" });
     expect(Object.values(v!.files).join("\n")).not.toContain(SCHOOL_STEM);
-    expect(loadPack("p6-maths")?.version).toBe("1.1.0");
+    expect(loadPack("p6-maths")?.version).toBe(next);
     const id = loadPack("p6-maths")!.sections.find((s) => s.file === "references/exam-patterns.md")!.id;
     expect(readSection(id)?.text).toContain("before-and-after transfer");
-    expect((await store.knowledge.updates("p6-maths")).map((u) => u.version)).toEqual(["1.1.0"]); // the history stays readable
+    expect((await store.knowledge.updates("p6-maths")).map((u) => u.version)).toEqual([next]); // the history stays readable
     expect((await store.knowledge.session(session.id))?.kixItems["p6-maths"].every((k) => k.mark !== "approved")).toBe(true);
     expect(store.auditLog.find((a) => a.action === "knowledge.publish")).toMatchObject({ target: pub.body.update.versionId, detail: expect.objectContaining({ pack: "p6-maths" }) });
   });

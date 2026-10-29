@@ -147,7 +147,7 @@ Read only the sections you need for today's target.
 5. Square/rectangle: all 90°, diagonals of a square make 45°.
 6. Parallelogram & rhombus: opposite angles equal; angles between parallel sides add to 180°; rhombus diagonals bisect the angles (each half).
 7. Trapezium: one pair of parallel sides → the two angles between them add to 180°.
-Plus: parallel lines → alternate (Z) and corresponding (F) angles are equal; a fold makes mirror-image equal angles; "is / is not a parallelogram" → check both pairs of opposite sides parallel (angle sums 180°).
+Plus: between a pair of parallel lines, the two angles on the same side of a crossing line add up to 180° (the parallelogram and trapezium property; the names "alternate" and "corresponding" angles are Secondary 1, so don't rely on them); a fold makes mirror-image equal angles; "is / is not a parallelogram" → check both pairs of opposite sides parallel (angle sums 180°).
 
 **Hooks**: "Straight = 180, Point = 360, Triangle = 180 — the *180-360-180 chant*." Isosceles: "the equal angles sit *opposite* the equal sides (the ticks)." Rhombus: "a squashed square — diagonals cut every corner in half."
 
@@ -158,7 +158,7 @@ Plus: parallel lines → alternate (Z) and corresponding (F) angles are equal; a
 ---
 ## 14. Nets, solids, unit cubes, drawing on grids (≈3 marks/paper)
 
-**Must-know**: a cube net has 6 squares, never 4 in a row with 2 on the same side, never a 2×2 block. Square-pyramid net: 1 square + 4 triangles each attached to a different side of the square (or chained correctly). Cuboid net: 2 identical squares + 4 identical rectangles → perimeter/length questions use the net's edge lengths. Unit cubes: count per column; "least cubes to complete a big cube" = n³ − current. Views: top/front/side — "max cubes to add without changing two views" → fill columns up to the height the views allow. Drawing: on a grid, a rectangle with the same area as a square of side 4 → 2 × 8; a square with the same perimeter as a parallelogram → measure sides, ÷ 4.
+**Must-know**: a cube net has 6 squares, never 4 in a row with 2 on the same side, never a 2×2 block. Square-pyramid net: 1 square + 4 triangles each attached to a different side of the square (or chained correctly). Cuboid net: 2 identical squares + 4 identical rectangles → perimeter/length questions use the net's edge lengths. Unit cubes: count per column; "least cubes to complete a big cube" = n³ − current. Views: the 2021 syllabus does not name top/front/side views (it says "2D representations" at P4 and isometric drawing at P5); some school papers still ask them, so treat them as enrichment: "max cubes to add without changing two views" → fill columns up to the height the views allow. Drawing: on a grid, a rectangle with the same area as a square of side 4 → 2 × 8; a square with the same perimeter as a parallelogram → measure sides, ÷ 4.
 **Hook**: "A net folds without any face overlapping — trace it in your head, face by face."
 
 ---

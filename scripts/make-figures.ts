@@ -274,6 +274,69 @@ P6["q37-two-pies.svg"] = svg(520, 260, [
   text([390, 238], "Pie chart Y: Class B", { bold: true, size: 13 }),
 ]);
 
+// ─── P6 Maths, set original-02: nets and solids made of unit cubes ───
+/** Unit squares of a net at grid cells [col, row], each s px, from (x, y). */
+function net(x: number, y: number, s: number, cells: [number, number][]) {
+  return cells.map(([c, r]) => `<rect x="${x + c * s}" y="${y + r * s}" width="${s}" height="${s}" fill="#fff" stroke="${INK}" stroke-width="1.7"/>`).join("\n");
+}
+// o2-q19: the net of a triangular prism: three rectangles in a row, a triangle on the top and bottom of the middle one.
+{
+  const x = 50, y = 70, w = 60, h = 120, th = 52;
+  P6["o2-q19-prism-net.svg"] = svg(280, 272, [
+    poly([[x, y], [x + 3 * w, y], [x + 3 * w, y + h], [x, y + h]]),
+    line([x + w, y], [x + w, y + h]), line([x + 2 * w, y], [x + 2 * w, y + h]),
+    poly([[x + w, y], [x + 1.5 * w, y - th], [x + 2 * w, y]]),
+    poly([[x + w, y + h], [x + 1.5 * w, y + h + th], [x + 2 * w, y + h]]),
+    note(10, 266),
+  ]);
+}
+// o2-q20: four nets of six squares, labelled A–D (C has two squares on the same side of a row of four).
+{
+  const s = 26;
+  const nets: [string, [number, number][]][] = [
+    ["A", [[0, 1], [1, 1], [2, 1], [3, 1], [1, 0], [1, 2]]],
+    ["B", [[0, 1], [1, 1], [2, 1], [3, 1], [0, 0], [3, 2]]],
+    ["C", [[0, 1], [1, 1], [2, 1], [3, 1], [0, 0], [2, 0]]],
+    ["D", [[0, 0], [1, 0], [1, 1], [2, 1], [2, 2], [3, 2]]],
+  ];
+  const out: string[] = [];
+  nets.forEach(([label, cells], i) => {
+    const x = 22 + (i % 2) * 160, y = 14 + Math.floor(i / 2) * 136;
+    out.push(net(x, y, s, cells), text([x + 2 * s, y + 3 * s + 32], `Net ${label}`, { bold: true, size: 22 }));
+  });
+  P6["o2-q20-cube-nets.svg"] = svg(310, 278, out);
+}
+// o2-q21: a solid of unit cubes in isometric view: a full 3 × 3 bottom layer, a 2 × 2 middle layer at the back
+// corner and one cube on top of that corner.
+{
+  const s = 34, ox = 150, oy = 120;
+  const cx = Math.cos(Math.PI / 6) * s, cy = Math.sin(Math.PI / 6) * s;
+  const P = (x: number, y: number, z: number): Pt => [ox + (x - y) * cx, oy + (x + y) * cy - z * s];
+  const cubes: [number, number, number][] = [];
+  for (let x = 0; x < 3; x++) for (let y = 0; y < 3; y++) cubes.push([x, y, 0]);
+  for (let x = 0; x < 2; x++) for (let y = 0; y < 2; y++) cubes.push([x, y, 1]);
+  cubes.push([0, 0, 2]);
+  cubes.sort((a, b) => a[0] + a[1] + a[2] - (b[0] + b[1] + b[2]) || a[2] - b[2]);
+  const face = (pts: Pt[], fill: string) => `<path d="${pts.map((p, i) => `${i ? "L" : "M"} ${f(p[0])} ${f(p[1])}`).join(" ")} Z" fill="${fill}" stroke="${INK}" stroke-width="1.4" stroke-linejoin="round"/>`;
+  const out: string[] = [];
+  for (const [x, y, z] of cubes) {
+    out.push(face([P(x, y, z + 1), P(x + 1, y, z + 1), P(x + 1, y + 1, z + 1), P(x, y + 1, z + 1)], "#ffffff"));
+    out.push(face([P(x + 1, y, z + 1), P(x + 1, y + 1, z + 1), P(x + 1, y + 1, z), P(x + 1, y, z)], "#e4e4ea"));
+    out.push(face([P(x, y + 1, z + 1), P(x + 1, y + 1, z + 1), P(x + 1, y + 1, z), P(x, y + 1, z)], SHADE));
+  }
+  P6["o2-q21-cube-stack.svg"] = svg(300, 240, out);
+}
+// o2-q22: the net of a cuboid with square ends: four identical rectangles in a row, a square on the top and
+// bottom of the second rectangle.
+{
+  const x = 60, y = 58, w = 36, h = 108;
+  const out = [poly([[x, y], [x + 4 * w, y], [x + 4 * w, y + h], [x, y + h]])];
+  for (let i = 1; i < 4; i++) out.push(line([x + i * w, y], [x + i * w, y + h]));
+  out.push(poly([[x + w, y - w], [x + 2 * w, y - w], [x + 2 * w, y], [x + w, y]]), poly([[x + w, y + h], [x + 2 * w, y + h], [x + 2 * w, y + h + w], [x + w, y + h + w]]));
+  out.push(note(10, 226));
+  P6["o2-q22-cuboid-net.svg"] = svg(264, 232, out);
+}
+
 // P3 Science: seeds in set-ups A–D (the table gives the conditions; this shows what each looks like).
 {
   const out: string[] = [];

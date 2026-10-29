@@ -1,0 +1,934 @@
+[
+  {
+    "id": "p6math-original-02-q1",
+    "skill": "p6-maths",
+    "topic": "number.whole_numbers",
+    "subskill": "place_value_numerals",
+    "archetype": "WN-CORE",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which of the following is three million, forty thousand and six written in numerals?",
+    "options": [
+      "3 040 006",
+      "3 400 006",
+      "3 040 060",
+      "340 006"
+    ],
+    "answer": 1,
+    "working": [
+      "Three million: the 3 goes in the millions place.",
+      "Forty thousand: the thousands group is 040 (a 4 in the ten thousands place).",
+      "Six: the ones group is 006.",
+      "So the number is 3 040 006."
+    ],
+    "distractors": {
+      "2": "This is three million, four hundred thousand and six. The 4 belongs in the ten thousands place.",
+      "3": "This number ends in sixty, not six. The 6 goes in the ones place.",
+      "4": "This is three hundred and forty thousand and six. Three million needs seven digits."
+    },
+    "hints": [
+      "Write the number in three groups: millions, thousands, then ones.",
+      "Every group after the millions has exactly three digits. Fill the empty places with zeros."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx from the MOE 2021 Primary Mathematics syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE 2021 Primary Mathematics syllabus (updated Oct 2025), P5 Whole Numbers 1.1 (reading and writing numbers in numerals and in words, numbers up to 10 million). Format: Paper 1 Booklet A, 1-mark multiple choice. Written by Claude Code from the syllabus; the answer was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6math-original-02-q2",
+    "skill": "p6-maths",
+    "topic": "number.whole_numbers",
+    "subskill": "rounding",
+    "archetype": "WN-CORE",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "A number rounded to the nearest thousand is 58 000. Which of the following could be the number?",
+    "options": [
+      "57 499",
+      "58 501",
+      "57 850",
+      "58 500"
+    ],
+    "answer": 3,
+    "working": [
+      "The numbers that round to 58 000 (to the nearest thousand) go from 57 500 up to 58 499.",
+      "57 499: the hundreds digit is 4, so it rounds down to 57 000.",
+      "58 501 and 58 500: the hundreds digit is 5, so they round up to 59 000.",
+      "57 850: the hundreds digit is 8, so it rounds up to 58 000 ✓"
+    ],
+    "distractors": {
+      "1": "57 499 is just below 57 500, so it rounds down to 57 000.",
+      "2": "The hundreds digit is 5, so 58 501 rounds up to 59 000.",
+      "4": "58 500 is exactly halfway. A 5 in the hundreds place rounds up, to 59 000."
+    },
+    "hints": [
+      "Look at the hundreds digit: 5 or more rounds up, 4 or less rounds down.",
+      "Write the smallest and the largest whole numbers that round to 58 000, then test each option."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx from the MOE 2021 Primary Mathematics syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE 2021 Primary Mathematics syllabus (updated Oct 2025), P4 Whole Numbers 1.5 (rounding numbers to the nearest 10, 100 or 1000). Format: Paper 1 Booklet A, 2-mark multiple choice. Written by Claude Code from the syllabus; the answer was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6math-original-02-q3",
+    "skill": "p6-maths",
+    "topic": "number.whole_numbers",
+    "subskill": "order_of_operations",
+    "archetype": "WN-CORE",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Find the value of 90 − 36 ÷ (4 + 2) × 3.",
+    "options": [
+      "27",
+      "88",
+      "87",
+      "72"
+    ],
+    "answer": 4,
+    "working": [
+      "Brackets first: 4 + 2 = 6.",
+      "Then divide and multiply from left to right: 36 ÷ 6 = 6, then 6 × 3 = 18.",
+      "Subtract last: 90 − 18 = 72."
+    ],
+    "distractors": {
+      "1": "Subtracted first (90 − 36). Division and multiplication come before subtraction.",
+      "2": "Multiplied 6 × 3 before dividing. Division and multiplication go from left to right, so 36 ÷ 6 comes first.",
+      "3": "Left out the brackets. Work out 4 + 2 first."
+    },
+    "hints": [
+      "Brackets first, then ÷ and × from left to right, then + and −.",
+      "After the brackets, the next step is the division."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx from the MOE 2021 Primary Mathematics syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE 2021 Primary Mathematics syllabus (updated Oct 2025), P5 Whole Numbers 2.2–2.3 (order of operations; use of brackets; without calculator). Format: Paper 1 Booklet A, 1-mark multiple choice. Written by Claude Code from the syllabus; the answer was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6math-original-02-q4",
+    "skill": "p6-maths",
+    "topic": "number.whole_numbers",
+    "subskill": "factors_multiples",
+    "archetype": "WN-CORE",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "Priya has 48 red beads and 72 blue beads. She puts all the beads into bags so that every bag has the same number of red beads and the same number of blue beads, with no beads left over. What is the greatest number of bags she can fill?",
+    "answer": "24",
+    "unit": "bags",
+    "working": [
+      "The number of bags must be a factor of 48 (so the red beads share equally) and a factor of 72 (so the blue beads share equally).",
+      "Factors of 48: 1, 2, 3, 4, 6, 8, 12, 16, 24, 48. Factors of 72: 1, 2, 3, 4, 6, 8, 9, 12, 18, 24, 36, 72.",
+      "The common factors are 1, 2, 3, 4, 6, 8, 12 and 24. The greatest is 24.",
+      "Check: 24 bags, each with 2 red and 3 blue beads: 24 × 2 = 48 and 24 × 3 = 72 ✓"
+    ],
+    "hints": [
+      "The number of bags must divide 48 exactly AND divide 72 exactly.",
+      "List the factors of both numbers and find the greatest one they share."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx from the MOE 2021 Primary Mathematics syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE 2021 Primary Mathematics syllabus (updated Oct 2025), P4 Whole Numbers 2.1, 2.3 (factors and multiples; finding the common factors of two given numbers). Format: Paper 1 Booklet B, 2-mark short answer. Written by Claude Code from the syllabus; the answer was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6math-original-02-q5",
+    "skill": "p6-maths",
+    "topic": "number.whole_numbers",
+    "subskill": "number_patterns",
+    "archetype": "WN-PATTERN",
+    "difficulty": 4,
+    "marks": 2,
+    "type": "short",
+    "stem": "Ahmad uses sticks to make a row of squares. Figure 1 is 1 square, Figure 2 is 2 squares joined in a row, and so on. The table shows the number of sticks in each figure.\n\n| Figure | Sticks |\n| --- | --- |\n| 1 | 4 |\n| 2 | 7 |\n| 3 | 10 |\n| 4 | 13 |\n\nWhich figure uses exactly 151 sticks?",
+    "answer": "50",
+    "accept": [
+      "Figure 50"
+    ],
+    "working": [
+      "Each new square adds 3 sticks: 4, 7, 10, 13, …",
+      "Figure n uses 3 × n + 1 sticks. Check: Figure 1 → 3 × 1 + 1 = 4 ✓",
+      "3 × n + 1 = 151 → 3 × n = 150 → n = 50.",
+      "Check: Figure 50 uses 3 × 50 + 1 = 151 sticks ✓"
+    ],
+    "hints": [
+      "How many sticks are added each time the figure grows by one square?",
+      "Write the number of sticks for Figure n as (a number) × n + (a number), check it with Figure 1, then work back from 151."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx from the MOE 2021 Primary Mathematics syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE 2021 Primary Mathematics syllabus (updated Oct 2025), P4 Whole Numbers 1.4 (patterns in number sequences); P6 Algebra 1.5 (simple linear equations) for the general term. Format: Paper 2, 2-mark short answer. Written by Claude Code from the syllabus; the answer was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6math-original-02-q6",
+    "skill": "p6-maths",
+    "topic": "number.whole_numbers",
+    "subskill": "whole_number_word_problems",
+    "archetype": "WN-SUBST",
+    "difficulty": 4,
+    "marks": 3,
+    "type": "short",
+    "stem": "3 pencil cases cost the same as 5 files. Each pencil case costs $4 more than each file. Kumar bought 4 pencil cases and some files. He paid $76 altogether. How many files did he buy?",
+    "answer": "6",
+    "unit": "files",
+    "working": [
+      "Each pencil case costs 1 file + $4, so 3 pencil cases cost 3 files + $12.",
+      "3 pencil cases cost the same as 5 files, so 5 files = 3 files + $12 → 2 files cost $12 → 1 file costs $6.",
+      "1 pencil case costs $6 + $4 = $10, so 4 pencil cases cost 4 × $10 = $40.",
+      "Money left for files: $76 − $40 = $36. Number of files = $36 ÷ $6 = 6.",
+      "Check: 3 × $10 = $30 = 5 × $6 ✓ and 4 × $10 + 6 × $6 = $40 + $36 = $76 ✓"
+    ],
+    "model": {
+      "kind": "bars",
+      "panels": [
+        {
+          "title": "3 pencil cases = 5 files",
+          "bars": [
+            {
+              "label": "3 pencil cases",
+              "parts": [
+                {
+                  "w": 2,
+                  "text": "file"
+                },
+                {
+                  "w": 2,
+                  "text": "file"
+                },
+                {
+                  "w": 2,
+                  "text": "file"
+                },
+                {
+                  "w": 4,
+                  "text": "3 × $4",
+                  "tone": "extra"
+                }
+              ]
+            },
+            {
+              "label": "5 files",
+              "parts": [
+                {
+                  "w": 2,
+                  "text": "file"
+                },
+                {
+                  "w": 2,
+                  "text": "file"
+                },
+                {
+                  "w": 2,
+                  "text": "file"
+                },
+                {
+                  "w": 2,
+                  "text": "file"
+                },
+                {
+                  "w": 2,
+                  "text": "file"
+                }
+              ]
+            }
+          ],
+          "marks": [
+            {
+              "bar": 1,
+              "from": 6,
+              "to": 10,
+              "text": "2 files = $12",
+              "side": "below"
+            }
+          ]
+        }
+      ]
+    },
+    "hints": [
+      "Draw 3 pencil cases as 3 files plus the extra money.",
+      "Compare that with 5 files. What do the 2 extra files cost?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx from the MOE 2021 Primary Mathematics syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE 2021 Primary Mathematics syllabus (updated Oct 2025), Whole numbers in context: P1–P5 Four Operations (whole numbers and money), solved with the substitution heuristic. Format: Paper 2, 3-mark structured question. Written by Claude Code from the syllabus; the answer was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6math-original-02-q7",
+    "skill": "p6-maths",
+    "topic": "number.whole_numbers",
+    "subskill": "whole_number_word_problems",
+    "archetype": "WN-BA-TOTAL",
+    "difficulty": 5,
+    "marks": 4,
+    "type": "short",
+    "stem": "Box A had 3 times as many marbles as Box B. After 85 marbles were moved from Box A to Box B, Box B had 2 times as many marbles as Box A. How many marbles were in Box A at first?",
+    "answer": "153",
+    "unit": "marbles",
+    "working": [
+      "Marbles are only moved between the boxes, so the TOTAL stays the same.",
+      "Before: A = 3 parts, B = 1 part, so the total is 4 parts. After: A = 1 part, B = 2 parts, so the total is 3 parts.",
+      "Make the totals the same: use 12 units. Before: A = 9 u, B = 3 u. After: A = 4 u, B = 8 u.",
+      "Box A went from 9 u to 4 u, so 5 u = 85 marbles → 1 u = 17.",
+      "Box A at first = 9 × 17 = 153 marbles.",
+      "Check: B had 3 × 17 = 51. After the move: A = 153 − 85 = 68, B = 51 + 85 = 136 = 2 × 68 ✓"
+    ],
+    "model": {
+      "kind": "bars",
+      "panels": [
+        {
+          "title": "Before (12 u in all)",
+          "bars": [
+            {
+              "label": "Box A",
+              "parts": [
+                {
+                  "w": 9,
+                  "text": "9 u"
+                }
+              ]
+            },
+            {
+              "label": "Box B",
+              "parts": [
+                {
+                  "w": 3,
+                  "text": "3 u"
+                }
+              ]
+            }
+          ],
+          "marks": [
+            {
+              "bar": 0,
+              "from": 4,
+              "to": 9,
+              "text": "5 u = 85 moved"
+            }
+          ]
+        },
+        {
+          "title": "After (12 u in all)",
+          "bars": [
+            {
+              "label": "Box A",
+              "parts": [
+                {
+                  "w": 4,
+                  "text": "4 u"
+                }
+              ]
+            },
+            {
+              "label": "Box B",
+              "parts": [
+                {
+                  "w": 3,
+                  "text": "3 u"
+                },
+                {
+                  "w": 5,
+                  "text": "+5 u",
+                  "tone": "extra"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "hints": [
+      "Marbles only move from one box to the other. What stays the same?",
+      "Before, the total is 4 parts; after, it is 3 parts. Change both into the same number of units, then see how many units Box A lost."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx from the MOE 2021 Primary Mathematics syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE 2021 Primary Mathematics syllabus (updated Oct 2025), Whole numbers in context (P4–P5 Four Operations), solved with the before-and-after heuristic (total unchanged). Format: Paper 2, 4-mark structured question. Written by Claude Code from the syllabus; the answer was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6math-original-02-q8",
+    "skill": "p6-maths",
+    "topic": "number.decimals",
+    "subskill": "compare_order_decimals",
+    "archetype": "DEC-CORE",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which of the following is the greatest?",
+    "options": [
+      "0.7",
+      "0.69",
+      "0.077",
+      "0.707"
+    ],
+    "answer": 4,
+    "working": [
+      "Give every number three decimal places: 0.700, 0.690, 0.077, 0.707.",
+      "Compare the tenths first: 0.700 and 0.707 both have 7 tenths, more than the others.",
+      "Their hundredths are both 0. Compare the thousandths: 7 is more than 0, so 0.707 is the greatest."
+    ],
+    "distractors": {
+      "1": "0.7 is 0.700, which is 7 thousandths less than 0.707.",
+      "2": "69 looks bigger than 7, but 0.69 has only 6 tenths.",
+      "3": "0.077 has 0 tenths, so it is the smallest of the four."
+    },
+    "hints": [
+      "Write every number with the same number of decimal places by adding zeros.",
+      "Compare the tenths digits first, then the hundredths, then the thousandths."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx from the MOE 2021 Primary Mathematics syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE 2021 Primary Mathematics syllabus (updated Oct 2025), P4 Decimals 1.1–1.2 (place values to thousandths; comparing and ordering decimals). Format: Paper 1 Booklet A, 1-mark multiple choice. Written by Claude Code from the syllabus; the answer was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6math-original-02-q9",
+    "skill": "p6-maths",
+    "topic": "number.decimals",
+    "subskill": "decimal_fraction_conversion",
+    "archetype": "DEC-CORE",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "short",
+    "stem": "Express 4.035 as a mixed number in its simplest form.",
+    "answer": "4 7/200",
+    "working": [
+      "The last digit, 5, is in the thousandths place, so 4.035 = 4 35/1000.",
+      "Divide the numerator and the denominator by 5: 35/1000 = 7/200.",
+      "4.035 = 4 7/200."
+    ],
+    "hints": [
+      "Which place is the last digit in: tenths, hundredths or thousandths?",
+      "Write the decimal part as a fraction over 1000, then simplify it."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx from the MOE 2021 Primary Mathematics syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE 2021 Primary Mathematics syllabus (updated Oct 2025), P4 Decimals 1.3 (expressing decimals as fractions); P3 Fractions 1.2 (simplest form). Format: Paper 1, 1-mark short answer. Written by Claude Code from the syllabus; the answer was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6math-original-02-q10",
+    "skill": "p6-maths",
+    "topic": "number.decimals",
+    "subskill": "decimal_operations",
+    "archetype": "DEC-CORE",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Find the value of 8.4 ÷ 300.",
+    "options": [
+      "0.28",
+      "0.028",
+      "0.0028",
+      "2.8"
+    ],
+    "answer": 2,
+    "working": [
+      "Dividing by 300 is the same as dividing by 3 and then by 100.",
+      "8.4 ÷ 3 = 2.8.",
+      "2.8 ÷ 100 = 0.028 (the decimal point moves 2 places to the left)."
+    ],
+    "distractors": {
+      "1": "That is 8.4 ÷ 30. For ÷ 300 the point moves 2 places left after dividing by 3.",
+      "3": "Moved the decimal point 3 places. Dividing by 100 moves it 2 places.",
+      "4": "Only divided by 3. You still need to divide by 100."
+    },
+    "hints": [
+      "Split 300 into 3 × 100.",
+      "Divide 8.4 by 3 first, then move the decimal point for ÷ 100."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx from the MOE 2021 Primary Mathematics syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE 2021 Primary Mathematics syllabus (updated Oct 2025), P5 Decimals 1.1 (multiplying and dividing decimals by 10, 100, 1000 and their multiples without calculator). Format: Paper 1 Booklet A, 1-mark multiple choice. Written by Claude Code from the syllabus; the answer was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6math-original-02-q11",
+    "skill": "p6-maths",
+    "topic": "number.decimals",
+    "subskill": "decimal_operations",
+    "archetype": "DEC-GROUP",
+    "difficulty": 4,
+    "marks": 3,
+    "type": "short",
+    "stem": "Farah bought the same number of pens and markers. Each pen cost $1.35 and each marker cost $2.10. She paid $11.25 more for the markers than for the pens. How much did she pay altogether?",
+    "answer": "$51.75",
+    "working": [
+      "Group 1 pen with 1 marker. In each group the marker costs $2.10 − $1.35 = $0.75 more than the pen.",
+      "Number of groups = $11.25 ÷ $0.75 = 15, so she bought 15 pens and 15 markers.",
+      "Each group costs $1.35 + $2.10 = $3.45. Altogether: 15 × $3.45 = $51.75.",
+      "Check: 15 × $2.10 = $31.50 and 15 × $1.35 = $20.25; $31.50 − $20.25 = $11.25 ✓ and $31.50 + $20.25 = $51.75 ✓"
+    ],
+    "hints": [
+      "Put 1 pen and 1 marker into a group. How much more is the marker in each group?",
+      "The difference for one group adds up to $11.25. How many groups is that?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx from the MOE 2021 Primary Mathematics syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE 2021 Primary Mathematics syllabus (updated Oct 2025), P4 Decimals 2.1 (adding and subtracting decimals) with money (P3 Money 1.1); calculator work as in Paper 2. Format: Paper 2, 3-mark structured question (calculator allowed). Written by Claude Code from the syllabus; the answer was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6math-original-02-q12",
+    "skill": "p6-maths",
+    "topic": "number.decimals",
+    "subskill": "decimal_operations",
+    "archetype": "DEC-UNITS",
+    "difficulty": 5,
+    "marks": 4,
+    "type": "short",
+    "stem": "A jar with 30 identical marbles in it has a mass of 1.32 kg. After 12 of the marbles are taken out, the jar and the remaining marbles have a mass of 1.008 kg. Some marbles are then put back into the jar until the jar and the marbles have a mass of 1.19 kg. How many marbles are in the jar now?",
+    "answer": "25",
+    "unit": "marbles",
+    "working": [
+      "The 12 marbles taken out have a mass of 1.32 − 1.008 = 0.312 kg.",
+      "1 marble: 0.312 ÷ 12 = 0.026 kg.",
+      "After 12 are taken out, 18 marbles are left. Mass added when marbles are put back: 1.19 − 1.008 = 0.182 kg.",
+      "Marbles put back: 0.182 ÷ 0.026 = 7. Marbles now: 18 + 7 = 25.",
+      "Check: the empty jar is 1.32 − 30 × 0.026 = 0.54 kg, and 0.54 + 25 × 0.026 = 0.54 + 0.65 = 1.19 kg ✓"
+    ],
+    "hints": [
+      "The drop from 1.32 kg to 1.008 kg is the mass of the 12 marbles taken out.",
+      "Find the mass of 1 marble, then see how many marbles make up the mass that was added back."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx from the MOE 2021 Primary Mathematics syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE 2021 Primary Mathematics syllabus (updated Oct 2025), P4 Decimals 2.1 and 3.1–3.2 (operations on decimals); P3 Measurement 1.2 (mass); calculator work as in Paper 2. Format: Paper 2, 4-mark structured question (calculator allowed). Written by Claude Code from the syllabus; the answer was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6math-original-02-q13",
+    "skill": "p6-maths",
+    "topic": "measurement.units_time",
+    "subskill": "estimation",
+    "archetype": "MEAS-CORE",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Which of the following is most likely the mass of one apple?",
+    "options": [
+      "2 g",
+      "20 g",
+      "200 g",
+      "2 kg"
+    ],
+    "answer": 3,
+    "working": [
+      "About 5 apples make 1 kg, so one apple is about 1000 g ÷ 5 = 200 g.",
+      "2 g and 20 g are far too light, and 2 kg is about as heavy as 10 apples."
+    ],
+    "distractors": {
+      "1": "2 g is about as heavy as 2 paper clips, far too light for an apple.",
+      "2": "20 g is still too light: about as heavy as 20 paper clips.",
+      "4": "2 kg is about the mass of 10 apples together."
+    },
+    "hints": [
+      "Think of a 1-kg bag of apples. About how many apples would it hold?",
+      "Change 1 kg into grams first."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx from the MOE 2021 Primary Mathematics syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE 2021 Primary Mathematics syllabus (updated Oct 2025), P2 Measurement 1.1–1.2 (measuring mass in kilograms/grams; using appropriate units). Format: Paper 1 Booklet A, 1-mark multiple choice. Written by Claude Code from the syllabus; the answer was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6math-original-02-q14",
+    "skill": "p6-maths",
+    "topic": "measurement.units_time",
+    "subskill": "unit_conversion",
+    "archetype": "MEAS-CORE",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "Express 4 kg 75 g in kilograms.",
+    "options": [
+      "4.0075 kg",
+      "4.075 kg",
+      "4.75 kg",
+      "40.75 kg"
+    ],
+    "answer": 2,
+    "working": [
+      "1 kg = 1000 g, so 75 g = 75/1000 kg = 0.075 kg.",
+      "4 kg 75 g = 4 kg + 0.075 kg = 4.075 kg."
+    ],
+    "distractors": {
+      "1": "One zero too many: 75 g is 0.075 kg, not 0.0075 kg.",
+      "3": "4.75 kg is 4 kg 750 g. 75 g is only 75 thousandths of a kilogram.",
+      "4": "40.75 kg is more than ten times as heavy. Only the 75 g changes into a decimal."
+    },
+    "hints": [
+      "How many grams make 1 kg?",
+      "75 g is how many thousandths of a kilogram?"
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx from the MOE 2021 Primary Mathematics syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE 2021 Primary Mathematics syllabus (updated Oct 2025), P5 Decimals 1.2 (converting a measurement from a smaller unit to a larger unit in decimal form: kilograms and grams). Format: Paper 1 Booklet A, 1-mark multiple choice. Written by Claude Code from the syllabus; the answer was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6math-original-02-q15",
+    "skill": "p6-maths",
+    "topic": "measurement.units_time",
+    "subskill": "unit_conversion",
+    "archetype": "MEAS-CORE",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "A jug holds 2.4 ℓ of juice. Wei Jie pours 180 ml of juice into each cup, until there is not enough juice left to fill another cup. How much juice is left in the jug? Give your answer in millilitres.",
+    "answer": "60",
+    "unit": "ml",
+    "working": [
+      "2.4 ℓ = 2.4 × 1000 ml = 2400 ml.",
+      "2400 ÷ 180 = 13 remainder 60, so he fills 13 cups (13 × 180 = 2340 ml).",
+      "Juice left = 2400 − 2340 = 60 ml, which is less than one cup ✓"
+    ],
+    "hints": [
+      "Change 2.4 ℓ into millilitres first.",
+      "Find how many whole cups of 180 ml there are, then work out what is left over."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx from the MOE 2021 Primary Mathematics syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE 2021 Primary Mathematics syllabus (updated Oct 2025), P5 Decimals 1.2 (litres and millilitres in decimal form); P3 Whole Numbers 3.3 (division with remainder). Format: Paper 1 Booklet B, 2-mark short answer. Written by Claude Code from the syllabus; the answer was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6math-original-02-q16",
+    "skill": "p6-maths",
+    "topic": "measurement.units_time",
+    "subskill": "time_schedules",
+    "archetype": "MEAS-TABLE",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "Three ferries leave a jetty for an island. Each trip normally takes the same amount of time.\n\n- Ferry A: leaves at 08 45, arrives at 10 10\n- Ferry B: leaves at 11 20, arrives at 12 45\n- Ferry C: leaves at 14 50\n\nOn its trip, Ferry C stopped for an extra 35 minutes because of bad weather. At what time did Ferry C arrive at the island? Give your answer in the 24-hour clock.",
+    "answer": "16 50",
+    "working": [
+      "Ferry A: 08 45 → 09 45 is 1 h and 09 45 → 10 10 is 25 min, so one trip takes 1 h 25 min (Ferry B: 11 20 → 12 45 ✓).",
+      "Ferry C without the stop: 14 50 + 1 h = 15 50, then + 25 min = 16 15.",
+      "With the extra 35 min: 16 15 + 35 min = 16 50."
+    ],
+    "hints": [
+      "Use Ferry A or Ferry B to find how long one trip takes.",
+      "Add the trip time to 14 50 first, then add the extra 35 minutes. Count on to the next hour when the minutes pass 60."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx from the MOE 2021 Primary Mathematics syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE 2021 Primary Mathematics syllabus (updated Oct 2025), P3 Measurement 2.2–2.3 (finding the starting time, finishing time or duration; 24-hour clock). Format: Paper 1 Booklet B, 2-mark short answer. Written by Claude Code from the syllabus; the answer was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6math-original-02-q17",
+    "skill": "p6-maths",
+    "topic": "measurement.units_time",
+    "subskill": "time_schedules",
+    "archetype": "MEAS-RATE",
+    "difficulty": 4,
+    "marks": 3,
+    "type": "short",
+    "stem": "A machine prints 45 posters every 2 minutes. It starts printing at 9.40 a.m. After printing 900 posters, it stops for a 15-minute break. Then it prints another 720 posters at the same rate. At what time does it finish printing?",
+    "answer": "11.07 a.m.",
+    "working": [
+      "900 posters: 900 ÷ 45 = 20 lots of 2 minutes = 40 minutes.",
+      "720 posters: 720 ÷ 45 = 16 lots of 2 minutes = 32 minutes.",
+      "Total time: 40 + 15 + 32 = 87 minutes = 1 h 27 min.",
+      "9.40 a.m. + 1 h = 10.40 a.m., and 10.40 a.m. + 27 min = 11.07 a.m."
+    ],
+    "hints": [
+      "Find how many lots of 45 posters there are in 900, and how many minutes that takes.",
+      "Add both printing times and the break, then count on from 9.40 a.m."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx from the MOE 2021 Primary Mathematics syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE 2021 Primary Mathematics syllabus (updated Oct 2025), P3 Measurement 2.2 (finishing time from starting time and duration) with P5 Rate 1.2 (finding the total amount given the rate). Format: Paper 2, 3-mark structured question. Written by Claude Code from the syllabus; the answer was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6math-original-02-q18",
+    "skill": "p6-maths",
+    "topic": "geometry.solids",
+    "subskill": "nets",
+    "archetype": "SOLID-CORE",
+    "difficulty": 1,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "A net is made up of 1 square and 4 identical triangles. Which solid can be formed by folding this net?",
+    "options": [
+      "Square pyramid",
+      "Cube",
+      "Cuboid",
+      "Triangular prism"
+    ],
+    "answer": 1,
+    "working": [
+      "The square is the base. The 4 triangles fold up from its 4 sides and meet at one point at the top.",
+      "A solid with 1 square face and 4 triangular faces is a square pyramid."
+    ],
+    "distractors": {
+      "2": "A cube has 6 square faces and no triangles.",
+      "3": "A cuboid has 6 rectangular faces and no triangles.",
+      "4": "A triangular prism has 2 triangles and 3 rectangles."
+    },
+    "hints": [
+      "Picture the square lying flat on a table. Where do the triangles go when you fold them up?",
+      "Count the faces of each solid in the options, and the shape of each face."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx from the MOE 2021 Primary Mathematics syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE 2021 Primary Mathematics syllabus (updated Oct 2025), P4 Geometry 4.4 (identifying the solid which can be formed by a given net: pyramid). Format: Paper 1 Booklet A, 1-mark multiple choice. Written by Claude Code from the syllabus; the answer was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6math-original-02-q19",
+    "skill": "p6-maths",
+    "topic": "geometry.solids",
+    "subskill": "nets",
+    "archetype": "SOLID-CORE",
+    "difficulty": 2,
+    "marks": 1,
+    "type": "mcq",
+    "stem": "The figure shows the net of a solid. Which solid is it?",
+    "options": [
+      "Square pyramid",
+      "Triangular pyramid",
+      "Cuboid",
+      "Triangular prism"
+    ],
+    "answer": 4,
+    "working": [
+      "The net has 2 triangles and 3 rectangles.",
+      "When it is folded, the 3 rectangles wrap round to make the sides, and the 2 triangles close the two ends.",
+      "A solid with 2 triangular faces and 3 rectangular faces is a triangular prism."
+    ],
+    "distractors": {
+      "1": "A square pyramid has 1 square and 4 triangles.",
+      "2": "A triangular pyramid has 4 triangular faces and no rectangles.",
+      "3": "A cuboid has 6 rectangular faces and no triangles."
+    },
+    "hints": [
+      "Count the triangles and the rectangles in the net.",
+      "Fold the three rectangles into a tube in your head. What shape are its two open ends?"
+    ],
+    "figure": "figures/o2-q19-prism-net.svg",
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx from the MOE 2021 Primary Mathematics syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE 2021 Primary Mathematics syllabus (updated Oct 2025), P4 Geometry 4.3–4.4 (identifying the nets of 3D solids: prism; the solid formed by a given net). Format: Paper 1 Booklet A, 1-mark multiple choice. Written by Claude Code from the syllabus; the answer was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6math-original-02-q20",
+    "skill": "p6-maths",
+    "topic": "geometry.solids",
+    "subskill": "nets",
+    "archetype": "SOLID-CORE",
+    "difficulty": 2,
+    "marks": 2,
+    "type": "mcq",
+    "stem": "Which of these is NOT a net of a cube?",
+    "options": [
+      "Net A",
+      "Net B",
+      "Net C",
+      "Net D"
+    ],
+    "answer": 3,
+    "working": [
+      "A net of a cube folds into 6 faces, with no two squares landing on the same face.",
+      "Net C has a row of 4 squares with both extra squares on the SAME side of the row. When the row of 4 folds into a ring, both extra squares fold over the same open end, so they overlap and the other end stays open.",
+      "Nets A, B and D each fold into a closed cube."
+    ],
+    "distractors": {
+      "1": "Net A is the cross: the row of 4 folds into a ring and the squares above and below close its two ends.",
+      "2": "Net B also has one extra square on each side of the row of 4, so the two ends are both closed.",
+      "4": "Net D is the staircase net. Fold it square by square: it closes into a cube."
+    },
+    "hints": [
+      "A cube has 6 faces. When a net folds up, no two squares may end up on the same face.",
+      "Look for a row of 4 squares. The other 2 squares must close the two different ends of the ring."
+    ],
+    "figure": "figures/o2-q20-cube-nets.svg",
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx from the MOE 2021 Primary Mathematics syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE 2021 Primary Mathematics syllabus (updated Oct 2025), P4 Geometry 4.3 (identifying the nets of 3D solids: cube). Format: Paper 1 Booklet A, 2-mark multiple choice. Written by Claude Code from the syllabus; the answer was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6math-original-02-q21",
+    "skill": "p6-maths",
+    "topic": "geometry.solids",
+    "subskill": "unit_cubes",
+    "archetype": "SOLID-CORE",
+    "difficulty": 3,
+    "marks": 2,
+    "type": "short",
+    "stem": "Jun Kai glued some 1-cm cubes together to make the solid shown. The bottom layer is a full 3 cm by 3 cm square of cubes. The middle layer has 4 cubes in a 2 by 2 square, and there is 1 cube on top. What is the least number of 1-cm cubes he must add to make a cube with edges of 3 cm?",
+    "answer": "13",
+    "unit": "cubes",
+    "working": [
+      "Cubes in the solid: bottom 3 × 3 = 9, middle 2 × 2 = 4, top 1, so 9 + 4 + 1 = 14 cubes.",
+      "A cube with 3-cm edges is made of 3 × 3 × 3 = 27 one-centimetre cubes.",
+      "Cubes to add: 27 − 14 = 13."
+    ],
+    "hints": [
+      "Count the cubes layer by layer. Some cubes are hidden behind or under others.",
+      "How many 1-cm cubes make a cube with 3-cm edges?"
+    ],
+    "figure": "figures/o2-q21-cube-stack.svg",
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx from the MOE 2021 Primary Mathematics syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE 2021 Primary Mathematics syllabus (updated Oct 2025), P5 Area and Volume 2.1–2.2 (building solids with unit cubes; measuring volume in cubic units). Format: Paper 1 Booklet B, 2-mark short answer. Written by Claude Code from the syllabus; the answer was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6math-original-02-q22",
+    "skill": "p6-maths",
+    "topic": "geometry.solids",
+    "subskill": "nets",
+    "archetype": "SOLID-ALG",
+    "difficulty": 5,
+    "marks": 3,
+    "type": "short",
+    "stem": "The figure shows the net of a cuboid. It is made up of 2 squares and 4 identical rectangles. Each rectangle is as wide as a side of the square and 3 times as long as it is wide. The total area of the net is 224 cm². Find the volume of the cuboid.",
+    "answer": "192",
+    "unit": "cm³",
+    "working": [
+      "Each rectangle is as wide as a square and 3 times as long, so one rectangle has the same area as 3 squares.",
+      "Total: 2 squares + 4 × 3 squares = 14 squares = 224 cm², so 1 square = 224 ÷ 14 = 16 cm².",
+      "The side of a square is 4 cm (4 × 4 = 16), so each rectangle is 4 cm by 12 cm.",
+      "The cuboid is 4 cm by 4 cm by 12 cm. Volume = 4 × 4 × 12 = 192 cm³."
+    ],
+    "hints": [
+      "How many of the squares would cover one rectangle exactly?",
+      "Write the area of the whole net as a number of squares, find the area of one square, then its side."
+    ],
+    "figure": "figures/o2-q22-cuboid-net.svg",
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx from the MOE 2021 Primary Mathematics syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE 2021 Primary Mathematics syllabus (updated Oct 2025), P4 Geometry 4.3 (nets of a cuboid) with P5 Area and Volume 2.4 (volume of a cube/cuboid) and P6 Area and Volume 2.5 (use of square roots). Format: Paper 2, 3-mark structured question. Written by Claude Code from the syllabus; the answer was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  },
+  {
+    "id": "p6math-original-02-q23",
+    "skill": "p6-maths",
+    "topic": "number.decimals",
+    "subskill": "rounding_decimals",
+    "archetype": "DEC-CORE",
+    "difficulty": 3,
+    "marks": 1,
+    "type": "short",
+    "stem": "Round 8.349 to 1 decimal place.",
+    "answer": "8.3",
+    "working": [
+      "To round to 1 decimal place, look only at the hundredths digit: it is 4.",
+      "4 is less than 5, so the tenths digit stays the same: 8.349 ≈ 8.3.",
+      "Watch out: do not round in two steps (8.349 → 8.35 → 8.4). Round the original number once."
+    ],
+    "hints": [
+      "Which single digit decides how you round to 1 decimal place?",
+      "Look only at that digit. Do not round the thousandths first."
+    ],
+    "source": {
+      "kind": "generated",
+      "ref": "Original P6 Maths practice written by Claude Code for myKx from the MOE 2021 Primary Mathematics syllabus (pack v1.1.0); pending founder review."
+    },
+    "status": "reviewed",
+    "reviewed_by": "Claude Code (independent re-solve)",
+    "version_added": "1.1.0",
+    "notes": "Syllabus: MOE 2021 Primary Mathematics syllabus (updated Oct 2025), P4 Decimals 1.5 (rounding decimals to 2 decimal places) and 3.3 (rounding answers to a specified degree of accuracy). Format: Paper 1, 1-mark short answer. Written by Claude Code from the syllabus; the answer was confirmed by an independent re-solve on 29 Oct. Founder review pending."
+  }
+]

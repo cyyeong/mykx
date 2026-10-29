@@ -141,9 +141,9 @@ describe("content/ is child-agnostic and holds no school-paper material", () => 
     }
   });
 
-  it("keeps the packs light (under 3 MB together)", () => {
+  it("keeps the packs light (under 4 MB together: twelve packs since 29 Oct)", () => {
     const bytes = walk(SKILLS).reduce((s, f) => s + statSync(f).size, 0);
-    expect(bytes).toBeLessThan(3 * 1024 * 1024);
+    expect(bytes).toBeLessThan(4 * 1024 * 1024);
   });
 });
 // The scanner's own cases (which must quote the banned words) live in lib/skills/safety.test.ts,
