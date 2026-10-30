@@ -3821,5 +3821,47 @@
     "created": "2026-10-30",
     "sha256": "66f706c2b3a2a2fed5a54740334e474238cc115b71969ed52dacd9df912df575",
     "cut_by": null
+  },
+  {
+    "id": "video-memory",
+    "path": "art-src/video/video-memory.webp",
+    "pack": null,
+    "kind": "video",
+    "model": "muse-image-1.0",
+    "route": "api",
+    "prompt": "A cinematic painterly illustration at dusk: the dark silhouette of a father seen from behind, sitting alone by a high window ledge, gazing up into a vast evening sky. In the clouds, soft translucent memories of his children growing up drift away like old photographs: a toddler taking first steps, a small child on a bicycle, a child waving at a school gate. The memories nearest him glow in warm colour and fade to grey as they drift further away. Melancholic, tender, nostalgic, muted lavender and amber light, soft film grain, lots of calm dark sky on the left. Faceless silhouettes only, no faces visible. No flags, no text, no letters, no numbers, no logos, no watermark.",
+    "refs": [],
+    "size": "1792x1024",
+    "created": "2026-10-30",
+    "sha256": "81b9e2414dbaa008dd75cf0cd5530c1fd2dac533afff8afa01b66e5dc253ca06",
+    "cut_by": null
+  },
+  {
+    "id": "video-overtime",
+    "path": "art-src/video/video-overtime.webp",
+    "pack": null,
+    "kind": "video",
+    "model": "muse-image-1.0",
+    "route": "api",
+    "prompt": "A cinematic painterly split scene at night. Left: the dark silhouette of a father working late at a glowing laptop in a dim office high above a city of lit tower windows, papers piled beside him. Right: in a dim home, a small child sits alone at a desk with a worksheet under a lamp, and behind the child a faint winding path of glowing stepping stones, a learning journey, fades into grey. Muted blue and grey with one warm lamp glow, lonely, quiet, melancholic. Faceless silhouettes only, no faces visible. No flags, no text, no letters, no numbers, no logos, no watermark.",
+    "refs": [],
+    "size": "1792x1024",
+    "created": "2026-10-30",
+    "sha256": "0d4d0d0623fcd2d6574858c3c0c01c24d0d9aed566f7f9567fb33968cba9ce42",
+    "cut_by": null
+  },
+  {
+    "id": "video-tornadoes",
+    "path": "art-src/video/video-tornadoes.webp",
+    "pack": null,
+    "kind": "video",
+    "model": "muse-image-1.0",
+    "route": "api",
+    "prompt": "A playful painterly illustration: three energetic children as soft colourful silhouettes in mid-motion in a cosy living room at dusk, one cartwheeling, one leaping off a sofa cushion, one spinning a toy plane overhead, each with swirling motion trails like little tornadoes. In the foreground on a small table, one plain grey worksheet sits untouched under a droopy desk lamp, the only grey thing in a colourful scene. Humorous, warm, lively, picture-book light. Faceless silhouettes only, no faces visible. No flags, no text, no letters, no numbers, no logos, no watermark.",
+    "refs": [],
+    "size": "1792x1024",
+    "created": "2026-10-30",
+    "sha256": "acf678453a71ef4d98c87a13ecf1099048cc4bbea4aab603cc07376db17c52e6",
+    "cut_by": null
   }
 ]
