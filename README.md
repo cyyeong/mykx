@@ -47,6 +47,14 @@ Everything in this family is synthetic, and everyone trying it shares it, so you
 
 In Singapore, school ends around 1:30 and work ends after 6. In between, children learn, play, squabble and wander home, and a parent at work sees none of it. It's most families' problem: **56.6%** of married couples here both work ([General Household Survey 2025](https://www.singstat.gov.sg/publication-resources/general-household-survey-2025)), parents already spend **7.9 hours** a week helping with schoolwork, above the 6.7-hour average across 29 countries ([Varkey Foundation](https://www.varkeyfoundation.org/_files/ugd/5c330e_08203a0b372c4a4fa9185c3ee517fcaa.pdf)), and families spent **S$1.8 billion** on private tuition in 2023, with the richest fifth of households spending four and a half times what the poorest fifth do ([Household Expenditure Survey 2023](https://www.singstat.gov.sg/news/parents-seem-persuaded-that-tuition-is-necessary-and-not-optional)). It isn't only Singapore: three in four South Korean students are in private education, three in ten teenagers in England and Wales have had tuition, and the global tutoring market is heading for an estimated US$155 billion by 2030 ([sources](docs/RESEARCH.md)). By the time everyone is home, there's dinner, homework and bedtime, and "How was school?" gets a shrug.
 
+**So I thought hard about what I really needed.** My wish list:
+
+- **A tutor that** follows our Singapore syllabus and the methods schools teach, all on its own; adapts to each of my kids, not to an average child; keeps pace with their focus, and hooks them with what they love (insects, pets, jets, anime, K-pop); and never goes out of date, because it learns from every mistake a kid flags.
+- **A sidekick for me that** tells me about their day in a few lines each evening; warns me when something at home needs a look while I'm away; suggests things we can do together, from how they're doing; and cares, never spies.
+- **And** it had to be cheap and easy to run.
+
+Nothing I could find did all of that, so I built myKx.
+
 **Not another AI tutor.** A general chatbot will happily explain a method Singapore schools don't teach, or invent a "likely exam question". myKx is built the other way round. It follows local education strictly: every question sits in a skill pack for the child's level that names the MOE syllabus and SEAB exam format it follows, every new question is mapped to a syllabus outcome, and Kix teaches the methods schools use, such as model drawing and claim-evidence-reasoning. Its recommendations come from data, not guesses. The next question is chosen by a tested formula from the child's own record: how weak each skill is, how long since it was practised (spaced review), whether the difficulty is right for their next step, and a mix of question families so no single skill dominates. Each pack's topics and question types carry weights from the exam's mark allocation and from past-paper patterns the Content Curator derives, which shape the practice papers. The model explains and encourages; it never decides what counts.
 
 myKx keeps the afternoon for the parent, and keeps each child's learning balanced: not more screen time, but the right questions at the right moment, breaks and quiet hours, and plans that get the family outdoors together.
@@ -325,5 +333,6 @@ Code: [MIT](LICENSE). Art, Kix and content: CC BY-NC 4.0, all original and gener
 
 ---
 
+<p align="center"><img src="docs/readme/family.webp" width="640" alt="The author's family as a cartoon on the Marina Bay waterfront: a dad with the youngest on his shoulders, mum, and the two older kids pulling faces, with the Merlion and the city behind them"></p>
 <p align="center"><img src="docs/readme/author.webp" width="96" height="96" alt="The author's avatar: a cartoon ant dad in spiral glasses, in a T-shirt that says dad with 3 kids"></p>
-<p align="center"><b>Built by a nerdy dad for his three little tornadoes, on the little red dot.</b><br>My kids, my world. Their tutor, my sidekick.<br>Thank you for reading, and for your support.</p>
+<p align="center"><b>Built by a nerdy dad for his three little tornadoes, on the little red dot.</b><br>My kids, my world. Their tutor, my sidekick.<br>And thank you, my three little tornadoes, for all the headaches. I mean, inspirations.<br>Thank you for reading, and for your support.</p>

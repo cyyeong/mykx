@@ -16,7 +16,7 @@ These are licensed under [Creative Commons Attribution-NonCommercial 4.0 Interna
 
 The synthetic home-camera frames in `public/art/sim/` (and the Home simulator's copy of them) are Muse Image art of fictional characters in a made-up flat, one with SAM 3.1 outlines drawn on it. They show no real person or home and are labelled "Synthetic" wherever they appear.
 
-The author's avatar at the end of the README (`docs/readme/author.webp`) is the founder's own picture, under the same licence.
+The author's avatar and family portrait at the end of the README (`docs/readme/author.webp`, `docs/readme/family.webp`) are the founder's own pictures, under the same licence.
 
 Credit as: "myKx by cyyeong (https://github.com/cyyeong/mykx), CC BY-NC 4.0".
 
