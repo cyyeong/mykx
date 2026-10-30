@@ -170,7 +170,7 @@ Every day ends with something you can show on the production URL.
 - **D (4.5h):** parent dashboard ported from the new board: flags with evidence and actions, the screen-time chart against the limit, plan adherence, wellbeing this week with expandable evidence, controls (daily limit, quiet hours, camera toggle, voice).
 - **F, M4 (8.5h, added 28 Oct):** F14 Do something together (Outing Scout with web search, Outing Planner, source check, NEA weather, the page) 5h; F6 the Home Link client (local settings page, pasted snapshot or RTSP address, motion filter and burst, pairing) 3.5h.
 - **You (30 min):** try "Ask Muse again" on Do something together; optionally pair Home Link with one real camera at home (real frames go to Muse Standard and are never used in the video).
-- **You:** video script v1 and shot list (1h), with the Guardian beat (§5).
+- **You:** the video (1h).
 - **Exit:** every demo-path screen works in production, including the skills catalogue.
 
 ### Day 6 · Sun 1 Nov
@@ -224,38 +224,7 @@ Founder brief, 29 Oct: kids flag what's wrong on any AI screen; an open model re
 
 ## 5. The video (12 protected hours)
 
-Script target: about 360 words of voice-over (130 a minute), finished by Day 5. Re-cut on 28 Oct to open with the parent's problem before the transformation.
-
-| Time | Beat | Screen | Shows |
-|---|---|---|---|
-| 0:00–0:10 | The problem, in the founder's voice: "Most parents here work through their kids' whole afternoon", over the living city at dusk, with a caption: 56.6% of couples both work; S$1.8 billion a year on tuition (sources in the README) | Sign-in city | a problem known firsthand |
-| 0:10–0:30 | Jordan tells Kix the magic name, the storybook door flies in as the terrarium grows over the city, Jordan taps the picture code, the door swings open and the time tunnel carries us in; picks Terrarium and critters; Kix transforms; the app re-skins; Pip is adopted | Sign-in, Studio | Muse Image + SAM 3.1, live |
-| 0:30–0:40 | Home: Kix remembers yesterday was hard and starts gently ("Welcome back, Jordan! Let's start gently today, with one you already know.", labelled sample day); today's quest, Pip, the squadron; a 2-second cut to the same Home on a phone and an open foldable | Home | Kix gets better every day; personalisation; every device |
-| 0:40–1:15 | Quest map → a "P3 Science skill loaded" chip → Kix reads the question aloud → the child asks "why?" by voice → streamed hint → correct → Kix cheers → card flies; "57, limited evidence" | Quest map, Question | Kix Tutor agent; Voice Transcribe; honest mastery |
-| (in 0:40–1:15) | Jordan guesses in two seconds → Kix's bubble: "A spark: Bugs and critters", one Muse Spark line tying tadpoles to the question → Jordan slows down and answers | Question | interest spark (Kix Tutor `spark` part); never the answer; counts as a hint |
-| 1:15–1:30 | Treasure, a Sky Squadron card flip, Pip grows | Treasure, Critter Lab | earned, never random |
-| 1:30–1:45 | The child *says* "I keep forgetting the frog life cycle" → flashcards → save → share with Mum | Vibe Zone | voice in; structured output; no AI code runs |
-| 1:45–2:00 | The parent's phone: "Jordan seemed tired in 3 evening sessions" with the evidence → Message Jordan with a Kix sticker → Jordan's sticker reply → Tonight's paragraph | Parent dashboard, messages | care, evidence, not labels |
-| 2:00–2:20 | Guardian: Muse's "Right now" over the map (Jordan walking home) → Home now's floor plan → a watch card, "possibly a tug-of-war", with SAM 3.1 outlines → the parent taps **Not right** → a 3 s flash of Do something together ("Muse searched the web: badminton at Sengkang Sports Hall…"); lower third: "Your cameras, read by Muse Spark and SAM 3.1. Frames deleted after 24 h. Kix never sees them." | Where they are, Home now, Do together | Muse Spark vision, SAM 3.1 and web search, live; built for Singapore families |
-| 2:20–2:40 | Knowledge that grows (29 Oct): Add knowledge → drop a P6 question paper, then its answer sheet → Muse pairs them and cross-checks every answer (one mismatch flagged red, a spelling slip amber) → the admin overrides the level → Kix writes its own new questions, each worked twice → publish P6 Maths v1.1, with Diff and Restore one tap away → Kix uses it in Ask Kix | Admin: Add knowledge, the skill editor | knowledge that grows, under a human |
-| 2:40–3:00 | The proof: Under the hood's live list of calls across the four Meta models and 16 agents; one tap into the Kix Tutor's instructions (editable, with the guardrails locked and the default always kept); the "P3 Science skill loaded" chip; built 27 Oct–4 Nov; synthetic data; "Kix speaks with your device's voice"; a 2-second roadmap card (mobile app, Home Link streaming, Kix on Meta devices); the closing card: "My kids. My world. Their tutor. My sidekick." then "Built for my kids. Made for yours." (founder's theme, 29 Oct) | Under the hood, roadmap board | Meta tooling, honesty, what's next |
-
-**Real AI moments (founder, 29 Oct):** the founder's own captures of live Muse answers (for example Ask Kix solving a tough P3 before-and-after question with the MOE model method) go in as stills or short clips, captioned "live answer", alongside the screen recording; check each one's maths before it's used.
-
-**Rules:** record in production with the seeded demo and "Reset demo" between takes. Capture app sound with the screen (the SFX are part of the wow) and duck the music under the voice-over. The voice-over is generated with ElevenLabs from the script (founder, 28 Oct): a stock or designed voice on a plan that allows commercial use, never a clone of a real person or a child's voice; credit it in the video and add it to `LICENSE-ASSETS.md`. Kix's own voice in the app stays the device's `speechSynthesis` (AGENTS.md rule 9), so the video never presents the voice-over as Kix speaking in the app. Show at least one genuinely live transform; if it is slow, speed it up and label it. Burn in captions, since judges may watch muted. Use royalty-free music and credit it. Never show real children's names or photos.
-
-**Tools:** macOS screen recording (⌘⇧5) or OBS with a 1280×800 browser window; edit in CapCut desktop or DaVinci Resolve (both free); record the voice-over in a quiet room.
-
-| Video task | When | Hours |
-|---|---|---|
-| Script and shot list | Day 5 | 1 |
-| Rough capture | Day 6 | 0.5 |
-| Final capture | Day 8 afternoon | 3 |
-| Voice-over | Day 8 afternoon | 1 |
-| README | Day 8 morning | 1.5 |
-| Edit, export, upload, check | Day 9 morning | 4 |
-| Submission and X post | Day 9 afternoon | 1 |
-| **Total** | | **12** |
+The video's plan is kept outside the repository.
 
 ## 6. Risks, early warnings and cuts
 

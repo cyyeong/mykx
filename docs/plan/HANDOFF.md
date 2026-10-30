@@ -116,7 +116,7 @@ Order: designs (canvas page "Admin and sign-in, 29 Oct") → B → C → A → F
 - **D. Skills you can edit.** Skill versions in the database (`skill_versions`): the pack on disk is the default and can't be deleted. Admin can edit files, ask Muse to enhance (a proposed diff to accept), import a standard agent skill (`.zip` or `.skill`; scripts are never kept or run, rule 10), and restore, diff or delete versions. The runtime reads the published version, else the default.
 - **E. Knowledge refines a skill.** A review session holds several PDFs (a question paper now, its answer sheet later); Muse pairs them, sorts papers by subject and level (admin can override level, subject and tier), cross-checks answers and spelling and flags anything unusual; every entry is editable. Publishing makes a new skill version (D). School papers still give patterns plus Kix's own new questions, never their own questions (rule 10); our own or licensed material may keep its questions.
 - **F. Agents you can edit.** Under the hood: click an agent to see its instructions; edit and publish versions; diff, restore and delete; the built-in default can't be deleted. Safety guardrails stay fixed in code and are shown read-only. ✅ Built 29 Oct ("Agents you can edit" above).
-- Then: ARCHITECTURE, SKILL_ENGINE, ACCOUNTS, PROGRESS, the video beat sheet.
+- Then: ARCHITECTURE, SKILL_ENGINE, ACCOUNTS, PROGRESS.
 
 - **Done 29 Oct:** B (canvas tunnel, e4a1ba7), C (kids sign out and idle, e4a1ba7), A (magic names). **The founder runs one SQL for A:** `supabase/migrations/20261030_kid_username.sql` (adds `profiles.username` and sets the demo kids to `jordan`, `abby` and `leonard`). Until then the magic-name door answers "I couldn't find that magic name" and everything else works.
 
