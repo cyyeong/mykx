@@ -320,7 +320,7 @@ sim_css = """
 .s-head{position:absolute;left:88px;top:66px;width:1420px;display:flex;justify-content:space-between;align-items:flex-end;gap:40px}
 .s-head .rd-lede{width:640px;font-size:21px;line-height:30px}
 .s-badge{display:inline-flex;align-items:center;height:34px;padding:0 14px;border-radius:999px;background:#FF3DCB;color:#fff;font:800 16px/1 "Nunito",sans-serif;margin-bottom:14px}
-.s-sim{position:absolute;left:88px;top:300px;width:760px}
+.s-sim{position:absolute;left:88px;top:262px;width:680px}
 .s-label{margin-top:14px;font:700 18px/25px "Nunito",sans-serif;color:#D9D3FF}
 .s-label b{color:#fff}
 .s-phone{position:absolute;left:944px;top:262px;width:250px}
@@ -337,8 +337,8 @@ build_sim = f"""
   <p class="rd-lede"><b style="color:#fff">mykx-sim</b> stands in for everything that will feed myKx: the myKx mobile app, home cameras, and peripherals for location, motion and health. It pairs and sends like a real device, through the same API, to prove the protocol end to end and give myKx exactly what a real device would. No real child, home or camera is involved.</p>
 </div>
 <div class="s-sim"><div class="rd-shot"><img src="{img('sim')}" alt="The Home simulator: a scripted afternoon, Send now buttons and synthetic camera frames"></div><p class="s-label"><b>mykx-sim.vercel.app</b>, passcode only. Today it plays the phone's places and motion and the home cameras; health and motion peripherals come next, on the same protocol.</p></div>
-<svg class="rd-thread" viewBox="0 0 1600 900"><path d="M848 500 C 890 500, 900 470, 944 470"/></svg>
-<div class="s-phone"><div class="rd-phone"><img src="{img('phone-home')}" alt="Home now on the parent's phone, read live by Muse Spark"></div><p class="s-label" style="text-align:center"><b>myKx</b>, Home now, live</p></div>
+<svg class="rd-thread" viewBox="0 0 1600 900"><path d="M768 470 C 850 470, 880 470, 944 470"/></svg>
+<div class="s-phone"><div class="rd-phone"><img src="{img('phone-home')}" alt="Sentry on the parent's phone, read live by Muse Spark"></div><p class="s-label" style="text-align:center"><b>myKx</b>, Sentry, live</p></div>
 <aside class="s-link"><h3>For a real home: Home Link</h3><p>A small app on the family's computer takes a picture from each camera only when a room changes and sends it to myKx. Camera passwords never leave the computer.</p><div class="rd-shot"><img src="{img('homelink')}" alt="Home Link's settings page on the family's computer"></div></aside>
 """
 board("ReadmeSim", "myKx README: the simulator", build_sim, True, sim_css)
