@@ -3793,5 +3793,33 @@
     "created": "2026-10-29",
     "cut_by": null,
     "source": "art-src/parent/bloom-2.webp"
+  },
+  {
+    "id": "video-devices",
+    "path": "art-src/video/video-devices.webp",
+    "pack": null,
+    "kind": "video",
+    "model": "muse-image-1.0",
+    "route": "api",
+    "prompt": "An original, unbranded set of everyday smart gadgets floating on a soft dark twilight background: a pair of sleek modern smart glasses with dark frames and a tiny glowing four-point star sparkle reflected on one lens, a slim matte wristband beside them, and a small round home smart display glowing softly lavender. Friendly picture-book 3D illustration, pastel lavender, mint and peach light, gentle bokeh, glowing stars, magical and calm, centred composition with space around. No text, no letters, no logos, no watermark, no brand marks, not a copy of any real product.",
+    "refs": [],
+    "size": "1024x1024",
+    "created": "2026-10-30",
+    "sha256": "13b002313ee85addbda496f9e3e8db20389761e7bdaf61cdc5797a5ccc1a9274",
+    "cut_by": null
+  },
+  {
+    "id": "video-model",
+    "path": "art-src/video/video-model.webp",
+    "pack": null,
+    "kind": "video",
+    "model": "muse-image-1.0",
+    "route": "api",
+    "prompt": "An original glowing open lattice sphere made of soft lavender and mint light, like a small friendly mind made of connected stars, floating above an open book whose pages turn into ribbons of light, dreamy twilight fantasy illustration, pastel lavender, mint and peach light, soft bokeh, glowing stars, painterly, calm, centred with space around. No text, no letters, no logos, no watermark.",
+    "refs": [],
+    "size": "1024x1024",
+    "created": "2026-10-30",
+    "sha256": "66f706c2b3a2a2fed5a54740334e474238cc115b71969ed52dacd9df912df575",
+    "cut_by": null
   }
 ]
