@@ -291,7 +291,7 @@ out_css = """
 .o-care li svg{position:absolute;left:0;top:5px;width:16px;height:16px;fill:#A8F0D4}
 .o-phones{position:absolute;left:700px;right:64px;top:56px;display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
 .o-phone .rd-phone{width:100%}
-.o-phone .rd-phone img{height:560px;object-fit:cover;object-position:50% 0}
+.o-phone .rd-phone img{height:516px;object-fit:cover;object-position:50% 0}
 .o-cap{margin-top:18px}
 .o-cap h3{font:600 24px/30px "Fredoka",sans-serif;color:#2B2A5C}
 .o-cap p{margin-top:4px;font:700 16px/23px "Nunito",sans-serif;color:#4B4880}
@@ -300,8 +300,8 @@ out_css = """
 """
 li = lambda t: f"<li>{DOT}{t}</li>"
 phones = [
-    ("phone-where", "Where they are", "Places from the phone; motion worked out by rules. Muse writes the “Right now” line from place names, never coordinates.", rules("Motion rules") + muse("Guardian Brief")),
-    ("phone-home", "Home now", "The family's own cameras, read by Muse Spark. SAM 3.1 outlines the children on a flagged frame, and the parent decides.", muse("Home Reader") + muse("SAM 3.1")),
+    ("phone-where", "Location", "Places from the phone; motion worked out by rules. Muse writes the “Right now” line from place names, never coordinates.", rules("Motion rules") + muse("Guardian Brief")),
+    ("phone-home", "Sentry", "The family's own cameras, read by Muse Spark. SAM 3.1 outlines the children on a flagged frame, and the parent decides.", muse("Home Reader") + muse("SAM 3.1")),
     ("phone-together", "Do something together", "Muse searches the web near home, checks NEA's weather and plans the weekend around the kids' interests.", muse("Outing Scout") + muse("Planner")),
 ]
 phones_html = "".join(f'<figure class="o-phone" style="margin:0"><div class="rd-phone"><img src="{img(k)}" alt="{t} on the parent\'s phone"></div><figcaption class="o-cap"><h3>{t}</h3><p>{d}</p><div class="rd-chips">{c}</div></figcaption></figure>' for k, t, d, c in phones)
@@ -461,7 +461,7 @@ mvp_board("ReadmeMvpPlay", 2, "For kids: play, raise and make.", [
 ], ["Muse Spark", "Muse Image"])
 mvp_board("ReadmeMvpFamily", 3, "For grown-ups and the team.", [
     ("mvp-parent-today", "Parent Today", "Flags with the evidence, and tonight", muse("Muse Spark") + rules()),
-    ("parent-home", "Home now", "The family's cameras, read by Muse", muse("Muse Spark") + muse("SAM 3.1")),
+    ("parent-home", "Sentry", "The family's cameras, read by Muse", muse("Muse Spark") + muse("SAM 3.1")),
     ("mvp-parent-together", "Do something together", "Weekend ideas, sourced from the web", muse("Muse Spark")),
     ("mvp-parent-messages", "Messages", "Kix suggests a cheer, never reads them", rules()),
     ("mvp-admin-skills", "Skills admin", "Twelve packs, versioned and reviewed", muse("Muse Spark")),

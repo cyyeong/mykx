@@ -243,10 +243,10 @@ The full design is in [docs/prd/PETS.md](docs/prd/PETS.md).
 
 ## Beyond the screen: Guardian
 
-<img src="docs/readme/beyond-the-screen.webp" alt="Learning doesn't stop at the screen: Where they are, Home now and Do something together on the parent's phone, and four care rules." width="100%">
+<img src="docs/readme/beyond-the-screen.webp" alt="Learning doesn't stop at the screen: Location, Sentry and Do something together on the parent's phone, and four care rules." width="100%">
 
-- **Where they are.** The phone's places and motion (walking, on a bus, possibly playing), worked out by rules. Muse Spark writes the "Right now" line from place names, never coordinates.
-- **Home now.** The family's own cameras, read by Muse Spark into words: who's in which room and what's happening. On a flagged moment, SAM 3.1 outlines the children, and the parent decides: Right or Not right. A "not right" makes that camera need one more matching check next time.
+- **Location.** The phone's places and motion (walking, on a bus, possibly playing), worked out by rules. Muse Spark writes the "Right now" line from place names, never coordinates.
+- **Sentry.** The family's own cameras, read by Muse Spark into words: who's in which room and what's happening. On a flagged moment, SAM 3.1 outlines the children, and the parent decides: Right or Not right. A "not right" makes that camera need one more matching check next time.
 - **Do something together.** Muse Spark searches the web near home for things to do with the kids' interests, checks NEA's four-day weather and plans the weekend; ideas without a source are dropped.
 - **Tonight.** One calm paragraph about all three children, from facts the database already holds.
 
@@ -268,11 +268,11 @@ Every screen below is the real app, signed in as the sample family, **powered by
 
 <img src="docs/readme/mvp-play.webp" alt="Everything in the MVP, 2 of 3, for kids: play, raise and make, powered by Meta Muse. Abby's teen study deck in her own room (rules), the Critter Lab with a tadpole turning down a cricket (Muse Spark, rules), Treasure Realm (rules, Muse Image), Sky Squadron (rules, Muse Image), the Arcade of learning games (rules), and Vibe Zone flashcards (Muse Spark)." width="100%">
 
-<img src="docs/readme/mvp-family.webp" alt="Everything in the MVP, 3 of 3, for grown-ups and the team, powered by Meta Muse. Parent Today with flags and their evidence (Muse Spark, rules), Home now with the family's cameras read by Muse (Muse Spark, SAM 3.1), Do something together with sourced weekend ideas (Muse Spark), Messages where Kix suggests a cheer (rules), the Skills admin with twelve versioned packs (Muse Spark), and Under the hood with 19 agents and every model call logged." width="100%">
+<img src="docs/readme/mvp-family.webp" alt="Everything in the MVP, 3 of 3, for grown-ups and the team, powered by Meta Muse. Parent Today with flags and their evidence (Muse Spark, rules), Sentry with the family's cameras read by Muse (Muse Spark, SAM 3.1), Do something together with sourced weekend ideas (Muse Spark), Messages where Kix suggests a cheer (rules), the Skills admin with twelve versioned packs (Muse Spark), and Under the hood with 19 agents and every model call logged." width="100%">
 
 **For kids:** magic-name sign-in with their own door · Sidekick Studio · Home with today's quest · Quest map · Question player with hints, reasons, voice and sparks · Treasure Realm · Critter Lab pets raised through real life cycles · Sky Squadron · Vibe Zone flashcards · Arcade typing games · Ask Kix homework help · Talk to Kix · printable practice papers · family messages with Kix stickers · a flag on every question and AI reply to tell Kix's crew what's wrong (Kix Synapse).
 
-**For parents:** Today, with flags shown alongside their evidence · Tonight · wellbeing notes ("possibly tired", against the child's own baseline, never a diagnosis) · focus notes with a line-drawing replay · Kix's Notebook · Messages · Where they are · Home now · Do something together · Your family (sign-in codes, voice, focus camera, screen time).
+**For parents:** Today, with flags shown alongside their evidence · Tonight · wellbeing notes ("possibly tired", against the child's own baseline, never a diagnosis) · focus notes with a line-drawing replay · Kix's Notebook · Messages · Location · Sentry · Do something together · Your family (sign-in codes, voice, focus camera, screen time).
 
 **For admins:** Skills catalogue (twelve versioned packs) · Add knowledge (the Content Curator) · weekly new papers · People · Under the hood (19 agents, editable instructions for 11 of them, every model call logged) · **Kix Synapse** (the inbox of flags with each case's trace, review, fix and test; learned cautions; evals; settings; the retrain dataset).
 
