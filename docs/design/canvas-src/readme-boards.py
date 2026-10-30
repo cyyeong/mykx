@@ -403,7 +403,7 @@ build_road = f"""
 {stop("", "Later", "Kix on Meta devices", ["Hands-free, at home and outdoors", "Sees and hears only with permission", "More personal support for every child"])}
 </div>
 <section class="r-world">
-  <div class="r-whead"><div><div class="r-when">Beyond</div><h3>Kix goes global</h3></div><p class="r-ask">Built in Singapore. Help us take Kix to every family, everywhere.</p></div>
+  <div class="r-whead"><div><div class="r-when">Beyond</div><h3>Kix goes global</h3></div><p class="r-ask">Built in Singapore. Help me take Kix to every family, everywhere.</p></div>
   <ul>{"".join(li(i) for i in ["A Curriculum Scout maps each country's syllabus and exams into skill packs", "A Local Coach teaches in the child's language, with local examples", "Each country's child-privacy law built in (PDPA, COPPA, GDPR and more)", "Our own specialised tutor model: faster, more local, more adaptable"])}</ul>
   <div class="r-deal">{deal}</div>
 </section>

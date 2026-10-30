@@ -322,3 +322,8 @@ Live model calls, Supabase and art generation need keys (names in `.env.example`
 ## Licence
 
 Code: [MIT](LICENSE). Art, Kix and content: CC BY-NC 4.0, all original and generated during the hackathon, with every image's prompt and model in [`public/art/manifest.json`](public/art/manifest.json). See [LICENSE-ASSETS.md](LICENSE-ASSETS.md).
+
+---
+
+<p align="center"><img src="docs/readme/author.webp" width="96" height="96" alt="The author's avatar: a cartoon ant dad in spiral glasses, in a T-shirt that says dad with 3 kids"></p>
+<p align="center"><b>Built by a nerdy dad for his three little tornadoes, on the little red dot.</b><br>My kids, my world. Their tutor, my sidekick.<br>Thank you for reading, and for your support.</p>
