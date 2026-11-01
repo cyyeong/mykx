@@ -283,9 +283,10 @@ The video's plan is kept outside the repository.
 - [ ] Parent dashboard: screen time, plan, signals with evidence and the three flag levels work from seeded data; the safety path shows the helplines and an urgent flag for the ten test phrases; messages work both ways inside the household only (the cross-household test covers them); family messages never reach Kix or a language model.
 - [ ] Kix's Notebook: a parent can read every page and its history, edit or delete a line, and wipe it; the five tricky transcripts produce no labels or diagnoses; mastery shown anywhere comes from the database.
 - [ ] Voice: mic denied → the typed box works; no audio in Storage, logs or `model_runs` (transcripts only); voice can be turned off for a child.
-- [ ] A 3:00 video with captions, uploaded, and opening for a signed-out viewer.
+- [x] A 3:00 video with captions, uploaded, and opening for a signed-out viewer: https://youtu.be/LiW64t2Dxes (public, checked signed out on 1 Nov).
 - [ ] Guardian: the simulator's afternoon runs in production through the real APIs (map, Home now, one watch flag with Right / Not right); flagged frames expire after 24 h; a cross-household test covers locations and home status; the child sees the sharing and camera chips; no camera data reaches Kix, the Notebook or a contributor model; the Home Link client pairs, reads a snapshot or RTSP frame, and never sends camera passwords.
-- [ ] Submitted on the Cerebral Valley platform before 22:00 SGT on 4 Nov; X post live.
+- [ ] Submitted on the Cerebral Valley platform before 22:00 SGT on 4 Nov (the founder is submitting on 1 Nov).
+- [x] X post live: https://x.com/cyyeong/status/2116775579538362797 (1 Nov).
 
 ## 8. Next 30 minutes
 

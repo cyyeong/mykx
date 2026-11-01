@@ -11,6 +11,7 @@ Claude Code builds everything from 28 Oct afternoon (Muse Code retired). Read `A
 - **Without `.env.local`** (a fresh clone) the dev server uses an in-memory **demo family**: any email and password signs a grown-up in; kids are Jordan (P3, picture code: Kix smiling, Kix cheering, Kix the pilot, Starry Kix), Abby (P6) and Leonard (Sec 2), both with the local-only password `local-demo-only`. Production's sample family has its own sign-ins, kept only in `.env.local` (`DEMO_PASSWORD`, `DEMO_PICTURE_CODE`) and set with `node --env-file=.env.local scripts/set-demo-secrets.ts`; judges get them in the submission form (founder, 29 Oct). See `lib/auth/demo-family.ts`. That's all you need for UI work.
 - Live Meta model calls, Supabase and art generation need keys that only the founder's machine has. Don't ask for them; leave those steps to the founder or Claude Code.
 - Production: https://mykx.vercel.app (Vercel builds every push to `main`).
+- **The film and the X post (1 Nov):** the 3-minute film is public on YouTube at https://youtu.be/LiW64t2Dxes, and the entry's X post is https://x.com/cyyeong/status/2116775579538362797. Both are linked from the README and the submission; if either is ever reposted, update all three.
 
 ## What works today
 
