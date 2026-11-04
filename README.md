@@ -16,6 +16,8 @@ Built for the **Meta Global AI Developer Hackathon** (track: Build for Your Worl
 
 **[▶ Watch the 3-minute film](https://youtu.be/LiW64t2Dxes)** · [Live app](https://mykx.vercel.app) · [Home simulator](https://mykx-sim.vercel.app) (passcode on request) · [Architecture](docs/ARCHITECTURE.md) · [Docs index](docs/README.md)
 
+**📰 In the news:** Singapore's Stomp told the story behind myKx on 4 November 2026: [*"No time, no money, no baby": Dad builds AI tutor after struggling to teach kids*](https://www.stomp.sg/singapore-seen/no-time-no-money-no-baby-dad-builds-ai-tutor-after-struggling-teach-kids-jokes-it-might-help-spores).
+
 ---
 
 ## For judges: where to find each criterion
